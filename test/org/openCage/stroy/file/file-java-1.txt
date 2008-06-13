@@ -1,0 +1,101 @@
+package org.openCage.stroy.file;
+
+import com.google.inject.Guice;
+import com.google.inject.Inject;
+import com.google.inject.Injector;
+import org.openCage.util.io.FileUtils;
+import org.openCage.util.io.IterableFile;
+import org.openCage.stroy.RuntimeModule;
+import org.openCage.stroy.Hash;
+import org.openCage.stroy.fuzzyHash.FuzzyHash;
+import org.openCage.stroy.fuzzyHash.FuzzyHashGenerator;
+import org.openCage.stroy.fuzzyHash.FuzzyHashNever;
+import org.openCage.stroy.fuzzyHash.FuzzyHashSet;
+import org.openCage.stroy.text.ForJava;
+import org.openCage.stroy.text.ForText;
+import org.openCage.stroy.text.LineNoise;
+
+import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
+
+/**
+ * stroy, a differencing tool
+ * Copyright (C) May 17, 2007 Stephan Pfab
+ * <p/>
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ * <p/>
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ */public class FuzzyHashForFiles implements FuzzyHashGenerator<File> {
+
+    private final LineNoise javaNoise;
+    private final LineNoise textNoise;
+    private final FileDistanceBroker broker = new FileDistanceBroker();
+    private final Hash<String>      javaHash;
+    private final Hash<String>      textHash;
+
+    @Inject
+    public FuzzyHashForFiles( @ForJava final LineNoise javaNoise,
+                              @ForText final LineNoise textNoise,
+                              @ForJava final Hash<String> javaHash,
+                              @ForText final Hash<String> textHash ) {
+        this.javaNoise = javaNoise;
+        this.textNoise = textNoise;
+        this.javaHash  = javaHash;
+        this.textHash  = textHash;
+
+    }
+
+
+    public FuzzyHash generate( final File file ) {
+        final Injector injector = Guice.createInjector( new RuntimeModule() );
+
+        final String ext = FileUtils.getExtension( file );
+
+        if ( !broker.extNormalizer.containsKey( ext )) {
+            System.err.println("unknown extension " + ext);
+
+            return null;
+        }
+
+        LineNoise noise   = textNoise;
+        Hash<String> hash = textHash;
+
+        //noinspection fallthrough
+        switch( broker.extNormalizer.get(ext)) {
+            case FileDistanceBroker.JAVA:
+
+                noise = javaNoise;
+                hash  = javaHash;
+
+            case FileDistanceBroker.TEXT:
+
+                final Set<Integer> set = new HashSet<Integer>();
+
+
+                for ( final String line : new IterableFile( file ) ) {
+                    if ( !noise.isGrayNoise( line )) {
+                        set.add( hash.getHash( line ) );
+                    }
+                }
+
+                final FuzzyHashSet ret = new FuzzyHashSet( set );
+                injector.injectMembers( ret );
+
+                return ret;
+
+            default:
+                return new FuzzyHashNever();
+        }
+    }
+}

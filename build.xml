@@ -1,0 +1,244 @@
+<project name="stroy" basedir=".">
+
+    <property name="version" value="0.10.200"/>
+    <property name="buildnumber" value="200"/>
+    <property name="copyright" value="Copyright &#xa9; 2006-2008 Stephan Pfab MPL1.1"/>
+
+
+    <property name="src" value="src"/>
+    <property name="src-objc" value="src-objc"/>
+    <property name="build" value="build"/>
+    <property name="build-objc" value="build-objc"/>
+    <property name="lib" value="lib"/>
+    <property name="manifests" value="manifests"/>
+    <property name="deploydir" value="deploy"/>
+    <property name="deploydirmac" value="deploymac"/>
+    <property name="deploydir-other" value="deployother"/>
+    <property name="other-help" value="deployother/help"/>
+    <property name="external" value="external"/>
+    <property name="externalProd" value="external/production"/>
+    <property name="resources" value="resources"/>
+    <property name="jdoc" value="jdoc"/>
+    <property name="deply" value="deply"/>
+    <property name="xplatform" value="deply/xplatform"/>
+
+    <property name="jsmooth" value="resources/JSmooth-0.9.9-7"/>
+
+    <taskdef name="jarbundler"
+             classpath="${external}/build/jarbundler-1.9.jar"
+             classname="net.sourceforge.jarbundler.JarBundler" />
+
+    <taskdef name="jsmoothgen"
+             classname="net.charabia.jsmoothgen.ant.JSmoothGen"
+             classpath="${jsmooth}/lib/jsmoothgen-ant.jar"/>
+
+    <target name="prepare">
+        <tstamp/>
+        <mkdir dir="${build}"/>
+        <mkdir dir="${build-objc}"/>
+        <mkdir dir="${lib}"/>
+        <mkdir dir="${manifests}"/>
+        <mkdir dir="${deploydir}"/>
+        <mkdir dir="${deploydir-other}"/>
+        <mkdir dir="${other-help}"/>
+        <mkdir dir="${jdoc}"/>
+        <mkdir dir="${deply}"/>
+        <mkdir dir="${xplatform}"/>
+    </target>
+
+    <target name="clean">
+        <delete dir="${build}"/>
+        <delete dir="${build-objc}"/>
+        <delete dir="${lib}"/>
+        <delete dir="${manifests}"/>
+        <delete dir="${deploydir}"/>
+        <delete dir="${deploydirmac}"/>
+        <delete dir="${deploydir-other}"/>
+        <delete dir="${jdoc}"/>
+        <delete dir="${deply}"/>
+        <delete dir="${xplatform}"/>
+    </target>
+
+    <path id="test-cl">
+        <pathelement location="/Applications/opt/eclipse/plugins/org.junit_3.8.1/junit.jar"/>
+        <pathelement location="/Users/stephan/projects/jars/xstream-1.1.3.jar"/>
+    </path>
+
+    <fileset id="externalsSet" dir="${external}/production">
+        <include name="*.jar"/>
+    </fileset>
+
+    <path id="externals">
+        <fileset refid="externalsSet"/>
+    </path>
+
+
+
+    <target name="compile" depends="prepare">
+        <javac srcdir="${src}" destdir="${build}">
+            <classpath refid="externals"></classpath>
+        </javac>
+        <copy todir="${manifests}" flatten="yes">
+            <fileset dir="${src}" includes="**/*.mf"/>
+        </copy>
+        <copy todir="${build}" flatten="no">
+            <fileset dir="${src}" includes="**/*.properties"/>
+        </copy>
+        <copy todir="${build}" flatten="no">
+            <fileset dir="${src}" includes="**/*.png"/>
+        </copy>
+    </target>
+
+    <target name="jdoc" depends="compile,prepare" description="Generate JavaDocs.">
+        <javadoc
+                destdir="${jdoc}"
+                author="true"
+                version="true"
+                use="true"
+                windowtitle="stroy"
+                sourcepath="${src}"
+                classpathref="externals"
+                packagenames="org.openCage.*"
+                verbose="false">
+            <doctitle><![CDATA[<h1>stroy</h1>]]></doctitle>
+            <bottom>
+                <![CDATA[<i>Copyright &#169; 2006-2008 All Rights Reserved.</i>]]>
+            </bottom>
+            <tag name="todo" scope="all" description="To do:"/>
+        </javadoc>
+    </target>
+
+
+    <!--<target name="stroy-jar" depends="compile">-->
+        <!--<jar jarfile="${lib}/stroy.jar" basedir="${build}" manifest="${manifests}/stroy.mf">-->
+            <!--<fileset dir="${build}" excludes="**/*test*"/>-->
+        <!--</jar>-->
+    <!--</target>-->
+
+    <!--<target name="stroy-ui-jar" depends="compile">-->
+        <!--<jar jarfile="${lib}/stroyui.jar" basedir="${build}" manifest="${manifests}/stroyui.mf">-->
+            <!--<fileset dir="${build}" excludes="**/*test*"/>-->
+        <!--</jar>-->
+    <!--</target>-->
+
+    <target name="stroy2-ui-jar" depends="compile">
+        <jar jarfile="${lib}/stroy2ui.jar" basedir="${build}" manifest="${manifests}/stroy2ui.mf">
+            <fileset dir="${build}" excludes="**/*test*"/>
+        </jar>
+    </target>
+
+
+
+    <!-- Create a JNI library for launching the Help Viewer -->
+    <target name="jni"  description="Create HelpBook JNI Library">
+        <exec executable="cc">
+            <arg line="-c"/>
+            <arg line="-I/System/Library/Frameworks/JavaVM.framework/Headers"/>
+            <arg line="-o ${build-objc}/HelpBookJNI.o"/>
+            <arg value="${src-objc}/HelpBookJNI.m"/>
+        </exec>
+
+        <exec executable="cc">
+            <arg line="-dynamiclib"/>
+            <arg line="-framework JavaVM"/>
+            <arg line="-framework Cocoa"/>
+            <arg line="-o ${build-objc}/libHelpBookJNI.jnilib"/>
+            <arg value="${build-objc}/HelpBookJNI.o"/>
+        </exec>
+
+        <delete file="${build-objc}/HelpBookJNI.o" quiet="true"/>
+    </target>
+
+
+    <target name="stroy.app" depends="compile,stroy2-ui-jar,jni">
+        <jarbundler dir="${deploydir}"
+                    verbose="true"
+                    name="stroy"
+                    shortname="stroy"
+                    stubfile="stroy"
+                    signature="stry"
+                    mainclass="org.openCage.stroy.ui.Main"
+                    jvmversion="1.5+"
+                    version="${version}"
+                    infostring="stroy, ${copyright}"
+                    build="${buildnumber}"
+                    bundleid="org.openCage.stroy"
+                    helpbookfolder="HelpBook"
+                    helpbookname="Stroy Help"
+                    icon="${resources}/stroy.icns">
+            <jarfileset refid="externalsSet"/>
+            <jarfilelist dir="${lib}" files="stroy2ui.jar" />
+
+            <!-- Copy the HelpBook JNI library  -->
+            <javafilelist dir="${build-objc}" files="libHelpBookJNI.jnilib"/>
+
+            <javaproperty name="apple.laf.useScreenMenuBar" value="true"/>
+            <javaproperty name="com.apple.macos.useScreenMenuBar" value="true"/>
+
+            <HelpBook locale="English">
+                <fileset dir="${resources}/HelpBook/English" />
+                <fileset dir="${resources}/HelpBook/common" />
+            </HelpBook>
+
+        </jarbundler>
+
+    </target>
+
+    <target name="lint" depends="prepare">
+        <javac srcdir="${src}" destdir="${build}">
+            <classpath refid="test-cl"></classpath>
+            <compilerarg value="-Xlint"/>
+        </javac>
+    </target>
+
+
+    <!--<target name="deploy" depends="stroy2-ui-jar,stroy.app,jni"  >-->
+        <!--<copy todir="${deploydir}">-->
+            <!--<fileset dir="${lib}"/>-->
+        <!--</copy>-->
+        <!--<copy todir="${deploydir}" >-->
+            <!--<fileset refid="externalsSet"/>-->
+        <!--</copy>-->
+        <!--<copy todir="${deploydir}" flatten="yes">-->
+            <!--<fileset dir="${src}" includes="**/*.sh"/>-->
+            <!--<fileset dir="${src}" includes="**/*.bat"/>-->
+        <!--</copy>-->
+        <!--<chmod file="${deploydir}/stroy.sh" perm="guo+x"/>-->
+    <!--</target>-->
+
+    <target name="otherdeploy" depends="stroy2-ui-jar">
+        <copy todir="${deploydir-other}">
+            <fileset dir="${lib}"/>
+        </copy>
+        <copy todir="${deploydir-other}" >
+            <fileset refid="externalsSet"/>
+        </copy>
+        <!--<copy todir="${deploydir-other}" flatten="yes">-->
+            <!--<fileset dir="${src}" includes="**/*.sh"/>-->
+            <!--<fileset dir="${src}" includes="**/*.bat"/>-->
+        <!--</copy>-->
+        <copy todir="${deploydir-other}" flatten="yes">
+            <fileset dir="${src}" includes="**/*.sh"/>
+            <fileset dir="${src}" includes="**/*.bat"/>
+        </copy>
+        <copy todir="${other-help}">
+            <fileset dir="${resources}/HelpBook/English" />
+            <fileset dir="${resources}/HelpBook/common" />
+        </copy>
+    </target>
+
+    <target name="stroy-xplatform" depends="otherdeploy,prepare">
+        <copy todir="${xplatform}">
+            <fileset dir="${deploydir-other}"/>
+            <fileset dir="${resources}" includes="**/README-xplatform.txt"/>
+        </copy>
+
+    </target>
+
+    <target name="stroy.exe" depends="otherdeploy">
+        <jsmoothgen project="${resources}/jm"
+                    skeletonroot="${jsmooth}/skeletons" />
+    </target>
+
+
+</project>
