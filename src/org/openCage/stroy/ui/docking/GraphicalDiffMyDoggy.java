@@ -9,19 +9,15 @@ import org.openCage.stroy.RuntimeModule;
 import org.openCage.stroy.locale.Message;
 import org.openCage.stroy.task.NodeChangeListener;
 import org.openCage.stroy.content.Content;
-import org.openCage.stroy.app.UIModelApp;
 import org.openCage.stroy.app.Tasks;
 import org.openCage.stroy.app.UIApp;
-import org.openCage.stroy.central.Central;
-import org.openCage.stroy.dir.FileContent;
 import org.openCage.stroy.filter.Ignore;
-import org.openCage.stroy.filter.IgnoreCentral;
 import org.openCage.stroy.filter.IgnoreChangedListener;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
-import org.openCage.stroy.ui.thinning.IgnoreUpdateWorker;
-import org.openCage.stroy.ui.difftree.NWayDiffPane;
+import org.openCage.stroy.graph.matching.TaskUtils;
+import org.openCage.stroy.graph.node.TreeNode;
 import org.openCage.stroy.ui.menu.PortableMenu;
-import org.openCage.stroy.ui.difftree.NWayDiffPaneGenerator;
+import org.openCage.stroy.ui.difftree.*;
 import org.openCage.stroy.ui.util.DMTNMaker;
 import org.openCage.stroy.ui.util.NodeToNode;
 import org.openCage.util.logging.Log;
@@ -29,7 +25,6 @@ import org.openCage.util.logging.Log;
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.awt.*;
-import java.util.*;
 import java.util.List;
 import java.lang.reflect.InvocationTargetException;
 
@@ -70,6 +65,8 @@ public class GraphicalDiffMyDoggy<T extends Content> extends JFrame implements I
         this.tasks = tasks.getTasks();
 
         dmtNodes = DMTNMaker.makeDFTNs( this.tasks );
+
+        fillGhosts( dmtNodes );
 
 
         setTitle( Message.get( "Docking.Main.Title" ));
@@ -193,6 +190,35 @@ public class GraphicalDiffMyDoggy<T extends Content> extends JFrame implements I
 //
 //        Central.diffPane = diffPane;
 //        Central.tasks    = this.tasks;
+    }
+
+    private void fillGhosts(List<DefaultMutableTreeNode> dmtNodes) {
+        for ( DefaultMutableTreeNode node : dmtNodes ) {
+            fillGhost(node, dmtNodes);
+        }
+    }
+
+    private void fillGhost(DefaultMutableTreeNode node, List<DefaultMutableTreeNode> dmtNodes) {
+        UINode ui = ((UINode)node.getUserObject());
+
+        if ( ui.isOnlyLeft() ) {
+            TreeNode<T> tn = TaskUtils.getBestMatchOrParent( tasks.get(0), ui.get() );
+            DefaultMutableTreeNode parent = NodeToNode.nodeToDMTNode( dmtNodes.get(0), tn);
+            String name = ((Content)ui.get().getContent()).getName() + "ghost"; 
+            DefaultMutableTreeNode child = new DefaultMutableTreeNode( name );
+            child.setUserObject( new GhostNode(  ui.get(), tasks.get(0),  null ));
+
+            parent.add( child );
+
+
+
+        }
+        if ( ui.isOnlyRight() ) {
+        }
+
+        for ( int i = 0; i < node.getChildCount(); ++i ) {
+            fillGhost( (DefaultMutableTreeNode)node.getChildAt(i), dmtNodes );
+        }
     }
 
 //    public GraphicalDiffMyDoggy( final java.util.List<TreeMatchingTask<FileContent>> tasks,

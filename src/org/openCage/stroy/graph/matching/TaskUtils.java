@@ -26,7 +26,7 @@ import org.openCage.stroy.graph.node.TreeNode;
 ***** END LICENSE BLOCK *****/
 
 public class TaskUtils {
-    public static <T extends Content> TreeNode<T> getBestMatch( TreeMatchingTask<T> matching,
+    public static <T extends Content> TreeNode<T> getBestMatchOrParent( TreeMatchingTask<T> matching,
                                                                 TreeNode<T>         node ) {
         TreeNode<T> match = matching.getMatch( node );
 
@@ -38,4 +38,13 @@ public class TaskUtils {
         return match;
     }
 
+    public static <T extends Content> TreeNode<T> getMatchOr( TreeMatchingTask<T> matching,
+                                                              TreeNode<T>         node ) {
+        TreeNode<T> match = matching.getMatch( node );
+
+        if ( match == null ) {
+            return node;
+        }
+        return match;
+    }
 }

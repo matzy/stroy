@@ -329,6 +329,10 @@ public class StroyAppInfo implements AppInfo {
         change( 234, "D", "silent error on open and diff" ).tag("feedback" ).tag("ui");
         change( 237, "f", "folders should show changes of their children transitive" ).tag("feedback" ).tag("ui");
 
+        defaultVersion = "0.10.201";
+        change( 246, "d", "default settings for linux is invalid");
+
+
         defaultVersion = "0.10.200";
         change( 244, "d", "even less confusing preference dialog, i.e. spelling and consistency");
         change( 245, "d", "select tree roots on startup");

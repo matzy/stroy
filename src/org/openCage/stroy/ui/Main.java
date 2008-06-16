@@ -39,22 +39,13 @@ public class Main  {
 
         // TODO param ?
 
-
-
         Preferences.setName( "stroy");
-
-        if ( Sys.isWindows() ) {
-            PreferenceString.create( StandardProgUI.STANDARD_DIFF_KEY, "windiff" );
-            PreferenceString.create( StandardProgUI.STANDARD_TEXT_EDITOR_KEY, "notepad" );
-        } else if ( Sys.isMacOSX() ) {
-            PreferenceString.create( StandardProgUI.STANDARD_DIFF_KEY, "/usr/bin/opendiff" );
-            PreferenceString.create( StandardProgUI.STANDARD_TEXT_EDITOR_KEY, "open -e" );
-        }
 
         String[] levelNames = { "ALL", "FINEST", "FINER", "FINE", "CONFIG", "INFO", "WARNING", "SEVERE", "OFF" };
         PListSelectionString.create( LogHandlerPanel.STROY_LOG_OUT, new ListSelection( levelNames, "INFO" ));
         PListSelectionString.create( LogHandlerPanel.STROY_LOG_IN, new ListSelection( levelNames, "INFO" ));
 
+        // TODO
         String[] strategyNames = { "full", "structure only" };
         PListSelectionString.create( "stroy.first.strategy", new ListSelection( strategyNames, "full" ));
 

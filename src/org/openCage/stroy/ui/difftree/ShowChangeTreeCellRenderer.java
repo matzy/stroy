@@ -79,7 +79,8 @@ public class ShowChangeTreeCellRenderer extends DefaultTreeCellRenderer {
 
         UINode uiNode = (UINode)node.getUserObject();
 
-        super.getTreeCellRendererComponent( pTree,
+        super.getTreeCellRendererComponent(
+                pTree,
                 pValue,
                 pIsSelected,
                 pIsExpanded,
@@ -90,7 +91,6 @@ public class ShowChangeTreeCellRenderer extends DefaultTreeCellRenderer {
         setToolTipText( uiNode.getToolTip() );
 
         List<Icon> icons = new ArrayList<Icon>();
-
 
 
         int stdSize;
@@ -111,6 +111,10 @@ public class ShowChangeTreeCellRenderer extends DefaultTreeCellRenderer {
 
         addIcons( icons, cvLeft );
         addIcons( icons, cvRight );
+
+        if ( cvRight != null && cvRight.ghost ) {
+            setForeground( Color.LIGHT_GRAY );
+        }
 
 
         if ( icons.size() > 0 ) {

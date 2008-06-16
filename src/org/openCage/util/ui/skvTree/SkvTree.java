@@ -40,6 +40,13 @@ import java.util.List;
 *
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
+
+
+/**
+ * show the state of a JTree (DefaultMutableTreeNodes)
+ * a bar of colored strips
+ * color representing state
+ */
 public class SkvTree extends JPanel {
 
 

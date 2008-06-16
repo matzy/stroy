@@ -14,7 +14,6 @@ import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.graph.matching.strategy.MatchStrategy;
 import org.openCage.stroy.graph.matching.strategy.combined.StructureOnly;
 import org.openCage.stroy.graph.matching.strategy.combined.StandardFirst;
-import org.openCage.stroy.ui.docking.GraphicalDiffMyDoggy;
 import org.openCage.stroy.ui.prefs.PrefsUI;
 import org.openCage.stroy.ui.menu.PortableMenu;
 import org.openCage.stroy.RuntimeModule;

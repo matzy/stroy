@@ -35,6 +35,7 @@ public class ChangeVector {
     public boolean     parent;
     public boolean     only;
     public boolean     parentRenamed;
+    public boolean     ghost;
 
     public boolean isAny() {
         return (!content.equals( ContentDiff.same)) || name || parent || only;

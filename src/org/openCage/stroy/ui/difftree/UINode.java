@@ -50,6 +50,7 @@ public interface UINode<T extends Content> {
     public boolean isRenamedRight();
     public ContentDiff getContentChangedRight();
     public boolean isOnlyRight();
+
 }
 
 

@@ -1,22 +1,16 @@
 package org.openCage.stroy.ui.difftree;
 
 import com.google.inject.Inject;
-import org.openCage.util.iterator.Count;
-import org.openCage.util.iterator.Iterators;
-import org.openCage.stroy.dir.FileContent;
 import org.openCage.stroy.graph.node.TreeNode;
 import org.openCage.stroy.graph.matching.TaskUtils;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
-import org.openCage.stroy.ui.*;
 import org.openCage.stroy.ui.util.NodeToNode;
-import org.openCage.stroy.ui.popup.DiffPopup;
 import org.openCage.stroy.ui.popup.PopupSelector;
 import org.openCage.stroy.content.Content;
 import org.openCage.util.ui.TreeUtils;
 import org.openCage.util.ui.skvTree.SkvTree;
 import org.openCage.util.ui.skvTree.JudgeBlock;
 import org.openCage.util.ui.skyviewbar.ConfigProvider;
-import org.openCage.util.ui.skyviewbar.InfosAsColor;
 import org.openCage.util.ui.skyviewbar.ObjectListener;
 import org.openCage.util.logging.Log;
 import org.openCage.util.swing.Scrolling;
@@ -373,12 +367,14 @@ public class DiffTree<T extends Content> extends JPanel implements SynchronizeLi
             // right
             path = NodeToNode.nodeToTreePath(
                     root,
-                    TaskUtils.getBestMatch( taskRight, node ));
+//                    TaskUtils.getBestMatchOrParent( taskRight, node ));
+            TaskUtils.getMatchOr( taskRight, node ));
         } else {
             // left
             path = NodeToNode.nodeToTreePath(
                     root,
-                    TaskUtils.getBestMatch( taskLeft, node ));
+//                    TaskUtils.getBestMatchOrParent( taskLeft, node ));
+                    TaskUtils.getMatchOr( taskLeft, node ));
         }
 
         if ( path == null ) {
@@ -401,12 +397,12 @@ public class DiffTree<T extends Content> extends JPanel implements SynchronizeLi
             // right
             path = NodeToNode.nodeToTreePath(
                     root,
-                    TaskUtils.getBestMatch( taskRight, node ));
+                    TaskUtils.getBestMatchOrParent( taskRight, node ));
         } else {
             // left
             path = NodeToNode.nodeToTreePath(
                     root,
-                    TaskUtils.getBestMatch( taskLeft, node ));
+                    TaskUtils.getBestMatchOrParent( taskLeft, node ));
         }
 
         if ( path == null ) {

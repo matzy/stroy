@@ -52,6 +52,10 @@ public class TreeNodeJudge<T extends Content> implements JudgeBlock {
     public DefaultMutableTreeNode getInteresting(List<DefaultMutableTreeNode> block) {
         for (Count<DefaultMutableTreeNode> node : Iterators.count( block )) {
 
+            if ( node.o.getUserObject() instanceof String ) {
+                int i = 0;
+            }
+
             TreeNode<T> nn = ((UINode<T>)node.o.getUserObject()).get();
                                         
             final ChangeVector cv = matching.getChangeVector( nn );

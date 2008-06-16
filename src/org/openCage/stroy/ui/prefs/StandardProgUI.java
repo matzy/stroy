@@ -182,7 +182,11 @@ public class StandardProgUI extends JPanel {
             }
         });
 
+
         // to fix preference setttings
+        if ( editorPref.get().equals( "" )) {
+            editorPref.set( ExternalProgs.OS_TEXT_EDIT );
+        }
         if ( editorPref.get().equals( ExternalProgs.WIN_TEXT_EDIT )) {
             editorPref.set( ExternalProgs.OS_TEXT_EDIT );
         }
@@ -204,6 +208,9 @@ public class StandardProgUI extends JPanel {
 
 
         // to fix preference setttings
+        if ( diffPref.get().equals( "" )) {
+            diffPref.set( ExternalProgs.STANDARD_DIFF );
+        }
         if ( diffPref.get().equals( ExternalProgs.fileMerge )) {
             diffPref.set( ExternalProgs.STANDARD_DIFF );
         }

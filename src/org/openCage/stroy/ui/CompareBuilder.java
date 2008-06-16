@@ -17,7 +17,6 @@ import org.jdesktop.swingworker.SwingWorker;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 import java.io.File;
 
@@ -97,6 +96,7 @@ public class CompareBuilder extends SwingWorker<GraphicalDiffMyDoggy, T2<String,
             new NameOnly<FileContent>().match( task, reporter);
         }
 
+        // build the trees ui in the background
         publish( T2.c( Message.get( "Progress.MainWindowBuilding" ), true ));
 
         return new GraphicalDiffMyDoggy( new Tasks<FileContent>( tasks ) );
