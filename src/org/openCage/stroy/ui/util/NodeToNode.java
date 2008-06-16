@@ -172,9 +172,10 @@ public class NodeToNode {
             throw new IllegalArgumentException( "invalid node " + node );
         }
 
-        if ( ! getName( root ).equals( namePath.get(0))) {
-            throw new IllegalArgumentException( "DMTN " + root + "and node " + node +"are not from the same tree" );
-        }
+        // TODO // allows ghosts ?
+//        if ( ! getName( root ).equals( namePath.get(0))) {
+//            throw new IllegalArgumentException( "DMTN " + root + "and node " + node +"are not from the same tree" );
+//        }
 
         namePath.set( 0, "" ); // done
 

@@ -363,19 +363,18 @@ public class DiffTree<T extends Content> extends JPanel implements SynchronizeLi
 
         TreePath path;
 
+        TreeNode<T> match;
+
         if ( sourceIdx > idx ) {
+            match = TaskUtils.getMatchOr( taskRight, node );
             // right
-            path = NodeToNode.nodeToTreePath(
-                    root,
-//                    TaskUtils.getBestMatchOrParent( taskRight, node ));
-            TaskUtils.getMatchOr( taskRight, node ));
         } else {
             // left
-            path = NodeToNode.nodeToTreePath(
-                    root,
-//                    TaskUtils.getBestMatchOrParent( taskLeft, node ));
-                    TaskUtils.getMatchOr( taskLeft, node ));
+            match = TaskUtils.getMatchOr( taskLeft, node );
         }
+
+        path = NodeToNode.nodeToTreePath( root, match );
+
 
         if ( path == null ) {
             Log.warning( "synchronized scrolling failed to match (?)" ); // NON-NLS

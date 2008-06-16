@@ -112,11 +112,6 @@ public class ShowChangeTreeCellRenderer extends DefaultTreeCellRenderer {
         addIcons( icons, cvLeft );
         addIcons( icons, cvRight );
 
-        if ( cvRight != null && cvRight.ghost ) {
-            setForeground( Color.LIGHT_GRAY );
-        }
-
-
         if ( icons.size() > 0 ) {
             Icon compo = new CompositeIcon( icons );
             setIcon( compo );
@@ -151,6 +146,12 @@ public class ShowChangeTreeCellRenderer extends DefaultTreeCellRenderer {
     }
 
     private void addIcons( List<Icon> icons, ChangeVector cv ) {
+
+        if ( cv.ghost ) {
+            setForeground( Color.LIGHT_GRAY );
+        }
+
+
         if ( cv.parent ) {
             URL url = getClass().getResource( "/org/openCage/stroy/ui/difftree/move-icon.png" );
             icons.add( new ImageIcon( url ));
@@ -162,6 +163,11 @@ public class ShowChangeTreeCellRenderer extends DefaultTreeCellRenderer {
         }
 
         if ( cv.only ) {
+            URL url = getClass().getResource( "/org/openCage/stroy/ui/difftree/add-icon.png" );
+            icons.add( new ImageIcon( url ));
+        }
+
+        if ( cv.ghost ) {
             URL url = getClass().getResource( "/org/openCage/stroy/ui/difftree/only-icon.png" );
             icons.add( new ImageIcon( url ));
         }

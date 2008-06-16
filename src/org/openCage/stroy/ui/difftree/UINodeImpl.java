@@ -175,6 +175,7 @@ public class UINodeImpl<T extends Content> implements UINode<T> {
         return !taskRight.isMatched( node );
     }
 
+    // this the namer of the node
     public String toString() {
 
         if ( !node.isLeaf() && cn != null && cn.content + cn.structure + cn.only > 0 ) {

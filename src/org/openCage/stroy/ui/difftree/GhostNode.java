@@ -35,27 +35,35 @@ public class GhostNode<T extends Content> implements UINode<T> {
 
     private ChangeNumbers cn;
 
-    private ChangeVector cv;
+    private ChangeVector cvLeft;
+    private ChangeVector cvRight;
 
 
     public GhostNode( TreeNode<T>         node,
-                       TreeMatchingTask<T> task1,
-                       TreeMatchingTask<T> task2 ) {
+                      TreeMatchingTask<T> task1,
+                      TreeMatchingTask<T> task2,
+                      boolean left,
+                      boolean right ) {
         this.node       = node;
         this.taskLeft   = task1;
         this.taskRight  = task2;
 
-        cv = new ChangeVector();
-        cv.ghost = true;
+        cvLeft         = new ChangeVector();
+        cvLeft.ghost   = left;
+        cvLeft.content = ContentDiff.same;
+
+        cvRight         = new ChangeVector();
+        cvRight.ghost   = right;
+        cvRight.content = ContentDiff.same;
     }
 
 
     public ChangeVector getChangeVectorLeft() {
-        return cv;
+        return cvLeft;
     }
 
     public ChangeVector getChangeVectorRight() {
-        return cv;
+        return cvRight;
     }
 
     public TreeNode get() {
@@ -101,4 +109,9 @@ public class GhostNode<T extends Content> implements UINode<T> {
     public boolean isOnlyRight() {
         return false;  //To change body of implemented methods use File | Settings | File Templates.
     }
+
+    public String toString() {
+        return node.getContent().getName();
+    }
+
 }
