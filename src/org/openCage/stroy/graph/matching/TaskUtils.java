@@ -27,7 +27,7 @@ import org.openCage.stroy.graph.node.TreeNode;
 
 public class TaskUtils {
     public static <T extends Content> TreeNode<T> getBestMatchOrParent( TreeMatchingTask<T> matching,
-                                                                TreeNode<T>         node ) {
+                                                                        TreeNode<T>         node ) {
         TreeNode<T> match = matching.getMatch( node );
 
         while ( match == null ) {

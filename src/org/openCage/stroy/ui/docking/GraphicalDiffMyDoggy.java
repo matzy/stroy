@@ -27,6 +27,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import java.awt.*;
 import java.util.List;
 import java.lang.reflect.InvocationTargetException;
+import java.io.File;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -356,5 +357,6 @@ public class GraphicalDiffMyDoggy<T extends Content> extends JFrame implements I
         }
 
         diffPane.getTree( 0).setSelectionPath( NodeToNode.getTreePath( dmtNodes.get(0)));
+
     }
 }

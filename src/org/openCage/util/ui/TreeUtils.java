@@ -64,7 +64,7 @@ public class TreeUtils {
     }
 
      // Returns a TreePath containing the specified node.
-    public static TreePath getPath(TreeNode node) {
+    public static TreePath getPath( TreeNode node) {
         List list = new ArrayList();
 
         // Add all nodes to list
