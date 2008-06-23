@@ -16,6 +16,7 @@ import org.openCage.stroy.filter.IgnoreChangedListener;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.graph.matching.TaskUtils;
 import org.openCage.stroy.graph.node.TreeNode;
+import org.openCage.stroy.graph.node.TreeNodeUtils;
 import org.openCage.stroy.ui.menu.PortableMenu;
 import org.openCage.stroy.ui.difftree.*;
 import org.openCage.stroy.ui.util.DMTNMaker;
@@ -25,6 +26,7 @@ import org.openCage.util.ui.TreeUtils;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 import java.awt.*;
 import java.util.List;
 import java.lang.reflect.InvocationTargetException;
@@ -131,11 +133,31 @@ public class GraphicalDiffMyDoggy<T extends Content> extends JFrame implements I
 
         app = new UIApp<T>( diffPane, dmtNodes, tasks );
 
+        // TODO: should be <TreeNode<T>> but it works for Dirs and files
         NodeChangeListener listener = new NodeChangeListener() {
             public void matched(Object left, Object right) {
                 try {
+                    final TreeNode<T> ll = (TreeNode)left;
+                    final TreeNode<T> rr = (TreeNode)right;
                     SwingUtilities.invokeAndWait( new Runnable() {
                         public void run() {
+                            {
+                                // need a before
+                            DefaultMutableTreeNode mutable =  NodeToNode.nodeToDMTNode( diffPane.getRoot( 0 ), (TreeNode<T>)ll );
+                            mutable = NodeToNode.findMatchingNode( diffPane.getRoot( 1 ), TreeUtils.getPath( mutable), tasks.getTasks().get(0));
+
+                            DefaultTreeModel       model   = ((DefaultTreeModel)diffPane.getTree(1).getModel());
+                            model.removeNodeFromParent( mutable );
+                            }
+
+                            {
+                            DefaultMutableTreeNode mutable =  NodeToNode.nodeToDMTNode( diffPane.getRoot( 1 ), (TreeNode<T>)rr );
+                            mutable = NodeToNode.findMatchingNode( diffPane.getRoot( 0 ), TreeUtils.getPath( mutable), tasks.getTasks().get(0));
+
+                            DefaultTreeModel model         = ((DefaultTreeModel)diffPane.getTree(0).getModel());
+                            model.removeNodeFromParent( mutable );
+                            }
+
                             diffPane.elementRefresh();
                         }
                     });
