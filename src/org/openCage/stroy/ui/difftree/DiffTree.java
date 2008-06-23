@@ -175,10 +175,10 @@ public class DiffTree<T extends Content> extends JPanel implements SynchronizeLi
                     return;
                 }
 
-                TreeNode<T> node    = NodeToNode.pathToNode( treeSelectionEvent.getPath() );
+//                TreeNode<T> node    = NodeToNode.pathToNode( treeSelectionEvent.getPath() );
 
                 for ( SynchronizeListener listener : syncListeners ) {
-                    listener.scrollTo( node, relRec, idx );
+                    listener.scrollTo( treeSelectionEvent.getPath(), relRec, idx );
                 }
             }
         });
@@ -187,20 +187,20 @@ public class DiffTree<T extends Content> extends JPanel implements SynchronizeLi
             public void treeExpanded( TreeExpansionEvent event ) {
                 Log.finest( " selection listener " + idx ); // NON-NLS
 
-                TreeNode<T> node    = NodeToNode.pathToNode( event.getPath() );
+//                TreeNode<T> node    = NodeToNode.pathToNode( event.getPath() );
 
                 for ( SynchronizeListener listener : syncListeners ) {
-                    listener.expanded( node, true, idx );
+                    listener.expanded( event.getPath(), true, idx );
                 }
             }
 
             public void treeCollapsed( TreeExpansionEvent event ) {
                 Log.finest( " selection listener " + idx ); // NON-NLS
 
-                TreeNode<T> node    = NodeToNode.pathToNode( event.getPath() );
+//                TreeNode<T> node    = NodeToNode.pathToNode( event.getPath() );
 
                 for ( SynchronizeListener listener : syncListeners ) {
-                    listener.expanded( node, false, idx );
+                    listener.expanded( event.getPath(), false, idx );
                 }
             }
         } );
@@ -240,10 +240,10 @@ public class DiffTree<T extends Content> extends JPanel implements SynchronizeLi
                             return;
                         }
 
-                        TreeNode<T> node  = NodeToNode.pathToNode( tree.getSelectionPath() );
+//                        TreeNode<T> node  = NodeToNode.pathToNode( tree.getSelectionPath() );
 
                         for ( SynchronizeListener listener : syncListeners ) {
-                            listener.scrollTo( node, relRec, idx );
+                            listener.scrollTo( tree.getSelectionPath(), relRec, idx );
                         }
                     }
                 }
@@ -357,23 +357,11 @@ public class DiffTree<T extends Content> extends JPanel implements SynchronizeLi
         syncListeners.add( listener );
     }
 
-    public void scrollTo(TreeNode<T> node, Rectangle rect, int sourceIdx) {
+    public void scrollTo( TreePath pathOtherTree /*TreeNode<T> node*/, Rectangle rect, int sourceIdx) {
 
         Log.finest( " scrollTo " + idx); // NON-NLS
 
-        TreePath path;
-
-        if ( sourceIdx > idx ) {
-            // right
-             path = TreeUtils.getPath( NodeToNode.findMatchingNode( root, node, taskRight ));
-        } else {
-            // left
-            path = TreeUtils.getPath( NodeToNode.findMatchingNode( root, node, taskLeft ));
-//            match = TaskUtils.getMatchOr( taskLeft, node );
-        }
-
-//        path = NodeToNode.nodeToTreePath( root, match );
-
+        TreePath path = getMatchingPath( sourceIdx, pathOtherTree );
 
         if ( path == null ) {
             Log.warning( "synchronized scrolling failed to match (?)" ); // NON-NLS
@@ -387,26 +375,28 @@ public class DiffTree<T extends Content> extends JPanel implements SynchronizeLi
         tree.setSelectionPath( path );
     }
 
-    public void expanded( TreeNode<T> node, boolean expanded, int sourceIdx ) {
-        Log.finest( "expand message from " + idx ); // NON-NLS
+    private TreePath getMatchingPath( int sourceIdx, TreePath pathOtherTree ) {
         TreePath path;
-
         if ( sourceIdx > idx ) {
             // right
-            path = NodeToNode.nodeToTreePath(
-                    root,
-                    TaskUtils.getBestMatchOrParent( taskRight, node ));
+             path = TreeUtils.getPath( NodeToNode.findMatchingNode( root, pathOtherTree, taskRight ));
         } else {
             // left
-            path = NodeToNode.nodeToTreePath(
-                    root,
-                    TaskUtils.getBestMatchOrParent( taskLeft, node ));
+            path = TreeUtils.getPath( NodeToNode.findMatchingNode( root, pathOtherTree, taskLeft ));
+//            match = TaskUtils.getMatchOr( taskLeft, node );
         }
+        return path;
+    }
+
+
+    public void expanded( TreePath pathOtherTree, boolean expanded, int sourceIdx ) {
+        Log.finest( "expand message from " + idx ); // NON-NLS
+
+        TreePath path = getMatchingPath( sourceIdx, pathOtherTree );
 
         if ( path == null ) {
             Log.warning( "synchronized scrolling failed to match (?)" ); // NON-NLS
         }
-
 
         myEvent = true;
         if ( expanded ) {

@@ -186,7 +186,13 @@ public class NodeToNode {
             throw new IllegalArgumentException( "invalid node " + node );
         }
 
-        if ( ! getName( root ).equals( namePath.get(0))) {
+        if ( !isInThatTree( root, node )) {
+
+        }
+
+
+        if ( ! isInThatTree( root, node )) {
+//        if ( ! getName( root ).equals( namePath.get(0))) {
             throw new IllegalArgumentException( "DMTN <" + root + "> and node <" + node +"> are not from the same tree" );
         }
 
@@ -207,6 +213,16 @@ public class NodeToNode {
 
 
         return next;
+    }
+
+    private static <T extends Content> boolean isInThatTree( DefaultMutableTreeNode root, TreeNode<T> node ) {
+
+        if ( !root.isRoot()) {
+            root = (DefaultMutableTreeNode)root.getRoot();
+        }
+
+        return node.getContent().getFile().getAbsolutePath().contains(
+                ((FileContent)(((UINode)root.getUserObject()).get().getContent())).getFile().getAbsolutePath());
     }
 
     public static <T extends Content> TreePath nodeToTreePath( DefaultMutableTreeNode root, TreeNode<T> node ) {
@@ -230,8 +246,63 @@ public class NodeToNode {
 //        if ( node.isRoot() ) {
 //            return ((UINode<Content>)node.getUserObject()).get().getContent().getName();
 //        } else {
-            return ((UINode<Content>)node.getUserObject()).get().toString(); //getContent().getName();
+            return ((UINode<Content>)node.getUserObject()).toString(); //getContent().getName();
 //        }
+    }
+
+    /**
+     * Find the node under root matching to path from other tree
+     * @param root A tree root
+     * @param path A treepath from an other tree
+     * @param task A task connecting both trees
+     * @return
+     */
+    public static <T extends Content> DefaultMutableTreeNode findMatchingNode( DefaultMutableTreeNode root, TreePath path, TreeMatchingTask<T> task) {
+        List<String> namePath = new ArrayList<String>();
+
+        UINode      uiNode;
+        TreeNode<T> node;
+        while( true ) {
+            uiNode = ((UINode)((DefaultMutableTreeNode)path.getLastPathComponent()).getUserObject());
+            node   = uiNode.get();
+
+            if ( node == null ) {
+                namePath.add( 0, uiNode.toString().substring( 1 ) );
+            } else if ( !task.isMatched( node )) {
+                namePath.add( 0, GhostNode.GHOST_TAG + uiNode.toString() );
+            } else {
+                break;
+            }
+
+            path = path.getParentPath();
+        }
+
+//        while ( !task.isMatched(node)) {
+//            namePath.add( 0, GhostNode.GHOST_TAG + node.getContent().getName());
+//            node = node.getParent();
+//        }
+
+        DefaultMutableTreeNode dmNode = nodeToDMTNode( root, task.getMatch( node ));
+
+
+//        namePath.set( 0, "" ); // done
+//
+//        DefaultMutableTreeNode next = root;
+
+        for ( String name : namePath ) {
+
+            if ( name.length() != 0 ) {
+                dmNode = findChild( dmNode, name );
+
+                if ( dmNode == null ) {
+                    return null;
+                }
+            }
+        }
+
+
+        return dmNode;
+
     }
 
 

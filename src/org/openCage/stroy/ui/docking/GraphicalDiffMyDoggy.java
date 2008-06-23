@@ -21,6 +21,7 @@ import org.openCage.stroy.ui.difftree.*;
 import org.openCage.stroy.ui.util.DMTNMaker;
 import org.openCage.stroy.ui.util.NodeToNode;
 import org.openCage.util.logging.Log;
+import org.openCage.util.ui.TreeUtils;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -206,15 +207,20 @@ public class GraphicalDiffMyDoggy<T extends Content> extends JFrame implements I
         // TODO 3 way: tasks.get(0) is wrong
         if ( ui.isOnlyLeft() ) {
             DefaultMutableTreeNode parent =
-                    NodeToNode.findMatchingNode( dmtNodes.get(0), ui.get().getParent(), tasks.get(0));
+                    NodeToNode.findMatchingNode( dmtNodes.get(0), TreeUtils.getPath( node.getParent()), tasks.get(0));
             DefaultMutableTreeNode child = new DefaultMutableTreeNode( "//" );
             child.setUserObject( new GhostNode(  ui.get(), tasks.get(0),  null, true, false ));
+
+            if ( parent == null ) {
+                int i = 0;
+                NodeToNode.findMatchingNode( dmtNodes.get(0), TreeUtils.getPath( node.getParent()), tasks.get(0));
+            }
 
             parent.add( child );
         }
         if ( ui.isOnlyRight() ) {
             DefaultMutableTreeNode parent =
-                    NodeToNode.findMatchingNode( dmtNodes.get(1), ui.get().getParent(), tasks.get(0));
+                    NodeToNode.findMatchingNode( dmtNodes.get(1), TreeUtils.getPath( node.getParent()), tasks.get(0));
             DefaultMutableTreeNode child = new DefaultMutableTreeNode( "//" );
             child.setUserObject( new GhostNode(  ui.get(), null, tasks.get(0),  false, true ));
 

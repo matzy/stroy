@@ -34,7 +34,7 @@ import org.openCage.stroy.content.Content;
  */
 public class GhostNode<T extends Content> implements UINode<T> {
 
-    private final TreeNode<T>         node;
+//    private final TreeNode<T>         node;
     private final TreeMatchingTask<T> taskLeft;
     private final TreeMatchingTask<T> taskRight;
 
@@ -42,7 +42,9 @@ public class GhostNode<T extends Content> implements UINode<T> {
 
     private ChangeVector cvLeft;
     private ChangeVector cvRight;
-    public static final String GHOST_TAG = "/";
+    public static final String GHOST_TAG = ":";
+
+    private String name;
 
     // NEXT just use the name ?
 
@@ -52,7 +54,7 @@ public class GhostNode<T extends Content> implements UINode<T> {
                       TreeMatchingTask<T> task2,
                       boolean left,
                       boolean right ) {
-        this.node       = node;
+//        this.node       = node;
         this.taskLeft   = task1;
         this.taskRight  = task2;
 
@@ -63,6 +65,8 @@ public class GhostNode<T extends Content> implements UINode<T> {
         cvRight         = new ChangeVector();
         cvRight.ghost   = right;
         cvRight.content = ContentDiff.same;
+
+        name = node.getContent().getName();
     }
 
 
@@ -75,7 +79,7 @@ public class GhostNode<T extends Content> implements UINode<T> {
     }
 
     public TreeNode get() {
-        return node;
+        return null;
     }
 
     public void setChangeNumbers(ChangeNumbers cn) {
@@ -119,7 +123,7 @@ public class GhostNode<T extends Content> implements UINode<T> {
     }
 
     public String toString() {
-        return GHOST_TAG + node.getContent().getName();
+        return GHOST_TAG + name;// node.getContent().getName();
     }
 
 }

@@ -4,6 +4,7 @@ import org.openCage.stroy.dir.FileContent;
 import org.openCage.stroy.graph.node.TreeNode;
 import org.openCage.stroy.content.Content;
 
+import javax.swing.tree.TreePath;
 import java.awt.*;
 
 /***** BEGIN LICENSE BLOCK *****
@@ -30,7 +31,7 @@ import java.awt.*;
 
 public interface SynchronizeListener<T extends Content> {
 
-    public void scrollTo(TreeNode<T> node, Rectangle rect, int sourceIdx);
+    public void scrollTo( TreePath path, Rectangle rect, int sourceIdx);
 
-    public void expanded(TreeNode<T> node, boolean expanded, int sourceIdx);
+    public void expanded( TreePath path, boolean expanded, int sourceIdx);
 }

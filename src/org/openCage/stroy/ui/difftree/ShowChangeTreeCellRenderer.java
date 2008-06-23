@@ -95,7 +95,7 @@ public class ShowChangeTreeCellRenderer extends DefaultTreeCellRenderer {
 
         int stdSize;
 
-        if ( uiNode.get().isLeaf() ) {
+        if ( node.isLeaf() ) { // get().isLeaf() ) {
             icons.add( getDefaultLeafIcon());
             stdSize = getDefaultLeafIcon().getIconWidth();
         } else if ( pIsExpanded ) {
