@@ -43,7 +43,7 @@ public class IgnoreByListsTest extends TestCase {
         Ignore ig = new IgnoreByLists();
 
         //ig.setPaths( Arrays.asList( ".*get_date\\.dat" ));
-//        ig.setPatterns( Arrays.asList("(.*\\.svn)|(.*\\.DS_Store)|(.*\\.class)|(.*\\.o)|(.*\\.obj)|(.*/get_date\\.dat)|(.*/copyarea\\.db)|(.*/copyarea\\.dat)|(.*/vssver\\.scc)|(.*/vssver2\\.scc)|(.*/CVS)|(.*/SCCS)|(.*/RCS)|(.*/rcs)" ));
+//        ig.setPatterns( Arrays.asList("(.*\\.svn)|(.*\\.DS_Store)|(.*\\.class)|(.*\\.o)|(.*\\.o)|(.*/get_date\\.dat)|(.*/copyarea\\.db)|(.*/copyarea\\.dat)|(.*/vssver\\.scc)|(.*/vssver2\\.scc)|(.*/CVS)|(.*/SCCS)|(.*/RCS)|(.*/rcs)" ));
         ig.setPatterns( Arrays.asList(".*\\.svn", ".*\\.class", ".*/\\.get_date\\.dat",".*/copyarea\\.dat"));
 //        assertTrue( ig.match( "/stroy-2/src/.get_date.dat"));
         assertTrue( ig.match( "/stroy-2/src/.get_date.dat"));

@@ -33,7 +33,7 @@ public class IgnoreHelper {
 //        ignore.add( "\\.copyarea.dat" );
 //        ignore.add( ".*\\.class" );
 //        ignore.add( ".*\\.o" );
-//        ignore.add( ".*\\.obj" );
+//        ignore.add( ".*\\.o" );
 //        ignore.add( ".*\\.get_date\\.dat" );
 //    }
 
@@ -44,7 +44,7 @@ public class IgnoreHelper {
         exts.add( "DS_Store" );
         exts.add( "class" );
         exts.add( "o" );
-        exts.add( "obj" );
+        exts.add( "o" );
 
 
 //        CVS;SCCS;RCS;rcs;.DS_Store;.svn;vssver.scc;vssver2.scc;.sbas;.IJI.*;

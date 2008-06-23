@@ -49,6 +49,11 @@ public interface UINode<T extends Content> {
     public boolean isMovedRight();
     public boolean isRenamedRight();
     public ContentDiff getContentChangedRight();
+
+    /**
+     * The node has no match to the right 
+     * @return
+     */
     public boolean isOnlyRight();
 
 }

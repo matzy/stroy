@@ -2,8 +2,10 @@ package org.openCage.stroy.ui.util;
 
 import org.openCage.stroy.graph.node.TreeNode;
 import org.openCage.stroy.graph.node.TreeNodeUtils;
+import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.dir.FileContent;
 import org.openCage.stroy.ui.difftree.UINode;
+import org.openCage.stroy.ui.difftree.GhostNode;
 import org.openCage.stroy.content.Content;
 import org.openCage.util.ui.TreeUtils;
 
@@ -13,6 +15,7 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.ArrayList;
 import java.io.File;
+
 
 
 /***** BEGIN LICENSE BLOCK *****
@@ -163,6 +166,17 @@ public class NodeToNode {
         return TreeUtils.getPath( nodeToDMTNode( root, node ));
     }
 
+    public static <T extends Content> boolean isGhost( DefaultMutableTreeNode root, TreeNode<T> node ) {
+        List<String> namePath = TreeNodeUtils.getNamePath( node );
+
+        if ( namePath.size() < 1 ) {
+            throw new IllegalArgumentException( "invalid node " + node );
+        }
+
+        // NEXT: why has treenode that long name
+        return ! getName( root ).equals( namePath.get(0));
+
+    }
 
     public static <T extends Content> DefaultMutableTreeNode nodeToDMTNode( DefaultMutableTreeNode root, TreeNode<T> node ) {
 
@@ -172,10 +186,9 @@ public class NodeToNode {
             throw new IllegalArgumentException( "invalid node " + node );
         }
 
-        // TODO // allows ghosts ?
-//        if ( ! getName( root ).equals( namePath.get(0))) {
-//            throw new IllegalArgumentException( "DMTN " + root + "and node " + node +"are not from the same tree" );
-//        }
+        if ( ! getName( root ).equals( namePath.get(0))) {
+            throw new IllegalArgumentException( "DMTN <" + root + "> and node <" + node +"> are not from the same tree" );
+        }
 
         namePath.set( 0, "" ); // done
 
@@ -205,7 +218,7 @@ public class NodeToNode {
     public static DefaultMutableTreeNode findChild( DefaultMutableTreeNode parent, String name ) {
         for (Enumeration child = parent.children(); child.hasMoreElements(); ) {
             DefaultMutableTreeNode node = (DefaultMutableTreeNode)child.nextElement();
-            if ( name.length() == 0 || getName( node ).equals( name )) {
+            if ( name.length() == 0 || getName( node ).equals( name )) { // || ("/" + getName( node )).equals( name )) {
                 return node;
             }
         }
@@ -214,8 +227,58 @@ public class NodeToNode {
     }
 
     public static String getName( DefaultMutableTreeNode node ) {
-        return ((UINode<Content>)node.getUserObject()) .get().getContent().getName();
+//        if ( node.isRoot() ) {
+//            return ((UINode<Content>)node.getUserObject()).get().getContent().getName();
+//        } else {
+            return ((UINode<Content>)node.getUserObject()).get().toString(); //getContent().getName();
+//        }
     }
 
+
+    /**
+     * Find the matching dmTreeNode on the oter tree (including ghosts)
+     * @param root The root of the tree where the match is to be found
+     * @param node A node from the other tree
+     * @param task The task connecting both sides
+     * @return
+     */
+    public static <T extends Content> DefaultMutableTreeNode findMatchingNode( DefaultMutableTreeNode root, TreeNode<T> node, TreeMatchingTask<T> task) {
+
+        // find first matching parents remember list of names
+        // match
+        // traverse by name
+
+        if ( !isGhost( root, node )) {
+            throw new Error( "impl me" );
+        }
+
+        List<String> namePath = new ArrayList<String>();
+
+        while ( !task.isMatched(node)) {
+            namePath.add( 0, GhostNode.GHOST_TAG + node.getContent().getName());
+            node = node.getParent();
+        }
+
+        DefaultMutableTreeNode dmNode = nodeToDMTNode( root, task.getMatch( node ));
+
+
+//        namePath.set( 0, "" ); // done
+//
+//        DefaultMutableTreeNode next = root;
+
+        for ( String name : namePath ) {
+
+            if ( name.length() != 0 ) {
+                dmNode = findChild( dmNode, name );
+
+                if ( dmNode == null ) {
+                    return null;
+                }
+            }
+        }
+
+
+        return dmNode;
+    }
 
 }

@@ -200,22 +200,22 @@ public class GraphicalDiffMyDoggy<T extends Content> extends JFrame implements I
     }
 
     private void fillGhost(DefaultMutableTreeNode node, List<DefaultMutableTreeNode> dmtNodes) {
+
         UINode ui = ((UINode)node.getUserObject());
 
         // TODO 3 way: tasks.get(0) is wrong
         if ( ui.isOnlyLeft() ) {
-            TreeNode<T> tn = TaskUtils.getBestMatchOrParent( tasks.get(0), ui.get() );
-            DefaultMutableTreeNode parent = NodeToNode.nodeToDMTNode( dmtNodes.get(0), tn);
-            String name = ((Content)ui.get().getContent()).getName();
-            DefaultMutableTreeNode child = new DefaultMutableTreeNode( name );
+            DefaultMutableTreeNode parent =
+                    NodeToNode.findMatchingNode( dmtNodes.get(0), ui.get().getParent(), tasks.get(0));
+            DefaultMutableTreeNode child = new DefaultMutableTreeNode( "//" );
             child.setUserObject( new GhostNode(  ui.get(), tasks.get(0),  null, true, false ));
 
             parent.add( child );
         }
         if ( ui.isOnlyRight() ) {
-            TreeNode<T> tn = TaskUtils.getBestMatchOrParent( tasks.get(0), ui.get() );
-            DefaultMutableTreeNode parent = NodeToNode.nodeToDMTNode( dmtNodes.get(1), tn);
-            DefaultMutableTreeNode child = new DefaultMutableTreeNode( "tmp42" );
+            DefaultMutableTreeNode parent =
+                    NodeToNode.findMatchingNode( dmtNodes.get(1), ui.get().getParent(), tasks.get(0));
+            DefaultMutableTreeNode child = new DefaultMutableTreeNode( "//" );
             child.setUserObject( new GhostNode(  ui.get(), null, tasks.get(0),  false, true ));
 
             parent.add( child );

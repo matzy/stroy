@@ -363,17 +363,16 @@ public class DiffTree<T extends Content> extends JPanel implements SynchronizeLi
 
         TreePath path;
 
-        TreeNode<T> match;
-
         if ( sourceIdx > idx ) {
-            match = TaskUtils.getMatchOr( taskRight, node );
             // right
+             path = TreeUtils.getPath( NodeToNode.findMatchingNode( root, node, taskRight ));
         } else {
             // left
-            match = TaskUtils.getMatchOr( taskLeft, node );
+            path = TreeUtils.getPath( NodeToNode.findMatchingNode( root, node, taskLeft ));
+//            match = TaskUtils.getMatchOr( taskLeft, node );
         }
 
-        path = NodeToNode.nodeToTreePath( root, match );
+//        path = NodeToNode.nodeToTreePath( root, match );
 
 
         if ( path == null ) {

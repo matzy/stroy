@@ -27,6 +27,11 @@ import org.openCage.stroy.content.Content;
 *
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
+
+/**
+ * UINode for a node without TreeNode representation
+ * this is a placeholder for deleted files on the other side
+ */
 public class GhostNode<T extends Content> implements UINode<T> {
 
     private final TreeNode<T>         node;
@@ -37,6 +42,9 @@ public class GhostNode<T extends Content> implements UINode<T> {
 
     private ChangeVector cvLeft;
     private ChangeVector cvRight;
+    public static final String GHOST_TAG = "/";
+
+    // NEXT just use the name ?
 
 
     public GhostNode( TreeNode<T>         node,
@@ -111,7 +119,7 @@ public class GhostNode<T extends Content> implements UINode<T> {
     }
 
     public String toString() {
-        return node.getContent().getName();
+        return GHOST_TAG + node.getContent().getName();
     }
 
 }

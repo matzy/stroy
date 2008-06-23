@@ -6,7 +6,6 @@ import org.openCage.util.prefs.Preferences;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Collections;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -62,7 +61,7 @@ public class IgnoreCentral extends PreferenceBase<IgnoreStore> {
         exts.add( "DS_Store" );
         exts.add( "class" );
         exts.add( "o" );
-        exts.add( "obj" );
+        exts.add( "o" );
 
         List<String> pat = new ArrayList<String>();
         pat.add( ".*/\\.get_date\\.dat" );
