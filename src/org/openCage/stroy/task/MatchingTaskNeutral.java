@@ -146,8 +146,6 @@ public class MatchingTaskNeutral<T> implements MatchingTask<T>{
             throw new IllegalArgumentException( "one argument allready matched, one: " + isMatched(src) + ", two: " + isMatched(tgt));
         }
 
-        // TODO next
-
         for ( NodeChangeListener listener : listeners ) {
             listener.beforeMatched( src, tgt );
         }

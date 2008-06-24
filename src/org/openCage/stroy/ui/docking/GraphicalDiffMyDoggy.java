@@ -14,9 +14,7 @@ import org.openCage.stroy.app.UIApp;
 import org.openCage.stroy.filter.Ignore;
 import org.openCage.stroy.filter.IgnoreChangedListener;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
-import org.openCage.stroy.graph.matching.TaskUtils;
 import org.openCage.stroy.graph.node.TreeNode;
-import org.openCage.stroy.graph.node.TreeNodeUtils;
 import org.openCage.stroy.ui.menu.PortableMenu;
 import org.openCage.stroy.ui.difftree.*;
 import org.openCage.stroy.ui.util.DMTNMaker;
@@ -30,7 +28,6 @@ import javax.swing.tree.DefaultTreeModel;
 import java.awt.*;
 import java.util.List;
 import java.lang.reflect.InvocationTargetException;
-import java.io.File;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -60,7 +57,7 @@ public class GraphicalDiffMyDoggy<T extends Content> extends JFrame implements I
 
     private final MyDoggyToolWindowManager                      toolWindowManager;
     private final java.util.List<TreeMatchingTask<T>>           tasks;
-    private java.util.List<DefaultMutableTreeNode>              dmtNodes;
+    private final java.util.List<DefaultMutableTreeNode> dmtRoots;
     private NWayDiffPane                                        diffPane;
 
     private final UIApp app;
@@ -68,9 +65,9 @@ public class GraphicalDiffMyDoggy<T extends Content> extends JFrame implements I
     public GraphicalDiffMyDoggy( final Tasks<T> tasks  ) {
         this.tasks = tasks.getTasks();
 
-        dmtNodes = DMTNMaker.makeDFTNs( this.tasks );
+        dmtRoots = DMTNMaker.makeDFTNs( this.tasks );
 
-        fillGhosts( dmtNodes );
+        fillGhosts( dmtRoots );
 
 
         setTitle( Message.get( "Docking.Main.Title" ));
@@ -83,9 +80,9 @@ public class GraphicalDiffMyDoggy<T extends Content> extends JFrame implements I
         Injector injector         = Guice.createInjector( new RuntimeModule() );
         NWayDiffPaneGenerator gen = injector.getInstance( NWayDiffPaneGenerator.class );
 
-        diffPane = gen.getDiffPane( this.tasks, dmtNodes  );
+        diffPane = gen.getDiffPane( this.tasks, dmtRoots );
 
-        final JComponent top = new ShowDiffSummery( this.tasks, dmtNodes );
+        final JComponent top = new ShowDiffSummery( this.tasks, dmtRoots );
   //      final ShowCurrentDiff current = new ShowCurrentDiff( tasks );
         final Buttons buttons = new Buttons( this );
 
@@ -131,17 +128,23 @@ public class GraphicalDiffMyDoggy<T extends Content> extends JFrame implements I
 
         pack();
 
-        app = new UIApp<T>( diffPane, dmtNodes, tasks );
+        app = new UIApp<T>( diffPane, dmtRoots, tasks );
 
         // TODO: should be <TreeNode<T>> but it works for Dirs and files
         NodeChangeListener listener = new NodeChangeListener() {
             public void matched(Object left, Object right) {
+                final TreeNode ll = (TreeNode)left;
+                final TreeNode rr = (TreeNode)right;
                 try {
                     SwingUtilities.invokeAndWait( new Runnable() {
                         public void run() {
                             //TODO next check for folder
+                            if ( !((TreeNode)ll).isLeaf()) {
+                                fillGhosts( dmtRoots  );
+                            }
 
-                            diffPane.elementRefresh();
+                            // diffPane.elementRefresh();
+                            diffPane.refresh();
                         }
                     });
                 } catch (InterruptedException e) {
@@ -232,37 +235,47 @@ public class GraphicalDiffMyDoggy<T extends Content> extends JFrame implements I
 //        Central.tasks    = this.tasks;
     }
 
-    private void fillGhosts(List<DefaultMutableTreeNode> dmtNodes) {
-        for ( DefaultMutableTreeNode node : dmtNodes ) {
-            fillGhost(node, dmtNodes);
+    private void fillGhosts( final List<DefaultMutableTreeNode> roots) {
+        for ( DefaultMutableTreeNode node : roots ) {
+            fillGhost(node, 0, roots);
         }
     }
 
-    private void fillGhost(DefaultMutableTreeNode node, List<DefaultMutableTreeNode> dmtNodes) {
+    private void fillGhost( DefaultMutableTreeNode node, int idx, List<DefaultMutableTreeNode> roots) {
 
         UINode ui = ((UINode)node.getUserObject());
 
         // TODO 3 way: tasks.get(0) is wrong
+        // TODO refactor
         if ( ui.isOnlyLeft() ) {
             DefaultMutableTreeNode parent =
-                    NodeToNode.findMatchingNode( dmtNodes.get(0), TreeUtils.getPath( node.getParent()), tasks.get(0));
+                    NodeToNode.findMatchingNode( roots.get(0), TreeUtils.getPath( node.getParent()), tasks.get(0));
             DefaultMutableTreeNode child = new DefaultMutableTreeNode( "//" );
             child.setUserObject( new GhostNode(  ui.get(), tasks.get(0),  null, true, false ));
 
-            if ( parent == null ) {
-                int i = 0;
-                NodeToNode.findMatchingNode( dmtNodes.get(0), TreeUtils.getPath( node.getParent()), tasks.get(0));
+            if ( diffPane != null ) {
+                DefaultTreeModel model         = ((DefaultTreeModel)diffPane.getTree(0).getModel());
+                model.insertNodeInto( child, parent, Math.min( idx, parent.getChildCount()));
+            } else {
+                parent.insert( child, Math.min( idx, parent.getChildCount()) );
             }
 
-            parent.add( child );
+
         }
         if ( ui.isOnlyRight() ) {
             DefaultMutableTreeNode parent =
-                    NodeToNode.findMatchingNode( dmtNodes.get(1), TreeUtils.getPath( node.getParent()), tasks.get(0));
+                    NodeToNode.findMatchingNode( roots.get(1), TreeUtils.getPath( node.getParent()), tasks.get(0));
             DefaultMutableTreeNode child = new DefaultMutableTreeNode( "//" );
             child.setUserObject( new GhostNode(  ui.get(), null, tasks.get(0),  false, true ));
 
-            parent.add( child );
+            // insert ghost possible in the same position as the orginal
+            if ( diffPane != null ) {
+                DefaultTreeModel model         = ((DefaultTreeModel)diffPane.getTree(1).getModel());
+                model.insertNodeInto( child, parent, Math.min( idx, parent.getChildCount()));
+            } else {
+                parent.insert( child, Math.min( idx, parent.getChildCount()) );
+            }
+
 
             // TODO order
 //            parent.insert( child, 0 );
@@ -270,7 +283,7 @@ public class GraphicalDiffMyDoggy<T extends Content> extends JFrame implements I
         }
 
         for ( int i = 0; i < node.getChildCount(); ++i ) {
-            fillGhost( (DefaultMutableTreeNode)node.getChildAt(i), dmtNodes );
+            fillGhost( (DefaultMutableTreeNode)node.getChildAt(i), i, roots );
         }
     }
 
@@ -400,7 +413,7 @@ public class GraphicalDiffMyDoggy<T extends Content> extends JFrame implements I
             Log.warning( "frame not visible: setSelectionRoots is probably not working correctly" );
         }
 
-        diffPane.getTree( 0).setSelectionPath( NodeToNode.getTreePath( dmtNodes.get(0)));
+        diffPane.getTree( 0).setSelectionPath( NodeToNode.getTreePath( dmtRoots.get(0)));
 
     }
 }
