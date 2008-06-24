@@ -148,9 +148,9 @@ public class MatchingTaskNeutral<T> implements MatchingTask<T>{
 
         // TODO next
 
-//        for ( NodeChangeListener listener : listeners ) {
-//            listener.beforeMatched( src, tgt );
-//        }
+        for ( NodeChangeListener listener : listeners ) {
+            listener.beforeMatched( src, tgt );
+        }
 
 
         Quality qy = new Quality();

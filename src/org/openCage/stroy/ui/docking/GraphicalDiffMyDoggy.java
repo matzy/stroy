@@ -137,26 +137,9 @@ public class GraphicalDiffMyDoggy<T extends Content> extends JFrame implements I
         NodeChangeListener listener = new NodeChangeListener() {
             public void matched(Object left, Object right) {
                 try {
-                    final TreeNode<T> ll = (TreeNode)left;
-                    final TreeNode<T> rr = (TreeNode)right;
                     SwingUtilities.invokeAndWait( new Runnable() {
                         public void run() {
-                            {
-                                // need a before
-                            DefaultMutableTreeNode mutable =  NodeToNode.nodeToDMTNode( diffPane.getRoot( 0 ), (TreeNode<T>)ll );
-                            mutable = NodeToNode.findMatchingNode( diffPane.getRoot( 1 ), TreeUtils.getPath( mutable), tasks.getTasks().get(0));
-
-                            DefaultTreeModel       model   = ((DefaultTreeModel)diffPane.getTree(1).getModel());
-                            model.removeNodeFromParent( mutable );
-                            }
-
-                            {
-                            DefaultMutableTreeNode mutable =  NodeToNode.nodeToDMTNode( diffPane.getRoot( 1 ), (TreeNode<T>)rr );
-                            mutable = NodeToNode.findMatchingNode( diffPane.getRoot( 0 ), TreeUtils.getPath( mutable), tasks.getTasks().get(0));
-
-                            DefaultTreeModel model         = ((DefaultTreeModel)diffPane.getTree(0).getModel());
-                            model.removeNodeFromParent( mutable );
-                            }
+                            //TODO next check for folder
 
                             diffPane.elementRefresh();
                         }
@@ -198,6 +181,39 @@ public class GraphicalDiffMyDoggy<T extends Content> extends JFrame implements I
 
             public void removed(Object obj) {
                 Log.warning( "GDMD TODO removed" );
+            }
+
+
+            public void beforeMatched(Object left, Object right) {
+                try {
+                    final TreeNode<T> ll = (TreeNode)left;
+                    final TreeNode<T> rr = (TreeNode)right;
+                    SwingUtilities.invokeAndWait( new Runnable() {
+                        public void run() {
+                            {
+                                // need a before
+                            DefaultMutableTreeNode mutable =  NodeToNode.nodeToDMTNode( diffPane.getRoot( 0 ), (TreeNode<T>)ll );
+                            mutable = NodeToNode.findMatchingNode( diffPane.getRoot( 1 ), TreeUtils.getPath( mutable), tasks.getTasks().get(0));
+
+                            DefaultTreeModel       model   = ((DefaultTreeModel)diffPane.getTree(1).getModel());
+                            model.removeNodeFromParent( mutable );
+                            }
+
+                            {
+                            DefaultMutableTreeNode mutable =  NodeToNode.nodeToDMTNode( diffPane.getRoot( 1 ), (TreeNode<T>)rr );
+                            mutable = NodeToNode.findMatchingNode( diffPane.getRoot( 0 ), TreeUtils.getPath( mutable), tasks.getTasks().get(0));
+
+                            DefaultTreeModel model         = ((DefaultTreeModel)diffPane.getTree(0).getModel());
+                            model.removeNodeFromParent( mutable );
+                            }
+
+                        }
+                    });
+                } catch (InterruptedException e) {
+                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                }
             }
         };
 

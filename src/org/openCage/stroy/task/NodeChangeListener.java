@@ -29,4 +29,6 @@ public interface NodeChangeListener<T> {
 
     public void diffChanged( T left, T right );
     public void removed( T obj );
+
+    public void beforeMatched(T src, T tgt);
 }

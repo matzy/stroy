@@ -46,8 +46,6 @@ public class GhostNode<T extends Content> implements UINode<T> {
 
     private String name;
 
-    // NEXT just use the name ?
-
 
     public GhostNode( TreeNode<T>         node,
                       TreeMatchingTask<T> task1,
