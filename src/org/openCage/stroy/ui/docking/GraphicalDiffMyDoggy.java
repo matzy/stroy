@@ -138,9 +138,11 @@ public class GraphicalDiffMyDoggy<T extends Content> extends JFrame implements I
                 try {
                     SwingUtilities.invokeAndWait( new Runnable() {
                         public void run() {
-                            //TODO next check for folder
                             if ( !((TreeNode)ll).isLeaf()) {
-                                fillGhosts( dmtRoots  );
+                                DefaultMutableTreeNode llm =  NodeToNode.nodeToDMTNode( diffPane.getRoot( 0 ), (TreeNode<T>)ll );
+                                fillGhost( llm, 0, dmtRoots  );
+                                DefaultMutableTreeNode rrm =  NodeToNode.nodeToDMTNode( diffPane.getRoot( 1 ), (TreeNode<T>)rr );
+                                fillGhost( rrm, 0, dmtRoots  );
                             }
 
                             // diffPane.elementRefresh();
@@ -195,19 +197,19 @@ public class GraphicalDiffMyDoggy<T extends Content> extends JFrame implements I
                         public void run() {
                             {
                                 // need a before
-                            DefaultMutableTreeNode mutable =  NodeToNode.nodeToDMTNode( diffPane.getRoot( 0 ), (TreeNode<T>)ll );
-                            mutable = NodeToNode.findMatchingNode( diffPane.getRoot( 1 ), TreeUtils.getPath( mutable), tasks.getTasks().get(0));
+                                DefaultMutableTreeNode mutable =  NodeToNode.nodeToDMTNode( diffPane.getRoot( 0 ), (TreeNode<T>)ll );
+                                mutable = NodeToNode.findMatchingNode( diffPane.getRoot( 1 ), TreeUtils.getPath( mutable), tasks.getTasks().get(0));
 
-                            DefaultTreeModel       model   = ((DefaultTreeModel)diffPane.getTree(1).getModel());
-                            model.removeNodeFromParent( mutable );
+                                DefaultTreeModel       model   = ((DefaultTreeModel)diffPane.getTree(1).getModel());
+                                model.removeNodeFromParent( mutable );
                             }
 
                             {
-                            DefaultMutableTreeNode mutable =  NodeToNode.nodeToDMTNode( diffPane.getRoot( 1 ), (TreeNode<T>)rr );
-                            mutable = NodeToNode.findMatchingNode( diffPane.getRoot( 0 ), TreeUtils.getPath( mutable), tasks.getTasks().get(0));
+                                DefaultMutableTreeNode mutable =  NodeToNode.nodeToDMTNode( diffPane.getRoot( 1 ), (TreeNode<T>)rr );
+                                mutable = NodeToNode.findMatchingNode( diffPane.getRoot( 0 ), TreeUtils.getPath( mutable), tasks.getTasks().get(0));
 
-                            DefaultTreeModel model         = ((DefaultTreeModel)diffPane.getTree(0).getModel());
-                            model.removeNodeFromParent( mutable );
+                                DefaultTreeModel model         = ((DefaultTreeModel)diffPane.getTree(0).getModel());
+                                model.removeNodeFromParent( mutable );
                             }
 
                         }
