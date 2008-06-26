@@ -90,6 +90,8 @@ public class DiffTree<T extends Content> extends JPanel implements SynchronizeLi
     private SkvTree                             skvLeft;
     private SkvTree                             skvRight;
 
+    private TreePath                            lastSelectionPath;
+
     @Inject
     public DiffTree( final int                           idx,
                      final TreeMatchingTask<T>           taskLeft,
@@ -157,11 +159,26 @@ public class DiffTree<T extends Content> extends JPanel implements SynchronizeLi
 
         TreeUtils.expandAll( tree, true );
 
+        lastSelectionPath = tree.getSelectionPath();
+
         tree.addTreeSelectionListener( new TreeSelectionListener() {
             public void valueChanged(TreeSelectionEvent treeSelectionEvent) {
 
-                if ( myEvent ) {
-                    myEvent = false;
+
+//                if ( lastSelectionPath != null && lastSelectionPath.equals( treeSelectionEvent.getPath() )) {
+//                    int oi = 1;
+//                }
+//
+//                lastSelectionPath = treeSelectionEvent.getPath();
+
+//                if ( myEvent ) {
+//                    myEvent = false;
+//                    return;
+//                }
+
+                if ( treeSelectionEvent.getOldLeadSelectionPath() != null &&
+                     treeSelectionEvent.getNewLeadSelectionPath() != null &&
+                     treeSelectionEvent.getOldLeadSelectionPath().equals( treeSelectionEvent.getNewLeadSelectionPath() )) {
                     return;
                 }
 
@@ -209,10 +226,12 @@ public class DiffTree<T extends Content> extends JPanel implements SynchronizeLi
         scroll.getVerticalScrollBar().addAdjustmentListener( new AdjustmentListener() {
             public void adjustmentValueChanged(AdjustmentEvent adjustmentEvent) {
 
-                if ( myScroll ) {
-                    myScroll = false;
-                    return;
-                }
+
+//                if ( myScroll ) {
+//                    myScroll = false;
+//                    Log.warning( "+++++++ skip ++++++ " + this  );
+////                    return;
+//                }
 
                 Log.finest( "scroll event " + idx ); // NON-NLS
 
@@ -277,76 +296,6 @@ public class DiffTree<T extends Content> extends JPanel implements SynchronizeLi
     }
 
 
-//    private InfosAsColor<TreeNode<T>> getInfosAsColor( final TreeMatchingTask<T> matching ) {
-//        return new InfosAsColor<TreeNode<T>>() {
-//            public Color getColor(final java.util.List<TreeNode<T>> treeNodes) {
-//
-//                boolean only      = false;
-//                boolean structure = false;
-//                boolean content   = false;
-//
-//                for ( TreeNode<T> node : treeNodes ) {
-//                    final ChangeVector cv = matching.getChangeVector( node );
-//
-//                    only |= cv.only;
-//                    structure |= (cv.name || cv.parent );
-//                    content   |= cv.content;
-//                }
-//
-//                if ( content && structure ) {
-//                    return Colors.CONTENT_AND_STRUCTUR;
-//                }
-//
-//                if ( content ) {
-//                    return Colors.CONTENT;
-//                }
-//
-//                if ( structure ) {
-//                    return Colors.STRUCTUR;
-//                }
-//
-//                if ( only ) {
-//                    return Colors.ONLYHERE;
-//                }
-//
-//                return null;
-//
-//            }
-//
-//            public Color getEmphasized() {
-//                return Colors.EMPHASIZED;
-//            }
-//
-//            public TreeNode<T> getInteresting(java.util.List<TreeNode<T>> treeNodes ) {
-//                for (Count<TreeNode<T>> node : Iterators.count( treeNodes )) {
-//                    final ChangeVector cv = matching.getChangeVector( node.o );
-//
-//                    if ( cv.isAny()) {
-//                        return node.o;
-//                    }
-//
-//                }
-//
-//                return treeNodes.get(0);
-//            }
-//        };
-//    }
-
-
-
-
-
-//    private JViewport getViewPort() {
-//        return scroll.getViewport();
-//    }
-
-//    private boolean hasLeftSkyView() {
-//        return taskRight != null;
-//    }
-//
-//    private boolean hasRightSkyView() {
-//        return taskLeft != null;
-//    }
 
     private boolean scrollbarOnLeft() {
         return taskLeft == null;

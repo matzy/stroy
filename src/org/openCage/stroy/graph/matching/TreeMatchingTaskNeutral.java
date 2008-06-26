@@ -76,7 +76,7 @@ public class TreeMatchingTaskNeutral<T extends Content> implements TreeMatchingT
     public TreeNode<T> getMatch( final TreeNode<T> obj ) {
 
         if ( obj == null ) {
-            Log.warning( "getMatch called for null" );
+//            Log.warning( "getMatch called for null" );
             return null;
         }
 
