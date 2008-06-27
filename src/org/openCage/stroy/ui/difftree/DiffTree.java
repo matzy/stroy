@@ -84,13 +84,13 @@ public class DiffTree<T extends Content> extends JPanel implements SynchronizeLi
     private final List<SynchronizeListener>     syncListeners = new ArrayList<SynchronizeListener>();
     private final DefaultMutableTreeNode        root;
     private final int                           idx;
-    private boolean                             myEvent = false;
-    private boolean                             myScroll = false;
+//    private boolean                             myEvent = false;
+//    private boolean                             myScroll = false;
     private PopupSelector                       popup;
     private SkvTree                             skvLeft;
     private SkvTree                             skvRight;
 
-    private TreePath                            lastSelectionPath;
+//    private TreePath                            lastSelectionPath;
 
     @Inject
     public DiffTree( final int                           idx,
@@ -156,75 +156,22 @@ public class DiffTree<T extends Content> extends JPanel implements SynchronizeLi
             add( skvRight, BorderLayout.EAST );
         }
 
-
         TreeUtils.expandAll( tree, true );
-
-        lastSelectionPath = tree.getSelectionPath();
-
-        tree.addTreeSelectionListener( new TreeSelectionListener() {
-            public void valueChanged(TreeSelectionEvent treeSelectionEvent) {
+        addTreeListeners( idx );
 
 
-//                if ( lastSelectionPath != null && lastSelectionPath.equals( treeSelectionEvent.getPath() )) {
-//                    int oi = 1;
-//                }
-//
-//                lastSelectionPath = treeSelectionEvent.getPath();
+        addScrollListeners( idx );
 
-//                if ( myEvent ) {
-//                    myEvent = false;
-//                    return;
-//                }
-
-                if ( treeSelectionEvent.getOldLeadSelectionPath() != null &&
-                     treeSelectionEvent.getNewLeadSelectionPath() != null &&
-                     treeSelectionEvent.getOldLeadSelectionPath().equals( treeSelectionEvent.getNewLeadSelectionPath() )) {
-                    return;
-                }
-
-                Log.finest( " selection listener " + idx ); // NON-NLS
+        popup = new PopupSelector( taskLeft, taskRight );
 
 
-                Rectangle             rec     = tree.getPathBounds( treeSelectionEvent.getPath() );
-                Rectangle             relRec  = Scrolling.getRelativeLocation( scroll.getViewport(), rec );
+    }
 
-                if ( relRec == null ) {
-                    return;
-                }
-
-//                TreeNode<T> node    = NodeToNode.pathToNode( treeSelectionEvent.getPath() );
-
-                for ( SynchronizeListener listener : syncListeners ) {
-                    listener.scrollTo( treeSelectionEvent.getPath(), relRec, idx );
-                }
-            }
-        });
-
-        tree.addTreeExpansionListener( new TreeExpansionListener() {
-            public void treeExpanded( TreeExpansionEvent event ) {
-                Log.finest( " selection listener " + idx ); // NON-NLS
-
-//                TreeNode<T> node    = NodeToNode.pathToNode( event.getPath() );
-
-                for ( SynchronizeListener listener : syncListeners ) {
-                    listener.expanded( event.getPath(), true, idx );
-                }
-            }
-
-            public void treeCollapsed( TreeExpansionEvent event ) {
-                Log.finest( " selection listener " + idx ); // NON-NLS
-
-//                TreeNode<T> node    = NodeToNode.pathToNode( event.getPath() );
-
-                for ( SynchronizeListener listener : syncListeners ) {
-                    listener.expanded( event.getPath(), false, idx );
-                }
-            }
-        } );
-
-
+    private void addScrollListeners( final int idx ) {
         scroll.getVerticalScrollBar().addAdjustmentListener( new AdjustmentListener() {
-            public void adjustmentValueChanged(AdjustmentEvent adjustmentEvent) {
+            public void adjustmentValueChanged( AdjustmentEvent adjustmentEvent) {
+
+                // vertical scrollbar was moved
 
 
 //                if ( myScroll ) {
@@ -235,11 +182,14 @@ public class DiffTree<T extends Content> extends JPanel implements SynchronizeLi
 
                 Log.finest( "scroll event " + idx ); // NON-NLS
 
-                Rectangle             rec     = tree.getPathBounds( tree.getSelectionPath() );
+                Rectangle rec = tree.getPathBounds( tree.getSelectionPath() );
 
                 if ( rec != null ) {
+
                     if ( !scroll.getViewport().getViewRect().contains( rec ) ) {
-                        // go 3 down
+
+                        // the current selected node was moved outside the window
+                        // => select a new node
 
                         int vy = (int)scroll.getViewport().getViewRect().getY();
                         int hy = (int)(scroll.getViewport().getViewRect().getHeight() / 2);
@@ -259,8 +209,6 @@ public class DiffTree<T extends Content> extends JPanel implements SynchronizeLi
                             return;
                         }
 
-//                        TreeNode<T> node  = NodeToNode.pathToNode( tree.getSelectionPath() );
-
                         for ( SynchronizeListener listener : syncListeners ) {
                             listener.scrollTo( tree.getSelectionPath(), relRec, idx );
                         }
@@ -268,6 +216,45 @@ public class DiffTree<T extends Content> extends JPanel implements SynchronizeLi
                 }
             }
         });
+    }
+
+    private void addTreeListeners( final int idx ) {
+        tree.addTreeSelectionListener( new TreeSelectionListener() {
+            public void valueChanged( TreeSelectionEvent treeSelectionEvent) {
+
+                // if the selection did not change => nothing to do (prevent loops)
+                if ( treeSelectionEvent.getOldLeadSelectionPath() != null &&
+                     treeSelectionEvent.getNewLeadSelectionPath() != null &&
+                     treeSelectionEvent.getOldLeadSelectionPath().equals( treeSelectionEvent.getNewLeadSelectionPath() )) {
+                    return;
+                }
+
+                Rectangle rec     = tree.getPathBounds( treeSelectionEvent.getPath() );
+                Rectangle  relRec  = Scrolling.getRelativeLocation( scroll.getViewport(), rec );
+
+                if ( relRec == null ) {
+                    return;
+                }
+
+                for ( SynchronizeListener listener : syncListeners ) {
+                    listener.scrollTo( treeSelectionEvent.getPath(), relRec, idx );
+                }
+            }
+        });
+
+        tree.addTreeExpansionListener( new TreeExpansionListener() {
+            public void treeExpanded( TreeExpansionEvent event ) {
+                for ( SynchronizeListener listener : syncListeners ) {
+                    listener.expanded( event.getPath(), true, idx );
+                }
+            }
+
+            public void treeCollapsed( TreeExpansionEvent event ) {
+                for ( SynchronizeListener listener : syncListeners ) {
+                    listener.expanded( event.getPath(), false, idx );
+                }
+            }
+        } );
 
         tree.addMouseListener( new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
@@ -284,18 +271,12 @@ public class DiffTree<T extends Content> extends JPanel implements SynchronizeLi
                 }
             }
         });
-
-        popup = new PopupSelector( taskLeft, taskRight );
-
-
     }
 
 
     private JudgeBlock getJudgeBlock( final TreeMatchingTask<T> matching ) {
         return new TreeNodeJudge<T>( matching );
     }
-
-
 
     private boolean scrollbarOnLeft() {
         return taskLeft == null;
@@ -318,9 +299,7 @@ public class DiffTree<T extends Content> extends JPanel implements SynchronizeLi
 
 
         Rectangle here = tree.getPathBounds( path );
-        myScroll = true;
         Scrolling.scrollToRelative( scroll.getViewport(), here, rect );
-        myEvent = true;
         tree.setSelectionPath( path );
     }
 
@@ -332,7 +311,6 @@ public class DiffTree<T extends Content> extends JPanel implements SynchronizeLi
         } else {
             // left
             path = TreeUtils.getPath( NodeToNode.findMatchingNode( root, pathOtherTree, taskLeft ));
-//            match = TaskUtils.getMatchOr( taskLeft, node );
         }
         return path;
     }
@@ -347,7 +325,7 @@ public class DiffTree<T extends Content> extends JPanel implements SynchronizeLi
             Log.warning( "synchronized scrolling failed to match (?)" ); // NON-NLS
         }
 
-        myEvent = true;
+  //      myEvent = true;
         if ( expanded ) {
             tree.expandPath( path );
         } else {
@@ -361,7 +339,7 @@ public class DiffTree<T extends Content> extends JPanel implements SynchronizeLi
             public void eventOccured(final TreePath path) {
                 tree.expandPath( path );
                 Rectangle rec = tree.getPathBounds( path );
-                myScroll = true;
+//                myScroll = true;
                 Scrolling.scrollToMiddle( scroll.getViewport(), rec );
                 tree.setSelectionPath( path );
             }
