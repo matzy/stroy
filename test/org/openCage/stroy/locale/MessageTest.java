@@ -45,6 +45,6 @@ public class MessageTest extends TestCase {
     }
 
     public void testEspaniol() {
-        assertEquals( "Comparare", Message.get( new Locale( "es" ), "Popup.diff" ));
+        assertEquals( "Comparar", Message.get( new Locale( "es" ), "Popup.diff" ));
     }
 }

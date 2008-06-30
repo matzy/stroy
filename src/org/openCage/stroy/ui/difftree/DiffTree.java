@@ -85,7 +85,7 @@ public class DiffTree<T extends Content> extends JPanel implements SynchronizeLi
     private final DefaultMutableTreeNode        root;
     private final int                           idx;
 //    private boolean                             myEvent = false;
-//    private boolean                             myScroll = false;
+    private boolean                             myScroll = false;
     private PopupSelector                       popup;
     private SkvTree                             skvLeft;
     private SkvTree                             skvRight;
@@ -174,11 +174,11 @@ public class DiffTree<T extends Content> extends JPanel implements SynchronizeLi
                 // vertical scrollbar was moved
 
 
-//                if ( myScroll ) {
-//                    myScroll = false;
+                if ( myScroll ) {
+                    myScroll = false;
 //                    Log.warning( "+++++++ skip ++++++ " + this  );
-////                    return;
-//                }
+                    return;
+                }
 
                 Log.finest( "scroll event " + idx ); // NON-NLS
 
@@ -194,11 +194,6 @@ public class DiffTree<T extends Content> extends JPanel implements SynchronizeLi
                         int vy = (int)scroll.getViewport().getViewRect().getY();
                         int hy = (int)(scroll.getViewport().getViewRect().getHeight() / 2);
                         int yy = vy + hy;
-
-//                        int row = tree.getSelectionRows()[0];
-//
-//                        tree.getRowBounds();
-
 
                         tree.setSelectionPath(tree.getClosestPathForLocation( 0, yy ));
 
@@ -299,6 +294,7 @@ public class DiffTree<T extends Content> extends JPanel implements SynchronizeLi
 
 
         Rectangle here = tree.getPathBounds( path );
+        myScroll = true;
         Scrolling.scrollToRelative( scroll.getViewport(), here, rect );
         tree.setSelectionPath( path );
     }
@@ -333,13 +329,12 @@ public class DiffTree<T extends Content> extends JPanel implements SynchronizeLi
         }
     }
 
-    //    private void addObjectListener( SkyViewBar skv, final TreeNode<T> nodeRoot) {
     private void addObjectListener( SkvTree skv ) {
         skv.addObjectListener( new ObjectListener<TreePath>() {
             public void eventOccured(final TreePath path) {
                 tree.expandPath( path );
                 Rectangle rec = tree.getPathBounds( path );
-//                myScroll = true;
+                myScroll = true;
                 Scrolling.scrollToMiddle( scroll.getViewport(), rec );
                 tree.setSelectionPath( path );
             }
@@ -350,15 +345,6 @@ public class DiffTree<T extends Content> extends JPanel implements SynchronizeLi
     public JTree getTree() {
         return tree;
     }
-
-//    public SkyViewBar getSkyView() {
-//        if ( skvLeft != null ) {
-//            return skvLeft;
-//        }
-//
-//        return skvRight;
-//
-//    }
 
     public void refresh() {
 
