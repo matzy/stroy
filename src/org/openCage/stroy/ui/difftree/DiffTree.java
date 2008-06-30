@@ -225,7 +225,7 @@ public class DiffTree<T extends Content> extends JPanel implements SynchronizeLi
                 }
 
                 Rectangle rec     = tree.getPathBounds( treeSelectionEvent.getPath() );
-                Rectangle  relRec  = Scrolling.getRelativeLocation( scroll.getViewport(), rec );
+                Rectangle  relRec = Scrolling.getRelativeLocation( scroll.getViewport(), rec );
 
                 if ( relRec == null ) {
                     return;
@@ -292,10 +292,11 @@ public class DiffTree<T extends Content> extends JPanel implements SynchronizeLi
             Log.warning( "synchronized scrolling failed to match (?)" ); // NON-NLS
         }
 
-
         Rectangle here = tree.getPathBounds( path );
         myScroll = true;
         Scrolling.scrollToRelative( scroll.getViewport(), here, rect );
+        myScroll = false;
+
         tree.setSelectionPath( path );
     }
 
@@ -336,6 +337,7 @@ public class DiffTree<T extends Content> extends JPanel implements SynchronizeLi
                 Rectangle rec = tree.getPathBounds( path );
                 myScroll = true;
                 Scrolling.scrollToMiddle( scroll.getViewport(), rec );
+                myScroll = false;
                 tree.setSelectionPath( path );
             }
         });
