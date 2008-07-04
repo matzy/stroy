@@ -2,6 +2,9 @@ package org.openCage.util.external;
 
 import com.muchsoft.util.Sys;
 import org.openCage.util.logging.Log;
+import org.jdesktop.jdic.desktop.DesktopException;
+import org.jdesktop.jdic.desktop.Desktop;
+
 import java.util.Arrays;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -55,7 +58,8 @@ public class ExternalProgs {
                 return;
             } else if ( Sys.isWindows() ) {
                 // windows has cmd
-                execWinOpen( args[0] );
+//                execWinOpen( args[0] );
+                jdicOpen( args[0]);
                 return;
             }
 
@@ -119,6 +123,16 @@ public class ExternalProgs {
 
     private static void linuxOpenWithText(String arg ) {
         execProg( findxterm(), "-e", "vi", arg); //"\"" + arg + "\"");
+    }
+
+
+    private static void jdicOpen( String file ) {
+        try {
+            Desktop.open(new File(file));
+        } catch ( DesktopException e) {
+            e.printStackTrace();
+            Log.warning( "could not open " + file );
+        }
     }
 
     // windows system open

@@ -4,12 +4,15 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.muchsoft.util.Sys;
 import org.openCage.stroy.RuntimeModule;
+import org.openCage.stroy.UpdateChecker;
+import org.openCage.stroy.app.StroyAppInfo;
 import org.openCage.stroy.ui.prefs.StandardProgUI;
 import org.openCage.util.prefs.Preferences;
 import org.openCage.util.prefs.PreferenceString;
 import org.openCage.util.prefs.PListSelectionString;
 import org.openCage.util.prefs.ListSelection;
 import org.openCage.util.logging.LogHandlerPanel;
+import org.openCage.util.app.AppInfo;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -51,6 +54,10 @@ public class Main  {
 
 
         Injector injector = Guice.createInjector( new RuntimeModule() );
+
+        UpdateChecker update = injector.getInstance( UpdateChecker.class );
+
+        update.check();
 
         DirSelector dirSelector = injector.getInstance( DirSelector.class);
         dirSelector.setVisible( true );

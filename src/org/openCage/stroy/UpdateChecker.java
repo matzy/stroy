@@ -2,11 +2,15 @@ package org.openCage.stroy;
 
 import org.openCage.util.app.Version;
 import org.openCage.util.app.VersionImpl;
+import org.openCage.util.app.AppInfo;
+import org.openCage.util.logging.Log;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
 import java.net.URL;
+
+import com.google.inject.Inject;
 
 /***** BEGIN LICENSE BLOCK *****
  * Version: MPL 1.1
@@ -32,15 +36,23 @@ import java.net.URL;
 
 public class UpdateChecker {
 
+
+    private final AppInfo appInfo;
+
+    @Inject
+    public UpdateChecker( final AppInfo appInfo ) {
+        this.appInfo = appInfo;
+    }
+
     public Version getLatestVersion() {
         try {
             BufferedReader reader =  new BufferedReader(
                     new InputStreamReader(
-                            new URL( "http://stroy.wikidot.com/download" ).openStream()));
+                            new URL( "http://stroy.wikidot.com/current" ).openStream()));
 
             String line = reader.readLine();
 
-            String key = "Current version";
+            String key = "current version is";
 
             while (line != null) {
                 if ( line.contains( key )) {
@@ -52,37 +64,30 @@ public class UpdateChecker {
                 line = reader.readLine(); }
 
         } catch ( IOException e ) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            Log.warning( "can not read update page" );
+        } catch ( NumberFormatException exp ) {
+            Log.warning( "update page has unexpected formatting" );
         }
 
-
-        return new VersionImpl( 0,1,42);
+        return appInfo.getVersion();
     }
 
-    public static void main( String[] args ) {
+    public void check() {
 
-        System.out.println( new UpdateChecker().getLatestVersion() );
+//        if ( getLatestVersion().compareTo( appInfo.getVersion()) < 0 ) {
+            new UpdateInfo().setVisible( true );            
+  //      }
 
     }
+    
+
+//    public static void main( String[] args ) {
+//
+//        System.out.println( new UpdateChecker().getLatestVersion() );
+//
+//    }
+
+    
 
 
 }
-
-//import java.io.*;
-//import java.net.URL;
-//
-//public class WebsiteReader
-//{
-//	public static BufferedReader read(String url) throws Exception{
-//		return new BufferedReader(
-//			new InputStreamReader(
-//				new URL(url).openStream()));}
-//
-//	public static void main (String[] args) throws Exception{
-//		BufferedReader reader = read(args[0]);
-//		String line = reader.readLine();
-//
-//		while (line != null) {
-//			System.out.println(line);
-//			line = reader.readLine(); }}
-//}
