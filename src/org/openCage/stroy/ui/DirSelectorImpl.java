@@ -17,6 +17,7 @@ import org.openCage.stroy.graph.matching.strategy.combined.StandardFirst;
 import org.openCage.stroy.ui.prefs.PrefsUI;
 import org.openCage.stroy.ui.menu.PortableMenu;
 import org.openCage.stroy.RuntimeModule;
+import org.openCage.stroy.UpdateChecker;
 import org.openCage.stroy.locale.Message;
 import org.openCage.util.ui.FileChooser;
 import org.openCage.util.app.About;
@@ -88,12 +89,16 @@ public class DirSelectorImpl extends JFrame
 
     private MatchStrategy<FileContent> matchStrategy;
 
+    private final UpdateChecker updateChecker;
+
 
     @Inject
-    public DirSelectorImpl( AppInfo appInfo ) {
+    public DirSelectorImpl( AppInfo appInfo, UpdateChecker updateChecker ) {
         super( "stroy");
 
-        this.appInfo = appInfo;
+        this.appInfo       = appInfo;
+        this.updateChecker = updateChecker;
+
         Java14Adapter.registerJava14Handler( this );
         Java14Adapter.setEnabledPrefs( true );
 
@@ -331,4 +336,11 @@ public class DirSelectorImpl extends JFrame
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
+
+    @Override
+    public void setVisible( boolean b ) {
+        super.setVisible( b );
+
+        updateChecker.check();
+    }
 }

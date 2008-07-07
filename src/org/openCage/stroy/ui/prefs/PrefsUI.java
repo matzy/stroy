@@ -45,7 +45,8 @@ public class PrefsUI extends JFrame {
     }
 
 
-    private ExternalPref fileTypes = new ExternalPref( this );
+    private ExternalPref fileTypes   = new ExternalPref( this );
+    private UpdatePrefs  updatePrefs = new UpdatePrefs();
 
     private PrefsUI() {
         createLayout();
@@ -62,6 +63,7 @@ public class PrefsUI extends JFrame {
         tabbed.addTab( Message.get( "Pref.Filter.title" ), null,  new FilterFrameDetails());
         tabbed.addTab( Message.get( "Pref.StandardProgs.title" ), null,  new StandardProgUI( this ));
         tabbed.addTab( Message.get( "Pref.Logging.title" ), null,  new LogPrefs());
+        tabbed.addTab( Message.get( "Pref.Update.title" ), null,  updatePrefs );
 
         getContentPane().add( tabbed, BorderLayout.CENTER );
 

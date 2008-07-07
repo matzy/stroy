@@ -55,7 +55,7 @@ public class ExternalPref extends JPanel {
     private JButton diffReset = new JButton( Message.get( "Button.reset" ) );
     private JList extList;
     private JButton openReset = new JButton( Message.get( "Button.reset" ) );
-    private final JButton addButton = new JButton( "+" );
+//    private final JButton addButton = new JButton( "+" );
     private final JButton openDir = new JButton( ".." );
     private final JButton diffDir = new JButton( ".." );
     private final JTextField diffOtherText = new JTextField("");
@@ -91,7 +91,7 @@ public class ExternalPref extends JPanel {
 
         createLayout();
         setEnabledAll( false );
-        addButton.setEnabled( false );
+//        addButton.setEnabled( false );
         addListeners();
     }
 
@@ -376,7 +376,7 @@ public class ExternalPref extends JPanel {
         layoutB.row().add( new JLabel("  ") );
         layoutB.row().add( new JLabel("  ") );
         layoutB.row().add( new JLabel("  ") );
-        layoutB.row().add( addButton, 2 ).add( new JLabel(" "), 8);
+//        layoutB.row().add( addButton, 2 ).add( new JLabel(" "), 8);
 
 
 

@@ -55,10 +55,6 @@ public class Main  {
 
         Injector injector = Guice.createInjector( new RuntimeModule() );
 
-        UpdateChecker update = injector.getInstance( UpdateChecker.class );
-
-        update.check();
-
         DirSelector dirSelector = injector.getInstance( DirSelector.class);
         dirSelector.setVisible( true );
 

@@ -37,11 +37,13 @@ import com.google.inject.Inject;
 public class UpdateChecker {
 
 
-    private final AppInfo appInfo;
+    private final AppInfo     appInfo;
+    private final UpdateInfo  updateView;
 
     @Inject
-    public UpdateChecker( final AppInfo appInfo ) {
-        this.appInfo = appInfo;
+    public UpdateChecker( final AppInfo appInfo, final UpdateInfo  updateView ) {
+        this.appInfo    = appInfo;
+        this.updateView = updateView;
     }
 
     public Version getLatestVersion() {
@@ -75,7 +77,7 @@ public class UpdateChecker {
     public void check() {
 
 //        if ( getLatestVersion().compareTo( appInfo.getVersion()) < 0 ) {
-            new UpdateInfo().setVisible( true );            
+            updateView.setCurrent( appInfo.getVersion() ).setVisible( true );
   //      }
 
     }

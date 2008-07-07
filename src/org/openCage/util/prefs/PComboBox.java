@@ -87,9 +87,9 @@ public class PComboBox extends JComboBox {
         });
     }
 
-    public PreferenceItem<ListSelection<String>> getItem() {
-        return item;
-    }
+//    public PreferenceItem<ListSelection<String>> getItem() {
+//        return item;
+//    }
     
 
 
