@@ -29,7 +29,7 @@ public class Preferences implements Persistable {
     // static
 
     private static Preferences thePref;
-    private static String name;
+    private static String      name;
 
     public static void setDirty() {
         get().dirty = true;
@@ -41,6 +41,7 @@ public class Preferences implements Persistable {
         setDirty();
     }
 
+    // TODO next
     private static synchronized Preferences get() {
         if ( thePref == null ) {
             thePref = Persistence.load( new Preferences(), name);

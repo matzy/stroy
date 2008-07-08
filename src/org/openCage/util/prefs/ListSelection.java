@@ -1,7 +1,10 @@
 package org.openCage.util.prefs;
 
+import org.openCage.util.logging.Log;
+
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -24,19 +27,40 @@ import java.util.ArrayList;
 *
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
+
+/**
+ * A list class with a marker for a selected element
+ */
 public class ListSelection<T> {
 
-    public List<T> list;
-    public T       selection;
+    public  List<T> list;
+    private T       selection;
+
+    public ListSelection( List<T> list, T sel ) {
+        this.list = new ArrayList<T>( list );
+        setSelection( sel );
+    }
+
 
     public ListSelection( T[] list, T sel ) {
-        this.list = new ArrayList<T>();
+        this( Arrays.asList( list), sel );
+    }
 
-        for ( T t : list ) {
-            this.list.add( t );
+
+    public T getSelection() {
+        return selection;
+    }
+
+    /**
+     * set the selected element of the list
+     * @param selection A valid element of the list
+     */
+    public void setSelection( T selection ) {
+        if ( !list.contains( selection ) ) {
+            Log.warning( "selection outside list: ignored" );
+            throw new IllegalArgumentException( "selection outside list"  );
         }
 
-        selection = sel;
-
+        this.selection = selection;
     }
 }

@@ -26,7 +26,7 @@ import java.util.List;
 *
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
-public class PListSelectionString extends PreferenceBase<ListSelection<String>> {
+public class  PListSelectionString extends PreferenceBase<ListSelection<String>> {
 
 
     public static PListSelectionString create( String key, ListSelection<String> val ) {
@@ -51,6 +51,8 @@ public class PListSelectionString extends PreferenceBase<ListSelection<String>> 
     }
 
     public static PListSelectionString create( String key ) {
+
+
         PreferenceItem item = Preferences.getItem( key );
 
         if ( item == null ) {

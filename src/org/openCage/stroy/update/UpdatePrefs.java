@@ -1,4 +1,4 @@
-package org.openCage.stroy.ui.prefs;
+package org.openCage.stroy.update;
 
 import zappini.designgridlayout.DesignGridLayout;
 

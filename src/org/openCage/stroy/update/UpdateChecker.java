@@ -1,9 +1,10 @@
-package org.openCage.stroy;
+package org.openCage.stroy.update;
 
 import org.openCage.util.app.Version;
 import org.openCage.util.app.VersionImpl;
 import org.openCage.util.app.AppInfo;
 import org.openCage.util.logging.Log;
+import org.openCage.stroy.update.UpdateInfo;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -41,7 +42,7 @@ public class UpdateChecker {
     private final UpdateInfo  updateView;
 
     @Inject
-    public UpdateChecker( final AppInfo appInfo, final UpdateInfo  updateView ) {
+    public UpdateChecker( final AppInfo appInfo, final UpdateInfo updateView ) {
         this.appInfo    = appInfo;
         this.updateView = updateView;
     }

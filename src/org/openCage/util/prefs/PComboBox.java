@@ -43,11 +43,11 @@ public class PComboBox extends JComboBox {
 
 
 
-        setSelectedItem( item.get().selection );
+        setSelectedItem( item.get().getSelection() );
 
         addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
-                item.get().selection = ( (String)getSelectedItem() );
+                item.get().setSelection( (String)getSelectedItem() );
                 item.setDirty();
             }
         });
@@ -57,11 +57,11 @@ public class PComboBox extends JComboBox {
 
         item.addListener( new PreferencesChangeListener<ListSelection<String>>() {
             public void changed(ListSelection<String> lsel ) {
-                if ( lsel.selection.equals( (String)me.getSelectedItem() )) {
+                if ( lsel.getSelection().equals( (String)me.getSelectedItem() )) {
                     return;
                 }
 
-                me.setSelectedItem( lsel.selection );
+                me.setSelectedItem( lsel.getSelection() );
             }
         });
 
@@ -77,11 +77,11 @@ public class PComboBox extends JComboBox {
             ((DefaultComboBoxModel)getModel()).addElement( elem );
         }
 
-        setSelectedItem( item.get().selection );
+        setSelectedItem( item.get().getSelection() );
 
         addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
-                item.get().selection = ( (String)getSelectedItem() );
+                item.get().setSelection( (String)getSelectedItem() );
                 item.setDirty();
             }
         });

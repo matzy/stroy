@@ -4,6 +4,7 @@ import org.openCage.stroy.ui.prefs.ExternalPref;
 import org.openCage.stroy.ui.prefs.StandardProgUI;
 import org.openCage.stroy.ui.prefs.FilterFrameDetails;
 import org.openCage.stroy.locale.Message;
+import org.openCage.stroy.update.UpdatePrefs;
 import org.openCage.util.io.FileUtils;
 
 import javax.swing.*;
@@ -46,7 +47,7 @@ public class PrefsUI extends JFrame {
 
 
     private ExternalPref fileTypes   = new ExternalPref( this );
-    private UpdatePrefs  updatePrefs = new UpdatePrefs();
+    private UpdatePrefs updatePrefs = new UpdatePrefs();
 
     private PrefsUI() {
         createLayout();

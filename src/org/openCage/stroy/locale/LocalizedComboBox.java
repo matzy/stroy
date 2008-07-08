@@ -50,11 +50,11 @@ public class LocalizedComboBox extends JComboBox {
             ((DefaultComboBoxModel)getModel()).addElement( loc );
         }
 
-        setSelectedItem( Message.get( item.get().selection ));
+        setSelectedItem( Message.get( item.get().getSelection() ));
 
         addActionListener( new ActionListener() {
             public void actionPerformed( ActionEvent actionEvent) {
-                item.get().selection = reverse.get( getSelectedItem() );
+                item.get().setSelection(reverse.get( getSelectedItem() ));
                 item.setDirty();
             }
         });
@@ -64,50 +64,50 @@ public class LocalizedComboBox extends JComboBox {
 
         item.addListener( new PreferencesChangeListener<ListSelection<String>>() {
             public void changed( ListSelection<String> lsel ) {
-                if ( lsel.selection.equals( reverse.get(me.getSelectedItem() ))) {
+                if ( lsel.getSelection().equals( reverse.get(me.getSelectedItem() ))) {
                     return;
                 }
 
-                me.setSelectedItem( Message.get(lsel.selection ));
+                me.setSelectedItem( Message.get(lsel.getSelection() ));
             }
         });
 
     }
 
-    public LocalizedComboBox( final String key, ListSelection<String> ini ) {
-
-        setModel( new DefaultComboBoxModel());
-
-        item = PListSelectionString.create( key, ini );
-
-        for ( String elem : item.get().list ) {
-            String loc = Message.get( elem );
-            reverse.put( loc, elem );
-            ((DefaultComboBoxModel)getModel()).addElement( loc );
-        }
-
-        setSelectedItem( Message.get( item.get().selection ));
-
-        addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent actionEvent) {
-                item.get().selection = reverse.get( getSelectedItem() );
-                item.setDirty();
-            }
-        });
-
-
-        final JComboBox me = this;
-
-        item.addListener( new PreferencesChangeListener<ListSelection<String>>() {
-            public void changed( ListSelection<String> lsel ) {
-                if ( lsel.selection.equals( reverse.get(me.getSelectedItem() ))) {
-                    return;
-                }
-
-                me.setSelectedItem( Message.get(lsel.selection ));
-            }
-        });
-    }
+//    public LocalizedComboBox( final String key, ListSelection<String> ini ) {
+//
+//        setModel( new DefaultComboBoxModel());
+//
+//        item = PListSelectionString.create( key, ini );
+//
+//        for ( String elem : item.get().list ) {
+//            String loc = Message.get( elem );
+//            reverse.put( loc, elem );
+//            ((DefaultComboBoxModel)getModel()).addElement( loc );
+//        }
+//
+//        setSelectedItem( Message.get( item.get().getSelection() ));
+//
+//        addActionListener( new ActionListener() {
+//            public void actionPerformed( ActionEvent actionEvent) {
+//                item.get().setSelection(reverse.get( getSelectedItem() ));
+//                item.setDirty();
+//            }
+//        });
+//
+//
+//        final JComboBox me = this;
+//
+//        item.addListener( new PreferencesChangeListener<ListSelection<String>>() {
+//            public void changed( ListSelection<String> lsel ) {
+//                if ( lsel.getSelection().equals( reverse.get(me.getSelectedItem() ))) {
+//                    return;
+//                }
+//
+//                me.setSelectedItem( Message.get(lsel.getSelection() ));
+//            }
+//        });
+//    }
 
 //    public PreferenceItem<ListSelection<String>> getItem() {
 //        return item;

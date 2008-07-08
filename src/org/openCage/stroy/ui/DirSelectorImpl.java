@@ -8,22 +8,18 @@ import com.muchsoft.util.mac.Java14Adapter;
 import com.muchsoft.util.mac.Java14Handler;
 import org.openCage.util.io.FileUtils;
 import org.openCage.stroy.dir.FileContent;
-import org.openCage.stroy.filter.Ignore;
-import org.openCage.stroy.filter.IgnoreCentral;
-import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.graph.matching.strategy.MatchStrategy;
 import org.openCage.stroy.graph.matching.strategy.combined.StructureOnly;
 import org.openCage.stroy.graph.matching.strategy.combined.StandardFirst;
 import org.openCage.stroy.ui.prefs.PrefsUI;
 import org.openCage.stroy.ui.menu.PortableMenu;
 import org.openCage.stroy.RuntimeModule;
-import org.openCage.stroy.UpdateChecker;
+import org.openCage.stroy.update.UpdateChecker;
 import org.openCage.stroy.locale.Message;
 import org.openCage.util.ui.FileChooser;
 import org.openCage.util.app.About;
 import org.openCage.util.app.AboutImpl;
 import org.openCage.util.app.AppInfo;
-import org.openCage.util.logging.Log;
 import org.openCage.util.logging.LogHandlerPanel;
 import org.openCage.util.prefs.PreferencesChangeListener;
 import org.openCage.util.prefs.TextField;
@@ -31,14 +27,11 @@ import org.openCage.util.prefs.PComboBox;
 import zappini.designgridlayout.DesignGridLayout;
 
 import javax.swing.*;
-import javax.swing.tree.DefaultMutableTreeNode;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EventObject;
-import java.util.List;
 import java.io.File;
 
 /***** BEGIN LICENSE BLOCK *****
