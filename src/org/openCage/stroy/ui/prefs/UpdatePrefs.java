@@ -13,13 +13,15 @@ import org.openCage.stroy.locale.LocalizedComboBox;
 public class UpdatePrefs extends JPanel {
 
     private JButton                 checkNow        = new JButton( );
-    private final LocalizedComboBox updateInterval  = new LocalizedComboBox( "update.interval" );
+    private final LocalizedComboBox updateInterval;
 
 
     public UpdatePrefs() {
 
-        String[] levelNames = { "Update.Every", "Update.Weekly", "Update.Monthly", "Update.Never" };
-        PListSelectionString.create( "update.interval", new ListSelection( levelNames, "Update.Weekly" ));
+        String[] levelNames = { "Pref.Update.Every", "Pref.Update.Weekly", "Pref.Update.Monthly", "Pref.Update.Never" };
+        
+        updateInterval  = new LocalizedComboBox( "update.interval",
+                PListSelectionString.create( "update.interval", new ListSelection( levelNames, "Pref.Update.Weekly" )).get());
 
 
         JPanel top = new JPanel();

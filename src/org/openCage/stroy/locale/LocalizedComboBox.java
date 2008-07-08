@@ -109,9 +109,9 @@ public class LocalizedComboBox extends JComboBox {
         });
     }
 
-    public PreferenceItem<ListSelection<String>> getItem() {
-        return item;
-    }
+//    public PreferenceItem<ListSelection<String>> getItem() {
+//        return item;
+//    }
 
 
 
