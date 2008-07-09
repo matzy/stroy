@@ -1,10 +1,5 @@
 package org.openCage.util.prefs;
 
-import org.openCage.stroy.file.Action;
-
-import java.util.Map;
-import java.util.List;
-
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
 *
@@ -29,7 +24,12 @@ import java.util.List;
 public class  PListSelectionString extends PreferenceBase<ListSelection<String>> {
 
 
-    public static PListSelectionString create( String key, ListSelection<String> val ) {
+    public static PListSelectionString getOrCreate( String key, String sel, String ... vals ) {
+        return getOrCreate( key, new ListSelection<String>( sel, vals ));
+    }
+
+
+    public static PListSelectionString getOrCreate( String key, ListSelection<String> val ) {
 
         PreferenceItem item = Preferences.getItem( key );
 
@@ -50,18 +50,20 @@ public class  PListSelectionString extends PreferenceBase<ListSelection<String>>
         throw new IllegalArgumentException( "type mismatch" );
     }
 
-    public static PListSelectionString create( String key ) {
+    public static PListSelectionString get( String key ) {
 
 
         PreferenceItem item = Preferences.getItem( key );
 
         if ( item == null ) {
 
-            String[] tmp = {"1"};
-            PListSelectionString newItem = new PListSelectionString( new ListSelection<String>(tmp,"1"));
-            Preferences.add( key, newItem );
+            throw new IllegalStateException( "item does not exist yet" );
 
-            return newItem;
+//            String[] tmp = {"1"};
+//            PListSelectionString newItem = new PListSelectionString( new ListSelection<String>("1",tmp));
+//            Preferences.add( key, newItem );
+//
+//            return newItem;
         }
 
         if ( item instanceof PListSelectionString ) {

@@ -75,7 +75,7 @@ public class FuzzyHashGenText implements FuzzyHashGenerator<File> {
 //
 //        }
 //
-//        return fuzzyHashSetFactory.create( set );
+//        return fuzzyHashSetFactory.getOrCreate( set );
 //    }
 
     public FuzzyHash generate( final File file ) {

@@ -79,7 +79,7 @@ public class DiffPopup<T extends Content> extends JPopupMenu {
 
                     String cmd = fileTypes.getDiffType(FileUtils.getExtension(nodes.i0.getContent().getName()));
 //                    if ( cmd != null && cmd.equals( ExternalProgs.STANDARD_DIFF )) {
-//                        cmd = PreferenceString.create( StandardProgUI.STANDARD_DIFF_KEY).get();
+//                        cmd = PreferenceString.getOrCreate( StandardProgUI.STANDARD_DIFF_KEY).get();
 //                    }
 
                     externalProgs.execute( cmd,
@@ -139,7 +139,7 @@ public class DiffPopup<T extends Content> extends JPopupMenu {
                         return;
                     }
 
-                    String cmd = PreferenceString.create( StandardProgUI.STANDARD_TEXT_EDITOR_KEY ).get();
+                    String cmd = PreferenceString.get( StandardProgUI.STANDARD_TEXT_EDITOR_KEY ).get();
                     externalProgs.execute( cmd, file.getAbsolutePath() );
 
                 }

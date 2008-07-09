@@ -36,15 +36,15 @@ import java.util.HashMap;
 public class LocalizedComboBox extends JComboBox {
 
     private final PreferenceItem<ListSelection<String>> item;
-    private final Map<String,String> reverse=  new HashMap<String, String>();
+    private final Map<String,String>                    reverse=  new HashMap<String, String>();
 
     public LocalizedComboBox( final String key ) {
 
         setModel( new DefaultComboBoxModel());
 
-        item = PListSelectionString.create( key );
+        item = PListSelectionString.get( key );
 
-        for ( String elem : item.get().list ) {
+        for ( String elem : item.get().getList() ) {
             String loc = Message.get( elem );
             reverse.put( loc, elem );
             ((DefaultComboBoxModel)getModel()).addElement( loc );
@@ -78,7 +78,7 @@ public class LocalizedComboBox extends JComboBox {
 //
 //        setModel( new DefaultComboBoxModel());
 //
-//        item = PListSelectionString.create( key, ini );
+//        item = PListSelectionString.getOrCreate( key, ini );
 //
 //        for ( String elem : item.get().list ) {
 //            String loc = Message.get( elem );

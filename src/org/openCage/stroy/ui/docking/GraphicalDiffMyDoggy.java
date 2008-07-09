@@ -231,7 +231,7 @@ public class GraphicalDiffMyDoggy<T extends Content> extends JFrame implements I
         menu.setFrame( this );
         menu.create();
 
-//        IgnoreCentral.create().addListener( this );
+//        IgnoreCentral.getOrCreate().addListener( this );
 //
 //        Central.diffPane = diffPane;
 //        Central.tasks    = this.tasks;
@@ -363,9 +363,9 @@ public class GraphicalDiffMyDoggy<T extends Content> extends JFrame implements I
 //        pack();
 //
 //        menu.setFrame( this );
-//        menu.create();
+//        menu.getOrCreate();
 //
-//        IgnoreCentral.create().addListener( this );
+//        IgnoreCentral.getOrCreate().addListener( this );
 //
 //        Central.diffPane = diffPane;
 //        Central.tasks    = tasks;

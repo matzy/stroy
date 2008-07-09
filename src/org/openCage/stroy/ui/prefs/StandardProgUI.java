@@ -4,8 +4,6 @@ import zappini.designgridlayout.DesignGridLayout;
 
 import javax.swing.*;
 
-import org.openCage.util.prefs.TextField;
-import org.openCage.util.prefs.Prefs;
 import org.openCage.util.prefs.PreferenceString;
 import org.openCage.util.ui.FileChooser;
 import org.openCage.util.io.FileUtils;
@@ -52,8 +50,8 @@ public class StandardProgUI extends JPanel {
     private final JButton resetButton = new JButton( "reset");
 //    private final JTextField openText = new JTextField("opens the file with the assigned program");
     private final JTextField editorText = new JTextField();
-    private final PreferenceString editorPref =  PreferenceString.create( STANDARD_TEXT_EDITOR_KEY );
-    private final PreferenceString diffPref =  PreferenceString.create( STANDARD_DIFF_KEY );
+    private final PreferenceString editorPref =  PreferenceString.get( STANDARD_TEXT_EDITOR_KEY );
+    private final PreferenceString diffPref =  PreferenceString.get( STANDARD_DIFF_KEY );
 
     private final JButton editButton = new JButton("..");
     private final JRadioButton stdEdit   = new JRadioButton( Message.get( "Pref.StandardProgs.osText" ));

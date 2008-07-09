@@ -156,12 +156,6 @@ public class RuntimeModule implements Module {
 
         binder.bind( DirSelector.class ).to( DirSelectorImpl.class );
 
-        // version
-        binder.bind( Version.class).to( VersionImpl.class );
-        binder.bindConstant().annotatedWith( ForMajor.class ).to(0);
-        binder.bindConstant().annotatedWith( ForMinor.class ).to(10);
-        binder.bindConstant().annotatedWith( ForBuildNumber.class ).to(199);
-
         binder.bind( AppInfo.class ).to( StroyAppInfo.class );
 
         binder.bind( ExecProvider.class ).to(ExecProviderImpl.class );

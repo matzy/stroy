@@ -27,6 +27,6 @@ import org.openCage.util.app.gen.GenWikiRefs;
 public class GenWikiRefStroy {
 
     public static void main(String[] args) {
-        new GenWikiRefs( new StroyAppInfo( null )).gen();
+        new GenWikiRefs( new StroyAppInfo()).gen();
     }
 }

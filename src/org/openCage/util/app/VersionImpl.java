@@ -23,19 +23,27 @@ import com.google.inject.Inject;
 *
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
-public class VersionImpl implements Version, Comparable<Version>{
+public class VersionImpl implements Comparable<VersionImpl>{
     private final int major;
     private final int minor;
+    private final int patch;
     private final int build;
 
 
-    @Inject
-    public VersionImpl( @ForMajor int major, @ForMinor int minor, @ForBuildNumber int build ) {
+    public VersionImpl( int major, int minor, int build ) {
         this.major = major;
         this.minor = minor;
+        patch = 0;
         this.build = build;
-
     }
+
+    public VersionImpl( int major, int minor, int patch, int build ) {
+        this.major = major;
+        this.minor = minor;
+        this.patch = patch;
+        this.build = build;
+    }
+
 
     public int getMajor() {
         return major;
@@ -51,10 +59,10 @@ public class VersionImpl implements Version, Comparable<Version>{
 
 
     public String toString() {
-        return "" + major + "." + minor + "." + build;
+        return "" + major + "." + minor + "." + patch + "." + build;
     }
 
-    public int compareTo(Version version) {
+    public int compareTo(VersionImpl version) {
 
         return build - version.getBuildNum();
     }
@@ -75,13 +83,18 @@ public class VersionImpl implements Version, Comparable<Version>{
         return build;
     }
 
-    public static Version parseVersion( String str ) {
+    public static VersionImpl parseVersion( String str ) {
         String[] parts = str.split( "\\." );
 
-        if ( parts.length != 3 ) {
-            throw new IllegalArgumentException( "not a version" );
+        if ( parts.length == 3 ) {
+            return new VersionImpl( Integer.parseInt( parts[0] ), Integer.parseInt( parts[1] ), Integer.parseInt( parts[2] ) );
+
         }
 
-        return new VersionImpl( Integer.parseInt( parts[0] ), Integer.parseInt( parts[1] ), Integer.parseInt( parts[2] ) );
+        if ( parts.length == 4 ) {
+            return new VersionImpl( Integer.parseInt( parts[0] ), Integer.parseInt( parts[1] ), Integer.parseInt( parts[2] ), Integer.parseInt( parts[3] ));
+        }
+
+        throw new IllegalArgumentException( "not a version" );
     }
 }

@@ -24,7 +24,15 @@ package org.openCage.util.prefs;
 public class PreferenceString extends PreferenceBase<String> {
 
 
-    public static PreferenceString create( String key, String val ) {
+    /**
+     * get or getOrCreate a PreferenceString
+     * if it does not exist yet getOrCreate one with the given value
+     * if it exits return that without changing the value
+     * @param key The key.
+     * @param val The initial value.
+     * @return A Persisted string associated to the key
+     */
+    public static PreferenceString getOrCreate( String key, String val ) {
         PreferenceItem item = Preferences.getItem( key );
 
         if ( item == null ) {
@@ -44,15 +52,22 @@ public class PreferenceString extends PreferenceBase<String> {
         throw new IllegalArgumentException( "type mismatch" );
     }
 
-    public static PreferenceString create( String key ) {
+    /**
+     * Get an exiting PreferenceString
+     * @param key
+     * @return
+     */
+    public static PreferenceString get( String key ) {
         PreferenceItem item = Preferences.getItem( key );
 
         if ( item == null ) {
 
-            PreferenceString newItem = new PreferenceString("");
-            Preferences.add( key, newItem );
-
-            return newItem;
+            throw new IllegalStateException( "prefstring does not exit yet" );
+//
+//            PreferenceString newItem = new PreferenceString("");
+//            Preferences.add( key, newItem );
+//
+//            return newItem;
         }
 
         if ( item instanceof PreferenceString ) {

@@ -1,11 +1,5 @@
 package org.openCage.stroy.file;
 
-import org.openCage.util.prefs.PreferenceStringList;
-import org.openCage.util.prefs.PreferenceItem;
-
-import java.util.List;
-import java.util.Arrays;
-
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
 *
@@ -59,13 +53,13 @@ public class Action {
     }
 
 //    public static PreferenceItem<List<String>> getAlgoList() {
-//        return PreferenceStringList.create(
+//        return PreferenceStringList.getOrCreate(
 //                "stroy.algos",
 //                Arrays.asList( "---", "binary", "text", "xml", "java", "c"));
 //    }
 //
 //    public static PreferenceItem<List<String>> getDiffList() {
-//        return PreferenceStringList.create(
+//        return PreferenceStringList.getOrCreate(
 //                "stroy.diff",
 //                Arrays.asList( "---", "text", "picture"  ));
 //    }

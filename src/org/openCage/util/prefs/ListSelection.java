@@ -5,6 +5,7 @@ import org.openCage.util.logging.Log;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -33,18 +34,19 @@ import java.util.Arrays;
  */
 public class ListSelection<T> {
 
-    public  List<T> list;
-    private T       selection;
+    private  List<T> list;
+    private  T       selection;
 
-    public ListSelection( List<T> list, T sel ) {
+    public ListSelection( T sel, List<T> list  ) {
         this.list = new ArrayList<T>( list );
         setSelection( sel );
     }
 
 
-    public ListSelection( T[] list, T sel ) {
-        this( Arrays.asList( list), sel );
+    public ListSelection( T sel, T ... list ) {
+        this( sel, Arrays.asList( list ));
     }
+
 
 
     public T getSelection() {
@@ -62,5 +64,10 @@ public class ListSelection<T> {
         }
 
         this.selection = selection;
+    }
+
+
+    public List<T> getList() {
+        return Collections.unmodifiableList( list );
     }
 }

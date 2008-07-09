@@ -51,11 +51,11 @@ public class TextField extends JTextField {
     }
 
     public TextField( String key, String init ) {
-        this( PreferenceString.create( key, init ));
+        this( PreferenceString.getOrCreate( key, init ));
     }
 
     public TextField( String key ) {
-        this( PreferenceString.create( key ));
+        this( PreferenceString.get( key ));
     }
 
 

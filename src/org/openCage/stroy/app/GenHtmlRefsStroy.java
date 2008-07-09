@@ -26,6 +26,6 @@ import org.openCage.util.app.gen.GenHtmlRefs;
 
 public class GenHtmlRefsStroy {
     public static void main(String[] args) {
-        new GenHtmlRefs( new StroyAppInfo( null )).gen();
+        new GenHtmlRefs( new StroyAppInfo()).gen();
     }
 }

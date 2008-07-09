@@ -26,7 +26,7 @@ import org.openCage.util.app.gen.GenWikiChange;
 public class GenWikiChangeStroy {
 
     public static void main( String[] args ) {
-        new GenWikiChange( new StroyAppInfo( null )).gen();
+        new GenWikiChange( new StroyAppInfo()).gen();
     }
 
 }

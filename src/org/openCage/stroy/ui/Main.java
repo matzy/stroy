@@ -4,9 +4,6 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import org.openCage.stroy.RuntimeModule;
 import org.openCage.util.prefs.Preferences;
-import org.openCage.util.prefs.PListSelectionString;
-import org.openCage.util.prefs.ListSelection;
-import org.openCage.util.logging.LogHandlerPanel;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -38,14 +35,10 @@ public class Main  {
 
         Preferences.setName( "stroy");
 
-        String[] levelNames = { "ALL", "FINEST", "FINER", "FINE", "CONFIG", "INFO", "WARNING", "SEVERE", "OFF" };
-        PListSelectionString.create( LogHandlerPanel.STROY_LOG_OUT, new ListSelection( levelNames, "INFO" ));
-        PListSelectionString.create( LogHandlerPanel.STROY_LOG_IN, new ListSelection( levelNames, "INFO" ));
 
-        // TODO
-        String[] strategyNames = { "full", "structure only" };
-        PListSelectionString.create( "stroy.first.strategy", new ListSelection( strategyNames, "full" ));
-
+//        // TODO
+//        String[] strategyNames = { "full", "structure only" };
+//        PListSelectionString.getOrCreate( "stroy.first.strategy", new ListSelection( "full", strategyNames ));
 
         Injector injector = Guice.createInjector( new RuntimeModule() );
 

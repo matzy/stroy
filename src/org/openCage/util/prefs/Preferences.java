@@ -41,13 +41,26 @@ public class Preferences implements Persistable {
         setDirty();
     }
 
-    // TODO next
     private static synchronized Preferences get() {
         if ( thePref == null ) {
             thePref = Persistence.load( new Preferences(), name);
         }
 
         return thePref;
+    }
+
+    /**
+     * enable inmemory testing only
+     */
+    static void initForTest() {
+        if ( thePref != null ) {
+            throw new IllegalStateException( "can't init an exisiting prefs" );
+        }
+        thePref = new Preferences();
+    }
+
+    static void clearAfterTest() {
+        thePref = null;
     }
 
     public static PreferenceItem getItem(String key) {
@@ -71,4 +84,5 @@ public class Preferences implements Persistable {
     public void setClean() {
         dirty = false;
     }
+
 }

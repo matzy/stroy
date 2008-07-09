@@ -220,7 +220,7 @@ public class Main {
         add( 60, "f", "test database" ).tag("test");
         add( 64, "f", "measure balance between content and location" ).tag("test").tag("algo");
         add( 71, "d", "generate mf in ant (jar list just once)" ).tag("build");
-        add( 18, "f", "create gui for bugreport" );
+        add( 18, "f", "get gui for bugreport" );
         add( 20, "f", "improve ruby match" ).tag("algo");
         add( 33, "d", "make button in refs work iff mailto: or http" );
         add( 46, "f", "buttons for go to next/prev change" ).tag("ui");
@@ -323,7 +323,7 @@ public class Main {
 
         defaultVersion = "0.8.190";
         add( 170, "d", "introduced Lazy class and refactored some Once usages" );
-        add( 44, "f", "create osx help (duplicate)" ).ref(57).tag("OSX");
+        add( 44, "f", "get osx help (duplicate)" ).ref(57).tag("OSX");
         add( 57, "F", "osx help" ).tag("OSX");
         add( 143, "d", "generate reference section for help" ).ref(57);
 

@@ -1,8 +1,6 @@
 package org.openCage.util.prefs;
 
 import javax.swing.*;
-import java.util.List;
-import java.util.Arrays;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -35,9 +33,9 @@ public class PComboBox extends JComboBox {
 
         setModel( new DefaultComboBoxModel());
 
-        item = PListSelectionString.create( key );
+        item = PListSelectionString.get( key );
 
-        for ( String elem : item.get().list ) {
+        for ( String elem : item.get().getList() ) {
             ((DefaultComboBoxModel)getModel()).addElement( elem );
         }
 
@@ -71,9 +69,9 @@ public class PComboBox extends JComboBox {
 
         setModel( new DefaultComboBoxModel());
 
-        item = PListSelectionString.create( key, ini );
+        item = PListSelectionString.getOrCreate( key, ini );
 
-        for ( String elem : item.get().list ) {
+        for ( String elem : item.get().getList() ) {
             ((DefaultComboBoxModel)getModel()).addElement( elem );
         }
 

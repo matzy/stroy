@@ -34,7 +34,7 @@ public interface AppInfo {
     public String                  getWebpage();
     public Collection<Reference>   getReferences();
     public Collection<Reference>   getBuildRefs();
-    public Version                 getVersion();
+    public VersionImpl             getVersion();
     public String                  getCopyright();
     public String                  getDescription();
 

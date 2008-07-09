@@ -78,7 +78,7 @@ import java.io.*;
  * the native library.  Any of these provisions may be used to skip the
  * search as long as they are performed <i>before</i> the first
  * instance of a com.twmacinta.util.MD5 object is constructed (note that
- * the convenience stream objects will implicitly create an MD5 object).
+ * the convenience stream objects will implicitly getOrCreate an MD5 object).
  * <p>
  * The first option is to set the system property
  * "com.twmacinta.util.MD5.NO_NATIVE_LIB" to "true" or "1".

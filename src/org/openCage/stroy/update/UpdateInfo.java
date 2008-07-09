@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 
 import org.openCage.util.app.AppInfo;
-import org.openCage.util.app.Version;
+import org.openCage.util.app.VersionImpl;
 import com.google.inject.Inject;
 
 public class UpdateInfo extends JFrame {
@@ -38,7 +38,7 @@ public class UpdateInfo extends JFrame {
         pack();
     }
 
-    public UpdateInfo setCurrent( Version latest ) {
+    public UpdateInfo setCurrent( VersionImpl latest ) {
         current.setText( latest.toString() );
 
         return this;

@@ -3,8 +3,8 @@ package org.openCage.stroy.app;
 import com.google.inject.Inject;
 import org.openCage.util.app.AppInfo;
 import org.openCage.util.app.Reference;
-import org.openCage.util.app.Version;
 import org.openCage.util.app.Change;
+import org.openCage.util.app.VersionImpl;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -36,7 +36,7 @@ import java.util.List;
 @SuppressWarnings({"HardCodedStringLiteral"})
 public class StroyAppInfo implements AppInfo {
 
-    private final Version         version;
+    private final VersionImpl version = new VersionImpl( 0, 10, 0, 23 );
     private final List<Reference> refs      = new ArrayList<Reference>();
     private final List<Reference> buildRefs = new ArrayList<Reference>();
 
@@ -44,11 +44,9 @@ public class StroyAppInfo implements AppInfo {
     private String             defaultVersion;
 
 
-    @Inject
-    public StroyAppInfo( Version version ) {
+    public StroyAppInfo() {
 
         init();
-        this.version = version;
 
         ref("MD5" ).description( "Fast implementation of RSA's MD5 hash generator" ).
                     de( "Efficiente und schnelle Implementation eines MD5 Gernerators" ).
@@ -203,7 +201,7 @@ public class StroyAppInfo implements AppInfo {
         return buildRefs;
     }
 
-    public Version getVersion() {
+    public VersionImpl getVersion() {
         return version;
     }
 

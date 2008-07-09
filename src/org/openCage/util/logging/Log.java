@@ -1,5 +1,8 @@
 package org.openCage.util.logging;
 
+import org.openCage.util.prefs.PListSelectionString;
+import org.openCage.util.prefs.ListSelection;
+
 import java.util.logging.Logger;
 import java.util.logging.Level;
 import java.util.logging.Handler;
@@ -32,7 +35,12 @@ public class Log {
     private static Logger logger = Logger.getLogger( Log.class.getName() );
 
     static {
-        logger.setLevel( Level.INFO );
+        String[] levelNames = { "ALL", "FINEST", "FINER", "FINE", "CONFIG", "INFO", "WARNING", "SEVERE", "OFF" };
+        String lev = PListSelectionString.getOrCreate( LogHandlerPanel.STROY_LOG_OUT, new ListSelection( "INFO", levelNames )).get().getSelection();
+        PListSelectionString.getOrCreate( LogHandlerPanel.STROY_LOG_IN, new ListSelection( "INFO", levelNames ));
+
+        logger.setLevel( Level.parse( lev) );
+//        logger.setLevel( Level.INFO );
 //        setLogLevelOnAllHandles( Level.ALL );
     }
 

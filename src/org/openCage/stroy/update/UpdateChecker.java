@@ -1,6 +1,5 @@
 package org.openCage.stroy.update;
 
-import org.openCage.util.app.Version;
 import org.openCage.util.app.VersionImpl;
 import org.openCage.util.app.AppInfo;
 import org.openCage.util.logging.Log;
@@ -47,7 +46,7 @@ public class UpdateChecker {
         this.updateView = updateView;
     }
 
-    public Version getLatestVersion() {
+    public VersionImpl getLatestVersion() {
         try {
             BufferedReader reader =  new BufferedReader(
                     new InputStreamReader(
@@ -61,7 +60,7 @@ public class UpdateChecker {
                 if ( line.contains( key )) {
                     String vv = line.substring( line.indexOf( key ) + key.length() + 1);
                     vv = vv.substring( 0, vv.indexOf( "</"));
-                    Version ret = VersionImpl.parseVersion( vv );
+                    VersionImpl ret = VersionImpl.parseVersion( vv );
                     return ret;
                 }
                 line = reader.readLine(); }
