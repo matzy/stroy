@@ -4,30 +4,50 @@ import zappini.designgridlayout.DesignGridLayout;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.util.regex.Pattern;
+
+import org.openCage.stroy.locale.LocalizedComboBox;
+import org.openCage.stroy.locale.Message;
+import com.google.inject.Inject;
 
 public class UpdatePrefs extends JPanel {
 
-    private JButton                 checkNow        = new JButton( );
-//    private final LocalizedComboBox updateInterval;
+    private JButton                 checkNow        = new JButton( Message.get("Update.checknow"));
+    private LocalizedComboBox       updateInterval;
 
+    private final Interval      interval;
+    private final UpdateChecker checker;
+    private JLabel uptodate = new JLabel( "          ");
 
-    public UpdatePrefs() {
+    @Inject
+    public UpdatePrefs( final Interval interval, final UpdateChecker checker ) {
+        this.interval = interval;
+        this.checker  = checker;
 
-        String[] levelNames = { "Pref.Update.Every", "Pref.Update.Weekly", "Pref.Update.Monthly", "Pref.Update.Never" };
-        
-//        updateInterval  = new LocalizedComboBox( "update.interval",
-//                PListSelectionString.getOrCreate( "update.interval", new ListSelection( levelNames, "Pref.Update.Weekly" )).get());
+        updateInterval  = new LocalizedComboBox( interval.getKey() );
 
 
         JPanel top = new JPanel();
         DesignGridLayout layout = new DesignGridLayout( top );
         top.setLayout( layout );
-//        layout.row().add( new JLabel( "How often should stroy check for updates? " ),4).add( updateInterval );
+        layout.row().add( new JLabel( "How often should stroy check for updates? " ),2).add( updateInterval );
         layout.row().add( "");
-        layout.row().add( new JLabel("Check now: "),4 ).add( checkNow );
+        layout.row().add( new JLabel("Check now: "),2 ).add( checkNow );
+        layout.row().add( new JLabel(""),2 ).add( uptodate );
+
 
         setLayout( new BorderLayout());
         add( top, BorderLayout.CENTER );
+
+        checkNow.addActionListener( new ActionListener() {
+            public void actionPerformed( ActionEvent e ) {
+                if ( !checker.checkAnyway() ) {
+                    uptodate.setText( Message.get( "Prefs.update.isuptodate" ));
+                }
+            }
+        } );
 
     }
 

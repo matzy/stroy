@@ -1,7 +1,5 @@
 package org.openCage.util.app;
 
-import com.google.inject.Inject;
-
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
 *
@@ -23,25 +21,31 @@ import com.google.inject.Inject;
 *
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
-public class VersionImpl implements Comparable<VersionImpl>{
+public class Version2 implements Comparable<Version2>{
     private final int major;
     private final int minor;
     private final int patch;
     private final int build;
 
+    private final boolean prePatch;
 
-    public VersionImpl( int major, int minor, int build ) {
+
+    public Version2( int major, int minor, int build ) {
         this.major = major;
         this.minor = minor;
         patch = 0;
         this.build = build;
+
+        prePatch = true;
     }
 
-    public VersionImpl( int major, int minor, int patch, int build ) {
+    public Version2( int major, int minor, int patch, int build ) {
         this.major = major;
         this.minor = minor;
         this.patch = patch;
         this.build = build;
+
+        prePatch = false;
     }
 
 
@@ -59,10 +63,33 @@ public class VersionImpl implements Comparable<VersionImpl>{
 
 
     public String toString() {
-        return "" + major + "." + minor + "." + patch + "." + build;
+        if ( prePatch ) {
+            return "" + major + "." + minor + "." + build;
+        } else {
+            return "" + major + "." + minor + "." + patch + "." + build;
+        }
+
     }
 
-    public int compareTo(VersionImpl version) {
+    public int compareTo( Version2 version) {
+
+        if ( prePatch && !version.prePatch ) {
+            return -1;
+        } else if ( !prePatch && version.prePatch ) {
+            return 1;
+        }
+
+        if ( major !=  version.major  ) {
+            return major - version.major;
+        }
+
+        if ( minor != version.minor ) {
+            return minor - version.minor;
+        }
+
+        if ( patch != version.patch ) {
+            return patch - version.patch;
+        }
 
         return build - version.getBuildNum();
     }
@@ -72,7 +99,7 @@ public class VersionImpl implements Comparable<VersionImpl>{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        VersionImpl version = (VersionImpl) o;
+        Version2 version = (Version2) o;
 
         if (build != version.build) return false;
 
@@ -83,16 +110,16 @@ public class VersionImpl implements Comparable<VersionImpl>{
         return build;
     }
 
-    public static VersionImpl parseVersion( String str ) {
+    public static Version2 parseVersion( String str ) {
         String[] parts = str.split( "\\." );
 
         if ( parts.length == 3 ) {
-            return new VersionImpl( Integer.parseInt( parts[0] ), Integer.parseInt( parts[1] ), Integer.parseInt( parts[2] ) );
+            return new Version2( Integer.parseInt( parts[0] ), Integer.parseInt( parts[1] ), Integer.parseInt( parts[2] ) );
 
         }
 
         if ( parts.length == 4 ) {
-            return new VersionImpl( Integer.parseInt( parts[0] ), Integer.parseInt( parts[1] ), Integer.parseInt( parts[2] ), Integer.parseInt( parts[3] ));
+            return new Version2( Integer.parseInt( parts[0] ), Integer.parseInt( parts[1] ), Integer.parseInt( parts[2] ), Integer.parseInt( parts[3] ));
         }
 
         throw new IllegalArgumentException( "not a version" );

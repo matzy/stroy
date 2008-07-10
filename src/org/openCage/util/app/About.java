@@ -1,7 +1,5 @@
 package org.openCage.util.app;
 
-import org.openCage.util.app.Version;
-
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
 *

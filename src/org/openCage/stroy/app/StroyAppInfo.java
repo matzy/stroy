@@ -1,10 +1,9 @@
 package org.openCage.stroy.app;
 
-import com.google.inject.Inject;
 import org.openCage.util.app.AppInfo;
 import org.openCage.util.app.Reference;
 import org.openCage.util.app.Change;
-import org.openCage.util.app.VersionImpl;
+import org.openCage.util.app.Version2;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -36,7 +35,7 @@ import java.util.List;
 @SuppressWarnings({"HardCodedStringLiteral"})
 public class StroyAppInfo implements AppInfo {
 
-    private final VersionImpl version = new VersionImpl( 0, 10, 0, 23 );
+    private final Version2 version = new Version2( 0, 10, 0, 23 );
     private final List<Reference> refs      = new ArrayList<Reference>();
     private final List<Reference> buildRefs = new ArrayList<Reference>();
 
@@ -201,7 +200,7 @@ public class StroyAppInfo implements AppInfo {
         return buildRefs;
     }
 
-    public VersionImpl getVersion() {
+    public Version2 getVersion() {
         return version;
     }
 

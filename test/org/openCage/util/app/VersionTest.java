@@ -24,9 +24,25 @@ import junit.framework.TestCase;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public class VersionImplTest extends TestCase {
+public class VersionTest extends TestCase {
 
     public void testParse() {
-        assertEquals( new VersionImpl(0,123,456), VersionImpl.parseVersion( "0.123.456" ));
+        assertEquals( new Version2(0,123,456), Version2.parseVersion( "0.123.456" ));
+    }
+
+    public void testParse2() {
+        assertEquals( new Version2(0,123,456,789), Version2.parseVersion( "0.123.456.789" ));
+    }
+
+    public void testCompare() {
+        assertTrue( new Version2( 0,10,200).compareTo( new Version2( 0,11,0,10)) < 0  );
+        assertTrue( new Version2( 0,10,11).compareTo( new Version2( 0,10,200 )) < 0  );
+        assertTrue( new Version2( 0,11,0,42).compareTo( new Version2( 0,11,1,10)) < 0  );
+        assertTrue( new Version2( 0,10,20,4242).compareTo( new Version2( 1,0,1,1001)) < 0  );
+        assertTrue( new Version2( 0,10,20,4242).compareTo( new Version2( 0,11,1,1001)) < 0  );
+
+        // !! old and new version  number
+        assertTrue( new Version2( 1,20,200).compareTo( new Version2( 0,0,0,1)) < 0  );
+
     }
 }

@@ -2,7 +2,7 @@ package org.openCage.util.app.gen;
 
 import org.openCage.util.www.wikidot.WikiDotGen;
 import org.openCage.util.app.Change;
-import org.openCage.util.app.VersionImpl;
+import org.openCage.util.app.Version2;
 import org.openCage.util.app.AppInfo;
 
 import java.util.*;
@@ -199,7 +199,7 @@ public class GenWikiChange {
             } else if ( o1.version == null ) {
                 return -1;
             } else {
-                return VersionImpl.parseVersion( o2.version ).compareTo( VersionImpl.parseVersion( o1.version ));
+                return Version2.parseVersion( o2.version ).compareTo( Version2.parseVersion( o1.version ));
             }
         }
     }

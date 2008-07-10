@@ -5,10 +5,14 @@ import org.openCage.stroy.ui.prefs.StandardProgUI;
 import org.openCage.stroy.ui.prefs.FilterFrameDetails;
 import org.openCage.stroy.locale.Message;
 import org.openCage.stroy.update.UpdatePrefs;
+import org.openCage.stroy.RuntimeModule;
 import org.openCage.util.io.FileUtils;
 
 import javax.swing.*;
 import java.awt.*;
+
+import com.google.inject.Injector;
+import com.google.inject.Guice;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -47,9 +51,12 @@ public class PrefsUI extends JFrame {
 
 
     private ExternalPref fileTypes   = new ExternalPref( this );
-    private UpdatePrefs updatePrefs = new UpdatePrefs();
+    private UpdatePrefs updatePrefs;
 
     private PrefsUI() {
+        Injector injector = Guice.createInjector( new RuntimeModule() );
+        updatePrefs = injector.getInstance( UpdatePrefs.class );        
+        
         createLayout();
     }
 
@@ -76,5 +83,9 @@ public class PrefsUI extends JFrame {
 
         tabbed.setSelectedComponent( fileTypes );
         fileTypes.showExtension( FileUtils.getExtension( fileName ));
+    }
+
+    public void showUpdatePref() {
+        tabbed.setSelectedComponent( updatePrefs );
     }
 }

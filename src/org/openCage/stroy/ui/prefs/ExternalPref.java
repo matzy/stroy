@@ -208,6 +208,7 @@ public class ExternalPref extends JPanel {
                 if ( path != null ) {
                     openText.setText( FileUtils.normalizePath( path ));
                     fileTypes.setOpenProg( (String)extList.getSelectedValue(), path );
+                    openText.setBackground(Colors.BACKGROUND_NEUTRAL);                    
                 }
 
             }
@@ -274,6 +275,7 @@ public class ExternalPref extends JPanel {
                 if ( path != null ) {
                     diffOtherText.setText( FileUtils.normalizePath( path ));
                     fileTypes.setDiffProg( (String)extList.getSelectedValue(), path );
+                    diffOtherText.setBackground(Colors.BACKGROUND_NEUTRAL);                    
                 }
 
             }

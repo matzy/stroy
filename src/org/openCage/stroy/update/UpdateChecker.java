@@ -1,6 +1,6 @@
 package org.openCage.stroy.update;
 
-import org.openCage.util.app.VersionImpl;
+import org.openCage.util.app.Version2;
 import org.openCage.util.app.AppInfo;
 import org.openCage.util.logging.Log;
 import org.openCage.stroy.update.UpdateInfo;
@@ -39,14 +39,16 @@ public class UpdateChecker {
 
     private final AppInfo     appInfo;
     private final UpdateInfo  updateView;
+    private final Interval    interval;
 
     @Inject
-    public UpdateChecker( final AppInfo appInfo, final UpdateInfo updateView ) {
+    public UpdateChecker( final AppInfo appInfo, final UpdateInfo updateView, final Interval interval ) {
         this.appInfo    = appInfo;
         this.updateView = updateView;
+        this.interval   = interval;
     }
 
-    public VersionImpl getLatestVersion() {
+    public Version2 getLatestVersion() {
         try {
             BufferedReader reader =  new BufferedReader(
                     new InputStreamReader(
@@ -60,7 +62,7 @@ public class UpdateChecker {
                 if ( line.contains( key )) {
                     String vv = line.substring( line.indexOf( key ) + key.length() + 1);
                     vv = vv.substring( 0, vv.indexOf( "</"));
-                    VersionImpl ret = VersionImpl.parseVersion( vv );
+                    Version2 ret = Version2.parseVersion( vv );
                     return ret;
                 }
                 line = reader.readLine(); }
@@ -76,12 +78,25 @@ public class UpdateChecker {
 
     public void check() {
 
-//        if ( getLatestVersion().compareTo( appInfo.getVersion()) < 0 ) {
-            updateView.setCurrent( appInfo.getVersion() ).setVisible( true );
-  //      }
+        if ( interval.isTime() ) {
+            checkAnyway();
+        }
+    }
+
+    public boolean checkAnyway() {
+        interval.done();
+
+        Version2 latest = getLatestVersion();
+
+        if ( latest.compareTo( appInfo.getVersion()) > 0 ) {
+            updateView.setLatest( latest ).setVisible( true );
+            return true;
+        } else {
+            return false;
+        }
 
     }
-    
+
 
 //    public static void main( String[] args ) {
 //
@@ -89,7 +104,7 @@ public class UpdateChecker {
 //
 //    }
 
-    
+
 
 
 }
