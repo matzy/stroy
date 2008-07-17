@@ -241,11 +241,11 @@ public class StroyAppInfo implements AppInfo {
 
 
     private void init() {
-        change(  6, "f", "show selection in skybar" ).tag( "visualization" );
-        change(209, "F", "show current window in skybar" ).tag("ui").from("Mike").tag( "visualization" );
-        change(  7, "f", "keyboard navigation" ).tag("ui").tag("keys");
+        //change(  6, "f", "show selection in skybar" ).tag( "visualization" );
+        //change(209, "F", "show current window in skybar" ).tag("ui").from("Mike").tag( "visualization" );
+        //change(  7, "f", "keyboard navigation" ).tag("ui").tag("keys");
         change( 17, "f", "generate fuzzyhash file for bugreport" ).tag("test").tag("algo");
-        change( 39, "f", "total diff for 3 way" ).tag( "3way" );
+        //change( 39, "f", "total diff for 3 way" ).tag( "3way" );
         change( 51, "f", "std logfile" ).tag("feedback");
         change( 60, "f", "test database" ).tag("test");
         change( 64, "f", "measure balance between content and location" ).tag("test").tag("algo");
