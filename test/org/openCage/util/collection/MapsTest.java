@@ -34,7 +34,14 @@ public class MapsTest extends TestCase {
         assertEquals( 2, map.size() );
         assertEquals( new Integer(1), map.get("1"));
         assertEquals( new Integer(2), map.get("2"));
+    }
 
+    public void testBuilder() {
+        Map< String, Integer> map = MapF.c( "1", 1).a( "2", 2).get();
+
+        assertEquals( 2, map.size() );
+        assertEquals( new Integer(1), map.get("1"));
+        assertEquals( new Integer(2), map.get("2"));
 
     }
 
