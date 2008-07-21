@@ -5,6 +5,8 @@ import org.openCage.util.logging.Log;
 import org.openCage.util.io.FileUtils;
 import org.openCage.util.ui.BrowserLauncher;
 
+import java.io.File;
+
 /***** BEGIN LICENSE BLOCK *****
  * Version: MPL 1.1
  *
@@ -38,16 +40,16 @@ public class HelpLauncher {
             } catch ( NoClassDefFoundError err ) {
             }
 
-            try {
-                BrowserLauncher.displayURL( "http://stroy.wikidot.com");
-            } catch (Exception e) {
-                Log.warning( "show Help:" + e );
-            }
+            viewHomepage();
 
             return;
         }
 
         if ( Sys.isWindows() ) {
+            if ( !new File( FileUtils.getCurrentDir() + "\\help\\index.html").exists() ) {
+                viewHomepage();
+                return;
+            }
             try {
                 // in windows the currentdir is the location of the program
                 BrowserLauncher.displayURL( "file://" + FileUtils.getCurrentDir() + "\\help\\index.html");
@@ -58,12 +60,16 @@ public class HelpLauncher {
         }
 
         // TODO linux
+        viewHomepage();
+
+    }
+
+    private static void viewHomepage() {
         try {
             BrowserLauncher.displayURL( "http://stroy.wikidot.com");
         } catch (Exception e) {
             Log.warning( "show Help:" + e );
         }
-
     }
 
 }

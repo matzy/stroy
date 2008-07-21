@@ -2,6 +2,8 @@ package org.openCage.stroy.ui.menu;
 
 import org.openCage.util.app.AppInfo;
 import org.openCage.util.app.ShowText;
+import org.openCage.util.app.About;
+import org.openCage.util.app.AboutImpl;
 import org.openCage.util.www.Mailto;
 import org.openCage.util.ui.BrowserLauncher;
 import org.openCage.stroy.ui.prefs.PrefsUI;
@@ -67,11 +69,21 @@ public class PortableMenu implements Menu {
 
     private void createFile() {
         JMenuItem prefs = new JMenuItem( Message.get(  "Menu.Preference" ));
+        JMenuItem ex = new JMenuItem( Message.get(  "Menu.Exit" ));
         menuWinFile.add( prefs );
 
         prefs.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
                 PrefsUI.create().setVisible( true );
+            }
+        });
+
+        JMenuItem exi = new JMenuItem( Message.get(  "Menu.Exit" ));
+        menuWinFile.add( exi );
+
+        exi.addActionListener( new ActionListener() {
+            public void actionPerformed(ActionEvent actionEvent) {
+                System.exit(0);
             }
         });
       }
@@ -104,6 +116,18 @@ public class PortableMenu implements Menu {
     }
 
     private void createHelp() {
+        if ( Sys.isWindows() ) {
+            JMenuItem about = new JMenuItem( Message.get(  "Menu.About" ));
+            menuHelp.add( about );
+            final AppInfo ai = appInfo;
+            about.addActionListener( new ActionListener() {
+                public void actionPerformed(ActionEvent actionEvent) {
+                    About about = new AboutImpl( appInfo);
+                    about.go();
+                }
+            });
+        }
+
         JMenuItem sendBugReport = new JMenuItem( Message.get(  "Menu.bugReport" ));
         menuHelp.add( sendBugReport );
         final AppInfo ai = appInfo;

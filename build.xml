@@ -14,7 +14,6 @@
     <property name="deploydir" value="deploy"/>
     <property name="deploydirmac" value="deploymac"/>
     <property name="deploydir-other" value="deployother"/>
-    <property name="other-help" value="deployother/help"/>
     <property name="external" value="external"/>
     <property name="externalProd" value="external/production"/>
     <property name="resources" value="resources"/>
@@ -30,8 +29,10 @@
              classpath="${external}/build/jarbundler-1.9.jar"
              classname="net.sourceforge.jarbundler.JarBundler" />
 
-    <!--<taskdef name="jsmoothgen"-->
-             <!--classname="net.charabia.jsmoothgen.ant.JSmoothGen"-->
+    <taskdef name="jsmoothgen"
+             classname="net.charabia.jsmoothgen.ant.JSmoothGen"
+             classpath="${external}/build/jsmoothgen-ant.jar" />
+
              <!--classpath="${jsmooth}/lib/jsmoothgen-ant.jar"/>-->
 
     <target name="prepare">
@@ -42,11 +43,11 @@
         <mkdir dir="${manifests}"/>
         <mkdir dir="${deploydir}"/>
         <mkdir dir="${deploydir-other}"/>
-        <mkdir dir="${other-help}"/>
         <mkdir dir="${jdoc}"/>
         <mkdir dir="${deply}"/>
         <mkdir dir="${xplatform}"/>
         <mkdir dir="${win}"/>
+        <mkdir dir="${win}/help"/>
         <mkdir dir="${osx}"/>
        </target>
 
@@ -226,7 +227,20 @@
 
     </target>
 
-    <target name="stroy.exe" depends="compile">
+    <target name="exeprepare" depends="stroy2-ui-jar">
+        <copy todir="${win}">
+            <!--<fileset dir="${deploydir-other}"/>-->
+            <fileset dir="${lib}" includes="**/*.jar"/>
+            <fileset refid="externalsSet"/>
+            <fileset dir="${external}/production" includes="**/jdic.dll" />
+        </copy>
+        <copy todir="${win}/help">
+            <fileset dir="${resources}/HelpBook/English" />
+            <fileset dir="${resources}/HelpBook/common" />
+        </copy>
+    </target>
+    
+    <target name="stroy.exe" depends="exeprepare">
         <jsmoothgen project="${resources}/jm"
                     skeletonroot="${jsmooth}/skeletons" />
     </target>
