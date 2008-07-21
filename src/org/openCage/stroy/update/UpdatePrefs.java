@@ -43,6 +43,13 @@ public class UpdatePrefs extends JPanel {
 
         checkNow.addActionListener( new ActionListener() {
             public void actionPerformed( ActionEvent e ) {
+                if ( !checker.isConnected() ) {
+                    uptodate.setText( Message.get( "Prefs.update.nonet" ));
+                    return;
+                }
+
+                uptodate.setText( "" );
+
                 if ( !checker.checkAnyway() ) {
                     uptodate.setText( Message.get( "Prefs.update.isuptodate" ));
                 }

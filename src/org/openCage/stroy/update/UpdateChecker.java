@@ -94,6 +94,17 @@ public class UpdateChecker {
         } else {
             return false;
         }
+    }
+
+    public boolean isConnected() {
+        try {
+            new InputStreamReader( new URL( "http://stroy.wikidot.com/current" ).openStream());
+
+        } catch ( IOException e ) {
+            return false;
+        }
+
+        return true;
 
     }
 
