@@ -35,14 +35,14 @@ import java.awt.*;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public class ShowDiffSummery<T extends Content> extends JPanel {
+public class ShowDiffSummary<T extends Content> extends JPanel {
     private final JLabel multiple = new JLabel( "multiple");
     private final JLabel only = new JLabel( "only" );
     private final JLabel content = new JLabel( "content" );
     private final JLabel renamed = new JLabel( "renamed" );
     private final JLabel moved = new JLabel( "moved" );
 
-    public ShowDiffSummery( final java.util.List<TreeMatchingTask<T>> matchings,
+    public ShowDiffSummary( final java.util.List<TreeMatchingTask<T>> matchings,
                             final java.util.List<DefaultMutableTreeNode> roots ) {
 
         final JPanel top = new JPanel();

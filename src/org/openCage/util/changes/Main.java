@@ -233,7 +233,7 @@ public class Main {
         add( 101, "f", "add methods to break match buttons" );
         add( 102, "f", "add methods to merging button" ).tag("merge");
         add( 104, "f", "special handling for more extensions" );
-        add( 106, "f", "make summery dynamic" ).tag("feedback");
+        add( 106, "f", "make summary dynamic" ).tag("feedback");
         add( 107, "f", "regex search for dir/file" ).tag("ui");
         add( 109, "f", "improve details" );
         add( 112, "f", "about: add image" );
@@ -422,7 +422,7 @@ public class Main {
 
         defaultVersion = "0.6.169";
         add( 111, "f", " more icon work" ).ref(113);
-        add( 110, "d", " summery of 3" );
+        add( 110, "d", " summary of 3" );
         add( 108, "f", " view concept started" ).ref(114);
 
         defaultVersion = "0.6.168";
@@ -435,7 +435,7 @@ public class Main {
         defaultVersion = "0.6.167";
         add( 98, "f", " set icon for all windows (worked already when deployed)" );
         add( 103, "f", " added more known extensions" );
-        add( 105, "d", " improved summery" ).ref(106);
+        add( 105, "d", " improved summary" ).ref(106);
 
         defaultVersion = "0.6.166";
         add( 96, "d", "ignore preset not active" ).ref(94);

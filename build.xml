@@ -1,7 +1,7 @@
 <project name="stroy" basedir=".">
 
-    <property name="version" value="0.10.200"/>
-    <property name="buildnumber" value="200"/>
+    <property name="version" value="0.11.0.32"/>
+    <property name="buildnumber" value="32"/>
     <property name="copyright" value="Copyright &#xa9; 2006-2008 Stephan Pfab MPL1.1"/>
 
 
@@ -29,11 +29,10 @@
              classpath="${external}/build/jarbundler-1.9.jar"
              classname="net.sourceforge.jarbundler.JarBundler" />
 
-    <taskdef name="jsmoothgen"
-             classname="net.charabia.jsmoothgen.ant.JSmoothGen"
-             classpath="${external}/build/jsmoothgen-ant.jar" />
+    <!--<taskdef name="jsmoothgen"-->
+             <!--classname="net.charabia.jsmoothgen.ant.JSmoothGen"-->
+             <!--classpath="${external}/build/jsmoothgen-ant.jar" />-->
 
-             <!--classpath="${jsmooth}/lib/jsmoothgen-ant.jar"/>-->
 
     <target name="prepare">
         <tstamp/>

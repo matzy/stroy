@@ -82,7 +82,7 @@ public class GraphicalDiffMyDoggy<T extends Content> extends JFrame implements I
 
         diffPane = gen.getDiffPane( this.tasks, dmtRoots );
 
-        final JComponent top = new ShowDiffSummery( this.tasks, dmtRoots );
+        final JComponent top = new ShowDiffSummary( this.tasks, dmtRoots );
   //      final ShowCurrentDiff current = new ShowCurrentDiff( tasks );
         final Buttons buttons = new Buttons( this );
 
@@ -91,8 +91,8 @@ public class GraphicalDiffMyDoggy<T extends Content> extends JFrame implements I
         toolWindowManager = new MyDoggyToolWindowManager( this );
         getContentPane().add( toolWindowManager, BorderLayout.CENTER );
 
-        toolWindowManager.registerToolWindow( "Summery",   // NON-NLS    // Id
-                                              Message.get("Docking.summery"),                 // Title
+        toolWindowManager.registerToolWindow( "Summary",   // NON-NLS    // Id
+                                              Message.get("Docking.summary"),                 // Title
                                               null,                         // Icon
                                               top,    // Component
                                               ToolWindowAnchor.TOP);       // Anchor
@@ -316,7 +316,7 @@ public class GraphicalDiffMyDoggy<T extends Content> extends JFrame implements I
 //        // this selects something but not necessarily the root
 //        diffPane.getTree(0).setSelectionRow(0);
 //
-//        final JComponent top = new ShowDiffSummery(tasks, roots );
+//        final JComponent top = new ShowDiffSummary(tasks, roots );
 //  //      final ShowCurrentDiff current = new ShowCurrentDiff( tasks );
 //        final Buttons buttons = new Buttons( this );
 //
@@ -325,8 +325,8 @@ public class GraphicalDiffMyDoggy<T extends Content> extends JFrame implements I
 //        toolWindowManager = new MyDoggyToolWindowManager( this );
 //        getContentPane().add( toolWindowManager, BorderLayout.CENTER );
 //
-//        toolWindowManager.registerToolWindow( "Summery",       // Id
-//                                              "Summery",                 // Title
+//        toolWindowManager.registerToolWindow( "Summary",       // Id
+//                                              "Summary",                 // Title
 //                                              null,                         // Icon
 //                                              top,    // Component
 //                                              ToolWindowAnchor.TOP);       // Anchor
