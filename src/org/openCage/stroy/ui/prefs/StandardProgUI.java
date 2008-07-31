@@ -50,8 +50,8 @@ public class StandardProgUI extends JPanel {
     private final JButton resetButton = new JButton( "reset");
 //    private final JTextField openText = new JTextField("opens the file with the assigned program");
     private final JTextField editorText = new JTextField();
-    private final PreferenceString editorPref =  PreferenceString.get( STANDARD_TEXT_EDITOR_KEY );
-    private final PreferenceString diffPref =  PreferenceString.get( STANDARD_DIFF_KEY );
+    private final PreferenceString editorPref =  PreferenceString.getOrCreate( STANDARD_TEXT_EDITOR_KEY, "" ); // TODO
+    private final PreferenceString diffPref =  PreferenceString.getOrCreate( STANDARD_DIFF_KEY, "" );
 
     private final JButton editButton = new JButton("..");
     private final JRadioButton stdEdit   = new JRadioButton( Message.get( "Pref.StandardProgs.osText" ));

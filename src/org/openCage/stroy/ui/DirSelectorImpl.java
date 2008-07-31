@@ -78,7 +78,7 @@ public class DirSelectorImpl extends JFrame
     private final LogHandlerPanel logHandlerPanel = new LogHandlerPanel();
 
     private org.openCage.stroy.ui.menu.Menu menu;
-    private PComboBox strategyCombo = new PComboBox( "stroy.first.strategy" );
+//    private PComboBox strategyCombo = new PComboBox( "stroy.first.strategy" );
 
     private MatchStrategy<FileContent> matchStrategy;
 
@@ -132,19 +132,19 @@ public class DirSelectorImpl extends JFrame
             }
         });
 
-        strategyCombo.addActionListener( new ActionListener() {
-            public void actionPerformed(ActionEvent actionEvent) {
-                String strategy = (String) strategyCombo.getSelectedItem();
-
-                Injector injector = Guice.createInjector( new RuntimeModule() );
-
-                if ( strategy.equals( "full" )) {
-                    matchStrategy = injector.getInstance( StandardFirst.class );
-                } else if ( strategy.equals( "structure only" )) {
-                    matchStrategy = injector.getInstance( StructureOnly.class );                    
-                }
-            }
-        });
+//        strategyCombo.addActionListener( new ActionListener() {
+//            public void actionPerformed(ActionEvent actionEvent) {
+//                String strategy = (String) strategyCombo.getSelectedItem();
+//
+//                Injector injector = Guice.createInjector( new RuntimeModule() );
+//
+//                if ( strategy.equals( "full" )) {
+//                    matchStrategy = injector.getInstance( StandardFirst.class );
+//                } else if ( strategy.equals( "structure only" )) {
+//                    matchStrategy = injector.getInstance( StructureOnly.class );
+//                }
+//            }
+//        });
 
     }
 

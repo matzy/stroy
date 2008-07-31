@@ -40,8 +40,6 @@ public class Log {
         PListSelectionString.getOrCreate( LogHandlerPanel.STROY_LOG_IN, new ListSelection( "INFO", levelNames ));
 
         logger.setLevel( Level.parse( lev) );
-//        logger.setLevel( Level.INFO );
-//        setLogLevelOnAllHandles( Level.ALL );
     }
 
     public static void tell() {

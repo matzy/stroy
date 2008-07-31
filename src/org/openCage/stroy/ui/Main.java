@@ -4,6 +4,7 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import org.openCage.stroy.RuntimeModule;
 import org.openCage.util.prefs.Preferences;
+import org.openCage.util.logging.Log;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -35,10 +36,7 @@ public class Main  {
 
         Preferences.setName( "stroy");
 
-
-//        // TODO
-//        String[] strategyNames = { "full", "structure only" };
-//        PListSelectionString.getOrCreate( "stroy.first.strategy", new ListSelection( "full", strategyNames ));
+        Log.finest( "stroy is starting" );
 
         Injector injector = Guice.createInjector( new RuntimeModule() );
 

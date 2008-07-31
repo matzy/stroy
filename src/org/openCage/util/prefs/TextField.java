@@ -55,7 +55,7 @@ public class TextField extends JTextField {
     }
 
     public TextField( String key ) {
-        this( PreferenceString.get( key ));
+        this( PreferenceString.getOrCreate( key, "" ));
     }
 
 

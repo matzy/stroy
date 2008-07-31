@@ -1,6 +1,6 @@
 <project name="stroy" basedir=".">
 
-    <property name="version" value="0.11.0.32"/>
+    <property name="version" value="0.11.1.35"/>
     <property name="buildnumber" value="32"/>
     <property name="copyright" value="Copyright &#xa9; 2006-2008 Stephan Pfab MPL1.1"/>
 
@@ -239,10 +239,10 @@
         </copy>
     </target>
     
-    <target name="stroy.exe" depends="exeprepare">
-        <jsmoothgen project="${resources}/jm"
-                    skeletonroot="${jsmooth}/skeletons" />
-    </target>
+    <!--<target name="stroy.exe" depends="exeprepare">-->
+        <!--<jsmoothgen project="${resources}/jm"-->
+                    <!--skeletonroot="${jsmooth}/skeletons" />-->
+    <!--</target>-->
 
 
 </project>
