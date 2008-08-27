@@ -63,6 +63,7 @@
         <delete dir="${xplatform}"/>
     </target>
 
+
     <path id="test-cl">
         <pathelement location="/Applications/opt/eclipse/plugins/org.junit_3.8.1/junit.jar"/>
         <pathelement location="/Users/stephan/projects/jars/xstream-1.1.3.jar"/>
@@ -79,15 +80,18 @@
 
 
     <target name="compile" depends="prepare">
+
         <javac srcdir="${src}" destdir="${build}">
             <classpath refid="externals"></classpath>
         </javac>
+
         <copy todir="${manifests}" flatten="yes">
             <fileset dir="${src}" includes="**/*.mf"/>
         </copy>
-        <copy todir="${build}" flatten="no">
-            <fileset dir="${src}" includes="**/*.properties"/>
-        </copy>
+
+        <!--copy and convert messages-->
+        <native2ascii  src="${src}" dest="${build}" includes="**/*.properties" />
+
         <copy todir="${build}" flatten="no">
             <fileset dir="${src}" includes="**/*.png"/>
         </copy>
@@ -239,10 +243,10 @@
         </copy>
     </target>
     
-    <!--<target name="stroy.exe" depends="exeprepare">-->
-        <!--<jsmoothgen project="${resources}/jm"-->
-                    <!--skeletonroot="${jsmooth}/skeletons" />-->
-    <!--</target>-->
+    <target name="stroy.exe" depends="exeprepare">
+        <jsmoothgen project="${resources}/jm"
+                    skeletonroot="${jsmooth}/skeletons" />
+    </target>
 
 
 </project>

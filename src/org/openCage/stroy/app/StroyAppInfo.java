@@ -35,12 +35,11 @@ import java.util.List;
 @SuppressWarnings({"HardCodedStringLiteral"})
 public class StroyAppInfo implements AppInfo {
 
-    private final Version2 version = new Version2( 0, 11, 1, 35 );
-    private final List<Reference> refs      = new ArrayList<Reference>();
-    private final List<Reference> buildRefs = new ArrayList<Reference>();
-
-    private final List<Change> changes = new ArrayList<Change>();
-    private String             defaultVersion;
+    private final Version2        version         = new Version2( 0, 11, 1, 35 );
+    private final List<Reference> refs            = new ArrayList<Reference>();
+    private final List<Reference> buildRefs       = new ArrayList<Reference>();
+    private final List<Change>    changes         = new ArrayList<Change>();
+    private String                defaultVersion;
 
 
     public StroyAppInfo() {
