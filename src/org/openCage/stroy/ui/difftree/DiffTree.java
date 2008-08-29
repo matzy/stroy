@@ -79,8 +79,8 @@ public class DiffTree<T extends Content> extends JPanel implements SynchronizeLi
 
     private final JTree                         tree;
     private final JScrollPane                   scroll;
-    private final TreeMatchingTask<T> taskRight;
-    private final TreeMatchingTask<T> taskLeft;
+    private final TreeMatchingTask<T>           taskRight;
+    private final TreeMatchingTask<T>           taskLeft;
     private final List<SynchronizeListener>     syncListeners = new ArrayList<SynchronizeListener>();
     private final DefaultMutableTreeNode        root;
     private final int                           idx;

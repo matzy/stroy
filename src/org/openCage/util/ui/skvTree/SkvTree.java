@@ -5,10 +5,13 @@ import org.openCage.util.ui.skyviewbar.ObjectListener;
 import org.openCage.util.iterator.Count;
 import org.openCage.util.iterator.Iterators;
 import org.openCage.stroy.ui.util.NodeToNode;
+import org.openCage.stroy.ui.difftree.SynchronizeListener;
 
 import javax.swing.*;
 import javax.swing.event.TreeExpansionListener;
 import javax.swing.event.TreeExpansionEvent;
+import javax.swing.event.TreeSelectionListener;
+import javax.swing.event.TreeSelectionEvent;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 import java.awt.event.MouseListener;
@@ -56,6 +59,10 @@ public class SkvTree extends JPanel {
 
     private JudgeBlock judgeBlock;
 
+    // TODO sync
+    private int oldCursor = -1;
+    private int cursor    = -1;
+
 
 
     public SkvTree( final Config config, final JTree tree  ) {
@@ -98,6 +105,37 @@ public class SkvTree extends JPanel {
                 refresh();
             }
         });
+
+        tree.addTreeSelectionListener( new TreeSelectionListener() {
+            public void valueChanged( TreeSelectionEvent e ) {
+                TreePath old = e.getOldLeadSelectionPath();
+                TreePath nw = e.getNewLeadSelectionPath();
+
+                int newIdx = blockedList.getBlock( nw );
+                int oldIdx = blockedList.getBlock( old );
+
+                if ( newIdx == oldIdx ) {
+                    return;
+                }
+
+                setSkyCursor( newIdx );
+
+                // TODO
+            }
+        }
+        );
+    }
+
+    private void setSkyCursor( int newIdx ) {
+        if ( oldCursor != -1 ) {
+            oldCursor = -1;
+            cursor    = newIdx;
+        } else {
+            oldCursor = cursor;
+            cursor    = newIdx;
+        }
+
+        repaint();
     }
 
     private void clicked(MouseEvent mouseEvent) {
@@ -161,8 +199,9 @@ public class SkvTree extends JPanel {
             }
 
             paintColorBar( graphics, cols, cellHeight, idx );
-
         }
+
+        paintCursor( idx, graphics, cellHeight );
     }
 
     private void paintColorBar( Graphics graphics, List<Color> cols, int cellHeight, int idx ) {
@@ -174,11 +213,22 @@ public class SkvTree extends JPanel {
             return;
         }
 
-        int ww = (getWidth() - 2) / count;
+        int width = getWidth() - 2;
+        int ww    = width / count;
 
         for ( int i = 0; i < count; ++i ) {
             graphics.setColor( cols.get(i) );
             graphics.fill3DRect( 1 + (i * ww), cellHeight * idx + getAdaptedStartY(), ww, cellHeight, true );
+        }
+
+    }
+
+    private void paintCursor( int idx, Graphics graphics, int cellHeight ) {
+        if ( idx == cursor ) {
+            graphics.setColor( Color.BLACK );
+            graphics.draw3DRect( 0, cellHeight * idx - 1 + getAdaptedStartY(), getWidth() -1, cellHeight, true );
+//            graphics.fill3DRect( 0, cellHeight * idx - 1 + getAdaptedStartY(), 2, cellHeight + 2, true );
+//            graphics.fill3DRect( getWidth() - 2, cellHeight * idx - 1 + getAdaptedStartY(), 2, cellHeight + 2, true );
         }
     }
 
@@ -197,8 +247,6 @@ public class SkvTree extends JPanel {
     }
 
     public void elementRefresh() {
-//        blockedList.setHeight( getAdaptedHeight() );
-
         int cellHeight = blockedList.getBlocksize();
 
         for ( Count<List<DefaultMutableTreeNode>> block : Iterators.count(blockedList.get()) ) {

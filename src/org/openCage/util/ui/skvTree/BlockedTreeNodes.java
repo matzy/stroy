@@ -2,9 +2,11 @@ package org.openCage.util.ui.skvTree;
 
 import org.openCage.util.logging.Log;
 import org.openCage.stroy.ui.util.NodeToNode;
+import org.openCage.stroy.graph.node.TreeNode;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreePath;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -184,5 +186,21 @@ public class BlockedTreeNodes {
             colors.add( null );
         }
         colors.set( idx, cols );
+    }
+
+    public int getBlock( TreePath path ) {
+
+        int idx = 0;
+        for ( List<DefaultMutableTreeNode> block : get() ) {
+            for ( DefaultMutableTreeNode node : block ) {
+                if ( NodeToNode.getTreePath( node ).equals( path )) {
+                    return idx;
+                }
+            }
+
+            idx++;
+        }
+
+        return -1;
     }
 }
