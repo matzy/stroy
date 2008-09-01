@@ -113,8 +113,24 @@ public class Log {
         logger.setLevel( level );
     }
 
-    public static Error log( Error err ) {
-        logger.severe( err.getMessage());
+    public static <T extends Throwable> T log( T err ) {
+        logger.severe( "mesg begin: " + err.toString());
+
+        for ( StackTraceElement el : err.getStackTrace() ) {
+            logger.severe( el.toString());
+        }
+        logger.severe( "mesg end: " + err.toString());
+
+        return err;
+    }
+
+    public static <T extends Throwable> T warning( T err ) {
+        logger.warning( err.toString());
+
+        for ( StackTraceElement el : err.getStackTrace() ) {
+            logger.warning( el.toString());
+        }
+
         return err;
     }
 

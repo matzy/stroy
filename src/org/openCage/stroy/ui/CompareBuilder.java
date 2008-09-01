@@ -13,6 +13,7 @@ import org.openCage.stroy.graph.matching.strategy.Reporter;
 import org.openCage.stroy.graph.matching.strategy.NameOnly;
 import org.openCage.stroy.graph.matching.strategy.combined.WatchFull;
 import org.openCage.util.iterator.T2;
+import org.openCage.util.logging.Log;
 import org.jdesktop.swingworker.SwingWorker;
 
 import java.util.List;
@@ -50,8 +51,7 @@ public class CompareBuilder extends SwingWorker<GraphicalDiffMyDoggy, T2<String,
     private final Ignore                      ignore;
     private final List<String>                dirs;
     private final FileTreeMatchingTaskBuilder taskBuilder;
-
-    private final ModalProgress progressDialog = new ModalProgress( null );
+    private final ModalProgress               progressDialog = new ModalProgress( null );
 
 
     public CompareBuilder( String ... dirs ) {
@@ -108,6 +108,7 @@ public class CompareBuilder extends SwingWorker<GraphicalDiffMyDoggy, T2<String,
         for ( int idx = 1; idx < dirs.size(); ++idx  ) {
 
             if ( tasks.size() == 0 ) {
+                // TODO localize full message
                 publish(  T2.c( Message.get( "Progress.reading" ) + "\"" +  dirs.get(idx - 1 ) + "\" and \"" +  dirs.get(idx ) + "\"", true ));
                 tasks.add( taskBuilder.build( ignore, new File( dirs.get(idx - 1 )), new File( dirs.get(idx ))));
             } else {
@@ -128,11 +129,18 @@ public class CompareBuilder extends SwingWorker<GraphicalDiffMyDoggy, T2<String,
         try {
             gd4 = get();
         } catch ( InterruptedException e ) {
-            e.printStackTrace();
+            // open log window
+            Log.log( e );
             progressDialog.dispose();
             return;
         } catch ( ExecutionException e ) {
-            e.printStackTrace();
+            Log.log( e );
+            progressDialog.dispose();
+            return;
+        }
+
+        if ( gd4 == null ) {
+            Log.severe( "Could not build main window" );
             progressDialog.dispose();
             return;
         }
@@ -146,8 +154,6 @@ public class CompareBuilder extends SwingWorker<GraphicalDiffMyDoggy, T2<String,
         WatchFull strategy = injector.getInstance( WatchFull.class );
 
         new MatchnWatch<FileContent>( gd4.getUIApp(), strategy ).execute();
-
-
     }
 
 

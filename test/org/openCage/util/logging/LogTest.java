@@ -31,4 +31,9 @@ public class LogTest extends TestCase {
         Log.tell();
         Log.fine( "hallo" );
     }
+
+    public void testLogException() {
+        Exception exp = new NullPointerException( "i am null");
+        Log.log( exp );
+    }
 }
