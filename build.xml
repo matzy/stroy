@@ -26,7 +26,7 @@
     <property name="jsmooth" value="resources/JSmooth-0.9.9-7"/>
 
     <taskdef name="jarbundler"
-             classpath="${external}/build/jarbundler-1.9.jar"
+             classpath="${external}/build/jarbundler-2.0.0.jar"
              classname="net.sourceforge.jarbundler.JarBundler" />
 
     <!--<taskdef name="jsmoothgen"-->
