@@ -72,6 +72,12 @@ public class ReducedContent implements Content {
         return typ;
     }
 
+    // lets refactor
+    public String getLocation() {
+        // TODO
+        return "here";
+    }
+
     public File getFile() {
         return null;
     }

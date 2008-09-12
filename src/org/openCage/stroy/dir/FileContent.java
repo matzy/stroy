@@ -69,6 +69,11 @@ public class FileContent implements Content {
         return FileUtils.getExtension( file.getName() );
     }
 
+    // lets refactor
+    public String getLocation() {
+        return file.getAbsolutePath();
+    }
+
 
     public String toString() {
         return file.getPath();

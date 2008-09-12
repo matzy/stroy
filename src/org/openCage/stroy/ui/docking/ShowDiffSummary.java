@@ -127,11 +127,8 @@ public class ShowDiffSummary<T extends Content> extends JPanel {
 
     private String getRootPath(  final DefaultMutableTreeNode root ) {
         final UINode<FileContent> uiNode = (UINode<FileContent>)root.getUserObject();
-        return uiNode.get().getContent().getFile().getPath();
+        return uiNode.get().getContent().getLocation();
     }
 
-    private DefaultMutableTreeNode getRootDFMTN(final JTree tree) {
-        return ((DefaultMutableTreeNode)tree.getModel().getRoot());
-    }
 
 }

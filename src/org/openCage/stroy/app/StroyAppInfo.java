@@ -35,7 +35,7 @@ import java.util.List;
 @SuppressWarnings({"HardCodedStringLiteral"})
 public class StroyAppInfo implements AppInfo {
 
-    private final Version2        version         = new Version2( 0, 11, 1, 35 );
+    private final Version2        version         = new Version2( 0, 12, 0, 37 );
     private final List<Reference> refs            = new ArrayList<Reference>();
     private final List<Reference> buildRefs       = new ArrayList<Reference>();
     private final List<Change>    changes         = new ArrayList<Change>();
@@ -121,15 +121,22 @@ public class StroyAppInfo implements AppInfo {
                     licence( "http://www.w3.org/Consortium/Legal/2002/copyright-software-20021231", "W3C" ).
                     typ( "runtime" );
 
+        ref("jdic" ).
+                    description( "jdesctop library for e.g. opening files with their OS associated program" ).
+                    address( "https://jdic.dev.java.net/releases.html", "dev.java").
+                    lgpl().
+                    version( "0.9.1").
+                    typ( "runtime" );
+
         ref("jarbundler" ).
-                    description( "Ant task to create OSX bundles" ).
+                    description( "Ant task to create OSX bundles." ).
                     address( "http://informagen.com/JarBundler/", "informagen" ).
-                    gpl2().
-                    version( "1.9" ).                
+                    apache2().
+                    version( "2.0.0" ).                
                     typ( "build" );
 
         ref("jsmooth" ).
-                    description( "win32 exe builder" ).
+                    description( "win32 exe builder. (Not in Google Code. Needs to be installed from the jsmooth webpage)" ).
                     address( "http://jsmooth.sourceforge.net/", "sourceforge").
                     gpl2().
                     version("0.9.9-7").

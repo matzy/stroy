@@ -83,8 +83,8 @@ public class DiffPopup<T extends Content> extends JPopupMenu {
 //                    }
 
                     externalProgs.execute( cmd,
-                                           nodes.i0.getContent().getFile().getAbsolutePath(),
-                                           nodes.i1.getContent().getFile().getAbsolutePath() );
+                                           nodes.i0.getContent().getLocation(),
+                                           nodes.i1.getContent().getLocation() );
                 }
             });
             add(menuItem);

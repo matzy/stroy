@@ -68,7 +68,7 @@ public class GenWikiRefs {
     private void printBuild() {
         System.out.println( WikiDotGen.ancor( "Build" ));
         System.out.println( "+ Build" );
-        System.out.println("These libraries are used to build the application and are deployed with the source code.");
+        System.out.println("These libraries are used to build the application and are deployed with the source code if their licence allows this.");
         System.out.println( "DE: Mit diesen libs wird das Programm gebaut. Sie sind im Quellcodepacket" );
         System.out.println( "ES: Estas bibliotecas se utilizan para construir el uso y se despliegan con el c—digo de fuente." );
         for ( Reference ref : appInfo.getReferences() ) {

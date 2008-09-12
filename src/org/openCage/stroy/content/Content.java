@@ -33,6 +33,10 @@ public interface Content {
     public FuzzyHash getFuzzyHash();
     public String    getType();
 
+
+    // lets refactor
+    public String getLocation();
+
     // TODO whats that here
     /**
      * Get the File if there is one 
