@@ -6,7 +6,6 @@ import org.openCage.util.prefs.PreferenceItem;
 import org.openCage.util.prefs.Preferences;
 import org.openCage.util.external.ExternalProgs;
 import org.openCage.util.logging.Log;
-import org.openCage.stroy.ui.prefs.StandardProgUI;
 
 import java.util.*;
 
@@ -309,6 +308,23 @@ public class FileTypes extends PreferenceBase<Map<String, Action>> {
         return getOrCreateActionForExt(ext).diff;
     }
 
+    public boolean hasDiffType(String ext) {
+        Action act =  findActionForExt(ext);
+        return act != null && act.diff != ExternalProgs.unknown;
+    }
+
+    private Action findActionForExt(String ext) {
+        if ( ext == null ) {
+            Log.warning( "getOrCreateActionForExt called with null" );
+            throw new NullPointerException( "ext" );
+        }
+
+        if ( get().containsKey( ext ) ) {
+            return get().get( ext );
+        }
+
+        return null;
+    }
 
     public void resetDiffProg(String ext) {
         if ( ! getResetVal().containsKey( ext )) {
@@ -321,6 +337,12 @@ public class FileTypes extends PreferenceBase<Map<String, Action>> {
 
     public String getOpen(String extension) {
         return getOrCreateActionForExt( extension ).open;
+    }
+
+    public boolean hasOpen(String extension) {
+        Action action = findActionForExt( extension );
+
+        return action != null && action.open != ExternalProgs.unknown;
     }
 
 

@@ -5,6 +5,7 @@ import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.graph.node.TreeNode;
 import org.openCage.stroy.ui.util.NodeToNode;
 import org.openCage.stroy.content.Content;
+import org.openCage.util.logging.Log;
 
 import javax.swing.tree.TreePath;
 import java.awt.event.MouseEvent;
@@ -35,6 +36,10 @@ import com.muchsoft.util.Sys;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
+/**
+ * depending on type open a different popup
+ * TODO: popup uses hiding for similar purposes: unify?
+ */
 public class PopupSelector<T extends Content> {
     private final TreeMatchingTask<T> taskRight;
     private final TreeMatchingTask<T> taskLeft;
@@ -56,19 +61,26 @@ public class PopupSelector<T extends Content> {
 
     public void open( MouseEvent event, TreePath path ) {
 
-        File file = NodeToNode.getFile( path );
+        TreeNode tn = NodeToNode.pathToNode( path );
 
-        if ( file == null ) {
+        if ( tn == null ) {
+            // tree element without treenode, i.e. a ghost node
+            // TODO popup for merge?
             return;
         }
 
-        if ( !file.isDirectory() ) {
+        if ( tn.isLeaf() ) {
             filePopup.open( event, path );
-        } else if ( Sys.isMacOSX() && isBundle.matcher( file.getName() ).matches() ) {
-            bundlePopup.open( event, path );
-        } else {
-            dirPopup.open( event, path );
+            return;
         }
+
+        if ( Sys.isMacOSX() && isBundle.matcher( ((Content)tn.getContent()).getName() ).matches() ) {
+            bundlePopup.open( event, path );
+            return;
+        }
+
+
+        dirPopup.open( event, path );
     }
 
 

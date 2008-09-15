@@ -238,7 +238,9 @@ public class DirSelectorImpl extends JFrame
         // TODO 3
 //        layout.row().label( "Third").add( threeTxt, 8 ).add( threeButton );
 
-        layout.row().add( progressBar );
+        
+//        layout.row().add( progressBar );
+
         layout.row().add( new JLabel(""),4).add( go ).add(new JLabel(""),4);
 
         // TODO tell Jason

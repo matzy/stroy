@@ -114,13 +114,13 @@ public class Log {
     }
 
     public static <T extends Throwable> T log( T err ) {
-        logger.severe( "mesg begin: " + err.toString());
-
+        String str = err.toString();
         for ( StackTraceElement el : err.getStackTrace() ) {
-            logger.severe( el.toString());
+            str += "\n             " + el.toString();
         }
-        logger.severe( "mesg end: " + err.toString());
-
+        // the last line shows up in the last-severe-error box
+        str += "\n    " + err.toString();
+        logger.severe( str);
         return err;
     }
 

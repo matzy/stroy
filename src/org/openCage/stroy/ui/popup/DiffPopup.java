@@ -12,6 +12,7 @@ import org.openCage.stroy.locale.Message;
 import org.openCage.stroy.content.Content;
 import org.openCage.util.prefs.PreferenceString;
 import org.openCage.util.iterator.T2;
+import org.openCage.util.logging.Log;
 
 import javax.swing.*;
 import javax.swing.tree.TreePath;
@@ -42,6 +43,11 @@ import java.io.File;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
+/**
+ * Popupmenu for stroy
+ * offer view diff prefs ... depending on selection type
+ * TODO unify with popupselector
+ */
 public class DiffPopup<T extends Content> extends JPopupMenu {
 
     private final TreeMatchingTask<T> taskRight;
@@ -49,10 +55,14 @@ public class DiffPopup<T extends Content> extends JPopupMenu {
     private TreePath                  currentPath;
 
     private FileTypes     fileTypes;
-    private ExternalProgs externalProgs;
 
     private JMenuItem diffMenu;
     private JMenuItem diffWith;
+    private JMenuItem openWith;
+    private JMenuItem open;
+    private JMenuItem openAsText;
+
+    private DiffPopupDecider decider = new DiffPopupDecider();
 
     public DiffPopup( final TreeMatchingTask<T> taskLeft,
                       final TreeMatchingTask<T> taskRight,
@@ -61,12 +71,11 @@ public class DiffPopup<T extends Content> extends JPopupMenu {
                       boolean                   matched ) {
 
         this.taskLeft  = taskLeft;
-        this.taskRight = taskRight;
+        this.taskRight = taskRight;                                                                 
         fileTypes      = FileTypes.create();
 
         JMenuItem menuItem;
 
-        if ( (file || app) &&  matched ) {
             menuItem = new JMenuItem( Message.get( "Popup.diff"));
             menuItem.addActionListener( new ActionListener() {
                 public void actionPerformed( ActionEvent actionEvent ) {
@@ -82,7 +91,7 @@ public class DiffPopup<T extends Content> extends JPopupMenu {
 //                        cmd = PreferenceString.getOrCreate( StandardProgUI.STANDARD_DIFF_KEY).get();
 //                    }
 
-                    externalProgs.execute( cmd,
+                    ExternalProgs.execute( cmd,
                                            nodes.i0.getContent().getLocation(),
                                            nodes.i1.getContent().getLocation() );
                 }
@@ -90,7 +99,6 @@ public class DiffPopup<T extends Content> extends JPopupMenu {
             add(menuItem);
 
             diffMenu = menuItem;
-        }
 
 
         diffWith = new JMenuItem( Message.get( "Popup.diffwith"));
@@ -112,9 +120,8 @@ public class DiffPopup<T extends Content> extends JPopupMenu {
         add(diffWith);
 
 
-        if ( file || app ) {
-            menuItem = new JMenuItem( Message.get( "Popup.open"));
-            menuItem.addActionListener( new ActionListener() {
+            open = new JMenuItem( Message.get( "Popup.open"));
+            open.addActionListener( new ActionListener() {
                 public void actionPerformed(ActionEvent actionEvent) {
                     File file = NodeToNode.getFile( currentPath );
                     if ( file == null ) {
@@ -122,17 +129,29 @@ public class DiffPopup<T extends Content> extends JPopupMenu {
                     }
 
                     String cmd = fileTypes.getOpen(FileUtils.getExtension(file));
-                    externalProgs.execute( cmd, file.getAbsolutePath() );
+                    ExternalProgs.execute( cmd, file.getAbsolutePath() );
 
                 }
             });
 
-            add(menuItem);
-        }
+            add(open);
 
-        if ( file ) {
-            menuItem = new JMenuItem( Message.get( "Popup.openAsText"));
-            menuItem.addActionListener( new ActionListener() {
+        openWith = new JMenuItem( Message.get( "Popup.openWith"));
+        openWith.addActionListener( new ActionListener() {
+            public void actionPerformed(ActionEvent actionEvent) {
+                TreeNode node = NodeToNode.pathToNode( currentPath );
+
+                PrefsUI.create().showFileType( ((Content)node.getContent()).getName() );
+                PrefsUI.create().setVisible( true );
+
+            }
+        });
+
+        add(openWith);
+
+
+            openAsText = new JMenuItem( Message.get( "Popup.openAsText"));
+            openAsText.addActionListener( new ActionListener() {
                 public void actionPerformed(ActionEvent actionEvent) {
                     File file = NodeToNode.getFile( currentPath );
                     if ( file == null ) {
@@ -140,13 +159,12 @@ public class DiffPopup<T extends Content> extends JPopupMenu {
                     }
 
                     String cmd = PreferenceString.get( StandardProgUI.STANDARD_TEXT_EDITOR_KEY ).get();
-                    externalProgs.execute( cmd, file.getAbsolutePath() );
+                    ExternalProgs.execute( cmd, file.getAbsolutePath() );
 
                 }
             });
 
-            add(menuItem);
-        }
+            add(openAsText);
 
         addSeparator();
 
@@ -178,7 +196,6 @@ public class DiffPopup<T extends Content> extends JPopupMenu {
 
 
 
-        if ( file ) {
             menuItem = new JMenuItem( Message.get( "Menu.Preference"));
             menuItem.addActionListener( new ActionListener() {
                 public void actionPerformed(ActionEvent actionEvent) {
@@ -196,44 +213,48 @@ public class DiffPopup<T extends Content> extends JPopupMenu {
             });
 
             add(menuItem);
-        }
     }
 
     public void open( MouseEvent event, TreePath path ) {
 
         currentPath = path;
 
-        boolean hideDiff = false;
-        T2<TreeNode<T>,TreeNode<T>> rl= null;
-        if ( NodeToNode.pathToNode( currentPath ) == null ) {
-            hideDiff = true;
-        } else {
-             rl = getLeftAndRightNode(NodeToNode.pathToNode( currentPath ));
+        TreeNode<T>                 node    = NodeToNode.pathToNode( currentPath );
+        boolean                     matched = false;
 
-            if ( rl.i0 == null || rl.i1 == null ) {
-                hideDiff = true;
-            }
+        if ( taskRight != null ) {
+            matched = taskRight.isContentChanged( node );
+        } else if ( taskLeft != null ) {
+            matched = taskLeft.isContentChanged( node );
         }
 
-        if ( diffMenu != null ) {
-            if ( hideDiff ) {
-                diffMenu.setVisible( false );
-                diffWith.setVisible( false );
-            } else {
-                String cmd = fileTypes.getDiffType(FileUtils.getExtension(rl.i0.getContent().getName()));
 
-                if ( cmd == null || cmd.equals( ExternalProgs.unknown ) ) {
-                    diffWith.setVisible( true );
-                    diffMenu.setVisible( false );
-                } else {
-                    diffWith.setVisible( false );
-                    diffMenu.setVisible( true );                    
-                }
-            }
+        diffMenu.setVisible( matched && decider.showDiff( node ));
+        diffWith.setVisible( matched && decider.showDiffWith( node ));
 
-        } else {
-            diffWith.setVisible( false );
-        }
+        open.setVisible( decider.showOpen( node ));
+        openWith.setVisible( decider.showOpenWith( node ));
+        openAsText.setVisible( decider.showOpenAsText( node ));
+
+//        if ( diffMenu != null ) {
+//            if ( hideDiff ) {
+//                diffMenu.setVisible( false );
+//                diffWith.setVisible( false );
+//            } else {
+//                String cmd = fileTypes.getDiffType(FileUtils.getExtension(rl.i0.getContent().getName()));
+//
+//                if ( cmd == null || cmd.equals( ExternalProgs.unknown ) ) {
+//                    diffWith.setVisible( true );
+//                    diffMenu.setVisible( false );
+//                } else {
+//                    diffWith.setVisible( false );
+//                    diffMenu.setVisible( true );
+//                }
+//            }
+//
+//        } else {
+//            diffWith.setVisible( false );
+//        }
 
         show( event.getComponent(), event.getX(), event.getY());
     }
