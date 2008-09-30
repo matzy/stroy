@@ -1,7 +1,6 @@
 package org.openCage.stroy.ui.menu;
 
 import org.openCage.util.app.AppInfo;
-import org.openCage.util.app.ShowText;
 import org.openCage.util.app.About;
 import org.openCage.util.app.AboutImpl;
 import org.openCage.util.www.Mailto;

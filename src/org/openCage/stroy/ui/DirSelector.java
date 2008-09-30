@@ -28,13 +28,9 @@ import javax.swing.tree.DefaultMutableTreeNode;
 ***** END LICENSE BLOCK *****/
 
 
-// TODO check
-
 public interface DirSelector {
     
     public void setVisible( boolean enable );
 
     public void progress(boolean b);
-
-//    public void setMatching(TreeMatchingTask<FileContent> matching1, TreeMatchingTask<FileContent> matching2, DefaultMutableTreeNode sourceRoot, DefaultMutableTreeNode target1Root, DefaultMutableTreeNode target2Root);
-}
+   }

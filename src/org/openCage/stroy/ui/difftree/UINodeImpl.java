@@ -9,6 +9,10 @@ import org.openCage.stroy.ui.ChangeVector;
 import org.openCage.stroy.content.Content;
 import org.openCage.stroy.diff.ContentDiff;
 
+import javax.swing.tree.DefaultMutableTreeNode;
+import java.util.List;
+import java.util.ArrayList;
+
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -39,7 +43,7 @@ public class UINodeImpl<T extends Content> implements UINode<T> {
     private final TreeMatchingTask<T> taskRight;
 
     private ChangeNumbers cn;
-
+    private List<DefaultMutableTreeNode> hidden = new ArrayList<DefaultMutableTreeNode>();
 
     // TODO change to left, right to display more information?
 
@@ -173,6 +177,14 @@ public class UINodeImpl<T extends Content> implements UINode<T> {
         }
 
         return !taskRight.isMatched( node );
+    }
+
+    public void addHidden(DefaultMutableTreeNode dfmtn) {
+        hidden.add( dfmtn );
+    }
+
+    public List<DefaultMutableTreeNode> getHidden() {
+        return hidden;
     }
 
     // this the namer of the node

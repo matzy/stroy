@@ -1,19 +1,14 @@
 package org.openCage.stroy.ui;
 
 import com.google.inject.Inject;
-import com.google.inject.Injector;
-import com.google.inject.Guice;
 import com.muchsoft.util.Sys;
 import com.muchsoft.util.mac.Java14Adapter;
 import com.muchsoft.util.mac.Java14Handler;
 import org.openCage.util.io.FileUtils;
 import org.openCage.stroy.dir.FileContent;
 import org.openCage.stroy.graph.matching.strategy.MatchStrategy;
-import org.openCage.stroy.graph.matching.strategy.combined.StructureOnly;
-import org.openCage.stroy.graph.matching.strategy.combined.StandardFirst;
 import org.openCage.stroy.ui.prefs.PrefsUI;
 import org.openCage.stroy.ui.menu.PortableMenu;
-import org.openCage.stroy.RuntimeModule;
 import org.openCage.stroy.update.UpdateChecker;
 import org.openCage.stroy.locale.Message;
 import org.openCage.util.ui.FileChooser;
@@ -23,7 +18,6 @@ import org.openCage.util.app.AppInfo;
 import org.openCage.util.logging.LogHandlerPanel;
 import org.openCage.util.prefs.PreferencesChangeListener;
 import org.openCage.util.prefs.TextField;
-import org.openCage.util.prefs.PComboBox;
 import zappini.designgridlayout.DesignGridLayout;
 
 import javax.swing.*;
@@ -222,7 +216,7 @@ public class DirSelectorImpl extends JFrame
     }
 
     private void createLayout() {
-        setTitle( "Choose Dirs" );
+        setTitle( Message.get( "DirSelector.ChooseDirs" ));
         setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
         setSize( 400, 200 );
 

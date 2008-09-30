@@ -70,8 +70,9 @@ public class PrefsUI extends JFrame {
         tabbed.addTab( Message.get( "Pref.FileType.title" ), null, fileTypes   );
         tabbed.addTab( Message.get( "Pref.Filter.title" ), null,  new FilterFrameDetails());
         tabbed.addTab( Message.get( "Pref.StandardProgs.title" ), null,  new StandardProgUI( this ));
-        tabbed.addTab( Message.get( "Pref.Logging.title" ), null,  new LogPrefs());
-        tabbed.addTab( Message.get( "Pref.Update.title" ), null,  updatePrefs );
+//        tabbed.addTab( Message.get( "Pref.Logging.title" ), null,  new LogPrefs());
+//        tabbed.addTab( Message.get( "Pref.Update.title" ), null,  updatePrefs );
+        tabbed.addTab( Message.get( "Pref.More.title" ), null, new MorePrefs()  );
 
         getContentPane().add( tabbed, BorderLayout.CENTER );
 

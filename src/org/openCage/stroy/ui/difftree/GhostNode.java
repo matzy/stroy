@@ -6,6 +6,9 @@ import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.diff.ContentDiff;
 import org.openCage.stroy.content.Content;
 
+import javax.swing.tree.DefaultMutableTreeNode;
+import java.util.List;
+
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
 *
@@ -118,6 +121,14 @@ public class GhostNode<T extends Content> implements UINode<T> {
 
     public boolean isOnlyRight() {
         return false;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    public void addHidden(DefaultMutableTreeNode dfmtn) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    public List<DefaultMutableTreeNode> getHidden() {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     public String toString() {

@@ -31,6 +31,7 @@ public interface MatchingTask<T> {
 
     public void addLeft( T obj );
     public void addRight( T obj );
+    public void remove(T node);
 
     public Collection<T> getUnmatchedLeft();
     public Collection<T> getUnmatchedRight();
@@ -48,7 +49,6 @@ public interface MatchingTask<T> {
 
     public void setRoots( T src, T tgt );
 
-    public void remove(T node);
 
     public double getMatchQuality(T obj);
 

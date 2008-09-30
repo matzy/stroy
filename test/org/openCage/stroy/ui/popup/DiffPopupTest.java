@@ -57,7 +57,7 @@ public class DiffPopupTest {
         new StandardMatching<ReducedContent>().match( task, new NullReporter() );
 
         DiffPopup<ReducedContent> popup =
-                new DiffPopup<ReducedContent>( task, null, true, true, true );
+                new DiffPopup<ReducedContent>( task, null );
 
         T2<TreeNode<ReducedContent>, TreeNode<ReducedContent>> lr =
                 popup.getLeftAndRightNode( TreeNodeUtils.getNode( task.getRightRoot() ));
@@ -86,7 +86,7 @@ public class DiffPopupTest {
         new StandardMatching<ReducedContent>().match( task, new NullReporter() );
 
         DiffPopup<ReducedContent> popup =
-                new DiffPopup<ReducedContent>( null, task, true, true, true );
+                new DiffPopup<ReducedContent>( null, task );
 
         T2<TreeNode<ReducedContent>, TreeNode<ReducedContent>> lr =
                 popup.getLeftAndRightNode( TreeNodeUtils.getNode( task.getLeftRoot() ));

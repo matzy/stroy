@@ -8,6 +8,9 @@ import org.openCage.stroy.content.Content;
 import org.openCage.stroy.Difference;
 import org.openCage.stroy.diff.ContentDiff;
 
+import javax.swing.tree.DefaultMutableTreeNode;
+import java.util.List;
+
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -55,6 +58,10 @@ public interface UINode<T extends Content> {
      * @return
      */
     public boolean isOnlyRight();
+
+    public void addHidden( DefaultMutableTreeNode dfmtn );
+    public List<DefaultMutableTreeNode>           getHidden();
+    
 
 }
 

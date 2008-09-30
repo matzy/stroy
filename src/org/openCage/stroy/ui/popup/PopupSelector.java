@@ -41,22 +41,11 @@ import com.muchsoft.util.Sys;
  * TODO: popup uses hiding for similar purposes: unify?
  */
 public class PopupSelector<T extends Content> {
-    private final TreeMatchingTask<T> taskRight;
-    private final TreeMatchingTask<T> taskLeft;
-    private final DiffPopup unmatchedFilePopup;
-    private final DiffPopup filePopup;
-    private final DiffPopup bundlePopup;
-    private final DiffPopup dirPopup;
+    private final DiffPopup popup;
     private final Pattern isBundle = Pattern.compile( ".+\\..*" );
 
     public PopupSelector( final TreeMatchingTask<T> taskLeft, final TreeMatchingTask<T> taskRight) {
-        this.taskLeft = taskLeft;
-        this.taskRight = taskRight;
-
-        filePopup          = new DiffPopup( taskLeft, taskRight, true, false, true );
-        unmatchedFilePopup = new DiffPopup( taskLeft, taskRight, true, false, false );
-        bundlePopup        = new DiffPopup( taskLeft, taskRight, false, true, false );
-        dirPopup           = new DiffPopup( taskLeft, taskRight, false, false, false );
+        popup          = new DiffPopup( taskLeft, taskRight );
     }
 
     public void open( MouseEvent event, TreePath path ) {
@@ -69,18 +58,7 @@ public class PopupSelector<T extends Content> {
             return;
         }
 
-        if ( tn.isLeaf() ) {
-            filePopup.open( event, path );
-            return;
-        }
-
-        if ( Sys.isMacOSX() && isBundle.matcher( ((Content)tn.getContent()).getName() ).matches() ) {
-            bundlePopup.open( event, path );
-            return;
-        }
-
-
-        dirPopup.open( event, path );
+        popup.open( event, path );
     }
 
 

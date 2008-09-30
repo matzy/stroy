@@ -12,6 +12,7 @@ import java.util.logging.LogRecord;
 import java.util.logging.Formatter;
 
 import org.openCage.util.prefs.PComboBox;
+import org.openCage.stroy.locale.Message;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -114,8 +115,7 @@ public class LogHandlerPanel extends JFrame {
         DesignGridLayout layout = new DesignGridLayout( top );
         top.setLayout( layout );
 
-        layout.row().label( "log level     " ).add( new JLabel("       outgoing") ).add( selectLogLevel)
-                .add( "accepted here" ).add( selectHandlerLevel);
+        layout.row().label( Message.get( "Pref.Logging.display" )).add( selectLogLevel);
                 //.add( new JLabel("")).add( refreshButton );
 
         getContentPane().setLayout( new BorderLayout());

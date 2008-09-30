@@ -3,6 +3,7 @@ package org.openCage.stroy.update;
 import zappini.designgridlayout.DesignGridLayout;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -32,10 +33,14 @@ public class UpdatePrefs extends JPanel {
         JPanel top = new JPanel();
         DesignGridLayout layout = new DesignGridLayout( top );
         top.setLayout( layout );
-        layout.row().add( new JLabel( "How often should stroy check for updates? " ),2).add( updateInterval );
+
+        layout.row().add( new JLabel(""));
+        layout.row().add( new JLabel( Message.get("Update.howoften") ),2).add( updateInterval );
         layout.row().add( "");
-        layout.row().add( new JLabel("Check now: "),2 ).add( checkNow );
+        layout.row().add( new JLabel( Message.get( "Update.checknowlabel")) ,2 ).add( checkNow );
         layout.row().add( new JLabel(""),2 ).add( uptodate );
+
+        top.setBorder( new TitledBorder( Message.get( "Pref.Update.title" ) ));
 
 
         setLayout( new BorderLayout());

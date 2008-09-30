@@ -43,9 +43,9 @@ public class FilterFrameDetails extends JPanel {
     private JList patternList;
     private JList pathList;
 
-    private JButton resetExtension = new JButton( "reset" );
-    private JButton resetPaths = new JButton( "reset" );
-    private JButton resetPatterns = new JButton( "reset" );
+    private JButton resetExtension = new JButton( Message.get( "Button.reset") );
+    private JButton resetPaths = new JButton( Message.get( "Button.reset") );
+    private JButton resetPatterns = new JButton( Message.get( "Button.reset") );
     private final JButton addPatternButton = new JButton( "+");
     private final JButton delPatternButton = new JButton( "-");
     private final JTextField addPatternField = new JTextField();
@@ -164,7 +164,7 @@ public class FilterFrameDetails extends JPanel {
         cnstraint.weightx = 0.7;
         cnstraint.weighty = 0.33;
         cnstraint.insets = new Insets(5,5,0,0);
-        add( createPatternList( "By Extension", extList, addExtButton, delExtButton, resetExtension, addExtField ), cnstraint );
+        add( createPatternList( Message.get("Pref.Filter.ByExtension"), extList, addExtButton, delExtButton, resetExtension, addExtField ), cnstraint );
 
 
         cnstraint = new GridBagConstraints();
@@ -174,7 +174,7 @@ public class FilterFrameDetails extends JPanel {
         cnstraint.weightx = 0.7;
         cnstraint.weighty = 0.33;
         cnstraint.insets = new Insets(5,5,0,0);
-        add( createPatternList( "By Pattern", patternList, addPatternButton, delPatternButton, resetPatterns, addPatternField ), cnstraint );
+        add( createPatternList( Message.get("Pref.Filter.ByPattern"), patternList, addPatternButton, delPatternButton, resetPatterns, addPatternField ), cnstraint );
 
         cnstraint = new GridBagConstraints();
         cnstraint.fill = GridBagConstraints.BOTH;
@@ -183,7 +183,7 @@ public class FilterFrameDetails extends JPanel {
         cnstraint.weightx = 0.7;
         cnstraint.weighty = 0.33;
         cnstraint.insets = new Insets(5,5,0,0);
-        add( createPatternList( "By Path", pathList, addPathButton, delPathButton, resetPaths, addPathField ), cnstraint );
+        add( createPatternList( Message.get("Pref.Filter.ByPath"), pathList, addPathButton, delPathButton, resetPaths, addPathField ), cnstraint );
     }
 
     private JPanel createPatternList( String title, JList list, JButton addButton, JButton delButton, JButton resetButton, JTextField field ) {
