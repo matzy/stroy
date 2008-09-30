@@ -1,11 +1,10 @@
 package org.openCage.stroy.ui.difftree;
 
 import com.google.inject.Inject;
-import org.openCage.stroy.graph.node.TreeNode;
-import org.openCage.stroy.graph.matching.TaskUtils;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.ui.util.NodeToNode;
 import org.openCage.stroy.ui.popup.PopupSelector;
+import org.openCage.stroy.ui.difftree.ep.EPJTree;
 import org.openCage.stroy.content.Content;
 import org.openCage.util.ui.TreeUtils;
 import org.openCage.util.ui.skvTree.SkvTree;
@@ -107,6 +106,7 @@ public class DiffTree<T extends Content> extends JPanel implements SynchronizeLi
         tree.setRowHeight(0);
         ToolTipManager.sharedInstance().registerComponent( tree );
         tree.setCellRenderer( showChangeTreeCellRenderer );
+        showChangeTreeCellRenderer.setTree( tree );
 
         scroll = new JScrollPane( tree );
 

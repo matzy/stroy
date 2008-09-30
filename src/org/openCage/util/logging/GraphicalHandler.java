@@ -32,7 +32,8 @@ public class GraphicalHandler extends Handler {
     
     public GraphicalHandler(LogHandlerPanel logHandlerPanel) {
         this.logHandlerPanel = logHandlerPanel;
-        //setLevel( Level.INFO );
+        // show all log messages
+        setLevel( Level.ALL );
     }
 
     public void publish(LogRecord logRecord) {

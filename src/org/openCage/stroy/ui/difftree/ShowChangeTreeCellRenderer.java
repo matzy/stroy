@@ -37,6 +37,7 @@ import org.openCage.util.ui.CompositeIcon;
 
 public class ShowChangeTreeCellRenderer extends DefaultTreeCellRenderer {
 
+    private JTree tree;
 
 //    @Inject
 //    private ChangeAsColor changeAsColor;
@@ -45,12 +46,19 @@ public class ShowChangeTreeCellRenderer extends DefaultTreeCellRenderer {
     private static Color STD_FOR         = Color.BLACK;
 
 
-    public int getHorizontalTextPosition() {
-        return super.getHorizontalTextPosition() + 70;
+    public void setTree( JTree tree ) {
+        this.tree = tree;
     }
+
+//    public int getHorizontalTextPosition() {
+//        return super.getHorizontalTextPosition() + 70;
+//    }
 
 
     public Dimension getPreferredSize() {
+//        if ( tree != null ) {
+//            return new Dimension( tree.getWidth(), super.getPreferredSize().height );
+//        }
         return new Dimension( 300, super.getPreferredSize().height );
     }
 
@@ -88,6 +96,7 @@ public class ShowChangeTreeCellRenderer extends DefaultTreeCellRenderer {
                 pRow,
                 pHasFocus );
 
+
         setToolTipText( uiNode.getToolTip() );
 
         List<Icon> icons = new ArrayList<Icon>();
@@ -95,7 +104,7 @@ public class ShowChangeTreeCellRenderer extends DefaultTreeCellRenderer {
 
         int stdSize;
 
-        if ( node.isLeaf() ) { // get().isLeaf() ) {
+        if ( node.isLeaf() ) {
             icons.add( getDefaultLeafIcon());
             stdSize = getDefaultLeafIcon().getIconWidth();
         } else if ( pIsExpanded ) {
