@@ -21,8 +21,6 @@ import org.openCage.stroy.ui.util.DMTNMaker;
 import org.openCage.stroy.ui.util.NodeToNode;
 import org.openCage.util.logging.Log;
 import org.openCage.util.ui.TreeUtils;
-import org.explodingpixels.UnifiedToolbarPanel;
-import org.explodingpixels.EmphasizedLabel;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -68,7 +66,7 @@ public class GraphicalDiffMyDoggy<T extends Content> extends JFrame implements I
         this.tasks = tasks.getTasks();
 
         // part of unified taskbar // refactor
-        getRootPane().putClientProperty("apple.awt.brushMetalLook", Boolean.TRUE);
+        //getRootPane().putClientProperty("apple.awt.brushMetalLook", Boolean.TRUE);
 
         dmtRoots = DMTNMaker.makeDFTNs( this.tasks );
 
@@ -80,11 +78,6 @@ public class GraphicalDiffMyDoggy<T extends Content> extends JFrame implements I
         setSize( 400, 200 );
 
         getContentPane().setLayout( new BorderLayout());
-
-        UnifiedToolbarPanel toolbar = new UnifiedToolbarPanel();
-        toolbar.add( new EmphasizedLabel("wuhoo"));
-        toolbar.add( new EmphasizedLabel("duda"));
-        getContentPane().add( toolbar, BorderLayout.NORTH );
 
         // TODO
         Injector injector         = Guice.createInjector( new RuntimeModule() );
