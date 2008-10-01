@@ -49,18 +49,18 @@ public class ModalProgress extends JDialog {
         top.setLayout( layout );
 
         progress.setIndeterminate( true );
-        progress.setSize( 500, 10 );
-        txt.setSize( 500, 10);
+//        progress.setSize( 130, 10 );
+//        txt.setSize( 100, 10);
 
-        layout.row().add( " ").add(progress, 70 );
-        layout.row().add( " ").add(txt, 70 );
-        layout.row().add( new JLabel(" "), 10 ).add( inBackground, 5 );
+        layout.row().add( " ").add(progress, 8 );
+        layout.row().add( " ").add(txt, 8 );
+        layout.row().add( new JLabel(" "), 5 ).add( inBackground, 3 );
 
 
         setLayout( new BorderLayout());
         add( top, BorderLayout.CENTER  );
 
-        setSize( 400, 30 );
+//        setSize( 150, 30 );
 
         pack();
 
@@ -72,6 +72,7 @@ public class ModalProgress extends JDialog {
     }
 
     public void setText(String str) {
+        // TODO cut
         txt.setText( str );
     }
 
