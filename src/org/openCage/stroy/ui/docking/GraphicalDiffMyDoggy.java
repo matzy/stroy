@@ -94,7 +94,7 @@ public class GraphicalDiffMyDoggy<T extends Content> extends JFrame implements I
         toolWindowManager = new MyDoggyToolWindowManager( this );
         getContentPane().add( toolWindowManager, BorderLayout.CENTER );
 
-        toolWindowManager.registerToolWindow( "Summary",   // NON-NLS    // Id
+        toolWindowManager.registerToolWindow( Message.get("Docking.summary"),  // Id
                                               Message.get("Docking.summary"),                 // Title
                                               null,                         // Icon
                                               top,    // Component
@@ -116,7 +116,7 @@ public class GraphicalDiffMyDoggy<T extends Content> extends JFrame implements I
 //                                              ToolWindowAnchor.BOTTOM);       // Anchor
 
         pack();
-        toolWindowManager.getContentManager().addContent( "Diff",       // Id // NON-NLS
+        toolWindowManager.getContentManager().addContent( Message.get("Docking.diff"),       // Id // NON-NLS
                                                           Message.get("Docking.diff"),                 // Title
                                                           null,                         // Icon
                                                           diffPane.getPanel() );
