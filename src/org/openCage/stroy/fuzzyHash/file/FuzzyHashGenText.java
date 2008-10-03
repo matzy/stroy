@@ -80,7 +80,7 @@ public class FuzzyHashGenText implements FuzzyHashGenerator<File> {
 
     public FuzzyHash generate( final File file ) {
 
-        System.out.println( "fuzzyhash gen " + file.getAbsolutePath()  );
+        Log.fine( "fuzzyhash gen " + file.getAbsolutePath()  );
 
         final Set<Integer> set = new HashSet<Integer>();
 

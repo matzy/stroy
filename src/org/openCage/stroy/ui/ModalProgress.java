@@ -36,31 +36,35 @@ import org.openCage.util.iterator.T2;
 // TODO modal ?
 public class ModalProgress extends JDialog {
 
-    private JProgressBar progress = new JProgressBar();
-    private JLabel txt = new JLabel();
-    private JButton inBackground = new JButton( Message.get("Progress.doInBackground"));
+    private JProgressBar progress     = new JProgressBar();
+    private JLabel       txt          = new JLabel();
+    private JLabel       label        = new JLabel();
+    private JButton      inBackground = new JButton( Message.get("Progress.doInBackground"));
 
     public ModalProgress( JFrame frame ) {
 
         super( frame, false );
+
+        if ( frame == null ) {
+            setLocation( 200, 100 );
+        } else {
+            Point loc = frame.getLocation();
+            loc.move( 100, 50 );
+            setLocation( loc ); 
+        }
+
 
         JPanel top = new JPanel();
         DesignGridLayout layout = new DesignGridLayout( top );
         top.setLayout( layout );
 
         progress.setIndeterminate( true );
-//        progress.setSize( 130, 10 );
-//        txt.setSize( 100, 10);
 
-        layout.row().add( " ").add(progress, 8 );
-        layout.row().add( " ").add(txt, 8 );
-        layout.row().add( new JLabel(" "), 5 ).add( inBackground, 3 );
-
+        layout.row().add( label, 1 ).add( txt, 4 );
+        layout.row().add(progress, 3 ).add( inBackground );
 
         setLayout( new BorderLayout());
         add( top, BorderLayout.CENTER  );
-
-//        setSize( 150, 30 );
 
         pack();
 
@@ -71,24 +75,24 @@ public class ModalProgress extends JDialog {
         });
     }
 
-    public void setText(String str) {
+    public void setText( String labl, String str) {
+        label.setText( labl );
         // TODO cut
         txt.setText( str );
     }
 
-    protected void setText( T2<String,Boolean> txt ) {
-        if ( txt.i1 ) {
+    protected void setText( T2<String,String> txt ) {
+        if ( txt.i1 == null ) {
             setTitle( txt.i0 );
-        }
-        else {
-            setText( txt.i0 );
+        } else {
+            setText( txt.i0, txt.i1 );
         }
     }
 
 
     @Override
     public void setTitle( String title ) {
-        setText( "" );
+        setText( "", "" );
         super.setTitle( title );
     }
 }

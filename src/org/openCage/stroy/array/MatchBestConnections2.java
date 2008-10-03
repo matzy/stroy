@@ -1,6 +1,8 @@
 package org.openCage.stroy.array;
 
 import org.openCage.stroy.InformedDistance;
+import org.openCage.stroy.locale.Message;
+import org.openCage.stroy.graph.matching.strategy.Reporter;
 import org.openCage.stroy.task.MatchingTask;
 import org.openCage.util.compare.TrippleProj1Comparator;
 import org.openCage.util.iterator.T3;
@@ -32,22 +34,25 @@ import java.util.List;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public class MatchBestConnections2<S,T> { // <S,T extends Id> {
+public class MatchBestConnections2<S,T> {
 
     private final InformedDistance<S,T> dist;
     private final boolean               perfect;
 
     private final List<T3<Double,T,T>> edges = new ArrayList<T3<Double,T,T>>();
+    private Reporter reporter;
 
 
-    public MatchBestConnections2( InformedDistance<S,T> dist, boolean perfect  ) {
+    public MatchBestConnections2( InformedDistance<S,T> dist, boolean perfect, Reporter reporter ) {
         this.dist = dist;
         this.perfect = perfect;
+        this.reporter = reporter;
     }
 
     public void match( S info, MatchingTask<T> task, Collection<T> lefts, Collection<T> rights ) {
 
         for ( T elemFrom : lefts ) {
+            reporter.detail( Message.get( "Progress.matchsearch" ), elemFrom.toString() );
             for ( T elemTo : rights ) {
                 if ( !task.isMatched( elemTo )) {
                     double distval = dist.distance( info, elemFrom, elemTo );

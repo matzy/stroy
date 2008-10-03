@@ -12,6 +12,7 @@ import org.openCage.stroy.ui.ModalProgress;
 import org.openCage.stroy.ui.difftree.NWayDiffPane;
 import org.openCage.stroy.ui.util.NodeToNode;
 import org.openCage.stroy.content.Content;
+import org.openCage.stroy.locale.Message;
 import org.openCage.util.logging.Log;
 
 import javax.swing.*;
@@ -60,9 +61,9 @@ public class IgnoreUpdateWorker<T extends Content> extends SwingWorker<String, T
     private List<TreeNode<T>> toDelRight;
 
     public IgnoreUpdateWorker( final JFrame frame, final NWayDiffPane diffPane, final List<TreeMatchingTask<T>> tasks, final Ignore ignore  ) {
-        this.tasks = tasks;
-        this.ignore = ignore;
-        progress = new ModalProgress( frame );
+        this.tasks    = tasks;
+        this.ignore   = ignore;
+        progress      = new ModalProgress( frame );
         progress.setVisible( true );
         this.diffPane = diffPane;
     }
@@ -154,7 +155,7 @@ public class IgnoreUpdateWorker<T extends Content> extends SwingWorker<String, T
 
         for ( T2<Integer, TreeNode<T>> node : nodes ) {
 
-            progress.setText( node.i1.toString() );
+            progress.setText( Message.get( "Progress.filtering" ), node.i1.toString() );
             DefaultTreeModel       model   = ((DefaultTreeModel)diffPane.getTree(node.i0).getModel());
             DefaultMutableTreeNode mutable =  NodeToNode.nodeToDMTNode( diffPane.getRoot( node.i0 ), node.i1 );
 

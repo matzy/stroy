@@ -24,12 +24,10 @@ import org.openCage.stroy.ui.NodeReport;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 public class NullReporter implements Reporter {
-    public void detail(String str) {
-    }
 
-    public void title( String str ) {        
-    }
+    public void detail( String lable, String str) {}
 
-    public void report(NodeReport node) {        
-    }
+    public void title( String str ) {}
+
+    public void report(NodeReport node) {}
 }

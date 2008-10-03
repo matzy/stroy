@@ -63,7 +63,7 @@ public class StandardMatching <T extends Content> implements MatchStrategy<T> {
                 throw new IllegalStateException( "prog error" );
             }
 
-            reporter.detail( Message.get( "testing") + " " + leftNode );
+            reporter.detail( Message.get( "testing"), leftNode.toString() );
 
             for ( TreeNode<T> tgtKid : toParent.getChildren() ) {
 

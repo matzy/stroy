@@ -80,7 +80,7 @@ public class DuplicateMatching<T extends Content> implements MatchStrategy<T> {
                     return dist;
                 }
             },
-                    true );
+                    true, new NullReporter() );
 
             match.match( matchingTask.getDirs(), matchingTask.getLeaves(), src, tgt  );
         }

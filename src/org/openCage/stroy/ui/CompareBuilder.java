@@ -13,6 +13,7 @@ import org.openCage.stroy.graph.matching.strategy.Reporter;
 import org.openCage.stroy.graph.matching.strategy.NameOnly;
 import org.openCage.stroy.graph.matching.strategy.combined.WatchFull;
 import org.openCage.util.iterator.T2;
+import org.openCage.util.iterator.T3;
 import org.openCage.util.logging.Log;
 import org.jdesktop.swingworker.SwingWorker;
 
@@ -46,7 +47,7 @@ import com.google.inject.Guice;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public class CompareBuilder extends SwingWorker<GraphicalDiffMyDoggy, T2<String,Boolean>> {
+public class CompareBuilder extends SwingWorker<GraphicalDiffMyDoggy, T2<String,String>> {
 
     private final Ignore                      ignore;
     private final List<String>                dirs;
@@ -83,12 +84,12 @@ public class CompareBuilder extends SwingWorker<GraphicalDiffMyDoggy, T2<String,
         List<TreeMatchingTask<FileContent>> tasks  = buildTasks();
 
         Reporter reporter = new Reporter() {
-            public void detail(String str) {
-                publish( T2.c(str,false) );
+            public void detail( String labl, String str) {
+                publish( T2.c( labl, str ) );
             }
 
             public void title( String str ) {
-                publish( T2.c(str, true ));
+                publish( T2.c(str, (String)null ));
             }
         };
 
@@ -97,7 +98,7 @@ public class CompareBuilder extends SwingWorker<GraphicalDiffMyDoggy, T2<String,
         }
 
         // build the trees ui in the background
-        publish( T2.c( Message.get( "Progress.MainWindowBuilding" ), true ));
+        publish( T2.c( Message.get( "Progress.MainWindowBuilding" ), (String)null ));
 
         return new GraphicalDiffMyDoggy( new Tasks<FileContent>( tasks ) );
     }
@@ -107,12 +108,12 @@ public class CompareBuilder extends SwingWorker<GraphicalDiffMyDoggy, T2<String,
 
         for ( int idx = 1; idx < dirs.size(); ++idx  ) {
 
+            publish(  T2.c( Message.get( "Progress.scanning" ), (String)null ));
+
             if ( tasks.size() == 0 ) {
                 // TODO localize full message
-                publish(  T2.c( Message.get( "Progress.reading" ) + "\"" +  dirs.get(idx - 1 ) + "\" and \"" +  dirs.get(idx ) + "\"", true ));
                 tasks.add( taskBuilder.build( ignore, new File( dirs.get(idx - 1 )), new File( dirs.get(idx ))));
             } else {
-                publish( T2.c( Message.get( "Progress.reading" ) + "\"" + dirs.get(idx ) + "\"", true ));
                 tasks.add( taskBuilder.build( ignore, tasks.get(tasks.size() - 1), new File( dirs.get(idx ))));
             }
         }
@@ -129,7 +130,7 @@ public class CompareBuilder extends SwingWorker<GraphicalDiffMyDoggy, T2<String,
         try {
             gd4 = get();
         } catch ( InterruptedException e ) {
-            // open log window
+            // TODO open log window
             Log.log( e );
             progressDialog.dispose();
             return;
@@ -157,11 +158,15 @@ public class CompareBuilder extends SwingWorker<GraphicalDiffMyDoggy, T2<String,
     }
 
 
-    protected void process( List<T2<String,Boolean>> strings ) {
+    protected void process( List<T2<String,String>> strings ) {
         super.process( strings );
 
-        for ( T2<String,Boolean> txt : strings ) {
-            progressDialog.setText( txt);
+        for ( T2<String,String> txt : strings ) {
+            if ( txt.i1 == null ) {
+                progressDialog.setTitle( txt.i0 );
+            } else {
+                progressDialog.setText( txt.i0,  txt.i1 );
+            }
         }
     }
 }

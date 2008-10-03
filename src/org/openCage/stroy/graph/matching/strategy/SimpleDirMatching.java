@@ -57,7 +57,7 @@ public class SimpleDirMatching<T extends Content> implements MatchStrategy<T> {
                 throw new IllegalStateException( "prog error" );
             }
 
-            reporter.detail( Message.get( "testing") + " " + fromDir );
+            reporter.detail( Message.get( "testing"), fromDir.toString() );
 
             for ( TreeNode<T> tgtKid : toParent.getChildren() ) {
 

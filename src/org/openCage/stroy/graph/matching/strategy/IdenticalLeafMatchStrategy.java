@@ -33,7 +33,6 @@ import java.util.Map;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-@SuppressWarnings({"HardCodedStringLiteral"})
 public class IdenticalLeafMatchStrategy<T extends Content> implements MatchStrategy<T> {
 
     public void match(TreeMatchingTask<T> treeMatchingTask, Reporter reporter) {
@@ -74,7 +73,7 @@ public class IdenticalLeafMatchStrategy<T extends Content> implements MatchStrat
 
         for ( TreeLeafNode<T> lfm : matchingTask.getLeaves().getUnmatchedLeft() ) {
 
-            reporter.detail( Message.get( "checksum: " ) + lfm );
+            reporter.detail( Message.get( "Progress.checking" ), lfm.toString() );
             
             String checksum = lfm.getContent().getChecksum();
 
@@ -91,6 +90,9 @@ public class IdenticalLeafMatchStrategy<T extends Content> implements MatchStrat
         }
 
         for ( TreeLeafNode<T> lfm : matchingTask.getLeaves().getUnmatchedRight() ) {
+
+            reporter.detail( Message.get( "Progress.checking" ), lfm.toString() );
+
             String checksum = lfm.getContent().getChecksum();
 
             SameContent<T> sh;

@@ -60,7 +60,7 @@ public class HistoricalMatching<T extends Content> implements MatchStrategy<T> {
 
         final MatchBestConnections2<MatchingTask<TreeDirNode<T>>,TreeLeafNode<T>> match =
                 new MatchBestConnections2<MatchingTask<TreeDirNode<T>>, TreeLeafNode<T>>(
-                        fuzzyTreeLeafDistance, false );
+                        fuzzyTreeLeafDistance, false, reporter );
 
         match.match( treeMatchingTask.getDirs(),
                      treeMatchingTask.getLeaves(),

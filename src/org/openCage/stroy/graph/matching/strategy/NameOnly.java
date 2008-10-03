@@ -60,7 +60,7 @@ public class NameOnly <T extends Content> implements MatchStrategy<T> {
                 throw new IllegalStateException( "prog error" );
             }
 
-            reporter.detail( leftNode.toString() );
+            reporter.detail( Message.get( "Progress.processing" ) ,leftNode.toString() );
 
 
             for ( TreeNode<T> tgtKid : toParent.getChildren() ) {

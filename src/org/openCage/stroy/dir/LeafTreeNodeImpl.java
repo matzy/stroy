@@ -45,10 +45,6 @@ public class LeafTreeNodeImpl extends ContentTreeNodeBaseImpl<FileContent> imple
         return storage;
     }
 
-    public String toString() {
-        return "Leaf: " + getContent();
-    }
-
     public boolean isLeaf() {
         return true;
     }

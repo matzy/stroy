@@ -4,7 +4,6 @@ import com.google.inject.Inject;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.ui.util.NodeToNode;
 import org.openCage.stroy.ui.popup.PopupSelector;
-import org.openCage.stroy.ui.difftree.ep.EPJTree;
 import org.openCage.stroy.content.Content;
 import org.openCage.util.ui.TreeUtils;
 import org.openCage.util.ui.skvTree.SkvTree;

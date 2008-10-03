@@ -69,11 +69,11 @@ public class ComputeDifference <T extends Content> implements MatchStrategy<T> {
         for (TreeLeafNode<T> left : treeMatchingTask.getLeaves().getMatchedLeft()) {
 
             if ( treeMatchingTask.getLeaves().getDifference( left ).equals( ContentDiff.unknown )) {
-                reporter.detail( Message.get( "checksum: " ) + left );
+                reporter.detail( Message.get( "Progress.checking" ), left.toString() );
                 String checksumLeft = left.getContent().getChecksum();
 
                 TreeLeafNode<T> right = (TreeLeafNode<T>)treeMatchingTask.getMatch( left );
-                reporter.detail( Message.get( "checksum: " ) + right );
+                reporter.detail( Message.get( "Progress.checking" ), right.toString() );
                 String checksumRight = right.getContent().getChecksum();
 
                 if ( checksumLeft.equals( checksumRight )) {

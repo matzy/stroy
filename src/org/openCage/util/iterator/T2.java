@@ -21,6 +21,10 @@ package org.openCage.util.iterator;
 *
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
+
+/**
+ * A 2-Tuple, i.e. a Pair
+ */
 public class T2<A,B> {
 
     public final A i0;

@@ -32,4 +32,8 @@ public class T3<A,B,C> {
         this.i1   = two;
         this.i2 = three;
     }
+
+    static  public <T,S,V> T3<T,S,V> c( T t, S s, V v ) {
+        return new T3<T,S,V>(t,s,v);
+    }
 }

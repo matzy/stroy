@@ -54,10 +54,6 @@ public class DirTreeNodeImpl extends ContentTreeNodeBaseImpl<FileContent> implem
         child.setParent( null );
     }
 
-    public String toString() {
-        return "DirTreeNodeImpl " + getContent();
-    }
-
     public boolean isLeaf() {
         return false;
     }

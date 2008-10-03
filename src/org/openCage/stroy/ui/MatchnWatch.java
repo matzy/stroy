@@ -34,7 +34,7 @@ import java.util.List;
 
 
 
-public class MatchnWatch<T extends Content> extends SwingWorker< String, T2<String, Boolean>> {
+public class MatchnWatch<T extends Content> extends SwingWorker< String, T2<String, String>> {
 
     private final UIApp<T>          uiApp;
     private final MatchStrategy<T>  strategy;
@@ -44,20 +44,18 @@ public class MatchnWatch<T extends Content> extends SwingWorker< String, T2<Stri
         this.uiApp    = uiApp;
         this.strategy = strategy;
 
-        progressUI.setLocation( 30, 100 );
         progressUI.setVisible( true );
-
     }
 
     protected String doInBackground() throws Exception {
 
         Reporter reporter = new Reporter () {
-            public void detail(String str) {
-                publish( T2.c(str,false ));
+            public void detail( String label, String str) {
+                publish( T2.c( label, str ));
             }
 
             public void title( String str ) {
-                publish( T2.c(str, true ));
+                publish( T2.c(str, (String)null ));
             }
         };
 
@@ -71,10 +69,10 @@ public class MatchnWatch<T extends Content> extends SwingWorker< String, T2<Stri
     }
 
 
-    protected void process( List<T2<String,Boolean>> strings ) {
+    protected void process( List<T2<String,String>> strings ) {
         super.process( strings );
 
-        for ( T2<String,Boolean> txt : strings ) {
+        for ( T2<String,String> txt : strings ) {
             progressUI.setText( txt );
         }
     }
@@ -83,7 +81,7 @@ public class MatchnWatch<T extends Content> extends SwingWorker< String, T2<Stri
     protected void done() {
         super.done();
 
-        progressUI.setText( "" );
+        progressUI.setText( "", "" );
         progressUI.dispose();
     }
 }

@@ -51,4 +51,17 @@ public abstract class ContentTreeNodeBaseImpl<T extends Content> implements Tree
         return content.getName();
     }
 
+
+    public String toString() {
+        String ret = content.getName();
+        if ( parent != null ) {
+            ret = parent.toString() + ret;
+        }
+
+        if ( isLeaf() ) {
+            return ret;
+        }
+
+        return ret + "/";
+    }
 }

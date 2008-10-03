@@ -26,6 +26,6 @@ import org.openCage.stroy.ui.NodeReport;
 
 public interface Reporter {
 
-    public void detail( String str );
+    public void detail( String label, String str );
     public void title( String str );
 }
