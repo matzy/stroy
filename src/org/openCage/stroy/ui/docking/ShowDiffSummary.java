@@ -10,9 +10,9 @@ import org.openCage.stroy.locale.Message;
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import zappini.designgridlayout.DesignGridLayout;
-
 import java.awt.*;
+
+import net.java.dev.designgridlayout.DesignGridLayout;
 
 /***** BEGIN LICENSE BLOCK *****
  * Version: MPL 1.1
@@ -57,7 +57,7 @@ public class ShowDiffSummary<T extends Content> extends JPanel {
         multiple.setForeground( Colors.CONTENT_AND_STRUCTUR );
 
 
-        layout.row().label("   ").
+        layout.row().label( new JLabel("   ")).
                 add( new JLabel( "" ), 5 ).
                 add( new JLabel( Message.get( "Summary.total" ))).
                 add( only ).
@@ -66,20 +66,20 @@ public class ShowDiffSummary<T extends Content> extends JPanel {
                 add( moved ).
                 add( multiple) ;
 
-        layout.row().label( Message.get( "Summary.leftdirs" )).
+        layout.row().label( Message.getl( "Summary.leftdirs" )).
                 add( new JLabel( getRootPath( roots.get(0) ) ), 5 ).
                 add( new JLabel( "" + matchings.get(0).getRightDirCount())).
                 add( new JLabel( "" + matchings.get(0).getUnmatchedRightDirs().size() )).
                 add( new JLabel(""),4)
                 ;
-        layout.row().label( Message.get( "Summary.leftfiles" )).
+        layout.row().label( Message.getl( "Summary.leftfiles" )).
                 add( new JLabel( "" ), 5 ).
                 add( new JLabel( "" + matchings.get(0).getRightLeaveCount())).
                 add( new JLabel( "" + matchings.get(0).getUnmatchedRightFiles().size() )).
                 add( new JLabel(""),4)
                 ;
 
-        layout.row().label( Message.get( "Summary.changedDirs" )).
+        layout.row().label( Message.getl( "Summary.changedDirs" )).
                 add( new JLabel(""), 5 ).
                 add( new JLabel("") ).
                 add( new JLabel("") ).
@@ -87,7 +87,7 @@ public class ShowDiffSummary<T extends Content> extends JPanel {
                 add( new JLabel( "" + matchings.get(0).getRenamedDirs().size() + " " + matchings.get(0).getRenamedLeaves().size())).
                 add( new JLabel( "" + matchings.get(0).getMovedDirs().size() + " " + matchings.get(0).getMovedLeaves().size() )).
                 add( new JLabel( "- " + matchings.get(0).getComplexModifiedLeaves().size()) );
-        layout.row().label( Message.get( "Summary.changedFiles" )).
+        layout.row().label( Message.getl( "Summary.changedFiles" )).
                 add( new JLabel(""), 5 ).
                 add( new JLabel("") ).
                 add( new JLabel("") ).
@@ -97,13 +97,13 @@ public class ShowDiffSummary<T extends Content> extends JPanel {
                 add( new JLabel( "- " + matchings.get(0).getComplexModifiedLeaves().size()) );
 
         if ( matchings.size() ==  1 ) {
-            layout.row().label( Message.get( "Summary.rightdirs" )).
+            layout.row().label( Message.getl( "Summary.rightdirs" )).
                     add( new JLabel( getRootPath( roots.get(1) ) ), 5 ).
                     add( new JLabel( "" + matchings.get(0).getLeftDirCount() )).
                     add( new JLabel( "" + matchings.get(0).getUnmatchedLeftDirs().size()  )).
                     add( new JLabel(""),4)
                     ;
-            layout.row().label( Message.get( "Summary.leftdirs" )).
+            layout.row().label( Message.getl( "Summary.leftdirs" )).
                     add( new JLabel( "" ), 5 ).
                     add( new JLabel( "" + matchings.get(0).getLeftLeaveCount())).
                     add( new JLabel( "" + matchings.get(0).getUnmatchedLeftFiles().size() )).
@@ -111,36 +111,36 @@ public class ShowDiffSummary<T extends Content> extends JPanel {
                     ;
         } else {
 
-            // TODO 3 way
-
-            layout.row().label( "Middle:   ").
-                    add( new JLabel( getRootPath( roots.get(1) ) ), 5 ).
-                    add( new JLabel( "" + matchings.get(0).getLeftDirCount() + " " + matchings.get(0).getLeftLeaveCount())).
-                    add( new JLabel( "" + matchings.get(0).getUnmatchedLeftDirs().size() + " " + matchings.get(0).getUnmatchedLeftFiles().size() )).
-                    add( new JLabel(""),4)
-                    ;
-            layout.row().label( "Middle:   ").
-                    add( new JLabel( getRootPath( roots.get(1) ) ), 5 ).
-                    add( new JLabel( "" + matchings.get(1).getLeftDirCount() + " " + matchings.get(1).getLeftLeaveCount())).
-                    add( new JLabel( "" + matchings.get(1).getUnmatchedLeftDirs().size() + " " + matchings.get(1).getUnmatchedLeftFiles().size() )).
-                    add( new JLabel(""),4)
-                    ;
-
-            layout.row().label( "" ).
-                    add( new JLabel(""), 5 ).
-                    add( new JLabel("") ).
-                    add( new JLabel("") ).
-                    add( new JLabel( "- " + matchings.get(1).getModifiedLeaves().size() )).
-                    add( new JLabel( "" + matchings.get(1).getRenamedDirs().size() + " " + matchings.get(1).getRenamedLeaves().size())).
-                    add( new JLabel( "" + matchings.get(1).getMovedDirs().size() + " " + matchings.get(1).getMovedLeaves().size() )).
-                    add( new JLabel( "- " + matchings.get(1).getComplexModifiedLeaves().size()) );
-
-            layout.row().label( "Right:   ").
-                    add( new JLabel( getRootPath( roots.get(2) ) ), 5 ).
-                    add( new JLabel( "" + matchings.get(1).getRightDirCount() + " " + matchings.get(1).getRightLeaveCount())).
-                    add( new JLabel( "" + matchings.get(1).getUnmatchedRightDirs().size() + " " + matchings.get(1).getUnmatchedRightFiles().size() )).
-                    add( new JLabel(""),4)
-                    ;
+//            // TODO 3 way
+//
+//            layout.row().label( "Middle:   ").
+//                    add( new JLabel( getRootPath( roots.get(1) ) ), 5 ).
+//                    add( new JLabel( "" + matchings.get(0).getLeftDirCount() + " " + matchings.get(0).getLeftLeaveCount())).
+//                    add( new JLabel( "" + matchings.get(0).getUnmatchedLeftDirs().size() + " " + matchings.get(0).getUnmatchedLeftFiles().size() )).
+//                    add( new JLabel(""),4)
+//                    ;
+//            layout.row().label( "Middle:   ").
+//                    add( new JLabel( getRootPath( roots.get(1) ) ), 5 ).
+//                    add( new JLabel( "" + matchings.get(1).getLeftDirCount() + " " + matchings.get(1).getLeftLeaveCount())).
+//                    add( new JLabel( "" + matchings.get(1).getUnmatchedLeftDirs().size() + " " + matchings.get(1).getUnmatchedLeftFiles().size() )).
+//                    add( new JLabel(""),4)
+//                    ;
+//
+//            layout.row().label( "" ).
+//                    add( new JLabel(""), 5 ).
+//                    add( new JLabel("") ).
+//                    add( new JLabel("") ).
+//                    add( new JLabel( "- " + matchings.get(1).getModifiedLeaves().size() )).
+//                    add( new JLabel( "" + matchings.get(1).getRenamedDirs().size() + " " + matchings.get(1).getRenamedLeaves().size())).
+//                    add( new JLabel( "" + matchings.get(1).getMovedDirs().size() + " " + matchings.get(1).getMovedLeaves().size() )).
+//                    add( new JLabel( "- " + matchings.get(1).getComplexModifiedLeaves().size()) );
+//
+//            layout.row().label( "Right:   ").
+//                    add( new JLabel( getRootPath( roots.get(2) ) ), 5 ).
+//                    add( new JLabel( "" + matchings.get(1).getRightDirCount() + " " + matchings.get(1).getRightLeaveCount())).
+//                    add( new JLabel( "" + matchings.get(1).getUnmatchedRightDirs().size() + " " + matchings.get(1).getUnmatchedRightFiles().size() )).
+//                    add( new JLabel(""),4)
+//                    ;
         }
 
         setLayout( new BorderLayout());

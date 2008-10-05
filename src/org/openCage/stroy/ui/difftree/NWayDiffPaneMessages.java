@@ -19,7 +19,8 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-import zappini.designgridlayout.DesignGridLayout;
+import net.java.dev.designgridlayout.DesignGridLayout;
+
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1

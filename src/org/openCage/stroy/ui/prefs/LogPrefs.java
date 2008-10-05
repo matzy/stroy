@@ -1,7 +1,5 @@
 package org.openCage.stroy.ui.prefs;
 
-import zappini.designgridlayout.DesignGridLayout;
-
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
@@ -9,6 +7,7 @@ import java.awt.*;
 import org.openCage.util.prefs.PComboBox;
 import org.openCage.util.logging.LogHandlerPanel;
 import org.openCage.stroy.locale.Message;
+import net.java.dev.designgridlayout.DesignGridLayout;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -45,7 +44,7 @@ public class LogPrefs extends JPanel {
         DesignGridLayout layout = new DesignGridLayout( top );
         top.setLayout( layout );
         layout.row().add( new JLabel(""));
-        layout.row().label( Message.get( "Pref.Logging.display" )).add( selectLogLevel );
+        layout.row().label( new JLabel( Message.get( "Pref.Logging.display" ))).add( selectLogLevel );
 //        layout.row().label( "display loglevel level: ").add( selectHandlerLevel );
 
         top.setBorder( new TitledBorder( Message.get( "Pref.Logging.title" ) ));

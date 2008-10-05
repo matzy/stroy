@@ -1,17 +1,15 @@
 package org.openCage.stroy.update;
 
-import zappini.designgridlayout.DesignGridLayout;
-
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.util.regex.Pattern;
 
 import org.openCage.stroy.locale.LocalizedComboBox;
 import org.openCage.stroy.locale.Message;
 import com.google.inject.Inject;
+import net.java.dev.designgridlayout.DesignGridLayout;
 
 public class UpdatePrefs extends JPanel {
 
@@ -36,7 +34,7 @@ public class UpdatePrefs extends JPanel {
 
         layout.row().add( new JLabel(""));
         layout.row().add( new JLabel( Message.get("Update.howoften") ),2).add( updateInterval );
-        layout.row().add( "");
+        layout.row().add( new JLabel(""));
         layout.row().add( new JLabel( Message.get( "Update.checknowlabel")) ,2 ).add( checkNow );
         layout.row().add( new JLabel(""),2 ).add( uptodate );
 

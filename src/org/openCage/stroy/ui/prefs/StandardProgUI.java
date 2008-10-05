@@ -1,7 +1,5 @@
 package org.openCage.stroy.ui.prefs;
 
-import zappini.designgridlayout.DesignGridLayout;
-
 import javax.swing.*;
 
 import org.openCage.util.prefs.PreferenceString;
@@ -15,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import com.muchsoft.util.Sys;
+import net.java.dev.designgridlayout.DesignGridLayout;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -67,7 +66,7 @@ public class StandardProgUI extends JPanel {
         top.setLayout( layout );
 
         layout.row().add( new JLabel("")).add( new JLabel( Message.get( "Pref.StandardProgs.intro" )) ).add( new JLabel(""));        
-        layout.row().add( "   " );
+        layout.row().add( new JLabel( Message.get( "" )));
 
 
         ButtonGroup diffGroup = new ButtonGroup();
@@ -85,7 +84,7 @@ public class StandardProgUI extends JPanel {
 
         layout.row().add( new JLabel(Message.get( "Pref.StandardProgs.diff" )),2).add( stdDiff, 2 ).add( new JLabel(stdDiffProg), 5);
         layout.row().add( new JLabel(" "), 2).add( otherDiff,2 ).add( diffText, 4).add( diffButton, 1);
-        layout.row().add( "   " );
+        layout.row().add( new JLabel( Message.get( "")));
 
 //        openText.setEditable( false );
 //        layout.row().label( ExternalProgs.open ).add( openText, 8 ).add( new JLabel( "" ), 1);

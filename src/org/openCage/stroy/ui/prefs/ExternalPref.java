@@ -8,7 +8,6 @@ import org.openCage.util.ui.FileChooser;
 import org.openCage.util.ui.JTextFields;
 import org.openCage.util.io.FileUtils;
 import org.openCage.util.external.ExternalProgs;
-import zappini.designgridlayout.DesignGridLayout;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -21,6 +20,8 @@ import java.awt.*;
 import java.util.*;
 import java.util.List;
 import java.io.File;
+
+import net.java.dev.designgridlayout.DesignGridLayout;
 
 
 /***** BEGIN LICENSE BLOCK *****

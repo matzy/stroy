@@ -1,15 +1,13 @@
 package org.openCage.stroy.ui;
 
-import zappini.designgridlayout.DesignGridLayout;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.util.*;
 
 import org.openCage.stroy.locale.Message;
 import org.openCage.util.iterator.T2;
+import net.java.dev.designgridlayout.DesignGridLayout;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1

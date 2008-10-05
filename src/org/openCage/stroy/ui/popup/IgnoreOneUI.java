@@ -1,14 +1,14 @@
 package org.openCage.stroy.ui.popup;
 
 import org.openCage.stroy.filter.IgnoreCentral;
-import zappini.designgridlayout.DesignGridLayout;
+import org.openCage.stroy.locale.Message;
 
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.SoftBevelBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import net.java.dev.designgridlayout.DesignGridLayout;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -36,17 +36,18 @@ import java.awt.event.ActionListener;
  * Dialog to filter out one file by pattern or extension or ...
  */
 public class IgnoreOneUI extends JFrame {
-    private JTextField patternField = new JTextField("");
-    private JLabel matches = new JLabel( "-m-");
-    private JLabel legal = new JLabel( "-l-" );
-    private JButton patternButton = new JButton( "Filter by Pattern" );
-    private JButton nameButton = new JButton( "Filter by Name" );
+//    private JTextField patternField = new JTextField("");
+//    private JLabel matches = new JLabel( "-m-");
+//    private JLabel legal = new JLabel( "-l-" );
+//    private JButton patternButton = new JButton( "Filter by Pattern" );
+    private JButton nameButton = new JButton( Message.get( "SingleIgnore.nameButton" ));
     private JButton extButton;
     private JButton pathButton;
 
     private final String extension;
     private final String name;
     private final String path;
+    private final String realName;
 
 
     public IgnoreOneUI( final String path, final String nme, final String extension ) {
@@ -55,6 +56,7 @@ public class IgnoreOneUI extends JFrame {
         this.extension = extension;
         String nameTmp = nme;
         name = ".*/" + nameTmp.replaceAll( "\\.", "\\\\.");
+        realName = nme;
 
         createLayout();
         listeners();
@@ -93,12 +95,14 @@ public class IgnoreOneUI extends JFrame {
 
     private void createLayout() {
 
+        setTitle( Message.get("SingleIgnore.windowTitle"));
+
         JPanel top = new JPanel();
         DesignGridLayout layout = new DesignGridLayout( top );
         top.setLayout( layout );
 
-        extButton = new JButton( "Filter by Extension" );
-        pathButton = new JButton( "Filter by Path" );
+        extButton = new JButton( Message.get("SingleIgnore.extensionButton" ));
+        pathButton = new JButton( Message.get( "SingleIgnore.pathButton" ));
 
 
 
@@ -114,14 +118,14 @@ public class IgnoreOneUI extends JFrame {
             extLabel.setText( " ");
         }
 
-        patternButton.setEnabled( false );
-        patternField.setEnabled( false );
+//        patternButton.setEnabled( false );
+//        patternField.setEnabled( false );
 
-        layout.row().label( "Filter" ).add( new JLabel( "a file" ),3).add("");
-        layout.row().add("");
-        layout.row().label( "Just that path" ).add( pathLabel, 3 ).add( pathButton );
-        layout.row().label( "All files with Name" ).add(nameLabel, 3 ).add( nameButton );
-        layout.row().label( "All files with extension" ).add(extLabel, 3 ).add( extButton );
+        layout.row().label( new JLabel( Message.get( "SingleIgnore.title" ))).add( new JLabel( realName ),3).add( new JLabel(""));
+        layout.row().add( new JLabel(""));
+        layout.row().label( new JLabel( Message.get( "SingleIgnore.path" ))).add( pathLabel, 3 ).add( pathButton );
+        layout.row().label( new JLabel( Message.get( "SingleIgnore.name" ))).add(nameLabel, 3 ).add( nameButton );
+        layout.row().label( new JLabel( Message.get( "SingleIgnore.extension" ))).add(extLabel, 3 ).add( extButton );
 
 
         // TODO fill with live

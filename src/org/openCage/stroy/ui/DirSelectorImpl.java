@@ -18,7 +18,6 @@ import org.openCage.util.app.AppInfo;
 import org.openCage.util.logging.LogHandlerPanel;
 import org.openCage.util.prefs.PreferencesChangeListener;
 import org.openCage.util.prefs.TextField;
-import zappini.designgridlayout.DesignGridLayout;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,6 +26,8 @@ import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.EventObject;
 import java.io.File;
+
+import net.java.dev.designgridlayout.DesignGridLayout;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -226,21 +227,18 @@ public class DirSelectorImpl extends JFrame
 
         // TODO modes
 //        layout.row().label( "Strategy" ).add( strategyCombo );
-        layout.row().label( Message.get( "DirSelector.first" ) ).add(oneTxt, 8 ). add(oneButton);
-        layout.row().label( Message.get( "DirSelector.second" ) ).add(twoTxt, 8 ).add(twoButton);
+        layout.row().label( Message.getl( "DirSelector.first" ) ).add(oneTxt, 8 ). add(oneButton);
+        layout.row().label( Message.getl( "DirSelector.second" ) ).add(twoTxt, 8 ).add(twoButton);
 
         // TODO 3
 //        layout.row().label( "Third").add( threeTxt, 8 ).add( threeButton );
 
-        
-//        layout.row().add( progressBar );
-
-        layout.row().add( new JLabel(""),4).add( go ).add(new JLabel(""),4);
+         layout.row().add( new JLabel(""),4).add( go ).add(new JLabel(""),4);
 
         // TODO tell Jason
-        if ( !Sys.isMacOSX() ) {
-            layout.row().add("      ");   
-        }
+//        if ( !Sys.isMacOSX() ) {
+//            layout.row().add( new JLabel("      "));
+//        }
 
         getContentPane().setLayout( new BorderLayout());
         getContentPane().add( top, BorderLayout.CENTER  );

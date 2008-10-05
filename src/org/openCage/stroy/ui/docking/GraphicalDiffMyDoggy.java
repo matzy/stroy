@@ -87,7 +87,7 @@ public class GraphicalDiffMyDoggy<T extends Content> extends JFrame implements I
 
         final JComponent top = new ShowDiffSummary( this.tasks, dmtRoots );
   //      final ShowCurrentDiff current = new ShowCurrentDiff( tasks );
-        final Buttons buttons = new Buttons( this );
+//        final Buttons buttons = new Buttons( this );
 
     //    center.addNSelectionListener( current );
 

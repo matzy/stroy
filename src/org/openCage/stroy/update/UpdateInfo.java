@@ -1,7 +1,5 @@
 package org.openCage.stroy.update;
 
-import zappini.designgridlayout.DesignGridLayout;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -14,6 +12,7 @@ import org.openCage.util.logging.Log;
 import org.openCage.stroy.locale.Message;
 import org.openCage.stroy.ui.prefs.PrefsUI;
 import com.google.inject.Inject;
+import net.java.dev.designgridlayout.DesignGridLayout;
 
 public class UpdateInfo extends JFrame {
 

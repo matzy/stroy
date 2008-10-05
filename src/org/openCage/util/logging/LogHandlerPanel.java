@@ -1,6 +1,5 @@
 package org.openCage.util.logging;
 
-import zappini.designgridlayout.DesignGridLayout;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,6 +12,7 @@ import java.util.logging.Formatter;
 
 import org.openCage.util.prefs.PComboBox;
 import org.openCage.stroy.locale.Message;
+import net.java.dev.designgridlayout.DesignGridLayout;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -115,7 +115,7 @@ public class LogHandlerPanel extends JFrame {
         DesignGridLayout layout = new DesignGridLayout( top );
         top.setLayout( layout );
 
-        layout.row().label( Message.get( "Pref.Logging.display" )).add( selectLogLevel);
+        layout.row().label( new JLabel( Message.get( "Pref.Logging.display" ))).add( selectLogLevel);
                 //.add( new JLabel("")).add( refreshButton );
 
         getContentPane().setLayout( new BorderLayout());
@@ -124,9 +124,9 @@ public class LogHandlerPanel extends JFrame {
 
         JPanel bottom = new JPanel();
         DesignGridLayout layout2 = new DesignGridLayout( bottom );
-        layout2.row().label( "severe   " ).add( severeTextField );
-        layout2.row().label( "warn   " ).add( warnTextField );
-        layout2.row().label( "info   " ).add( infoTextField );
+        layout2.row().label( new JLabel( "severe   " )).add( severeTextField );
+        layout2.row().label( new JLabel( "warn   " )).add( warnTextField );
+        layout2.row().label( new JLabel( "info   " )).add( infoTextField );
         bottom.setLayout( layout2 );
 
         getContentPane().add( bottom, BorderLayout.SOUTH  );

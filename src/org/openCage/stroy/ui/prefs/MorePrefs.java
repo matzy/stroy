@@ -5,10 +5,8 @@ import org.openCage.stroy.update.UpdatePrefs;
 import org.openCage.stroy.RuntimeModule;
 
 import javax.swing.*;
-import javax.swing.border.TitledBorder;
 import java.awt.*;
 
-import zappini.designgridlayout.DesignGridLayout;
 import com.google.inject.Injector;
 import com.google.inject.Guice;
 

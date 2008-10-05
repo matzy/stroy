@@ -2,7 +2,6 @@ package org.openCage.stroy.ui.prefs;
 
 import org.openCage.stroy.filter.IgnoreCentral;
 import org.openCage.stroy.locale.Message;
-import zappini.designgridlayout.DesignGridLayout;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionListener;
@@ -12,6 +11,8 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.Vector;
+
+import net.java.dev.designgridlayout.DesignGridLayout;
 
 
 /***** BEGIN LICENSE BLOCK *****

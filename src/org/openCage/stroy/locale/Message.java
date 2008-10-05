@@ -2,6 +2,7 @@ package org.openCage.stroy.locale;
 
 import org.openCage.util.logging.Log;
 
+import javax.swing.*;
 import java.util.*;
 
 /***** BEGIN LICENSE BLOCK *****
@@ -40,6 +41,16 @@ public class Message {
     }
 
     /**
+     * utility method for designgridlayout.
+     * Returns a new JLabel with a localized text
+     * @param key
+     * @return
+     */
+    public static JLabel getl( String key ) {
+        return new JLabel( get( key ));
+    }
+
+    /**
      * remember not found locales, one warning is enough 
      */
     private static Set<Locale> notFoundLocales = new HashSet<Locale>();
@@ -53,7 +64,7 @@ public class Message {
 
             // full path for the bundles name
             messages = ResourceBundle.getBundle( "org.openCage.stroy.locale.messages",
-                    local);
+                            local);
         } catch ( MissingResourceException exp ) {
             Log.warning( "no localization for " + local + " found, falling back on English"  );
             local = new Locale( "en", "US" );

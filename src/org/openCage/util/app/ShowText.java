@@ -1,9 +1,6 @@
 package org.openCage.util.app;
 
-import zappini.designgridlayout.DesignGridLayout;
-
 import javax.swing.*;
-import java.util.Collection;
 import java.awt.*;
 
 /***** BEGIN LICENSE BLOCK *****
