@@ -42,7 +42,7 @@ public class MorePrefs extends JPanel {
         cnstraint.fill = GridBagConstraints.BOTH;
         cnstraint.gridx = 0;
         cnstraint.gridy = 1;
-        cnstraint.weightx = 0.7;
+        cnstraint.weightx = 1.0;
         cnstraint.weighty = 0.33;
         cnstraint.insets = new Insets(5,5,0,0);
         add( new LogPrefs(), cnstraint );
@@ -51,13 +51,20 @@ public class MorePrefs extends JPanel {
         cnstraint.fill = GridBagConstraints.BOTH;
         cnstraint.gridx = 0;
         cnstraint.gridy = 2;
-        cnstraint.weightx = 0.7;
+        cnstraint.weightx = 1.0;
         cnstraint.weighty = 0.33;
         cnstraint.insets = new Insets(5,5,0,0);
-
         Injector injector = Guice.createInjector( new RuntimeModule() );        
         add( injector.getInstance( UpdatePrefs.class ), cnstraint );
 
+        cnstraint = new GridBagConstraints();
+        cnstraint.fill = GridBagConstraints.BOTH;
+        cnstraint.gridx = 0;
+        cnstraint.gridy = 3;
+        cnstraint.weightx = 1.0;
+        cnstraint.weighty = 0.33;
+        cnstraint.insets = new Insets(5,5,0,0);
+        add( new LanguagePrefs(), cnstraint );
     }
 
 
