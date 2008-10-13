@@ -97,6 +97,18 @@
         </copy>
     </target>
 
+    <target name="utf">
+        <native2ascii  src="${src}/org/openCage/stroy/locale/native" dest="${src}/org/openCage/stroy/locale" includes="**/*.properties" />
+    </target>
+
+    <target name="utf-de">
+        <native2ascii  src="${src}/org/openCage/stroy/locale/native" dest="${src}/org/openCage/stroy/locale" includes="**/messages_de.properties" />
+    </target>
+
+    <target name="utf-ja">
+        <native2ascii  src="${src}/org/openCage/stroy/locale/native" dest="${src}/org/openCage/stroy/locale" includes="**/messages_ja.properties" />
+    </target>
+
     <target name="jdoc" depends="compile,prepare" description="Generate JavaDocs.">
         <javadoc
                 destdir="${jdoc}"

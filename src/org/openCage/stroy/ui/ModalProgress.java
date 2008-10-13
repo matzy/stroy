@@ -59,6 +59,8 @@ public class ModalProgress extends JDialog {
         progress.setIndeterminate( true );
 
         layout.row().add( label, 1 ).add( txt, 4 );
+        layout.emptyRow(20);
+
         layout.row().add(progress, 3 ).add( inBackground );
 
         setLayout( new BorderLayout());

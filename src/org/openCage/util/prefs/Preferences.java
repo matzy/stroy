@@ -1,5 +1,7 @@
 package org.openCage.util.prefs;
 
+import org.openCage.util.logging.Log;
+
 import java.util.Map;
 import java.util.HashMap;
 
@@ -43,6 +45,7 @@ public class Preferences implements Persistable {
 
     private static synchronized Preferences get() {
         if ( thePref == null ) {
+            Log.severe( "preferences initialized" );
             thePref = Persistence.load( new Preferences(), name);
         }
 
@@ -52,14 +55,16 @@ public class Preferences implements Persistable {
     /**
      * enable inmemory testing only
      */
-    static void initForTest() {
+    static synchronized void initForTest() {
         if ( thePref != null ) {
-            throw new IllegalStateException( "can't init an exisiting prefs" );
+            return;
+//            throw new IllegalStateException( "can't init an exisiting prefs" );
         }
+        Log.severe( "test preferences initialized" );
         thePref = new Preferences();
     }
 
-    static void clearAfterTest() {
+    static synchronized void clearAfterTest() {
         thePref = null;
     }
 
