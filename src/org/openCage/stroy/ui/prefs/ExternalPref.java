@@ -257,7 +257,7 @@ public class ExternalPref extends JPanel {
             public void keyReleased(KeyEvent keyEvent) {
                 super.keyReleased( keyEvent );
                 if ( JTextFields.isFile( diffOtherText, Colors.BACKGROUND_NEUTRAL, Colors.BACKGROUND_WARN)) {
-                    fileTypes.setDiffProg( (String)extList.getSelectedValue(), diffText.getText() );
+                    fileTypes.setDiffProg( (String)extList.getSelectedValue(), diffOtherText.getText() );
                 }
             }
         });

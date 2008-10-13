@@ -7,10 +7,9 @@ import org.openCage.stroy.graph.node.TreeDirNode;
 import org.openCage.stroy.graph.node.TreeNode;
 import org.openCage.stroy.graph.iterator.DepthFirstIterable;
 import org.openCage.stroy.task.MatchingTask;
-//import org.openCage.stroy.task.MatchingTaskImpl;
 import org.openCage.stroy.task.MatchingTaskNeutral;
 import org.openCage.stroy.ui.ChangeVector;
-import org.openCage.stroy.Difference;
+import org.openCage.stroy.diff.ContentDiff;
 import org.openCage.util.logging.Log;
 import org.openCage.util.generics.Generics;
 
@@ -212,7 +211,12 @@ public class TreeMatchingTaskNeutral<T extends Content> implements TreeMatchingT
 
         for ( TreeLeafNode<T> lfm : fileTask.getMatchedLeft() ) {
 
-            if ( fileTask.getMatchQuality(lfm ) < 1.0 ) {
+            if ( !fileTask.getDifference( lfm).equals( ContentDiff.same )) {
+
+                if ( !isContentChanged( lfm )) {
+                    int i = 0;
+                }
+
                 modified.add( lfm );
             }
         }
@@ -240,14 +244,15 @@ public class TreeMatchingTaskNeutral<T extends Content> implements TreeMatchingT
 
     public boolean isContentChanged(TreeNode<T> obj) {
 
-        // TODO aks Difference
-
         if ( !obj.isLeaf() || !isMatched( obj ) ) {
             return false;
         }
 
+        ContentDiff diff = fileTask.getDifference( (TreeLeafNode)obj );
 
-        return fileTask.getMatchQuality( (TreeLeafNode)obj ) < 1.0;
+        return !diff.equals( ContentDiff.same );
+
+        //return fileTask.getMatchQuality( (TreeLeafNode)obj ) < 1.0;
     }
 
 

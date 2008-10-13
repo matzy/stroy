@@ -2,6 +2,8 @@ package org.openCage.util.external;
 
 import com.muchsoft.util.Sys;
 import org.openCage.util.logging.Log;
+import org.openCage.util.iterator.Iterators;
+import org.openCage.util.iterator.Count;
 import org.jdesktop.jdic.desktop.DesktopException;
 import org.jdesktop.jdic.desktop.Desktop;
 
@@ -12,26 +14,26 @@ import java.io.IOException;
 import java.io.File;
 
 /***** BEGIN LICENSE BLOCK *****
-* Version: MPL 1.1
-*
-* The contents of this file are subject to the Mozilla Public License Version
-* 1.1 (the "License"); you may not use this file except in compliance with
-* the License. You may obtain a copy of the License at
-* http://www.mozilla.org/MPL/
-*
-* Software distributed under the License is distributed on an "AS IS" basis,
-* WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
-* for the specific language governing rights and limitations under the
-* License.
-*
-* The Original Code is stroy code.
-*
-* The Initial Developer of the Original Code is Stephan Pfab <openCage@gmail.com>.
-* Portions created by Stephan Pfab are Copyright (C) 2006, 2007, 2008.
-* All Rights Reserved.
-*
-* Contributor(s):
-***** END LICENSE BLOCK *****/
+ * Version: MPL 1.1
+ *
+ * The contents of this file are subject to the Mozilla Public License Version
+ * 1.1 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ * http://www.mozilla.org/MPL/
+ *
+ * Software distributed under the License is distributed on an "AS IS" basis,
+ * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+ * for the specific language governing rights and limitations under the
+ * License.
+ *
+ * The Original Code is stroy code.
+ *
+ * The Initial Developer of the Original Code is Stephan Pfab <openCage@gmail.com>.
+ * Portions created by Stephan Pfab are Copyright (C) 2006, 2007, 2008.
+ * All Rights Reserved.
+ *
+ * Contributor(s):
+ ***** END LICENSE BLOCK *****/
 
 public class ExternalProgs {
 
@@ -48,7 +50,41 @@ public class ExternalProgs {
     private static String xtermPath;
 
 
-    public static void execute( String prog, String ... args ) {
+    public static void execute( final String prog, final String ... args ) {
+        Thread th = new Thread() {
+            @Override
+            public void run() {
+                executeImplP1( prog, args );
+            }
+        };
+        th.start();
+    }
+
+    private static void executeImplP1( String prog, String[] args ) {
+        if ( prog.contains( "%")) {
+
+            String[] cmd = prog.split( " ");
+
+            for ( int idx = 0; idx < cmd.length; ++idx ) {
+                if ( cmd[idx].equals( "%1" )) {
+                    cmd[ idx ] = args[0];
+                } else if ( cmd[idx].equals( "%2" )) {
+                    cmd[ idx ] = args[1];
+                } else if ( cmd[idx].equals( "%3" )) {
+                    cmd[ idx ] = args[2];
+                } else if ( cmd[idx].equals( "%4" )) {
+                    cmd[ idx ] = args[3];
+                }
+            }
+
+            execProg1( cmd );
+        } else {
+            executeImpl( prog, args );
+        }
+    }
+
+
+    private static void executeImpl( String prog, String ... args ) {
 
         // some systems have a build in open command
         if ( prog.equals( open )) {
@@ -108,6 +144,7 @@ public class ExternalProgs {
 
     private static String findxterm() {
 
+        // todo syncro ??
         if ( xtermPath == null ) {
             for ( String pre : Arrays.asList( "/bin", "/usr/bin/", "/usr/local/bin/","/usr/sbin/" , "/usr/X11/bin/", "/usr/local/X11/bin/" ) )  {
                 String testing = pre + "xterm";
@@ -266,5 +303,23 @@ public class ExternalProgs {
         }
     }
 
+    private static void execProg1( String ... cmd ) {
+        try {
+
+            Process proc = Runtime.getRuntime().exec( cmd ) ;
+            BufferedReader input =
+                    new BufferedReader
+                            (new InputStreamReader(proc.getInputStream()));
+
+            String line;
+            while ((line = input.readLine()) != null) {
+                System.out.println(line);
+            }
+            input.close();
+
+        } catch (IOException e1) {
+            Log.warning( "external prog " + cmd[0] + " threw " + e1  );
+        }
+    }
 
 }

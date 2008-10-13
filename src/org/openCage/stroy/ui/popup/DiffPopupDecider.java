@@ -79,9 +79,13 @@ public class DiffPopupDecider {
 
 
     public boolean showDiff( TreeNode node ) {
+        boolean leaf  =  node.isLeaf();
+        boolean content = node.getContent() != null;
+        boolean diffType = fileTypes.hasDiffType( FileUtils.getExtension(((Content)node.getContent()).getName() ));
+
         return node.isLeaf() &&
                node.getContent() != null &&
-               fileTypes.hasDiffType( FileUtils.getExtension(((Content)node.getContent()).getName() )); 
+               fileTypes.hasDiffType( FileUtils.getExtension(((Content)node.getContent()).getName() ));
     }
 
     public boolean showDiffWith( TreeNode node ) {
