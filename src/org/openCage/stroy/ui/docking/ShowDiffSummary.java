@@ -11,8 +11,7 @@ import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import java.awt.event.*;
 import java.util.List;
 
 import net.java.dev.designgridlayout.DesignGridLayout;
@@ -186,6 +185,18 @@ public class ShowDiffSummary<T extends Content> extends JPanel {
             public void actionPerformed( ActionEvent e ) {
                 refresh();
             }
+        } );
+
+
+
+        addComponentListener( new ComponentListener() {
+            public void componentResized( ComponentEvent e ) {
+                refresh();
+            }
+
+            public void componentMoved( ComponentEvent e ) {}
+            public void componentShown( ComponentEvent e ) {}
+            public void componentHidden( ComponentEvent e ) {}
         } );
 
 

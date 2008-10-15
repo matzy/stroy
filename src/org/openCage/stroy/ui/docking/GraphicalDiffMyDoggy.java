@@ -92,6 +92,8 @@ public class GraphicalDiffMyDoggy<T extends Content> extends JFrame implements I
     //    center.addNSelectionListener( current );
 
         toolWindowManager = new MyDoggyToolWindowManager( this );
+
+
         getContentPane().add( toolWindowManager, BorderLayout.CENTER );
 
         toolWindowManager.registerToolWindow( Message.get("Docking.summary"),  // Id
