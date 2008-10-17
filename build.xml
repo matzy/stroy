@@ -1,4 +1,4 @@
-<project name="stroy" basedir=".">
+<project name="stroy" default="help" basedir=".">
 
     <property name="version" value="0.11.1.35"/>
     <property name="buildnumber" value="32"/>
@@ -258,6 +258,13 @@
     <target name="stroy.exe" depends="exeprepare">
         <jsmoothgen project="${resources}/jm"
                     skeletonroot="${jsmooth}/skeletons" />
+    </target>
+
+    <target name="help">
+        <echo message="targets are (depending on platform):"/>
+        <echo message="    osx: stroy.app"/>
+        <echo message="    windows: stroy.exe"/>
+        <echo message="    xplatform: stroy-xplatform"/> 
     </target>
 
 
