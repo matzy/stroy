@@ -44,7 +44,7 @@ public class ShowDiffSummary<T extends Content> extends JPanel {
     private final JLabel content = new JLabel( Message.get( "Summary.content" ));
     private final JLabel renamed = new JLabel( Message.get( "Summary.renamed" ));
     private final JLabel moved = new JLabel( Message.get( "Summary.moved" ));
-    private final JButton refresh = new JButton( Message.get( "refresh" ));
+    private final JButton refresh = new JButton( Message.get( "Button.refresh" ));
     private final JLabel leftRootDir;
     private final List<DefaultMutableTreeNode> roots;
     private final List<TreeMatchingTask<T>> matchings;

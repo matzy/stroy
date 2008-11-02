@@ -2,7 +2,6 @@ package org.openCage.util.app.gen;
 
 import org.openCage.util.app.AppInfo;
 import org.openCage.util.app.Reference;
-import org.openCage.util.www.wikidot.WikiDotGen;
 import org.openCage.util.www.html.HtmlGen;
 
 /***** BEGIN LICENSE BLOCK *****
