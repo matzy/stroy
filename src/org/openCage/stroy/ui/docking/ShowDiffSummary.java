@@ -80,8 +80,8 @@ public class ShowDiffSummary<T extends Content> extends JPanel {
         multiple.setForeground( Colors.CONTENT_AND_STRUCTUR );
 
         leftRootDir = new JLabel( getRootPath( roots.get(0) ) );
-        layout.row().label( new JLabel( Message.get("Summary.left" ))).add( leftRootDir,6 ).add( refresh );
-        layout.row().label( new JLabel( Message.get( "Summary.right" ))).add( new JLabel( getRootPath( roots.get(1) ) ));
+        layout.row().label( new JLabel( Message.get( "Summary.first" ))).add( leftRootDir,6 ).add( refresh );
+        layout.row().label( new JLabel( Message.get( "Summary.second" ))).add( new JLabel( getRootPath( roots.get(1) ) ));
 
         layout.emptyRow( 20 );
 
@@ -95,7 +95,7 @@ public class ShowDiffSummary<T extends Content> extends JPanel {
 
         leftDirsTotal = new JLabel( "" + matchings.get(0).getRightDirCount());
         leftDirsOnly = new JLabel( "" + matchings.get(0).getUnmatchedRightDirs().size() );
-        layout.row().label( Message.getl( "Summary.left" )).add( new JLabel( Message.get("Summary.dirs"))).
+        layout.row().label( Message.getl( "Summary.first" )).add( new JLabel( Message.get("Summary.dirs"))).
                 add( leftDirsTotal ).
                 add( leftDirsOnly ).
                 empty(4)
@@ -132,7 +132,7 @@ public class ShowDiffSummary<T extends Content> extends JPanel {
         if ( matchings.size() ==  1 ) {
             rightDirsTotal = new JLabel( "" + matchings.get(0).getLeftDirCount() );
             rightDirsOnly = new JLabel( "" + matchings.get(0).getUnmatchedLeftDirs().size()  );
-            layout.row().label( Message.getl( "Summary.right" )).add( new JLabel( Message.get("Summary.dirs"))).
+            layout.row().label( Message.getl( "Summary.second" )).add( new JLabel( Message.get("Summary.dirs"))).
                     add( rightDirsTotal ).
                     add( rightDirsOnly ).
                     empty(4)
