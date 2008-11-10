@@ -5,6 +5,8 @@ import org.openCage.stroy.tree.NoedUtils;
 
 import java.util.ResourceBundle;
 import java.io.File;
+import java.io.InputStream;
+import java.net.URL;
 
 import junit.framework.TestCase;
 
@@ -33,9 +35,17 @@ import junit.framework.TestCase;
 public class ZipNoedTest extends TestCase {
     private ZipNoedGenerator zipNoedGenerator = new ZipNoedGenerator();
 
+    public void testResourcePath() {
+        URL url = getClass().getResource( "/org/openCage/stroy/tree/zip/dir.zip" );
+
+        assertNotNull( "add .zip files to IDEA prefs: compiler resource patterns or build.xml",  url );
+    }
+
     public void testCreateZipNoed() {
 
-        String path = "/Users/stephan/Documents/projects/googlecode/stroy/test/org/openCage/stroy/tree/zip/dir.zip";
+        URL url = getClass().getResource( "/org/openCage/stroy/tree/zip/dir.zip" );
+
+        String path = url.getPath();
 
         assertTrue( new File(path).exists());
 

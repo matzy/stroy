@@ -28,13 +28,12 @@ public interface Noed {
 
     public boolean        isLeaf();
     public boolean        isReadOnly();
-    public void           setParent( Noed parent );
-    public Noed           getParent();
     public String         getName();
 
+    public void           setParent( Noed parent );
+    public Noed           getParent();
     public List<Noed>     getChildren();
-
     public void           addChild( Noed noed );
 
-    public Fiel getFiel();
+    public Fiel           getFiel();
 }
