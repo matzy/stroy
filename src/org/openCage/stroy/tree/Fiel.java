@@ -1,6 +1,6 @@
-package org.openCage.stroy.task;
+package org.openCage.stroy.tree;
 
-import org.openCage.stroy.diff.ContentDiff;
+import org.openCage.stroy.fuzzyHash.FuzzyHash;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -24,8 +24,8 @@ import org.openCage.stroy.diff.ContentDiff;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public class MatchPayload {
+public interface Fiel {
 
-    private double        quality;
-    private ContentDiff   contentDiff;
+    public String    getChecksum();
+//    public FuzzyHash getFuzzyHash();
 }

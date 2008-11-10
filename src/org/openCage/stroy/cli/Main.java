@@ -45,6 +45,9 @@ public class Main {
     private final Options           optionsPublic;
     private final Options           options;
     private final Once<CommandLine> line;
+    private static final String DEBUG_HELP = "dh";
+    private static final String HELP = "h";
+    private static final String IGNORE = "ignore";
 
 
     public static void main(String[] args) {
@@ -65,12 +68,12 @@ public class Main {
     }
 
     private void eval() {
-        if ( line.get().hasOption( "dh" ) ) {
+        if ( line.get().hasOption( DEBUG_HELP ) ) {
             usageReal();
             return;
         }
 
-        if ( line.get().hasOption( "h" ) || line.get().getArgs().length != 2 ) {
+        if ( line.get().hasOption( HELP ) || line.get().getArgs().length != 2 ) {
             usage();
             return;
         }
@@ -85,8 +88,8 @@ public class Main {
         }
 
         String pattern = null;
-        if ( line.get().hasOption( "ignore" )) {
-            pattern = line.get().getOptionValue( "ignore" );
+        if ( line.get().hasOption( IGNORE )) {
+            pattern = line.get().getOptionValue(IGNORE);
         }
 
 
@@ -175,8 +178,8 @@ public class Main {
 
     private void createOptions() {
 
-        options.addOption( "h", "help", false, "show this message" );
-        optionsPublic.addOption( "h", "help", false, "show this message" );
+        options.addOption(HELP, "help", false, "show this message" );
+        optionsPublic.addOption(HELP, "help", false, "show this message" );
 
         Option loglevel   = OptionBuilder.withArgName( "loglevel" )
                 .hasArg()
@@ -192,15 +195,15 @@ public class Main {
         options.addOption( loglevel );
 
         options.addOption( "dbg", "debug", false, "print debugging info" );
-        options.addOption( "dh", "debugHelp", false, "show this message" );
+        options.addOption(DEBUG_HELP, "debugHelp", false, "show this message" );
 
         options.addOption( "s", "siltent", false, "no messages" );
         optionsPublic.addOption( "s", "siltent", false, "no messages" );
 
-        Option filter   = OptionBuilder.withArgName( "ignore" )
+        Option filter   = OptionBuilder.withArgName(IGNORE)
                 .hasArg()
                 .withDescription(  "files matching this pattern are ignored" )
-                .create( "ignore" );
+                .create(IGNORE);
 
         options.addOption( filter );
         optionsPublic.addOption( filter );

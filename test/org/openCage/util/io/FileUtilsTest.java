@@ -44,4 +44,10 @@ public class FileUtilsTest extends TestCase {
         assertFalse( FileUtils.isDriveLetterPath( "C\\a\\b" ));
         assertFalse( FileUtils.isDriveLetterPath( "ab:\\a\\b" ));
     }
+
+    public void testNormalizePathElement() {
+        assertEquals( "a", FileUtils.normalizePathElement( "/a"));
+        assertEquals( "a", FileUtils.normalizePathElement( "a\\"));
+        assertEquals( "a", FileUtils.normalizePathElement( "/a\\"));
+    }
 }

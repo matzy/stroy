@@ -28,6 +28,7 @@ public class CLineNoise implements LineNoise{
 
     private final Pattern pattern;
 
+    @SuppressWarnings( {"HardCodedStringLiteral"} )
     public CLineNoise() {
 
         StringBuffer patternString = new StringBuffer( "( *\t*//.*)" );

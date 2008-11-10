@@ -7,7 +7,6 @@ import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.graph.matching.TreeMatchingTaskNeutralBuilder;
 import org.openCage.stroy.content.ReducedContent;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 /***** BEGIN LICENSE BLOCK *****
@@ -32,6 +31,7 @@ import java.util.Arrays;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
+@SuppressWarnings({"HardCodedStringLiteral"})
 public class TasksTest extends TestCase {
 
     public void testRootsSanity() {

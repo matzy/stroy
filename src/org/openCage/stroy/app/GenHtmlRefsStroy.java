@@ -24,6 +24,9 @@ import org.openCage.util.app.gen.GenHtmlRefs;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
+/**
+ * Generate a HTML file describing the references of stroy
+ */
 public class GenHtmlRefsStroy {
     public static void main(String[] args) {
         new GenHtmlRefs( new StroyAppInfo()).gen();

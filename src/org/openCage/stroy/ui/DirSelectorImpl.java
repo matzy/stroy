@@ -1,7 +1,6 @@
 package org.openCage.stroy.ui;
 
 import com.google.inject.Inject;
-import com.muchsoft.util.Sys;
 import com.muchsoft.util.mac.Java14Adapter;
 import com.muchsoft.util.mac.Java14Handler;
 import org.openCage.util.io.FileUtils;
@@ -235,10 +234,6 @@ public class DirSelectorImpl extends JFrame
 
          layout.row().add( new JLabel(""),4).add( go ).add(new JLabel(""),4);
 
-        // TODO tell Jason
-//        if ( !Sys.isMacOSX() ) {
-//            layout.row().add( new JLabel("      "));
-//        }
 
         getContentPane().setLayout( new BorderLayout());
         getContentPane().add( top, BorderLayout.CENTER  );
@@ -307,21 +302,13 @@ public class DirSelectorImpl extends JFrame
         System.exit(0);
     }
 
-    public void handleOpenApplication(EventObject eventObject) {
-        //To change body of implemented methods use File | Settings | File Templates.
-    }
+    public void handleOpenApplication(EventObject eventObject) {}
 
-    public void handleReOpenApplication(EventObject eventObject) {
-        //To change body of implemented methods use File | Settings | File Templates.
-    }
+    public void handleReOpenApplication(EventObject eventObject) {}
 
-    public void handleOpenFile(EventObject eventObject, String string) {
-        //To change body of implemented methods use File | Settings | File Templates.
-    }
+    public void handleOpenFile(EventObject eventObject, String string) {}
 
-    public void handlePrintFile(EventObject eventObject, String string) {
-        //To change body of implemented methods use File | Settings | File Templates.
-    }
+    public void handlePrintFile(EventObject eventObject, String string) {}
 
 
     @Override

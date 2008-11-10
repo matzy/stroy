@@ -6,7 +6,6 @@ import org.openCage.stroy.graph.node.TreeDirNode;
 import org.openCage.stroy.content.Content;
 
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.*;
 import java.util.List;
 
 /***** BEGIN LICENSE BLOCK *****

@@ -3,7 +3,6 @@ package org.openCage.stroy;
 import com.google.inject.Binder;
 import com.google.inject.Module;
 import com.google.inject.TypeLiteral;
-import org.openCage.util.external.DiffProg;
 import org.openCage.stroy.array.AddIngnorantListMetric;
 import org.openCage.stroy.array.ListChangeMetric;
 import org.openCage.stroy.array.ReorderIgnorantArrayDistance;

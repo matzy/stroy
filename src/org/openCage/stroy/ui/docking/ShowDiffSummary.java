@@ -46,7 +46,6 @@ public class ShowDiffSummary<T extends Content> extends JPanel {
     private final JLabel moved = new JLabel( Message.get( "Summary.moved" ));
     private final JButton refresh = new JButton( Message.get( "Button.refresh" ));
     private final JLabel leftRootDir;
-    private final List<DefaultMutableTreeNode> roots;
     private final List<TreeMatchingTask<T>> matchings;
     private JLabel leftDirsTotal;
     private JLabel leftFilesTotal;
@@ -66,7 +65,6 @@ public class ShowDiffSummary<T extends Content> extends JPanel {
     public ShowDiffSummary( final java.util.List<TreeMatchingTask<T>> matchings,
                             final java.util.List<DefaultMutableTreeNode> roots ) {
 
-        this.roots = roots;
         this.matchings = matchings;
 
         final JPanel top = new JPanel();

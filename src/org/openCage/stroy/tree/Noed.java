@@ -1,6 +1,6 @@
-package org.openCage.stroy.task;
+package org.openCage.stroy.tree;
 
-import org.openCage.stroy.diff.ContentDiff;
+import java.util.List;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -24,8 +24,17 @@ import org.openCage.stroy.diff.ContentDiff;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public class MatchPayload {
+public interface Noed {
 
-    private double        quality;
-    private ContentDiff   contentDiff;
+    public boolean        isLeaf();
+    public boolean        isReadOnly();
+    public void           setParent( Noed parent );
+    public Noed           getParent();
+    public String         getName();
+
+    public List<Noed>     getChildren();
+
+    public void           addChild( Noed noed );
+
+    public Fiel getFiel();
 }

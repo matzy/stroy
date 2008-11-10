@@ -1,6 +1,5 @@
 package org.openCage.stroy.dir;
 
-import org.openCage.stroy.dir.FileContent;
 import org.openCage.stroy.filter.Ignore;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
 

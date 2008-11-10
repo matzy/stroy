@@ -32,8 +32,7 @@ import java.io.File;
 ***** END LICENSE BLOCK *****/
 
 
-// TODO move to test ??
-
+@SuppressWarnings( {"HardCodedStringLiteral"} )
 public class TestHash {
 
     static private Map<Integer, List<String>> hashes = new HashMap<Integer, List<String>>();

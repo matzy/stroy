@@ -1,6 +1,5 @@
 package org.openCage.stroy.app;
 
-import org.openCage.util.app.gen.GenWikiChange;
 import org.openCage.util.app.gen.GenWikiRefs;
 
 /***** BEGIN LICENSE BLOCK *****

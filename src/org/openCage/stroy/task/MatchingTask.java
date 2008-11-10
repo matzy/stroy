@@ -1,6 +1,5 @@
 package org.openCage.stroy.task;
 
-import org.openCage.stroy.Difference;
 import org.openCage.stroy.diff.ContentDiff;
 
 import java.util.Collection;

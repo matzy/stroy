@@ -1,6 +1,4 @@
-package org.openCage.stroy.task;
-
-import org.openCage.stroy.diff.ContentDiff;
+package org.openCage.stroy.tree;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -24,8 +22,7 @@ import org.openCage.stroy.diff.ContentDiff;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public class MatchPayload {
+public interface NoedGenerator {
 
-    private double        quality;
-    private ContentDiff   contentDiff;
+    public Noed build( String path );
 }

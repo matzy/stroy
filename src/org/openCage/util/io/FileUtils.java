@@ -81,6 +81,7 @@ public class FileUtils {
     static public String normalizePath( String in ) {
 
         boolean isUNC = false;
+        // TODO fix me
         boolean isDriveLetter = false;
 
         if ( Sys.isWindows() ) {
@@ -114,6 +115,10 @@ public class FileUtils {
         }
 
         return norm.toString();
+    }
+
+    public static String normalizePathElement( String name ) {
+        return name.replace( "/", "" ).replace( "\\", "");
     }
 
     public static boolean isDriveLetterPath( String path ) {
@@ -171,4 +176,7 @@ public class FileUtils {
     }
 
 
+    private FileUtils() {
+        throw new NoSuchMethodError("utility class");
+    }
 }
