@@ -1,6 +1,14 @@
-package org.openCage.stroy.tree;
+package org.openCage.stroy.tree.zip;
 
-import org.openCage.stroy.fuzzyHash.FuzzyHash;
+import org.openCage.util.lang.Method1;
+import org.openCage.util.lang.VoidMethod1;
+import org.openCage.util.string.Strings;
+
+import java.io.InputStream;
+import java.io.IOException;
+
+import com.twmacinta.util.MD5;
+import com.JavaExchange.www.RandomGUID;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -23,12 +31,16 @@ import org.openCage.stroy.fuzzyHash.FuzzyHash;
 *
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
+public class FielUtils {
 
-public interface Fiel {
+    public static void getCheckSumFromStream( InputStream is, VoidMethod1 onsuccess, VoidMethod1 onfailure ) {
 
-    public String    getChecksum();
-//    public FuzzyHash getFuzzyHash();
+//        try {
+//            String checkSum = Strings.asHex( MD5.getHash( is ));
+//            onsuccess.call( checkSum );
+//        } catch ( IOException e ) {
+//            onfailure.call( new RandomGUID().toString() );
+//        }
 
-    public long    getSize();
-    public boolean hasReadError();
+    }
 }

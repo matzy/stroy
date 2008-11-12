@@ -775,10 +775,10 @@ public class MD5 {
     /**
      * Calculates and returns the hash of the contents of the given file.
      **/
-    public static byte[] getHash(InputStream is ) throws IOException {
+    public static byte[] getHash(InputStream is, long size ) throws IOException {
         InputStream close_me = null;
         try {
-            long buf_size = 65536;
+            long buf_size = size;
             if (buf_size < 512) buf_size = 512;
             if (buf_size > 65536) buf_size = 65536;
             byte[] buf = new byte[(int) buf_size];

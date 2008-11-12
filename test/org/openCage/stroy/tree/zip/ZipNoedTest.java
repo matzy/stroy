@@ -56,10 +56,14 @@ public class ZipNoedTest extends TestCase {
         assertEquals( "dir", root.getName());
 
         assertEquals( 7, root.getChildren().size());
+
+        NoedUtils.print( root );
     }
 
     public void testGetHash() {
-        String path = "/Users/stephan/Documents/projects/googlecode/stroy/test/org/openCage/stroy/tree/zip/dir.zip";
+        URL url = getClass().getResource( "/org/openCage/stroy/tree/zip/dir.zip" );
+        String path = url.getPath();
+
         Noed root = zipNoedGenerator.build( path  );
 
         Noed noed = NoedUtils.getNoed( root, "doubles2", "CompareDirs2.java" );
