@@ -3,6 +3,7 @@ package org.openCage.stroy.tree.filesystem;
 import org.openCage.stroy.tree.NoedGenerator;
 import org.openCage.stroy.tree.Noed;
 import org.openCage.stroy.tree.zip.NoedImpl;
+import org.openCage.stroy.filter.Ignore;
 
 import java.io.File;
 
@@ -29,7 +30,7 @@ import java.io.File;
 ***** END LICENSE BLOCK *****/
 
 public class FSNoedGenerator implements NoedGenerator {
-    public Noed build( String path ) {
+    public Noed build( Ignore ignore, String path ) {
 
         File rootFile = new File( path );
 

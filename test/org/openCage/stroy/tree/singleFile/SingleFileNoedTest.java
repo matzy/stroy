@@ -42,7 +42,7 @@ public class SingleFileNoedTest extends TestCase {
         String path = url.getPath();
         assertTrue( new File(path).exists());
 
-        Noed root = noedGenerator.build( path  );
+        Noed root = noedGenerator.build( null, path  );
 
         assertTrue( root.getParent() == null );
 
@@ -58,7 +58,7 @@ public class SingleFileNoedTest extends TestCase {
         String path = url.getPath();
         assertTrue( new File(path).exists());
 
-        Noed root = noedGenerator.build( path  );
+        Noed root = noedGenerator.build( null, path  );
 
         Noed noed = NoedUtils.getNoed( root, "a.txt" );
         assertNotNull( noed );

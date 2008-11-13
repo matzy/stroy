@@ -40,7 +40,7 @@ public class FSNoedTest extends TestCase {
 
         assertTrue( new File(path).exists());
 
-        Noed root = fsNoedGenerator.build( path  );
+        Noed root = fsNoedGenerator.build( null, path  );
         assertTrue( root.getParent() == null );
 
         assertEquals( "testRoot", root.getName());
@@ -52,7 +52,7 @@ public class FSNoedTest extends TestCase {
     public void testGetHash() {
         URL url = getClass().getResource( "/org/openCage/stroy/tree/filesystem/testRoot" );
         String path = url.getPath();
-        Noed root = fsNoedGenerator.build( path  );
+        Noed root = fsNoedGenerator.build( null, path  );
 
         Noed noed = NoedUtils.getNoed( root, "foo", "b.txt" );
         assertNotNull( noed );

@@ -2,6 +2,7 @@ package org.openCage.stroy.tree.str;
 
 import org.openCage.stroy.tree.NoedGenerator;
 import org.openCage.stroy.tree.Noed;
+import org.openCage.stroy.filter.Ignore;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -25,7 +26,7 @@ import org.openCage.stroy.tree.Noed;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 public class StringNoedGenerator implements NoedGenerator {
-    public Noed build( String path ) {
+    public Noed build( Ignore ignore, String path ) {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 }

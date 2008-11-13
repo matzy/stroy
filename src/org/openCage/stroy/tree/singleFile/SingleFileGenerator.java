@@ -4,6 +4,7 @@ import org.openCage.stroy.tree.NoedGenerator;
 import org.openCage.stroy.tree.Noed;
 import org.openCage.stroy.tree.filesystem.FSFiel;
 import org.openCage.stroy.tree.zip.NoedImpl;
+import org.openCage.stroy.filter.Ignore;
 
 import java.io.File;
 import java.net.URI;
@@ -34,7 +35,7 @@ import com.sun.jndi.toolkit.url.Uri;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 public class SingleFileGenerator implements NoedGenerator {
-    public Noed build( String path ) {
+    public Noed build( Ignore ignore, String path ) {
 
         File file = new File( path );
 

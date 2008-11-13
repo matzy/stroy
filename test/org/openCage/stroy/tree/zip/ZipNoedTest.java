@@ -49,7 +49,7 @@ public class ZipNoedTest extends TestCase {
 
         assertTrue( new File(path).exists());
 
-        Noed root = zipNoedGenerator.build( path  );
+        Noed root = zipNoedGenerator.build( null, path  );
 
         assertTrue( root.getParent() == null );
 
@@ -64,7 +64,7 @@ public class ZipNoedTest extends TestCase {
         URL url = getClass().getResource( "/org/openCage/stroy/tree/zip/dir.zip" );
         String path = url.getPath();
 
-        Noed root = zipNoedGenerator.build( path  );
+        Noed root = zipNoedGenerator.build( null, path  );
 
         Noed noed = NoedUtils.getNoed( root, "doubles2", "CompareDirs2.java" );
         assertNotNull( noed );

@@ -1,5 +1,7 @@
 package org.openCage.stroy.tree;
 
+import org.openCage.stroy.filter.Ignore;
+
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
 *
@@ -24,5 +26,5 @@ package org.openCage.stroy.tree;
 
 public interface NoedGenerator {
 
-    public Noed build( String path );
+    public Noed build( Ignore ignore, String path );
 }

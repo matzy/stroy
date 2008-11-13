@@ -3,6 +3,7 @@ package org.openCage.stroy.tree.zip;
 import org.openCage.stroy.tree.NoedGenerator;
 import org.openCage.stroy.tree.Noed;
 import org.openCage.stroy.tree.Fiel;
+import org.openCage.stroy.filter.Ignore;
 import org.openCage.util.io.FileUtils;
 import org.openCage.util.logging.Log;
 
@@ -37,7 +38,7 @@ import java.io.File;
 ***** END LICENSE BLOCK *****/
 public class ZipNoedGenerator implements NoedGenerator {
 
-    public Noed build( String path ) {
+    public Noed build( Ignore ignore, String path ) {
 
         Noed root = null;
         ZipEntry tt = null;
