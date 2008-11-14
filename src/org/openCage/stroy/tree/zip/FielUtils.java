@@ -1,14 +1,8 @@
 package org.openCage.stroy.tree.zip;
 
-import org.openCage.util.lang.Method1;
-import org.openCage.util.lang.VoidMethod1;
-import org.openCage.util.string.Strings;
+import org.openCage.util.lang.FVoid1;
 
 import java.io.InputStream;
-import java.io.IOException;
-
-import com.twmacinta.util.MD5;
-import com.JavaExchange.www.RandomGUID;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -33,7 +27,7 @@ import com.JavaExchange.www.RandomGUID;
 ***** END LICENSE BLOCK *****/
 public class FielUtils {
 
-    public static void getCheckSumFromStream( InputStream is, VoidMethod1 onsuccess, VoidMethod1 onfailure ) {
+    public static void getCheckSumFromStream( InputStream is, FVoid1 onsuccess, FVoid1 onfailure ) {
 
 //        try {
 //            String checkSum = Strings.asHex( MD5.getHash( is ));

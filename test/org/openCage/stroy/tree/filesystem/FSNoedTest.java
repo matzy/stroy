@@ -4,10 +4,16 @@ import junit.framework.TestCase;
 
 import java.net.URL;
 import java.io.File;
+import java.util.Arrays;
 
 import org.openCage.stroy.tree.Noed;
 import org.openCage.stroy.tree.NoedGenerator;
 import org.openCage.stroy.tree.NoedUtils;
+import org.openCage.stroy.filter.NullIgnore;
+import org.openCage.stroy.filter.Ignore;
+import org.openCage.stroy.RuntimeModule;
+import com.google.inject.Injector;
+import com.google.inject.Guice;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -62,7 +68,51 @@ public class FSNoedTest extends TestCase {
         String hash = noed.getFiel().getChecksum();
 
         assertNotNull( hash );
+    }
+
+    public void testFilter() {
+
+        {
+            // no filter
+            URL url = getClass().getResource( "/org/openCage/stroy/tree/filesystem/testRoot" );
+            String path = url.getPath();
+            Noed root = fsNoedGenerator.build( new NullIgnore(), path  );
+
+            Noed noed = NoedUtils.getNoed( root, "foo", "b.txt" );
+        }
+
+        {
+            // filter foo
+            Injector injector = Guice.createInjector( new RuntimeModule() );
+            Ignore ignore = injector.getInstance( Ignore.class );
+            ignore.setPatterns( Arrays.asList( ".*/foo" ));
+
+            URL url = getClass().getResource( "/org/openCage/stroy/tree/filesystem/testRoot" );
+            String path = url.getPath();
+            Noed root = fsNoedGenerator.build( ignore, path  );
+
+            try {
+                Noed noed = NoedUtils.getNoed( root, "foo", "b.txt" );
+                fail( "should be filtered" );
+            } catch ( IllegalArgumentException exp ) {
+                // expected
+            }
+        }
+
 
     }
 
+    public void testFilterRelPath() {
+        Injector injector = Guice.createInjector( new RuntimeModule() );
+        Ignore ignore = injector.getInstance( Ignore.class );
+        ignore.setPatterns( Arrays.asList( ".*/openCage" ));
+
+        URL url = getClass().getResource( "/org/openCage/stroy/tree/filesystem/testRoot" );
+        String path = url.getPath();
+        Noed root = fsNoedGenerator.build( ignore, path  );
+
+        Noed noed = NoedUtils.getNoed( root, "foo", "b.txt" );
+        assertNotNull( noed );
+
+    }
 }

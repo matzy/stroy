@@ -1,6 +1,6 @@
 package org.openCage.util.lang;
 
-public interface VoidMethod0 {
+public interface FVoid0 {
 
     public void call(); 
 }

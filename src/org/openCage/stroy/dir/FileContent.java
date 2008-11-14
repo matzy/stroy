@@ -37,9 +37,9 @@ public class FileContent implements Content {
     private final Lazy<String>             checksum;
     private final Lazy1<FuzzyHash, File>   fuzzy;
 
-    public FileContent( final Method1<FuzzyHash, File> fuzzyGen, final File file ) {
+    public FileContent( final F1<FuzzyHash, File> fuzzyGen, final File file ) {
         this.file     = file;
-        this.checksum = new Lazy<String>( new Method0<String>() {
+        this.checksum = new Lazy<String>( new F0<String>() {
             public String call() {
                 try {
                     Log.finer( "computing checksum of " + file.getAbsolutePath() );

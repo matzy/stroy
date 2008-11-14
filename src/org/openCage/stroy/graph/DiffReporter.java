@@ -5,7 +5,6 @@ import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.graph.node.TreeNode;
 import org.openCage.stroy.graph.node.TreeDirNode;
 import org.openCage.stroy.graph.node.TreeLeafNode;
-import org.openCage.stroy.Difference;
 import org.openCage.stroy.ui.ChangeVector;
 import org.openCage.stroy.diff.ContentDiff;
 

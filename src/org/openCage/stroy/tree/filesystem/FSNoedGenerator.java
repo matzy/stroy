@@ -34,11 +34,16 @@ public class FSNoedGenerator implements NoedGenerator {
 
         File rootFile = new File( path );
 
-        return build( rootFile );
+        return build( ignore, rootFile );
     }
 
 
-    private Noed build( File file ) {
+    private Noed build( Ignore ignore, File file ) {
+
+        if ( ignore.match( file.getPath() )) {
+            return null;
+        }
+
         if ( !file.isDirectory()) {
             return NoedImpl.makeLeafNoed( file.getName(), new FSFiel( file ));
         }
@@ -46,7 +51,10 @@ public class FSNoedGenerator implements NoedGenerator {
         Noed parent = NoedImpl.makeDirNoed( file.getName() );
 
         for ( File child : file.listFiles() ) {
-            parent.addChild( build( child ));
+            Noed noed = build( ignore, child );
+            if ( noed != null ) {
+                parent.addChild( noed );
+            }
         }
 
         return parent;

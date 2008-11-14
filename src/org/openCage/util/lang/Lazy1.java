@@ -23,10 +23,10 @@ package org.openCage.util.lang;
 ***** END LICENSE BLOCK *****/
 
 public class Lazy1<S,T> {
-    private S obj;
-    private Method1<S,T>  func;
+    private S        obj;
+    private F1<S,T>  func;
 
-    public Lazy1( Method1<S,T> func ) {
+    public Lazy1( F1<S,T> func ) {
         if ( func == null ) {
             throw new NullPointerException( "Lazy1 needs a function" );
         }

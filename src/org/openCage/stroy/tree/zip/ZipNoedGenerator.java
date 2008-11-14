@@ -48,13 +48,19 @@ public class ZipNoedGenerator implements NoedGenerator {
         ZipFile zf = null;
         try {
             zf = new ZipFile( path );
+
             for ( Enumeration<? extends ZipEntry> e = zf.entries(); e.hasMoreElements(); )
             {
                 ZipEntry entry = e.nextElement();
                 String   elemPath  = FileUtils.normalizePath( entry.getName() );
 
                 String   parentPath = new File( elemPath ).getParent();
-                String   name = new File( elemPath ).getName();
+                String   name       = new File( elemPath ).getName();
+
+                if ( ignore.match( elemPath )) {
+                    // filter
+                    continue;
+                }
 
                 Noed noed = null;
 
@@ -68,7 +74,9 @@ public class ZipNoedGenerator implements NoedGenerator {
                     Noed parent = noeds.get( parentPath );
 
                     if ( parent == null ) {
-                        throw new Error( "strange order zip not supported yet" );
+                        // assume filtered
+                        continue;
+                        //throw new Error( "strange order zip not supported yet" );
                     }
 
                     if ( entry.isDirectory() ) {

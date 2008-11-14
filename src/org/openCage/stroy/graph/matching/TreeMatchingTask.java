@@ -7,7 +7,6 @@ import org.openCage.stroy.graph.node.TreeLeafNode;
 import org.openCage.stroy.graph.node.TreeNode;
 import org.openCage.stroy.task.MatchingTask;
 import org.openCage.stroy.ui.ChangeVector;
-import org.openCage.stroy.Difference;
 
 import java.util.Collection;
 

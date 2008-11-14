@@ -2,13 +2,20 @@ package org.openCage.stroy.tree.zip;
 
 import org.openCage.stroy.tree.Noed;
 import org.openCage.stroy.tree.NoedUtils;
+import org.openCage.stroy.filter.NullIgnore;
+import org.openCage.stroy.filter.Ignore;
+import org.openCage.stroy.RuntimeModule;
+import org.openCage.stroy.graph.matching.strategy.combined.FastFirst;
 
 import java.util.ResourceBundle;
+import java.util.Arrays;
 import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
 
 import junit.framework.TestCase;
+import com.google.inject.Injector;
+import com.google.inject.Guice;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -49,7 +56,7 @@ public class ZipNoedTest extends TestCase {
 
         assertTrue( new File(path).exists());
 
-        Noed root = zipNoedGenerator.build( null, path  );
+        Noed root = zipNoedGenerator.build( new NullIgnore(), path  );
 
         assertTrue( root.getParent() == null );
 
@@ -64,7 +71,7 @@ public class ZipNoedTest extends TestCase {
         URL url = getClass().getResource( "/org/openCage/stroy/tree/zip/dir.zip" );
         String path = url.getPath();
 
-        Noed root = zipNoedGenerator.build( null, path  );
+        Noed root = zipNoedGenerator.build( new NullIgnore(), path  );
 
         Noed noed = NoedUtils.getNoed( root, "doubles2", "CompareDirs2.java" );
         assertNotNull( noed );
@@ -75,5 +82,38 @@ public class ZipNoedTest extends TestCase {
 
         assertNotNull( hash );
 
+    }
+
+    public void testFilter() {
+
+
+        URL url = getClass().getResource( "/org/openCage/stroy/tree/zip/dir.zip" );
+        String path = url.getPath();
+
+        {
+            // no filter
+            Noed root = zipNoedGenerator.build( new NullIgnore(), path  );
+            assertEquals( 7, root.getChildren().size());
+            NoedUtils.print( root );
+            Noed noed = NoedUtils.getNoed( root, ".svn", "text-base", "DirTreeNodeImpl.java.svn-base" );
+            assertNotNull( noed );
+            assertEquals( "DirTreeNodeImpl.java.svn-base", noed.getName());
+        }
+
+        {
+            // filter .svn
+            Injector injector = Guice.createInjector( new RuntimeModule() );
+            Ignore ignore = injector.getInstance( Ignore.class );
+            ignore.setExtensions( Arrays.asList( "svn"));
+
+            Noed rootFiltered = zipNoedGenerator.build( ignore, path  );
+            assertEquals( 6, rootFiltered.getChildren().size());
+            try {
+                NoedUtils.getNoed( rootFiltered, ".svn", "text-base", "DirTreeNodeImpl.java.svn-base" );
+                fail( "should be filtered" );
+            } catch ( IllegalArgumentException exp ) {
+                // expected
+            }
+        }
     }
 }

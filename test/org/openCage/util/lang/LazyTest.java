@@ -30,7 +30,7 @@ public class LazyTest extends TestCase {
 
         final Ref<Integer> count = new Ref<Integer>( 0 );
 
-        Lazy<String> ll = new Lazy<String>( new Method0<String>() {
+        Lazy<String> ll = new Lazy<String>( new F0<String>() {
             public String call() {
                 count.o = count.o + 1;
                 return "foo";
@@ -44,7 +44,7 @@ public class LazyTest extends TestCase {
     public void testCalledOnce() {
         final Ref<Integer> count = new Ref<Integer>( 0 );
 
-        Lazy<String> ll = new Lazy<String>( new Method0<String>() {
+        Lazy<String> ll = new Lazy<String>( new F0<String>() {
             public String call() {
                 count.o = count.o + 1;
                 return "foo";
@@ -62,7 +62,7 @@ public class LazyTest extends TestCase {
     public void testVal() {
         final Ref<Integer> count = new Ref<Integer>( 0 );
 
-        Lazy<String> ll = new Lazy<String>( new Method0<String>() {
+        Lazy<String> ll = new Lazy<String>( new F0<String>() {
             public String call() {
                 count.o = count.o + 1;
                 return "foo";
@@ -76,7 +76,7 @@ public class LazyTest extends TestCase {
 
         final Ref<Integer> count = new Ref<Integer>( 0 );
 
-        Lazy1<String, Integer> ll = new Lazy1<String, Integer>( new Method1<String, Integer>() {
+        Lazy1<String, Integer> ll = new Lazy1<String, Integer>( new F1<String, Integer>() {
             public String call( Integer i) {
                 count.o = count.o + 1;
                 return "" + i;
@@ -90,7 +90,7 @@ public class LazyTest extends TestCase {
     public void test1CalledOnce() {
         final Ref<Integer> count = new Ref<Integer>( 0 );
 
-        Lazy1<String, Integer> ll = new Lazy1<String, Integer>( new Method1<String, Integer>() {
+        Lazy1<String, Integer> ll = new Lazy1<String, Integer>( new F1<String, Integer>() {
             public String call( Integer i) {
                 count.o = count.o + 1;
                 return "" + i;
@@ -110,7 +110,7 @@ public class LazyTest extends TestCase {
     public void test1Val() {
         final Ref<Integer> count = new Ref<Integer>( 0 );
 
-        Lazy1<String, Integer> ll = new Lazy1<String, Integer>( new Method1<String, Integer>() {
+        Lazy1<String, Integer> ll = new Lazy1<String, Integer>( new F1<String, Integer>() {
             public String call( Integer i) {
                 count.o = count.o + 1;
                 return "" + i;
@@ -123,7 +123,7 @@ public class LazyTest extends TestCase {
 
     public void test1MethodReuse() {
         final Ref<Integer> count = new Ref<Integer>( 0 );
-        final Method1<String,Integer> meth = new Method1<String, Integer>() {
+        final F1<String,Integer> meth = new F1<String, Integer>() {
             public String call( Integer i) {
                 count.o = count.o + 1;
                 return "" + i;

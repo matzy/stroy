@@ -23,11 +23,11 @@ package org.openCage.util.lang;
 ***** END LICENSE BLOCK *****/
 
 public class Lazy<T> {
-    private T obj;
-    private boolean             evaluated = false;
-    private final   Method0<T>  func;
+    private T              obj;
+    private boolean        evaluated = false;
+    private final   F0<T>  func;
 
-    public Lazy( Method0<T> func ) {
+    public Lazy( F0<T> func ) {
         this.func = func;
     }
 

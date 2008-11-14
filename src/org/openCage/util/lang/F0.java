@@ -22,7 +22,7 @@ package org.openCage.util.lang;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public interface Method1<S,T> {
+public interface F0<T> {
 
-    public S call( T t );
+    public T call(); 
 }
