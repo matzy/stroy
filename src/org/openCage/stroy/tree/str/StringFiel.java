@@ -1,6 +1,6 @@
-package org.openCage.stroy.matching;
+package org.openCage.stroy.tree.str;
 
-import org.openCage.stroy.tree.Noed;
+import org.openCage.stroy.tree.Fiel;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -24,10 +24,24 @@ import org.openCage.stroy.tree.Noed;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public interface TreeTask extends Task<Noed>{
+public class StringFiel implements Fiel {
+    private String content;
+    private String typ;
 
-    public Noed getLeftRoot();
-    public Noed getRightRoot();
+    public StringFiel( String typ, String content ) {
+        this.typ     = typ;
+        this.content = content;
+    }
 
+    public String getChecksum() {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
 
+    public long getSize() {
+        return content.length();
+    }
+
+    public boolean hasReadError() {
+        return false;
+    }
 }

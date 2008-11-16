@@ -1,5 +1,6 @@
-package org.openCage.stroy.matching;
+package org.openCage.stroy.tree.str;
 
+import junit.framework.TestCase;
 import org.openCage.stroy.tree.Noed;
 
 /***** BEGIN LICENSE BLOCK *****
@@ -24,10 +25,15 @@ import org.openCage.stroy.tree.Noed;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public interface TreeTask extends Task<Noed>{
+public class StringNoedTest extends TestCase {
 
-    public Noed getLeftRoot();
-    public Noed getRightRoot();
+    public void testSimple() {
+        StringNoedBuilder b = new StringNoedBuilder();
+
+        Noed root = b.d( "foo", b.l("a", "t1", "aaa"),
+                                b.l("b", "t1", "bbb"));
 
 
+        assertEquals( 2, root.getChildren().size() );
+    }
 }

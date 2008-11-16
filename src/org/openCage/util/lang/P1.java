@@ -1,6 +1,4 @@
-package org.openCage.stroy.matching;
-
-import org.openCage.stroy.tree.Noed;
+package org.openCage.util.lang;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -24,10 +22,10 @@ import org.openCage.stroy.tree.Noed;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public interface TreeTask extends Task<Noed>{
+/**
+ * A predicate with one argument
+ */
+public interface P1<T> {
 
-    public Noed getLeftRoot();
-    public Noed getRightRoot();
-
-
+    public boolean c( T t );
 }

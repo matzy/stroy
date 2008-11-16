@@ -1,6 +1,6 @@
-package org.openCage.stroy.matching;
+package org.openCage.stroy.matching.strategies;
 
-import org.openCage.stroy.tree.Noed;
+import org.openCage.stroy.matching.Task;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -24,10 +24,7 @@ import org.openCage.stroy.tree.Noed;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public interface TreeTask extends Task<Noed>{
+public interface Strategy<T> {
 
-    public Noed getLeftRoot();
-    public Noed getRightRoot();
-
-
+    public void match( Task<T> task );
 }

@@ -1,6 +1,7 @@
-package org.openCage.stroy.matching;
+package org.openCage.stroy.tree;
 
-import org.openCage.stroy.tree.Noed;
+import junit.framework.TestCase;
+import org.openCage.stroy.tree.str.StringNoedBuilder;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -24,10 +25,20 @@ import org.openCage.stroy.tree.Noed;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public interface TreeTask extends Task<Noed>{
+public class NoedImplTest extends TestCase {
 
-    public Noed getLeftRoot();
-    public Noed getRightRoot();
+    public void testUnmodifiableGetChildren() {
+        StringNoedBuilder b = new StringNoedBuilder();
 
+        Noed root = b.d( "foo", b.l("a", "t1", "aaa"),
+                                b.l("b", "t1", "bbb"));
 
+        try {
+            root.getChildren().add( b.d( "oops" ));
+            fail( "child list should not be modifiable" );
+        } catch ( Exception exp ) {
+            // expected
+        }
+
+    }
 }

@@ -1,10 +1,11 @@
-package org.openCage.stroy.tree.zip;
+package org.openCage.stroy.tree;
 
 import org.openCage.stroy.tree.Noed;
 import org.openCage.stroy.tree.Fiel;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -76,7 +77,7 @@ public class NoedImpl implements Noed{
     }
 
     public List<Noed> getChildren() {
-        return children;
+        return Collections.unmodifiableList( children );
     }
 
     public void addChild( Noed noed ) {

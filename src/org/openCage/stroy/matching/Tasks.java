@@ -1,8 +1,7 @@
-package org.openCage.stroy.tree.str;
+package org.openCage.stroy.matching;
 
-import org.openCage.stroy.tree.NoedGenerator;
 import org.openCage.stroy.tree.Noed;
-import org.openCage.stroy.filter.Ignore;
+import org.openCage.util.lang.P2;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -25,8 +24,22 @@ import org.openCage.stroy.filter.Ignore;
 *
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
-public class StringNoedGenerator implements NoedGenerator {
-    public Noed build( Ignore ignore, String path ) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
+
+/**
+ * Utility class for Tasks
+ */
+public class Tasks {
+
+    public static final P2<Task<Noed>,Noed> isUnmatched = new P2<Task<Noed>, Noed>() {
+        public boolean c( Task<Noed> a, Noed b ) {
+            return !a.isMatched( b );
+        }
+    };
+
+    public static final P2<Task<Noed>,Noed> isUnmatchedLeaf = new P2<Task<Noed>, Noed>() {
+        public boolean c( Task<Noed> a, Noed b ) {
+            return b.isLeaf() && !a.isMatched( b );
+        }
+    };
+
 }

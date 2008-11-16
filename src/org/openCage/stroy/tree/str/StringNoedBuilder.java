@@ -1,6 +1,7 @@
-package org.openCage.stroy.matching;
+package org.openCage.stroy.tree.str;
 
 import org.openCage.stroy.tree.Noed;
+import org.openCage.stroy.tree.NoedImpl;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -24,10 +25,20 @@ import org.openCage.stroy.tree.Noed;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public interface TreeTask extends Task<Noed>{
+public class StringNoedBuilder {
 
-    public Noed getLeftRoot();
-    public Noed getRightRoot();
 
+    public Noed d( String name, Noed ... childs ) {
+        Noed ret = NoedImpl.makeDirNoed( name );
+        for ( Noed child : childs ) {
+            ret.addChild( child );
+        }
+
+        return ret;
+    }
+
+    public Noed l( String name, String typ, String content) {
+        return NoedImpl.makeLeafNoed( name, new StringFiel( typ, content ));
+    }
 
 }

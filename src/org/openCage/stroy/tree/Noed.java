@@ -32,6 +32,11 @@ public interface Noed {
 
     public void           setParent( Noed parent );
     public Noed           getParent();
+
+    /**
+     * return the list of childs (readonly)
+     * @return thec children of the Noed
+     */
     public List<Noed>     getChildren();
     public void           addChild( Noed noed );
 

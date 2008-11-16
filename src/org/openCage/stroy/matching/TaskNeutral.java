@@ -1,12 +1,33 @@
 package org.openCage.stroy.matching;
 
-import org.openCage.stroy.tree.Noed;
-import org.openCage.stroy.task.NodeChangeListener;
-import org.openCage.stroy.diff.ContentDiff;
 import org.openCage.util.logging.Log;
 import org.openCage.util.lang.F1;
+import org.openCage.util.lang.P1;
+import org.openCage.util.lang.P2;
 
 import java.util.*;
+
+/***** BEGIN LICENSE BLOCK *****
+* Version: MPL 1.1
+*
+* The contents of this file are subject to the Mozilla Public License Version
+* 1.1 (the "License"); you may not use this file except in compliance with
+* the License. You may obtain a copy of the License at
+* http://www.mozilla.org/MPL/
+*
+* Software distributed under the License is distributed on an "AS IS" basis,
+* WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+* for the specific language governing rights and limitations under the
+* License.
+*
+* The Original Code is stroy code.
+*
+* The Initial Developer of the Original Code is Stephan Pfab <openCage@gmail.com>.
+* Portions created by Stephan Pfab are Copyright (C) 2006, 2007, 2008.
+* All Rights Reserved.
+*
+* Contributor(s):
+***** END LICENSE BLOCK *****/
 
 public class TaskNeutral<T> implements Task<T> {
 
@@ -34,11 +55,11 @@ public class TaskNeutral<T> implements Task<T> {
 
     }
 
-    public Collection<T> getLeft( F1<Boolean, T> filter ) {
+    public Collection<T> getLeft( P2<Task<T>, T> filter ) {
         List<T> ret = new ArrayList<T>();
 
         for ( T obj : left2right.keySet() ) {
-            if ( filter.call( obj )) {
+            if ( filter.c( this, obj )) {
                 ret.add( obj );
             }
         }
@@ -46,11 +67,11 @@ public class TaskNeutral<T> implements Task<T> {
         return ret;
     }
 
-    public Collection<T> getRight( F1<Boolean, T> filter ) {
+    public Collection<T> getRight( P2<Task<T>, T> filter ) {
         List<T> ret = new ArrayList<T>();
 
         for ( T obj : right2left.keySet() ) {
-            if ( filter.call( obj )) {
+            if ( filter.c( this, obj )) {
                 ret.add( obj );
             }
         }
@@ -59,7 +80,7 @@ public class TaskNeutral<T> implements Task<T> {
     }
 
     public boolean isMatched( T obj ) {
-        return left2right.get(  obj ) == null && right2left.get( obj ) == null;
+        return left2right.get(  obj ) != null || right2left.get( obj ) != null;
     }
 
     public T getMatch( T obj ) {
