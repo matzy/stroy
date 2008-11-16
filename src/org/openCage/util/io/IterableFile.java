@@ -59,4 +59,15 @@ public class IterableFile implements Iterable<String> {
             throw new IllegalStateException( "reader has problem now" );
         }
     }
+
+    public void close() {
+        if ( reader != null ) {
+            try {
+                reader.close();
+            } catch( IOException e ) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            }
+            reader = null;
+        }
+    }
 }
