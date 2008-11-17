@@ -2,11 +2,9 @@ package org.openCage.util.io;
 
 import com.muchsoft.util.Sys;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.*;
 import java.util.regex.Pattern;
+import java.util.Iterator;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -179,4 +177,21 @@ public class FileUtils {
     private FileUtils() {
         throw new NoSuchMethodError("utility class");
     }
+
+    public static LineReaderIterator iterator( File file ) {
+        if ( !file.canRead() ) {
+            throw new IllegalArgumentException("file " + file.getAbsolutePath() + " is not readable");
+        }
+
+        try {
+            BufferedReader reader = new BufferedReader( new FileReader( file ));
+            return new LineReaderIterator( reader );
+        } catch (FileNotFoundException e) {
+            throw new IllegalArgumentException("file " + file.getAbsolutePath() + " not found");
+        } catch (IOException e) {
+            throw new IllegalStateException( "reader has problem now" );
+        }
+    }
+
+    
 }

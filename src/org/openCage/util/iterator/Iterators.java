@@ -1,6 +1,5 @@
 package org.openCage.util.iterator;
 
-import org.openCage.util.io.IterableFile;
 import org.openCage.util.string.IterableString;
 
 import java.io.File;
@@ -46,9 +45,10 @@ public class Iterators {
         return new CountedIt<T>( t );
     }
 
-    public static Iterable<String> lines( File file ) {
-        return new IterableFile( file );
-    }
+//    public static Iterable<String> lines( File file ) {
+//        return new IterableFile( file );
+//    }
+
 
     public static Iterable<Character> chars( String str ) {
         return new IterableString( str );

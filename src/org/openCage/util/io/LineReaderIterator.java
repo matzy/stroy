@@ -1,5 +1,7 @@
 package org.openCage.util.io;
 
+import org.openCage.util.logging.Log;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Iterator;
@@ -29,11 +31,12 @@ import java.util.Iterator;
 
 public class LineReaderIterator  implements Iterator<String> {
     private BufferedReader reader;
-    private String line;
+    private String         line;
+
 
     public LineReaderIterator( BufferedReader reader ) throws IOException {
         this.reader = reader;
-        this.line = reader.readLine();
+        this.line   = reader.readLine();
     }
 
     public boolean hasNext() {
@@ -53,4 +56,22 @@ public class LineReaderIterator  implements Iterator<String> {
     public void remove() {
         throw new UnsupportedOperationException( "this iterator has no remove" );
     }
+
+    public void close() {
+        if ( reader != null ) {
+            try {
+                reader.close();
+            } catch ( IOException e ) {
+                Log.warning( "close threw error " + e  );
+            }
+            reader = null;
+        }
+    }
+
+    public static void close( LineReaderIterator it ) {
+        if ( it != null ) {
+            it.close();
+        }
+    }
+
 }
