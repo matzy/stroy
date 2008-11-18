@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.io.File;
 
 import org.openCage.util.iterator.Iterators;
+import org.openCage.util.lang.FVoid1;
 
 public class LineReaderIteratorTest extends TestCase {
 
@@ -47,6 +48,36 @@ public class LineReaderIteratorTest extends TestCase {
 
         // no expection
         it.close();
+
+    }
+
+    public void testStyle() {
+        URL url = getClass().getResource( "/org/openCage/util/io/testme.txt");
+
+        LineReaderIterator it = FileUtils.iterator( new File( url.getPath() ));
+
+        try {
+            for ( String str : Iterators.loop( it )) {
+                System.out.println( str );
+            }
+        } finally {
+            LineReaderIterator.close( it );
+        }
+
+        FileUtils.loop( new File( url.getPath() ),
+                new FVoid1<LineReaderIterator>() {
+                    public void call( LineReaderIterator lineReaderIterator ) {
+                        for ( String str : Iterators.loop( lineReaderIterator )) {
+                            System.out.println( str );
+                        }
+                    }
+                } );
+
+        FileUtils.withIterator( new File( url.getPath()), new FVoid1<Iterable<String>>() { public void call( Iterable<String> iterable ) {
+            for ( String str : iterable ) {
+                System.out.println( str );
+            }
+        }});
 
     }
 }

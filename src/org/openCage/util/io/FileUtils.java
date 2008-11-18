@@ -6,6 +6,10 @@ import java.io.*;
 import java.util.regex.Pattern;
 import java.util.Iterator;
 
+import org.openCage.util.lang.F1;
+import org.openCage.util.lang.FVoid1;
+import org.openCage.util.iterator.Iterators;
+
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
 *
@@ -193,5 +197,23 @@ public class FileUtils {
         }
     }
 
-    
+    public static void loop( File file, FVoid1<LineReaderIterator> func ) {
+        LineReaderIterator it = iterator( file );
+        try {
+            func.call( it );
+        } finally {
+            it.close();
+        }
+    }
+
+    public static void withIterator( File file, FVoid1<Iterable<String>> func ) {
+        LineReaderIterator it = iterator( file );
+        try {
+            Iterable<String> ita = Iterators.loop( it );
+            func.call( ita );
+        } finally {
+            it.close();
+        }
+    }
+
 }

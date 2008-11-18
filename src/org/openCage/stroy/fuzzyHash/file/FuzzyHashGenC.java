@@ -9,6 +9,8 @@ import org.openCage.stroy.fuzzyHash.FuzzyHashSetFactory;
 import org.openCage.stroy.text.LineNoise;
 import org.openCage.stroy.text.ForC;
 import org.openCage.util.logging.Log;
+import org.openCage.util.io.LineReaderIterator;
+import org.openCage.util.io.FileUtils;
 
 import java.io.File;
 import java.util.HashSet;
@@ -56,15 +58,18 @@ public class FuzzyHashGenC implements FuzzyHashGenerator<File> {
 
 
             final Set<Integer> set = new HashSet<Integer>();
+            LineReaderIterator it = FileUtils.iterator( file );
 
             try {
-                for ( final String line : Iterators.lines( file ) ) {
+                for ( final String line : Iterators.loop( it )) {
                     if ( !noise.isGrayNoise( line )) {
                         set.add( hash.getHash( line ) );
                     }
                 }
             } catch ( Exception exp ) {
                 Log.warning( "can't read file: " + file.getAbsolutePath() );
+            } finally {
+                LineReaderIterator.close( it );
             }
 
         return fuzzyHashSetFactory.create( set );

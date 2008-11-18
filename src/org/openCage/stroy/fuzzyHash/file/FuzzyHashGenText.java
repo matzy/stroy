@@ -9,6 +9,8 @@ import org.openCage.stroy.fuzzyHash.FuzzyHashSetFactory;
 import org.openCage.stroy.text.ForText;
 import org.openCage.stroy.text.LineNoise;
 import org.openCage.util.logging.Log;
+import org.openCage.util.io.FileUtils;
+import org.openCage.util.lang.FVoid1;
 
 import java.io.File;
 import java.util.HashSet;
@@ -84,27 +86,32 @@ public class FuzzyHashGenText implements FuzzyHashGenerator<File> {
 
         final Set<Integer> set = new HashSet<Integer>();
 
-        int ii = 0;
         String collect = "";
         try {
-            for ( final String line : Iterators.lines( file ) ) {
-                ii++;
+            FileUtils.withIterator( file, new FVoid1<Iterable<String>>() {
+                public void call( Iterable<String> iterable ) {
+                    int ii = 0;
+                    for ( final String line : iterable ) {
+                        ii++;
 
-                // TODO real solution
-                if ( ii > 2000 ) {
-                    break;
+                        // TODO real solution
+                        if ( ii > 2000 ) {
+                            break;
+                        }
+                        if ( !noise.isGrayNoise( line )) {
+                            set.add( hash.getHash( line ) );
+                        }
+                    }
                 }
-                if ( !noise.isGrayNoise( line )) {
-                    set.add( hash.getHash( line ) );
-                }
-            }
+            } );
         } catch ( Exception exp ) {
             Log.warning( "can't read file: " + file.getAbsolutePath() );
-        } catch ( Error err ) {
-            Log.severe( "can't read file: " + file.getAbsolutePath() + "lines " + ii );
-            Log.severe( "error " + err.getMessage() );
-
         }
+//        catch ( Error err ) {
+//            Log.severe( "can't read file: " + file.getAbsolutePath() + "lines " + ii );
+//            Log.severe( "error " + err.getMessage() );
+//
+//        }
 
         return fuzzyHashSetFactory.create( set );
     }

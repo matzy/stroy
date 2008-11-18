@@ -9,32 +9,34 @@ import org.openCage.stroy.fuzzyHash.FuzzyHashSetFactory;
 import org.openCage.stroy.text.LineNoise;
 import org.openCage.stroy.text.ForXML;
 import org.openCage.util.logging.Log;
+import org.openCage.util.io.FileUtils;
+import org.openCage.util.lang.FVoid1;
 
 import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
 
 /***** BEGIN LICENSE BLOCK *****
-* Version: MPL 1.1
-*
-* The contents of this file are subject to the Mozilla Public License Version
-* 1.1 (the "License"); you may not use this file except in compliance with
-* the License. You may obtain a copy of the License at
-* http://www.mozilla.org/MPL/
-*
-* Software distributed under the License is distributed on an "AS IS" basis,
-* WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
-* for the specific language governing rights and limitations under the
-* License.
-*
-* The Original Code is stroy code.
-*
-* The Initial Developer of the Original Code is Stephan Pfab <openCage@gmail.com>.
-* Portions created by Stephan Pfab are Copyright (C) 2006, 2007, 2008.
-* All Rights Reserved.
-*
-* Contributor(s):
-***** END LICENSE BLOCK *****/
+ * Version: MPL 1.1
+ *
+ * The contents of this file are subject to the Mozilla Public License Version
+ * 1.1 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ * http://www.mozilla.org/MPL/
+ *
+ * Software distributed under the License is distributed on an "AS IS" basis,
+ * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+ * for the specific language governing rights and limitations under the
+ * License.
+ *
+ * The Original Code is stroy code.
+ *
+ * The Initial Developer of the Original Code is Stephan Pfab <openCage@gmail.com>.
+ * Portions created by Stephan Pfab are Copyright (C) 2006, 2007, 2008.
+ * All Rights Reserved.
+ *
+ * Contributor(s):
+ ***** END LICENSE BLOCK *****/
 
 public class FuzzyHashGenXML implements FuzzyHashGenerator<File> {
 
@@ -55,17 +57,18 @@ public class FuzzyHashGenXML implements FuzzyHashGenerator<File> {
     public FuzzyHash generate( final File file ) {
 
 
-            final Set<Integer> set = new HashSet<Integer>();
+        final Set<Integer> set = new HashSet<Integer>();
 
-            try {
-                for ( final String line : Iterators.lines( file ) ) {
+        FileUtils.withIterator( file, new FVoid1<Iterable<String>>() {
+            public void call( Iterable<String> iterable ) {
+                for ( final String line :iterable ) {
                     if ( !noise.isGrayNoise( line )) {
                         set.add( hash.getHash( line ) );
                     }
                 }
-            } catch ( Exception exp ) {
-                Log.warning( "can't read file: " + file.getAbsolutePath() );
             }
+        } );
+
 
         return fuzzyHashSetFactory.create( set );
     }
