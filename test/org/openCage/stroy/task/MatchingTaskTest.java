@@ -1,7 +1,6 @@
 package org.openCage.stroy.task;
 
 import junit.framework.TestCase;
-import org.openCage.stroy.Difference;
 import org.openCage.stroy.diff.ContentDiff;
 
 /***** BEGIN LICENSE BLOCK *****
