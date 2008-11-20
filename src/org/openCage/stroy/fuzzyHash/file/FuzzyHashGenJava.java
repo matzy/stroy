@@ -1,16 +1,14 @@
 package org.openCage.stroy.fuzzyHash.file;
 
 import com.google.inject.Inject;
-import org.openCage.util.iterator.Iterators;
 import org.openCage.stroy.Hash;
 import org.openCage.stroy.fuzzyHash.FuzzyHash;
 import org.openCage.stroy.fuzzyHash.FuzzyHashGenerator;
 import org.openCage.stroy.fuzzyHash.FuzzyHashSetFactory;
 import org.openCage.stroy.text.ForJava;
 import org.openCage.stroy.text.LineNoise;
-import org.openCage.util.logging.Log;
 import org.openCage.util.io.FileUtils;
-import org.openCage.util.lang.FVoid1;
+import org.openCage.util.lang.V1;
 
 import java.io.File;
 import java.util.HashSet;
@@ -60,7 +58,7 @@ public class FuzzyHashGenJava implements FuzzyHashGenerator<File> {
         final Set<Integer> set = new HashSet<Integer>();
 
 
-        FileUtils.withIterator( file, new FVoid1<Iterable<String>>() {
+        FileUtils.withIterator( file, new V1<Iterable<String>>() {
             public void call( Iterable<String> iterable ) {
                 for ( final String line :iterable ) {
                     if ( !noise.isGrayNoise( line )) {

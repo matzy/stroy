@@ -1,8 +1,7 @@
 package org.openCage.stroy.dir;
 
 import org.openCage.util.io.FileUtils;
-import org.openCage.util.iterator.Iterators;
-import org.openCage.util.lang.FVoid1;
+import org.openCage.util.lang.V1;
 
 import java.util.Map;
 import java.util.List;
@@ -68,7 +67,7 @@ public class TestHash {
                 return;
             }
 
-            FileUtils.withIterator( file, new FVoid1<Iterable<String>>() {
+            FileUtils.withIterator( file, new V1<Iterable<String>>() {
                 public void call( Iterable<String> iterable ) {
                     for ( String line : iterable ) {
                         if ( !hashes.containsKey( line.hashCode())) {

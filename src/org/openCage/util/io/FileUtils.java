@@ -4,10 +4,9 @@ import com.muchsoft.util.Sys;
 
 import java.io.*;
 import java.util.regex.Pattern;
-import java.util.Iterator;
 
-import org.openCage.util.lang.F1;
-import org.openCage.util.lang.FVoid1;
+import org.openCage.util.lang.V1;
+import org.openCage.util.lang.V2;
 import org.openCage.util.iterator.Iterators;
 
 /***** BEGIN LICENSE BLOCK *****
@@ -197,7 +196,7 @@ public class FileUtils {
         }
     }
 
-    public static void loop( File file, FVoid1<LineReaderIterator> func ) {
+    public static void loop( File file, V1<LineReaderIterator> func ) {
         LineReaderIterator it = iterator( file );
         try {
             func.call( it );
@@ -206,11 +205,31 @@ public class FileUtils {
         }
     }
 
-    public static void withIterator( File file, FVoid1<Iterable<String>> func ) {
+    public static void withIterator( File file, V1<Iterable<String>> func ) {
         LineReaderIterator it = iterator( file );
         try {
             Iterable<String> ita = Iterators.loop( it );
             func.call( ita );
+        } finally {
+            it.close();
+        }
+    }
+
+
+    public static void withOpen( File file, V2<String, LoopState> v2 ) {
+        LineReaderIterator it = iterator( file );
+        try {
+            LoopStateImpl lp = new LoopStateImpl();
+            for ( String str : Iterators.loop( it ) ) {
+                v2.c( str, lp );
+                if ( lp.isBroken()) {
+                    break;
+                }
+
+                lp.incr();
+            }
+
+
         } finally {
             it.close();
         }

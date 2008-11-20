@@ -1,6 +1,6 @@
 package org.openCage.stroy.tree.zip;
 
-import org.openCage.util.lang.FVoid1;
+import org.openCage.util.lang.V1;
 
 import java.io.InputStream;
 
@@ -27,7 +27,7 @@ import java.io.InputStream;
 ***** END LICENSE BLOCK *****/
 public class FielUtils {
 
-    public static void getCheckSumFromStream( InputStream is, FVoid1 onsuccess, FVoid1 onfailure ) {
+    public static void getCheckSumFromStream( InputStream is, V1 onsuccess, V1 onfailure ) {
 
 //        try {
 //            String checkSum = Strings.asHex( MD5.getHash( is ));
