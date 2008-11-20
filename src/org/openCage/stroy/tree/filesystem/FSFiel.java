@@ -1,16 +1,15 @@
 package org.openCage.stroy.tree.filesystem;
 
 import org.openCage.stroy.tree.Fiel;
+import org.openCage.stroy.fuzzyHash.FuzzyHash;
 import org.openCage.util.string.Strings;
 import org.openCage.util.logging.Log;
+import org.openCage.util.io.FileUtils;
 
 import java.io.File;
-import java.io.InputStream;
 import java.io.IOException;
-import java.util.zip.ZipFile;
 
 import com.twmacinta.util.MD5;
-import com.JavaExchange.www.RandomGUID;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -38,9 +37,12 @@ public class FSFiel implements Fiel {
     private final File file;
     private String checkSum;
     private boolean readError = false;
+    private String type;
+    private FuzzyHash fuzzy;
 
     public FSFiel( final File file ) {
         this.file = file;
+        type = FileUtils.getExtension( file );
     }
 
     public String getChecksum() {
@@ -54,6 +56,18 @@ public class FSFiel implements Fiel {
         }
 
         return checkSum;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public FuzzyHash getFuzzyHash() {
+        if ( fuzzy == null ) {
+
+        }
+
+        return fuzzy;
     }
 
     public long getSize() {

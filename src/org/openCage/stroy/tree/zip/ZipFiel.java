@@ -1,6 +1,7 @@
 package org.openCage.stroy.tree.zip;
 
 import org.openCage.stroy.tree.Fiel;
+import org.openCage.stroy.fuzzyHash.FuzzyHash;
 import org.openCage.util.string.Strings;
 
 import java.util.zip.ZipEntry;
@@ -34,14 +35,16 @@ import com.JavaExchange.www.RandomGUID;
 ***** END LICENSE BLOCK *****/
 
 public class ZipFiel implements Fiel {
-    private String rootPath;
+    private String   rootPath;
     private ZipEntry zipEntry;
-    private String checkSum;
-    private boolean readError = false;
+    private String   checkSum;
+    private boolean  readError = false;
+    private String   type;
 
-    public ZipFiel( String rootPath, ZipEntry zipEntry ) {
+    public ZipFiel( String rootPath, ZipEntry zipEntry, String type ) {
         this.rootPath = rootPath;
         this.zipEntry = zipEntry;
+        this.type     = type;
     }
 
     public String getChecksum() {
@@ -58,6 +61,14 @@ public class ZipFiel implements Fiel {
         }
 
         return checkSum;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public FuzzyHash getFuzzyHash() {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     public long getSize() {

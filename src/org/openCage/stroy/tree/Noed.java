@@ -35,7 +35,7 @@ public interface Noed {
 
     /**
      * return the list of childs (readonly)
-     * @return thec children of the Noed
+     * @return the children of the Noed
      */
     public List<Noed>     getChildren();
     public void           addChild( Noed noed );

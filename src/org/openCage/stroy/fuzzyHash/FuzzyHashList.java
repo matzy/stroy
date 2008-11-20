@@ -44,7 +44,7 @@ public class FuzzyHashList implements FuzzyHash {
     }
 
 
-    public double fuzzyEqual(FuzzyHash other) {
+    public double fuzzyEqual( FuzzyHash other) {
 
         if ( ! ( other instanceof FuzzyHashList  )) {
             return 0.0;

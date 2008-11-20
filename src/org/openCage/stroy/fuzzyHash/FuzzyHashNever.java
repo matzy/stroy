@@ -22,8 +22,8 @@ package org.openCage.stroy.fuzzyHash;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public class FuzzyHashNever implements FuzzyHash{
-    public double fuzzyEqual(FuzzyHash other) {
+public class FuzzyHashNever implements FuzzyHash {
+    public double fuzzyEqual( FuzzyHash other) {
         return 0.0;
     }
 }

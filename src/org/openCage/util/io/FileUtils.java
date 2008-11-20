@@ -181,6 +181,7 @@ public class FileUtils {
         throw new NoSuchMethodError("utility class");
     }
 
+
     public static LineReaderIterator iterator( File file ) {
         if ( !file.canRead() ) {
             throw new IllegalArgumentException("file " + file.getAbsolutePath() + " is not readable");
@@ -195,6 +196,7 @@ public class FileUtils {
             throw new IllegalStateException( "reader has problem now" );
         }
     }
+
 
     public static void loop( File file, V1<LineReaderIterator> func ) {
         LineReaderIterator it = iterator( file );
@@ -215,6 +217,18 @@ public class FileUtils {
         }
     }
 
+    public static void withIterator( InputStream is , V1<Iterable<String>> func ) {
+        LineReaderIterator it = null;
+        try {
+            it = new LineReaderIterator( new BufferedReader( new InputStreamReader( is )));
+            Iterable<String> ita = Iterators.loop( it );
+            func.call( ita );
+        } catch ( IOException e ) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } finally {
+            LineReaderIterator.close( it );
+        }
+    }
 
     public static void withOpen( File file, V2<String, LoopState> v2 ) {
         LineReaderIterator it = iterator( file );

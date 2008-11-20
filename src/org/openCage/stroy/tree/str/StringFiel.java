@@ -1,6 +1,7 @@
 package org.openCage.stroy.tree.str;
 
 import org.openCage.stroy.tree.Fiel;
+import org.openCage.stroy.fuzzyHash.FuzzyHash;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -26,14 +27,22 @@ import org.openCage.stroy.tree.Fiel;
 
 public class StringFiel implements Fiel {
     private String content;
-    private String typ;
+    private String type;
 
     public StringFiel( String typ, String content ) {
-        this.typ     = typ;
+        this.type = typ;
         this.content = content;
     }
 
     public String getChecksum() {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public FuzzyHash getFuzzyHash() {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 

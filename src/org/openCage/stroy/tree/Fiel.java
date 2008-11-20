@@ -27,7 +27,8 @@ import org.openCage.stroy.fuzzyHash.FuzzyHash;
 public interface Fiel {
 
     public String    getChecksum();
-//    public FuzzyHash getFuzzyHash();
+    public String    getType();
+    public FuzzyHash getFuzzyHash();
 
     public long    getSize();
     public boolean hasReadError();
