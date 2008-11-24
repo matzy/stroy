@@ -1,10 +1,9 @@
 package org.openCage.stroy.tree.singleFile;
 
 import junit.framework.TestCase;
-import org.openCage.stroy.tree.zip.ZipNoedGenerator;
-import org.openCage.stroy.tree.Noed;
-import org.openCage.stroy.tree.NoedUtils;
-import org.openCage.stroy.tree.NoedGenerator;
+import org.openCage.stroy.algo.tree.Noed;
+import org.openCage.stroy.algo.tree.NoedUtils;
+import org.openCage.stroy.algo.tree.NoedGenerator;
 
 import java.net.URL;
 import java.io.File;

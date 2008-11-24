@@ -2,7 +2,7 @@ package org.openCage.stroy.tree.fuzzyHash;
 
 import org.openCage.stroy.fuzzyHash.FuzzyHashGenerator;
 import org.openCage.stroy.fuzzyHash.FuzzyHash;
-import org.openCage.stroy.tree.Fiel;
+import org.openCage.stroy.algo.tree.Fiel;
 
 public class FuzzyHashGenFiel implements FuzzyHashGenerator<Fiel> {
 

@@ -1,8 +1,8 @@
 package org.openCage.stroy.tree.filesystem;
 
-import org.openCage.stroy.tree.NoedGenerator;
-import org.openCage.stroy.tree.Noed;
-import org.openCage.stroy.tree.NoedImpl;
+import org.openCage.stroy.algo.tree.NoedGenerator;
+import org.openCage.stroy.algo.tree.Noed;
+import org.openCage.stroy.algo.tree.NoedImpl;
 import org.openCage.stroy.filter.Ignore;
 
 import java.io.File;

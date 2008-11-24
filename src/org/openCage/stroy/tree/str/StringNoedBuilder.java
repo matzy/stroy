@@ -1,7 +1,7 @@
 package org.openCage.stroy.tree.str;
 
-import org.openCage.stroy.tree.Noed;
-import org.openCage.stroy.tree.NoedImpl;
+import org.openCage.stroy.algo.tree.Noed;
+import org.openCage.stroy.algo.tree.NoedImpl;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1

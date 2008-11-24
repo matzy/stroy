@@ -2,7 +2,7 @@ package org.openCage.stroy.matching;
 
 import junit.framework.TestCase;
 import org.openCage.stroy.tree.str.StringNoedBuilder;
-import org.openCage.stroy.tree.Noed;
+import org.openCage.stroy.algo.tree.Noed;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1

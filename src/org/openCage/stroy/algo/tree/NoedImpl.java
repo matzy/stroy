@@ -1,7 +1,7 @@
-package org.openCage.stroy.tree;
+package org.openCage.stroy.algo.tree;
 
-import org.openCage.stroy.tree.Noed;
-import org.openCage.stroy.tree.Fiel;
+import org.openCage.stroy.algo.tree.Noed;
+import org.openCage.stroy.algo.tree.Fiel;
 
 import java.util.List;
 import java.util.ArrayList;

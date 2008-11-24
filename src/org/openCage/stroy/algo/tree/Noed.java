@@ -1,4 +1,6 @@
-package org.openCage.stroy.tree;
+package org.openCage.stroy.algo.tree;
+
+import org.openCage.stroy.algo.tree.Fiel;
 
 import java.util.List;
 
@@ -40,5 +42,5 @@ public interface Noed {
     public List<Noed>     getChildren();
     public void           addChild( Noed noed );
 
-    public Fiel           getFiel();
+    public Fiel getFiel();
 }

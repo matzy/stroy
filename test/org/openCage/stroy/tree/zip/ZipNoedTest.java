@@ -1,16 +1,13 @@
 package org.openCage.stroy.tree.zip;
 
-import org.openCage.stroy.tree.Noed;
-import org.openCage.stroy.tree.NoedUtils;
+import org.openCage.stroy.algo.tree.Noed;
+import org.openCage.stroy.algo.tree.NoedUtils;
 import org.openCage.stroy.filter.NullIgnore;
 import org.openCage.stroy.filter.Ignore;
 import org.openCage.stroy.RuntimeModule;
-import org.openCage.stroy.graph.matching.strategy.combined.FastFirst;
 
-import java.util.ResourceBundle;
 import java.util.Arrays;
 import java.io.File;
-import java.io.InputStream;
 import java.net.URL;
 
 import junit.framework.TestCase;

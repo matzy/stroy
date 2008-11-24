@@ -1,4 +1,6 @@
-package org.openCage.stroy.tree;
+package org.openCage.stroy.algo.tree;
+
+import org.openCage.stroy.algo.tree.Noed;
 
 
 /***** BEGIN LICENSE BLOCK *****

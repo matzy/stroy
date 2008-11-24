@@ -1,6 +1,8 @@
-package org.openCage.stroy.tree;
+package org.openCage.stroy.algo.tree;
 
-import org.openCage.stroy.filter.Ignore;
+import junit.framework.TestCase;
+import org.openCage.stroy.tree.str.StringNoedBuilder;
+import org.openCage.stroy.algo.tree.Noed;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -24,7 +26,20 @@ import org.openCage.stroy.filter.Ignore;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public interface NoedGenerator {
+public class NoedImplTest extends TestCase {
 
-    public Noed build( Ignore ignore, String path );
+    public void testUnmodifiableGetChildren() {
+        StringNoedBuilder b = new StringNoedBuilder();
+
+        Noed root = b.d( "foo", b.l("a", "t1", "aaa"),
+                                b.l("b", "t1", "bbb"));
+
+        try {
+            root.getChildren().add( b.d( "oops" ));
+            fail( "child list should not be modifiable" );
+        } catch ( Exception exp ) {
+            // expected
+        }
+
+    }
 }

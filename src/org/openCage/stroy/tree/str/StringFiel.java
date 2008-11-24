@@ -1,6 +1,6 @@
 package org.openCage.stroy.tree.str;
 
-import org.openCage.stroy.tree.Fiel;
+import org.openCage.stroy.algo.tree.Fiel;
 import org.openCage.stroy.fuzzyHash.FuzzyHash;
 
 /***** BEGIN LICENSE BLOCK *****

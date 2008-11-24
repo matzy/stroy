@@ -1,7 +1,6 @@
-package org.openCage.stroy.tree;
+package org.openCage.stroy.algo.tree;
 
-import junit.framework.TestCase;
-import org.openCage.stroy.tree.str.StringNoedBuilder;
+import org.openCage.stroy.fuzzyHash.FuzzyHash;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -25,20 +24,12 @@ import org.openCage.stroy.tree.str.StringNoedBuilder;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public class NoedImplTest extends TestCase {
+public interface Fiel {
 
-    public void testUnmodifiableGetChildren() {
-        StringNoedBuilder b = new StringNoedBuilder();
+    public String    getChecksum();
+    public String    getType();
+    public FuzzyHash getFuzzyHash();
 
-        Noed root = b.d( "foo", b.l("a", "t1", "aaa"),
-                                b.l("b", "t1", "bbb"));
-
-        try {
-            root.getChildren().add( b.d( "oops" ));
-            fail( "child list should not be modifiable" );
-        } catch ( Exception exp ) {
-            // expected
-        }
-
-    }
+    public long    getSize();
+    public boolean hasReadError();
 }

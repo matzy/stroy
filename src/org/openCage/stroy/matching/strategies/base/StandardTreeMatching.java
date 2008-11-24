@@ -1,27 +1,9 @@
 package org.openCage.stroy.matching.strategies.base;
 
-import org.openCage.stroy.content.Content;
-import org.openCage.stroy.graph.matching.strategy.MatchStrategy;
-import org.openCage.stroy.graph.matching.strategy.Reporter;
-import org.openCage.stroy.graph.matching.TreeMatchingTask;
-import org.openCage.stroy.graph.node.TreeNode;
-import org.openCage.stroy.graph.node.TreeDirNode;
-import org.openCage.stroy.graph.node.TreeLeafNode;
-import org.openCage.stroy.locale.Message;
-import org.openCage.util.logging.Log;
-
-import org.openCage.stroy.content.Content;
-import org.openCage.stroy.graph.matching.TreeMatchingTask;
-import org.openCage.stroy.graph.node.TreeDirNode;
-import org.openCage.stroy.graph.node.TreeNode;
-import org.openCage.stroy.graph.node.TreeLeafNode;
-import org.openCage.stroy.locale.Message;
-import org.openCage.stroy.matching.strategies.Strategy;
 import org.openCage.stroy.matching.strategies.TreeStrategy;
 import org.openCage.stroy.matching.TreeTask;
 import org.openCage.stroy.matching.Task;
-import org.openCage.stroy.tree.Noed;
-import org.openCage.util.logging.Log;
+import org.openCage.stroy.algo.tree.Noed;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1

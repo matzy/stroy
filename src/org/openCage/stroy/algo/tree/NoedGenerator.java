@@ -1,6 +1,7 @@
-package org.openCage.stroy.tree;
+package org.openCage.stroy.algo.tree;
 
-import org.openCage.stroy.fuzzyHash.FuzzyHash;
+import org.openCage.stroy.filter.Ignore;
+import org.openCage.stroy.algo.tree.Noed;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -24,12 +25,7 @@ import org.openCage.stroy.fuzzyHash.FuzzyHash;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public interface Fiel {
+public interface NoedGenerator {
 
-    public String    getChecksum();
-    public String    getType();
-    public FuzzyHash getFuzzyHash();
-
-    public long    getSize();
-    public boolean hasReadError();
+    public Noed build( Ignore ignore, String path );
 }

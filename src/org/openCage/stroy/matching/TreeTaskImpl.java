@@ -1,6 +1,6 @@
 package org.openCage.stroy.matching;
 
-import org.openCage.stroy.tree.Noed;
+import org.openCage.stroy.algo.tree.Noed;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
