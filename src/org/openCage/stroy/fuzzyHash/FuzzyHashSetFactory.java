@@ -5,6 +5,7 @@ import com.google.inject.Inject;
 import java.util.Set;
 
 import org.openCage.stroy.fuzzyHash.metric.CountChangeMetric;
+import org.openCage.stroy.algo.fuzzyHash.FuzzyHash;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1

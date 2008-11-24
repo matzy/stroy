@@ -1,5 +1,7 @@
 package org.openCage.stroy.fuzzyHash;
 
+import org.openCage.stroy.algo.fuzzyHash.FuzzyHash;
+
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
 *

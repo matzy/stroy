@@ -1,7 +1,7 @@
 package org.openCage.stroy.algo.tree.filesystem;
 
 import org.openCage.stroy.algo.tree.Fiel;
-import org.openCage.stroy.fuzzyHash.FuzzyHash;
+import org.openCage.stroy.algo.fuzzyHash.FuzzyHash;
 import org.openCage.util.string.Strings;
 import org.openCage.util.logging.Log;
 import org.openCage.util.io.FileUtils;

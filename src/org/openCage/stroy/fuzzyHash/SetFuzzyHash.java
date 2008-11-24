@@ -1,8 +1,10 @@
 package org.openCage.stroy.fuzzyHash;
 
+import org.openCage.stroy.algo.fuzzyHash.FuzzyHash;
+
 import java.util.Set;
 
-public class SetFuzzyHash implements FuzzyHash{
+public class SetFuzzyHash implements FuzzyHash {
 
     private String type;
     private Set<Integer> lines;

@@ -3,7 +3,7 @@ package org.openCage.stroy.dir;
 import org.openCage.util.io.FileUtils;
 import org.openCage.util.lang.*;
 import org.openCage.stroy.content.Content;
-import org.openCage.stroy.fuzzyHash.FuzzyHash;
+import org.openCage.stroy.algo.fuzzyHash.FuzzyHash;
 import org.openCage.util.checksum.FullFileMD5;
 import org.openCage.util.logging.Log;
 

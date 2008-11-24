@@ -3,7 +3,7 @@ package org.openCage.stroy.fuzzyHash.file;
 import com.google.inject.Inject;
 import org.openCage.util.iterator.Iterators;
 import org.openCage.stroy.Hash;
-import org.openCage.stroy.fuzzyHash.FuzzyHash;
+import org.openCage.stroy.algo.fuzzyHash.FuzzyHash;
 import org.openCage.stroy.fuzzyHash.FuzzyHashGenerator;
 import org.openCage.stroy.fuzzyHash.FuzzyHashSetFactory;
 import org.openCage.stroy.text.LineNoise;

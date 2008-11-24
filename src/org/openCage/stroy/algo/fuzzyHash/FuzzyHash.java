@@ -1,4 +1,4 @@
-package org.openCage.stroy.fuzzyHash;
+package org.openCage.stroy.algo.fuzzyHash;
 
 public interface FuzzyHash {
 

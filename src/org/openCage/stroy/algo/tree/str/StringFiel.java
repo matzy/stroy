@@ -1,7 +1,7 @@
 package org.openCage.stroy.algo.tree.str;
 
 import org.openCage.stroy.algo.tree.Fiel;
-import org.openCage.stroy.fuzzyHash.FuzzyHash;
+import org.openCage.stroy.algo.fuzzyHash.FuzzyHash;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1

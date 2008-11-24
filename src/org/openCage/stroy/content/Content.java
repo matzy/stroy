@@ -1,6 +1,6 @@
 package org.openCage.stroy.content;
 
-import org.openCage.stroy.fuzzyHash.FuzzyHash;
+import org.openCage.stroy.algo.fuzzyHash.FuzzyHash;
 
 import java.io.File;
 
