@@ -2,7 +2,7 @@ package org.openCage.stroy.tree.singleFile;
 
 import org.openCage.stroy.algo.tree.NoedGenerator;
 import org.openCage.stroy.algo.tree.Noed;
-import org.openCage.stroy.tree.filesystem.FSFiel;
+import org.openCage.stroy.algo.tree.filesystem.FSFiel;
 import org.openCage.stroy.algo.tree.NoedImpl;
 import org.openCage.stroy.filter.Ignore;
 

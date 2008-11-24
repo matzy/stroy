@@ -1,4 +1,4 @@
-package org.openCage.stroy.tree.filesystem;
+package org.openCage.stroy.algo.tree.filesystem;
 
 import org.openCage.stroy.algo.tree.Fiel;
 import org.openCage.stroy.fuzzyHash.FuzzyHash;
