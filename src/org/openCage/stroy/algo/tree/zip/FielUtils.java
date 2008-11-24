@@ -1,7 +1,8 @@
-package org.openCage.stroy.tree.str;
+package org.openCage.stroy.algo.tree.zip;
 
-import org.openCage.stroy.algo.tree.Fiel;
-import org.openCage.stroy.fuzzyHash.FuzzyHash;
+import org.openCage.util.lang.V1;
+
+import java.io.InputStream;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -24,33 +25,16 @@ import org.openCage.stroy.fuzzyHash.FuzzyHash;
 *
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
+public class FielUtils {
 
-public class StringFiel implements Fiel {
-    private String content;
-    private String type;
+    public static void getCheckSumFromStream( InputStream is, V1 onsuccess, V1 onfailure ) {
 
-    public StringFiel( String typ, String content ) {
-        this.type = typ;
-        this.content = content;
-    }
+//        try {
+//            String checkSum = Strings.asHex( MD5.getHash( is ));
+//            onsuccess.call( checkSum );
+//        } catch ( IOException e ) {
+//            onfailure.call( new RandomGUID().toString() );
+//        }
 
-    public String getChecksum() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public FuzzyHash getFuzzyHash() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    public long getSize() {
-        return content.length();
-    }
-
-    public boolean hasReadError() {
-        return false;
     }
 }

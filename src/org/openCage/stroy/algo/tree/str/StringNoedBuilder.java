@@ -1,4 +1,4 @@
-package org.openCage.stroy.tree.str;
+package org.openCage.stroy.algo.tree.str;
 
 import org.openCage.stroy.algo.tree.Noed;
 import org.openCage.stroy.algo.tree.NoedImpl;

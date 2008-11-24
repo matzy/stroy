@@ -1,4 +1,4 @@
-package org.openCage.stroy.tree.fuzzyHash;
+package org.openCage.stroy.algo.fuzzyHash;
 
 import org.openCage.stroy.fuzzyHash.FuzzyHashGenerator;
 import org.openCage.stroy.fuzzyHash.FuzzyHash;

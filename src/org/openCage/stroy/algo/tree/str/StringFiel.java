@@ -1,16 +1,7 @@
-package org.openCage.stroy.tree.zip;
+package org.openCage.stroy.algo.tree.str;
 
 import org.openCage.stroy.algo.tree.Fiel;
 import org.openCage.stroy.fuzzyHash.FuzzyHash;
-import org.openCage.util.string.Strings;
-
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
-import java.io.IOException;
-import java.io.InputStream;
-
-import com.twmacinta.util.MD5;
-import com.JavaExchange.www.RandomGUID;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -34,33 +25,17 @@ import com.JavaExchange.www.RandomGUID;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public class ZipFiel implements Fiel {
-    private String   rootPath;
-    private ZipEntry zipEntry;
-    private String   checkSum;
-    private boolean  readError = false;
-    private String   type;
+public class StringFiel implements Fiel {
+    private String content;
+    private String type;
 
-    public ZipFiel( String rootPath, ZipEntry zipEntry, String type ) {
-        this.rootPath = rootPath;
-        this.zipEntry = zipEntry;
-        this.type     = type;
+    public StringFiel( String typ, String content ) {
+        this.type = typ;
+        this.content = content;
     }
 
     public String getChecksum() {
-        if ( checkSum == null ) {
-            try {
-                ZipFile zf = new ZipFile( rootPath );
-                InputStream is = zf.getInputStream( zipEntry );
-                checkSum = Strings.asHex( MD5.getHash( is, getSize() ));
-                zf.close();
-            } catch( IOException e ) {
-                checkSum = new RandomGUID().toString();
-                readError = true;
-            }
-        }
-
-        return checkSum;
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     public String getType() {
@@ -72,10 +47,10 @@ public class ZipFiel implements Fiel {
     }
 
     public long getSize() {
-        return zipEntry.getSize();
+        return content.length();
     }
 
     public boolean hasReadError() {
-        return readError;
+        return false;
     }
 }

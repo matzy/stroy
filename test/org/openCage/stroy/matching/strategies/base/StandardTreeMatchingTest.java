@@ -1,7 +1,7 @@
 package org.openCage.stroy.matching.strategies.base;
 
 import junit.framework.TestCase;
-import org.openCage.stroy.tree.str.StringNoedBuilder;
+import org.openCage.stroy.algo.tree.str.StringNoedBuilder;
 import org.openCage.stroy.algo.tree.Noed;
 import org.openCage.stroy.matching.TreeTask;
 import org.openCage.stroy.matching.TreeTaskImpl;

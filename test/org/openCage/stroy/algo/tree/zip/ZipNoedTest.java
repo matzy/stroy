@@ -1,7 +1,8 @@
-package org.openCage.stroy.tree.zip;
+package org.openCage.stroy.algo.tree.zip;
 
 import org.openCage.stroy.algo.tree.Noed;
 import org.openCage.stroy.algo.tree.NoedUtils;
+import org.openCage.stroy.algo.tree.zip.ZipNoedGenerator;
 import org.openCage.stroy.filter.NullIgnore;
 import org.openCage.stroy.filter.Ignore;
 import org.openCage.stroy.RuntimeModule;
@@ -40,14 +41,14 @@ public class ZipNoedTest extends TestCase {
     private ZipNoedGenerator zipNoedGenerator = new ZipNoedGenerator();
 
     public void testResourcePath() {
-        URL url = getClass().getResource( "/org/openCage/stroy/tree/zip/dir.zip" );
+        URL url = getClass().getResource( "../../algo/tree/zip/dir.zip" );
 
         assertNotNull( "add .zip files to IDEA prefs: compiler resource patterns or build.xml",  url );
     }
 
     public void testCreateZipNoed() {
 
-        URL url = getClass().getResource( "/org/openCage/stroy/tree/zip/dir.zip" );
+        URL url = getClass().getResource( "../../algo/tree/zip/dir.zip" );
 
         String path = url.getPath();
 
@@ -65,7 +66,7 @@ public class ZipNoedTest extends TestCase {
     }
 
     public void testGetHash() {
-        URL url = getClass().getResource( "/org/openCage/stroy/tree/zip/dir.zip" );
+        URL url = getClass().getResource( "../../algo/tree/zip/dir.zip" );
         String path = url.getPath();
 
         Noed root = zipNoedGenerator.build( new NullIgnore(), path  );
@@ -84,7 +85,7 @@ public class ZipNoedTest extends TestCase {
     public void testFilter() {
 
 
-        URL url = getClass().getResource( "/org/openCage/stroy/tree/zip/dir.zip" );
+        URL url = getClass().getResource( "../../algo/tree/zip/dir.zip" );
         String path = url.getPath();
 
         {

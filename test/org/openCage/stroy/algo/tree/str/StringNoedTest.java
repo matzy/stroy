@@ -1,12 +1,8 @@
-package org.openCage.stroy.tree.singleFile;
+package org.openCage.stroy.algo.tree.str;
 
-import org.openCage.stroy.algo.tree.NoedGenerator;
+import junit.framework.TestCase;
 import org.openCage.stroy.algo.tree.Noed;
-import org.openCage.stroy.algo.tree.filesystem.FSFiel;
-import org.openCage.stroy.algo.tree.NoedImpl;
-import org.openCage.stroy.filter.Ignore;
-
-import java.io.File;
+import org.openCage.stroy.algo.tree.str.StringNoedBuilder;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -30,14 +26,15 @@ import java.io.File;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public class SingleFileGenerator implements NoedGenerator {
-    public Noed build( Ignore ignore, String path ) {
+public class StringNoedTest extends TestCase {
 
-        File file = new File( path );
+    public void testSimple() {
+        StringNoedBuilder b = new StringNoedBuilder();
 
-        Noed root = NoedImpl.makeDirNoed( file.getParentFile().getName() );
-        root.addChild( NoedImpl.makeLeafNoed( file.getName(), new FSFiel( file )));
+        Noed root = b.d( "foo", b.l("a", "t1", "aaa"),
+                                b.l("b", "t1", "bbb"));
 
-        return root;
+
+        assertEquals( 2, root.getChildren().size() );
     }
 }

@@ -1,9 +1,10 @@
-package org.openCage.stroy.tree.singleFile;
+package org.openCage.stroy.algo.tree.singleFile;
 
 import junit.framework.TestCase;
 import org.openCage.stroy.algo.tree.Noed;
 import org.openCage.stroy.algo.tree.NoedUtils;
 import org.openCage.stroy.algo.tree.NoedGenerator;
+import org.openCage.stroy.algo.tree.singleFile.SingleFileGenerator;
 
 import java.net.URL;
 import java.io.File;
@@ -37,7 +38,7 @@ public class SingleFileNoedTest extends TestCase {
 
     public void testCreateZipNoed() {
 
-        URL url = getClass().getResource( "/org/openCage/stroy/tree/singleFile/testRoot/a.txt" );
+        URL url = getClass().getResource( "testRoot/a.txt" );
         String path = url.getPath();
         assertTrue( new File(path).exists());
 
@@ -53,7 +54,7 @@ public class SingleFileNoedTest extends TestCase {
     }
 
     public void testGetHash() {
-        URL url = getClass().getResource( "/org/openCage/stroy/tree/singleFile/testRoot/a.txt" );
+        URL url = getClass().getResource( "testRoot/a.txt" );
         String path = url.getPath();
         assertTrue( new File(path).exists());
 

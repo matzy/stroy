@@ -1,8 +1,12 @@
-package org.openCage.stroy.tree.zip;
+package org.openCage.stroy.algo.tree.singleFile;
 
-import org.openCage.util.lang.V1;
+import org.openCage.stroy.algo.tree.NoedGenerator;
+import org.openCage.stroy.algo.tree.Noed;
+import org.openCage.stroy.algo.tree.filesystem.FSFiel;
+import org.openCage.stroy.algo.tree.NoedImpl;
+import org.openCage.stroy.filter.Ignore;
 
-import java.io.InputStream;
+import java.io.File;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -25,16 +29,15 @@ import java.io.InputStream;
 *
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
-public class FielUtils {
 
-    public static void getCheckSumFromStream( InputStream is, V1 onsuccess, V1 onfailure ) {
+public class SingleFileGenerator implements NoedGenerator {
+    public Noed build( Ignore ignore, String path ) {
 
-//        try {
-//            String checkSum = Strings.asHex( MD5.getHash( is ));
-//            onsuccess.call( checkSum );
-//        } catch ( IOException e ) {
-//            onfailure.call( new RandomGUID().toString() );
-//        }
+        File file = new File( path );
 
+        Noed root = NoedImpl.makeDirNoed( file.getParentFile().getName() );
+        root.addChild( NoedImpl.makeLeafNoed( file.getName(), new FSFiel( file )));
+
+        return root;
     }
 }
