@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 
 import org.openCage.util.lang.V1;
 import org.openCage.util.lang.V2;
+import org.openCage.util.lang.V0;
 import org.openCage.util.iterator.Iterators;
 
 /***** BEGIN LICENSE BLOCK *****
@@ -246,6 +247,22 @@ public class FileUtils {
 
         } finally {
             it.close();
+        }
+    }
+
+
+    public static <T> void withOpenStream( InputStream is, V0 func ) {
+        try {
+            func.c();
+        } finally {
+            if ( is != null ) {
+                try {
+                    is.close();
+                } catch ( IOException e ) {
+                    // was closed
+                }
+            }
+            return;
         }
     }
 

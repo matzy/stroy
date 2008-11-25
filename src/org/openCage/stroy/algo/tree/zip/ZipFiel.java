@@ -3,6 +3,7 @@ package org.openCage.stroy.algo.tree.zip;
 import org.openCage.stroy.algo.tree.Fiel;
 import org.openCage.stroy.algo.fuzzyHash.FuzzyHash;
 import org.openCage.util.string.Strings;
+import org.openCage.util.lang.Lazy;
 
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
@@ -40,11 +41,13 @@ public class ZipFiel implements Fiel {
     private String   checkSum;
     private boolean  readError = false;
     private String   type;
+    private Lazy<FuzzyHash> lazyFuzzy;
 
-    public ZipFiel( String rootPath, ZipEntry zipEntry, String type ) {
+    public ZipFiel( String rootPath, ZipEntry zipEntry, String type, Lazy<FuzzyHash> lazyFuzzy ) {
         this.rootPath = rootPath;
         this.zipEntry = zipEntry;
         this.type     = type;
+        this.lazyFuzzy = lazyFuzzy;
     }
 
     public String getChecksum() {
@@ -68,7 +71,7 @@ public class ZipFiel implements Fiel {
     }
 
     public FuzzyHash getFuzzyHash() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return lazyFuzzy.get();
     }
 
     public long getSize() {
