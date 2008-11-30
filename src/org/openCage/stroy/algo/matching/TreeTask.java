@@ -1,6 +1,7 @@
-package org.openCage.stroy.matching;
+package org.openCage.stroy.algo.matching;
 
 import org.openCage.stroy.algo.tree.Noed;
+import org.openCage.stroy.algo.matching.Task;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -24,10 +25,13 @@ import org.openCage.stroy.algo.tree.Noed;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public interface TreeTask extends Task<Noed>{
+public interface TreeTask extends Task<Noed> {
 
     public Noed getLeftRoot();
     public Noed getRightRoot();
+
+    public void addLeftRecursive( Noed noed );
+    public void addRightRecursive( Noed noed );
 
 
 }

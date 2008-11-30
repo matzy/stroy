@@ -8,6 +8,8 @@ import org.openCage.stroy.filter.Ignore;
 
 import java.io.File;
 
+import com.google.inject.Inject;
+
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
 *
@@ -31,7 +33,15 @@ import java.io.File;
 ***** END LICENSE BLOCK *****/
 
 public class SingleFileGenerator implements NoedGenerator {
-    public Noed build( Ignore ignore, String path ) {
+
+    final Ignore ignore;
+
+    @Inject
+    public SingleFileGenerator( final Ignore ignore ) {
+        this.ignore = ignore;
+    }
+
+    public Noed build( String path ) {
 
         File file = new File( path );
 

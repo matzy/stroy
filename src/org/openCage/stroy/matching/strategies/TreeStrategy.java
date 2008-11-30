@@ -1,7 +1,7 @@
 package org.openCage.stroy.matching.strategies;
 
 import org.openCage.stroy.algo.tree.Noed;
-import org.openCage.stroy.matching.TreeTask;
+import org.openCage.stroy.algo.matching.TreeTask;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1

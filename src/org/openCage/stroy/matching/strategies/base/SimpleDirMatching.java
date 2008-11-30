@@ -1,10 +1,7 @@
 package org.openCage.stroy.matching.strategies.base;
 
-import org.openCage.stroy.graph.matching.strategy.Reporter;
-import org.openCage.stroy.locale.Message;
 import org.openCage.stroy.matching.strategies.Strategy;
-import org.openCage.stroy.matching.Task;
-import org.openCage.util.logging.Log;
+import org.openCage.stroy.algo.matching.Task;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1

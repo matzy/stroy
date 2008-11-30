@@ -7,6 +7,8 @@ import org.openCage.stroy.filter.Ignore;
 
 import java.io.File;
 
+import com.google.inject.Inject;
+
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
 *
@@ -30,7 +32,15 @@ import java.io.File;
 ***** END LICENSE BLOCK *****/
 
 public class FSNoedGenerator implements NoedGenerator {
-    public Noed build( Ignore ignore, String path ) {
+
+    private final Ignore ignore;
+
+    @Inject
+    public FSNoedGenerator( final Ignore ignore ) {
+        this.ignore = ignore;
+    }
+
+    public Noed build( String path ) {
 
         File rootFile = new File( path );
 

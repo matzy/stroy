@@ -1,9 +1,6 @@
-package org.openCage.stroy.matching;
+package org.openCage.stroy.algo.matching;
 
-import org.openCage.stroy.task.NodeChangeListener;
-import org.openCage.stroy.diff.ContentDiff;
-import org.openCage.util.lang.F1;
-import org.openCage.util.lang.P1;
+import org.openCage.stroy.matching.EdgeAttributes;
 import org.openCage.util.lang.P2;
 
 import java.util.Collection;

@@ -1,8 +1,8 @@
 package org.openCage.stroy.matching.strategies.base;
 
 import org.openCage.stroy.matching.strategies.TreeStrategy;
-import org.openCage.stroy.matching.TreeTask;
-import org.openCage.stroy.matching.Task;
+import org.openCage.stroy.algo.matching.TreeTask;
+import org.openCage.stroy.algo.matching.Task;
 import org.openCage.stroy.algo.tree.Noed;
 
 /***** BEGIN LICENSE BLOCK *****

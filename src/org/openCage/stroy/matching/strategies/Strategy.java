@@ -1,6 +1,6 @@
 package org.openCage.stroy.matching.strategies;
 
-import org.openCage.stroy.matching.Task;
+import org.openCage.stroy.algo.matching.Task;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1

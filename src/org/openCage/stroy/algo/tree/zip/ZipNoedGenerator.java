@@ -16,6 +16,8 @@ import java.util.HashMap;
 import java.io.IOException;
 import java.io.File;
 
+import com.google.inject.Inject;
+
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
 *
@@ -39,7 +41,15 @@ import java.io.File;
 ***** END LICENSE BLOCK *****/
 public class ZipNoedGenerator implements NoedGenerator {
 
-    public Noed build( Ignore ignore, String path ) {
+    private final Ignore ignore;
+
+    @Inject
+    public ZipNoedGenerator( final Ignore ignore ) {
+        this.ignore = ignore;
+
+    }
+
+    public Noed build( String path ) {
 
         Noed root = null;
         ZipEntry tt = null;

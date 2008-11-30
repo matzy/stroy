@@ -1,6 +1,7 @@
 package org.openCage.stroy.matching;
 
 import org.openCage.stroy.algo.tree.Noed;
+import org.openCage.stroy.algo.matching.TreeTask;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -24,7 +25,7 @@ import org.openCage.stroy.algo.tree.Noed;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public class TreeTaskImpl extends TaskNeutral<Noed> implements TreeTask  {
+public class TreeTaskImpl extends TaskNeutral<Noed> implements TreeTask {
 
     private final Noed leftRoot;
     private final Noed rightRoot;
@@ -33,25 +34,18 @@ public class TreeTaskImpl extends TaskNeutral<Noed> implements TreeTask  {
         leftRoot  = left;
         rightRoot = right;
 
-        addLeftRec( left );
-        addRightRec( right );
+        addLeftRecursive( left );
+        addRightRecursive( right );
 
         match( left, right );
     }
 
-    private void addRightRec( Noed right ) {
-        addRight( right );
 
-        for ( Noed child : right.getChildren() ) {
-            addRightRec( child );
-        }
-    }
-
-    private void addLeftRec( Noed left ) {
+    public void addLeftRecursive( Noed left ) {
         addLeft( left );
 
         for ( Noed child : left.getChildren() ) {
-            addLeftRec( child );
+            addLeftRecursive( child );
         }
     }
 
@@ -61,5 +55,13 @@ public class TreeTaskImpl extends TaskNeutral<Noed> implements TreeTask  {
 
     public Noed getRightRoot() {
         return rightRoot;
+    }
+
+    public void addRightRecursive( Noed right ) {
+        addRight( right );
+
+        for ( Noed child : right.getChildren() ) {
+            addRightRecursive( child );
+        }
     }
 }

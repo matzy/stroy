@@ -27,5 +27,5 @@ import org.openCage.stroy.algo.tree.Noed;
 
 public interface NoedGenerator {
 
-    public Noed build( Ignore ignore, String path );
+    public Noed build( String path );
 }

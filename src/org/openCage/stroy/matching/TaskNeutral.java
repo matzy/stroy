@@ -1,9 +1,8 @@
 package org.openCage.stroy.matching;
 
 import org.openCage.util.logging.Log;
-import org.openCage.util.lang.F1;
-import org.openCage.util.lang.P1;
 import org.openCage.util.lang.P2;
+import org.openCage.stroy.algo.matching.Task;
 
 import java.util.*;
 
