@@ -63,11 +63,14 @@ public class FSFiel implements Fiel {
     }
 
     public FuzzyHash getFuzzyHash() {
-        if ( fuzzy == null ) {
 
-        }
+        throw new UnsupportedOperationException( "impl me" );
 
-        return fuzzy;
+//        if ( fuzzy == null ) {
+//
+//        }
+//
+//        return fuzzy;
     }
 
     public long getSize() {

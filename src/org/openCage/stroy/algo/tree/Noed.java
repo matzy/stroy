@@ -26,13 +26,42 @@ import java.util.List;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
+/**
+ * A Node class to build acyclic directed graphs = trees
+ * Noed is a deliberate misspelling of Node
+ */
 public interface Noed {
 
+    /**
+     * Return whether this noed is a leaf
+     * Note: A directory without children is not a leaf
+     * @return true iff object is a leaf
+     */
     public boolean        isLeaf();
+
+    /**
+     * future
+     * @return
+     */
     public boolean        isReadOnly();
+
+    /**
+     * Get the name
+     * @return the Name
+     */
     public String         getName();
 
+    /**
+     * Set the parent, i.e. add this noed to a tree
+     * this should only be called by addChild
+     * @param parent
+     */
     public void           setParent( Noed parent );
+
+    /**
+     * Gets the parent noed
+     * @return the parent
+     */
     public Noed           getParent();
 
     /**
@@ -40,7 +69,16 @@ public interface Noed {
      * @return the children of the Noed
      */
     public List<Noed>     getChildren();
+
+    /**
+     * Add a child (calls addParent on child)
+     * @param noed
+     */
     public void           addChild( Noed noed );
 
+    /**
+     * Gets the attached field
+     * @return the field
+     */
     public Fiel getFiel();
 }
