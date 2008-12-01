@@ -7,6 +7,11 @@ import java.io.File;
 import org.openCage.stroy.algo.tree.Noed;
 import org.openCage.stroy.algo.tree.NoedGenerator;
 import org.openCage.stroy.algo.tree.TreeFactory;
+import org.openCage.stroy.algo.matching.TreeTaskFactory;
+import org.openCage.stroy.algo.matching.TreeTask;
+import org.openCage.stroy.algo.matching.Tasks;
+import org.openCage.stroy.algo.matching.strategies.Strategy;
+import org.openCage.stroy.algo.matching.strategies.TreeStrategy;
 import org.openCage.stroy.filter.NullIgnore;
 import com.sun.tools.doclets.internal.toolkit.builders.AbstractBuilder;
 import com.google.inject.Injector;
@@ -35,9 +40,10 @@ public class FullTest extends TestCase {
         System.out.println( pathZip );
         assertTrue(  new File(pathZip).exists());
 
-        Injector ij = Guice.createInjector( new FullTestModule() );
-
-        TreeFactory tf = ij.getInstance( TreeFactory.class );
+        Injector        ij  = Guice.createInjector( new FullTestModule() );
+        TreeFactory     tf  = ij.getInstance( TreeFactory.class );
+        TreeTaskFactory ttf = ij.getInstance( TreeTaskFactory.class );
+        TreeStrategy    st  = ij.getInstance( TreeStrategy.class );
 
         Noed zipRoot = tf.create( pathZip, false ).build( pathZip );
         assertNotNull( zipRoot );
@@ -45,7 +51,15 @@ public class FullTest extends TestCase {
         Noed fsRoot = tf.create( pathFs, false ).build( pathFs );
         assertNotNull( fsRoot );
 
+        TreeTask tt = ttf.create( zipRoot, fsRoot );
+        assertNotNull( tt );
 
+        int leftUnmatched = tt.getLeft( Tasks.isUnmatched ).size();
+
+        st.match( tt );
+        int leftUnmatchedAfter = tt.getLeft( Tasks.isUnmatched ).size();
+
+        assertTrue( leftUnmatched > leftUnmatchedAfter );
 
     }
 

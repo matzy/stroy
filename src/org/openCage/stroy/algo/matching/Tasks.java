@@ -1,6 +1,8 @@
-package org.openCage.stroy.matching.strategies;
+package org.openCage.stroy.algo.matching;
 
+import org.openCage.stroy.algo.tree.Noed;
 import org.openCage.stroy.algo.matching.Task;
+import org.openCage.util.lang.P2;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -24,7 +26,21 @@ import org.openCage.stroy.algo.matching.Task;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public interface Strategy<T> {
+/**
+ * Utility class for Tasks
+ */
+public class Tasks {
 
-    public void match( Task<T> task );
+    public static final P2<Task<Noed>,Noed> isUnmatched = new P2<Task<Noed>, Noed>() {
+        public boolean c( Task<Noed> a, Noed b ) {
+            return !a.isMatched( b );
+        }
+    };
+
+    public static final P2<Task<Noed>,Noed> isUnmatchedLeaf = new P2<Task<Noed>, Noed>() {
+        public boolean c( Task<Noed> a, Noed b ) {
+            return b.isLeaf() && !a.isMatched( b );
+        }
+    };
+
 }

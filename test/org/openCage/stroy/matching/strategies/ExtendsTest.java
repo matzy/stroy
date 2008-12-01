@@ -3,6 +3,7 @@ package org.openCage.stroy.matching.strategies;
 import junit.framework.TestCase;
 import org.openCage.stroy.algo.matching.TreeTask;
 import org.openCage.stroy.algo.matching.Task;
+import org.openCage.stroy.algo.matching.strategies.TreeStrategy;
 import org.openCage.stroy.algo.tree.Noed;
 
 /**

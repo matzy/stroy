@@ -30,8 +30,4 @@ public interface TreeTask extends Task<Noed> {
     public Noed getLeftRoot();
     public Noed getRightRoot();
 
-    public void addLeftRecursive( Noed noed );
-    public void addRightRecursive( Noed noed );
-
-
 }

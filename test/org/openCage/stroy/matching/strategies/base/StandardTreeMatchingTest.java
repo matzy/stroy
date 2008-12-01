@@ -4,8 +4,9 @@ import junit.framework.TestCase;
 import org.openCage.stroy.algo.tree.str.StringNoedBuilder;
 import org.openCage.stroy.algo.tree.Noed;
 import org.openCage.stroy.algo.matching.TreeTask;
+import org.openCage.stroy.algo.matching.Tasks;
+import org.openCage.stroy.algo.matching.strategies.base.StandardTreeMatching;
 import org.openCage.stroy.matching.TreeTaskImpl;
-import org.openCage.stroy.matching.Tasks;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1

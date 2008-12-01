@@ -10,6 +10,10 @@ import org.openCage.stroy.algo.tree.zip.ZipArchive;
 import org.openCage.stroy.algo.tree.zip.ZipNoedGenerator;
 import org.openCage.stroy.algo.tree.singleFile.SingleFile;
 import org.openCage.stroy.algo.tree.singleFile.SingleFileGenerator;
+import org.openCage.stroy.algo.matching.TreeTaskFactory;
+import org.openCage.stroy.algo.matching.TreeTaskFactoryImpl;
+import org.openCage.stroy.algo.matching.strategies.TreeStrategy;
+import org.openCage.stroy.algo.matching.strategies.base.StandardTreeMatching;
 import org.openCage.stroy.filter.Ignore;
 import org.openCage.stroy.filter.IgnoreByLists;
 import org.openCage.stroy.tree.zip.ZipFielFactory;
@@ -37,5 +41,9 @@ public class FullTestModule extends AbstractModule {
                 to( FSNoedGenerator.class );
 
         bind( Ignore.class).to( IgnoreByLists.class );
+
+        bind( TreeTaskFactory.class ).to( TreeTaskFactoryImpl.class);
+
+        bind( TreeStrategy.class ).to( StandardTreeMatching.class );
     }
 }

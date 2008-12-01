@@ -1,7 +1,6 @@
-package org.openCage.stroy.matching.strategies;
+package org.openCage.stroy.algo.matching.strategies;
 
-import org.openCage.stroy.algo.tree.Noed;
-import org.openCage.stroy.algo.matching.TreeTask;
+import org.openCage.stroy.algo.matching.Task;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -25,8 +24,7 @@ import org.openCage.stroy.algo.matching.TreeTask;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public interface TreeStrategy extends Strategy<Noed>{
+public interface Strategy<T> {
 
-    public void match( TreeTask task );
-
+    public void match( Task<T> task );
 }

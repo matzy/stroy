@@ -1,6 +1,6 @@
 package org.openCage.stroy.matching.strategies.base;
 
-import org.openCage.stroy.matching.strategies.Strategy;
+import org.openCage.stroy.algo.matching.strategies.Strategy;
 import org.openCage.stroy.algo.matching.Task;
 
 /***** BEGIN LICENSE BLOCK *****
