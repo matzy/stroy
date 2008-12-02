@@ -1,15 +1,13 @@
 package org.openCage.stroy.algo.tree.filesystem;
 
 import org.openCage.stroy.algo.tree.Fiel;
+import org.openCage.stroy.algo.checksum.ChecksumCalculator;
 import org.openCage.stroy.algo.fuzzyHash.FuzzyHash;
-import org.openCage.util.string.Strings;
-import org.openCage.util.logging.Log;
 import org.openCage.util.io.FileUtils;
+import org.openCage.util.lang.Lazy;
+import org.openCage.util.lang.F0;
 
 import java.io.File;
-import java.io.IOException;
-
-import com.twmacinta.util.MD5;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -33,29 +31,33 @@ import com.twmacinta.util.MD5;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
+/**
+ * A standard file system file as seen through fiel eyses
+ */
 public class FSFiel implements Fiel {
     private final File file;
-    private String checkSum;
-    private boolean readError = false;
-    private String type;
-    private FuzzyHash fuzzy;
+    private String     checkSum;
+    private boolean    readError = false;
+    private String     type;
+    private FuzzyHash  fuzzy;
 
-    public FSFiel( final File file ) {
+    private final Lazy<String> calcChecksum;
+
+    public FSFiel( final File file, final ChecksumCalculator calc ) {
         this.file = file;
         type = FileUtils.getExtension( file );
+
+        final FSFiel fiel = this;
+
+        calcChecksum = new Lazy<String>( new F0<String>() {
+            public String call() {
+                return calc.getChecksum( file, null );
+            }
+        } );
     }
 
     public String getChecksum() {
-        if ( checkSum == null ) {
-            try {
-                checkSum = Strings.asHex( MD5.getHash( file ));
-            } catch ( IOException e ) {
-                Log.warning( "read error of file: " + file.getAbsolutePath()  );
-                readError = true;
-            }
-        }
-
-        return checkSum;
+        return calcChecksum.get();
     }
 
     public String getType() {

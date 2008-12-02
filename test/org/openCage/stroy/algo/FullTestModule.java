@@ -14,6 +14,8 @@ import org.openCage.stroy.algo.matching.TreeTaskFactory;
 import org.openCage.stroy.algo.matching.TreeTaskFactoryImpl;
 import org.openCage.stroy.algo.matching.strategies.TreeStrategy;
 import org.openCage.stroy.algo.matching.strategies.base.StandardTreeMatching;
+import org.openCage.stroy.algo.checksum.ChecksumCalculator;
+import org.openCage.stroy.algo.checksum.FileChecksum;
 import org.openCage.stroy.filter.Ignore;
 import org.openCage.stroy.filter.IgnoreByLists;
 import org.openCage.stroy.tree.zip.ZipFielFactory;
@@ -45,6 +47,7 @@ public class FullTestModule extends AbstractModule {
         bind( TreeFactory.class ).
                 to( TreeFactoryImpl.class );
 
+        // NoedGenerator
         bind( NoedGenerator.class ).
                 annotatedWith( SingleFile.class ).
                 to( SingleFileGenerator.class );
@@ -60,5 +63,10 @@ public class FullTestModule extends AbstractModule {
         bind( TreeTaskFactory.class ).to( TreeTaskFactoryImpl.class);
 
         bind( TreeStrategy.class ).to( StandardTreeMatching.class );
+
+        // ChecksUm
+        bind( ChecksumCalculator.class ).
+                annotatedWith( FileSystem.class ).
+                to( FileChecksum.class );                
     }
 }

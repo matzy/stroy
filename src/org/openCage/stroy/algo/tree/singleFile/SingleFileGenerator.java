@@ -3,7 +3,9 @@ package org.openCage.stroy.algo.tree.singleFile;
 import org.openCage.stroy.algo.tree.NoedGenerator;
 import org.openCage.stroy.algo.tree.Noed;
 import org.openCage.stroy.algo.tree.filesystem.FSFiel;
+import org.openCage.stroy.algo.tree.filesystem.FileSystem;
 import org.openCage.stroy.algo.tree.NoedImpl;
+import org.openCage.stroy.algo.checksum.ChecksumCalculator;
 import org.openCage.stroy.filter.Ignore;
 
 import java.io.File;
@@ -35,10 +37,13 @@ import com.google.inject.Inject;
 public class SingleFileGenerator implements NoedGenerator {
 
     final Ignore ignore;
+    private final ChecksumCalculator checksum;
+
 
     @Inject
-    public SingleFileGenerator( final Ignore ignore ) {
+    public SingleFileGenerator( final Ignore ignore, @FileSystem final ChecksumCalculator checksum  ) {
         this.ignore = ignore;
+        this.checksum = checksum;
     }
 
     public Noed build( String path ) {
@@ -46,7 +51,7 @@ public class SingleFileGenerator implements NoedGenerator {
         File file = new File( path );
 
         Noed root = NoedImpl.makeDirNoed( file.getParentFile().getName() );
-        root.addChild( NoedImpl.makeLeafNoed( file.getName(), new FSFiel( file )));
+        root.addChild( NoedImpl.makeLeafNoed( file.getName(), new FSFiel( file, checksum )));
 
         return root;
     }

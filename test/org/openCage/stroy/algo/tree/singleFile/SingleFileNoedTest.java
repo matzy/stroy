@@ -33,7 +33,7 @@ import java.io.File;
 
 public class SingleFileNoedTest extends TestCase {
 
-    private NoedGenerator noedGenerator = new SingleFileGenerator( new NullIgnore());
+    private NoedGenerator noedGenerator = new SingleFileGenerator( new NullIgnore(), null );
 
 
     public void testCreateSingleFileNoed() {
