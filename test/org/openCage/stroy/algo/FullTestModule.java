@@ -1,6 +1,7 @@
 package org.openCage.stroy.algo;
 
 import com.google.inject.AbstractModule;
+import com.google.inject.TypeLiteral;
 import org.openCage.stroy.algo.tree.TreeFactory;
 import org.openCage.stroy.algo.tree.TreeFactoryImpl;
 import org.openCage.stroy.algo.tree.NoedGenerator;
@@ -14,11 +15,12 @@ import org.openCage.stroy.algo.matching.TreeTaskFactory;
 import org.openCage.stroy.algo.matching.TreeTaskFactoryImpl;
 import org.openCage.stroy.algo.matching.strategies.TreeStrategy;
 import org.openCage.stroy.algo.matching.strategies.base.StandardTreeMatching;
-import org.openCage.stroy.algo.checksum.ChecksumCalculator;
-import org.openCage.stroy.algo.checksum.FileChecksum;
+import org.openCage.stroy.algo.fingerprint.FingerPrint;
+import org.openCage.stroy.algo.fingerprint.FileFingerPrint;
 import org.openCage.stroy.filter.Ignore;
 import org.openCage.stroy.filter.IgnoreByLists;
-import org.openCage.stroy.tree.zip.ZipFielFactory;
+
+import java.io.File;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -64,9 +66,9 @@ public class FullTestModule extends AbstractModule {
 
         bind( TreeStrategy.class ).to( StandardTreeMatching.class );
 
-        // ChecksUm
-        bind( ChecksumCalculator.class ).
+        // Fingerprint        
+        bind( new TypeLiteral<FingerPrint<File>>(){} ).
                 annotatedWith( FileSystem.class ).
-                to( FileChecksum.class );                
+                to( FileFingerPrint.class );
     }
 }

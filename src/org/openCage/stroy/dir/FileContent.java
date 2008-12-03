@@ -42,7 +42,7 @@ public class FileContent implements Content {
         this.checksum = new Lazy<String>( new F0<String>() {
             public String call() {
                 try {
-                    Log.finer( "computing checksum of " + file.getAbsolutePath() );
+                    Log.finer( "computing fingerprint of " + file.getAbsolutePath() );
                     return new FullFileMD5().getChecksum( file );
                 } catch (IOException e) {
                     throw new Error(e);

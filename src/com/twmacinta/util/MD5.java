@@ -30,7 +30,7 @@ import java.io.*;
  * reference implementation given in RFC1321 by RSA.  It passes the MD5
  * test suite as defined in RFC1321.
  * <p>
- * Many optimizations made by Timothy W Macinta.  Reduced time to checksum a
+ * Many optimizations made by Timothy W Macinta.  Reduced time to fingerprint a
  * test file in ForJava alone to roughly half the time taken compared with
  * java.security.MessageDigest (within an intepretter).  Also added an
  * optional native method to reduce the time even further.

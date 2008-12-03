@@ -3,7 +3,7 @@ package org.openCage.stroy.algo.tree.filesystem;
 import org.openCage.stroy.algo.tree.NoedGenerator;
 import org.openCage.stroy.algo.tree.Noed;
 import org.openCage.stroy.algo.tree.NoedImpl;
-import org.openCage.stroy.algo.checksum.ChecksumCalculator;
+import org.openCage.stroy.algo.fingerprint.FingerPrint;
 import org.openCage.stroy.filter.Ignore;
 
 import java.io.File;
@@ -35,10 +35,10 @@ import com.google.inject.Inject;
 public class FSNoedGenerator implements NoedGenerator {
 
     private final Ignore             ignore;
-    private final ChecksumCalculator checksum;
+    private final FingerPrint checksum;
 
     @Inject
-    public FSNoedGenerator( final Ignore ignore, @FileSystem final ChecksumCalculator checksum ) {
+    public FSNoedGenerator( final Ignore ignore, @FileSystem final FingerPrint checksum ) {
         this.ignore   = ignore;
         this.checksum = checksum;
     }

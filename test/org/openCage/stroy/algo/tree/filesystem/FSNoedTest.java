@@ -65,7 +65,7 @@
 //        assertEquals( "b.txt", noed.getName());
 //        assertTrue( noed.isLeaf());
 //
-//        String hash = noed.getFiel().getChecksum();
+//        String hash = noed.getFiel().getFingerprint();
 //
 //        assertNotNull( hash );
 //    }

@@ -1,4 +1,4 @@
-package org.openCage.stroy.algo.checksum;
+package org.openCage.stroy.algo.fingerprint;
 
 import org.openCage.stroy.algo.tree.IOState;
 import org.openCage.util.string.Strings;
@@ -9,16 +9,14 @@ import com.JavaExchange.www.RandomGUID;
 import java.io.File;
 import java.io.IOException;
 
-public class FileChecksum implements ChecksumCalculator {
+public class FileFingerPrint implements FingerPrint<File> {
 
 
-    public String getChecksum( Object obj, IOState state ) {
+    public String getFingerprint( File file, IOState state ) {
 
         if ( state.isError() ) {
             return new RandomGUID().toString();
         }
-
-        File file = (File)obj;
 
         try {
             return Strings.asHex( MD5.getHash( file ));

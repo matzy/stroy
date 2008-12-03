@@ -96,7 +96,7 @@ public class ZipNoedGenerator implements NoedGenerator {
 
                         tt = entry;
                         Fiel fiel = null;
-                        fiel = null; //new ZipFiel( path, entry, FileUtils.getExtension( name ) );
+                        fiel = new ZipFiel( path, entry, FileUtils.getExtension( name ) );
 
                         noed = NoedImpl.makeLeafNoed( name, fiel );
                     }

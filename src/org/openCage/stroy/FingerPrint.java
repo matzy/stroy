@@ -22,7 +22,7 @@ package org.openCage.stroy;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public interface Hash<T> {
+public interface FingerPrint<T> {
 
     public int getHash( T obj );
 }

@@ -69,16 +69,16 @@ public class RuntimeModule implements Module {
         //
         // Text Line Hashes
         //
-        binder.bind( new TypeLiteral<Hash<String>>() {} ).
+        binder.bind( new TypeLiteral<FingerPrint<String>>() {} ).
                 annotatedWith( ForJava.class ).
                 to( WhitespaceIgnoringHash.class );
-        binder.bind( new TypeLiteral<Hash<String>>() {} ).
+        binder.bind( new TypeLiteral<FingerPrint<String>>() {} ).
                 annotatedWith( ForText.class ).
                 to( StdStringHash.class );
-        binder.bind( new TypeLiteral<Hash<String>>() {} ).
+        binder.bind( new TypeLiteral<FingerPrint<String>>() {} ).
                 annotatedWith( ForC.class ).
                 to( WhitespaceIgnoringHash.class );
-        binder.bind( new TypeLiteral<Hash<String>>() {} ).
+        binder.bind( new TypeLiteral<FingerPrint<String>>() {} ).
                 annotatedWith( ForXML.class ).
                 to( WhitespaceIgnoringHash.class );
 

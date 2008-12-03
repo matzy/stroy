@@ -1,6 +1,6 @@
 package org.openCage.stroy.text;
 
-import org.openCage.stroy.Hash;
+import org.openCage.stroy.FingerPrint;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -27,7 +27,7 @@ import org.openCage.stroy.Hash;
 /**
  * An whitespace independent hash function for strings
  */
-public class WhitespaceIgnoringHash implements Hash<String> {
+public class WhitespaceIgnoringHash implements FingerPrint<String> {
     public int getHash(final String obj) {
 
         int hash = 0;

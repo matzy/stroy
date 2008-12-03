@@ -29,7 +29,7 @@ import java.io.IOException;
 ***** END LICENSE BLOCK *****/
 
 /**
- * Calculates a checksum using the full file
+ * Calculates a fingerprint using the full file
  */
 public class FullFileMD5 implements MD5Provider {
 

@@ -1,14 +1,6 @@
 package org.openCage.stroy.graph.matching.strategy;
 
-import junit.framework.TestCase;
-import org.openCage.stroy.graph.matching.TreeMatchingTask;
-import org.openCage.stroy.graph.matching.TreeMatchingTaskNeutralBuilder;
-import org.openCage.stroy.graph.node.SimpleContentTreeBuilder;
-import org.openCage.stroy.graph.node.TreeNode;
-import org.openCage.stroy.graph.node.TreeNodeUtils;
-import org.openCage.stroy.graph.node.TreeLeafNode;
 import org.openCage.stroy.content.ReducedContent;
-import org.openCage.util.ui.TreeUtils;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -53,7 +45,7 @@ public class IdenticalLeavesMatchStrategyTest extends StrategyTestsWorker implem
     }
 
     public void testIgnoreChecksum() {
-        // the strategy uses the checksum so it can't match here
+        // the strategy uses the fingerprint so it can't match here
         strategyTestIgnoreChecksum(
                 new IdenticalLeafMatchStrategy<ReducedContent>(),
                 0,3,0,3, 1,1,1,1);

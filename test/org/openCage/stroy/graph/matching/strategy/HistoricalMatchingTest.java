@@ -2,12 +2,9 @@ package org.openCage.stroy.graph.matching.strategy;
 
 import org.openCage.stroy.content.ReducedContent;
 import org.openCage.stroy.RuntimeModule;
-import org.openCage.stroy.Hash;
 import org.openCage.stroy.graph.matching.TreeLeafNodeFuzzyLeafDistance;
-import org.openCage.stroy.dir.doubles2.CompareDirs2;
 import com.google.inject.Injector;
 import com.google.inject.Guice;
-import com.google.inject.TypeLiteral;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1

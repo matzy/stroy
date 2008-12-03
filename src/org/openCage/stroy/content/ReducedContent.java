@@ -28,7 +28,7 @@ import java.io.File;
 
 
 /**
- * The idea here is to replace a real file with ReducedContent, i.e. with just its checksum and fuzzyHash
+ * The idea here is to replace a real file with ReducedContent, i.e. with just its fingerprint and fuzzyHash
  * Also good to build tests
  */
 public class ReducedContent implements Content {

@@ -43,11 +43,11 @@ public class ZipFiel implements Fiel {
     private String   type;
     private Lazy<FuzzyHash> lazyFuzzy;
 
-    public ZipFiel( String rootPath, ZipEntry zipEntry, String type, Lazy<FuzzyHash> lazyFuzzy ) {
+    public ZipFiel( String rootPath, ZipEntry zipEntry, String type ) { //, Lazy<FuzzyHash> lazyFuzzy ) {
         this.rootPath = rootPath;
         this.zipEntry = zipEntry;
         this.type     = type;
-        this.lazyFuzzy = lazyFuzzy;
+//        this.lazyFuzzy = lazyFuzzy;
     }
 
     public String getChecksum() {

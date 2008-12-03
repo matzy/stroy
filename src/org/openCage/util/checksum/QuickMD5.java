@@ -28,7 +28,7 @@ import java.io.*;
 ***** END LICENSE BLOCK *****/
 
 /**
- * calculates the checksum of a file based on the first 2*16 bytes
+ * calculates the fingerprint of a file based on the first 2*16 bytes
  * (is not as fast as hoped)
  */
 public class QuickMD5 implements MD5Provider {

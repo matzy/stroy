@@ -153,7 +153,7 @@ public class MD5InputStream extends FilterInputStream {
 	  MD5.initNativeLibrary(true);
 	}
 
-	//    calculate the checksum
+	//    calculate the fingerprint
 
 	MD5InputStream in = new MD5InputStream(new BufferedInputStream(new FileInputStream(filename)));
 	while ((num_read = in.read(buf)) != -1);

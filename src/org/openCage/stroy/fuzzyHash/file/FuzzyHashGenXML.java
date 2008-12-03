@@ -1,7 +1,7 @@
 package org.openCage.stroy.fuzzyHash.file;
 
 import com.google.inject.Inject;
-import org.openCage.stroy.Hash;
+import org.openCage.stroy.FingerPrint;
 import org.openCage.stroy.algo.fuzzyHash.FuzzyHash;
 import org.openCage.stroy.fuzzyHash.FuzzyHashGenerator;
 import org.openCage.stroy.fuzzyHash.FuzzyHashSetFactory;
@@ -39,15 +39,15 @@ import java.util.Set;
 public class FuzzyHashGenXML implements FuzzyHashGenerator<File> {
 
     private final LineNoise    noise;
-    private final Hash<String> hash;
+    private final FingerPrint<String> fingerPrint;
     private final FuzzyHashSetFactory fuzzyHashSetFactory;
 
     @Inject
     public FuzzyHashGenXML( @ForXML final LineNoise javaNoise,
-                            @ForXML final Hash<String> javaHash,
+                            @ForXML final FingerPrint<String> javaFingerPrint,
                             FuzzyHashSetFactory fuzzyHashSetFactory ) {
         this.noise = javaNoise;
-        this.hash = javaHash;
+        this.fingerPrint = javaFingerPrint;
         this.fuzzyHashSetFactory = fuzzyHashSetFactory;
     }
 
@@ -61,7 +61,7 @@ public class FuzzyHashGenXML implements FuzzyHashGenerator<File> {
             public void call( Iterable<String> iterable ) {
                 for ( final String line :iterable ) {
                     if ( !noise.isGrayNoise( line )) {
-                        set.add( hash.getHash( line ) );
+                        set.add( fingerPrint.getHash( line ) );
                     }
                 }
             }

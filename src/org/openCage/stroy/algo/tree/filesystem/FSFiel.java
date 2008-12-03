@@ -1,7 +1,9 @@
 package org.openCage.stroy.algo.tree.filesystem;
 
 import org.openCage.stroy.algo.tree.Fiel;
-import org.openCage.stroy.algo.checksum.ChecksumCalculator;
+import org.openCage.stroy.algo.tree.IOStateImpl;
+import org.openCage.stroy.algo.tree.IOState;
+import org.openCage.stroy.algo.fingerprint.FingerPrint;
 import org.openCage.stroy.algo.fuzzyHash.FuzzyHash;
 import org.openCage.util.io.FileUtils;
 import org.openCage.util.lang.Lazy;
@@ -37,13 +39,14 @@ import java.io.File;
 public class FSFiel implements Fiel {
     private final File file;
     private String     checkSum;
-    private boolean    readError = false;
+    private IOState ioState = new IOStateImpl();
+
     private String     type;
     private FuzzyHash  fuzzy;
 
     private final Lazy<String> calcChecksum;
 
-    public FSFiel( final File file, final ChecksumCalculator calc ) {
+    public FSFiel( final File file, final FingerPrint calc ) {
         this.file = file;
         type = FileUtils.getExtension( file );
 
@@ -51,7 +54,7 @@ public class FSFiel implements Fiel {
 
         calcChecksum = new Lazy<String>( new F0<String>() {
             public String call() {
-                return calc.getChecksum( file, null );
+                return calc.getFingerprint( file, ioState );
             }
         } );
     }
@@ -80,6 +83,6 @@ public class FSFiel implements Fiel {
     }
 
     public boolean hasReadError() {
-        return readError;
+        return ioState.isError();
     }
 }

@@ -24,20 +24,21 @@ public class ZipFielFactoryImpl implements ZipFielFactory  {
 
 
     public ZipFiel create( final String path, final ZipEntry entry, final String type, FuzzyHashGen<InputStream> fg ) {
-        return new ZipFiel( path, entry, type,
-                new Lazy<FuzzyHash>( new F0<FuzzyHash>() {
-                    public FuzzyHash call() {
-
-                        ZipFile zf = null;
-                        try {
-                            zf = new ZipFile( path );
-                            InputStream is = zf.getInputStream( entry );
-                            return fuzzyHashGen.create( is, type );
-                        } catch ( IOException e ) {
-                            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-                            return  null;
-                        }
-                    }
-                } ));
+        return null;
+//        return new ZipFiel( path, entry, type,
+//                new Lazy<FuzzyHash>( new F0<FuzzyHash>() {
+//                    public FuzzyHash call() {
+//
+//                        ZipFile zf = null;
+//                        try {
+//                            zf = new ZipFile( path );
+//                            InputStream is = zf.getInputStream( entry );
+//                            return fuzzyHashGen.create( is, type );
+//                        } catch ( IOException e ) {
+//                            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+//                            return  null;
+//                        }
+//                    }
+//                } ));
     }
 }

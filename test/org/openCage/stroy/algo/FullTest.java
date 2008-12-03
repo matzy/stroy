@@ -52,7 +52,7 @@ public class FullTest extends TestCase {
                 + "stroy/test-resources/testA/stroy";
 
         System.out.println( pathZip );
-//        assertTrue(  new File(pathZip).exists());
+        assertTrue(  new File(pathZip).exists());
 
         Injector        ij  = Guice.createInjector( new FullTestModule() );
         TreeFactory     tf  = ij.getInstance( TreeFactory.class );
@@ -74,6 +74,16 @@ public class FullTest extends TestCase {
         int leftUnmatchedAfter = tt.getLeft( Tasks.isUnmatched ).size();
 
         assertTrue( leftUnmatched > leftUnmatchedAfter );
+
+        for ( Noed noed : tt.getRight( Tasks.isUnmatched )) {
+            if ( noed.isLeaf() ) {
+                noed.getFiel().getChecksum();
+                break;
+            }
+        }
+
+
+
 
     }
 

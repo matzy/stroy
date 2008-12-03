@@ -72,7 +72,7 @@ public class NameOnly <T extends Content> implements MatchStrategy<T> {
                     if ( leftNode.isLeaf() ) {
                         double qual = 1.0;
                         //
-//                        if ( leftNode.getContent().getChecksum().equals( tgtKid.getContent().getChecksum() )) {
+//                        if ( leftNode.getContent().getFingerprint().equals( tgtKid.getContent().getFingerprint() )) {
 //                            qual = 1.0;
 //                        }
                         treeMatchingTask.getLeaves().match( (TreeLeafNode<T>)leftNode, (TreeLeafNode<T>)tgtKid, qual );
