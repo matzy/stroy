@@ -1,7 +1,7 @@
 package org.openCage.stroy.map;
 
 import com.google.inject.Inject;
-import org.openCage.stroy.Distance;
+import org.openCage.stroy.algo.distance.Distance;
 import org.openCage.stroy.array.ListChangeMetric;
 
 import java.util.Map;

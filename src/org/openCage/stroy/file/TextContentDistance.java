@@ -3,7 +3,7 @@ package org.openCage.stroy.file;
 import com.google.inject.Inject;
 import org.openCage.util.io.LineReaderIterator;
 import org.openCage.util.io.FileUtils;
-import org.openCage.stroy.Distance;
+import org.openCage.stroy.algo.distance.Distance;
 import org.openCage.util.logging.Log;
 import org.openCage.util.iterator.Iterators;
 

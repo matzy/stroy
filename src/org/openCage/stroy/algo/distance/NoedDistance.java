@@ -1,6 +1,6 @@
-package org.openCage.stroy.file;
+package org.openCage.stroy.algo.distance;
 
-import org.openCage.stroy.algo.distance.Distance;
+import org.openCage.stroy.algo.tree.Noed;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -23,12 +23,11 @@ import org.openCage.stroy.algo.distance.Distance;
 *
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
+public class NoedDistance implements Distance<Noed>{
+    public double distance( Noed a, Noed b ) {
 
-/**
- * Fallback Distance: all different
- */
-public class RefuseContentDistance implements Distance {
-    public double distance(Object a, Object b) {
-        return 1.0;
+//        if ( )
+
+        return 0;  //To change body of implemented methods use File | Settings | File Templates.
     }
 }

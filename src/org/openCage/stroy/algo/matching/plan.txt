@@ -1,0 +1,59 @@
+
+idea: match the trees such that the edit distance is minimal
+      but don't match completly different nodes
+
+
+problems:
+g' content changed same name
+g- content similar, different name
+
+--
+T1:
+ r/a/f g h
+
+T2:
+ r/x/f g h
+   y/f g h
+   z/f g h
+
+that should be one move a-> y  or ...
+
+--
+T1:
+r/a/f g
+
+t2:
+r/x/f g'
+
+one move and one update a->x g->g'
+
+--
+T1:
+r/a/f g
+
+r/a/f g'
+  b/x g
+
+standard strat will make that
+new b x and g
+
+--
+T1:
+r/a/f g x y z
+
+T2:
+r/b/f g' x y z
+  c/g
+
+std: a->b a/g -> c/g new g': feels wrong
+
+-> name more important than content?
+
+=> distance for dirs soly based on their content by name?
+
+q:
+
+is distance a mathematical distance?
+
+
+goal: history of leaves is importanr, history of dirs not (.app !!)

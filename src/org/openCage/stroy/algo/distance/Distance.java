@@ -1,6 +1,4 @@
-package org.openCage.stroy.file;
-
-import org.openCage.stroy.algo.distance.Distance;
+package org.openCage.stroy.algo.distance;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -24,11 +22,14 @@ import org.openCage.stroy.algo.distance.Distance;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-/**
- * Fallback Distance: all different
- */
-public class RefuseContentDistance implements Distance {
-    public double distance(Object a, Object b) {
-        return 1.0;
-    }
+public interface Distance<T> {
+
+    /**
+     * Measure the difference between 2 objects
+     * @param a One object.
+     * @param b Second Object
+     * @return the difference bewteen 0 and 1 (0 is equal)
+     */
+    public double distance( T a, T b);
 }
+

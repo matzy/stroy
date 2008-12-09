@@ -22,6 +22,7 @@ import org.openCage.stroy.ui.*;
 import org.openCage.stroy.ui.difftree.NWayDiffPaneGenerator;
 import org.openCage.stroy.ui.difftree.NWayDiffTreeGenImplMessages;
 import org.openCage.stroy.app.StroyAppInfo;
+import org.openCage.stroy.algo.distance.Distance;
 import org.openCage.util.app.*;
 import org.openCage.util.external.ExecProvider;
 import org.openCage.util.external.ExecProviderImpl;

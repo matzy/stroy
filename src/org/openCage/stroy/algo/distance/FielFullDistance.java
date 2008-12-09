@@ -1,4 +1,6 @@
-package org.openCage.stroy;
+package org.openCage.stroy.algo.distance;
+
+import org.openCage.stroy.algo.tree.Fiel;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -22,14 +24,23 @@ package org.openCage.stroy;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public interface Distance<T> {
+public class FielFullDistance implements Distance<Fiel> {
+    private static final double HEURISTIC = 0.001;
 
-    /**
-     * Measure the difference between 2 objects
-     * @param a One object.
-     * @param b Second Object
-     * @return the difference bewteen 0 and 1 (0 is equal)
-     */
-    public double distance( T a, T b);
+    public double distance( Fiel a, Fiel b ) {
+
+        if ( a.getType().equals( b.getType() )) {
+            return 1;
+        }
+
+        if ( a.getSize() == b.getSize() ) {
+            if ( a.getChecksum().equals( b.getChecksum() )) {
+                return 0;
+            }
+        }
+
+        // fuzzy equality is just a heuristic to differentiate from fingerprint equal
+        // add a tiny number
+        return Math.max( 1, HEURISTIC + a.getFuzzyHash().fuzzyEqual( b.getFuzzyHash()));
+    }
 }
-

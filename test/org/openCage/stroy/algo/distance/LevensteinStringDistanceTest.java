@@ -1,6 +1,6 @@
-package org.openCage.stroy.file;
+package org.openCage.stroy.algo.distance;
 
-import org.openCage.stroy.algo.distance.Distance;
+import junit.framework.TestCase;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -24,11 +24,17 @@ import org.openCage.stroy.algo.distance.Distance;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-/**
- * Fallback Distance: all different
- */
-public class RefuseContentDistance implements Distance {
-    public double distance(Object a, Object b) {
-        return 1.0;
+public class LevensteinStringDistanceTest extends TestCase {
+
+    public void testEqual() {
+        assertEquals( 0.0, new LevensteinStringDistance().distance( "aa", "aa"));
+    }
+
+    public void testTotalyDifferent() {
+        assertEquals( 1, new LevensteinStringDistance().distance( "aa", "bbbb"));
+    }
+
+    public void testSimilar() {
+        assertTrue( .2 > new LevensteinStringDistance().distance( "StringDistance", "StrinDistance"));
     }
 }
