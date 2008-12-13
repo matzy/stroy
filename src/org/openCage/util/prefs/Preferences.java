@@ -45,7 +45,7 @@ public class Preferences implements Persistable {
 
     private static synchronized Preferences get() {
         if ( thePref == null ) {
-            Log.severe( "preferences initialized" );
+            Log.info( "preferences initialized" );
             thePref = Persistence.load( new Preferences(), name);
         }
 

@@ -23,18 +23,22 @@ import junit.framework.TestCase;
 *
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
-
-public class LevensteinStringDistanceTest extends TestCase {
+public class NoedDistanceTest extends TestCase {
 
     public void testEqual() {
-        assertEquals( 0.0, new LevensteinStringDistance().distance( "aa", "aa"));
+
     }
 
-    public void testTotalyDifferent() {
-        assertEquals( 1.0, new LevensteinStringDistance().distance( "aa", "bbbb"));
+    public void testSameParent() {
+
     }
 
-    public void testSimilar() {
-        assertTrue( .2 > new LevensteinStringDistance().distance( "StringDistance", "StrinDistance"));
+    public void testSimilarName() {
+        
+    }
+
+    public void testDuh() {
+        String a = "a/x/b/c/t.txt";
+        String b = "a/e/b/c/t.txt";
     }
 }

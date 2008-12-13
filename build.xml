@@ -1,6 +1,6 @@
 <project name="stroy" default="help" basedir=".">
 
-    <property name="version" value="0.11.1.35"/>
+    <property name="version" value="0.12.0.35"/>
     <property name="buildnumber" value="32"/>
     <property name="copyright" value="Copyright &#xa9; 2006-2008 Stephan Pfab MPL1.1"/>
 
@@ -196,6 +196,40 @@
             <javaproperty name="com.apple.macos.useScreenMenuBar" value="true"/>
 
             <HelpBook locale="English">
+                <fileset dir="${resources}/HelpBook/English" />
+                <fileset dir="${resources}/HelpBook/common" />
+            </HelpBook>
+
+        </jarbundler>
+
+    </target>
+
+    <target name="stroy.app-jp" depends="compile,stroy2-ui-jar,jni">
+        <jarbundler dir="${osx}"
+                    verbose="true"
+                    name="stroy"
+                    shortname="stroy"
+                    stubfile="stroy"
+                    signature="stry"
+                    mainclass="org.openCage.stroy.ui.Main"
+                    jvmversion="1.5+"
+                    version="${version}"
+                    infostring="stroy, ${copyright}"
+                    build="${buildnumber}"
+                    bundleid="org.openCage.stroy"
+                    helpbookfolder="HelpBook"
+                    helpbookname="Stroy Help"
+                    icon="${resources}/stroy.icns">
+            <jarfileset refid="externalsSet"/>
+            <jarfilelist dir="${lib}" files="stroy2ui.jar" />
+
+            <!-- Copy the HelpBook JNI library  -->
+            <javafilelist dir="${build-objc}" files="libHelpBookJNI.jnilib"/>
+
+            <javaproperty name="apple.laf.useScreenMenuBar" value="true"/>
+            <javaproperty name="com.apple.macos.useScreenMenuBar" value="true"/>
+
+            <HelpBook locale="Japanese">
                 <fileset dir="${resources}/HelpBook/English" />
                 <fileset dir="${resources}/HelpBook/common" />
             </HelpBook>

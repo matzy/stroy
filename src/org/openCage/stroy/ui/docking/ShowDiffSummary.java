@@ -71,6 +71,11 @@ public class ShowDiffSummary<T extends Content> extends JPanel {
         final DesignGridLayout layout = new DesignGridLayout( top );
         top.setLayout( layout );
 
+        int onlyLong = 1;
+        if ( only.getText().length() > 12 ) {
+            onlyLong = 2;
+        }
+
         only.setForeground( Colors.ONLYHERE );
         content.setForeground( Colors.CONTENT );
         renamed.setForeground( Colors.STRUCTUR );
@@ -85,7 +90,7 @@ public class ShowDiffSummary<T extends Content> extends JPanel {
 
         layout.row().empty().
                 add( new JLabel( Message.get( "Summary.total" ))).
-                add( only ).
+                add( only, onlyLong ).
                 add( content ).
                 add( renamed ).
                 add( moved ).
@@ -95,14 +100,14 @@ public class ShowDiffSummary<T extends Content> extends JPanel {
         leftDirsOnly = new JLabel( "" + matchings.get(0).getUnmatchedRightDirs().size() );
         layout.row().label( Message.getl( "Summary.first" )).add( new JLabel( Message.get("Summary.dirs"))).
                 add( leftDirsTotal ).
-                add( leftDirsOnly ).
+                add( leftDirsOnly, onlyLong ).
                 empty(4)
                 ;
         leftFilesTotal = new JLabel( "" + matchings.get(0).getRightLeaveCount());
         leftFilesOnly = new JLabel( "" + matchings.get(0).getUnmatchedRightFiles().size() );
         layout.row().add( Message.getl( "Summary.files" )).
                 add( leftFilesTotal ).
-                add( leftFilesOnly ).
+                add( leftFilesOnly, onlyLong ).
                 empty(4)
                 ;
 
@@ -110,7 +115,7 @@ public class ShowDiffSummary<T extends Content> extends JPanel {
         movedDirs = new JLabel( "" + matchings.get(0).getMovedDirs().size() );
         layout.row().label( Message.getl( "Summary.changed" )).
                 add( new JLabel( Message.get("Summary.dirs"))).
-                empty(2).
+                empty( onlyLong + 1).
                 add( new JLabel( "-" )).
                 add( renamedDirs ).
                 add( movedDirs ).
@@ -121,7 +126,7 @@ public class ShowDiffSummary<T extends Content> extends JPanel {
         complexChanged = new JLabel( "" + matchings.get(0).getComplexModifiedLeaves().size());
         layout.row().
                 add( Message.getl( "Summary.files" )).
-                empty(2).
+                empty(onlyLong + 1).
                 add( contentLeaves ).
                 add( renamedFiles ).
                 add( movedFiles ).
@@ -132,14 +137,14 @@ public class ShowDiffSummary<T extends Content> extends JPanel {
             rightDirsOnly = new JLabel( "" + matchings.get(0).getUnmatchedLeftDirs().size()  );
             layout.row().label( Message.getl( "Summary.second" )).add( new JLabel( Message.get("Summary.dirs"))).
                     add( rightDirsTotal ).
-                    add( rightDirsOnly ).
+                    add( rightDirsOnly, onlyLong ).
                     empty(4)
                     ;
             rightFilesTotal = new JLabel( "" + matchings.get(0).getLeftLeaveCount());
             rightFilesOnly = new JLabel( "" + matchings.get(0).getUnmatchedLeftFiles().size() );
             layout.row().add( Message.getl( "Summary.files" )).
                     add( rightFilesTotal ).
-                    add( rightFilesOnly ).
+                    add( rightFilesOnly, onlyLong ).
                     add( new JLabel(""),4)
                     ;
         } else {

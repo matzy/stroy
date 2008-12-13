@@ -56,4 +56,6 @@ q:
 is distance a mathematical distance?
 
 
-goal: history of leaves is importanr, history of dirs not (.app !!)
+goal: history of leaves is important, history of dirs not (.app !!)
+      no suprises
+          

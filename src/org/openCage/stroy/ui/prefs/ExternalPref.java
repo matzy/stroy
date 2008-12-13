@@ -19,7 +19,6 @@ import java.awt.event.ActionEvent;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
-import java.io.File;
 
 import net.java.dev.designgridlayout.DesignGridLayout;
 
@@ -73,6 +72,9 @@ public class ExternalPref extends JPanel {
     private JRadioButton diffOther;
     private JRadioButton diffUnknown;
 
+    private Map<String, String> algo2mesg = new HashMap<String, String>();
+    private Map<String, String> mesg2algo = new HashMap<String, String>();
+
     public ExternalPref( final JFrame frame ) {
 
         this.frame = frame;
@@ -83,12 +85,16 @@ public class ExternalPref extends JPanel {
         Collections.sort( exts );
         extList = new JList( new Vector(exts ));
 
-        List<String> algos = new ArrayList<String>();
+        List<String> algomesg = new ArrayList<String>();
         for ( SimilarityAlgorithm algo : SimilarityAlgorithm.values() ) {
-            algos.add( algo.toString() );
+            String algoStr = algo.toString();
+            String mesg = Message.get( "Pref.FileType.algos." + algoStr );
+            algo2mesg.put( algoStr, mesg);
+            mesg2algo.put( mesg, algoStr );
+            algomesg.add( mesg );
         }
 
-        algoBox = new JComboBox( new Vector(algos) );
+        algoBox = new JComboBox( new Vector(algomesg) );
 
         createLayout();
         setEnabledAll( false );
@@ -101,7 +107,7 @@ public class ExternalPref extends JPanel {
             public void valueChanged(ListSelectionEvent listSelectionEvent) {
                 String ext = (String)extList.getSelectedValue();
                 descriptionField.setText( fileTypes.getDescription( ext ));
-                algoBox.setSelectedItem( fileTypes.getAlgo(ext ).toString() );
+                algoBox.setSelectedItem( algo2mesg.get( fileTypes.getAlgo(ext ).toString() ));
                 setDiff(ext);
                 setOpen(ext);
                 setEnabledAll( true );
@@ -174,13 +180,13 @@ public class ExternalPref extends JPanel {
             public void actionPerformed(ActionEvent actionEvent) {
                 String ext = (String)extList.getSelectedValue();
                 fileTypes.resetAlgo( ext );
-                algoBox.setSelectedItem( fileTypes.getAlgo( ext ).toString() );
+                algoBox.setSelectedItem( algo2mesg.get(fileTypes.getAlgo( ext ).toString() ));
             }
         });
 
         algoBox.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
-                fileTypes.setAlgo( (String)extList.getSelectedValue(), (String)algoBox.getSelectedItem() );
+                fileTypes.setAlgo( (String)extList.getSelectedValue(), mesg2algo.get((String)algoBox.getSelectedItem() ));
             }
         });
     }

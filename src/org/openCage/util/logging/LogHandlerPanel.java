@@ -124,9 +124,9 @@ public class LogHandlerPanel extends JFrame {
 
         JPanel bottom = new JPanel();
         DesignGridLayout layout2 = new DesignGridLayout( bottom );
-        layout2.row().label( new JLabel( "severe   " )).add( severeTextField );
-        layout2.row().label( new JLabel( "warn   " )).add( warnTextField );
-        layout2.row().label( new JLabel( "info   " )).add( infoTextField );
+        layout2.row().label( new JLabel( "severe"/*Message.get( "Log.level.severe" ))*/)).add( severeTextField );
+        layout2.row().label( new JLabel( "warn" /*Message.get( "Log.level.warn" )*/ )).add( warnTextField );
+        layout2.row().label( new JLabel( "info" /*Message.get( "Log.level.info" )*/)).add( infoTextField );
         bottom.setLayout( layout2 );
 
         getContentPane().add( bottom, BorderLayout.SOUTH  );
