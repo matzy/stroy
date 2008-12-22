@@ -23,6 +23,9 @@ import org.openCage.stroy.ui.difftree.NWayDiffPaneGenerator;
 import org.openCage.stroy.ui.difftree.NWayDiffTreeGenImplMessages;
 import org.openCage.stroy.app.StroyAppInfo;
 import org.openCage.stroy.algo.distance.Distance;
+import org.openCage.stroy.algo.hash.Hash;
+import org.openCage.stroy.algo.hash.str.StdStringHash;
+import org.openCage.stroy.algo.hash.str.WhitespaceIgnoringHash;
 import org.openCage.util.app.*;
 import org.openCage.util.external.ExecProvider;
 import org.openCage.util.external.ExecProviderImpl;
@@ -70,16 +73,16 @@ public class RuntimeModule implements Module {
         //
         // Text Line Hashes
         //
-        binder.bind( new TypeLiteral<FingerPrint<String>>() {} ).
+        binder.bind( new TypeLiteral<Hash<String>>() {} ).
                 annotatedWith( ForJava.class ).
                 to( WhitespaceIgnoringHash.class );
-        binder.bind( new TypeLiteral<FingerPrint<String>>() {} ).
+        binder.bind( new TypeLiteral<Hash<String>>() {} ).
                 annotatedWith( ForText.class ).
                 to( StdStringHash.class );
-        binder.bind( new TypeLiteral<FingerPrint<String>>() {} ).
+        binder.bind( new TypeLiteral<Hash<String>>() {} ).
                 annotatedWith( ForC.class ).
                 to( WhitespaceIgnoringHash.class );
-        binder.bind( new TypeLiteral<FingerPrint<String>>() {} ).
+        binder.bind( new TypeLiteral<Hash<String>>() {} ).
                 annotatedWith( ForXML.class ).
                 to( WhitespaceIgnoringHash.class );
 

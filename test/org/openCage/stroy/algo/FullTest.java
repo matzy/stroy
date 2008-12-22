@@ -5,15 +5,11 @@ import junit.framework.TestCase;
 import java.io.File;
 
 import org.openCage.stroy.algo.tree.Noed;
-import org.openCage.stroy.algo.tree.NoedGenerator;
 import org.openCage.stroy.algo.tree.TreeFactory;
 import org.openCage.stroy.algo.matching.TreeTaskFactory;
 import org.openCage.stroy.algo.matching.TreeTask;
 import org.openCage.stroy.algo.matching.Tasks;
-import org.openCage.stroy.algo.matching.strategies.Strategy;
 import org.openCage.stroy.algo.matching.strategies.TreeStrategy;
-import org.openCage.stroy.filter.NullIgnore;
-import com.sun.tools.doclets.internal.toolkit.builders.AbstractBuilder;
 import com.google.inject.Injector;
 import com.google.inject.Guice;
 
@@ -77,7 +73,7 @@ public class FullTest extends TestCase {
 
         for ( Noed noed : tt.getRight( Tasks.isUnmatched )) {
             if ( noed.isLeaf() ) {
-                noed.getFiel().getChecksum();
+                noed.getFiel().getFingerprint();
                 break;
             }
         }

@@ -22,6 +22,11 @@ package org.openCage.util.lang;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
+/**
+ * lazy evaluate a function with no arguments
+ * i.e. a memoization method
+ * no protection against trows
+ */
 public class Lazy<T> {
     private T              obj;
     private boolean        evaluated = false;
@@ -33,7 +38,7 @@ public class Lazy<T> {
 
     public T get() {
         if ( !evaluated ) {
-            obj = func.call();
+            obj       = func.call();
             evaluated = true;
         }
 

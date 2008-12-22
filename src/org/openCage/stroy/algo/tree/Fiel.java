@@ -26,7 +26,7 @@ import org.openCage.stroy.algo.fuzzyHash.FuzzyHash;
 
 public interface Fiel {
 
-    public String    getChecksum();
+    public String getFingerprint();
     public String    getType();
     public FuzzyHash getFuzzyHash();
 

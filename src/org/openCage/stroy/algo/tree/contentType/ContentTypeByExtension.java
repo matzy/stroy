@@ -1,6 +1,8 @@
-package org.openCage.util.lang;
+package org.openCage.stroy.algo.tree.contentType;
 
-import org.jetbrains.annotations.NotNull;
+import org.openCage.util.io.FileUtils;
+
+import java.io.File;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -24,23 +26,15 @@ import org.jetbrains.annotations.NotNull;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public class Lazy1<S,T> {
-    private S              obj;
-    private F1<S,T>  func;
+public class ContentTypeByExtension implements ContentTypeFactory<File> {
 
-    public Lazy1( @NotNull F1<S,T> func ) {
-//        if ( func == null ) {
-//            throw new NullPointerException( "Lazy1 needs a function" );
-//        }
-        this.func = func;
+    public ContentTypeByExtension() {
     }
 
-    public S get( T t) {
-        if ( func != null ) {
-            obj = func.call( t );
-            func = null;
-        }
+    public ContentType create( File file ) {
+        String ext = FileUtils.getExtension( file );
 
-        return obj;
+        return null;
     }
+
 }

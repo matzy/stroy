@@ -50,7 +50,7 @@ public class ZipFiel implements Fiel {
 //        this.lazyFuzzy = lazyFuzzy;
     }
 
-    public String getChecksum() {
+    public String getFingerprint() {
         if ( checkSum == null ) {
             try {
                 ZipFile zf = new ZipFile( rootPath );

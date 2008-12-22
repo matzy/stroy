@@ -1,4 +1,4 @@
-package org.openCage.stroy.text;
+package org.openCage.stroy.algo.hash.str;
 
 import junit.framework.TestCase;
 
@@ -43,5 +43,12 @@ public class WhitespaceIgnoringHashTest extends TestCase {
         assertEquals( new WhitespaceIgnoringHash().getHash( one ), new WhitespaceIgnoringHash().getHash( two ));
         assertEquals( new WhitespaceIgnoringHash().getHash( one ), new WhitespaceIgnoringHash().getHash( three ));
         assertEquals( new WhitespaceIgnoringHash().getHash( one ), new WhitespaceIgnoringHash().getHash( four ));
+    }
+
+    public void testClash() {
+        // assume classes Abc and Abcde
+
+        assertEquals( new WhitespaceIgnoringHash().getHash( "Abc def = "),
+                      new WhitespaceIgnoringHash().getHash( "Abcde f = "));
     }
 }

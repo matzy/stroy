@@ -1,4 +1,6 @@
-package org.openCage.stroy;
+package org.openCage.stroy.algo.hash.str;
+
+import org.openCage.stroy.algo.hash.Hash;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -22,7 +24,11 @@ package org.openCage.stroy;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public interface FingerPrint<T> {
-
-    public int getHash( T obj );
+/**
+ * Standard java string hash generation
+ */
+public class StdStringHash implements Hash<String> {
+    public int getHash(final String str) {
+        return str.hashCode();
+    }
 }

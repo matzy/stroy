@@ -75,6 +75,7 @@ public class ZipNoedGenerator implements NoedGenerator {
 
                 Noed noed = null;
 
+                // TODO windows ?
                 if ( parentPath.equals( "/" )) {
                     if ( root != null ) {
                         throw new Error( "strange zip" );

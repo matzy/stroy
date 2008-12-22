@@ -8,6 +8,7 @@ import org.openCage.stroy.algo.fuzzyHash.FuzzyHash;
 import org.openCage.util.io.FileUtils;
 import org.openCage.util.lang.Lazy;
 import org.openCage.util.lang.F0;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 
@@ -34,32 +35,37 @@ import java.io.File;
 ***** END LICENSE BLOCK *****/
 
 /**
- * A standard file system file as seen through fiel eyses
+ * A standard file system file as seen through fiel eyes
  */
 public class FSFiel implements Fiel {
     private final File file;
-    private String     checkSum;
     private IOState ioState = new IOStateImpl();
 
-    private String     type;
-    private FuzzyHash  fuzzy;
+    private String           type;
+    private Lazy<FuzzyHash>  fuzzy;
 
     private final Lazy<String> calcChecksum;
 
-    public FSFiel( final File file, final FingerPrint calc ) {
+    public FSFiel( @NotNull final File file, @NotNull final FingerPrint<File> calc ) {
         this.file = file;
         type = FileUtils.getExtension( file );
-
-        final FSFiel fiel = this;
 
         calcChecksum = new Lazy<String>( new F0<String>() {
             public String call() {
                 return calc.getFingerprint( file, ioState );
             }
         } );
+
+        fuzzy = new Lazy<FuzzyHash>( new F0<FuzzyHash>() {
+            public FuzzyHash call() {
+                return null;  //To change body of implemented methods use File | Settings | File Templates.
+            }
+        } );
+
+
     }
 
-    public String getChecksum() {
+    public String getFingerprint() {
         return calcChecksum.get();
     }
 
@@ -68,14 +74,7 @@ public class FSFiel implements Fiel {
     }
 
     public FuzzyHash getFuzzyHash() {
-
-        throw new UnsupportedOperationException( "impl me" );
-
-//        if ( fuzzy == null ) {
-//
-//        }
-//
-//        return fuzzy;
+        return fuzzy.get();
     }
 
     public long getSize() {

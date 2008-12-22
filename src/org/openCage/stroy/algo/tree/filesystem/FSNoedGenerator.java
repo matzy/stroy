@@ -5,6 +5,7 @@ import org.openCage.stroy.algo.tree.Noed;
 import org.openCage.stroy.algo.tree.NoedImpl;
 import org.openCage.stroy.algo.fingerprint.FingerPrint;
 import org.openCage.stroy.filter.Ignore;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 
@@ -34,20 +35,19 @@ import com.google.inject.Inject;
 
 public class FSNoedGenerator implements NoedGenerator {
 
-    private final Ignore             ignore;
-    private final FingerPrint checksum;
+    private final Ignore            ignore;
+    private final FingerPrint<File> checksum;
 
     @Inject
-    public FSNoedGenerator( final Ignore ignore, @FileSystem final FingerPrint checksum ) {
+    public FSNoedGenerator( @NotNull             final Ignore            ignore,
+                            @NotNull @FileSystem final FingerPrint<File> checksum ) {
         this.ignore   = ignore;
         this.checksum = checksum;
     }
 
-    public Noed build( String path ) {
+    public Noed build( @NotNull String path ) {
 
-        File rootFile = new File( path );
-
-        return build( ignore, rootFile );
+        return build( ignore, new File( path ) );
     }
 
 

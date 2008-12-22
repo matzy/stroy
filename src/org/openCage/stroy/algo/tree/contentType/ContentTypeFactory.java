@@ -1,6 +1,4 @@
-package org.openCage.util.lang;
-
-import org.jetbrains.annotations.NotNull;
+package org.openCage.stroy.algo.tree.contentType;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -24,23 +22,7 @@ import org.jetbrains.annotations.NotNull;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public class Lazy1<S,T> {
-    private S              obj;
-    private F1<S,T>  func;
+public interface ContentTypeFactory<T> {
 
-    public Lazy1( @NotNull F1<S,T> func ) {
-//        if ( func == null ) {
-//            throw new NullPointerException( "Lazy1 needs a function" );
-//        }
-        this.func = func;
-    }
-
-    public S get( T t) {
-        if ( func != null ) {
-            obj = func.call( t );
-            func = null;
-        }
-
-        return obj;
-    }
+    public ContentType create( T t );
 }

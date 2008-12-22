@@ -34,7 +34,7 @@ public class StringFiel implements Fiel {
         this.content = content;
     }
 
-    public String getChecksum() {
+    public String getFingerprint() {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 

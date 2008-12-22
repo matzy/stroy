@@ -1,8 +1,6 @@
-package org.openCage.stroy.algo.fuzzyHash;
+package org.openCage.stroy.algo.hash.str;
 
-import org.openCage.stroy.fuzzyHash.FuzzyHashGenerator;
-import org.openCage.stroy.algo.fuzzyHash.FuzzyHash;
-import org.openCage.stroy.algo.tree.Fiel;
+import org.openCage.stroy.algo.hash.Hash;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -25,15 +23,8 @@ import org.openCage.stroy.algo.tree.Fiel;
 *
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
-public class FuzzyHashGenFiel implements FuzzyHashGenerator<Fiel> {
 
-    public FuzzyHash generate( Fiel fiel ) {
+public interface StringHashFactory {
 
-        
-
-
-//        fiel.g
-
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
+    public Hash<String> create( String typ );
 }

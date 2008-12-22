@@ -136,4 +136,35 @@ public class LazyTest extends TestCase {
         assertEquals( "123", l1.get(123) );
         assertEquals( "456", l2.get(456) );
     }
+
+    public void testNotNull() {
+        final Ref<Integer> count = new Ref<Integer>( 0 );
+        F1<String,Integer> meth = new F1<String, Integer>() {
+            public String call( Integer i) {
+                count.o = count.o + 1;
+                return "" + i;
+            }};
+
+
+        new Lazy1<String, Integer>( meth );
+
+        try {
+            new Lazy1<String, Integer>( null );
+        } catch ( IllegalArgumentException exp )  {
+            // expected
+        }
+
+        if ( 1 < 2 )  {
+            meth = null;
+        }
+        
+        try {
+            new Lazy1<String, Integer>( meth );
+        } catch ( IllegalArgumentException exp )  {
+            // expected
+        }
+
+        new Lazy1<String, Integer>( meth );
+
+    }
 }

@@ -34,7 +34,7 @@ public class FielFullDistance implements Distance<Fiel> {
         }
 
         if ( a.getSize() == b.getSize() ) {
-            if ( a.getChecksum().equals( b.getChecksum() )) {
+            if ( a.getFingerprint().equals( b.getFingerprint() )) {
                 return 0;
             }
         }
