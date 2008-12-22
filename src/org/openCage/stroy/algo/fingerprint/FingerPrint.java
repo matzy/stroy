@@ -28,7 +28,7 @@ import org.openCage.stroy.algo.tree.IOState;
  * A fingerprint is related to checksum and hash.
  * The point here is that a fingerprint is good enough to identify
  * an object, i.e. it is stronger than a checksum.
- * http://wikipedia ... 
+ * http://en.wikipedia.org/wiki/Fingerprint_(computing) 
  */
 public interface FingerPrint<T> {
 
