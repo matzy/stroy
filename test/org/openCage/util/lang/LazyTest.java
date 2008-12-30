@@ -1,6 +1,8 @@
 package org.openCage.util.lang;
 
 import junit.framework.TestCase;
+import org.openCage.utils.func.F0;
+import org.openCage.utils.func.F1;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -31,7 +33,7 @@ public class LazyTest extends TestCase {
         final Ref<Integer> count = new Ref<Integer>( 0 );
 
         Lazy<String> ll = new Lazy<String>( new F0<String>() {
-            public String call() {
+            public String c() {
                 count.o = count.o + 1;
                 return "foo";
             }
@@ -45,7 +47,7 @@ public class LazyTest extends TestCase {
         final Ref<Integer> count = new Ref<Integer>( 0 );
 
         Lazy<String> ll = new Lazy<String>( new F0<String>() {
-            public String call() {
+            public String c() {
                 count.o = count.o + 1;
                 return "foo";
             }
@@ -63,7 +65,7 @@ public class LazyTest extends TestCase {
         final Ref<Integer> count = new Ref<Integer>( 0 );
 
         Lazy<String> ll = new Lazy<String>( new F0<String>() {
-            public String call() {
+            public String c() {
                 count.o = count.o + 1;
                 return "foo";
             }
@@ -77,7 +79,7 @@ public class LazyTest extends TestCase {
         final Ref<Integer> count = new Ref<Integer>( 0 );
 
         Lazy1<String, Integer> ll = new Lazy1<String, Integer>( new F1<String, Integer>() {
-            public String call( Integer i) {
+            public String c( Integer i) {
                 count.o = count.o + 1;
                 return "" + i;
             }
@@ -91,7 +93,7 @@ public class LazyTest extends TestCase {
         final Ref<Integer> count = new Ref<Integer>( 0 );
 
         Lazy1<String, Integer> ll = new Lazy1<String, Integer>( new F1<String, Integer>() {
-            public String call( Integer i) {
+            public String c( Integer i) {
                 count.o = count.o + 1;
                 return "" + i;
             }
@@ -111,7 +113,7 @@ public class LazyTest extends TestCase {
         final Ref<Integer> count = new Ref<Integer>( 0 );
 
         Lazy1<String, Integer> ll = new Lazy1<String, Integer>( new F1<String, Integer>() {
-            public String call( Integer i) {
+            public String c( Integer i) {
                 count.o = count.o + 1;
                 return "" + i;
             }
@@ -124,7 +126,7 @@ public class LazyTest extends TestCase {
     public void test1MethodReuse() {
         final Ref<Integer> count = new Ref<Integer>( 0 );
         final F1<String,Integer> meth = new F1<String, Integer>() {
-            public String call( Integer i) {
+            public String c( Integer i) {
                 count.o = count.o + 1;
                 return "" + i;
             }};
@@ -140,7 +142,7 @@ public class LazyTest extends TestCase {
     public void testNotNull() {
         final Ref<Integer> count = new Ref<Integer>( 0 );
         F1<String,Integer> meth = new F1<String, Integer>() {
-            public String call( Integer i) {
+            public String c( Integer i) {
                 count.o = count.o + 1;
                 return "" + i;
             }};
