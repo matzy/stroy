@@ -39,16 +39,9 @@ public interface Noed {
      */
     public boolean        isLeaf();
 
-    /**
-     * future
-     * @return
-     */
     public boolean        isReadOnly();
 
-    /**
-     * Get the name
-     * @return the Name
-     */
+
     public String         getName();
 
     /**

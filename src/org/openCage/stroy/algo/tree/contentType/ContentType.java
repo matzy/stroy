@@ -32,18 +32,18 @@ import java.util.Collection;
 public class ContentType {
 
     private final String name;
-    private String descr;
-    private boolean isText;
-    private boolean isXML;
-    private boolean isPic;
+    private String       descr;
+    private boolean      isText;
+    private boolean      isXML;
+    private boolean      isPic;
+    private boolean      isMusic;
     private List<String> extensions = new ArrayList<String>();
-    private boolean isMusic;
 
     public ContentType( @NotNull String name ) {
         this.name = name;
     }
 
-    public ContentType withDescr(String descr ) {
+    public ContentType withDescr( @NotNull String descr ) {
         this.descr = descr;
         return this;
     }
@@ -83,6 +83,10 @@ public class ContentType {
 
     public boolean isPic() {
         return isPic;
+    }
+
+    public boolean isMusic() {
+        return isMusic;
     }
 
     public ContentType withExtension( String ext ) {

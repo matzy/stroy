@@ -1,4 +1,4 @@
-package org.openCage.stroy.tree.zip;
+package org.openCage.stroy.algo.tree.zip;
 
 import org.openCage.stroy.algo.tree.zip.ZipFiel;
 import org.openCage.stroy.algo.fuzzyHash.FuzzyHashGen;

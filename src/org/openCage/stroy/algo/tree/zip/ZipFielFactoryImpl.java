@@ -2,14 +2,9 @@ package org.openCage.stroy.algo.tree.zip;
 
 import org.openCage.stroy.tree.zip.ZipFielFactory;
 import org.openCage.stroy.algo.fuzzyHash.FuzzyHashGen;
-import org.openCage.stroy.algo.fuzzyHash.FuzzyHash;
-import org.openCage.util.lang.Lazy;
-import org.openCage.util.lang.F0;
 
 import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
 import java.io.InputStream;
-import java.io.IOException;
 
 import com.google.inject.Inject;
 

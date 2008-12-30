@@ -7,7 +7,7 @@ import org.openCage.stroy.algo.fingerprint.FingerPrint;
 import org.openCage.stroy.algo.fuzzyHash.FuzzyHash;
 import org.openCage.util.io.FileUtils;
 import org.openCage.util.lang.Lazy;
-import org.openCage.util.lang.F0;
+import org.openCage.utils.func.F0;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -51,13 +51,13 @@ public class FSFiel implements Fiel {
         type = FileUtils.getExtension( file );
 
         calcChecksum = new Lazy<String>( new F0<String>() {
-            public String call() {
+            public String c() {
                 return calc.getFingerprint( file, ioState );
             }
         } );
 
         fuzzy = new Lazy<FuzzyHash>( new F0<FuzzyHash>() {
-            public FuzzyHash call() {
+            public FuzzyHash c() {
                 return null;  //To change body of implemented methods use File | Settings | File Templates.
             }
         } );
