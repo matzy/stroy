@@ -1,5 +1,7 @@
 package org.openCage.util.lang;
 
+import org.openCage.utils.func.F0;
+
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
 *
@@ -30,7 +32,7 @@ package org.openCage.util.lang;
 public class Lazy<T> {
     private T              obj;
     private boolean        evaluated = false;
-    private final   F0<T>  func;
+    private final F0<T> func;
 
     public Lazy( F0<T> func ) {
         this.func = func;
@@ -38,7 +40,7 @@ public class Lazy<T> {
 
     public T get() {
         if ( !evaluated ) {
-            obj       = func.call();
+            obj       = func.c();
             evaluated = true;
         }
 

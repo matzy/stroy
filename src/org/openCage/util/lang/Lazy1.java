@@ -1,6 +1,7 @@
 package org.openCage.util.lang;
 
 import org.jetbrains.annotations.NotNull;
+import org.openCage.utils.func.F1;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -26,7 +27,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class Lazy1<S,T> {
     private S              obj;
-    private F1<S,T>  func;
+    private F1<S,T> func;
 
     public Lazy1( @NotNull F1<S,T> func ) {
 //        if ( func == null ) {
@@ -37,7 +38,7 @@ public class Lazy1<S,T> {
 
     public S get( T t) {
         if ( func != null ) {
-            obj = func.call( t );
+            obj = func.c( t );
             func = null;
         }
 
