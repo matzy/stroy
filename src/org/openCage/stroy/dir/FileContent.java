@@ -6,6 +6,8 @@ import org.openCage.stroy.content.Content;
 import org.openCage.stroy.algo.fuzzyHash.FuzzyHash;
 import org.openCage.util.checksum.FullFileMD5;
 import org.openCage.util.logging.Log;
+import org.openCage.utils.func.F1;
+import org.openCage.utils.func.F0;
 
 import java.io.File;
 import java.io.IOException;
@@ -40,7 +42,7 @@ public class FileContent implements Content {
     public FileContent( final F1<FuzzyHash, File> fuzzyGen, final File file ) {
         this.file     = file;
         this.checksum = new Lazy<String>( new F0<String>() {
-            public String call() {
+            public String c() {
                 try {
                     Log.finer( "computing fingerprint of " + file.getAbsolutePath() );
                     return new FullFileMD5().getChecksum( file );

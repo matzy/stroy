@@ -4,7 +4,7 @@ import com.google.inject.Inject;
 import org.openCage.stroy.dir.FileContent;
 import org.openCage.stroy.fuzzyHash.FuzzyHashGenerator;
 import org.openCage.stroy.algo.fuzzyHash.FuzzyHash;
-import org.openCage.util.lang.F1;
+import org.openCage.utils.func.F1;
 
 import java.io.File;
 
@@ -39,7 +39,7 @@ public class FileContentFactory {
     @Inject
     public FileContentFactory( final FuzzyHashGenerator<File> fuzzyHashGen ) {
         this.fuzzyHashGenerator = new F1<FuzzyHash, File>() {
-            public FuzzyHash call( File file ) {
+            public FuzzyHash c( File file ) {
                 return fuzzyHashGen.generate( file );
             }
         };
