@@ -1,4 +1,6 @@
-package org.openCage.utils.lang;
+package org.openCage.utils.lang.unchecked;
+
+import java.io.FileNotFoundException;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -22,9 +24,14 @@ package org.openCage.utils.lang;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public class Unchecked extends Error {
+public class FileNotFoundExceptionUC extends Error {
+    private final FileNotFoundException exp;
 
-    public Unchecked( Exception exp ) {
+    public FileNotFoundExceptionUC( final FileNotFoundException e ) {
+        this.exp = e;
+    }
 
+    public FileNotFoundException getExp() {
+        return exp;
     }
 }

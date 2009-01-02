@@ -2,7 +2,7 @@ package org.openCage.utils.func;
 
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
-import org.openCage.util.lang.Ref;
+import org.openCage.utils.lang.Ref;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1

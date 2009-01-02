@@ -1,6 +1,13 @@
-package org.openCage.utils.prop;
+package org.openCage.utils.io.with;
 
-import org.openCage.util.prefs.PreferencesChangeListener;
+import org.junit.Test;
+import static org.junit.Assert.fail;
+import static org.junit.Assert.assertNull;
+import static org.openCage.utils.io.with.WithIO.withReader;
+import org.openCage.utils.func.F1;
+import org.openCage.utils.lang.unchecked.FileNotFoundExceptionUC;
+
+import java.io.Reader;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -24,18 +31,24 @@ import org.openCage.util.prefs.PreferencesChangeListener;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
+public class WithIOTest {
 
-/**
- * Persistence wrapper for class T
- * @param <T>
- */
-public interface Prop<T> {
+    @Test
+    public void testFileNotFound() {
 
-    public T    get();
-    public void set( T val );
+        Integer res = null;
+        try {
+            withReader("no such file", new F1<Integer, Reader>() {
+                public Integer c( Reader reader ) {
+                    return 5;
+                }
+            } );
 
-//    public T    getResetVal();
-//    public void reset();
-    public void addListener( PropChangeListener<T> listener );
+            fail( "throw?" );
+        } catch ( FileNotFoundExceptionUC exp ) {
+            // expected
+        }
 
+        assertNull( res );
+    }
 }

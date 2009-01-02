@@ -1,6 +1,10 @@
-package org.openCage.utils.prop;
+package org.openCage.utils.lang.unchecked;
 
-import org.openCage.util.prefs.PreferencesChangeListener;
+import org.openCage.utils.lang.unchecked.FileNotFoundExceptionUC;
+import org.openCage.utils.lang.unchecked.IOExceptionUC;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -24,18 +28,13 @@ import org.openCage.util.prefs.PreferencesChangeListener;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
+public class Unchecked {
 
-/**
- * Persistence wrapper for class T
- * @param <T>
- */
-public interface Prop<T> {
-
-    public T    get();
-    public void set( T val );
-
-//    public T    getResetVal();
-//    public void reset();
-    public void addListener( PropChangeListener<T> listener );
-
+    public static FileNotFoundExceptionUC unchecked( FileNotFoundException exp ) {
+        return new FileNotFoundExceptionUC( exp );
+    }
+    
+    public static IOExceptionUC unchecked( IOException exp ) {
+        return new IOExceptionUC( exp );
+    }
 }

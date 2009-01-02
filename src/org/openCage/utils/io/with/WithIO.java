@@ -2,7 +2,7 @@ package org.openCage.utils.io.with;
 
 import org.openCage.util.lang.V1;
 import org.openCage.util.logging.Log;
-import org.openCage.utils.lang.Unchecked;
+import static org.openCage.utils.lang.unchecked.Unchecked.unchecked;
 import org.openCage.utils.func.F1;
 
 import java.io.FileReader;
@@ -36,27 +36,41 @@ import java.io.FileWriter;
 
 public class WithIO {
 
+    /**
+     * Executes a method on a Reader of the file proved by the path
+     * It makes sure that the reader is closed afterwards
+     * throw unchecked: FileNotFoundExceptionUC
+     * @param path A path to an existing file (or FileNotFoundExceptionUC )
+     * @param f A function to executed over the Reader
+     * @param <T> The return type of the function
+     * @return The return of the function f
+     */
     public static <T> T withReader( String path, F1<T, Reader> f ) {
         Reader reader = null;
-        T      ret    = null;
+        T      ret;
         try {
             reader = new FileReader( path);
             ret    = f.c( reader );
+            return ret;
+            
         } catch( FileNotFoundException e ) {
-            throw new Unchecked( e );
+            throw unchecked(e);
+
         } catch ( Error err ) {
             System.err.println( err );
             throw err;
+
         } finally {
             if ( reader != null ) {
                 try {
                     reader.close();
                 } catch( IOException e ) {
-                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                    Log.warning( "strange 'could not close' in a finally: " + e );
                 }
             }
 
-            return ret;
+            // no return here otherwise no exception could leave this method
+            // see e.g. http://geekexplains.blogspot.com/2008/11/playing-with-try-catch-finally-in-java.html
         }
     }
 
@@ -66,8 +80,10 @@ public class WithIO {
             writer = new FileWriter( path );
             v.call( writer );
         } catch( IOException e ) {
-            Log.warning( e );
-            throw new Unchecked( e );
+            throw unchecked( e );
+        } catch( Error err ) {
+            Log.warning( err );
+            throw err;
         } finally {
             if ( writer != null ) {
                 try {

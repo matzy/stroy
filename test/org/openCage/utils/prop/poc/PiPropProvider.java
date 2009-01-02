@@ -1,6 +1,8 @@
-package org.openCage.utils.prop;
+package org.openCage.utils.prop.poc;
 
-import org.openCage.util.prefs.PreferencesChangeListener;
+import org.openCage.utils.prop.PropStoreFactory;
+import org.openCage.utils.prop.PropProvider;
+import com.google.inject.Inject;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -24,18 +26,10 @@ import org.openCage.util.prefs.PreferencesChangeListener;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
+public class PiPropProvider extends PropProvider<Double> {
 
-/**
- * Persistence wrapper for class T
- * @param <T>
- */
-public interface Prop<T> {
-
-    public T    get();
-    public void set( T val );
-
-//    public T    getResetVal();
-//    public void reset();
-    public void addListener( PropChangeListener<T> listener );
-
+    @Inject
+    public PiPropProvider( final PropStoreFactory psfactory ) {
+        super( psfactory, "pi", 3.14159 );
+    }
 }

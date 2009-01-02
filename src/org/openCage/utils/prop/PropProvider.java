@@ -1,6 +1,9 @@
 package org.openCage.utils.prop;
 
-import org.openCage.util.prefs.PreferencesChangeListener;
+import org.openCage.utils.prop.PropStoreFactory;
+import org.openCage.utils.prop.Prop;
+import org.openCage.utils.prop.PropImpl;
+import com.google.inject.Provider;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -23,19 +26,25 @@ import org.openCage.util.prefs.PreferencesChangeListener;
 *
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
+public class PropProvider<T> implements Provider<Prop<T>> {
 
+    private final PropStoreFactory psfactory;
+    private Prop<T>                prop = null;
+    private String                 key;
+    private T                      val;
 
-/**
- * Persistence wrapper for class T
- * @param <T>
- */
-public interface Prop<T> {
+    public PropProvider( final PropStoreFactory psfactory, final String key, final T val ) {
+        this.psfactory = psfactory;
+        this.key = key;
+        this.val = val;
+    }
 
-    public T    get();
-    public void set( T val );
+    public Prop<T> get() {
+        if ( prop == null ) {
+            psfactory.get().init( key, new PropImpl<T>( val ) );
+            prop = (PropImpl<T>)psfactory.get().get( key );
+        }
 
-//    public T    getResetVal();
-//    public void reset();
-    public void addListener( PropChangeListener<T> listener );
-
+        return prop;
+    }
 }

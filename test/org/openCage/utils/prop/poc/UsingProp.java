@@ -1,6 +1,9 @@
-package org.openCage.utils.prop;
+package org.openCage.utils.prop.poc;
 
-import org.openCage.util.prefs.PreferencesChangeListener;
+import org.openCage.utils.prop.Prop;
+import com.google.inject.Inject;
+import com.google.inject.Provider;
+import com.google.inject.name.Named;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -23,19 +26,16 @@ import org.openCage.util.prefs.PreferencesChangeListener;
 *
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
+public class UsingProp {
 
+    private final Prop<String> prop;
 
-/**
- * Persistence wrapper for class T
- * @param <T>
- */
-public interface Prop<T> {
+    @Inject
+    public UsingProp( @Named("foo") final Provider<Prop<String>> propprov ) {
+        this.prop = propprov.get();
+    }
 
-    public T    get();
-    public void set( T val );
-
-//    public T    getResetVal();
-//    public void reset();
-    public void addListener( PropChangeListener<T> listener );
-
+    public Prop<String> getProp() {
+        return prop;
+    }
 }

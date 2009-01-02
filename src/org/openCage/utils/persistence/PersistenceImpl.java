@@ -2,7 +2,6 @@ package org.openCage.utils.persistence;
 
 import org.openCage.util.io.FileUtils;
 import org.openCage.util.logging.Log;
-import org.openCage.utils.persistence.Persistable;
 import org.openCage.util.lang.V1;
 import static org.openCage.utils.io.with.WithIO.withReader;
 import static org.openCage.utils.io.with.WithIO.withWriter;
@@ -83,6 +82,7 @@ public class PersistenceImpl<T extends Persistable> implements Persistence<T> {
     }
 
 
+    // TODO factor out path creation and avoid NLS
     private String getPathEnsure(String name) {
         String path = FileUtils.getHomeDir() + "/." + name + "/preferences.xml";
 

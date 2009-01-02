@@ -3,6 +3,7 @@ package org.openCage.util.lang;
 import junit.framework.TestCase;
 import org.openCage.utils.func.F0;
 import org.openCage.utils.func.F1;
+import org.openCage.utils.lang.Ref;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1

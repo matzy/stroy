@@ -1,4 +1,7 @@
-package org.openCage.util.lang;
+package org.openCage.utils.func;
+
+import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -22,15 +25,19 @@ package org.openCage.util.lang;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-/**
- * Pass by reference
- */
-public class Ref<T> {
+public class CurryTest {
 
-    public T o;
-    
-    public Ref( T val ) {
-        this.o = val;
+    @Test
+    public void testOrder() {
+        F1<Integer,Integer> f = new F1<Integer, Integer>() {
+            public Integer c( Integer integer ) {
+                return 2 * integer;
+            }
+        };
+
+        Integer res1 = f.c( 7 );
+        Integer res2 = Curry.curry( f, 7 ).c();
+
+        assertEquals( res1, res2 );
     }
-
 }

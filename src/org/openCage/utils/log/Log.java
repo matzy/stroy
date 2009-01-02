@@ -1,4 +1,4 @@
-package org.openCage.util.logging;
+package org.openCage.utils.log;
 
 import org.openCage.util.prefs.PListSelectionString;
 import org.openCage.util.prefs.ListSelection;
@@ -37,11 +37,12 @@ public class Log {
     private static Logger logger = Logger.getLogger( Log.class.getName() );
 
     static {
-        String[] levelNames = { "ALL", "FINEST", "FINER", "FINE", "CONFIG", "INFO", "WARNING", "SEVERE", "OFF" };
-        String lev = PListSelectionString.getOrCreate( LogHandlerPanel.STROY_LOG_OUT, new ListSelection( "INFO", levelNames )).get().getSelection();
-        PListSelectionString.getOrCreate( LogHandlerPanel.STROY_LOG_IN, new ListSelection( "INFO", levelNames ));
+//        String[] levelNames = { "ALL", "FINEST", "FINER", "FINE", "CONFIG", "INFO", "WARNING", "SEVERE", "OFF" };
+//        String lev = PListSelectionString.getOrCreate( LogHandlerPanel.STROY_LOG_OUT, new ListSelection( "INFO", levelNames )).get().getSelection();
+//        PListSelectionString.getOrCreate( LogHandlerPanel.STROY_LOG_IN, new ListSelection( "INFO", levelNames ));
+//        logger.setLevel( Level.parse( lev) );
 
-        logger.setLevel( Level.parse( lev) );
+        logger.setLevel( Level.ALL );
     }
 
     public static void tell() {
@@ -89,6 +90,10 @@ public class Log {
 
     public static void addHandler( Handler hdlr ) {
         logger.addHandler( hdlr );
+    }
+
+    public static void removeHandler( Handler hdlr ) {
+        logger.removeHandler( hdlr );
     }
 
     public static void setLogLevelOnAllHandles( Level level  ) {

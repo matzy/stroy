@@ -1,6 +1,6 @@
-package org.openCage.utils.prop;
+package org.openCage.utils.lang.unchecked;
 
-import org.openCage.util.prefs.PreferencesChangeListener;
+import java.io.IOException;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -24,18 +24,14 @@ import org.openCage.util.prefs.PreferencesChangeListener;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
+public class IOExceptionUC extends Error {
+    private final IOException exp;
 
-/**
- * Persistence wrapper for class T
- * @param <T>
- */
-public interface Prop<T> {
+    public IOExceptionUC( final IOException e ) {
+        this.exp = e;
+    }
 
-    public T    get();
-    public void set( T val );
-
-//    public T    getResetVal();
-//    public void reset();
-    public void addListener( PropChangeListener<T> listener );
-
+    public IOException getExp() {
+        return exp;
+    }
 }

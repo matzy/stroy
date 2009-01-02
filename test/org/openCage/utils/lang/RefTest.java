@@ -1,6 +1,8 @@
-package org.openCage.utils.prop;
+package org.openCage.utils.lang;
 
-import org.openCage.util.prefs.PreferencesChangeListener;
+import org.openCage.utils.func.F1;
+import org.junit.Test;
+import static junit.framework.Assert.assertEquals;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -24,18 +26,20 @@ import org.openCage.util.prefs.PreferencesChangeListener;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
+public class RefTest {
 
-/**
- * Persistence wrapper for class T
- * @param <T>
- */
-public interface Prop<T> {
 
-    public T    get();
-    public void set( T val );
+    @Test
+    public void testChangable() {
+        Ref<Integer> i = Ref.c( 5 );
 
-//    public T    getResetVal();
-//    public void reset();
-    public void addListener( PropChangeListener<T> listener );
+        new F1<Void, Ref<Integer>>() {
+            public Void c( Ref<Integer> integerRef ) {
+                integerRef.o = 7;
+                return null;
+            }
+        }.c( i );
 
+        assertEquals( 7, i.o.intValue());
+    }
 }

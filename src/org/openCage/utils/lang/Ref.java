@@ -1,6 +1,4 @@
-package org.openCage.utils.prop;
-
-import org.openCage.util.prefs.PreferencesChangeListener;
+package org.openCage.utils.lang;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -24,18 +22,19 @@ import org.openCage.util.prefs.PreferencesChangeListener;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-
 /**
- * Persistence wrapper for class T
- * @param <T>
+ * Pass by reference
  */
-public interface Prop<T> {
+public class Ref<T> {
 
-    public T    get();
-    public void set( T val );
+    public T o;
+    
+    public Ref( T val ) {
+        this.o = val;
+    }
 
-//    public T    getResetVal();
-//    public void reset();
-    public void addListener( PropChangeListener<T> listener );
+    public static <T> Ref<T> c( T val ) {
+        return new Ref<T>( val );
+    }
 
 }

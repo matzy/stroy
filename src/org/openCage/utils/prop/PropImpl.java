@@ -1,6 +1,7 @@
 package org.openCage.utils.prop;
 
-import org.openCage.util.prefs.PreferencesChangeListener;
+import java.util.List;
+import java.util.ArrayList;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -23,19 +24,28 @@ import org.openCage.util.prefs.PreferencesChangeListener;
 *
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
+public class PropImpl<T> implements Prop<T>{
+
+    private T prop;
+    private List<PropChangeListener<T>> listeners = new ArrayList<PropChangeListener<T>>();
 
 
-/**
- * Persistence wrapper for class T
- * @param <T>
- */
-public interface Prop<T> {
+    public PropImpl( T str ) {
+        prop = str;
+    }
 
-    public T    get();
-    public void set( T val );
+    public T get() {
+        return prop;
+    }
 
-//    public T    getResetVal();
-//    public void reset();
-    public void addListener( PropChangeListener<T> listener );
+    public void set( T val ) {
+        prop = val;
+        for ( PropChangeListener listener : listeners ) {
+            listener.propChanged( prop  );
+        }
+    }
 
+    public void addListener( PropChangeListener<T> listener ) {
+        listeners.add( listener );
+    }
 }
