@@ -1,8 +1,8 @@
-package org.openCage.stroy.algo.matching;
+package org.openCage.stroy.algo.matching.rate;
 
+import org.openCage.stroy.algo.matching.TreeTask;
+import org.openCage.stroy.algo.matching.Tasks;
 import org.openCage.stroy.algo.tree.Noed;
-import org.openCage.stroy.algo.matching.Task;
-import org.openCage.util.lang.P2;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -26,28 +26,25 @@ import org.openCage.util.lang.P2;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-/**
- * Utility class for Tasks
- */
-public class Tasks {
+public class MoveRating implements Rating {
+    public int rate( TreeTask task ) {
+        return matched( task ) + unmatched( task );
+    }
 
-    public static final P2<Task<Noed>,Noed> isMatched = new P2<Task<Noed>, Noed>() {
+    private int unmatched( TreeTask task ) {
+        // for unmatched (left and right)
+        //   search for content march better than 0.3
+        //   +1
+        return 0;  //To change body of created methods use File | Settings | File Templates.
+    }
 
-        public boolean c( Task<Noed> a, Noed b ) {
-            return a.isMatched( b );
+    private int matched( TreeTask task ) {
+        int sum = 0;
+
+        for ( Noed noed : task.getLeft( Tasks.isMatched )) {
+            // moved or renamed => +1
         }
-    };
 
-    public static final P2<Task<Noed>,Noed> isUnmatched = new P2<Task<Noed>, Noed>() {
-        public boolean c( Task<Noed> a, Noed b ) {
-            return !a.isMatched( b );
-        }
-    };
-
-    public static final P2<Task<Noed>,Noed> isUnmatchedLeaf = new P2<Task<Noed>, Noed>() {
-        public boolean c( Task<Noed> a, Noed b ) {
-            return b.isLeaf() && !a.isMatched( b );
-        }
-    };
-
+        return sum;
+    }
 }

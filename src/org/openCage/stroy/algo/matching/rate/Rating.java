@@ -1,8 +1,7 @@
-package org.openCage.stroy.algo.matching;
+package org.openCage.stroy.algo.matching.rate;
 
-import org.openCage.stroy.algo.tree.Noed;
 import org.openCage.stroy.algo.matching.Task;
-import org.openCage.util.lang.P2;
+import org.openCage.stroy.algo.matching.TreeTask;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -26,28 +25,7 @@ import org.openCage.util.lang.P2;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-/**
- * Utility class for Tasks
- */
-public class Tasks {
+public interface Rating {
 
-    public static final P2<Task<Noed>,Noed> isMatched = new P2<Task<Noed>, Noed>() {
-
-        public boolean c( Task<Noed> a, Noed b ) {
-            return a.isMatched( b );
-        }
-    };
-
-    public static final P2<Task<Noed>,Noed> isUnmatched = new P2<Task<Noed>, Noed>() {
-        public boolean c( Task<Noed> a, Noed b ) {
-            return !a.isMatched( b );
-        }
-    };
-
-    public static final P2<Task<Noed>,Noed> isUnmatchedLeaf = new P2<Task<Noed>, Noed>() {
-        public boolean c( Task<Noed> a, Noed b ) {
-            return b.isLeaf() && !a.isMatched( b );
-        }
-    };
-
+    public int rate( TreeTask task );
 }

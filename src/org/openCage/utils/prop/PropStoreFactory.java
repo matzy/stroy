@@ -1,4 +1,5 @@
-package org.openCage.utils.func;
+package org.openCage.utils.prop;
+
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -22,7 +23,9 @@ package org.openCage.utils.func;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public interface F1<S,T> {
 
-    public S c(T t);
+// that should be just a provider, but PersiPropTest balkes then ???
+public interface PropStoreFactory {
+
+    PropStore get();
 }

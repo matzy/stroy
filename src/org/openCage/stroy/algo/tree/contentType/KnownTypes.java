@@ -44,16 +44,13 @@ public class KnownTypes {
                 withDescr( "Java program source file" ).
                 asText().
                 withExtension( "Java"));
-        known.put( "C++", new ContentType( "C++").
-                withDescr( "C/C++ program source file" ).
+        known.put( "C", new ContentType( "C").
+                withDescr( "C/C++ program source or header file" ).
                 asText().
                 withExtension( "cpp").
                 withExtension( "c++").
                 withExtension( "cc").
-                withExtension( "c"));
-        known.put( "H", new ContentType( "h").
-                withDescr( "C/C++ program header file" ).
-                asText().
+                withExtension( "c").
                 withExtension( "hpp").
                 withExtension( "h"));
         known.put( "Text", new ContentType( "Text").

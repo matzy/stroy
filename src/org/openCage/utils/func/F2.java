@@ -22,7 +22,7 @@ package org.openCage.utils.func;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public interface F1<S,T> {
+public interface F2<R,A,B> {
 
-    public S c(T t);
+    public R c( A a, B b);
 }
