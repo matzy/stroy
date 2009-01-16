@@ -40,4 +40,17 @@ public class CurryTest {
 
         assertEquals( res1, res2 );
     }
+
+    @Test
+    public void testPlus5() {
+        F2<Integer,Integer,Integer> plus = new F2<Integer, Integer, Integer>() {
+            public Integer c(Integer integer, Integer integer1) {
+                return integer + integer1;
+            }
+        };
+
+        F1<Integer,Integer> plus5 = Curry.curry( plus, 5 );
+
+        assertEquals( new Integer(13), plus5.c(8));
+    }
 }

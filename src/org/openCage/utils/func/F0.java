@@ -24,7 +24,7 @@ package org.openCage.utils.func;
 
 
 /**
- * Function without parameters returning a T
+ * Function without parameters returning a A
  * @param <T> Any type
  */
 public interface F0<T> {

@@ -1,6 +1,5 @@
 package org.openCage.stroy.algo.tree.zip;
 
-import org.openCage.stroy.tree.zip.ZipFielFactory;
 import org.openCage.stroy.algo.fuzzyHash.FuzzyHashGen;
 
 import java.util.zip.ZipEntry;

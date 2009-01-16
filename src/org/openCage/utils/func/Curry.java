@@ -26,10 +26,18 @@ import org.openCage.utils.func.F0;
 
 public class Curry {
 
-    public static <S,T> F0<S> curry( final F1<S,T> f, final T t) {
-        return new F0<S>() {
-            public S c() {
-                return f.c(t);
+    public static <R, A> F0<R> curry( final F1<R, A> f, final A a) {
+        return new F0<R>() {
+            public R c() {
+                return f.c(a);
+            }
+        };
+    }
+
+    public static <R,A,B> F1<R,A> curry( final F2<R,A,B> f, final B b) {
+        return new F1<R,A>() {
+            public R c( A a) {
+                return f.c(a,b);
             }
         };
     }
