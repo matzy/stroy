@@ -60,6 +60,26 @@ public class Message {
         return new JLabel( get( key ));
     }
 
+    public static boolean hasNewLines( String key ) {
+        String txt = get( key );
+
+        return txt.contains( "\n" ) || txt.contains( "\uff3cn"  );
+    }
+
+    public static String get( String key, int row ) {
+        String txt = get( key );
+
+        if ( txt.contains( "\uff3cn"  ) ) {
+            return txt.split( "\uff3cn")[row];
+        } else if ( txt.contains( "\n" ) ) {
+            return txt.split( "\n")[row];
+        } else if ( row == 0 ) {
+            return txt;
+        }
+
+        throw new Error( "need localization" );
+    }
+
     /**
      * remember not found locales, one warning is enough 
      */

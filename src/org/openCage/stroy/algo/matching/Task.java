@@ -2,6 +2,7 @@ package org.openCage.stroy.algo.matching;
 
 import org.openCage.stroy.matching.EdgeAttributes;
 import org.openCage.util.lang.P2;
+import org.openCage.utils.func.F2;
 
 import java.util.Collection;
 
@@ -32,8 +33,8 @@ public interface Task<T> {
     public void addRight( T obj );
     public void remove( T obj );
 
-    public Collection<T> getLeft( P2<Task<T>, T> filter );
-    public Collection<T> getRight( P2<Task<T>, T> filter );
+    public Collection<T> getLeft( F2<Boolean, Task<T>, T> filter );
+    public Collection<T> getRight( F2<Boolean, Task<T>, T> filter );
 
     public boolean isMatched( T obj );
     public T       getMatch( T obj );

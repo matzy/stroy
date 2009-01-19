@@ -40,7 +40,7 @@ import net.java.dev.designgridlayout.DesignGridLayout;
 
 public class ShowDiffSummary<T extends Content> extends JPanel {
     private final JLabel multiple = new JLabel( Message.get( "Summary.multiple" ));
-    private final JLabel only = new JLabel( Message.get( "Summary.only" ));
+    private final JLabel only = new JLabel( Message.get( "Summary.only", 0 ));
     private final JLabel content = new JLabel( Message.get( "Summary.content" ));
     private final JLabel renamed = new JLabel( Message.get( "Summary.renamed" ));
     private final JLabel moved = new JLabel( Message.get( "Summary.moved" ));
@@ -61,6 +61,7 @@ public class ShowDiffSummary<T extends Content> extends JPanel {
     private JLabel rightDirsOnly;
     private JLabel rightFilesTotal;
     private JLabel rightFilesOnly;
+    private boolean onlyhas2Rows = false;
 
     public ShowDiffSummary( final java.util.List<TreeMatchingTask<T>> matchings,
                             final java.util.List<DefaultMutableTreeNode> roots ) {
@@ -71,43 +72,62 @@ public class ShowDiffSummary<T extends Content> extends JPanel {
         final DesignGridLayout layout = new DesignGridLayout( top );
         top.setLayout( layout );
 
-        int onlyLong = 1;
-        if ( only.getText().length() > 12 ) {
-            onlyLong = 2;
+        int totalSize = 1;
+        int onlySize = 1;
+        int contentSize = 1;
+        int renamedSize = 1;
+        int movedSize = 1;
+        int multipleSize = 1;
+
+        if ( true ) {
+            totalSize = 2;
+            onlySize = 3;
+            movedSize = 2;
+            multipleSize = 3;
         }
 
+        JLabel only2 = new JLabel();
+
         only.setForeground( Colors.ONLYHERE );
+        only2.setForeground( Colors.ONLYHERE );
         content.setForeground( Colors.CONTENT );
         renamed.setForeground( Colors.STRUCTUR );
         moved.setForeground( Colors.STRUCTUR );
         multiple.setForeground( Colors.CONTENT_AND_STRUCTUR );
 
         leftRootDir = new JLabel( getRootPath( roots.get(0) ) );
-        layout.row().label( new JLabel( Message.get( "Summary.first" ))).add( leftRootDir,6 ).add( refresh );
+        layout.row().label( new JLabel( Message.get( "Summary.first" ))).add( leftRootDir, totalSize + onlySize + contentSize + renamedSize + movedSize ).add( refresh, multipleSize );
         layout.row().label( new JLabel( Message.get( "Summary.second" ))).add( new JLabel( getRootPath( roots.get(1) ) ));
 
         layout.emptyRow( 20 );
 
         layout.row().empty().
-                add( new JLabel( Message.get( "Summary.total" ))).
-                add( only, onlyLong ).
-                add( content ).
-                add( renamed ).
-                add( moved ).
-                add( multiple) ;
+                add( new JLabel( Message.get( "Summary.total" ), totalSize)).
+                add( only, onlySize ).
+                add( content, contentSize ).
+                add( renamed, renamedSize ).
+                add( moved, movedSize ).
+                add( multiple, multipleSize) ;
+        if ( Message.hasNewLines( "Summary.only" )) {
+            only2.setText(Message.get("Summary.only", 1 )  );
+            layout.row().empty( 1 + totalSize ).
+                    add( only2, onlySize ).
+                    empty(contentSize + renamedSize + movedSize + multipleSize)
+                    ;
+        }
 
         leftDirsTotal = new JLabel( "" + matchings.get(0).getRightDirCount());
         leftDirsOnly = new JLabel( "" + matchings.get(0).getUnmatchedRightDirs().size() );
         layout.row().label( Message.getl( "Summary.first" )).add( new JLabel( Message.get("Summary.dirs"))).
-                add( leftDirsTotal ).
-                add( leftDirsOnly, onlyLong ).
-                empty(4)
+                add( leftDirsTotal, totalSize ).
+                add( leftDirsOnly, onlySize ).
+                empty(contentSize + renamedSize + movedSize + multipleSize)
                 ;
         leftFilesTotal = new JLabel( "" + matchings.get(0).getRightLeaveCount());
         leftFilesOnly = new JLabel( "" + matchings.get(0).getUnmatchedRightFiles().size() );
         layout.row().add( Message.getl( "Summary.files" )).
-                add( leftFilesTotal ).
-                add( leftFilesOnly, onlyLong ).
+                add( leftFilesTotal, totalSize ).
+                add( leftFilesOnly, onlySize ).
                 empty(4)
                 ;
 
@@ -115,37 +135,38 @@ public class ShowDiffSummary<T extends Content> extends JPanel {
         movedDirs = new JLabel( "" + matchings.get(0).getMovedDirs().size() );
         layout.row().label( Message.getl( "Summary.changed" )).
                 add( new JLabel( Message.get("Summary.dirs"))).
-                empty( onlyLong + 1).
+                empty( onlySize + contentSize).
                 add( new JLabel( "-" )).
-                add( renamedDirs ).
-                add( movedDirs ).
-                add( new JLabel( "-" ));
+                add( renamedDirs, renamedSize ).
+                add( movedDirs, movedSize ).
+                add( new JLabel( "-" ), multipleSize
+                );
         contentLeaves = new JLabel( "" + matchings.get(0).getModifiedLeaves().size() );
         renamedFiles = new JLabel( "" + matchings.get(0).getRenamedLeaves().size());
         movedFiles = new JLabel( "" + matchings.get(0).getMovedLeaves().size() );
         complexChanged = new JLabel( "" + matchings.get(0).getComplexModifiedLeaves().size());
         layout.row().
                 add( Message.getl( "Summary.files" )).
-                empty(onlyLong + 1).
-                add( contentLeaves ).
-                add( renamedFiles ).
-                add( movedFiles ).
-                add( complexChanged );
+                empty(onlySize + 1).
+                add( contentLeaves, contentSize ).
+                add( renamedFiles, renamedSize ).
+                add( movedFiles, movedSize ).
+                add( complexChanged, multipleSize );
 
         if ( matchings.size() ==  1 ) {
             rightDirsTotal = new JLabel( "" + matchings.get(0).getLeftDirCount() );
             rightDirsOnly = new JLabel( "" + matchings.get(0).getUnmatchedLeftDirs().size()  );
             layout.row().label( Message.getl( "Summary.second" )).add( new JLabel( Message.get("Summary.dirs"))).
                     add( rightDirsTotal ).
-                    add( rightDirsOnly, onlyLong ).
+                    add( rightDirsOnly, onlySize ).
                     empty(4)
                     ;
             rightFilesTotal = new JLabel( "" + matchings.get(0).getLeftLeaveCount());
             rightFilesOnly = new JLabel( "" + matchings.get(0).getUnmatchedLeftFiles().size() );
             layout.row().add( Message.getl( "Summary.files" )).
                     add( rightFilesTotal ).
-                    add( rightFilesOnly, onlyLong ).
-                    add( new JLabel(""),4)
+                    add( rightFilesOnly, onlySize ).
+                    empty(4)
                     ;
         } else {
 

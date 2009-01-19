@@ -3,6 +3,7 @@ package org.openCage.stroy.matching;
 import org.openCage.util.logging.Log;
 import org.openCage.util.lang.P2;
 import org.openCage.stroy.algo.matching.Task;
+import org.openCage.utils.func.F2;
 
 import java.util.*;
 
@@ -54,7 +55,7 @@ public class TaskNeutral<T> implements Task<T> {
 
     }
 
-    public Collection<T> getLeft( P2<Task<T>, T> filter ) {
+    public Collection<T> getLeft( F2<Boolean, Task<T>, T> filter ) {
         List<T> ret = new ArrayList<T>();
 
         for ( T obj : left2right.keySet() ) {
@@ -66,7 +67,7 @@ public class TaskNeutral<T> implements Task<T> {
         return ret;
     }
 
-    public Collection<T> getRight( P2<Task<T>, T> filter ) {
+    public Collection<T> getRight( F2<Boolean, Task<T>, T> filter ) {
         List<T> ret = new ArrayList<T>();
 
         for ( T obj : right2left.keySet() ) {
