@@ -38,7 +38,7 @@ public class WithIOTest {
 
         Integer res = null;
         try {
-            withReader("no such file", new F1<Integer, Reader>() {
+            withReader("no such file", new ReaderFunctor<Integer, Reader>() {
                 public Integer c( Reader reader ) {
                     return 5;
                 }

@@ -5,6 +5,8 @@ import org.openCage.util.logging.Log;
 import org.openCage.util.lang.V1;
 import static org.openCage.utils.io.with.WithIO.withReader;
 import static org.openCage.utils.io.with.WithIO.withWriter;
+import org.openCage.utils.io.with.ReaderFunctor;
+import org.openCage.utils.io.with.WriterFunctor;
 import org.openCage.utils.func.F1;
 import org.openCage.utils.func.F0;
 import org.openCage.utils.lang.BackgroundSaver;
@@ -13,6 +15,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.File;
 import java.io.Writer;
 import java.io.Reader;
+import java.io.IOException;
 
 import com.google.inject.Inject;
 
@@ -59,11 +62,11 @@ public class PersistenceImpl<T extends Persistable> implements Persistence<T> {
 
         if ( new File( path ).exists() ) {
             try {
-                prefs = withReader( path, new F1<T,Reader>() {
-                    public T c( Reader reader ) {
+                prefs = withReader( path, new ReaderFunctor<T, Reader>() {
+                    public T c(Reader reader) throws IOException {
                         return xstreamt.fromXML( reader );
                     }
-                } );
+                });
             } catch ( Exception exp ) {
                 Log.warning( "failed to read existing preference file. Using default." );
                 prefs = init;
@@ -101,8 +104,8 @@ public class PersistenceImpl<T extends Persistable> implements Persistence<T> {
 
         String path = getPathEnsure( name );
 
-        withWriter( path, new V1<Writer>() {
-            public void call( Writer writer ) {
+        withWriter( path, new WriterFunctor() {
+            public void c( Writer writer ) {
                 xstreamt.toXML( prefs, writer );
             }
         } );

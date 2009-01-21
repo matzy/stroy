@@ -45,7 +45,7 @@ public class WithIO {
      * @param <T> The return type of the function
      * @return The return of the function f
      */
-    public static <T> T withReader( String path, F1<T, Reader> f ) {
+    public static <T> T withReader( String path, ReaderFunctor<T, Reader> f ) {
         Reader reader = null;
         T      ret;
         try {
@@ -60,6 +60,8 @@ public class WithIO {
             System.err.println( err );
             throw err;
 
+        } catch (IOException e) {
+            throw unchecked(e);
         } finally {
             if ( reader != null ) {
                 try {
@@ -74,11 +76,11 @@ public class WithIO {
         }
     }
 
-    public static void withWriter( String path, V1<Writer> v ) {
+    public static void withWriter( String path, WriterFunctor v ) {
         Writer writer = null;
         try {
             writer = new FileWriter( path );
-            v.call( writer );
+            v.c( writer );
         } catch( IOException e ) {
             throw unchecked( e );
         } catch( Error err ) {
