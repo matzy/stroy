@@ -147,6 +147,12 @@
         </jar>
     </target>
 
+    <target name="crypt" depends="compile">
+        <jar jarfile="${lib}/crypt.jar" basedir="${build}" manifest="${manifests}/crypt.mf">
+            <fileset dir="${build}" excludes="**/*test*"/>
+        </jar>
+    </target>
+
 
 
     <!-- Create a JNI library for launching the Help Viewer -->

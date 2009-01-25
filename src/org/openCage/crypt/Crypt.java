@@ -94,9 +94,10 @@ public class Crypt {
 //    }
 
     private char xor( char a, char b ) {
+        b &= 0x007f;
         char res = (char)(a ^ b);
 
-        if ( res > 255 ) {
+        if ( res > 127 ) {
             return a;
         }
 
