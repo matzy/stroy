@@ -62,7 +62,7 @@ public class PersistenceImpl<T extends Persistable> implements Persistence<T> {
 
         if ( new File( path ).exists() ) {
             try {
-                prefs = withReader( path, new ReaderFunctor<T, Reader>() {
+                prefs = withReader( path, new ReaderFunctor<T>() {
                     public T c(Reader reader) throws IOException {
                         return xstreamt.fromXML( reader );
                     }

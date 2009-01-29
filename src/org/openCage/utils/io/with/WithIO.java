@@ -5,12 +5,11 @@ import org.openCage.util.logging.Log;
 import static org.openCage.utils.lang.unchecked.Unchecked.unchecked;
 import org.openCage.utils.func.F1;
 
-import java.io.FileReader;
-import java.io.Reader;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.Writer;
-import java.io.FileWriter;
+import java.io.*;
+import java.net.URL;
+import java.net.MalformedURLException;
+import java.net.URLConnection;
+
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -36,6 +35,106 @@ import java.io.FileWriter;
 
 public class WithIO {
 
+
+    public static <T> T withIS( URL url, InputStreamFunctor<T> f ) {
+        URLConnection connection;
+        InputStream is = null;
+        try {
+            connection = url.openConnection();
+            is         = connection.getInputStream();
+
+            return  f.c( is );
+        } catch (IOException e) {
+            throw unchecked( e );
+        } finally {
+            if ( is != null ) {
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    Log.warning( "strange 'could not close' in a finally: " + e );
+                }
+            }
+        }
+    }
+
+    public static <T> T withIS( File file, InputStreamFunctor<T> f ) {
+        InputStream is = null;
+        try {
+            is = new FileInputStream( file );
+
+            return  f.c( is );
+        } catch (IOException e) {
+            throw unchecked( e );
+        } finally {
+            if ( is != null ) {
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    Log.warning( "strange 'could not close' in a finally: " + e );
+                }
+            }
+        }
+    }
+
+    public static <T> T withOS( File file, OutputStreamFunctor<T> f ) {
+        OutputStream os = null;
+
+        try {
+            os = new FileOutputStream( file );
+            return f.c( os );
+        } catch (FileNotFoundException e) {
+            throw unchecked(e );
+        } catch (IOException e) {
+            throw unchecked(e );
+        } finally {
+            if ( os != null ) {
+                try {
+                    os.close();
+                } catch (IOException e) {
+                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                }
+            }
+        }
+    }
+
+    public static <T> T readFromUrl( String urlstr ) throws MalformedURLException {
+        new URL( urlstr );
+
+        return null;
+    }
+
+
+    public static <T> T URLwithReader( String urlstr, ReaderFunctor<T> f ) {
+        Reader reader = null;
+        T      ret;
+        URL url    = null;
+        InputStream is = null;
+
+        try {
+            url = new URL( urlstr );
+            URLConnection connection = url.openConnection();
+            is = connection.getInputStream();
+
+            ret = f.c( new InputStreamReader(is ));
+            return ret;
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            throw new Error(e);
+        } catch (IOException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            throw new Error(e);
+        } finally {
+            if ( is != null ) {
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                }
+            }
+        }
+    }
+
     /**
      * Executes a method on a Reader of the file proved by the path
      * It makes sure that the reader is closed afterwards
@@ -45,7 +144,7 @@ public class WithIO {
      * @param <T> The return type of the function
      * @return The return of the function f
      */
-    public static <T> T withReader( String path, ReaderFunctor<T, Reader> f ) {
+    public static <T> T withReader( String path, ReaderFunctor<T> f ) {
         Reader reader = null;
         T      ret;
         try {

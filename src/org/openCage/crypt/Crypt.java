@@ -27,7 +27,7 @@ public class Crypt {
     public void read() {
 
         padLen =
-                WithIO.withReader( padfile, new ReaderFunctor<Integer, Reader>() {
+                WithIO.withReader( padfile, new ReaderFunctor<Integer>() {
                     public Integer c(Reader reader) throws IOException{
                         return reader.read( pad );
                     }
@@ -35,7 +35,7 @@ public class Crypt {
 
 
         textLen =
-                WithIO.withReader( textfile, new ReaderFunctor<Integer, Reader>() {
+                WithIO.withReader( textfile, new ReaderFunctor<Integer>() {
                     public Integer c(Reader reader) throws IOException{
                         return reader.read( text );
                     }

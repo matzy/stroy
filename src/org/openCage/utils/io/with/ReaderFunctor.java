@@ -1,6 +1,7 @@
 package org.openCage.utils.io.with;
 
 import java.io.IOException;
+import java.io.Reader;
 
 /**
  * Created by IntelliJ IDEA.
@@ -9,8 +10,8 @@ import java.io.IOException;
  * Time: 10:55:40 AM
  * To change this template use File | Settings | File Templates.
  */
-public interface ReaderFunctor<R,A> {
+public interface ReaderFunctor<R> {
 
-    public R c( A a ) throws IOException;
+    public R c( Reader reader ) throws IOException;
 
 }
