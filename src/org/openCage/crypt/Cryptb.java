@@ -43,13 +43,22 @@ public class Cryptb {
         }
 
 
-
-        textLen =
-                WithIO.withIS( new File(textfile), new InputStreamFunctor<Integer>() {
-                    public Integer c(InputStream reader) throws IOException{
-                        return reader.read( text );
-                    }
-                });
+        try {
+            URL texturl = new URL( textfile );
+            textLen =
+                    WithIO.withIS( texturl, new InputStreamFunctor<Integer>() {
+                        public Integer c(InputStream reader) throws IOException{
+                            return reader.read( text );
+                        }
+                    });
+        } catch (MalformedURLException e) {
+            textLen =
+                    WithIO.withIS( new File(textfile), new InputStreamFunctor<Integer>() {
+                        public Integer c(InputStream reader) throws IOException{
+                            return reader.read( text );
+                        }
+                    });
+        }
     }
 
 
