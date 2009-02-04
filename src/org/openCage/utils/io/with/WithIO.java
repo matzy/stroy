@@ -36,32 +36,39 @@ import java.net.URLConnection;
 public class WithIO {
 
 
+    /**
+     * 
+     * @param url
+     * @param f
+     * @return
+     */
     public static <T> T withIS( URL url, InputStreamFunctor<T> f ) {
-        URLConnection connection;
-        InputStream is = null;
+        URLConnection connection = null;
         try {
             connection = url.openConnection();
-            is         = connection.getInputStream();
-
-            return  f.c( is );
         } catch (IOException e) {
             throw unchecked( e );
-        } finally {
-            if ( is != null ) {
-                try {
-                    is.close();
-                } catch (IOException e) {
-                    Log.warning( "strange 'could not close' in a finally: " + e );
-                }
-            }
+        }
+
+        try {
+            InputStream is = connection.getInputStream();
+            return withIS( is, f );
+        } catch (IOException e) {
+            throw unchecked( e );
         }
     }
 
     public static <T> T withIS( File file, InputStreamFunctor<T> f ) {
-        InputStream is = null;
         try {
-            is = new FileInputStream( file );
+            InputStream is = new FileInputStream( file );
+            return withIS( is, f );
+        } catch (FileNotFoundException e) {
+            throw unchecked( e );
+        }
+    }
 
+    public static <T> T withIS( InputStream is, InputStreamFunctor<T> f ) {
+        try {
             return  f.c( is );
         } catch (IOException e) {
             throw unchecked( e );

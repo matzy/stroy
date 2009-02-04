@@ -1,8 +1,5 @@
 package org.openCage.utils.lang.unchecked;
 
-import org.openCage.utils.lang.unchecked.FileNotFoundExceptionUC;
-import org.openCage.utils.lang.unchecked.IOExceptionUC;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 

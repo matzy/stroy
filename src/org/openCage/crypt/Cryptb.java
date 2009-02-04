@@ -5,6 +5,7 @@ import org.openCage.utils.io.with.*;
 import java.io.*;
 import java.net.URL;
 import java.net.MalformedURLException;
+import static org.openCage.utils.lang.Math.xor;
 
 public class Cryptb {
     private String padfile;
@@ -116,14 +117,4 @@ public class Cryptb {
 //        }
 //    }
 
-    private byte xor( byte a, byte b ) {
-//        b &= 0x007f;
-        char res = (char)(a ^ b);
-
-//        if ( res > 127 ) {
-//            return a;
-//        }
-//
-        return (byte)res;
-    }
 }
