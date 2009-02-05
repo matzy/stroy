@@ -87,6 +87,7 @@ public class Crypt {
         }
     }
 
+
 //    private void show() {
 //        for( int idx = 0; idx < textLen; ++idx ) {
 //            System.out.println( (int)text[idx] + " -> " + (int)textout[idx]);
