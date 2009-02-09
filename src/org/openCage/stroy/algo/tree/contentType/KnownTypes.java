@@ -28,23 +28,23 @@ import java.util.Collection;
 
 public class KnownTypes {
 
-    private Map<String,ContentType> known = new HashMap<String, ContentType>();
-    private Map<String,ContentType> exts = new HashMap<String, ContentType>();
+    private Map<String, ContentTypeA> known = new HashMap<String, ContentTypeA>();
+    private Map<String, ContentTypeA> exts = new HashMap<String, ContentTypeA>();
 
-    public ContentType get( String name ) {
+    public ContentTypeA get( String name ) {
         return known.get(name);
     }
 
-    public Collection<ContentType> getAll() {
+    public Collection<ContentTypeA> getAll() {
         return known.values();
     }
 
     public KnownTypes() {
-        known.put( "Java", new ContentType( "Java").
+        known.put( "Java", new ContentTypeA( "Java").
                 withDescr( "Java program source file" ).
                 asText().
                 withExtension( "Java"));
-        known.put( "C", new ContentType( "C").
+        known.put( "C", new ContentTypeA( "C").
                 withDescr( "C/C++ program source or header file" ).
                 asText().
                 withExtension( "cpp").
@@ -53,30 +53,30 @@ public class KnownTypes {
                 withExtension( "c").
                 withExtension( "hpp").
                 withExtension( "h"));
-        known.put( "Text", new ContentType( "Text").
+        known.put( "Text", new ContentTypeA( "Text").
                 withDescr( "Text" ).
                 asText().
                 withExtension( "text").
                 withExtension( "txt"));
-        known.put( "TeX", new ContentType( "TeX").
+        known.put( "TeX", new ContentTypeA( "TeX").
                 withDescr( "TeX file (Knuth)" ).
                 asText().
                 withExtension( "tex"));
 
-        known.put( "JPG", new ContentType( "JPG").
+        known.put( "JPG", new ContentTypeA( "JPG").
                 withDescr( "JPEG picture" ).
                 asPic().
                 withExtension( "jpeg" ).
                 withExtension( "jpg"));
 
-        known.put( "MP3", new ContentType( "MP3").
+        known.put( "MP3", new ContentTypeA( "MP3").
                 withDescr( "MPEG3 audio file" ).
                 asMusic().
                 withExtension( "mp3" ).
                 withExtension( "mpg3" ).
                 withExtension( "mpeg3"));
 
-        for ( ContentType ct : known.values() ) {
+        for ( ContentTypeA ct : known.values() ) {
             for ( String ext : ct.getExtensions()) {
                 exts.put( ext, ct );
             }

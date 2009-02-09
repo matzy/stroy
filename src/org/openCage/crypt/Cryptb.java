@@ -17,6 +17,8 @@ public class Cryptb {
     private int padLen;
     private String outfile;
 
+    private BufferXor bxor = new BufferXor();
+
     public Cryptb( String padfile, String textfile, String outfile ) {
         this.padfile = padfile;
         this.textfile = textfile;
@@ -87,34 +89,8 @@ public class Cryptb {
     }
 
     private void encrypt() {
-        int pdx = 1001;
-        if ( pdx >= padLen ) {
-            pdx = 0;
-        }
-        for( int idx = 0; idx < textLen; ++idx ) {
-
-            while( pad[pdx] == 0 ) {
-                pdx++;
-                if ( pdx >= padLen ) {
-                    pdx = 0;
-                }
-            }
-
-            textout[idx] = xor( text[idx], pad[pdx ]);
-
-            //char check = xor(textout[idx], pad[pdx]);
-
-            pdx++;
-            if ( pdx >= padLen ) {
-                pdx = 0;
-            }
-        }
+        bxor.xor(  text, textout, textLen, pad, padLen, 1001 );
     }
 
-//    private void show() {
-//        for( int idx = 0; idx < textLen; ++idx ) {
-//            System.out.println( (int)text[idx] + " -> " + (int)textout[idx]);
-//        }
-//    }
 
 }

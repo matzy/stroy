@@ -31,7 +31,7 @@ public class ContentTypeByExtension implements ContentTypeFactory<File> {
     public ContentTypeByExtension() {
     }
 
-    public ContentType create( File file ) {
+    public ContentTypeA create( File file ) {
         String ext = FileUtils.getExtension( file );
 
         return null;

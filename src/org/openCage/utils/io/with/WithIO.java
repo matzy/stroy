@@ -33,6 +33,10 @@ import java.net.URLConnection;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
+/**
+ * utility function to read from an Stream (Url, File) ...
+ * so that it is always cleanup, closed
+ */
 public class WithIO {
 
 
@@ -58,6 +62,12 @@ public class WithIO {
         }
     }
 
+    /**
+     * read from file, closed after wards
+     * @param file A File.
+     * @param f A Function working with that file.
+     * @return Return value.
+     */
     public static <T> T withIS( File file, InputStreamFunctor<T> f ) {
         try {
             InputStream is = new FileInputStream( file );
