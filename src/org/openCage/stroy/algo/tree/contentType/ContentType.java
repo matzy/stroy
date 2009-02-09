@@ -13,7 +13,7 @@ public class ContentType {
     String description;
 
     public ContentType( String extension, String descr ) {
-        this.name = name;
+        this.name = extension;
         this.description = descr;
     }
 }
