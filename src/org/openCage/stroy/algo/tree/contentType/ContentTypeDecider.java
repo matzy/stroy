@@ -13,5 +13,5 @@ import java.io.InputStream;
  */
 public interface ContentTypeDecider {
 
-    public ContentType decide( String extension, Lazy<InputStream> is );
+    public ContentType decide( String name, Lazy<InputStream> is );
 }

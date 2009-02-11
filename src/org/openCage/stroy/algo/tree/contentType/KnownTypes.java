@@ -28,23 +28,23 @@ import java.util.Collection;
 
 public class KnownTypes {
 
-    private Map<String, ContentTypeA> known = new HashMap<String, ContentTypeA>();
-    private Map<String, ContentTypeA> exts = new HashMap<String, ContentTypeA>();
+    private Map<String, ContentType> known = new HashMap<String, ContentType>();
+    private Map<String, ContentType> exts = new HashMap<String, ContentType>();
 
-    public ContentTypeA get( String name ) {
+    public ContentType get( String name ) {
         return known.get(name);
     }
 
-    public Collection<ContentTypeA> getAll() {
+    public Collection<ContentType> getAll() {
         return known.values();
     }
 
     public KnownTypes() {
-        known.put( "Java", new ContentTypeA( "Java").
+        known.put( "Java", new ContentType( "Java").
                 withDescr( "Java program source file" ).
                 asText().
                 withExtension( "Java"));
-        known.put( "C", new ContentTypeA( "C").
+        known.put( "C", new ContentType( "C").
                 withDescr( "C/C++ program source or header file" ).
                 asText().
                 withExtension( "cpp").
@@ -53,34 +53,71 @@ public class KnownTypes {
                 withExtension( "c").
                 withExtension( "hpp").
                 withExtension( "h"));
-        known.put( "Text", new ContentTypeA( "Text").
+        known.put( "Text", new ContentType( "Text").
                 withDescr( "Text" ).
                 asText().
                 withExtension( "text").
                 withExtension( "txt"));
-        known.put( "TeX", new ContentTypeA( "TeX").
+        known.put( "TeX", new ContentType( "TeX").
                 withDescr( "TeX file (Knuth)" ).
                 asText().
                 withExtension( "tex"));
 
-        known.put( "JPG", new ContentTypeA( "JPG").
+        known.put( "JPG", new ContentType( "JPG").
                 withDescr( "JPEG picture" ).
-                asPic().
+                withEXIF().
                 withExtension( "jpeg" ).
                 withExtension( "jpg"));
 
-        known.put( "MP3", new ContentTypeA( "MP3").
+        known.put( "MP3", new ContentType( "MP3").
                 withDescr( "MPEG3 audio file" ).
-                asMusic().
+                withID3().
                 withExtension( "mp3" ).
                 withExtension( "mpg3" ).
                 withExtension( "mpeg3"));
 
-        for ( ContentTypeA ct : known.values() ) {
+        add( "PDF").withDescr( "Adobe portable document format" ).
+                asText().
+                withExtension("pdf");
+
+
+        add( "log").withDescr( "log file" ).
+                asText().
+                withExtension( "log");
+
+        add( "xml").withDescr( "XML file" ).
+                asText().
+                asXML().
+                withExtension("xml");
+
+        add( "html" ).withDescr( "hypertext meta language" ).
+                asText().
+                asXML().
+                withExtension("html").
+                withExtension("htm");
+//        "ism", "",
+//        "dtd", "XML scheme definition",
+//        "jspx", "java server page in xml",
+//        "plist", "",
+//        "xls", "MS Excel data",
+//        "iml", "IntelliJ Idea module description",
+//        "ipr", "IntelliJ Idea project description",
+//        "iws", "" };
+
+
+
+        for ( ContentType ct : known.values() ) {
             for ( String ext : ct.getExtensions()) {
                 exts.put( ext, ct );
             }
         }
     }
+
+    private ContentType add( String name ) {
+        ContentType ct = new ContentType( name );
+        known.put( name, ct );
+        return ct;
+    }
+
 
 }

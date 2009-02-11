@@ -24,5 +24,5 @@ package org.openCage.stroy.algo.tree.contentType;
 
 public interface ContentTypeFactory<T> {
 
-    public ContentTypeA create( T t );
+    public ContentType create( T t );
 }

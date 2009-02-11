@@ -1,6 +1,7 @@
 package org.openCage.stroy.algo.tree.contentType;
 
 import org.openCage.util.lang.Lazy;
+import org.openCage.util.io.FileUtils;
 
 import java.io.InputStream;
 
@@ -13,14 +14,21 @@ import java.io.InputStream;
  */
 public class ContentTypeDeciderByExtensionOnly implements ContentTypeDecider {
 
+    private KnownTypes known = new KnownTypes();
 
-    public ContentType decide( String extension, Lazy<InputStream> is ) {
+    public ContentType decide( String name, Lazy<InputStream> is ) {
 
-        if ( extension.compareToIgnoreCase( "java" ) == 0 ) {
-            return new ContentType( "","");
+        String ext = FileUtils.getExtension( name );
+
+        if ( ext.equals( "" )) {
+
         }
 
+        ContentType ct = known.get(name);
+        if ( ct != null ) {
+            return ct;
+        }
 
-        return new ContentType( extension, "unknown");
+        return null; // new ContentType( name, "unknown");
     }
 }
