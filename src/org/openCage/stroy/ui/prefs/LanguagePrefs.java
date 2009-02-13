@@ -12,19 +12,17 @@ import java.awt.*;
 
 public class LanguagePrefs extends JPanel {
 
-    private LocalizedComboBox languageBox;
-
     public LanguagePrefs() {
 
-        languageBox = new LocalizedComboBox( Message.localKey );
+        LocalizedComboBox languageBox = new LocalizedComboBox(Message.localKey);
 
         JPanel top = new JPanel();
         DesignGridLayout layout = new DesignGridLayout( top );
         top.setLayout( layout );
 
         layout.row().add( new JLabel(""));
-        layout.row().empty().add( Message.getl( "Pref.language.which" )).add( languageBox ).empty();
-        layout.centerRow().add( Message.getl( "Pref.language.warning" ));
+        layout.row().add( Message.getl( "Pref.language.which" ), 1 ).add(languageBox);
+        layout.row().empty().add( Message.getl( "Pref.language.warning" ));
 
         top.setBorder( new TitledBorder( Message.get( "Pref.language.title" ) ));
 
