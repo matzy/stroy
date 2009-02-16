@@ -3,6 +3,7 @@ package org.openCage.stroy.ui;
 import com.google.inject.Inject;
 import com.muchsoft.util.mac.Java14Adapter;
 import com.muchsoft.util.mac.Java14Handler;
+import com.muchsoft.util.Sys;
 import org.openCage.util.io.FileUtils;
 import org.openCage.stroy.dir.FileContent;
 import org.openCage.stroy.graph.matching.strategy.MatchStrategy;
@@ -233,6 +234,12 @@ public class DirSelectorImpl extends JFrame
 //        layout.row().label( "Third").add( threeTxt, 8 ).add( threeButton );
 
          layout.row().add( new JLabel(""),4).add( go ).add(new JLabel(""),4);
+
+        // fix layout problem in no macs
+        // TODO check newer designgridlayout
+        if ( !Sys.isMacOSX() ) {
+            layout.row().empty();
+        }
 
 
         getContentPane().setLayout( new BorderLayout());
