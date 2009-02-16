@@ -48,6 +48,10 @@ public class PortableMenu implements Menu {
     private JMenu menuView    = new JMenu( Message.get( "Menu.View" ) );
     private JMenu menuHelp    = new JMenu( Message.get( "Menu.Help" ) );
 
+    public PortableMenu() {
+        int i = 0;
+    }
+
 
     public void create() {
         JMenuBar mbar = new JMenuBar();

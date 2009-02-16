@@ -11,6 +11,7 @@ import org.openCage.stroy.task.NodeChangeListener;
 import org.openCage.stroy.content.Content;
 import org.openCage.stroy.app.Tasks;
 import org.openCage.stroy.app.UIApp;
+import org.openCage.stroy.app.StroyAppInfo;
 import org.openCage.stroy.filter.Ignore;
 import org.openCage.stroy.filter.IgnoreChangedListener;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
@@ -21,6 +22,7 @@ import org.openCage.stroy.ui.util.DMTNMaker;
 import org.openCage.stroy.ui.util.NodeToNode;
 import org.openCage.util.logging.Log;
 import org.openCage.util.ui.TreeUtils;
+import org.openCage.util.app.AppInfo;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -233,6 +235,7 @@ public class GraphicalDiffMyDoggy<T extends Content> extends JFrame implements I
         }
 
         PortableMenu menu = new PortableMenu();
+        menu.setAppInfo( new StroyAppInfo());
         menu.setFrame( this );
         menu.create();
 
