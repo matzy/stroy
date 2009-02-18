@@ -153,6 +153,11 @@
         </jar>
     </target>
 
+    <target name="file" depends="compile">
+        <jar jarfile="${lib}/file.jar" basedir="${build}" manifest="${manifests}/file.mf">
+            <fileset dir="${build}" excludes="**/*test*"/>
+        </jar>
+    </target>
 
 
     <!-- Create a JNI library for launching the Help Viewer -->

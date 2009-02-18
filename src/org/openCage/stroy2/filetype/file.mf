@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Created-By: Stephan Pfab
+Class-Path: commons-cli-1.0.jar commons-logging-1.1.jar guice-1.0.jar mime-util-1.2.jar
+Main-Class: org.openCage.stroy2.filetype.FileType
