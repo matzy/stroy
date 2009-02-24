@@ -115,9 +115,10 @@ public class StandardProgUI extends JPanel {
                     String path = FileChooser.open( frame, FileUtils.getCurrentDir());
 
                     if ( path != null ) {
-                        diffText.setText( FileUtils.normalizePath( path ));
+                        String norm = FileUtils.normalizePath( path );
+                        diffText.setText( norm );
+                        diffPref.set( norm );
                     }
-
             }
         });
 
@@ -133,7 +134,9 @@ public class StandardProgUI extends JPanel {
                     String path = FileChooser.open( frame, FileUtils.getCurrentDir());
 
                     if ( path != null ) {
-                        editorText.setText( FileUtils.normalizePath( path ));
+                        String norm = FileUtils.normalizePath( path );
+                        editorText.setText( norm );
+                        editorPref.set( norm );
                     }
 
             }
@@ -154,16 +157,16 @@ public class StandardProgUI extends JPanel {
             }
         });
 
-        diffButton.addActionListener( new ActionListener() {
-            public void actionPerformed(ActionEvent actionEvent) {
-                    String path = FileChooser.open( frame, FileUtils.getCurrentDir());
-
-                    if ( path != null ) {
-                        editorText.setText( FileUtils.normalizePath( path ));
-                    }
-
-            }
-        });
+//        diffButton.addActionListener( new ActionListener() {
+//            public void actionPerformed(ActionEvent actionEvent) {
+//                    String path = FileChooser.open( frame, FileUtils.getCurrentDir());
+//
+//                    if ( path != null ) {
+//                        editorText.setText( FileUtils.normalizePath( path ));
+//                    }
+//
+//            }
+//        });
 
         stdDiff.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
@@ -172,6 +175,7 @@ public class StandardProgUI extends JPanel {
                 diffPref.set( ExternalProgs.OS_TEXT_EDIT );
             }
         });
+
         otherDiff.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
                 diffText.setEnabled( true );
