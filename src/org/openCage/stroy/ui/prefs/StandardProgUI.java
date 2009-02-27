@@ -4,13 +4,17 @@ import javax.swing.*;
 
 import org.openCage.util.prefs.PreferenceString;
 import org.openCage.util.ui.FileChooser;
+import org.openCage.util.ui.JTextFields;
 import org.openCage.util.io.FileUtils;
 import org.openCage.util.external.ExternalProgs;
 import org.openCage.stroy.locale.Message;
+import org.openCage.stroy.ui.Colors;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import com.muchsoft.util.Sys;
 import net.java.dev.designgridlayout.DesignGridLayout;
@@ -157,17 +161,6 @@ public class StandardProgUI extends JPanel {
             }
         });
 
-//        diffButton.addActionListener( new ActionListener() {
-//            public void actionPerformed(ActionEvent actionEvent) {
-//                    String path = FileChooser.open( frame, FileUtils.getCurrentDir());
-//
-//                    if ( path != null ) {
-//                        editorText.setText( FileUtils.normalizePath( path ));
-//                    }
-//
-//            }
-//        });
-
         stdDiff.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
                 diffText.setEnabled( false );
@@ -229,6 +222,24 @@ public class StandardProgUI extends JPanel {
             otherDiff.setSelected( true );
             diffText.setText( diffPref.get() );
         }
+
+        diffText.addKeyListener( new KeyAdapter() {
+            public void keyReleased(KeyEvent keyEvent) {
+                super.keyReleased( keyEvent );
+                if ( JTextFields.isFile( diffText, Colors.BACKGROUND_NEUTRAL, Colors.BACKGROUND_WARN)) {
+                    diffPref.set( diffText.getText() );
+                }
+            }
+        });
+
+        editorText.addKeyListener( new KeyAdapter() {
+            public void keyReleased(KeyEvent keyEvent) {
+                super.keyReleased( keyEvent );
+                if ( JTextFields.isFile( editorText, Colors.BACKGROUND_NEUTRAL, Colors.BACKGROUND_WARN)) {
+                    editorPref.set( editorText.getText() );
+                }
+            }
+        });
 
 
     }

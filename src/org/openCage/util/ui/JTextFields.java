@@ -32,6 +32,11 @@ public class JTextFields {
 
     public static boolean isFile( JTextField field, Color neutral, Color warning ) {
 
+        if ( new File(field.getText()).exists() && new File(field.getText()).isFile() ) {
+            field.setBackground( Colors.BACKGROUND_NEUTRAL );
+            return true;            
+        }
+                
         String txt = field.getText();
         txt.trim();
 
