@@ -1,0 +1,47 @@
+<project name="openCage-utils" default="openCage-utils.jar"  basedir=".">
+
+    <property name="src" value="src/main/java"/>
+    <property name="build" value="build"/>
+    <property name="lib" value="lib"/>
+    <property name="external" value="../external"/>
+
+    <fileset id="externalsSet" dir="${external}/production">
+        <include name="*.jar"/>
+    </fileset>
+
+    <path id="externals">
+        <fileset refid="externalsSet"/>
+    </path>
+
+
+
+    <target name="prepare">
+        <tstamp/>
+        <mkdir dir="${build}"/>
+        <mkdir dir="${lib}"/>
+       </target>
+
+    <target name="clean">
+        <delete dir="${build}"/>
+        <delete dir="${lib}"/>
+    </target>
+
+
+    <target name="compile" depends="prepare">
+        <javac srcdir="${src}" destdir="${build}">
+            <classpath refid="externals"></classpath>
+        </javac>
+
+    </target>
+
+
+    <target name="openCage-utils.jar" depends="compile">
+        <jar jarfile="${lib}/openCage-utils.jar" basedir="${build}" >
+             <!--manifest="${src}/org/openCage/exp/jpf/base.mf">-->
+        </jar>
+
+    </target>
+
+
+
+</project>

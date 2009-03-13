@@ -36,7 +36,7 @@ public class PlatformTest extends TestCase {
     }
 
     public void testJpg() {
-        assertFalse( Platform.isBundle( "foo.jpg" ));
+        assertFalse( Platform.isBundle( "foo.jpf" ));
     }
 
     public void testNoDot() {
