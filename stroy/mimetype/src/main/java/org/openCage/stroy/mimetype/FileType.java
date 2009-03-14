@@ -1,6 +1,7 @@
-package org.openCage.stroy2.filetype;
+package org.openCage.stroy.mimetype;
 
-import eu.medsea.util.MimeUtil;
+
+import eu.medsea.mimeutil.MimeUtil;
 
 import java.io.File;
 import java.util.logging.Logger;
@@ -65,7 +66,9 @@ public class FileType {
             if ( cltArgs.isVerbose() ) {
                 System.out.print( prefix + "  By extension: ");
             }
-            System.out.println( MimeUtil.getExtensionMimeTypes( file));
+            
+
+            System.out.println( MimeUtil.getMimeTypes( file ));
         }
 
         if ( !cltArgs.extensionOnly() ) {
@@ -78,14 +81,14 @@ public class FileType {
             if ( cltArgs.isVerbose() ) {
                 System.out.print( prefix + "  By content:   ");
             }
-            System.out.println( MimeUtil.getMagicMimeType( file));
+            System.out.println( MimeUtil.getMimeTypes( file));
         }
     }
 
     private static void swallowWarningMessage() {
         // swallow the warning message that this is not UNIX, e.g. no magic at /etc/somesuch
         Logger.getLogger("").setLevel( Level.SEVERE );
-        MimeUtil.getExtensionMimeTypes( "foo.txt");
+        MimeUtil.getMimeTypes( "foo.txt");
         Logger.getLogger("").setLevel( Level.INFO );
     }
 }

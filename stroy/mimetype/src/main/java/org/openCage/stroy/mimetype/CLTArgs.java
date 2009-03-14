@@ -1,8 +1,13 @@
-package org.openCage.stroy2.filetype;
+package org.openCage.stroy.mimetype;
 
-import org.apache.commons.cli.*;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.GnuParser;
 
 import java.util.logging.Logger;
+import java.text.ParseException;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -66,7 +71,8 @@ public class CLTArgs {
     }
 
     private void usage() {
-        // automatically generate the help statement
+        // au
+        // tomatically generate the help statement
         HelpFormatter formatter = new HelpFormatter();
 
         //formatter.printUsage();
@@ -80,11 +86,10 @@ public class CLTArgs {
         CommandLineParser parser = new GnuParser();
         try {
             line = parser.parse( options, args );
-
-        } catch( ParseException exp ) {
+        } catch ( org.apache.commons.cli.ParseException e ) {
             // oops, something went wrong
             ok = false;
-            log.severe( "argument parse exception" );            
+            log.severe( "argument parse exception" );
         }
 
     }
