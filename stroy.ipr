@@ -9,6 +9,13 @@
       <maximumHeapSize value="128" />
       <properties />
     </buildFile>
+    <buildFile url="file://$PROJECT_DIR$/stroy/mimetype/build.xml">
+      <additionalClassPath />
+      <antReference projectDefault="true" />
+      <customJdkName value="" />
+      <maximumHeapSize value="128" />
+      <properties />
+    </buildFile>
   </component>
   <component name="BuildJarProjectSettings">
     <option name="BUILD_JARS_ON_MAKE" value="false" />
@@ -263,6 +270,7 @@
   </component>
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/stroy/filesimilarity/filesimilarity.iml" filepath="$PROJECT_DIR$/stroy/filesimilarity/filesimilarity.iml" />
       <module fileurl="file://$PROJECT_DIR$/ipad/ipad.iml" filepath="$PROJECT_DIR$/ipad/ipad.iml" />
       <module fileurl="file://$PROJECT_DIR$/stroy/mimetype/mimetype.iml" filepath="$PROJECT_DIR$/stroy/mimetype/mimetype.iml" />
       <module fileurl="file://$PROJECT_DIR$/openCage-utils/openCage-utils.iml" filepath="$PROJECT_DIR$/openCage-utils/openCage-utils.iml" />
