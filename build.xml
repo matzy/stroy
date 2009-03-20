@@ -16,9 +16,9 @@
     <property name="resources" value="resources"/>
     <property name="jdoc" value="jdoc"/>
     <property name="deply" value="deploy"/>
-    <property name="xplatform" value="deply/xplatform"/>
-    <property name="osx" value="deply/osx"/>
-    <property name="win" value="deply/win"/>
+    <property name="xplatform" value="deploy/xplatform"/>
+    <property name="osx" value="deploy/osx"/>
+    <property name="win" value="deploy/win"/>
 
     <taskdef name="jarbundler"
              classpath="${external}/build/jarbundler-2.0.0.jar"
