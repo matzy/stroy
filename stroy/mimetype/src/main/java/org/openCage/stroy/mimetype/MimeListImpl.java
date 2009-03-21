@@ -1,4 +1,8 @@
-package org.openCage.utils.func;
+package org.openCage.stroy.mimetype;
+
+import eu.medsea.mimeutil.MimeType;
+
+import java.util.Collection;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -22,11 +26,11 @@ package org.openCage.utils.func;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-/**
- * A Function with 1 argument throwing some exceptions
- */
-public interface E1<R,A> {
+public class MimeListImpl implements MimeList {
 
-    public R c( A a ) throws Exception;
+    private final Collection<MimeType> mimeTypes;
 
+    public MimeListImpl( final Collection<MimeType> mimeTypes ) {
+        this.mimeTypes = mimeTypes;
+    }
 }

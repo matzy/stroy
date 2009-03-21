@@ -1,6 +1,6 @@
 package org.openCage.utils.io;
 
-import org.openCage.utils.func.E1;
+import org.openCage.lang.E1;
 
 import java.io.*;
 import java.util.logging.Logger;

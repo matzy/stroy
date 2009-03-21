@@ -7,9 +7,8 @@ import java.io.IOException;
 import java.io.File;
 import java.io.OutputStream;
 
-import static org.openCage.utils.Math.xor;
 import org.openCage.utils.io.With;
-import org.openCage.utils.func.E1;
+import org.openCage.lang.E1;
 
 public class Main {
     private String padfile;

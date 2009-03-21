@@ -1,7 +1,4 @@
-package org.openCage.utils.func;
-
-import org.junit.Test;
-import junit.framework.Assert;
+package org.openCage.stroy.hash;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -25,21 +22,8 @@ import junit.framework.Assert;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public class E1Test {
+public interface Fingerprint {
 
-
-    @Test
-    public void testComp() {
-        E1<String,Integer> e = new E1<String,Integer>(){
-            public String c(Integer integer) throws Exception {
-                return integer.toString();
-            }
-        };
-
-        try {
-            Assert.assertEquals( "42", e.c(42) );
-        } catch (Exception e1) {
-            Assert.fail( "huh" );
-        }
-    }
+    public boolean equals( Object obj );
+    public String  toString();
 }
