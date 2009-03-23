@@ -1,11 +1,8 @@
 package org.openCage.stroy.tree;
 
-import org.openCage.stroy.hash.Fingerprint;
+import org.openCage.stroy.hash.FingerPrint;
 import org.openCage.stroy.hash.FuzzyHash;
 import org.openCage.stroy.mimetype.MimeList;
-import eu.medsea.mimeutil.MimeType;
-
-import java.util.Collection;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -32,7 +29,7 @@ import java.util.Collection;
 public interface Fiel {
 
     public MimeList                getType();
-    public Fingerprint             getFingerprint();
+    public FingerPrint getFingerprint();
     public FuzzyHash               getFuzzyHash();
     public long                    getSize();
     

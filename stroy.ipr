@@ -9,49 +9,7 @@
       <maximumHeapSize value="128" />
       <properties />
     </buildFile>
-    <buildFile url="file://$PROJECT_DIR$/expplug/build.xml">
-      <additionalClassPath />
-      <antReference projectDefault="true" />
-      <customJdkName value="" />
-      <maximumHeapSize value="128" />
-      <properties />
-    </buildFile>
-    <buildFile url="file://$PROJECT_DIR$/expbase/build.xml">
-      <additionalClassPath />
-      <antReference projectDefault="true" />
-      <customJdkName value="" />
-      <maximumHeapSize value="128" />
-      <properties />
-    </buildFile>
-    <buildFile url="file://$PROJECT_DIR$/plug2/build.xml">
-      <additionalClassPath />
-      <antReference projectDefault="true" />
-      <customJdkName value="" />
-      <maximumHeapSize value="128" />
-      <properties />
-    </buildFile>
-    <buildFile url="file://$PROJECT_DIR$/exp2main/build.xml">
-      <additionalClassPath />
-      <antReference projectDefault="true" />
-      <customJdkName value="" />
-      <maximumHeapSize value="128" />
-      <properties />
-    </buildFile>
-    <buildFile url="file://$PROJECT_DIR$/openCage-utils/build.xml">
-      <additionalClassPath />
-      <antReference projectDefault="true" />
-      <customJdkName value="" />
-      <maximumHeapSize value="128" />
-      <properties />
-    </buildFile>
-    <buildFile url="file://$PROJECT_DIR$/ipad/build.xml">
-      <additionalClassPath />
-      <antReference projectDefault="true" />
-      <customJdkName value="" />
-      <maximumHeapSize value="128" />
-      <properties />
-    </buildFile>
-    <buildFile url="file://C:/prs/projs/build.xml">
+    <buildFile url="file://$PROJECT_DIR$/stroy/mimetype/build.xml">
       <additionalClassPath />
       <antReference projectDefault="true" />
       <customJdkName value="" />
@@ -313,21 +271,16 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/stroy/base/base.iml" filepath="$PROJECT_DIR$/stroy/base/base.iml" />
-      <module fileurl="file://$PROJECT_DIR$/exp2main/exp2main.iml" filepath="$PROJECT_DIR$/exp2main/exp2main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/expbase/expbase.iml" filepath="$PROJECT_DIR$/expbase/expbase.iml" />
-      <module fileurl="file://$PROJECT_DIR$/expmain/expmain.iml" filepath="$PROJECT_DIR$/expmain/expmain.iml" />
-      <module fileurl="file://$PROJECT_DIR$/expplug/expplug.iml" filepath="$PROJECT_DIR$/expplug/expplug.iml" />
+      <module fileurl="file://$PROJECT_DIR$/stroy/filesimilarity/filesimilarity.iml" filepath="$PROJECT_DIR$/stroy/filesimilarity/filesimilarity.iml" />
       <module fileurl="file://$PROJECT_DIR$/stroy/find/find.iml" filepath="$PROJECT_DIR$/stroy/find/find.iml" />
       <module fileurl="file://$PROJECT_DIR$/ipad/ipad.iml" filepath="$PROJECT_DIR$/ipad/ipad.iml" />
-      <module fileurl="file://C:/prs/projs/jrandtest.iml" filepath="C:/prs/projs/jrandtest.iml" />
       <module fileurl="file://$PROJECT_DIR$/stroy/mimetype/mimetype.iml" filepath="$PROJECT_DIR$/stroy/mimetype/mimetype.iml" />
       <module fileurl="file://$PROJECT_DIR$/openCage-utils/openCage-utils.iml" filepath="$PROJECT_DIR$/openCage-utils/openCage-utils.iml" />
-      <module fileurl="file://$PROJECT_DIR$/plug2/plug2.iml" filepath="$PROJECT_DIR$/plug2/plug2.iml" />
       <module fileurl="file://$PROJECT_DIR$/stroy.iml" filepath="$PROJECT_DIR$/stroy.iml" />
     </modules>
   </component>
   <component name="ProjectRootManager" version="2" assert-keyword="true" jdk-15="true" project-jdk-name="1.5" project-jdk-type="JavaSDK">
-    <output url="file://C:/Users/stephan/Documents/prs/classes" />
+    <output url="file:///Users/stephan/Documents/prs/classes/stroy" />
   </component>
   <component name="ProjectRunConfigurationManager" />
   <component name="RmicSettings">
