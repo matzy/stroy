@@ -1,7 +1,4 @@
-package org.openCage.util.lang;
-
-import org.jetbrains.annotations.NotNull;
-import org.openCage.lang.E1;
+package org.openCage.util.string;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -25,24 +22,32 @@ import org.openCage.lang.E1;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public class Lazy1<S,T> {
-    private S              obj;
-    private E1<S,T>        func;
+public class Strings {
 
-    public Lazy1( @NotNull E1<S,T> func ) {
-        this.func = func;
-    }
+    private static final char[] HEX_CHARS = {
+            '0', '1', '2', '3',
+            '4', '5', '6', '7',
+            '8', '9', 'a', 'b',
+            'c', 'd', 'e', 'f',};
 
-    public S get( T t) {
-        if ( func != null ) {
-            try {
-                obj = func.c( t );
-            } catch (Exception e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-            }
-            func = null;
+    /**
+     * Turns an array of bytes into a string representing each byte as
+     * an unsigned hex number.
+     *
+     * @param bytes	Array of bytes to convert to hex-string
+     * @return	Generated hex string
+     */
+    public static String toHexString( byte bytes[] ) {
+
+        char buf[] = new char[bytes.length * 2];
+
+        for (int i = 0, x = 0; i < bytes.length; i++) {
+
+            buf[x++] = HEX_CHARS[(bytes[i] >>> 4) & 0xf];
+            buf[x++] = HEX_CHARS[bytes[i] & 0xf];
         }
 
-        return obj;
+        return new String(buf);
     }
+
 }

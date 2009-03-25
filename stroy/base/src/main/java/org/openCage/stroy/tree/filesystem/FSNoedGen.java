@@ -6,7 +6,10 @@ import org.openCage.stroy.tree.NoedImpl;
 import org.openCage.stroy.tree.StdFiel;
 import org.openCage.stroy.tree.filter.Ignore;
 import org.openCage.stroy.tree.filter.NullIgnore;
+import org.openCage.stroy.hash.FuzzyHash;
 import org.openCage.lang.F0;
+import org.openCage.lang.E0;
+import org.openCage.lang.E1;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -34,20 +37,31 @@ public class FSNoedGen implements NoedGen {
         }
 
         if ( !file.isDirectory()) {
+
+            E0<InputStream> is = new E0<InputStream>() {
+                public InputStream c() throws Exception {
+                    return new FileInputStream( file );
+                }
+            };
+
+            E1<String, InputStream> hashGen = new E1<String, InputStream>() {
+                public String c(InputStream inputStream) throws Exception {
+                    return null;
+                }
+            };
+
+            E1<FuzzyHash, InputStream> fuzzyHashGen = new E1<FuzzyHash, InputStream>() {
+                public FuzzyHash c(InputStream inputStream) throws Exception {
+                    return null;
+                }
+            };
+
+            StdFiel fiel = new StdFiel( is, null, 42, hashGen, fuzzyHashGen );
+
+
             return NoedImpl.makeLeafNoed(
                     file.getName(),
-                    new StdFiel( new F0<InputStream>(){
-                        public InputStream c() {
-                            try {
-                                return new FileInputStream( file );
-                            } catch ( FileNotFoundException e ) {
-                                // TODO
-                                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-                                return null;
-                            }
-                        }
-                    },
-                    null ));
+                    fiel );
         }
 
         Noed parent = NoedImpl.makeDirNoed( file.getName() );

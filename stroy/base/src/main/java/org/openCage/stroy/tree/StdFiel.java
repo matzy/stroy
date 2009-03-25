@@ -1,9 +1,9 @@
 package org.openCage.stroy.tree;
 
 import org.openCage.stroy.mimetype.MimeList;
-import org.openCage.stroy.hash.FingerPrint;
 import org.openCage.stroy.hash.FuzzyHash;
-import org.openCage.lang.F0;
+import org.openCage.lang.*;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.InputStream;
 
@@ -12,27 +12,37 @@ import java.io.InputStream;
  */
 public class StdFiel implements Fiel {
 
-    private F0<InputStream> is;
+    private E0<InputStream> is;
     private MimeList        mimes;
+    private long            size;
+    private L1<String, InputStream> hash;
+    private L1<FuzzyHash, InputStream> fuzzyHash;
 
-    public StdFiel( F0<InputStream> isGetter, MimeList mimes ) {
+    public StdFiel( @NotNull final E0<InputStream> isGetter,
+                    MimeList       mimes,
+                    long           size,
+                    @NotNull final E1<String, InputStream> hashGen,
+                    @NotNull final E1<FuzzyHash, InputStream> fuzzyHashGen ) {
         this.is    = isGetter;
         this.mimes = mimes;
+        this.size  = size;
+        this.hash      = new L1<String, InputStream>( hashGen );
+        this.fuzzyHash = new L1<FuzzyHash, InputStream>( fuzzyHashGen );
     }
 
     public MimeList getType() {
         return mimes;
     }
 
-    public FingerPrint getFingerprint() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    public String getFingerprint() {
+        return hash.get( is );
     }
 
     public FuzzyHash getFuzzyHash() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return fuzzyHash.get( is );
     }
 
     public long getSize() {
-        return 0;  //To change body of implemented methods use File | Settings | File Templates.
+        return size;
     }
 }

@@ -1,6 +1,5 @@
 package org.openCage.stroy.tree;
 
-import org.openCage.stroy.hash.FingerPrint;
 import org.openCage.stroy.hash.FuzzyHash;
 import org.openCage.stroy.mimetype.MimeList;
 
@@ -29,7 +28,7 @@ import org.openCage.stroy.mimetype.MimeList;
 public interface Fiel {
 
     public MimeList                getType();
-    public FingerPrint getFingerprint();
+    public String                  getFingerprint();
     public FuzzyHash               getFuzzyHash();
     public long                    getSize();
     
