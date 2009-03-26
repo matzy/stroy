@@ -2,6 +2,9 @@ package org.openCage.stroy.tree;
 
 import org.openCage.stroy.hash.FuzzyHash;
 import org.openCage.stroy.mimetype.MimeList;
+import org.openCage.lang.Maybe;
+
+import java.io.File;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -31,5 +34,6 @@ public interface Fiel {
     public String                  getFingerprint();
     public FuzzyHash               getFuzzyHash();
     public long                    getSize();
-    
+    public Maybe<File>             getFile();
+
 }

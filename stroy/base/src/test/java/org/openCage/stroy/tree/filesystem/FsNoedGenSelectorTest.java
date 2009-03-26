@@ -1,6 +1,10 @@
-package org.openCage.lang;
+package org.openCage.stroy.tree.filesystem;
 
-import org.jetbrains.annotations.NotNull;
+import org.junit.Test;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+import org.openCage.lang.Maybe;
+import org.openCage.stroy.tree.NoedGen;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -23,28 +27,26 @@ import org.jetbrains.annotations.NotNull;
 *
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
+public class FsNoedGenSelectorTest {
 
-public class L1<R, A> implements E1<R,E0<A>>{
+    @Test
+    public void testYesOnDir() {
+        Maybe<? extends NoedGen> gen = new FsNoedGenSelector().get( "", false );
 
-    private R              obj;
-    private E1<R,A>        func;
-
-    public L1( @NotNull E1<R,A> func ) {
-        this.func = func;
+        assertTrue( gen.is );
     }
 
-    public R c( E0<A> f) {
-        if ( func != null ) {
-            try {
-                obj = func.c( f.c() );
-            } catch (Exception e) {
-                // TODO
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-            }
-            func = null;
-        }
+    @Test
+    public void testNoOnFile() {
+        Maybe<? extends NoedGen> gen = new FsNoedGenSelector().get( "", false );
 
-        return obj;
+        assertTrue( gen.is );
     }
 
+    @Test
+    public void testNoOnSvn() {
+        Maybe<? extends NoedGen> gen = new FsNoedGenSelector().get( "svn://http:/foo", false );
+
+        assertFalse( gen.is );
+    }
 }

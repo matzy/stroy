@@ -6,6 +6,7 @@ import org.openCage.lang.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.InputStream;
+import java.io.File;
 
 /**
  * Wherever a fiel comes from, most can present there content as InputStream
@@ -21,7 +22,7 @@ public class StdFiel implements Fiel {
     public StdFiel( @NotNull final E0<InputStream> isGetter,
                     MimeList       mimes,
                     long           size,
-                    @NotNull final E1<String, InputStream> hashGen,
+                    @NotNull final E1<String, InputStream>    hashGen,
                     @NotNull final E1<FuzzyHash, InputStream> fuzzyHashGen ) {
         this.is    = isGetter;
         this.mimes = mimes;
@@ -35,14 +36,19 @@ public class StdFiel implements Fiel {
     }
 
     public String getFingerprint() {
-        return hash.get( is );
+        return hash.c( is );
     }
 
     public FuzzyHash getFuzzyHash() {
-        return fuzzyHash.get( is );
+        return fuzzyHash.c( is );
     }
 
     public long getSize() {
         return size;
+    }
+
+    public Maybe<File> getFile() {
+        // not every InputStream comea from a file
+        return Maybe.no();
     }
 }
