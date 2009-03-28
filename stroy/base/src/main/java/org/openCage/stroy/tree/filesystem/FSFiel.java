@@ -5,6 +5,7 @@ import org.openCage.stroy.tree.StdFiel;
 import org.openCage.stroy.hash.FuzzyHash;
 import org.openCage.stroy.hash.FingerPrintGen;
 import org.openCage.stroy.mimetype.MimeList;
+import org.openCage.stroy.mimetype.MimeListImpl;
 import org.openCage.lang.*;
 import org.jetbrains.annotations.NotNull;
 
@@ -46,10 +47,18 @@ public class FSFiel extends StdFiel {
                     public InputStream c() throws Exception {
                         return new FileInputStream( file );
                     }},
-               null, // mines,
+               new MimeListImpl(null), // mines,
                file.length(),
-               null,
-               null
+               new E1<String, InputStream>() {
+                   public String c(InputStream inputStream) throws Exception {
+                       return null;  //To change body of implemented methods use File | Settings | File Templates.
+                   }
+               },
+               new E1<FuzzyHash, InputStream>() {
+                   public FuzzyHash c(InputStream inputStream) throws Exception {
+                       return null;  //To change body of implemented methods use File | Settings | File Templates.
+                   }
+               }
                 );
         this.file = file;
     }
