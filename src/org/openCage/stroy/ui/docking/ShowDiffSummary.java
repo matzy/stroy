@@ -47,26 +47,28 @@ public class ShowDiffSummary<T extends Content> extends JPanel {
     private final JButton refresh = new JButton( Message.get( "Button.refresh" ));
     private final JLabel leftRootDir;
     private final List<TreeMatchingTask<T>> matchings;
-    private JLabel leftDirsTotal;
-    private JLabel leftFilesTotal;
-    private JLabel leftDirsOnly;
-    private JLabel leftFilesOnly;
-    private JLabel renamedDirs;
-    private JLabel movedDirs;
-    private JLabel contentLeaves;
-    private JLabel renamedFiles;
-    private JLabel movedFiles;
-    private JLabel complexChanged;
-    private JLabel rightDirsTotal;
-    private JLabel rightDirsOnly;
-    private JLabel rightFilesTotal;
-    private JLabel rightFilesOnly;
+    private final JLabel leftDirsTotal = new JLabel();
+    private final JLabel leftFilesTotal =  new JLabel();
+    private final JLabel leftDirsOnly = new JLabel();
+    private final JLabel leftFilesOnly = new JLabel();
+    private final JLabel renamedDirs = new JLabel();
+    private final JLabel movedDirs = new JLabel();
+    private final JLabel contentLeaves = new JLabel();
+    private final JLabel renamedFiles = new JLabel();
+    private final JLabel movedFiles = new JLabel();
+    private final JLabel complexChanged = new JLabel();
+    private final JLabel rightDirsTotal = new JLabel();
+    private final JLabel rightDirsOnly = new JLabel();
+    private final JLabel rightFilesTotal = new JLabel();
+    private final JLabel rightFilesOnly = new JLabel();
     private boolean onlyhas2Rows = false;
 
     public ShowDiffSummary( final java.util.List<TreeMatchingTask<T>> matchings,
                             final java.util.List<DefaultMutableTreeNode> roots ) {
 
         this.matchings = matchings;
+
+        refresh();
 
         final JPanel top = new JPanel();
         final DesignGridLayout layout = new DesignGridLayout( top );
@@ -112,16 +114,11 @@ public class ShowDiffSummary<T extends Content> extends JPanel {
                     ;
         }
 
-        leftDirsTotal = new JLabel( "" + matchings.get(0).getRightDirCount());
-        leftDirsOnly = new JLabel( "" + matchings.get(0).getUnmatchedRightDirs().size() );
-
         layout.row().label( Message.getl( "Summary.first" )).add( new JLabel( Message.get("Summary.dirs"))).
                 add( leftDirsTotal, totalSize ).
                 add( leftDirsOnly, onlySize )
                 //empty(contentSize + renamedSize + movedSize + multipleSize)
                 ;
-        leftFilesTotal = new JLabel( "" + matchings.get(0).getRightLeaveCount());
-        leftFilesOnly = new JLabel( "" + matchings.get(0).getUnmatchedRightFiles().size() );
         layout.row().add( Message.getl( "Summary.files" )).
                 add( leftFilesTotal, totalSize ).
                 add( leftFilesOnly, onlySize )
@@ -129,15 +126,11 @@ public class ShowDiffSummary<T extends Content> extends JPanel {
                 ;
 
 
-        rightDirsTotal = new JLabel( "" + matchings.get(0).getLeftDirCount() );
-        rightDirsOnly = new JLabel( "" + matchings.get(0).getUnmatchedLeftDirs().size()  );
         layout.row().label( Message.getl( "Summary.second" )).add( new JLabel( Message.get("Summary.dirs"))).
                 add( rightDirsTotal, totalSize ).
                 add( rightDirsOnly, onlySize )
                 //empty(4)
                 ;
-        rightFilesTotal = new JLabel( "" + matchings.get(0).getLeftLeaveCount());
-        rightFilesOnly = new JLabel( "" + matchings.get(0).getUnmatchedLeftFiles().size() );
         layout.row().add( Message.getl( "Summary.files" )).
                 add( rightFilesTotal, totalSize ).
                 add( rightFilesOnly, onlySize )
@@ -159,8 +152,6 @@ public class ShowDiffSummary<T extends Content> extends JPanel {
                 add( moved, movedSize ).
                 add( multiple, multipleSize) ;
 
-        renamedDirs = new JLabel( "" + matchings.get(0).getRenamedDirs().size());
-        movedDirs = new JLabel( "" + matchings.get(0).getMovedDirs().size() );
         layout.row().label( Message.getl( "Summary.changed" )).
                 add( new JLabel( Message.get("Summary.dirs"))).
                 add( new JLabel( "-" ), contentSize ).
@@ -169,10 +160,6 @@ public class ShowDiffSummary<T extends Content> extends JPanel {
                 add( new JLabel( "-" ), multipleSize
                 );
 
-        contentLeaves = new JLabel( "" + matchings.get(0).getModifiedLeaves().size() );
-        renamedFiles = new JLabel( "" + matchings.get(0).getRenamedLeaves().size());
-        movedFiles = new JLabel( "" + matchings.get(0).getMovedLeaves().size() );
-        complexChanged = new JLabel( "" + matchings.get(0).getComplexModifiedLeaves().size());
         layout.row().
                 add( Message.getl( "Summary.files" )).
                 add( contentLeaves, contentSize ).
@@ -205,20 +192,22 @@ public class ShowDiffSummary<T extends Content> extends JPanel {
     }
 
     private void refresh() {
-        leftDirsTotal.setText( "" + matchings.get(0).getRightDirCount());
-        leftDirsOnly.setText(  "" + matchings.get(0).getUnmatchedRightDirs().size() );
-        leftFilesTotal.setText( "" + matchings.get(0).getRightLeaveCount());
-        leftFilesOnly.setText(  "" + matchings.get(0).getUnmatchedRightFiles().size() );
         renamedDirs.setText(  "" + matchings.get(0).getRenamedDirs().size());
         movedDirs.setText( "" + matchings.get(0).getMovedDirs().size() );
         contentLeaves.setText(  "" + matchings.get(0).getModifiedLeaves().size() );
         renamedFiles.setText( "" + matchings.get(0).getRenamedLeaves().size());
         movedFiles.setText(  "" + matchings.get(0).getMovedLeaves().size() );
         complexChanged.setText( "" + matchings.get(0).getComplexModifiedLeaves().size());
-        rightDirsTotal.setText( "" + matchings.get(0).getLeftDirCount() );
-        rightDirsOnly.setText( "" + matchings.get(0).getUnmatchedLeftDirs().size()  );
-        rightFilesTotal.setText( "" + matchings.get(0).getLeftLeaveCount());
-        rightFilesOnly.setText(  "" + matchings.get(0).getUnmatchedLeftFiles().size() );
+
+        rightDirsTotal.setText( "" + matchings.get(0).getRightDirCount());
+        rightDirsOnly.setText(  "" + matchings.get(0).getUnmatchedRightDirs().size() );
+        rightFilesTotal.setText( "" + matchings.get(0).getRightLeaveCount());
+        rightFilesOnly.setText(  "" + matchings.get(0).getUnmatchedRightFiles().size() );
+
+        leftDirsTotal.setText( "" + matchings.get(0).getLeftDirCount() );
+        leftDirsOnly.setText( "" + matchings.get(0).getUnmatchedLeftDirs().size()  );
+        leftFilesTotal.setText( "" + matchings.get(0).getLeftLeaveCount());
+        leftFilesOnly.setText(  "" + matchings.get(0).getUnmatchedLeftFiles().size() );
     }
 
     private String getRootPath(  final DefaultMutableTreeNode root ) {
