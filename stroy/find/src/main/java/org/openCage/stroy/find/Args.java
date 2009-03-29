@@ -9,13 +9,27 @@ import org.apache.commons.cli.*;
 import java.io.File;
 import java.util.logging.Logger;
 
-/**
- * Created by IntelliJ IDEA.
- * User: stephan
- * Date: Feb 8, 2009
- * Time: 11:27:40 AM
- * To change this template use File | Settings | File Templates.
- */
+/***** BEGIN LICENSE BLOCK *****
+* Version: MPL 1.1
+*
+* The contents of this file are subject to the Mozilla Public License Version
+* 1.1 (the "License"); you may not use this file except in compliance with
+* the License. You may obtain a copy of the License at
+* http://www.mozilla.org/MPL/
+*
+* Software distributed under the License is distributed on an "AS IS" basis,
+* WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+* for the specific language governing rights and limitations under the
+* License.
+*
+* The Original Code is stroy code.
+*
+* The Initial Developer of the Original Code is Stephan Pfab <openCage@gmail.com>.
+* Portions created by Stephan Pfab are Copyright (C) 2006 - 2009.
+* All Rights Reserved.
+*
+* Contributor(s):
+***** END LICENSE BLOCK *****/
 public class Args {
 
     private static Logger log = Logger.getLogger( Args.class.getName() );
@@ -25,8 +39,8 @@ public class Args {
     private CommandLine line = null;
 
     private boolean ok = false;
-    private File what = null;
-    private File where;
+    private String what = null;
+    private String where;
 
 
     public Args( String[] args ) {
@@ -45,17 +59,17 @@ public class Args {
         }
 
 
-        what  = new File( line.getArgs()[0] );
-        where = new File( line.getArgs()[1] );
+        what  = line.getArgs()[0];
+        where = line.getArgs()[1];
 
     }
 
-    public File getWhat() {
+    public String getWhat() {
         return what;
     }
 
 
-    public File getWhere() {
+    public String getWhere() {
         return where;
     }
 
