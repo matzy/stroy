@@ -3,6 +3,15 @@ Licence MPL1.1
 
 http://stroy.wikidot.com/start
 
+
+
+NOTE: this is the ongoing development branch for stroy 2
+      there is not much code yet.
+      Source for stroy-1.0 is in branch/stroy-1.0
+
+   
+
+
 Build Requirements
 stroy is a java program. You need java SDK 1.5 or newer.
 All used libraries are in the source package.
