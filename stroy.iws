@@ -158,100 +158,92 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="FSNoedGen.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/stroy/base/src/main/java/org/openCage/stroy/tree/filesystem/FSNoedGen.java">
+      <file leaf-file-name="SetFuzzyHash.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/stroy/base/src/main/java/org/openCage/stroy/hash/fuzzy/text/SetFuzzyHash.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="36" column="0" selection-start="950" selection-end="950" vertical-scroll-proportion="0.30645162">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="NoedImpl.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/stroy/base/src/main/java/org/openCage/stroy/tree/NoedImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="72" column="0" selection-start="2008" selection-end="2008" vertical-scroll-proportion="0.24780059">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="NullIgnore.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/stroy/base/src/main/java/org/openCage/stroy/tree/filter/NullIgnore.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="0" selection-start="357" selection-end="357" vertical-scroll-proportion="0.43615496">
+            <state line="20" column="0" selection-start="409" selection-end="409" vertical-scroll-proportion="0.49067432">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="NoedGen.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/stroy/base/src/main/java/org/openCage/stroy/tree/NoedGen.java">
+      <file leaf-file-name="WikidotGen.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wikidot/src/main/java/org/openCage/wikidot/WikidotGen.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="43" selection-start="981" selection-end="981" vertical-scroll-proportion="0.7819225">
+            <state line="74" column="0" selection-start="2027" selection-end="2027" vertical-scroll-proportion="0.84648496">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="IgnoreByLists.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/stroy/base/src/main/java/org/openCage/stroy/tree/filter/IgnoreByLists.java">
+      <file leaf-file-name="WikidotGenTest.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wikidot/src/test/java/org/openCage/wikidot/WikidotGenTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="89" column="0" selection-start="2353" selection-end="2353" vertical-scroll-proportion="0.59110475">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Ignore.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/stroy/base/src/main/java/org/openCage/stroy/tree/filter/Ignore.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="35" column="0" selection-start="1088" selection-end="1088" vertical-scroll-proportion="0.8737446">
+            <state line="10" column="35" selection-start="267" selection-end="267" vertical-scroll-proportion="0.21807748">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FSFiel.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/stroy/base/src/main/java/org/openCage/stroy/tree/filesystem/FSFiel.java">
+      <file leaf-file-name="Assert.class" pinned="false" current="false" current-in-tab="false">
+        <entry file="jar://$APPLICATION_HOME_DIR$/lib/junit-4.4.jar!/org/junit/Assert.class">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="38" column="15" selection-start="1330" selection-end="1330" vertical-scroll-proportion="0.36070383">
+            <state line="98" column="0" selection-start="5318" selection-end="5318" vertical-scroll-proportion="0.7038123">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="With.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/openCage-utils/src/main/java/org/openCage/utils/io/With.java">
+      <file leaf-file-name="DiffProg.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/wikidot/src/main/java/org/openCage/wikidot/diffs/DiffProg.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="50" column="35" selection-start="1548" selection-end="1548" vertical-scroll-proportion="0.16355811">
+            <state line="156" column="71" selection-start="3787" selection-end="3787" vertical-scroll-proportion="0.11143695">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="InputStream.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="jar:///System/Library/Frameworks/JavaVM.framework/Versions/1.5.0/Home/src.jar!/src/java/io/InputStream.java">
+      <file leaf-file-name="Main.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wikidot/src/main/java/org/openCage/wikidot/diffs/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="335" column="22" selection-start="14309" selection-end="14309" vertical-scroll-proportion="0.94548064">
+            <state line="106" column="25" selection-start="3595" selection-end="3595" vertical-scroll-proportion="0.16499282">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="StdFiel.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/stroy/base/src/main/java/org/openCage/stroy/tree/StdFiel.java">
+      <file leaf-file-name="DepthFirstIterator.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/openCage-utils/src/main/java/org/openCage/utils/iterator/DepthFirstIterator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="31" column="29" selection-start="825" selection-end="825" vertical-scroll-proportion="0.74926686">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state line="35" column="30" selection-start="0" selection-end="2590" vertical-scroll-proportion="0.027259685">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DepthFirstIterator.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/stroy/base/src/main/java/org/openCage/stroy/tree/iter/DepthFirstIterator.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="20" selection-start="20" selection-end="20" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FindCltTest.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/stroy/find/src/test/java/org/openCage/stroy/find/FindCltTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="16" column="14" selection-start="477" selection-end="477" vertical-scroll-proportion="0.2998565">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Args.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/stroy/find/src/main/java/org/openCage/stroy/find/Args.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="62" column="33" selection-start="1674" selection-end="1674" vertical-scroll-proportion="0.027259685">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -295,90 +287,98 @@
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
         </PATH_ELEMENT>
         <PATH_ELEMENT>
+          <option name="myItemId" value="wikidot" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="stroy.ipr" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="wikidot" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="org" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="openCage" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="wikidot" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="stroy.ipr" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="wikidot" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="org" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="openCage" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="wikidot" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="diffs" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="stroy.ipr" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="stroy.ipr" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="find" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="stroy.ipr" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="find" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="org" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="openCage" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
           <option name="myItemId" value="stroy" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="stroy.ipr" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="openCage-utils" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="stroy.ipr" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="openCage-utils" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="org" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
         </PATH_ELEMENT>
         <PATH_ELEMENT>
-          <option name="myItemId" value="openCage" />
+          <option name="myItemId" value="find" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="utils" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="stroy.ipr" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="openCage-utils" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="org" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="openCage" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="utils" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="io" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="stroy.ipr" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="openCage-utils" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="org" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="openCage" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="stroy.ipr" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
         </PATH_ELEMENT>
       </PATH>
       <PATH>
@@ -409,7 +409,7 @@
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewLibrariesNode" />
         </PATH_ELEMENT>
         <PATH_ELEMENT>
-          <option name="myItemId" value="java" />
+          <option name="myItemId" value="org" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
         </PATH_ELEMENT>
       </PATH>
@@ -427,11 +427,11 @@
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewLibrariesNode" />
         </PATH_ELEMENT>
         <PATH_ELEMENT>
-          <option name="myItemId" value="java" />
+          <option name="myItemId" value="org" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
         </PATH_ELEMENT>
         <PATH_ELEMENT>
-          <option name="myItemId" value="io" />
+          <option name="myItemId" value="junit" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
         </PATH_ELEMENT>
       </PATH>
@@ -487,7 +487,7 @@
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
         </PATH_ELEMENT>
         <PATH_ELEMENT>
-          <option name="myItemId" value="filesystem" />
+          <option name="myItemId" value="iter" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
         </PATH_ELEMENT>
       </PATH>
@@ -510,6 +510,44 @@
         </PATH_ELEMENT>
         <PATH_ELEMENT>
           <option name="myItemId" value="stroy" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="hash" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="stroy.ipr" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="base" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="org" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="openCage" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="stroy" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="hash" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="fuzzy" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="text" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
         </PATH_ELEMENT>
       </PATH>
@@ -557,6 +595,12 @@
   </component>
   <component name="ProjectPane">
     <subPane>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="stroy.ipr" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+      </PATH>
       <PATH>
         <PATH_ELEMENT>
           <option name="myItemId" value="stroy.ipr" />
@@ -796,6 +840,34 @@
           <option name="myItemId" value="stroy.ipr" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
         </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="openCage-utils" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:$PROJECT_DIR$/openCage-utils" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:$PROJECT_DIR$/openCage-utils/src" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:$PROJECT_DIR$/openCage-utils/src/main" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:$PROJECT_DIR$/openCage-utils/src/main/java" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:$PROJECT_DIR$/openCage-utils/src/main/java/org" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:$PROJECT_DIR$/openCage-utils/src/main/java/org/openCage" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
       </PATH>
       <PATH>
         <PATH_ELEMENT>
@@ -936,7 +1008,7 @@
       <showLibraryContents />
       <hideEmptyPackages ProjectPane="false" PackagesPane="false" />
       <abbreviatePackageNames />
-      <showStructure Favorites="false" ProjectPane="false" Scope="false" PackagesPane="false" />
+      <showStructure ProjectPane="false" PackagesPane="false" Scope="false" Favorites="false" />
       <autoscrollToSource />
       <autoscrollFromSource PackagesPane="true" />
       <sortByType />
@@ -965,49 +1037,22 @@
     </key>
   </component>
   <component name="RestoreUpdateTree" />
-  <component name="RunManager" selected="JUnit.MaybeTest">
-    <tempConfiguration default="false" name="MaybeTest" type="JUnit" factoryName="JUnit" enabled="false" merge="false">
-      <pattern value="org.openCage.lang.*" />
-      <module name="base" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="org.openCage.lang" />
-      <option name="MAIN_CLASS_NAME" value="org.openCage.lang.MaybeTest" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ADDITIONAL_CLASS_PATH" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="wholeProject" />
-      </option>
-      <RunnerSettings RunnerId="Run" />
-      <ConfigurationWrapper RunnerId="Run" />
-      <method>
-        <option name="Make" value="true" />
-      </method>
-    </tempConfiguration>
-    <configuration default="true" type="Remote" factoryName="Remote">
-      <option name="USE_SOCKET_TRANSPORT" value="true" />
-      <option name="SERVER_MODE" value="false" />
-      <option name="SHMEM_ADDRESS" value="javadebug" />
-      <option name="HOST" value="localhost" />
-      <option name="PORT" value="5005" />
-    </configuration>
-    <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
-      <option name="MAIN_CLASS_NAME" />
+  <component name="RunManager" selected="Application.Main">
+    <tempConfiguration default="false" name="Main" type="Application" factoryName="Application" enabled="false" merge="false">
+      <option name="MAIN_CLASS_NAME" value="org.openCage.wikidot.diffs.Main" />
       <option name="VM_PARAMETERS" />
       <option name="PROGRAM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <module name="" />
+      <module name="wikidot" />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
       <method>
         <option name="Make" value="true" />
       </method>
-    </configuration>
+    </tempConfiguration>
     <configuration default="true" type="Applet" factoryName="Applet">
       <module name="" />
       <option name="MAIN_CLASS_NAME" />
@@ -1038,6 +1083,26 @@
       <method>
         <option name="Make" value="true" />
       </method>
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <module name="" />
+      <method>
+        <option name="Make" value="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
     </configuration>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
       <Host>localhost</Host>
@@ -1119,14 +1184,14 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="43" y="22" width="1397" height="878" extended-state="0" />
+    <frame x="43" y="22" width="1397" height="878" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
       <window_info id="CVS" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="7" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32937685" order="0" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32937685" order="0" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32931727" order="1" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="1" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32797858" order="8" />
@@ -1136,7 +1201,7 @@
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24925816" order="1" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.45113787" order="2" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.73493975" order="2" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="2" />
       <window_info id="File View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39892906" order="4" />
@@ -1239,122 +1304,114 @@
   </component>
   <component name="com.intellij.openapi.roots.ui.configuration.projectRoot.ProjectRootMasterDetailsConfigurable" proportions="0.27373272" version="1">
     <option name="myPlainMode" value="false" />
-    <option name="myLastEditedConfigurable" value="find" />
+    <option name="myLastEditedConfigurable" value="wikidot" />
   </component>
   <component name="com.intellij.profile.ui.ErrorOptionsConfigurable" proportions="" version="1">
     <option name="myLastEditedConfigurable" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/openCage-utils/src/main/java/org/openCage/lang/Maybe.java">
+    <entry file="file://$PROJECT_DIR$/openCage-utils/src/main/java/org/openCage/utils/iterator/DepthFirstIterable.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="19" selection-start="299" selection-end="299" vertical-scroll-proportion="0.027259685">
+        <state line="45" column="3" selection-start="0" selection-end="1448" vertical-scroll-proportion="0.84648496">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/stroy/base/src/main/java/org/openCage/stroy/hash/FingerPrint.java">
+    <entry file="file://$PROJECT_DIR$/stroy/base/src/main/java/org/openCage/stroy/tree/iter/DepthFirstIterable.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="25" selection-start="709" selection-end="709" vertical-scroll-proportion="0.49067432">
+        <state line="33" column="13" selection-start="1014" selection-end="1014" vertical-scroll-proportion="0.5466284">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/stroy/base/src/main/java/org/openCage/stroy/tree/filter/IgnoreByLists.java">
+    <entry file="file://$PROJECT_DIR$/stroy/base/src/test/java/org/openCage/stroy/tree/iter/DepthFirstIterTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="89" column="0" selection-start="2353" selection-end="2353" vertical-scroll-proportion="0.59110475">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/stroy/base/src/main/java/org/openCage/stroy/tree/NoedGen.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="43" selection-start="981" selection-end="981" vertical-scroll-proportion="0.7819225">
+        <state line="28" column="25" selection-start="927" selection-end="927" vertical-scroll-proportion="0.62697273">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/stroy/base/src/main/java/org/openCage/stroy/tree/filter/NullIgnore.java">
+    <entry file="file://$PROJECT_DIR$/stroy/base/src/main/java/org/openCage/stroy/hash/FuzzyHash.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="0" selection-start="357" selection-end="357" vertical-scroll-proportion="0.43615496">
+        <state line="18" column="18" selection-start="702" selection-end="702" vertical-scroll-proportion="0.49067432">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/openCage-utils/src/test/java/org/openCage/lang/MaybeTest.java">
+    <entry file="file://$PROJECT_DIR$/stroy/find/src/main/java/org/openCage/stroy/find/FindClt.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="42" selection-start="966" selection-end="966" vertical-scroll-proportion="0.68292683">
+        <state line="66" column="57" selection-start="2053" selection-end="2053" vertical-scroll-proportion="0.7038123">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/stroy/base/src/main/java/org/openCage/stroy/tree/NoedImpl.java">
+    <entry file="file://$PROJECT_DIR$/stroy/base/src/main/java/org/openCage/stroy/hash/fuzzy/text/SetFuzzyHash.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="72" column="0" selection-start="2008" selection-end="2008" vertical-scroll-proportion="0.24780059">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/stroy/base/src/main/java/org/openCage/stroy/tree/Noed.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="70" column="17" selection-start="1847" selection-end="1847" vertical-scroll-proportion="0.94548064">
+        <state line="20" column="0" selection-start="409" selection-end="409" vertical-scroll-proportion="0.49067432">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/stroy/base/src/main/java/org/openCage/stroy/tree/Fiel.java">
+    <entry file="file://$PROJECT_DIR$/wikidot/src/main/java/org/openCage/wikidot/WikidotGen.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="17" selection-start="974" selection-end="974" vertical-scroll-proportion="0.6183644">
+        <state line="74" column="0" selection-start="2027" selection-end="2027" vertical-scroll-proportion="0.84648496">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/stroy/base/src/main/java/org/openCage/stroy/tree/filter/Ignore.java">
+    <entry file="file://$PROJECT_DIR$/wikidot/src/test/java/org/openCage/wikidot/WikidotGenTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="0" selection-start="1088" selection-end="1088" vertical-scroll-proportion="0.8737446">
+        <state line="10" column="35" selection-start="267" selection-end="267" vertical-scroll-proportion="0.21807748">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="jar:///System/Library/Frameworks/JavaVM.framework/Versions/1.5.0/Home/src.jar!/src/java/io/InputStream.java">
+    <entry file="jar://$APPLICATION_HOME_DIR$/lib/junit-4.4.jar!/org/junit/Assert.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="335" column="22" selection-start="14309" selection-end="14309" vertical-scroll-proportion="0.94548064">
+        <state line="98" column="0" selection-start="5318" selection-end="5318" vertical-scroll-proportion="0.7038123">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/openCage-utils/src/main/java/org/openCage/utils/io/With.java">
+    <entry file="file://$PROJECT_DIR$/wikidot/src/main/java/org/openCage/wikidot/diffs/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="35" selection-start="1548" selection-end="1548" vertical-scroll-proportion="0.16355811">
+        <state line="106" column="25" selection-start="3595" selection-end="3595" vertical-scroll-proportion="0.16499282">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/stroy/base/src/main/java/org/openCage/stroy/tree/filesystem/FSFiel.java">
+    <entry file="file://$PROJECT_DIR$/openCage-utils/src/main/java/org/openCage/utils/iterator/DepthFirstIterator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="38" column="15" selection-start="1330" selection-end="1330" vertical-scroll-proportion="0.36070383">
+        <state line="35" column="30" selection-start="0" selection-end="2590" vertical-scroll-proportion="0.027259685">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/stroy/base/src/main/java/org/openCage/stroy/tree/StdFiel.java">
+    <entry file="file://$PROJECT_DIR$/stroy/base/src/main/java/org/openCage/stroy/tree/iter/DepthFirstIterator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="29" selection-start="825" selection-end="825" vertical-scroll-proportion="0.74926686">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state line="0" column="20" selection-start="20" selection-end="20" vertical-scroll-proportion="0.0">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/stroy/base/src/main/java/org/openCage/stroy/tree/filesystem/FSNoedGen.java">
+    <entry file="file://$PROJECT_DIR$/stroy/find/src/test/java/org/openCage/stroy/find/FindCltTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="0" selection-start="950" selection-end="950" vertical-scroll-proportion="0.30645162">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state line="16" column="14" selection-start="477" selection-end="477" vertical-scroll-proportion="0.2998565">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/stroy/find/src/main/java/org/openCage/stroy/find/Args.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="62" column="33" selection-start="1674" selection-end="1674" vertical-scroll-proportion="0.027259685">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wikidot/src/main/java/org/openCage/wikidot/diffs/DiffProg.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="156" column="71" selection-start="3787" selection-end="3787" vertical-scroll-proportion="0.11143695">
+          <folding />
         </state>
       </provider>
     </entry>

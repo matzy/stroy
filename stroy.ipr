@@ -277,6 +277,7 @@
       <module fileurl="file://$PROJECT_DIR$/stroy/mimetype/mimetype.iml" filepath="$PROJECT_DIR$/stroy/mimetype/mimetype.iml" />
       <module fileurl="file://$PROJECT_DIR$/openCage-utils/openCage-utils.iml" filepath="$PROJECT_DIR$/openCage-utils/openCage-utils.iml" />
       <module fileurl="file://$PROJECT_DIR$/stroy.iml" filepath="$PROJECT_DIR$/stroy.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wikidot/wikidot.iml" filepath="$PROJECT_DIR$/wikidot/wikidot.iml" />
     </modules>
   </component>
   <component name="ProjectRootManager" version="2" assert-keyword="true" jdk-15="true" project-jdk-name="1.5" project-jdk-type="JavaSDK">

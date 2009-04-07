@@ -31,7 +31,7 @@ public class Main {
 
     private void add() {
 
-        add( "Accurev" ).licence( "$$" ).has().windows().osx().linux().url("http://www.accurev.com" ).textMerge().gui();
+        add( "Accurev" ).licence( "$$" ).has().windows().osx().linux().url("http://www.accurev.com" ).textMerge().gui().scm();
 
         diffs.add( new DiffProg( "Alienbrain" ).
                 url( "http://www.alienbrain.com" ).osx().windows().linux().vista().licence( "$$" ).
@@ -39,13 +39,13 @@ public class Main {
                 gui().
                 has().
                 textMerge().
-                gui()
+                gui().scm()
                 );
 
-        add( "Arxis Merge" ).url( "http://www.araxis.com/merge-overview.html" ).licence( "$$").osx().windows().textMerge().picDiff().gui();
+        add( "Arxis Merge" ).url( "http://www.araxis.com/merge-overview.html" ).licence( "$$").osx().windows().textMerge().picDiff().gui().merge();
 
         add( "BBEdit" ).url( "http://www.barebones.com/products/bbedit" ).osx().worksas().licence( "$$" ).
-                comment( "BBedit is a nice texteditor for OSX. It can be used as text merge tool." ).gui();
+                comment( "BBedit is a nice texteditor for OSX. It can be used as text merge tool." ).gui().textedit();
 
         add( "BeeDiff" ).licence( "GPL2" ).textMerge().linux();
 
@@ -80,7 +80,7 @@ public class Main {
                 windows().
                 linux().
                 textDiff().
-                clt()
+                clt().diff()
                 );
 
         add("diffdoc").licence( "$$" ).textMerge().windows();
@@ -105,6 +105,12 @@ public class Main {
                 version( "0.4.0" ).
                 modified( "2009.3.24" ).licence( "GPL2" ).
                 openstep().gui());
+
+        add( "ExamDiff" ).licence( "free" ).windows().textDiff();
+
+        add( "ExamDiff Pro" ).licence( "$" ).windows().textDiff();
+
+        add( "FileMerge" ).osx().may().gui().clt().licence( "with" );
 
         diffs.add( new DiffProg( "guiffy" ).
             url( "http://www.guiffy.com" ).osx().windows().linux().licence( "$" ).

@@ -29,6 +29,8 @@ public class DiffProg {
     private boolean picDiff = false;
     private boolean clt = false;
     private boolean folderDiff = false;
+    private boolean may = false;
+    private String type = "";
 
     public DiffProg( String name ) {
         this.name = name;
@@ -54,8 +56,12 @@ public class DiffProg {
         System.out.println( WikidotGen.row( WikidotGen.link( name ),
                                             licence,
                                             platformPictures(),
-                                            features(),
+                                            getType(),
                                             ui()));
+    }
+
+    private String getType() {
+        return type;
     }
 
     public DiffProg comment( String comment ) {
@@ -150,15 +156,15 @@ public class DiffProg {
 
     private String ui() {
         if ( gui && clt ) {
-            return "g/s";
+            return "[[image http://stroy.wdfiles.com/local--files/diff-central/view-left-right.png]][[image http://stroy.wdfiles.com/local--files/diff-central/terminal.png]]";
         }
 
         if ( gui ) {
-            return "g";
+            return "[[image http://stroy.wdfiles.com/local--files/diff-central/view-left-right.png]]";
         }
 
         if ( clt ) {
-            return "s";
+            return "[[image http://stroy.wdfiles.com/local--files/diff-central/terminal.png]]";
         }
 
         return "";
@@ -234,6 +240,31 @@ public class DiffProg {
 
     public DiffProg javapf() {
         javapf = true;
+        return this;
+    }
+
+    public DiffProg may() {
+        may = true;
+        return this;
+    }
+
+    public DiffProg scm() {
+        type = "SCM";
+        return this;
+    }
+
+    public DiffProg merge() {
+        type = "Merge";
+        return this;
+    }
+
+    public DiffProg textedit() {
+        type = "TextEditor";
+        return this;
+    }
+
+    public DiffProg diff() {
+        type = "Diff";
         return this;
     }
 }
