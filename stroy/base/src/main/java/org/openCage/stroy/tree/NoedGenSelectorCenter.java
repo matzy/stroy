@@ -1,7 +1,5 @@
 package org.openCage.stroy.tree;
 
-import org.openCage.lang.Maybe;
-import org.openCage.stroy.tree.filesystem.FSNoedGen;
 import org.openCage.stroy.tree.filesystem.FsNoedGenSelector;
 
 import java.util.List;
@@ -16,16 +14,16 @@ public class NoedGenSelectorCenter implements NoedGenSelector {
         selectors.add( new FsNoedGenSelector() );
     }
 
-    public Maybe<? extends NoedGen> get( String path, boolean single ) {
+    public NoedGen find( String path, boolean single ) {
 
         for ( NoedGenSelector sel : selectors ) {
-            Maybe< ? extends  NoedGen> mb = sel.get( path, single );
+            NoedGen mb = sel.find( path, single );
 
-            if ( mb.is ) {
+            if ( mb != null ) {
                 return mb;
             }
         }
 
-        return Maybe.no();
+        return null;
     }
 }

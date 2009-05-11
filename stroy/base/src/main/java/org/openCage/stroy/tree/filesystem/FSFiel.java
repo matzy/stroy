@@ -1,13 +1,9 @@
 package org.openCage.stroy.tree.filesystem;
 
-import org.openCage.stroy.tree.Fiel;
 import org.openCage.stroy.tree.StdFiel;
 import org.openCage.stroy.hash.FuzzyHash;
-import org.openCage.stroy.hash.FingerPrintGen;
-import org.openCage.stroy.mimetype.MimeList;
 import org.openCage.stroy.mimetype.MimeListImpl;
 import org.openCage.lang.*;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.InputStream;
@@ -64,7 +60,7 @@ public class FSFiel extends StdFiel {
     }
 
 
-    public Maybe<File> getFile() {
-        return Maybe.yes(file);
+    public File findFile() {
+        return file;
     }
 }

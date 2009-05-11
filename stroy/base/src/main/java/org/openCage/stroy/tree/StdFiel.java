@@ -9,7 +9,7 @@ import java.io.InputStream;
 import java.io.File;
 
 /**
- * Wherever a fiel comes from, most can present there content as InputStream
+ * Wherever a fiel comes from, most can present their content as InputStream
  */
 public class StdFiel implements Fiel {
 
@@ -47,8 +47,8 @@ public class StdFiel implements Fiel {
         return size;
     }
 
-    public Maybe<File> getFile() {
+    public File findFile() {
         // not every InputStream comea from a file
-        return Maybe.no();
+        return null;
     }
 }

@@ -3,7 +3,7 @@ package org.openCage.stroy.tree.filesystem;
 import org.junit.Test;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
-import org.openCage.lang.Maybe;
+import static org.junit.Assert.assertNotNull;
 import org.openCage.stroy.tree.NoedGen;
 
 import java.net.URISyntaxException;
@@ -38,9 +38,9 @@ public class FsNoedGenSelectorTest {
         String path = FsNoedGenSelectorTest.class.getResource( "/org/openCage/stroy/tree").toURI().getPath();
         assertTrue( new File( path).exists() );
 
-        Maybe<? extends NoedGen> gen = new FsNoedGenSelector().get( path, false );
+        NoedGen gen = new FsNoedGenSelector().find( path, false );
 
-        assertTrue( gen.is );
+        assertNotNull( gen );
     }
 
     @Test
@@ -48,15 +48,15 @@ public class FsNoedGenSelectorTest {
         String path = FsNoedGenSelectorTest.class.getResource( "/org/openCage/stroy/tree/filesystem/FsNoedGenSelectorTest.class").toURI().getPath();
         assertTrue( new File( path).exists() );
 
-        Maybe<? extends NoedGen> gen = new FsNoedGenSelector().get( path, false );
+        NoedGen gen = new FsNoedGenSelector().find( path, false );
 
-        assertFalse( gen.is );
+        assertTrue( gen == null );
     }
 
     @Test
     public void testNoOnSvn() {
-        Maybe<? extends NoedGen> gen = new FsNoedGenSelector().get( "svn://http:/foo", false );
+        NoedGen gen = new FsNoedGenSelector().find( "svn://http:/foo", false );
 
-        assertFalse( gen.is );
+        assertTrue( gen == null );
     }
 }

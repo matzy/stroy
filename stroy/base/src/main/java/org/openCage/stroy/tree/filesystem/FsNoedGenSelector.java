@@ -2,7 +2,6 @@ package org.openCage.stroy.tree.filesystem;
 
 import org.openCage.stroy.tree.NoedGenSelector;
 import org.openCage.stroy.tree.NoedGen;
-import org.openCage.lang.Maybe;
 
 import java.io.File;
 
@@ -28,18 +27,18 @@ import java.io.File;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 public class FsNoedGenSelector implements NoedGenSelector {
-    public Maybe<? extends NoedGen> get( String path, boolean single ) {
+    public NoedGen find( String path, boolean single ) {
 
         if ( single ) {
-            return Maybe.no();
+            return null;
         }
 
         File file = new File( path );
 
         if ( !file.isDirectory() ) {
-            return Maybe.no();
+            return null;
         }
 
-        return Maybe.yes( new FSNoedGen() );
+        return new FSNoedGen();
     }
 }

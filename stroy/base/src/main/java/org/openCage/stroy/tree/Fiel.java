@@ -2,7 +2,6 @@ package org.openCage.stroy.tree;
 
 import org.openCage.stroy.hash.FuzzyHash;
 import org.openCage.stroy.mimetype.MimeList;
-import org.openCage.lang.Maybe;
 
 import java.io.File;
 
@@ -28,12 +27,16 @@ import java.io.File;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
+/**
+ * A representation of a leave in a tree
+ * or a generalized file 
+ */
 public interface Fiel {
 
     public MimeList                getType();
     public String                  getFingerprint();
     public FuzzyHash               getFuzzyHash();
     public long                    getSize();
-    public Maybe<File>             getFile();
+    public File                    findFile();
 
 }

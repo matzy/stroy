@@ -1,14 +1,10 @@
 package org.openCage.stroy.find;
 
-import org.apache.commons.cli.*;
 import org.openCage.stroy.tree.Noed;
 import org.openCage.stroy.tree.NoedGen;
 import org.openCage.stroy.tree.NoedGenSelectorCenter;
 import org.openCage.stroy.tree.singlefile.SingleFileGen;
 import org.openCage.stroy.tree.iter.DepthFirstIterator;
-import org.openCage.lang.Maybe;
-
-import java.io.File;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -37,28 +33,29 @@ public class FindClt {
 
     public static void main( String[] args ) {
 
-        Args arguments = new Args( args );
-        if ( !arguments.isOk() ) {
+        ArgsBuilder builder = new ArgsBuilderImpl( args );
+
+        if ( !builder.isOk() ) {
+            builder.printUsage();
             return;
         }
 
+        FindArgs fargs = builder.getArgs();
+
         FindClt find = new FindClt();
 
-        find.run( arguments.getWhat(), arguments.getWhere() );
+        find.run( fargs.getWhat(), fargs.getWhere() );
 
-//        TreeFactory tf = null;
-//
-//        Noed where = tf.create( arguments.getWhere().getAbsolutePath(), false ).build( arguments.getWhere().getAbsolutePath());
     }
 
     void run( String what, String where ) {
-        Maybe<? extends NoedGen> ngen = new NoedGenSelectorCenter().get( where, false );
+        NoedGen ngen = new NoedGenSelectorCenter().find( where, false );
 
-        if ( !ngen.is ) {
+        if ( ngen == null ) {
             throw new IllegalArgumentException( "huh" );
         }
 
-        Noed root = ngen.o.build( where );
+        Noed root = ngen.build( where );
 
         for ( Noed noed : new DepthFirstIterator(root)) {
             System.out.println( noed );

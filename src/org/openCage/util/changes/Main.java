@@ -310,7 +310,7 @@ public class Main {
         add( 176, "d", " add standard editors text (>166)" );
         add( 174, "F", " add open with text editor (needs 166)" );
         add( 140, "d", " handle default diff for all platforms (no linux yet)" );
-        add( 178, "F", " allow open of resource bundles, e.g. foo.pages (just open)" );
+        add( 178, "F", " allow open of resources bundles, e.g. foo.pages (just open)" );
         add( 179, "d", " different popups for different file types" );
         add( 58, "f", " external diff for win" );
         add( 86, "f", " preset for external diff prog (i.e. make it configurable)" );
