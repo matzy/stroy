@@ -1,0 +1,25 @@
+
+From Hello World to the World
+
+- I got a stuck with too many idea and the big refactoring
+- how to get back (part 7.27)?
+
+- Rewrite the damn thing form the ground up
+- philosophy start with hello world
+   keep it working
+   add to it and refactor until it is what you want
+   document the process
+
+
+2009.06.28:
+    - test svn package move
+      intellij 8. Checkout the project from within intellij. choose svn 1.5 metainfo.
+      - moving directories worked, yah
+      - moving packages gets confused by same package name in other modules
+      => move in 'project' mode
+
+    - created new module 'stroy2' lets start anew
+    - save 1
+
+    - command arg handling
+    
