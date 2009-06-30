@@ -156,15 +156,15 @@ public class DiffProg {
 
     private String ui() {
         if ( gui && clt ) {
-            return "[[image http://stroy.wdfiles.com/local--files/diff-central/view-left-right.png]][[image http://stroy.wdfiles.com/local--files/diff-central/terminal.png]]";
+            return "[[image http://stroy2.wdfiles.com/local--files/diff-central/view-left-right.png]][[image http://stroy2.wdfiles.com/local--files/diff-central/terminal.png]]";
         }
 
         if ( gui ) {
-            return "[[image http://stroy.wdfiles.com/local--files/diff-central/view-left-right.png]]";
+            return "[[image http://stroy2.wdfiles.com/local--files/diff-central/view-left-right.png]]";
         }
 
         if ( clt ) {
-            return "[[image http://stroy.wdfiles.com/local--files/diff-central/terminal.png]]";
+            return "[[image http://stroy2.wdfiles.com/local--files/diff-central/terminal.png]]";
         }
 
         return "";

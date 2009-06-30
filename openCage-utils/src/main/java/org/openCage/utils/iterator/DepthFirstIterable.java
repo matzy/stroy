@@ -2,10 +2,10 @@
 //
 //import java.util.Iterator;
 //
-//package org.openCage.stroy.graph.iterator;
+//package org.openCage.stroy2.graph.iterator;
 //
-//import org.openCage.stroy.graph.node.TreeNode;
-//import org.openCage.stroy.graph.iterator.DepthFirstIterator;
+//import org.openCage.stroy2.graph.node.TreeNode;
+//import org.openCage.stroy2.graph.iterator.DepthFirstIterator;
 //
 //import javax.swing.tree.TreeNode;
 //import java.util.Iterator;
@@ -23,7 +23,7 @@
 //* for the specific language governing rights and limitations under the
 //* License.
 //*
-//* The Original Code is stroy code.
+//* The Original Code is stroy2 code.
 //*
 //* The Initial Developer of the Original Code is Stephan Pfab <openCage@gmail.com>.
 //* Portions created by Stephan Pfab are Copyright (C) 2006 - 2009.

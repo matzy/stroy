@@ -22,4 +22,9 @@ From Hello World to the World
     - save 1
 
     - command arg handling
+
+2009.06.29
+    - oops renaming a package affects all other packages with the same name in other modules
+      remove the other modules from the project first
+      do not move them outside intellij
     

@@ -1,7 +1,7 @@
 package org.openCage.lang;
 
-import org.junit.Test;
 import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 import org.openCage.lang.Curry;
 import org.openCage.lang.F1;
 import org.openCage.lang.F2;
