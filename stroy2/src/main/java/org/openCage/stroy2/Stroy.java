@@ -10,6 +10,11 @@ package org.openCage.stroy2;
 public class Stroy {
 
     public Stroy( String left, String right ) {
-        
+        Tsak task = new TsakImpl(); // todo guice
+        final NoedBuilder noedBuilder = new FSNoedBuilder( task, left );
+        final NoedBuilder noedBuilder2 = new FSNoedBuilder( task, right );
+
+        noedBuilder.go();
+        noedBuilder2.go();
     }
 }
