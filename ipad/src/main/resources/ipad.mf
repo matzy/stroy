@@ -1,4 +1,0 @@
-Manifest-Version: 1.0
-Created-By: Stephan Pfab
-Class-Path: openCage-utils.jar
-Main-Class: org.openCage.ipad.Main

@@ -1,4 +1,0 @@
-Manifest-Version: 1.0
-Created-By: Stephan Pfab
-Class-Path: commons-cli-1.0.jar guice-1.0.jar swing-layout-1.0.jar designgridlayout-0.2.jar Sys.jar mydoggy-api-1.3.1.jar mydoggy-plaf-1.3.1.jar mydoggy-res-1.3.1.jar TableLayout-20020517.jar xstream-1.1.3.jar
-Main-Class: org.openCage.stroy.ui.Main

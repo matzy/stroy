@@ -1,4 +1,0 @@
-Manifest-Version: 1.0
-Created-By: Stephan Pfab
-Class-Path: commons-cli-1.0.jar guice-1.0.jar 
-Main-Class: org.openCage.stroy.cli.Main

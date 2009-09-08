@@ -1,5 +1,0 @@
-package duda;
-
-class What {
-
-}
