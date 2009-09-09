@@ -6,7 +6,6 @@
 	<classpathentry kind="lib" path="external/production/commons-cli-1.0.jar"/>
 	<classpathentry kind="lib" path="external/production/commons-logging-1.1.jar"/>
 	<classpathentry kind="lib" path="external/production/designgridlayout-0.9.jar"/>
-	<classpathentry kind="lib" path="external/production/guice-1.0.jar"/>
 	<classpathentry kind="lib" path="external/production/jdic.jar"/>
 	<classpathentry kind="lib" path="external/production/mydoggy-api-1.3.1.jar"/>
 	<classpathentry kind="lib" path="external/production/mydoggy-plaf-1.3.1.jar"/>
@@ -15,10 +14,16 @@
 	<classpathentry kind="lib" path="external/production/swing-worker-1.1.jar"/>
 	<classpathentry kind="lib" path="external/production/Sys.jar"/>
 	<classpathentry kind="lib" path="external/production/TableLayout-20020517.jar"/>
-	<classpathentry kind="lib" path="external/production/xstream-1.1.3.jar"/>
-	<classpathentry kind="lib" path="external/test/jmock-cglib-1.2.0.jar"/>
-	<classpathentry kind="lib" path="external/test/jmock-core-1.2.0.jar"/>
 	<classpathentry kind="lib" path="external/test/junit-4.4.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/Users/stephan/Documents/prs/stroy-ng/modules/legacy/external/production/guice-2.0.jar"/>
+	<classpathentry kind="lib" path="/Users/stephan/Documents/prs/stroy-ng/modules/legacy/external/production/xstream-1.3.1.jar"/>
+	<classpathentry kind="lib" path="/Users/stephan/Documents/prs/stroy-ng/modules/legacy/external/production/annotations.jar"/>
+	<classpathentry kind="lib" path="/Users/stephan/Documents/prs/stroy-ng/modules/legacy/external/test/hamcrest-core-1.1.jar"/>
+	<classpathentry kind="lib" path="/Users/stephan/Documents/prs/stroy-ng/modules/legacy/external/test/hamcrest-library-1.1.jar"/>
+	<classpathentry kind="lib" path="/Users/stephan/Documents/prs/stroy-ng/modules/legacy/external/test/jmock-2.5.1.jar"/>
+	<classpathentry kind="lib" path="/Users/stephan/Documents/prs/stroy-ng/modules/legacy/external/test/jmock-junit4-2.5.1.jar"/>
+	<classpathentry kind="lib" path="/Users/stephan/Documents/prs/stroy-ng/modules/legacy/external/test/objenesis-1.0.jar"/>
+	<classpathentry kind="lib" path="/Users/stephan/Documents/prs/stroy-ng/modules/legacy/external/test/jmock-legacy-2.5.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
