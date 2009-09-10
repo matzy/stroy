@@ -5,6 +5,7 @@ import org.openCage.stroy.dir.FileTreeMatchingTaskBuilder;
 import org.openCage.stroy.app.Tasks;
 import org.openCage.stroy.filter.IgnoreCentral;
 import org.openCage.stroy.filter.Ignore;
+import org.openCage.stroy.fuzzyHash.FuzzyHashGenerator;
 import org.openCage.stroy.RuntimeModule;
 import org.openCage.stroy.locale.Message;
 import org.openCage.stroy.ui.docking.GraphicalDiffMyDoggy;
@@ -24,6 +25,8 @@ import java.io.File;
 
 import com.google.inject.Injector;
 import com.google.inject.Guice;
+import com.google.inject.Key;
+import com.google.inject.TypeLiteral;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -152,7 +155,10 @@ public class CompareBuilder extends SwingWorker<GraphicalDiffMyDoggy, T2<String,
         progressDialog.dispose();
 
         Injector injector = Guice.createInjector( new RuntimeModule() );
-        WatchFull strategy = injector.getInstance( WatchFull.class );
+        WatchFull<FileContent> strategy = injector.getInstance( Key.get(new TypeLiteral<WatchFull<FileContent>>() {} ));
+//        WatchFull<FileContent> strategy = injector.getInstance();
+ //        TreeLeafNodeFuzzyLeafDistance<FileContent> = injector.getInstance( )
+//        WatchFull<FileContent> strategy = new WatchFull<FileContent>(fuzzyLeafDis);
 
         new MatchnWatch<FileContent>( gd4.getUIApp(), strategy ).execute();
     }
