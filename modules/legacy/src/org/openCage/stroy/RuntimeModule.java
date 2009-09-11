@@ -16,7 +16,6 @@ import org.openCage.stroy.fuzzyHash.metric.SizeWeightedMetric;
 import org.openCage.stroy.fuzzyHash.file.*;
 import org.openCage.stroy.graph.matching.LocationCentricMetric;
 import org.openCage.stroy.graph.matching.TreeLeafDistanceMetric;
-import org.openCage.stroy.graph.matching.strategy.combined.WatchFull;
 import org.openCage.stroy.map.KeyOnlyDistance;
 import org.openCage.stroy.text.*;
 import org.openCage.stroy.ui.*;

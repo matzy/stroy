@@ -176,3 +176,4 @@ public class CompareBuilder extends SwingWorker<GraphicalDiffMyDoggy, T2<String,
         }
     }
 }
+	
