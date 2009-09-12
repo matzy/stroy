@@ -11,7 +11,7 @@
     <property name="build-objc" value="build-objc"/>
     <property name="lib" value="lib"/>
     <property name="manifests" value="manifests"/>
-    <property name="external" value="external"/>
+    <property name="external" value="../../external"/>
     <property name="externalProd" value="external/production"/>
     <property name="resources" value="resources"/>
     <property name="jdoc" value="jdoc"/>
