@@ -1,0 +1,11 @@
+<Application>
+  <name>TestApp</name>
+  <authors>
+    <Author>
+      <name>me</name>
+    </Author>
+    <Author>
+      <name>you</name>
+    </Author>
+  </authors>
+</Application>
