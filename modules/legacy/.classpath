@@ -31,5 +31,7 @@
 	<classpathentry kind="var" path="STROY_HOME/external/test/jmock-script-2.5.1.jar"/>
 	<classpathentry kind="var" path="STROY_HOME/external/test/junit-4.4.jar"/>
 	<classpathentry kind="var" path="STROY_HOME/external/test/objenesis-1.0.jar"/>
+	<classpathentry kind="var" path="STROY_HOME"/>
+	<classpathentry kind="src" path="/application"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

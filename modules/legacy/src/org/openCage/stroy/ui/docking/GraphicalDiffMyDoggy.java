@@ -1,10 +1,17 @@
 package org.openCage.stroy.ui.docking;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+
 import org.noos.xing.mydoggy.ToolWindow;
 import org.noos.xing.mydoggy.ToolWindowAnchor;
 import org.noos.xing.mydoggy.plaf.MyDoggyToolWindowManager;
+import org.openCage.application.protocol.Application;
+import org.openCage.application.protocol.ApplicationBuilder;
+import org.openCage.application.protocol.Author;
 import org.openCage.stroy.RuntimeModule;
 import org.openCage.stroy.locale.Message;
 import org.openCage.stroy.task.NodeChangeListener;
@@ -61,6 +68,7 @@ public class GraphicalDiffMyDoggy<T extends Content> extends JFrame implements I
     private final java.util.List<TreeMatchingTask<T>>           tasks;
     private final java.util.List<DefaultMutableTreeNode>        dmtRoots;
     private NWayDiffPane                                        diffPane;
+    private ApplicationBuilder ab;
 
     private final UIApp app;
 
@@ -84,6 +92,8 @@ public class GraphicalDiffMyDoggy<T extends Content> extends JFrame implements I
         // TODO
         Injector injector         = Guice.createInjector( new RuntimeModule() );
         NWayDiffPaneGenerator gen = injector.getInstance( NWayDiffPaneGenerator.class );
+        ab = injector.getInstance( ApplicationBuilder.class );
+        
 
         diffPane = gen.getDiffPane( this.tasks, dmtRoots );
 
@@ -243,6 +253,15 @@ public class GraphicalDiffMyDoggy<T extends Content> extends JFrame implements I
 //
 //        Central.diffPane = diffPane;
 //        Central.tasks    = this.tasks;
+    }
+    
+    private Application createApplication() {
+        Application app = ab.with( ab.author().name( "me" ).build()).
+	     with( ab.author().name( "you" ).build()).
+	     name( "TestApp" ).
+	     build();
+        
+        return app;
     }
 
     private void fillGhosts( final List<DefaultMutableTreeNode> roots) {

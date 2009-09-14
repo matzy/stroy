@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.openCage.application.protocol.Application;
 import org.openCage.application.protocol.Author;
+import org.openCage.application.protocol.Contact;
 import org.openCage.application.protocol.Licence;
 import org.openCage.application.protocol.Version;
 
@@ -33,6 +34,21 @@ public class ApplicationByBuilder implements Application{
 	}
 
 	public Version getVersion() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Contact getContact() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Collection<Author> getContributors() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getDescprition() {
 		// TODO Auto-generated method stub
 		return null;
 	}

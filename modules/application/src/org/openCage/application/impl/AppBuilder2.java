@@ -8,6 +8,7 @@ import org.openCage.application.protocol.Application;
 import org.openCage.application.protocol.ApplicationBuilder;
 import org.openCage.application.protocol.Author;
 import org.openCage.application.protocol.AuthorBuilder;
+import org.openCage.application.protocol.ContactBuilder;
 
 import com.google.inject.Inject;
 
@@ -39,6 +40,11 @@ public class AppBuilder2 implements ApplicationBuilder {
 	public ApplicationBuilder name( String name ) {
 		this.name = name;
 		return this;
+	}
+
+	public ContactBuilder contact() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
