@@ -69,7 +69,7 @@ public class GraphicalDiffMyDoggy<T extends Content> extends JFrame implements I
     private final java.util.List<DefaultMutableTreeNode>        dmtRoots;
     private NWayDiffPane                                        diffPane;
     private ApplicationBuilder ab;
-
+    
     private final UIApp app;
 
     public GraphicalDiffMyDoggy( final Tasks<T> tasks  ) {
@@ -245,7 +245,11 @@ public class GraphicalDiffMyDoggy<T extends Content> extends JFrame implements I
         }
 
         PortableMenu menu = new PortableMenu();
-        menu.setAppInfo( new StroyAppInfo());
+
+        
+        Application ab = injector.getInstance( Application.class );       
+        
+        menu.setAppInfo( ab );
         menu.setFrame( this );
         menu.create();
 

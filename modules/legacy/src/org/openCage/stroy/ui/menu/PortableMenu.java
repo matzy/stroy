@@ -5,6 +5,7 @@ import org.openCage.util.app.About;
 import org.openCage.util.app.AboutImpl;
 import org.openCage.util.www.Mailto;
 import org.openCage.util.ui.BrowserLauncher;
+import org.openCage.application.protocol.Application;
 import org.openCage.stroy.ui.prefs.PrefsUI;
 import org.openCage.stroy.ui.help.HelpLauncher;
 import org.openCage.stroy.ui.menu.Menu;
@@ -40,7 +41,7 @@ import com.muchsoft.util.Sys;
 
 public class PortableMenu implements Menu {
 
-    private AppInfo appInfo;
+    private Application appInfo;
     private JFrame  frame;
     private static JFrame  logView;
 
@@ -122,23 +123,23 @@ public class PortableMenu implements Menu {
         if ( Sys.isWindows() ) {
             JMenuItem about = new JMenuItem( Message.get(  "Menu.About" ));
             menuHelp.add( about );
-            final AppInfo ai = appInfo;
+            final Application ai = appInfo;
             about.addActionListener( new ActionListener() {
                 public void actionPerformed(ActionEvent actionEvent) {
                     About about = new AboutImpl( appInfo);
-                    about.go();
+                    about.setVisible( true );
                 }
             });
         }
 
         JMenuItem sendBugReport = new JMenuItem( Message.get(  "Menu.bugReport" ));
         menuHelp.add( sendBugReport );
-        final AppInfo ai = appInfo;
+        final Application ai = appInfo;
         sendBugReport.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
                 new Mailto(ai.getContactEmail())
                         .subject( "Bug Report: " )
-                        .body( ai.getProgName() + " " + ai.getVersion())
+                        .body( ai.getName() + " " + ai.getVersion())
                         .send();
             }
         });
@@ -207,7 +208,7 @@ public class PortableMenu implements Menu {
     }
 
 
-    public void setAppInfo(AppInfo appInfo) {
+    public void setAppInfo( Application appInfo) {
         this.appInfo = appInfo;
     }
 

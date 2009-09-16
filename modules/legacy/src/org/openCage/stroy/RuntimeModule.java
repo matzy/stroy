@@ -1,5 +1,6 @@
 package org.openCage.stroy;
 
+import com.apple.eawt.Application;
 import com.google.inject.Binder;
 import com.google.inject.Module;
 import com.google.inject.TypeLiteral;
@@ -23,6 +24,7 @@ import org.openCage.stroy.text.*;
 import org.openCage.stroy.ui.*;
 import org.openCage.stroy.ui.difftree.NWayDiffPaneGenerator;
 import org.openCage.stroy.ui.difftree.NWayDiffTreeGenImplMessages;
+import org.openCage.stroy.app.ApplicationProvider;
 import org.openCage.stroy.app.StroyAppInfo;
 import org.openCage.stroy.algo.distance.Distance;
 import org.openCage.stroy.algo.hash.Hash;
@@ -64,6 +66,8 @@ public class RuntimeModule implements Module {
     public void configure(Binder binder) {
 
     	binder.install( new GuiceWiring());
+    	
+    	binder.bind( Application.class ).toProvider( ApplicationProvider.class );
     	
         //
         // LineNoise

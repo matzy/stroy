@@ -297,7 +297,7 @@ public class DirSelectorImpl extends JFrame
     public void handleAbout(EventObject eventObject) {
         Java14Adapter.setHandled( eventObject, true );
         About about = new AboutImpl( appInfo);
-        about.go();
+        about.setVisible( true );
     }
 
     public void handlePrefs(EventObject eventObject) {

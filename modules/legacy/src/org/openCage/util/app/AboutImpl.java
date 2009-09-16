@@ -2,6 +2,8 @@ package org.openCage.util.app;
 
 import com.google.inject.Inject;
 import org.openCage.util.ui.BrowserLauncher;
+import org.openCage.application.protocol.Application;
+import org.openCage.application.protocol.Author;
 import org.openCage.stroy.ui.help.HelpLauncher;
 import org.openCage.stroy.locale.Message;
 
@@ -36,17 +38,17 @@ import net.java.dev.designgridlayout.DesignGridLayout;
 
 public class AboutImpl extends JDialog implements About {
 
-    private final AppInfo appInfo;
+    private final Application appInfo;
 
     @Inject
-    public AboutImpl( AppInfo appInfo ) {
+    public AboutImpl( Application appInfo ) {
         this.appInfo = appInfo;
     }
 
 
 
-    public void go() {
-        setTitle( appInfo.getProgName() );
+    public void setVisible() {
+        setTitle( appInfo.getName() );
         setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
         setSize( 400, 200 );
 
@@ -55,26 +57,37 @@ public class AboutImpl extends JDialog implements About {
         top.setLayout( layout );
 
 //        layout.row().add( new JLabel(  ));
-        layout.row().add( new JLabel( appInfo.getProgName() ));
+        layout.row().add( new JLabel( appInfo.getName() ));
         layout.row().label( new JLabel( Message.get( "About.version" ))).add( new JLabel( appInfo.getVersion().toString() ));
         layout.row().label( new JLabel( Message.get( "About.copyright" ))).add( new JLabel( appInfo.getCopyright() ), 3 );
         layout.row().label( new JLabel( Message.get( "About.short" ))).add( new JLabel( Message.get( "About.description" )), 6 );
-        layout.row().label( new JLabel( Message.get( "About.licence" ))).add( new JLabel( "MPL1.1"), 6 );
+        layout.row().label( new JLabel( Message.get( "About.licence" ))).add( new JLabel( appInfo.getLicence().getName()), 6 );
 
         JButton help = new JButton( Message.get( "Menu.Help" ) );
         layout.row().label( new JLabel( Message.get( "Menu.Help" )))/*.add( new JLabel(""), 3 )*/.add( help ).add( new JLabel(""), 5 );
 
         boolean first = true;
-        for ( final String author : appInfo.getAuthors() ) {
+        for ( final Author author : appInfo.getAuthors() ) {
 
             if ( first ) {
                 first = false;
-                layout.row().label( new JLabel( Message.get( "About.author" ))).add( new JLabel( author ),2 );
+                layout.row().label( new JLabel( Message.get( "About.author" ))).add( new JLabel( author.getName() ),2 );
             } else {
-                layout.row().add( new JLabel( author ), 2 );
+                layout.row().add( new JLabel( author.getName() ), 2 );
             }
         }
-        layout.row().label( new JLabel( Message.get( "About.contributors" ))).add( new JLabel( "Misa Inabe, Miguel Cuadron Marion" ),6 );
+        
+        first = true;
+        for ( final Author author : appInfo.getContributors()) {
+            if ( first ) {
+                first = false;
+                layout.row().label( new JLabel( Message.get( "About.contributors" ))).add( new JLabel( author.getName() ),2 );
+            } else {
+                layout.row().add( new JLabel( author.getName() ), 2 );
+            }
+        }
+        
+//        layout.row().label( new JLabel( Message.get( "About.contributors" ))).add( new JLabel( "Misa Inabe, Miguel Cuadron Marion" ),6 );
 
         if ( appInfo.getContactEmail() != null ) {
             JButton contact = new JButton( appInfo.getContactEmail());

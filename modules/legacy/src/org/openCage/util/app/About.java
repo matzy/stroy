@@ -24,11 +24,6 @@ package org.openCage.util.app;
 
 public interface About {
 
-//    public void setProgramName( String name );
-//    public void addAuthor( String name, String email );
-//    public void setDescription( String txt );
-//    public void addReference(Reference ref);
-//    public void setVersion( Version version );
+    public void setVisible( boolean visible );
 
-    public void go();
 }
