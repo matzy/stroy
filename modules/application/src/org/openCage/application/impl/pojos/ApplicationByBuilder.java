@@ -14,10 +14,14 @@ public class ApplicationByBuilder implements Application{
 
 	private final String        name;
 	private final List<Author>  authors;
+	private final Version       version;
 	
-	public ApplicationByBuilder( final String name, final List<Author> authors ) {
+	public ApplicationByBuilder( final String name, 
+								 final List<Author> authors,
+								 final Version      version ) {
 		this.name    = name;
 		this.authors = authors;
+		this.version = version;
 	}
 	
 	public Collection<? extends Author> getAuthors() {
@@ -34,8 +38,7 @@ public class ApplicationByBuilder implements Application{
 	}
 
 	public Version getVersion() {
-		// TODO Auto-generated method stub
-		return null;
+		return version;
 	}
 
 	public Contact getContact() {

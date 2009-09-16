@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.openCage.application.impl.pojos.ApplicationByBuilder;
+import org.openCage.application.impl.pojos.VersionImpl;
 import org.openCage.application.protocol.Application;
 import org.openCage.application.protocol.ApplicationBuilder;
 import org.openCage.application.protocol.Author;
@@ -25,7 +26,7 @@ public class AppBuilder2 implements ApplicationBuilder {
 	}
 
 	public Application build() {
-		return new ApplicationByBuilder( name, authors );
+		return new ApplicationByBuilder( name, authors, new VersionImpl(0,1,2,3) );
 	}
 
 	public ApplicationBuilder with(Author author) {
