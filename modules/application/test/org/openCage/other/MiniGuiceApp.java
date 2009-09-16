@@ -6,26 +6,21 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 
 import org.junit.Test;
-import org.openCage.application.impl.pojos.ApplicationByBuilder;
-import org.openCage.application.impl.pojos.ApplicationImpl;
-import org.openCage.application.impl.pojos.AuthorImpl;
 import org.openCage.application.protocol.Application;
 import org.openCage.application.protocol.ApplicationBuilder;
 import org.openCage.application.protocol.ApplicationFromConfig;
 import org.openCage.application.protocol.Author;
-import org.openCage.application.wiring.GuiceWiring;
+import org.openCage.application.wiring.ApplicationWiring;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.DomDriver;
 
 
 public class MiniGuiceApp {
 
 	@Test
 	public void testBuilder() {
-        Injector injector = Guice.createInjector( new GuiceWiring() );
+        Injector injector = Guice.createInjector( new ApplicationWiring() );
 
         ApplicationBuilder ab = injector.getInstance( ApplicationBuilder.class );
         
@@ -58,9 +53,17 @@ public class MiniGuiceApp {
 	
 	@Test
 	public void testXML() {
+        String path = getClass().getResource(".").getPath();
+        String path2 = getClass().getResource("Testing.xml").getPath();
+        
+        boolean ex = new File( path2 ).exists();
+        
+
         Injector injector = Guice.createInjector( new Wiring() );
 		
+
         ApplicationFromConfig appConf = injector.getInstance(ApplicationFromConfig.class );
+        
 
         Application app = appConf.get( new File("/Users/stephan/Documents/stroy-ng/modules/application/test/org/openCage/other/TestApp.xml"));
         assertEquals( 2, app.getAuthors().size());

@@ -8,4 +8,10 @@
       <name>you</name>
     </Author>
   </authors>
+  <version>
+  	<major>7</major>
+  	<minor>8</minor>
+  	<patch>9</patch>
+  	<build>42</build>
+  </version>
 </Application>
