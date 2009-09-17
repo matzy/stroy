@@ -5,6 +5,7 @@ import com.google.inject.Binder;
 import com.google.inject.Module;
 import com.google.inject.TypeLiteral;
 
+import org.openCage.application.wiring.ApplicationWiring;
 import org.openCage.application.wiring.GuiceWiring;
 import org.openCage.stroy.array.AddIngnorantListMetric;
 import org.openCage.stroy.array.ListChangeMetric;
@@ -65,7 +66,7 @@ public class RuntimeModule implements Module {
 
     public void configure(Binder binder) {
 
-    	binder.install( new GuiceWiring());
+    	binder.install( new ApplicationWiring());
     	
     	binder.bind( Application.class ).toProvider( ApplicationProvider.class );
     	
