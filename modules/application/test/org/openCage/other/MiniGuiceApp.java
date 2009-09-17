@@ -4,16 +4,26 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import org.junit.Test;
+import org.openCage.application.impl.pojos.ApplicationByBuilder;
+import org.openCage.application.impl.pojos.AuthorImpl;
+import org.openCage.application.impl.pojos.LicenceImpl;
+import org.openCage.application.impl.pojos.VersionImpl;
 import org.openCage.application.protocol.Application;
 import org.openCage.application.protocol.ApplicationBuilder;
 import org.openCage.application.protocol.ApplicationFromConfig;
 import org.openCage.application.protocol.Author;
+import org.openCage.application.protocol.Version;
 import org.openCage.application.wiring.ApplicationWiring;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 
 
 public class MiniGuiceApp {
@@ -72,6 +82,27 @@ public class MiniGuiceApp {
 			assertTrue( author.getName().equals( "me") || author.getName().equals( "you"));  
 		}
         assertEquals( "TestApp", app.getName() );
+	}
+	
+	@Test
+	public void testXMLout() {
+		List<AuthorImpl> au = new ArrayList<AuthorImpl>();
+		au.add(new AuthorImpl("au", null ));
+		Application app = new ApplicationByBuilder( 
+				"foo", 
+				au,  
+				new VersionImpl( 0,1,2,3 ),
+				new LicenceImpl("MPL 1.1"),
+				null );
+		
+		XStream xs = new XStream( new DomDriver());
+		xs.alias("Application", ApplicationByBuilder.class);
+		xs.alias("Author", AuthorImpl.class );
+		xs.alias("Version", VersionImpl.class );
+		xs.alias("Licence", LicenceImpl.class );
+
+		
+		System.out.println( xs.toXML( app ));
 	}
 	
 }
