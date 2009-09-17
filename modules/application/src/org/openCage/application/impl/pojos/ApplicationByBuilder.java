@@ -13,15 +13,21 @@ import org.openCage.application.protocol.Version;
 public class ApplicationByBuilder implements Application{
 
 	private final String        name;
-	private final List<Author>  authors;
-	private final Version       version;
+	private final List<AuthorImpl>  authors;
+	private final List<AuthorImpl>  contributors;
+	private final VersionImpl       version;
+	private final LicenceImpl       licence;
 	
-	public ApplicationByBuilder( final String name, 
-								 final List<Author> authors,
-								 final Version      version ) {
+	public ApplicationByBuilder( final String                 name, 
+								 final List<AuthorImpl> authors,
+								 final VersionImpl                version,
+								 final LicenceImpl licence,
+								 final List<AuthorImpl> cont ) {
 		this.name    = name;
 		this.authors = authors;
 		this.version = version;
+		this.licence = licence;
+		this.contributors = cont;
 	}
 	
 	public Collection<? extends Author> getAuthors() {
@@ -29,8 +35,7 @@ public class ApplicationByBuilder implements Application{
 	}
 
 	public Licence getLicence() {
-		// TODO Auto-generated method stub
-		return null;
+		return licence;
 	}
 
 	public String getName() {
@@ -46,9 +51,11 @@ public class ApplicationByBuilder implements Application{
 		return null;
 	}
 
-	public Collection<Author> getContributors() {
-		// TODO Auto-generated method stub
-		return null;
+	public Collection<? extends Author> getContributors() {
+		if ( contributors == null ) {
+			return Collections.EMPTY_LIST;
+		}
+		return contributors;
 	}
 
 	public String getDescprition() {

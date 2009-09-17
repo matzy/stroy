@@ -7,6 +7,7 @@ import java.io.InputStream;
 
 import org.openCage.application.impl.pojos.ApplicationByBuilder;
 import org.openCage.application.impl.pojos.AuthorImpl;
+import org.openCage.application.impl.pojos.VersionImpl;
 import org.openCage.application.protocol.Application;
 import org.openCage.application.protocol.ApplicationFromConfig;
 import org.openCage.withResource.protocol.Reader;
@@ -31,6 +32,7 @@ public class ApplicationFromConfigXStream implements ApplicationFromConfig {
 					XStream xs = new XStream( new DomDriver());
 					xs.alias("Application", ApplicationByBuilder.class);
 					xs.alias("Author", AuthorImpl.class );
+					xs.alias("Version", VersionImpl.class );
 					return (Application)xs.fromXML( stream );
 				}
 			});

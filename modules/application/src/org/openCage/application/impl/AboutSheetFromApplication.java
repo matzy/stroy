@@ -2,6 +2,7 @@ package org.openCage.application.impl;
 
 import java.awt.BorderLayout;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -41,7 +42,11 @@ public class AboutSheetFromApplication extends JDialog implements AboutSheet {
         DesignGridLayout layout = new DesignGridLayout( top );
         top.setLayout( layout );
 
-//        layout.row().add( new JLabel(  ));
+        JLabel pic = new JLabel();
+        ImageIcon icon = new ImageIcon( "/Users/stephan/Documents/prs/stroy-ng/modules/application/test/org/openCage/Photo 1.jpg" );
+        pic.setIcon(icon);
+        layout.row().add( pic );
+        
         layout.row().add( new JLabel( app.getName() ));
         layout.row().label( new JLabel( localize.localize( "About.version" ))).add( new JLabel( app.getVersion().toString() ));
 //        layout.row().label( new JLabel( localize.localize( "About.copyright" ))).add( new JLabel( app.getCopyright() ), 3 );

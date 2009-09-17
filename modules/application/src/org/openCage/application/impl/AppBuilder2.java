@@ -26,7 +26,7 @@ public class AppBuilder2 implements ApplicationBuilder {
 	}
 
 	public Application build() {
-		return new ApplicationByBuilder( name, authors, new VersionImpl(0,1,2,3) );
+		return null; //new ApplicationByBuilder( name, authors, new VersionImpl(0,1,2,3) );
 	}
 
 	public ApplicationBuilder with(Author author) {
