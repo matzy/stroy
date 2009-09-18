@@ -61,28 +61,28 @@ public class MiniGuiceApp {
         assertEquals( "TestApp", app.getName() );
 	}
 	
-	@Test
-	public void testXML() {
-        String path = getClass().getResource(".").getPath();
-        String path2 = getClass().getResource("Testing.xml").getPath();
-        
-        boolean ex = new File( path2 ).exists();
-        
-
-        Injector injector = Guice.createInjector( new Wiring() );
-		
-
-        ApplicationFromConfig appConf = injector.getInstance(ApplicationFromConfig.class );
-        
-
-        Application app = appConf.get( new File("/Users/stephan/Documents/stroy-ng/modules/application/test/org/openCage/other/TestApp.xml"));
-        assertEquals( 2, app.getAuthors().size());
-		
-		for ( Author author : app.getAuthors() ) {
-			assertTrue( author.getName().equals( "me") || author.getName().equals( "you"));  
-		}
-        assertEquals( "TestApp", app.getName() );
-	}
+//	@Test
+//	public void testXML() {
+//        String path = getClass().getResource(".").getPath();
+//        String path2 = getClass().getResource("Testing.xml").getPath();
+//        
+//        boolean ex = new File( path2 ).exists();
+//        
+//
+//        Injector injector = Guice.createInjector( new Wiring() );
+//		
+//
+//        ApplicationFromConfig appConf = injector.getInstance(ApplicationFromConfig.class );
+//        
+//
+//        Application app = appConf.get( new File("/Users/stephan/Documents/stroy-ng/modules/application/test/org/openCage/other/TestApp.xml"));
+//        assertEquals( 2, app.getAuthors().size());
+//		
+//		for ( Author author : app.getAuthors() ) {
+//			assertTrue( author.getName().equals( "me") || author.getName().equals( "you"));  
+//		}
+//        assertEquals( "TestApp", app.getName() );
+//	}
 	
 	@Test
 	public void testXMLout() {
