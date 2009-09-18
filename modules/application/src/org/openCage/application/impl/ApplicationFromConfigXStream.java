@@ -5,7 +5,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
+import javax.swing.ImageIcon;
+
 import org.openCage.application.impl.pojos.ApplicationByBuilder;
+import org.openCage.application.impl.pojos.ApplicationImpl;
 import org.openCage.application.impl.pojos.AuthorImpl;
 import org.openCage.application.impl.pojos.VersionImpl;
 import org.openCage.application.protocol.Application;
@@ -23,7 +26,7 @@ public class ApplicationFromConfigXStream implements ApplicationFromConfig {
 	@Inject
 	private With with;
 
-	public Application get( File path) {
+	public Application get( File path, final String iconPath ) {
 		
 		return with.withOpenStreamQuiet( path , new Reader<Application, InputStream>() {
 
@@ -33,7 +36,9 @@ public class ApplicationFromConfigXStream implements ApplicationFromConfig {
 					xs.alias("Application", ApplicationByBuilder.class);
 					xs.alias("Author", AuthorImpl.class );
 					xs.alias("Version", VersionImpl.class );
-					return (Application)xs.fromXML( stream );
+					ApplicationByBuilder app = (ApplicationByBuilder)xs.fromXML( stream );
+					app.setIcon( new ImageIcon( iconPath ));
+					return app;
 				}
 			});
 

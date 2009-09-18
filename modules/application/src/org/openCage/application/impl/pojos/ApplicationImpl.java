@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+
 import org.openCage.application.protocol.Application;
 import org.openCage.application.protocol.Author;
 import org.openCage.application.protocol.Contact;
@@ -14,6 +17,7 @@ public class ApplicationImpl implements Application{
 
 	public final String name;
 	private ArrayList<Author> authors = new ArrayList<Author>();
+	private Icon icon;
 	
 	public ApplicationImpl( final String name ) {
 		this.name = name;
@@ -56,4 +60,10 @@ public class ApplicationImpl implements Application{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public Icon getIcon() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
