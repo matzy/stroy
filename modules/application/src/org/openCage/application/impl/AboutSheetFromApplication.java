@@ -43,8 +43,8 @@ public class AboutSheetFromApplication extends JDialog implements AboutSheet {
         top.setLayout( layout );
 
         JLabel pic = new JLabel();
-        ImageIcon icon = new ImageIcon( "/Users/stephan/Documents/prs/stroy-ng/modules/application/test/org/openCage/Photo 1.jpg" );
-        pic.setIcon(icon);
+        pic.setIcon( app.getIcon());
+//        pic.setIcon( new ImageIcon( "/Users/stephan/Documents/prs/stroy-ng/modules/application/test/org/openCage/other/Photo 1.jpg" ));
         layout.row().add( pic );
         
         layout.row().add( new JLabel( app.getName() ));

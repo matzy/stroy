@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.net.URL;
 
 import javax.swing.ImageIcon;
 
@@ -26,7 +27,7 @@ public class ApplicationFromConfigXStream implements ApplicationFromConfig {
 	@Inject
 	private With with;
 
-	public Application get( File path, final String iconPath ) {
+	public Application get( File path, final URL iconPath ) {
 		
 		return with.withOpenStreamQuiet( path , new Reader<Application, InputStream>() {
 
@@ -37,7 +38,10 @@ public class ApplicationFromConfigXStream implements ApplicationFromConfig {
 					xs.alias("Author", AuthorImpl.class );
 					xs.alias("Version", VersionImpl.class );
 					ApplicationByBuilder app = (ApplicationByBuilder)xs.fromXML( stream );
-					app.setIcon( new ImageIcon( iconPath ));
+					
+					if ( iconPath != null ) {
+						app.setIcon( new ImageIcon( iconPath ));
+					}
 					return app;
 				}
 			});

@@ -1,5 +1,7 @@
 package org.openCage.application.impl.pojos;
 
+import java.awt.Component;
+import java.awt.Graphics;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -20,20 +22,18 @@ public class ApplicationByBuilder implements Application{
 	private final List<AuthorImpl>  contributors;
 	private final VersionImpl       version;
 	private final LicenceImpl       licence;
-	private final Icon              icon;
+	private Icon icon;
 	
 	public ApplicationByBuilder( final String                 name, 
 								 final List<AuthorImpl> authors,
 								 final VersionImpl                version,
 								 final LicenceImpl licence,
-								 final List<AuthorImpl> cont,
-								 final Icon icon ) {
+								 final List<AuthorImpl> cont ) {
 		this.name    = name;
 		this.authors = authors;
 		this.version = version;
 		this.licence = licence;
 		this.contributors = cont;
-		this.icon = icon;
 	}
 	
 	public Collection<? extends Author> getAuthors() {
@@ -69,11 +69,31 @@ public class ApplicationByBuilder implements Application{
 		return null;
 	}
 
-	public Icon getIcon() {
-		return icon;
-	}
-
-	public void setIcon(ImageIcon imageIcon) {
+	public void setIcon( Icon icon) {
 		this.icon = icon;
 	}
+
+	public Icon getIcon() {
+		if ( icon == null ) {
+			return new Icon() {
+
+				public int getIconHeight() {
+					// TODO Auto-generated method stub
+					return 0;
+				}
+
+				public int getIconWidth() {
+					// TODO Auto-generated method stub
+					return 0;
+				}
+
+				public void paintIcon(Component c, Graphics g, int x, int y) {
+					// TODO Auto-generated method stub
+					
+				}};
+		}
+		
+		return icon ;
+	}
+	
 }
