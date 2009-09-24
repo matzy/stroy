@@ -7,7 +7,6 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.swing.Icon;
-import javax.swing.ImageIcon;
 
 import org.openCage.application.protocol.Application;
 import org.openCage.application.protocol.Author;
@@ -22,18 +21,21 @@ public class ApplicationByBuilder implements Application{
 	private final List<AuthorImpl>  contributors;
 	private final VersionImpl       version;
 	private final LicenceImpl       licence;
+	private ContactImpl       contact;
 	private Icon icon;
 	
 	public ApplicationByBuilder( final String                 name, 
 								 final List<AuthorImpl> authors,
 								 final VersionImpl                version,
 								 final LicenceImpl licence,
-								 final List<AuthorImpl> cont ) {
+								 final List<AuthorImpl> cont,
+								 ContactImpl contact ) {
 		this.name    = name;
 		this.authors = authors;
 		this.version = version;
 		this.licence = licence;
 		this.contributors = cont;
+		this.contact = contact;
 	}
 	
 	public Collection<? extends Author> getAuthors() {
@@ -53,8 +55,7 @@ public class ApplicationByBuilder implements Application{
 	}
 
 	public Contact getContact() {
-		// TODO Auto-generated method stub
-		return null;
+		return contact;
 	}
 
 	public Collection<? extends Author> getContributors() {
@@ -94,6 +95,10 @@ public class ApplicationByBuilder implements Application{
 		}
 		
 		return icon ;
+	}
+	
+	public void validate() {
+		contact.validate();
 	}
 	
 }

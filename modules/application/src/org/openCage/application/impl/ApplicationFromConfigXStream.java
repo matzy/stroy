@@ -11,9 +11,11 @@ import javax.swing.ImageIcon;
 import org.openCage.application.impl.pojos.ApplicationByBuilder;
 import org.openCage.application.impl.pojos.ApplicationImpl;
 import org.openCage.application.impl.pojos.AuthorImpl;
+import org.openCage.application.impl.pojos.ContactImpl;
 import org.openCage.application.impl.pojos.VersionImpl;
 import org.openCage.application.protocol.Application;
 import org.openCage.application.protocol.ApplicationFromConfig;
+import org.openCage.application.protocol.Contact;
 import org.openCage.withResource.protocol.Reader;
 import org.openCage.withResource.protocol.ReaderException;
 import org.openCage.withResource.protocol.With;
@@ -34,9 +36,10 @@ public class ApplicationFromConfigXStream implements ApplicationFromConfig {
 				public Application read(InputStream stream) throws ReaderException {
 					
 					XStream xs = new XStream( new DomDriver());
-					xs.alias("Application", ApplicationByBuilder.class);
-					xs.alias("Author", AuthorImpl.class );
-					xs.alias("Version", VersionImpl.class );
+					xs.alias( "Application", ApplicationByBuilder.class);
+					xs.alias( "Author", AuthorImpl.class );
+					xs.alias( "Version", VersionImpl.class );
+					xs.alias( "Contact", ContactImpl.class );
 					ApplicationByBuilder app = (ApplicationByBuilder)xs.fromXML( stream );
 					
 					if ( iconPath != null ) {
