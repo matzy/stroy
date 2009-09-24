@@ -12,7 +12,6 @@ public class UIWiring implements Module{
 	public void configure(Binder binder ) {
 		binder.install( new ApplicationWiring());
 		binder.bind( Application.class ).toProvider( AppProviderXML.class );
-		binder.bind( Localize.class ).to( DummyLocalize.class );
 	}
 
 }

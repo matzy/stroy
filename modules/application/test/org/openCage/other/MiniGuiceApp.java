@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -11,6 +13,7 @@ import java.util.List;
 import org.junit.Test;
 import org.openCage.application.impl.pojos.ApplicationByBuilder;
 import org.openCage.application.impl.pojos.AuthorImpl;
+import org.openCage.application.impl.pojos.ContactImpl;
 import org.openCage.application.impl.pojos.LicenceImpl;
 import org.openCage.application.impl.pojos.VersionImpl;
 import org.openCage.application.protocol.Application;
@@ -85,21 +88,26 @@ public class MiniGuiceApp {
 //	}
 	
 	@Test
-	public void testXMLout() {
+	public void testXMLout() throws URISyntaxException {
 		List<AuthorImpl> au = new ArrayList<AuthorImpl>();
 		au.add(new AuthorImpl("au", null ));
-		Application app = new ApplicationByBuilder( 
+		ApplicationByBuilder app = new ApplicationByBuilder( 
 				"foo", 
 				au,  
 				new VersionImpl( 0,1,2,3 ),
 				new LicenceImpl("MPL 1.1"),
-				null );
+				null,
+				new ContactImpl( new URI("mailto:foo"), new URI("page")));
+		
+		app.validate();
 		
 		XStream xs = new XStream( new DomDriver());
 		xs.alias("Application", ApplicationByBuilder.class);
 		xs.alias("Author", AuthorImpl.class );
 		xs.alias("Version", VersionImpl.class );
 		xs.alias("Licence", LicenceImpl.class );
+		xs.alias("Contact", ContactImpl.class );
+		xs.alias( "URI", URI.class );
 
 		
 		System.out.println( xs.toXML( app ));

@@ -14,6 +14,17 @@
   	<patch>9</patch>
   	<build>42</build>
   </version>
+  <contributors>
+    <Author>
+      <name>Misa Inabe</name>
+    </Author>
+    <Author>
+      <name>Miguel Cuadron Marion</name>
+    </Author>
+  </contributors>
+  <contact>
+  	<webpage>http://stroy.wikidot.org</webpage>
+  </contact>
   <licence>
     <name>MPL 1.1</name>
   </licence>
