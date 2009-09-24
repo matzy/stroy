@@ -1,7 +1,9 @@
 package org.openCage.localization.wiring;
 
+import org.openCage.localization.impl.BundleCheckImpl;
 import org.openCage.localization.impl.LocalizeBuilderImpl;
 import org.openCage.localization.impl.TheLocaleImpl;
+import org.openCage.localization.protocol.BundleCheck;
 import org.openCage.localization.protocol.Localize;
 import org.openCage.localization.protocol.LocalizeBuilder;
 import org.openCage.localization.protocol.TheLocale;
@@ -18,6 +20,7 @@ public class LocalizeWiring implements Module {
 			annotatedWith( Names.named("basic")).toProvider( LocalizeBuilderImpl.class );
 		binder.bind( LocalizeBuilder.class ).to( LocalizeBuilderImpl.class );
 		binder.bind( TheLocale.class).to( TheLocaleImpl.class ).in( Singleton.class );
+		binder.bind( BundleCheck.class).to( BundleCheckImpl.class );
 	}
 
 }
