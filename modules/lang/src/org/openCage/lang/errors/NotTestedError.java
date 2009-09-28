@@ -1,4 +1,4 @@
-package org.opebCage.lang.errors;
+package org.openCage.lang.errors;
 
 public class NotTestedError extends Error {
 
