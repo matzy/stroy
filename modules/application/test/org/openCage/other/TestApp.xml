@@ -22,10 +22,9 @@
       <name>Miguel Cuadron Marion</name>
     </Author>
   </contributors>
-  <contact>
-  	<webpage>http://stroy.wikidot.org</webpage>
-  </contact>
-  <licence>
+  <email>
+    <email>mailto:me</email>
+  </email>  <licence>
     <name>MPL 1.1</name>
   </licence>
 </Application>

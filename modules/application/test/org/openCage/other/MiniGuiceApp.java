@@ -1,4 +1,4 @@
-package org.openCage.other;
+	package org.openCage.other;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -14,6 +14,7 @@ import org.junit.Test;
 import org.openCage.application.impl.pojos.ApplicationByBuilder;
 import org.openCage.application.impl.pojos.AuthorImpl;
 import org.openCage.application.impl.pojos.ContactImpl;
+import org.openCage.application.impl.pojos.EmailAddressImpl;
 import org.openCage.application.impl.pojos.LicenceImpl;
 import org.openCage.application.impl.pojos.VersionImpl;
 import org.openCage.application.protocol.Application;
@@ -97,7 +98,8 @@ public class MiniGuiceApp {
 				new VersionImpl( 0,1,2,3 ),
 				new LicenceImpl("MPL 1.1"),
 				null,
-				new ContactImpl( new URI("mailto:foo"), new URI("page")));
+				new ContactImpl( new URI("mailto:foo"), new URI("page")),
+				"mailto:foo");
 		
 		app.validate();
 		
@@ -108,6 +110,7 @@ public class MiniGuiceApp {
 		xs.alias("Licence", LicenceImpl.class );
 		xs.alias("Contact", ContactImpl.class );
 		xs.alias( "URI", URI.class );
+		xs.alias( "Email", EmailAddressImpl.class );
 
 		
 		System.out.println( xs.toXML( app ));
