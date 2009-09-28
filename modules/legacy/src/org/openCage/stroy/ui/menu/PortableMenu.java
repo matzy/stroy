@@ -1,8 +1,5 @@
 package org.openCage.stroy.ui.menu;
 
-import org.openCage.util.app.AppInfo;
-import org.openCage.util.app.About;
-import org.openCage.util.app.AboutImpl;
 import org.openCage.util.www.Mailto;
 import org.openCage.util.ui.BrowserLauncher;
 import org.openCage.application.protocol.Application;
@@ -126,8 +123,9 @@ public class PortableMenu implements Menu {
             final Application ai = appInfo;
             about.addActionListener( new ActionListener() {
                 public void actionPerformed(ActionEvent actionEvent) {
-                    About about = new AboutImpl( appInfo);
-                    about.setVisible( true );
+                		throw new Error( "Impl me" );
+//                    About about = new AboutImpl( appInfo);
+//                    about.setVisible( true );
                 }
             });
         }
@@ -137,10 +135,11 @@ public class PortableMenu implements Menu {
         final Application ai = appInfo;
         sendBugReport.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
-                new Mailto(ai.getContactEmail())
-                        .subject( "Bug Report: " )
-                        .body( ai.getName() + " " + ai.getVersion())
-                        .send();
+        		throw new Error( "Impl me" );
+//                new Mailto(ai.getContactEmail())
+//                        .subject( "Bug Report: " )
+//                        .body( ai.getName() + " " + ai.getVersion())
+//                        .send();
             }
         });
 
@@ -148,10 +147,11 @@ public class PortableMenu implements Menu {
         menuHelp.add( sendFeatureRequest );
         sendFeatureRequest.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
-                new Mailto(ai.getContactEmail())
-                        .subject( "Feature Request: " )
-                        .body( ai.getProgName() + " " + ai.getVersion())
-                        .send();
+        		throw new Error( "Impl me" );
+//                new Mailto(ai.getContactEmail())
+//                        .subject( "Feature Request: " )
+//                        .body( ai.getProgName() + " " + ai.getVersion())
+//                        .send();
             }
         });
 

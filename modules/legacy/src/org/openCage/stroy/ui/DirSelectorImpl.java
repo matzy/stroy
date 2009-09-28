@@ -5,6 +5,8 @@ import com.muchsoft.util.mac.Java14Adapter;
 import com.muchsoft.util.mac.Java14Handler;
 import com.muchsoft.util.Sys;
 import org.openCage.util.io.FileUtils;
+import org.openCage.application.protocol.AboutSheet;
+import org.openCage.application.protocol.Application;
 import org.openCage.stroy.dir.FileContent;
 import org.openCage.stroy.graph.matching.strategy.MatchStrategy;
 import org.openCage.stroy.ui.prefs.PrefsUI;
@@ -12,9 +14,6 @@ import org.openCage.stroy.ui.menu.PortableMenu;
 import org.openCage.stroy.update.UpdateChecker;
 import org.openCage.stroy.locale.Message;
 import org.openCage.util.ui.FileChooser;
-import org.openCage.util.app.About;
-import org.openCage.util.app.AboutImpl;
-import org.openCage.util.app.AppInfo;
 import org.openCage.util.logging.LogHandlerPanel;
 import org.openCage.util.prefs.PreferencesChangeListener;
 import org.openCage.util.prefs.TextField;
@@ -68,7 +67,8 @@ public class DirSelectorImpl extends JFrame
 
     private final JTextField ignorePathTxt      = new JTextField();
 
-    private final AppInfo appInfo;
+//    private final Application appInfo;
+    private final AboutSheet aboutSheet;
 
     private final LogHandlerPanel logHandlerPanel = new LogHandlerPanel();
 
@@ -81,17 +81,17 @@ public class DirSelectorImpl extends JFrame
 
 
     @Inject
-    public DirSelectorImpl( AppInfo appInfo, UpdateChecker updateChecker ) {
+    public DirSelectorImpl( Application application, AboutSheet about, UpdateChecker updateChecker ) {
         super( "stroy");
 
-        this.appInfo       = appInfo;
+        this.aboutSheet = about;
         this.updateChecker = updateChecker;
 
         Java14Adapter.registerJava14Handler( this );
         Java14Adapter.setEnabledPrefs( true );
 
         createLayout();
-        createMenu(appInfo);
+        createMenu( application );
 
         addListeners();
 
@@ -143,7 +143,7 @@ public class DirSelectorImpl extends JFrame
 
     }
 
-    private void createMenu(AppInfo appInfo) {
+    private void createMenu(Application appInfo) {
 
         for ( JFrame frame : Arrays.asList( this, logHandlerPanel/*, presetsPanel */)) {
             PortableMenu menu = new PortableMenu();
@@ -296,8 +296,7 @@ public class DirSelectorImpl extends JFrame
 
     public void handleAbout(EventObject eventObject) {
         Java14Adapter.setHandled( eventObject, true );
-        About about = new AboutImpl( appInfo);
-        about.setVisible( true );
+		aboutSheet.setVisible( true );
     }
 
     public void handlePrefs(EventObject eventObject) {

@@ -15,9 +15,7 @@ public class ApplicationProvider implements Provider<Application >{
 	
 	public Application get() {
 		
-		String pathToXmlFile = getClass().getResource( "StroyApp.xml" ).getPath();
-		
-		return fromConfig.get( new File( pathToXmlFile ));
-	}
-
+		return fromConfig.get( new File( getClass().getResource( "StroyApp.xml" ).getPath()),
+				               getClass().getResource( "stroy.png"));
+	}	
 }

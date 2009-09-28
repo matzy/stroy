@@ -1,0 +1,28 @@
+<Application>
+  <name>stroy</name>
+  <authors>
+    <Author>
+      <name>Stephan Pfab</name>
+    </Author>
+  </authors>
+  <version>
+  	<major>1</major>
+  	<minor>1</minor>
+  	<patch>0</patch>
+  	<build>187</build>
+  </version>
+  <contributors>
+    <Author>
+      <name>Misa Inabe</name>
+    </Author>
+    <Author>
+      <name>Miguel Cuadron Marion</name>
+    </Author>
+  </contributors>
+  <email>
+    <email>mailto://openCage.gmail.com</email>
+  </email>  
+  <licence>
+    <name>MPL 1.1</name>
+  </licence>
+</Application>
