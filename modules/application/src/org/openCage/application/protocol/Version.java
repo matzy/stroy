@@ -1,6 +1,6 @@
 package org.openCage.application.protocol;
 
-public interface Version {
+public interface Version extends Comparable<Version>{
 	public int getMajor();
 	public int getMinor();
 	public int getPatch();

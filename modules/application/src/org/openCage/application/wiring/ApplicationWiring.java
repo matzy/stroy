@@ -20,19 +20,19 @@ import com.google.inject.name.Names;
 public class ApplicationWiring implements Module{
 
 	public void configure(Binder binder ) {
-		
+
 		binder.install( new GuiceWith() );
 		binder.install( new LocalizeWiring());
-		
-        binder.bind( AuthorBuilder.class ).
-        	to( AuthorBuilderImpl.class );	
-        binder.bind( ApplicationBuilder.class ).
-        	to( AppBuilder2.class );	
-        binder.bind( ApplicationFromConfig.class).
-        	to( ApplicationFromConfigXStream.class );
-        binder.bind( AboutSheet.class ).
-        	to( AboutSheetFromApplication.class );
-        binder.bind( Localize.class ).
-        	annotatedWith( Names.named("application" )).toProvider( ApplicationLocalizeProvider.class );
+
+		binder.bind( AuthorBuilder.class ).
+			to( AuthorBuilderImpl.class );	
+		binder.bind( ApplicationBuilder.class ).
+			to( AppBuilder2.class );	
+		binder.bind( ApplicationFromConfig.class).
+			to( ApplicationFromConfigXStream.class );
+		binder.bind( AboutSheet.class ).
+			to( AboutSheetFromApplication.class );
+		binder.bind( Localize.class ).
+			annotatedWith( Names.named("application" )).toProvider( ApplicationLocalizeProvider.class );
 	}
 }

@@ -11,6 +11,7 @@ import javax.swing.Icon;
 import org.openCage.application.protocol.Application;
 import org.openCage.application.protocol.Author;
 import org.openCage.application.protocol.Contact;
+import org.openCage.application.protocol.EmailAddress;
 import org.openCage.application.protocol.Licence;
 import org.openCage.application.protocol.Version;
 
@@ -21,21 +22,24 @@ public class ApplicationByBuilder implements Application{
 	private final List<AuthorImpl>  contributors;
 	private final VersionImpl       version;
 	private final LicenceImpl       licence;
-	private ContactImpl       contact;
+//	private ContactImpl       contact;
 	private Icon icon;
+	private EmailAddressImpl email;
 	
 	public ApplicationByBuilder( final String                 name, 
 								 final List<AuthorImpl> authors,
 								 final VersionImpl                version,
 								 final LicenceImpl licence,
 								 final List<AuthorImpl> cont,
-								 ContactImpl contact ) {
+								 ContactImpl contact,
+								 String email ) {
 		this.name    = name;
 		this.authors = authors;
 		this.version = version;
 		this.licence = licence;
 		this.contributors = cont;
-		this.contact = contact;
+//		this.contact = contact;
+		this.email = new EmailAddressImpl(email);
 	}
 	
 	public Collection<? extends Author> getAuthors() {
@@ -55,7 +59,7 @@ public class ApplicationByBuilder implements Application{
 	}
 
 	public Contact getContact() {
-		return contact;
+		return null; //contact;
 	}
 
 	public Collection<? extends Author> getContributors() {
@@ -98,7 +102,7 @@ public class ApplicationByBuilder implements Application{
 	}
 	
 	public void validate() {
-		contact.validate();
+//		contact.validate();
 	}
 	
 }

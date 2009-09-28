@@ -18,22 +18,18 @@ public class VersionImpl implements Version {
 	}
 	
 	public int getBuildnumber() {
-		// TODO Auto-generated method stub
 		return build;
 	}
 
 	public int getMajor() {
-		// TODO Auto-generated method stub
 		return major;
 	}
 
 	public int getMinor() {
-		// TODO Auto-generated method stub
 		return minor;
 	}
 
 	public int getPatch() {
-		// TODO Auto-generated method stub
 		return patch;
 	}
 
@@ -41,7 +37,20 @@ public class VersionImpl implements Version {
 	public String toString() {
 		return "" + major + "." + minor + "." + patch + "." + build;
 	}
-	
-	
 
+	public int compareTo(Version version ) {
+        if ( major !=  version.getMajor()  ) {
+            return major - version.getMajor();
+        }
+
+        if ( minor != version.getMinor() ) {
+            return minor - version.getMinor();
+        }
+
+        if ( patch != version.getPatch() ) {
+            return patch - version.getPatch();
+        }
+
+        return build - version.getBuildnumber();
+	}
 }
