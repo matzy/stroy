@@ -17,6 +17,7 @@ import com.google.inject.Inject;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import org.openCage.application.impl.pojos.EmailAddressImpl;
+import org.openCage.application.impl.pojos.WebpageImpl;
 import org.openCage.lang.protocol.FE1;
 
 public class ApplicationFromConfigXStream implements ApplicationFromConfig {
@@ -35,6 +36,7 @@ public class ApplicationFromConfigXStream implements ApplicationFromConfig {
                 xs.alias("Author", AuthorImpl.class);
                 xs.alias("Version", VersionImpl.class);
                 xs.alias("Email", EmailAddressImpl.class);
+                xs.alias("Webpage", WebpageImpl.class);
                 ApplicationByBuilder app = (ApplicationByBuilder) xs.fromXML(stream);
 
                 if (iconPath != null) {

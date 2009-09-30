@@ -13,4 +13,5 @@ public interface Application {
 	public String                         getDescprition();
 	public Icon                           getIcon();
         public EmailAddress                   getSupportEmail();
+        public Webpage                        getWebpage();
 }

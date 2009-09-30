@@ -13,6 +13,7 @@ import org.openCage.application.protocol.Author;
 import org.openCage.application.protocol.EmailAddress;
 import org.openCage.application.protocol.Licence;
 import org.openCage.application.protocol.Version;
+import org.openCage.application.protocol.Webpage;
 
 public class ApplicationByBuilder implements Application {
 
@@ -23,19 +24,22 @@ public class ApplicationByBuilder implements Application {
     private final LicenceImpl licence;
     private Icon icon;
     private EmailAddressImpl email;
+    private WebpageImpl webpage;
 
     public ApplicationByBuilder(final String name,
             final List<AuthorImpl> authors,
             final VersionImpl version,
             final LicenceImpl licence,
             final List<AuthorImpl> cont,
-            String email) {
+            String email,
+            String webpage ) {
         this.name = name;
         this.authors = authors;
         this.version = version;
         this.licence = licence;
         this.contributors = cont;
         this.email = new EmailAddressImpl(email);
+        this.webpage = new WebpageImpl( webpage );
     }
 
     public Collection<? extends Author> getAuthors() {
@@ -99,5 +103,9 @@ public class ApplicationByBuilder implements Application {
 
     public EmailAddress getSupportEmail() {
         return email;
+    }
+
+    public Webpage getWebpage() {
+        return webpage;
     }
 }

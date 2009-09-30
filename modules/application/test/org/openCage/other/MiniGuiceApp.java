@@ -21,6 +21,7 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
+import org.openCage.application.impl.pojos.WebpageImpl;
 
 
 public class MiniGuiceApp {
@@ -91,7 +92,8 @@ public class MiniGuiceApp {
 				new VersionImpl( 0,1,2,3 ),
 				new LicenceImpl("MPL 1.1"),
 				null,
-				"mailto:foo");
+				"mailto:foo",
+                                "http://404");
 		
 		app.validate();
 		
@@ -102,6 +104,7 @@ public class MiniGuiceApp {
 		xs.alias("Licence", LicenceImpl.class );
 		xs.alias( "URI", URI.class );
 		xs.alias( "Email", EmailAddressImpl.class );
+		xs.alias( "Webpage", WebpageImpl.class );
 
 		
 		System.out.println( xs.toXML( app ));
