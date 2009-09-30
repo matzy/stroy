@@ -6,7 +6,6 @@ import com.google.inject.TypeLiteral;
 
 import org.openCage.application.protocol.Application;
 import org.openCage.application.wiring.ApplicationWiring;
-import org.openCage.other.AppProviderXML;
 import org.openCage.stroy.array.AddIngnorantListMetric;
 import org.openCage.stroy.array.ListChangeMetric;
 import org.openCage.stroy.array.ReorderIgnorantArrayDistance;

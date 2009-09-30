@@ -1,8 +1,6 @@
 package org.openCage.stroy.update;
 
 import org.openCage.application.impl.update.UpdateInfo;
-import org.openCage.util.app.Version2;
-import org.openCage.util.app.AppInfo;
 import org.openCage.util.logging.Log;
 
 import java.io.BufferedReader;
@@ -11,6 +9,8 @@ import java.io.IOException;
 import java.net.URL;
 
 import com.google.inject.Inject;
+import org.openCage.application.protocol.Application;
+import org.openCage.application.protocol.Version;
 
 /***** BEGIN LICENSE BLOCK *****
  * Version: MPL 1.1
@@ -37,18 +37,18 @@ import com.google.inject.Inject;
 public class UpdateChecker {
 
 
-    private final AppInfo     appInfo;
+    private final Application     appInfo;
     private final UpdateInfo  updateView;
     private final Interval    interval;
 
     @Inject
-    public UpdateChecker( final AppInfo appInfo, final UpdateInfo updateView, final Interval interval ) {
+    public UpdateChecker( final Application appInfo, final UpdateInfo updateView, final Interval interval ) {
         this.appInfo    = appInfo;
         this.updateView = updateView;
         this.interval   = interval;
     }
 
-    public Version2 getLatestVersion() {
+    public Version getLatestVersion() {
         try {
             BufferedReader reader =  new BufferedReader(
                     new InputStreamReader(
@@ -62,8 +62,8 @@ public class UpdateChecker {
                 if ( line.contains( key )) {
                     String vv = line.substring( line.indexOf( key ) + key.length() + 1);
                     vv = vv.substring( 0, vv.indexOf( "</"));
-                    Version2 ret = Version2.parseVersion( vv );
-                    return ret;
+//                    Version ret = versionParser.parseVersion( vv );
+                    return null;// ret;
                 }
                 line = reader.readLine(); }
 
@@ -73,7 +73,7 @@ public class UpdateChecker {
             Log.warning( "update page has unexpected formatting" );
         }
 
-        return appInfo.getVersion();
+        return appInfo.gettVersion();
     }
 
     public void check() {
@@ -86,9 +86,9 @@ public class UpdateChecker {
     public boolean checkAnyway() {
         interval.done();
 
-        Version2 latest = getLatestVersion();
+        Version latest = getLatestVersion();
 
-        if ( latest.compareTo( appInfo.getVersion()) > 0 ) {
+        if ( latest.compareTo( appInfo.gettVersion()) > 0 ) {
         		throw new Error( "impl me" );
 //            updateView.setLatest( latest ).setVisible( true );
             //return true;

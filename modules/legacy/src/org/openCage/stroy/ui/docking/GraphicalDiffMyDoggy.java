@@ -7,7 +7,6 @@ import org.noos.xing.mydoggy.ToolWindow;
 import org.noos.xing.mydoggy.ToolWindowAnchor;
 import org.noos.xing.mydoggy.plaf.MyDoggyToolWindowManager;
 import org.openCage.application.protocol.Application;
-import org.openCage.application.protocol.ApplicationBuilder;
 import org.openCage.application.protocol.Author;
 import org.openCage.stroy.RuntimeModule;
 import org.openCage.stroy.locale.Message;
@@ -25,7 +24,6 @@ import org.openCage.stroy.ui.util.DMTNMaker;
 import org.openCage.stroy.ui.util.NodeToNode;
 import org.openCage.util.logging.Log;
 import org.openCage.util.ui.TreeUtils;
-import org.openCage.util.app.AppInfo;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
