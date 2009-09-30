@@ -15,7 +15,7 @@ public class MiniAppTest {
 	public void testSimple() {
 		Application app = new ApplicationImpl( "TestApp" ).with( new AuthorImpl("me", null));
 		
-		assertEquals( "TestApp", app.getName() );
+		assertEquals( "TestApp", app.gettName() );
 		assertEquals( 1, app.getAuthors().size());
 		assertEquals("me", app.getAuthors().iterator().next().getName() );
 		

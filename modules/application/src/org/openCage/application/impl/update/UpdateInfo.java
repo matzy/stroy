@@ -64,7 +64,7 @@ public class UpdateInfo extends JFrame {
         layout.row().add( infoText );
         layout.row().add( new JLabel("" ), 3);
         layout.row().add( new JLabel("" ), 3);
-        layout.row().add( currentText, 3).add( new JLabel( appInfo.getVersion().toString()) );
+        layout.row().add( currentText, 3).add( new JLabel( appInfo.gettVersion().toString()) );
         layout.row().add( availableText, 3).add( latests );
         layout.row().add( new JLabel("" ), 3);
         layout.row().add( new JLabel("" ), 3);

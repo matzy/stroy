@@ -1,25 +1,29 @@
 package org.openCage.application.impl.pojos;
 
 import org.openCage.application.protocol.Author;
-import org.openCage.application.protocol.Contact;
+import org.openCage.application.protocol.EmailAddress;
 
 public class AuthorImpl implements Author {
 
 	private final String  name;
-	private final Contact contact;
+	private final EmailAddress email;
 	
 
-	public AuthorImpl( final String name, final Contact contact ) {
+	public AuthorImpl( final String name ) {
 		this.name = name;
-		this.contact = contact;
+                email = null;
+	}
+
+        public AuthorImpl( final String name, EmailAddress email ) {
+		this.name = name;
+		this.email = email;
 	}
 	
-	public String getName() {
+	public String gettName() {
 		return name;
 	}
 
-	public Contact getContact() {
-		return contact;
+	public EmailAddress getEmail() {
+		return email;
 	}
-
 }

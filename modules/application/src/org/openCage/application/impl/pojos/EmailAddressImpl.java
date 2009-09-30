@@ -14,10 +14,10 @@ public class EmailAddressImpl implements EmailAddress {
 	
 	public EmailAddressImpl( @NotNull String email ) {
 		this.email = email;
-		getEmail();
+		gettEmail();
 	}
 	
- 	public URI getEmail() {
+ 	public URI gettEmail() {
 		try {
 			URI uri = new URI(email);
 			if ( uri.getScheme() == null || !uri.getScheme().equals("mailto")) {
@@ -31,7 +31,7 @@ public class EmailAddressImpl implements EmailAddress {
 	}
 
  	private Object readResolve() throws ObjectStreamException {
- 		getEmail();
+ 		gettEmail();
  		return this;
  	}
  	

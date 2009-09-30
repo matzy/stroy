@@ -35,7 +35,7 @@ public class AboutSheetFromApplication extends JDialog implements AboutSheet {
 	}
 	
 	private void build() {
-        setTitle( app.getName() );
+        setTitle( app.gettName() );
         setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
         setSize( 400, 200 );
 
@@ -48,8 +48,8 @@ public class AboutSheetFromApplication extends JDialog implements AboutSheet {
 //        pic.setIcon( new ImageIcon( "/Users/stephan/Documents/prs/stroy-ng/modules/application/test/org/openCage/other/Photo 1.jpg" ));
         layout.row().add( pic );
         
-        layout.row().add( new JLabel( app.getName() ));
-        layout.row().label( new JLabel( localize.localize( "version" ))).add( new JLabel( app.getVersion().toString() ));
+        layout.row().add( new JLabel( app.gettName() ));
+        layout.row().label( new JLabel( localize.localize( "version" ))).add( new JLabel( app.gettVersion().toString() ));
 //        layout.row().label( new JLabel( localize.localize( "About.copyright" ))).add( new JLabel( app.getCopyright() ), 3 );
         layout.row().label( new JLabel( localize.localize( "application.about.short" ))).add( new JLabel( localize.localize( "description" )), 6 );
         layout.row().label( new JLabel( localize.localize( "licence" ))).add( new JLabel( app.getLicence().getName()), 6 );
@@ -62,9 +62,9 @@ public class AboutSheetFromApplication extends JDialog implements AboutSheet {
 
             if ( first ) {
                 first = false;
-                layout.row().label( new JLabel( localize.localize( "author" ))).add( new JLabel( author.getName() ),2 );
+                layout.row().label( new JLabel( localize.localize( "author" ))).add( new JLabel( author.gettName() ),2 );
             } else {
-                layout.row().add( new JLabel( author.getName() ), 2 );
+                layout.row().add( new JLabel( author.gettName() ), 2 );
             }
         }
         
@@ -85,7 +85,7 @@ public class AboutSheetFromApplication extends JDialog implements AboutSheet {
             	row = layout.row();            	
             }
         	
-        	row.add( new JLabel( author.getName() ),2 );
+        	row.add( new JLabel( author.gettName() ),2 );
         }
         
 

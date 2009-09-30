@@ -10,99 +10,94 @@ import javax.swing.Icon;
 
 import org.openCage.application.protocol.Application;
 import org.openCage.application.protocol.Author;
-import org.openCage.application.protocol.Contact;
 import org.openCage.application.protocol.EmailAddress;
 import org.openCage.application.protocol.Licence;
 import org.openCage.application.protocol.Version;
 
-public class ApplicationByBuilder implements Application{
+public class ApplicationByBuilder implements Application {
 
-	private final String        name;
-	private final List<AuthorImpl>  authors;
-	private final List<AuthorImpl>  contributors;
-	private final VersionImpl       version;
-	private final LicenceImpl       licence;
-//	private ContactImpl       contact;
-	private Icon icon;
-	private EmailAddressImpl email;
-	
-	public ApplicationByBuilder( final String                 name, 
-								 final List<AuthorImpl> authors,
-								 final VersionImpl                version,
-								 final LicenceImpl licence,
-								 final List<AuthorImpl> cont,
-								 ContactImpl contact,
-								 String email ) {
-		this.name    = name;
-		this.authors = authors;
-		this.version = version;
-		this.licence = licence;
-		this.contributors = cont;
-//		this.contact = contact;
-		this.email = new EmailAddressImpl(email);
-	}
-	
-	public Collection<? extends Author> getAuthors() {
-		return Collections.unmodifiableCollection( authors );
-	}
+    private final String name;
+    private final List<AuthorImpl> authors;
+    private final List<AuthorImpl> contributors;
+    private final VersionImpl version;
+    private final LicenceImpl licence;
+    private Icon icon;
+    private EmailAddressImpl email;
 
-	public Licence getLicence() {
-		return licence;
-	}
+    public ApplicationByBuilder(final String name,
+            final List<AuthorImpl> authors,
+            final VersionImpl version,
+            final LicenceImpl licence,
+            final List<AuthorImpl> cont,
+            String email) {
+        this.name = name;
+        this.authors = authors;
+        this.version = version;
+        this.licence = licence;
+        this.contributors = cont;
+        this.email = new EmailAddressImpl(email);
+    }
 
-	public String getName() {
-		return name;
-	}
+    public Collection<? extends Author> getAuthors() {
+        return Collections.unmodifiableCollection(authors);
+    }
 
-	public Version getVersion() {
-		return version;
-	}
+    public Licence getLicence() {
+        return licence;
+    }
 
-	public Contact getContact() {
-		return null; //contact;
-	}
+    public String gettName() {
+        return name;
+    }
 
-	public Collection<? extends Author> getContributors() {
-		if ( contributors == null ) {
-			return Collections.EMPTY_LIST;
-		}
-		return contributors;
-	}
+    public Version gettVersion() {
+        return version;
+    }
 
-	public String getDescprition() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public Collection<? extends Author> getContributors() {
+        if (contributors == null) {
+            return Collections.EMPTY_LIST;
+        }
+        return contributors;
+    }
 
-	public void setIcon( Icon icon) {
-		this.icon = icon;
-	}
+    public String getDescprition() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	public Icon getIcon() {
-		if ( icon == null ) {
-			return new Icon() {
+    public void setIcon(Icon icon) {
+        this.icon = icon;
+    }
 
-				public int getIconHeight() {
-					// TODO Auto-generated method stub
-					return 0;
-				}
+    public Icon getIcon() {
+        if (icon == null) {
+            return new Icon() {
 
-				public int getIconWidth() {
-					// TODO Auto-generated method stub
-					return 0;
-				}
+                public int getIconHeight() {
+                    // TODO Auto-generated method stub
+                    return 0;
+                }
 
-				public void paintIcon(Component c, Graphics g, int x, int y) {
-					// TODO Auto-generated method stub
-					
-				}};
-		}
-		
-		return icon ;
-	}
-	
-	public void validate() {
+                public int getIconWidth() {
+                    // TODO Auto-generated method stub
+                    return 0;
+                }
+
+                public void paintIcon(Component c, Graphics g, int x, int y) {
+                    // TODO Auto-generated method stub
+                }
+            };
+        }
+
+        return icon;
+    }
+
+    public void validate() {
 //		contact.validate();
-	}
-	
+    }
+
+    public EmailAddress getSupportEmail() {
+        return email;
+    }
 }
