@@ -11,5 +11,4 @@ public class WithResourceWiring implements Module {
 	public void configure(Binder binder ) {
 		binder.bind( With.class ).to( WithImpl.class );
 	}
-
 }
