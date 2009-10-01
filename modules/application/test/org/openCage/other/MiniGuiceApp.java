@@ -45,19 +45,19 @@ public class MiniGuiceApp {
 //        assertEquals( "TestApp", app.gettName() );
 //	}
 	
-	@Test
-	public void testUse() {
-        Injector injector = Guice.createInjector( new Wiring() );
-		
-        Application app = injector.getInstance( Application.class );
-
-        assertEquals( 2, app.getAuthors().size());
-		
-		for ( Author author : app.getAuthors() ) {
-			assertTrue( author.gettName().equals( "me") || author.gettName().equals( "you"));
-		}
-        assertEquals( "TestApp", app.gettName() );
-	}
+//	@Test
+//	public void testUse() {
+//        Injector injector = Guice.createInjector( new Wiring() );
+//
+//        Application app = injector.getInstance( Application.class );
+//
+//        assertEquals( 2, app.getAuthors().size());
+//
+//		for ( Author author : app.getAuthors() ) {
+//			assertTrue( author.gettName().equals( "me") || author.gettName().equals( "you"));
+//		}
+//        assertEquals( "TestApp", app.gettName() );
+//	}
 	
 //	@Test
 //	public void testXML() {

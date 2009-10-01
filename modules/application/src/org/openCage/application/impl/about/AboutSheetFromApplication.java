@@ -19,6 +19,8 @@ import org.openCage.localization.protocol.Localize;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
+import org.openCage.application.protocol.EmailAddress;
+import org.openCage.application.protocol.Webpage;
 
 public class AboutSheetFromApplication extends JDialog implements AboutSheet {
 
@@ -87,6 +89,12 @@ public class AboutSheetFromApplication extends JDialog implements AboutSheet {
         	
         	row.add( new JLabel( author.gettName() ),2 );
         }
+
+        EmailAddress email = app.getSupportEmail();
+        if ( email != null ) {
+            JButton contact = new JButton( email.gettEmail().toString());
+            layout.row().label( new JLabel( localize.localize( "About.contact" )))/*.add( new JLabel(""),5)*/.add( contact, 3 ).add( new JLabel(""),3);
+        }
         
 
 //        if ( app.getContactEmail() != null ) {
@@ -104,8 +112,11 @@ public class AboutSheetFromApplication extends JDialog implements AboutSheet {
 //            layout.row().label( new JLabel( localize.localize( "About.contact" )))/*.add( new JLabel(""),5)*/.add( contact, 3 ).add( new JLabel(""),3);
 //        }
 
-        JButton web = new JButton( "http://stroy.wikidot.com" );
-        layout.row().label( new JLabel( localize.localize( "web" ))).add( web, 3 ).add( new JLabel(""), 3);
+        Webpage page = app.getWebpage();
+        if ( page != null ) {
+            JButton web = new JButton( page.gettPage().toString() );
+            layout.row().label( new JLabel( localize.localize( "web" ))).add( web, 3 ).add( new JLabel(""), 3);
+        }
 
 //        web.addActionListener( new ActionListener() {
 //            public void actionPerformed( ActionEvent e ) {
