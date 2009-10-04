@@ -102,8 +102,8 @@ public class RuntimeModule implements Module {
         //
         // Distance
         //
-//        binder.bind( new TypeLiteral<Distance<TreeLeafNode<FileContent>>>(){}).
-//                to( new TypeLiteral<TreeLeafNodeFuzzyLeafDistance<FileContent>>(){} );
+//        binder.bind( new TypeLiteral<Distance<TreeNode<FileContent>>>(){}).
+//                to( new TypeLiteral<TreeNodeFuzzyLeafDistance<FileContent>>(){} );
         binder.bind( new TypeLiteral<Distance<List<String>>>() {})
                 .to( new TypeLiteral<ReorderIgnorantArrayDistance<String>>() {});
         binder.bind( new TypeLiteral<Distance<Map<Integer,Boolean>>>() {})

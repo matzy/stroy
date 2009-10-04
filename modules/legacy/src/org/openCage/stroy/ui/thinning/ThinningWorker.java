@@ -3,7 +3,7 @@
 //import org.jdesktop.swingworker.SwingWorker;
 //import org.openCage.util.iterator.T2;
 //import org.openCage.stroy.dir.FileContent;
-//import org.openCage.stroy.graph.node.TreeDirNode;
+//import org.openCage.stroy.graph.node.TreeNode;
 //import org.openCage.stroy.graph.node.TreeNode;
 //import org.openCage.stroy.graph.node.TreeNodeUtils;
 //import org.openCage.stroy.graph.matching.TreeMatchingTask;
@@ -105,7 +105,7 @@
 //        }
 //
 //        if ( !node.isLeaf() && !ignoredAlready ) {
-//            for ( TreeNode<T> child : ((TreeDirNode<T>)node).getChildren() ) {
+//            for ( TreeNode<T> child : ((TreeNode<T>)node).getChildren() ) {
 //                doOneTree( child, idx, ignoredAlready, toDel );
 //            }
 //        }

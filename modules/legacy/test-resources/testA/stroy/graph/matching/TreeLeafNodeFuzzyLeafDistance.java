@@ -3,8 +3,8 @@ package org.openCage.stroy.graph.matching;
 import com.google.inject.Inject;
 import org.openCage.stroy.TreeLeafDistance;
 import org.openCage.stroy.content.Content;
-import org.openCage.stroy.graph.node.TreeDirNode;
-import org.openCage.stroy.graph.node.TreeLeafNode;
+import org.openCage.stroy.graph.node.TreeNode;
+import org.openCage.stroy.graph.node.TreeNode;
 import org.openCage.stroy.task.MatchingTask;
 import org.openCage.stroy.task.TreeMatchingTasks;
 
@@ -42,19 +42,19 @@ import org.openCage.stroy.task.TreeMatchingTasks;
 *
 ***** END LICENSE BLOCK *****/
 
-public class TreeLeafNodeFuzzyLeafDistance<T extends Content> implements TreeLeafDistance<T> {
+public class TreeNodeFuzzyLeafDistance<T extends Content> implements TreeLeafDistance<T> {
 
     private final TreeLeafDistanceMetric metric;
 
     @Inject
-    public TreeLeafNodeFuzzyLeafDistance( final TreeLeafDistanceMetric metric ) {
+    public TreeNodeFuzzyLeafDistance( final TreeLeafDistanceMetric metric ) {
         this.metric = metric;
     }
 
 
-    public double distance( MatchingTask<TreeDirNode<T>> parents,
-                            TreeLeafNode<T> a,
-                            TreeLeafNode<T> b) {
+    public double distance( MatchingTask<TreeNode<T>> parents,
+                            TreeNode<T> a,
+                            TreeNode<T> b) {
         
         if ( ! a.getContent().getType().equals( b.getContent().getType())  ) {
             return 1.0;

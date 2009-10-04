@@ -28,7 +28,7 @@ import java.io.File;
 
 public interface Content {
 
-    public String    getName();
+    public String    getName(); // TODO that should be on the node
     public String    getChecksum();
     public FuzzyHash getFuzzyHash();
     public String    getType();

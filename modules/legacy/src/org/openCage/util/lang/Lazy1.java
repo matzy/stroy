@@ -1,7 +1,9 @@
 package org.openCage.util.lang;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.jetbrains.annotations.NotNull;
-import org.openCage.utils.func.F1;
+import org.openCage.lang.protocol.FE1;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -27,9 +29,9 @@ import org.openCage.utils.func.F1;
 
 public class Lazy1<S,T> {
     private S              obj;
-    private F1<S,T> func;
+    private FE1<S,T> func;
 
-    public Lazy1( @NotNull F1<S,T> func ) {
+    public Lazy1( @NotNull FE1<S,T> func ) {
 //        if ( func == null ) {
 //            throw new NullPointerException( "Lazy1 needs a function" );
 //        }
@@ -38,7 +40,12 @@ public class Lazy1<S,T> {
 
     public S get( T t) {
         if ( func != null ) {
-            obj = func.c( t );
+            try {
+                obj = func.call(t);
+            } catch (Exception ex) {
+                // TODO
+                Logger.getLogger(Lazy1.class.getName()).log(Level.SEVERE, null, ex);
+            }
             func = null;
         }
 

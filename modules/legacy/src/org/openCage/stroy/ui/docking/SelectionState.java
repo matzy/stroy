@@ -26,9 +26,9 @@ import org.openCage.stroy.content.Content;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public class SelectionState<T extends Content> {
+public class SelectionState {
 
-    private final TreeNode<T> node;
+    private final TreeNode node;
     private final boolean               match;
     private final boolean               parentMatch;
     private final boolean               master;
@@ -38,7 +38,7 @@ public class SelectionState<T extends Content> {
 //    private final boolean parent;
 //    private final boolean parentRenamed;
 
-    public SelectionState( final TreeNode<T> node,
+    public SelectionState( final TreeNode node,
                            final boolean               match,
                            final boolean               parentMatch,
                            final boolean               master ) {
@@ -60,7 +60,7 @@ public class SelectionState<T extends Content> {
     }
 
 
-    public TreeNode<T> getNode() {
+    public TreeNode getNode() {
         return node;
     }
 

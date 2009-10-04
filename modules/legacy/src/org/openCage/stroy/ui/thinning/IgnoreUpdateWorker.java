@@ -4,7 +4,7 @@ import org.jdesktop.swingworker.SwingWorker;
 import org.openCage.util.iterator.T2;
 import org.openCage.stroy.dir.FileContent;
 import org.openCage.stroy.filter.Ignore;
-import org.openCage.stroy.graph.node.TreeDirNode;
+import org.openCage.stroy.graph.node.TreeNode;
 import org.openCage.stroy.graph.node.TreeNode;
 import org.openCage.stroy.graph.node.TreeNodeUtils;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
@@ -48,19 +48,19 @@ import java.util.ArrayList;
  * To be run if ignore is changed.
  * TODO extend to 3way
  */
-public class IgnoreUpdateWorker<T extends Content> extends SwingWorker<String, T2<Integer, TreeNode<T> >> {
+public class IgnoreUpdateWorker<T extends Content> extends SwingWorker<String, T2<Integer, TreeNode >> {
 
 
-    private final List<TreeMatchingTask<T>> tasks;
+    private final List<TreeMatchingTask> tasks;
     private final Ignore ignore;
     private final ModalProgress progress;
     private final NWayDiffPane diffPane;
 
     private boolean one = false;
-    private List<TreeNode<T>> toDelLeft;
-    private List<TreeNode<T>> toDelRight;
+    private List<TreeNode> toDelLeft;
+    private List<TreeNode> toDelRight;
 
-    public IgnoreUpdateWorker( final JFrame frame, final NWayDiffPane diffPane, final List<TreeMatchingTask<T>> tasks, final Ignore ignore  ) {
+    public IgnoreUpdateWorker( final JFrame frame, final NWayDiffPane diffPane, final List<TreeMatchingTask> tasks, final Ignore ignore  ) {
         this.tasks    = tasks;
         this.ignore   = ignore;
         progress      = new ModalProgress( frame );
@@ -74,10 +74,10 @@ public class IgnoreUpdateWorker<T extends Content> extends SwingWorker<String, T
             throw new Error("n-way not impl");
         }
 
-        toDelLeft  = new ArrayList<TreeNode<T>>();
-        toDelRight = new ArrayList<TreeNode<T>>();
+        toDelLeft  = new ArrayList<TreeNode>();
+        toDelRight = new ArrayList<TreeNode>();
 
-        for ( TreeMatchingTask<T> task : tasks ) {
+        for ( TreeMatchingTask task : tasks ) {
 
             doOneTree( task.getLeftRoot(), 0, false, toDelLeft );
             doOneTree( task.getRightRoot(), 1, false, toDelRight );
@@ -87,7 +87,7 @@ public class IgnoreUpdateWorker<T extends Content> extends SwingWorker<String, T
         return "done";
     }
 
-    private void doOneTree( TreeNode<T> node, int idx, boolean ignoredAlready, List<TreeNode<T>> toDel) {
+    private void doOneTree( TreeNode node, int idx, boolean ignoredAlready, List<TreeNode> toDel) {
 
         String path = TreeNodeUtils.getStringPath( node );
 
@@ -97,7 +97,7 @@ public class IgnoreUpdateWorker<T extends Content> extends SwingWorker<String, T
         }
 
         if ( !node.isLeaf() ) {
-            for ( TreeNode<T> child : ((TreeDirNode<T>)node).getChildren() ) {
+            for ( TreeNode child : ((TreeNode)node).getChildren() ) {
                 doOneTree( child, idx, ignoredAlready, toDel );
             }
         }
@@ -114,12 +114,12 @@ public class IgnoreUpdateWorker<T extends Content> extends SwingWorker<String, T
         super.done();
 
         // must be here after tree stuff is done
-        for ( TreeNode<T> node : toDelLeft ) {
+        for ( TreeNode node : toDelLeft ) {
             tasks.get(0).remove(node);
             node.getParent().removeChild(node);
         }
 
-        for ( TreeNode<T> node : toDelRight ) {
+        for ( TreeNode node : toDelRight ) {
             tasks.get(0).remove(node);
             node.getParent().removeChild(node);
         }
@@ -148,12 +148,12 @@ public class IgnoreUpdateWorker<T extends Content> extends SwingWorker<String, T
 
 
     // EDT
-    protected void process(List<T2<Integer, TreeNode<T>>> nodes) {
+    protected void process(List<T2<Integer, TreeNode>> nodes) {
         super.process(nodes);
 
 
 
-        for ( T2<Integer, TreeNode<T>> node : nodes ) {
+        for ( T2<Integer, TreeNode> node : nodes ) {
 
             progress.setText( Message.get( "Progress.filtering" ), node.i1.toString() );
             DefaultTreeModel       model   = ((DefaultTreeModel)diffPane.getTree(node.i0).getModel());

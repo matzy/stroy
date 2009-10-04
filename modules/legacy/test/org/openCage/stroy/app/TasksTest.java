@@ -38,22 +38,22 @@ public class TasksTest extends TestCase {
 
         SimpleContentTreeBuilder b = new SimpleContentTreeBuilder();
 
-        TreeNode<ReducedContent> treeLeft = b.d( "f", b.l( "a"),
+        TreeNode treeLeft = b.d( "f", b.l( "a"),
                                                       b.d( "g", b.l("b"),
                                                                 b.l("c")));
 
-        TreeNode<ReducedContent> treeRight = b.d( "f", b.l( "a"),
+        TreeNode treeRight = b.d( "f", b.l( "a"),
                                                        b.d( "g", b.l("b"),
                                                                  b.l("c")));
 
-        TreeMatchingTask<ReducedContent> task =
+        TreeMatchingTask task =
                 TreeMatchingTaskNeutralBuilder.build( treeLeft, treeRight );
-        TreeMatchingTask<ReducedContent> task2 =
+        TreeMatchingTask task2 =
                 TreeMatchingTaskNeutralBuilder.build( treeLeft, treeRight );
 
 
         try {
-            new Tasks<ReducedContent>( Arrays.asList( task, task2 ));
+            new Tasks( Arrays.asList( task, task2 ));
             fail( "roots don't match, throw expected" );
         } catch ( Exception exp ) {
             // expected
@@ -63,24 +63,24 @@ public class TasksTest extends TestCase {
     public void testRootSanityPositiv() {
         SimpleContentTreeBuilder b = new SimpleContentTreeBuilder();
 
-        TreeNode<ReducedContent> treeLeft = b.d( "f", b.l( "a"),
+        TreeNode treeLeft = b.d( "f", b.l( "a"),
                                                       b.d( "g", b.l("b"),
                                                                 b.l("c")));
 
-        TreeNode<ReducedContent> treeRight = b.d( "f2", b.l( "a"),
+        TreeNode treeRight = b.d( "f2", b.l( "a"),
                                                        b.d( "g", b.l("b"),
                                                                  b.l("c")));
-        TreeNode<ReducedContent> tree3 = b.d( "f3", b.l( "a"),
+        TreeNode tree3 = b.d( "f3", b.l( "a"),
                                                        b.d( "g", b.l("b"),
                                                                  b.l("c")));
 
-        TreeMatchingTask<ReducedContent> task =
+        TreeMatchingTask task =
                 TreeMatchingTaskNeutralBuilder.build( treeLeft, treeRight );
-        TreeMatchingTask<ReducedContent> task2 =
+        TreeMatchingTask task2 =
                 TreeMatchingTaskNeutralBuilder.build( treeRight, tree3 );
 
 
-        new Tasks<ReducedContent>( Arrays.asList( task, task2 ));
+        new Tasks( Arrays.asList( task, task2 ));
 
     }
 

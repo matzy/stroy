@@ -4,16 +4,15 @@ import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Guice;
 import org.openCage.stroy.dir.FileTreeMatchingTaskBuilder;
-import org.openCage.stroy.dir.FileContent;
 import org.openCage.stroy.filter.Ignore;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.graph.matching.strategy.combined.FastFirst;
 import org.openCage.stroy.graph.matching.strategy.MatchStrategy;
 import org.openCage.stroy.RuntimeModule;
-import org.openCage.util.logging.Log;
 import org.openCage.util.iterator.T2;
 
 import java.io.File;                                                                                       
+import java.util.logging.Logger;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -39,10 +38,12 @@ import java.io.File;
 
 public class CompareDirsImpl2 implements CompareDirs2 {
 
+    private static final Logger LOG = Logger.getLogger( CompareDirsImpl2.class.getName() );
+
     private final FileTreeMatchingTaskBuilder           builder;
 //    private final TreeMatchingTaskStrategy<FileContent> strategy;
 
-    private final MatchStrategy<FileContent> matchStrategy;
+    private final MatchStrategy matchStrategy;
 
     @Inject
     public CompareDirsImpl2( final FileTreeMatchingTaskBuilder builder ) { //,
@@ -56,10 +57,10 @@ public class CompareDirsImpl2 implements CompareDirs2 {
 //        matchStrategy = injector.getInstance( StructureOnly.class );
     }
 
-    public TreeMatchingTask<FileContent> compare( Ignore ignore, File one, File two) {
+    public TreeMatchingTask compare( Ignore ignore, File one, File two) {
 
-        Log.info( "reading both dirs" );
-        TreeMatchingTask<FileContent> treeMatchingTask = builder.build( ignore, one, two );
+        LOG.info( "reading both dirs" );
+        TreeMatchingTask treeMatchingTask = builder.build( ignore, one, two );
 
 //        strategy.applyStrategy( treeMatchingTask );
 //        matchStrategy.match( treeMatchingTask, new Reporter(){
@@ -72,14 +73,14 @@ public class CompareDirsImpl2 implements CompareDirs2 {
     }
 
 
-    public T2<TreeMatchingTask<FileContent>, TreeMatchingTask<FileContent>> compare(Ignore ignore, File one, File two, File three) {
+    public T2<TreeMatchingTask, TreeMatchingTask> compare(Ignore ignore, File one, File two, File three) {
 
-        Log.info( "reading dir 1 and 2" );
+        LOG.info( "reading dir 1 and 2" );
 
-        TreeMatchingTask<FileContent> treeMatchingGraph1 = builder.build( ignore, one, two );
+        TreeMatchingTask treeMatchingGraph1 = builder.build( ignore, one, two );
 
-        Log.info(  "reading dir 3" );
-        TreeMatchingTask<FileContent> treeMatchingGraph2 = builder.build( ignore, treeMatchingGraph1, three );
+        LOG.info(  "reading dir 3" );
+        TreeMatchingTask treeMatchingGraph2 = builder.build( ignore, treeMatchingGraph1, three );
 
 
 //        strategy.applyStrategy( treeMatchingGraph1 );
@@ -94,6 +95,6 @@ public class CompareDirsImpl2 implements CompareDirs2 {
 //        } );
 
 
-        return new T2<TreeMatchingTask<FileContent>, TreeMatchingTask<FileContent>>(treeMatchingGraph1,treeMatchingGraph2);
+        return new T2<TreeMatchingTask, TreeMatchingTask>(treeMatchingGraph1,treeMatchingGraph2);
     }
 }

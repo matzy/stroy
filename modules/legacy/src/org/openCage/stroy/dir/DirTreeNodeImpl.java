@@ -1,6 +1,5 @@
 package org.openCage.stroy.dir;
 
-import org.openCage.stroy.graph.node.TreeDirNode;
 import org.openCage.stroy.graph.node.TreeNode;
 import org.openCage.stroy.graph.node.ContentTreeNodeBaseImpl;
 import org.openCage.stroy.content.FileContentFactory;
@@ -30,26 +29,26 @@ import java.util.Collection;
 *
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
-public class DirTreeNodeImpl extends ContentTreeNodeBaseImpl<FileContent> implements TreeDirNode<FileContent> {
+public class DirTreeNodeImpl extends ContentTreeNodeBaseImpl implements TreeNode {
 
-    private List<TreeNode<FileContent>> kids;
+    private List<TreeNode> kids;
 
-    public DirTreeNodeImpl( final FileContentFactory factory, final File file, List<TreeNode<FileContent>> kids, boolean generateId  ) {
+    public DirTreeNodeImpl( final FileContentFactory factory, final File file, List<TreeNode> kids, boolean generateId  ) {
         super( factory.create(  file ), generateId );
         this.kids   = kids;
 
-        for ( TreeNode<FileContent> kid : this.kids ) {
+        for ( TreeNode kid : this.kids ) {
             kid.setParent( this );
         }
 
     }
 
 
-    public Collection<TreeNode<FileContent>> getChildren() {
+    public Collection<TreeNode> getChildren() {
         return kids;
     }
 
-    public void removeChild(TreeNode<FileContent> child) {
+    public void removeChild(TreeNode child) {
         kids.remove( child );
         child.setParent( null );
     }

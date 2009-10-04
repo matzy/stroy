@@ -1,7 +1,7 @@
 package org.openCage.stroy.graph.iterator;
 
 import org.openCage.stroy.graph.node.TreeNode;
-import org.openCage.stroy.graph.node.TreeDirNode;
+import org.openCage.stroy.graph.node.TreeNode;
 
 import java.util.Iterator;
 import java.util.Collection;
@@ -57,7 +57,7 @@ public class DepthFirstIterator<T> implements Iterator<TreeNode<T>> {
         TreeNode<T> oldNode = node;
 
         if ( !node.isLeaf() ) {
-            Collection<TreeNode<T>> childs = ((TreeDirNode<T>)node).getChildren();
+            Collection<TreeNode<T>> childs = ((TreeNode<T>)node).getChildren();
 
             if ( childs != null && childs.size() > 0 ) {
                 node = childs.iterator().next();
@@ -66,7 +66,7 @@ public class DepthFirstIterator<T> implements Iterator<TreeNode<T>> {
         }
 
 
-        TreeDirNode<T> parent = node.getParent();
+        TreeNode<T> parent = node.getParent();
 
         while ( parent != null ) {
 
@@ -89,7 +89,7 @@ public class DepthFirstIterator<T> implements Iterator<TreeNode<T>> {
         throw new Error( "not impl" );
     }
 
-    private TreeNode<T> nextSibling( TreeDirNode<T> parent, TreeNode<T> node ) {
+    private TreeNode<T> nextSibling( TreeNode<T> parent, TreeNode<T> node ) {
 
         boolean found = false;
         for ( TreeNode<T> child : parent.getChildren() ) {

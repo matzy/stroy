@@ -1,7 +1,5 @@
 package org.openCage.stroy.ui.difftree;
 
-import org.openCage.stroy.dir.FileContent;
-import org.openCage.stroy.graph.node.TreeNode;
 import org.openCage.stroy.content.Content;
 
 import javax.swing.tree.TreePath;

@@ -2,7 +2,7 @@ package org.openCage.stroy.graph.matching.strategy;
 
 import org.openCage.stroy.content.Content;
 import org.openCage.stroy.graph.SameContent;
-import org.openCage.stroy.graph.node.TreeLeafNode;
+import org.openCage.stroy.graph.node.TreeNode;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.graph.matching.strategy.MatchStrategy;
 import org.openCage.util.logging.Log;
@@ -81,7 +81,7 @@ public class IdenticalLeafMatchStrategy<T extends Content> implements MatchStrat
     private Map<String, SameContent<T>> computeHashes( TreeMatchingTask<T> matchingTask) {
         Map<String, SameContent<T>> sames = new HashMap<String, SameContent<T>>();
 
-        for ( TreeLeafNode<T> lfm : matchingTask.getLeaves().getUnmatchedLeft() ) {
+        for ( TreeNode<T> lfm : matchingTask.getLeaves().getUnmatchedLeft() ) {
             String checksum = lfm.getContent().getChecksum();
 
             SameContent<T> sh;
@@ -96,7 +96,7 @@ public class IdenticalLeafMatchStrategy<T extends Content> implements MatchStrat
             sh.add( lfm, true );
         }
 
-        for ( TreeLeafNode<T> lfm : matchingTask.getLeaves().getUnmatchedRight() ) {
+        for ( TreeNode<T> lfm : matchingTask.getLeaves().getUnmatchedRight() ) {
             String checksum = lfm.getContent().getChecksum();
 
             SameContent<T> sh;

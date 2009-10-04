@@ -6,11 +6,12 @@ import org.openCage.stroy.algo.tree.IOState;
 import org.openCage.stroy.algo.fingerprint.FingerPrint;
 import org.openCage.stroy.algo.fuzzyHash.FuzzyHash;
 import org.openCage.util.io.FileUtils;
-import org.openCage.util.lang.Lazy;
+import org.openCage.lang.protocol.Lazy;
 import org.openCage.utils.func.F0;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
+import org.openCage.lang.protocol.FE0;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -50,15 +51,15 @@ public class FSFiel implements Fiel {
         this.file = file;
         type = FileUtils.getExtension( file );
 
-        calcChecksum = new Lazy<String>( new F0<String>() {
-            public String c() {
+        calcChecksum = new Lazy<String>( new FE0<String>() {
+            public String call() {
                 return calc.getFingerprint( file, ioState );
             }
         } );
 
-        fuzzy = new Lazy<FuzzyHash>( new F0<FuzzyHash>() {
-            public FuzzyHash c() {
-                return null;  //To change body of implemented methods use File | Settings | File Templates.
+        fuzzy = new Lazy<FuzzyHash>( new FE0<FuzzyHash>() {
+            public FuzzyHash call() {
+                return null;  // TODO
             }
         } );
 

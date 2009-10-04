@@ -31,7 +31,7 @@ import org.openCage.stroy.graph.node.TreeNode;
 ***** END LICENSE BLOCK *****/
 public abstract class StrategyTestsWorker extends TestCase {
 
-    public void strategyTestSimpleIdentical(MatchStrategy<ReducedContent> strategy,
+    public void strategyTestSimpleIdentical(MatchStrategy strategy,
                                             int lml,
                                             int lul,
                                             int lmr,
@@ -43,15 +43,15 @@ public abstract class StrategyTestsWorker extends TestCase {
 
         SimpleContentTreeBuilder b = new SimpleContentTreeBuilder();
 
-        TreeNode<ReducedContent> treeLeft = b.d( "f", b.l( "a"),
+        TreeNode treeLeft = b.d( "f", b.l( "a"),
                                                       b.d( "g", b.l("b"),
                                                                 b.l("c")));
 
-        TreeNode<ReducedContent> treeRight = b.d( "f", b.l( "a"),
+        TreeNode treeRight = b.d( "f", b.l( "a"),
                                                        b.d( "g", b.l("b"),
                                                                  b.l("c")));
 
-        TreeMatchingTask<ReducedContent> task =
+        TreeMatchingTask task =
                 TreeMatchingTaskNeutralBuilder.build( treeLeft, treeRight );
 
 
@@ -78,16 +78,16 @@ public abstract class StrategyTestsWorker extends TestCase {
         assertEquals( dur, task.getDirs().getUnmatchedRight().size() );
     }
 
-    public void strategyTestRootMatch(MatchStrategy<ReducedContent> strategy ) {
+    public void strategyTestRootMatch(MatchStrategy strategy ) {
         SimpleContentTreeBuilder b = new SimpleContentTreeBuilder();
 
-        TreeNode<ReducedContent> treeLeft = b.d( "f", b.l( "a"),
+        TreeNode treeLeft = b.d( "f", b.l( "a"),
                                                       b.d( "g", b.l("b"),
                                                                 b.l("c")));
 
-        TreeNode<ReducedContent> treeRight = b.d( "uuu" );
+        TreeNode treeRight = b.d( "uuu" );
 
-        TreeMatchingTask<ReducedContent> task = TreeMatchingTaskNeutralBuilder.build( treeLeft, treeRight );
+        TreeMatchingTask task = TreeMatchingTaskNeutralBuilder.build( treeLeft, treeRight );
         strategy.match( task, new NullReporter() );
 
         assertTrue( task.isMatched( TreeNodeUtils.getNode( task.getLeftRoot())));
@@ -96,7 +96,7 @@ public abstract class StrategyTestsWorker extends TestCase {
                       task.getMatch( TreeNodeUtils.getNode( task.getLeftRoot())).getContent().getName() );
     }
 
-    public void strategyTestMoved(MatchStrategy<ReducedContent> strategy,
+    public void strategyTestMoved(MatchStrategy strategy,
                                             int lml,
                                             int lul,
                                             int lmr,
@@ -108,17 +108,17 @@ public abstract class StrategyTestsWorker extends TestCase {
 
         SimpleContentTreeBuilder b = new SimpleContentTreeBuilder();
 
-        TreeNode<ReducedContent> treeLeft = b.d( "f", b.l( "a"),
+        TreeNode treeLeft = b.d( "f", b.l( "a"),
                                                       b.d( "g", b.l("b"),
                                                                 b.l("c")));
 
-        TreeNode<ReducedContent> treeRight = b.d( "f", b.l( "a"),
+        TreeNode treeRight = b.d( "f", b.l( "a"),
                                                        b.d( "z",
                                                             b.d( "g", b.l("b"),
                                                                       b.l("c"))));
 
 
-        TreeMatchingTask<ReducedContent> task =
+        TreeMatchingTask task =
                 TreeMatchingTaskNeutralBuilder.build( treeLeft, treeRight );
 
         assertEquals( 0, task.getLeaves().getMatchedLeft().size() );
@@ -144,7 +144,7 @@ public abstract class StrategyTestsWorker extends TestCase {
         assertEquals( dur, task.getDirs().getUnmatchedRight().size() );
     }
 
-    public void strategyTestIgnoreChecksum(MatchStrategy<ReducedContent> strategy,
+    public void strategyTestIgnoreChecksum(MatchStrategy strategy,
                                             int lml,
                                             int lul,
                                             int lmr,
@@ -156,15 +156,15 @@ public abstract class StrategyTestsWorker extends TestCase {
 
         SimpleContentTreeBuilder b = new SimpleContentTreeBuilder();
 
-        TreeNode<ReducedContent> treeLeft = b.d( "f", b.l( "a"),
+        TreeNode treeLeft = b.d( "f", b.l( "a"),
                                                       b.d( "g", b.l("b"),
                                                                 b.l("c")));
 
-        TreeNode<ReducedContent> treeRight = b.d( "f", b.l( "a", "a12"),
+        TreeNode treeRight = b.d( "f", b.l( "a", "a12"),
                                                        b.d( "g", b.l("b", "b23"),
                                                                  b.l("c", "c7")));
 
-        TreeMatchingTask<ReducedContent> task =
+        TreeMatchingTask task =
                 TreeMatchingTaskNeutralBuilder.build( treeLeft, treeRight );
 
         assertEquals( 0, task.getLeaves().getMatchedLeft().size() );
@@ -189,7 +189,7 @@ public abstract class StrategyTestsWorker extends TestCase {
         assertEquals( dmr, task.getDirs().getMatchedRight().size() );
         assertEquals( dur, task.getDirs().getUnmatchedRight().size() );
 
-//        assertEquals( 1.0, task.getLeaves().getMatchQuality( (TreeLeafNode<ReducedContent>)node ));
+//        assertEquals( 1.0, task.getLeaves().getMatchQuality( (TreeNode)node ));
 
     }
 }

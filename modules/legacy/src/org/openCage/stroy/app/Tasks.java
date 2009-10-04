@@ -1,11 +1,10 @@
 package org.openCage.stroy.app;
 
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
-import org.openCage.stroy.graph.node.TreeDirNode;
-import org.openCage.stroy.content.Content;
 
 import java.util.List;
 import java.util.ArrayList;
+import org.openCage.stroy.graph.node.TreeNode;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -29,15 +28,15 @@ import java.util.ArrayList;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public class Tasks<T extends Content> {
+public class Tasks {
 
-    private List<TreeMatchingTask<T>> tasks;
-    private List<TreeDirNode<T>>      roots = new ArrayList<TreeDirNode<T>>();
+    private List<TreeMatchingTask> tasks;
+    private List<TreeNode>      roots = new ArrayList<TreeNode>();
 
-    public Tasks( List<TreeMatchingTask<T>> tasks ) {
+    public Tasks( List<TreeMatchingTask> tasks ) {
         this.tasks = tasks;
 
-        for ( TreeMatchingTask<T> task : tasks ) {
+        for ( TreeMatchingTask task : tasks ) {
             if ( roots.size() == 0 ) {
                 roots.add( task.getLeftRoot() );
             } else {
@@ -51,11 +50,11 @@ public class Tasks<T extends Content> {
 
     }
 
-    public List<TreeMatchingTask<T>> getTasks() {
+    public List<TreeMatchingTask> getTasks() {
         return tasks;
     }
 
-    public List<TreeDirNode<T>> getRoots() {
+    public List<TreeNode> getRoots() {
         return roots;
     }
 }

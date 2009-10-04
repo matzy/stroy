@@ -2,8 +2,8 @@ package org.openCage.stroy.graph.matching;
 
 import org.openCage.stroy.content.ReducedContent;
 import org.openCage.stroy.graph.node.TreeNode;
-import org.openCage.stroy.graph.node.TreeLeafNode;
-import org.openCage.stroy.graph.node.TreeDirNode;
+import org.openCage.stroy.graph.node.TreeNode;
+import org.openCage.stroy.graph.node.TreeNode;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -28,32 +28,32 @@ import org.openCage.stroy.graph.node.TreeDirNode;
 ***** END LICENSE BLOCK *****/
 public class TreeMatchingTaskNeutralBuilder {
 
-    static public TreeMatchingTask<ReducedContent> build(
-            TreeNode<ReducedContent> treeLeft,
-            TreeNode<ReducedContent> treeRight ) {
-        TreeMatchingTask<ReducedContent> task =  build( build( new TreeMatchingTaskNeutral<ReducedContent>(), treeLeft, true ),
+    static public TreeMatchingTask build(
+            TreeNode treeLeft,
+            TreeNode treeRight ) {
+        TreeMatchingTask task =  build( build( new TreeMatchingTaskNeutral(), treeLeft, true ),
                                                                       treeRight,false );
-        task.getDirs().setRoots( (TreeDirNode<ReducedContent>)treeLeft, (TreeDirNode<ReducedContent>)treeRight);
+        task.getDirs().setRoots( (TreeNode)treeLeft, (TreeNode)treeRight);
 
         return task;
     }
 
-    static private TreeMatchingTask<ReducedContent> build( TreeMatchingTask<ReducedContent> task, TreeNode<ReducedContent> tree, boolean left ) {
+    static private TreeMatchingTask build( TreeMatchingTask task, TreeNode tree, boolean left ) {
 
         if ( tree.isLeaf() ) {
             if ( left ) {
-                task.getLeaves().addLeft( (TreeLeafNode<ReducedContent>) tree );
+                task.getLeaves().addLeft( (TreeNode) tree );
             } else {
-                task.getLeaves().addRight( (TreeLeafNode<ReducedContent>) tree );
+                task.getLeaves().addRight( (TreeNode) tree );
             }
         } else {
             if ( left ) {
-                task.getDirs().addLeft( (TreeDirNode<ReducedContent>) tree );
+                task.getDirs().addLeft( (TreeNode) tree );
             } else {
-                task.getDirs().addRight( (TreeDirNode<ReducedContent>) tree );
+                task.getDirs().addRight( (TreeNode) tree );
             }
 
-            for ( TreeNode<ReducedContent> child : ((TreeDirNode<ReducedContent>) tree).getChildren() ) {
+            for ( TreeNode child : ((TreeNode) tree).getChildren() ) {
                 build( task, child, left );
             }
         }

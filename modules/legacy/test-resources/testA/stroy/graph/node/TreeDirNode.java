@@ -36,7 +36,7 @@ import java.util.Collection;
 *
 ***** END LICENSE BLOCK *****/
 
-public interface TreeDirNode<T> extends TreeNode<T> {
+public interface TreeNode<T> extends TreeNode<T> {
 
     /**
      * Get all children of this node

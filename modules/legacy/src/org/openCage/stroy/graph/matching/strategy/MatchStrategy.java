@@ -28,7 +28,7 @@ import org.openCage.stroy.content.Content;
 /**
  * Match non connected nodes
  */
-public interface MatchStrategy<T extends Content> {
+public interface MatchStrategy {
 
-    public void match( TreeMatchingTask<T> treeMatchingTask, Reporter reporter);
+    public void match( TreeMatchingTask treeMatchingTask, Reporter reporter);
 }

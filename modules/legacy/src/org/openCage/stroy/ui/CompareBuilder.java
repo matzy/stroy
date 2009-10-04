@@ -5,7 +5,6 @@ import org.openCage.stroy.dir.FileTreeMatchingTaskBuilder;
 import org.openCage.stroy.app.Tasks;
 import org.openCage.stroy.filter.IgnoreCentral;
 import org.openCage.stroy.filter.Ignore;
-import org.openCage.stroy.fuzzyHash.FuzzyHashGenerator;
 import org.openCage.stroy.RuntimeModule;
 import org.openCage.stroy.locale.Message;
 import org.openCage.stroy.ui.docking.GraphicalDiffMyDoggy;
@@ -14,8 +13,6 @@ import org.openCage.stroy.graph.matching.strategy.Reporter;
 import org.openCage.stroy.graph.matching.strategy.NameOnly;
 import org.openCage.stroy.graph.matching.strategy.combined.WatchFull;
 import org.openCage.util.iterator.T2;
-import org.openCage.util.iterator.T3;
-import org.openCage.util.logging.Log;
 import org.jdesktop.swingworker.SwingWorker;
 
 import java.util.List;
@@ -27,6 +24,7 @@ import com.google.inject.Injector;
 import com.google.inject.Guice;
 import com.google.inject.Key;
 import com.google.inject.TypeLiteral;
+import java.util.logging.Logger;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -51,6 +49,8 @@ import com.google.inject.TypeLiteral;
 ***** END LICENSE BLOCK *****/
 
 public class CompareBuilder extends SwingWorker<GraphicalDiffMyDoggy, T2<String,String>> {
+
+    private static final Logger LOG = Logger.getLogger( CompareBuilder.class.getName() );
 
     private final Ignore                      ignore;
     private final List<String>                dirs;
@@ -84,7 +84,7 @@ public class CompareBuilder extends SwingWorker<GraphicalDiffMyDoggy, T2<String,
 
     protected GraphicalDiffMyDoggy doInBackground() throws Exception {
 
-        List<TreeMatchingTask<FileContent>> tasks  = buildTasks();
+        List<TreeMatchingTask> tasks  = buildTasks();
 
         Reporter reporter = new Reporter() {
             public void detail( String labl, String str) {
@@ -96,18 +96,18 @@ public class CompareBuilder extends SwingWorker<GraphicalDiffMyDoggy, T2<String,
             }
         };
 
-        for ( TreeMatchingTask<FileContent> task : tasks ) {
-            new NameOnly<FileContent>().match( task, reporter);
+        for ( TreeMatchingTask task : tasks ) {
+            new NameOnly().match( task, reporter);
         }
 
         // build the trees ui in the background
         publish( T2.c( Message.get( "Progress.MainWindowBuilding" ), (String)null ));
 
-        return new GraphicalDiffMyDoggy( new Tasks<FileContent>( tasks ) );
+        return new GraphicalDiffMyDoggy( new Tasks( tasks ) );
     }
 
-    private List<TreeMatchingTask<FileContent>> buildTasks() {
-        List<TreeMatchingTask<FileContent>> tasks = new ArrayList<TreeMatchingTask<FileContent>>();
+    private List<TreeMatchingTask> buildTasks() {
+        List<TreeMatchingTask> tasks = new ArrayList<TreeMatchingTask>();
 
         for ( int idx = 1; idx < dirs.size(); ++idx  ) {
 
@@ -134,17 +134,17 @@ public class CompareBuilder extends SwingWorker<GraphicalDiffMyDoggy, T2<String,
             gd4 = get();
         } catch ( InterruptedException e ) {
             // TODO open log window
-            Log.log( e );
+            LOG.severe( e.toString() );
             progressDialog.dispose();
             return;
         } catch ( ExecutionException e ) {
-            Log.log( e );
+            LOG.severe( e.toString() );
             progressDialog.dispose();
             return;
         }
 
         if ( gd4 == null ) {
-            Log.severe( "Could not build main window" );
+            LOG.severe( "Could not build main window" );
             progressDialog.dispose();
             return;
         }
@@ -155,12 +155,12 @@ public class CompareBuilder extends SwingWorker<GraphicalDiffMyDoggy, T2<String,
         progressDialog.dispose();
 
         Injector injector = Guice.createInjector( new RuntimeModule() );
-        WatchFull<FileContent> strategy = injector.getInstance( Key.get(new TypeLiteral<WatchFull<FileContent>>() {} ));
-//        WatchFull<FileContent> strategy = injector.getInstance();
- //        TreeLeafNodeFuzzyLeafDistance<FileContent> = injector.getInstance( )
-//        WatchFull<FileContent> strategy = new WatchFull<FileContent>(fuzzyLeafDis);
+        WatchFull strategy = injector.getInstance( Key.get(new TypeLiteral<WatchFull>() {} ));
+//        WatchFull strategy = injector.getInstance();
+ //        TreeNodeFuzzyLeafDistance = injector.getInstance( )
+//        WatchFull strategy = new WatchFull(fuzzyLeafDis);
 
-        new MatchnWatch<FileContent>( gd4.getUIApp(), strategy ).execute();
+        new MatchnWatch( gd4.getUIApp(), strategy ).execute();
     }
 
 

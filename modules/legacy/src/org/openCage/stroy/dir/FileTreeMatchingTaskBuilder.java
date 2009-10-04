@@ -29,6 +29,6 @@ import java.io.File;
 
 public interface FileTreeMatchingTaskBuilder {
 
-    public TreeMatchingTask<FileContent> build( Ignore ignore, File one, File two);
-    public TreeMatchingTask<FileContent> build( Ignore ignore, TreeMatchingTask<FileContent> src, File two);
+    public TreeMatchingTask build( Ignore ignore, File one, File two);
+    public TreeMatchingTask build( Ignore ignore, TreeMatchingTask src, File two);
 }

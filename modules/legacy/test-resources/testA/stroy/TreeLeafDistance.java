@@ -2,8 +2,8 @@ package org.openCage.stroy;
 
 import org.openCage.stroy.content.Content;
 import org.openCage.stroy.task.MatchingTask;
-import org.openCage.stroy.graph.node.TreeDirNode;
-import org.openCage.stroy.graph.node.TreeLeafNode;
+import org.openCage.stroy.graph.node.TreeNode;
+import org.openCage.stroy.graph.node.TreeNode;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1/GPL 2.0
@@ -39,5 +39,5 @@ import org.openCage.stroy.graph.node.TreeLeafNode;
 *
 ***** END LICENSE BLOCK *****/
 
-public interface TreeLeafDistance<T extends Content> extends InformedDistance< MatchingTask<TreeDirNode<T>>, TreeLeafNode<T>>{
+public interface TreeLeafDistance<T extends Content> extends InformedDistance< MatchingTask<TreeNode<T>>, TreeNode<T>>{
 }

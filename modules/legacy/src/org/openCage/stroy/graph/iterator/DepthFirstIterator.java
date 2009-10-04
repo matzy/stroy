@@ -1,7 +1,7 @@
 package org.openCage.stroy.graph.iterator;
 
 import org.openCage.stroy.graph.node.TreeNode;
-import org.openCage.stroy.graph.node.TreeDirNode;
+import org.openCage.stroy.graph.node.TreeNode;
 
 import java.util.Iterator;
 import java.util.Collection;
@@ -28,12 +28,12 @@ import java.util.Collection;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public class DepthFirstIterator<T> implements Iterator<TreeNode<T>> {
+public class DepthFirstIterator implements Iterator<TreeNode> {
 
-    private TreeNode<T> node;
+    private TreeNode node;
 
 
-    public DepthFirstIterator(TreeNode<T> node ) {
+    public DepthFirstIterator(TreeNode node ) {
         this.node = node;
     }
 
@@ -41,11 +41,11 @@ public class DepthFirstIterator<T> implements Iterator<TreeNode<T>> {
         return node != null;
     }
 
-    public TreeNode<T> next() {
-        TreeNode<T> oldNode = node;
+    public TreeNode next() {
+        TreeNode oldNode = node;
 
         if ( !node.isLeaf() ) {
-            Collection<TreeNode<T>> childs = ((TreeDirNode<T>)node).getChildren();
+            Collection<? extends TreeNode> childs = node.getChildren();
 
             if ( childs != null && childs.size() > 0 ) {
                 node = childs.iterator().next();
@@ -54,7 +54,7 @@ public class DepthFirstIterator<T> implements Iterator<TreeNode<T>> {
         }
 
 
-        TreeDirNode<T> parent = node.getParent();
+        TreeNode parent = node.getParent();
 
         while ( parent != null ) {
 
@@ -77,10 +77,10 @@ public class DepthFirstIterator<T> implements Iterator<TreeNode<T>> {
         throw new Error( "not impl" );
     }
 
-    private TreeNode<T> nextSibling( TreeDirNode<T> parent, TreeNode<T> node ) {
+    private TreeNode nextSibling( TreeNode parent, TreeNode node ) {
 
         boolean found = false;
-        for ( TreeNode<T> child : parent.getChildren() ) {
+        for ( TreeNode child : parent.getChildren() ) {
             if ( found ) {
                 return child;
             }

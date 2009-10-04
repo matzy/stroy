@@ -30,8 +30,8 @@ import java.util.List;
 *
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
-public interface NWayDiffPaneGenerator<T extends Content> {
+public interface NWayDiffPaneGenerator {
 
-    public NWayDiffPane getDiffPane( final List<TreeMatchingTask<T>>    tasks,
+    public NWayDiffPane getDiffPane( final List<TreeMatchingTask>    tasks,
                                      final List<DefaultMutableTreeNode> roots );
 }

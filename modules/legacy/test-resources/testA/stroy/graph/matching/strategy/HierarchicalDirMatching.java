@@ -1,7 +1,7 @@
 package org.openCage.stroy.graph.matching.strategy;
 
 import org.openCage.stroy.content.Content;
-import org.openCage.stroy.graph.node.TreeDirNode;
+import org.openCage.stroy.graph.node.TreeNode;
 import org.openCage.stroy.graph.node.TreeNode;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.graph.matching.strategy.MatchStrategy;
@@ -53,10 +53,10 @@ public class HierarchicalDirMatching<T extends Content> implements MatchStrategy
         matchHir(treeMatchingTask, treeMatchingTask.getDirs().getLeftRoot());
     }
 
-    private void matchHir( TreeMatchingTask<T> treeMatchingTask, TreeDirNode<T> src ) {
+    private void matchHir( TreeMatchingTask<T> treeMatchingTask, TreeNode<T> src ) {
 
         if ( ! treeMatchingTask.isMatched( src )) {
-            TreeDirNode<T> bestMatch = matchHirBest(treeMatchingTask, src );
+            TreeNode<T> bestMatch = matchHirBest(treeMatchingTask, src );
 
             if ( bestMatch != null ) {
 
@@ -67,7 +67,7 @@ public class HierarchicalDirMatching<T extends Content> implements MatchStrategy
 
                 for ( TreeNode<T> fm : src.getChildren() ) {
                     if ( !fm.isLeaf() ) {
-                        simpleMatcher.matchInChildList(treeMatchingTask, (TreeDirNode<T>)fm, bestMatch );
+                        simpleMatcher.matchInChildList(treeMatchingTask, (TreeNode<T>)fm, bestMatch );
                     }
                 }
             } else {
@@ -77,17 +77,17 @@ public class HierarchicalDirMatching<T extends Content> implements MatchStrategy
 
         for ( TreeNode<T> fm : src.getChildren() ) {
             if ( !fm.isLeaf() ) {
-                matchHir(treeMatchingTask, (TreeDirNode<T>)fm );
+                matchHir(treeMatchingTask, (TreeNode<T>)fm );
             }
         }
     }
 
-    private TreeDirNode<T> matchHirBest( TreeMatchingTask<T> treeMatchingTask, TreeDirNode<T> src) {
+    private TreeNode<T> matchHirBest( TreeMatchingTask<T> treeMatchingTask, TreeNode<T> src) {
 
         double         bestDist  = 2.0;
-        TreeDirNode<T> bestMatch = null;
+        TreeNode<T> bestMatch = null;
 
-        for ( TreeDirNode<T> tgt : treeMatchingTask.getDirs().getUnmatchedRight() ) {
+        for ( TreeNode<T> tgt : treeMatchingTask.getDirs().getUnmatchedRight() ) {
             double dist = distance(treeMatchingTask, src, tgt );
             if ( dist < bestDist && dist < 0.31) {
                 bestDist = dist;
@@ -98,7 +98,7 @@ public class HierarchicalDirMatching<T extends Content> implements MatchStrategy
         return bestMatch;
     }
 
-    private double distance( TreeMatchingTask<T> treeMatchingTaskImpl, TreeDirNode<T> a, TreeDirNode<T> b) {
+    private double distance( TreeMatchingTask<T> treeMatchingTaskImpl, TreeNode<T> a, TreeNode<T> b) {
 
         int deleted       = 0;
         int same          = 0;

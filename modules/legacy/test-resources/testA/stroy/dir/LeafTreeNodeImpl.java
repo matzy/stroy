@@ -2,7 +2,7 @@ package org.openCage.stroy.dir;
 
 import org.openCage.stroy.content.FileContentFactory;
 import org.openCage.stroy.graph.node.ContentTreeNodeBaseImpl;
-import org.openCage.stroy.graph.node.TreeLeafNode;
+import org.openCage.stroy.graph.node.TreeNode;
 
 import java.io.File;
 
@@ -40,7 +40,7 @@ import java.io.File;
 *
 ***** END LICENSE BLOCK *****/
 
-public class LeafTreeNodeImpl extends ContentTreeNodeBaseImpl<FileContent> implements TreeLeafNode<FileContent> {
+public class LeafTreeNodeImpl extends ContentTreeNodeBaseImpl<FileContent> implements TreeNode<FileContent> {
 
     private       Object        storage;
 

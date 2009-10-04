@@ -34,56 +34,56 @@ public class DiffPopupDeciderTest extends TestCase {
 
     public void testShowOpenLeave() {
 
-        TreeNode<ReducedContent> leave = new SimpleContentTreeBuilder().l( "foo.jpg");
+        TreeNode leave = new SimpleContentTreeBuilder().l( "foo.jpg");
         assertTrue( new DiffPopupDecider().showOpen( leave ));
     }
 
     public void testShowOpenLeaveWithoutContetn() {
 
-        TreeNode<ReducedContent> leave = new SimpleTreeNode<ReducedContent>( null );
+        TreeNode leave = new SimpleTreeNode( null );
         assertFalse( new DiffPopupDecider().showOpen( leave ));
     }
 
     public void testShowOpenDir() {
 
-        TreeNode<ReducedContent> leave = new SimpleContentTreeBuilder().l( "foo");
-        TreeNode<ReducedContent> dir = new SimpleContentTreeBuilder().d( "dd", leave);
+        TreeNode leave = new SimpleContentTreeBuilder().l( "foo");
+        TreeNode dir = new SimpleContentTreeBuilder().d( "dd", leave);
 
         assertFalse( new DiffPopupDecider().showOpen( dir ));
     }
 
     public void testShowOpenBundle() {
 
-        TreeNode<ReducedContent> leave = new SimpleContentTreeBuilder().l( "foo");
-        TreeNode<ReducedContent> dir = new SimpleContentTreeBuilder().d( "dd.app", leave);
+        TreeNode leave = new SimpleContentTreeBuilder().l( "foo");
+        TreeNode dir = new SimpleContentTreeBuilder().d( "dd.app", leave);
 
         assertEquals( Sys.isMacOSX(), new DiffPopupDecider().showOpen( dir ));
     }
 
     public void testShowOpenAsTextLeave() {
 
-        TreeNode<ReducedContent> leave = new SimpleContentTreeBuilder().l( "foo");
+        TreeNode leave = new SimpleContentTreeBuilder().l( "foo");
         assertTrue( new DiffPopupDecider().showOpenAsText( leave ));
     }
 
     public void testShowOpenAsTextLeaveWithoutContetn() {
 
-        TreeNode<ReducedContent> leave = new SimpleTreeNode<ReducedContent>( null );
+        TreeNode leave = new SimpleTreeNode( null );
         assertFalse( new DiffPopupDecider().showOpenAsText( leave ));
     }
 
     public void testShowOpenAsTextDir() {
 
-        TreeNode<ReducedContent> leave = new SimpleContentTreeBuilder().l( "foo");
-        TreeNode<ReducedContent> dir = new SimpleContentTreeBuilder().d( "dd", leave);
+        TreeNode leave = new SimpleContentTreeBuilder().l( "foo");
+        TreeNode dir = new SimpleContentTreeBuilder().d( "dd", leave);
 
         assertFalse( new DiffPopupDecider().showOpenAsText( dir ));
     }
 
     public void testShowOpenAsTextBundle() {
 
-        TreeNode<ReducedContent> leave = new SimpleContentTreeBuilder().l( "foo");
-        TreeNode<ReducedContent> dir = new SimpleContentTreeBuilder().d( "dd.app", leave);
+        TreeNode leave = new SimpleContentTreeBuilder().l( "foo");
+        TreeNode dir = new SimpleContentTreeBuilder().d( "dd.app", leave);
 
         assertFalse( new DiffPopupDecider().showOpenAsText( dir ));
     }

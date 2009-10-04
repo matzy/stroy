@@ -42,9 +42,9 @@ import java.awt.*;
 
 public class TreeNodeJudge<T extends Content> implements JudgeBlock {
 
-    private final TreeMatchingTask<T> matching;
+    private final TreeMatchingTask matching;
 
-    public TreeNodeJudge( TreeMatchingTask<T> matching ) {
+    public TreeNodeJudge( TreeMatchingTask matching ) {
         this.matching = matching;
     }
 
@@ -56,7 +56,7 @@ public class TreeNodeJudge<T extends Content> implements JudgeBlock {
                 int i = 0;
             }
 
-            TreeNode<T> nn = ((UINode<T>)node.o.getUserObject()).get();
+            TreeNode nn = ((UINode)node.o.getUserObject()).get();
                                         
             final ChangeVector cv = matching.getChangeVector( nn );
 
@@ -84,7 +84,7 @@ public class TreeNodeJudge<T extends Content> implements JudgeBlock {
         boolean contentUnknown   = false;
 
         for ( DefaultMutableTreeNode dmtn : block ) {
-            TreeNode<T> node = ((UINode)dmtn.getUserObject()).get();
+            TreeNode node = ((UINode)dmtn.getUserObject()).get();
             final ChangeVector cv = matching.getChangeVector( node );
 
             if ( cv.only ) {

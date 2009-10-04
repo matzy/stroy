@@ -1,7 +1,7 @@
 package org.openCage.stroy.graph.node;
 
 import org.openCage.stroy.content.Content;
-import org.openCage.stroy.graph.node.TreeDirNode;
+import org.openCage.stroy.graph.node.TreeNode;
 import org.openCage.stroy.graph.node.TreeNode;
 
 /***** BEGIN LICENSE BLOCK *****
@@ -40,7 +40,7 @@ import org.openCage.stroy.graph.node.TreeNode;
 
 public abstract class ContentTreeNodeBaseImpl<T extends Content> implements TreeNode<T> {
     private final T         content;
-    private TreeDirNode<T>  parent;
+    private TreeNode<T>  parent;
 
     public ContentTreeNodeBaseImpl( T file, boolean generateId ) {
         this.content = file;
@@ -50,11 +50,11 @@ public abstract class ContentTreeNodeBaseImpl<T extends Content> implements Tree
         return content;
     }
 
-    public void setParent( TreeDirNode<T> parent) {
+    public void setParent( TreeNode<T> parent) {
         this.parent = parent;
     }
 
-    public TreeDirNode<T> getParent() {
+    public TreeNode<T> getParent() {
         return parent;
     }
 

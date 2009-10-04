@@ -41,7 +41,7 @@ public class SimpleDirMatching implements Strategy {
 //    }
 //
 //
-//    public void matchInChildList( TreeMatchingTask<T> treeMatchingTask, Reporter reporter, TreeDirNode<T> fromDir, TreeDirNode<T> toParent ) {
+//    public void matchInChildList( TreeMatchingTask<T> treeMatchingTask, Reporter reporter, TreeNode<T> fromDir, TreeNode<T> toParent ) {
 //
 //        if ( ! treeMatchingTask.isMatched( fromDir )  ) {
 //
@@ -59,14 +59,14 @@ public class SimpleDirMatching implements Strategy {
 //                     !treeMatchingTask.isMatched( tgtKid ) &&
 //                     tgtKid.getContent().getName().equals( name )) {
 //
-//                    treeMatchingTask.getDirs().match( fromDir, (TreeDirNode<T>)tgtKid, 1.0 );
+//                    treeMatchingTask.getDirs().match( fromDir, (TreeNode<T>)tgtKid, 1.0 );
 //                    break;
 //                }
 //            }
 //
 //        }
 //
-//        TreeDirNode<T> newParent = treeMatchingTask.getDirs().getMatch(fromDir);
+//        TreeNode<T> newParent = treeMatchingTask.getDirs().getMatch(fromDir);
 //
 //        if ( newParent == null ) {
 //            return;
@@ -75,7 +75,7 @@ public class SimpleDirMatching implements Strategy {
 //        for ( TreeNode<T> fm : fromDir.getChildren() ) {
 //
 //            if ( !fm.isLeaf() ) {
-//                matchInChildList( treeMatchingTask, reporter, (TreeDirNode<T>)fm, newParent );
+//                matchInChildList( treeMatchingTask, reporter, (TreeNode<T>)fm, newParent );
 //            }
 //        }
 //

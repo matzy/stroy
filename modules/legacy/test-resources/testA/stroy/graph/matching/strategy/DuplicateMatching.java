@@ -5,8 +5,8 @@ import org.openCage.stroy.task.MatchingTask;
 import org.openCage.stroy.array.MatchBestConnections2;
 import org.openCage.stroy.content.Content;
 import org.openCage.stroy.graph.SameContent;
-import org.openCage.stroy.graph.node.TreeDirNode;
-import org.openCage.stroy.graph.node.TreeLeafNode;
+import org.openCage.stroy.graph.node.TreeNode;
+import org.openCage.stroy.graph.node.TreeNode;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.graph.matching.strategy.MatchStrategy;
 import org.openCage.util.logging.Log;
@@ -60,17 +60,17 @@ public class DuplicateMatching<T extends Content> implements MatchStrategy<T> {
 
     // TODO: refactor with other 
 
-    private void match( final TreeMatchingTask<T> matchingTask, List<TreeLeafNode<T>> src, List<TreeLeafNode<T>> tgt ) {
+    private void match( final TreeMatchingTask<T> matchingTask, List<TreeNode<T>> src, List<TreeNode<T>> tgt ) {
         if ( src.size() != 0 && tgt.size() != 0 ) {
 
-            MatchBestConnections2<MatchingTask<TreeDirNode<T>>,TreeLeafNode<T>> match =
-                    new MatchBestConnections2<MatchingTask<TreeDirNode<T>>,TreeLeafNode<T>>( new TreeLeafDistance<T>() {
+            MatchBestConnections2<MatchingTask<TreeNode<T>>,TreeNode<T>> match =
+                    new MatchBestConnections2<MatchingTask<TreeNode<T>>,TreeNode<T>>( new TreeLeafDistance<T>() {
 
-                public double distance(MatchingTask<TreeDirNode<T>> info, TreeLeafNode<T> a, TreeLeafNode<T> b) {
+                public double distance(MatchingTask<TreeNode<T>> info, TreeNode<T> a, TreeNode<T> b) {
                     double dist = 1.0;
                     // parent
                     if ( matchingTask.isMatched( a.getParent())) {
-                        TreeDirNode aparentMatch = matchingTask.getDirs().getMatch( a.getParent());
+                        TreeNode aparentMatch = matchingTask.getDirs().getMatch( a.getParent());
                         if ( aparentMatch == b.getParent() ) {
                             dist *= 0.25;
                         }

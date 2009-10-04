@@ -149,7 +149,7 @@
 //    }
 //
 //
-////    public Distance<TreeLeafNode<FileContent>> getDistance( final TreeLeafNode<FileContent> file ) {
+////    public Distance<TreeNode<FileContent>> getDistance( final TreeNode<FileContent> file ) {
 ////
 ////        final Injector injector = Guice.createInjector( new RuntimeModule() );
 ////

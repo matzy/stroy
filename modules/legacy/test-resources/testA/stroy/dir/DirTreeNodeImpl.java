@@ -1,6 +1,6 @@
 package org.openCage.stroy.dir;
 
-import org.openCage.stroy.graph.node.TreeDirNode;
+import org.openCage.stroy.graph.node.TreeNode;
 import org.openCage.stroy.graph.node.TreeNode;
 import org.openCage.stroy.graph.node.ContentTreeNodeBaseImpl;
 import org.openCage.stroy.content.FileContentFactory;
@@ -42,7 +42,7 @@ import java.util.Collection;
 * the terms of any one of the MPL, the GPL.
 *
 ***** END LICENSE BLOCK *****/
-public class DirTreeNodeImpl extends ContentTreeNodeBaseImpl<FileContent> implements TreeDirNode<FileContent> {
+public class DirTreeNodeImpl extends ContentTreeNodeBaseImpl<FileContent> implements TreeNode<FileContent> {
 
     private List<TreeNode<FileContent>> kids;
 

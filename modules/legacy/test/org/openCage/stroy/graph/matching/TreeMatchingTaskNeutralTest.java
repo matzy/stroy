@@ -32,15 +32,15 @@ public class TreeMatchingTaskNeutralTest extends TestCase {
     public void testRootsMatch() {
         SimpleContentTreeBuilder b = new SimpleContentTreeBuilder();
 
-        TreeNode<ReducedContent> treeLeft = b.d( "f", b.l( "a"),
+        TreeNode treeLeft = b.d( "f", b.l( "a"),
                                                       b.d( "g", b.l("b"),
                                                                 b.l("c")));
 
-        TreeNode<ReducedContent> treeRight = b.d( "f2", b.l( "a"),
+        TreeNode treeRight = b.d( "f2", b.l( "a"),
                                                        b.d( "g", b.l("b"),
                                                                  b.l("c")));
 
-        TreeMatchingTask<ReducedContent> task =
+        TreeMatchingTask task =
                 TreeMatchingTaskNeutralBuilder.build( treeLeft, treeRight );
 
 

@@ -27,31 +27,31 @@ import org.openCage.stroy.content.ReducedContent;
 public class StandardMatchingTest extends StrategyTestsWorker implements StrategyTests {
     public void testSimpleIdentical() {
         strategyTestSimpleIdentical(
-                new StandardMatching<ReducedContent>(),
+                new StandardMatching(),
                 3,0,3,0, 2,0,2,0);
     }
 
     public void testRootMatch() {
-        strategyTestRootMatch( new StandardMatching<ReducedContent>());
+        strategyTestRootMatch( new StandardMatching());
     }
 
 
     public void testMoved() {
         strategyTestMoved(
-                new StandardMatching<ReducedContent>(),
+                new StandardMatching(),
                 1,2,1,2, 1,1,1,2);
     }
 
     public void testIgnoreChecksum() {
         strategyTestIgnoreChecksum(
-                new StandardMatching<ReducedContent>(),
+                new StandardMatching(),
                 3,0,3,0, 2,0,2,0);
     }
 
 
 //
-//        TreeNode<ReducedContent> node = TreeNodeUtils.getNode( task.getLeftRoot(), "a" );
-//        assertTrue( 0.9 > task.getLeaves().getMatchQuality( (TreeLeafNode<ReducedContent>)node ));
+//        TreeNode node = TreeNodeUtils.getNode( task.getLeftRoot(), "a" );
+//        assertTrue( 0.9 > task.getLeaves().getMatchQuality( (TreeNode)node ));
 //    }
 
 }

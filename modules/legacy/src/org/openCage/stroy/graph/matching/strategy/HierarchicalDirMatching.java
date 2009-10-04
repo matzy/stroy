@@ -1,11 +1,8 @@
 package org.openCage.stroy.graph.matching.strategy;
 
 import org.openCage.stroy.content.Content;
-import org.openCage.stroy.graph.node.TreeDirNode;
 import org.openCage.stroy.graph.node.TreeNode;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
-import org.openCage.stroy.graph.matching.strategy.MatchStrategy;
-import org.openCage.stroy.graph.matching.strategy.SimpleDirMatching;
 import org.openCage.stroy.locale.Message;
 import org.openCage.util.logging.Log;
 
@@ -31,11 +28,11 @@ import org.openCage.util.logging.Log;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public class HierarchicalDirMatching<T extends Content> implements MatchStrategy<T> {
+public class HierarchicalDirMatching implements MatchStrategy {
 
-    private final SimpleDirMatching<T> simpleMatcher = new SimpleDirMatching<T>();
+    private final SimpleDirMatching simpleMatcher = new SimpleDirMatching();
 
-    public void match( TreeMatchingTask<T> treeMatchingTask, Reporter reporter) {
+    public void match( TreeMatchingTask treeMatchingTask, Reporter reporter) {
 
         Log.fine( "match dir hierarchical");
         reporter.title( Message.get( "Strategy.HierarchicalDir" ));
@@ -46,10 +43,10 @@ public class HierarchicalDirMatching<T extends Content> implements MatchStrategy
         matchHir(treeMatchingTask, treeMatchingTask.getDirs().getLeftRoot(), reporter);
     }
 
-    private void matchHir( TreeMatchingTask<T> treeMatchingTask, TreeDirNode<T> src, Reporter reporter) {
+    private void matchHir( TreeMatchingTask treeMatchingTask, TreeNode src, Reporter reporter) {
 
         if ( ! treeMatchingTask.isMatched( src )) {
-            TreeDirNode<T> bestMatch = matchHirBest(treeMatchingTask, src );
+            TreeNode bestMatch = matchHirBest(treeMatchingTask, src );
 
             if ( bestMatch != null ) {
 
@@ -58,9 +55,9 @@ public class HierarchicalDirMatching<T extends Content> implements MatchStrategy
                 treeMatchingTask.getDirs().match( src, bestMatch, 0.99 );
 
 
-                for ( TreeNode<T> fm : src.getChildren() ) {
+                for ( TreeNode fm : src.getChildren() ) {
                     if ( !fm.isLeaf() ) {
-                        simpleMatcher.matchInChildList(treeMatchingTask, reporter, (TreeDirNode<T>)fm, bestMatch );
+                        simpleMatcher.matchInChildList(treeMatchingTask, reporter, (TreeNode)fm, bestMatch );
                     }
                 }
             } else {
@@ -68,19 +65,19 @@ public class HierarchicalDirMatching<T extends Content> implements MatchStrategy
             }
         }
 
-        for ( TreeNode<T> fm : src.getChildren() ) {
+        for ( TreeNode fm : src.getChildren() ) {
             if ( !fm.isLeaf() ) {
-                matchHir(treeMatchingTask, (TreeDirNode<T>)fm, reporter);
+                matchHir(treeMatchingTask, (TreeNode)fm, reporter);
             }
         }
     }
 
-    private TreeDirNode<T> matchHirBest( TreeMatchingTask<T> treeMatchingTask, TreeDirNode<T> src) {
+    private TreeNode matchHirBest( TreeMatchingTask treeMatchingTask, TreeNode src) {
 
         double         bestDist  = 2.0;
-        TreeDirNode<T> bestMatch = null;
+        TreeNode bestMatch = null;
 
-        for ( TreeDirNode<T> tgt : treeMatchingTask.getDirs().getUnmatchedRight() ) {
+        for ( TreeNode tgt : treeMatchingTask.getDirs().getUnmatchedRight() ) {
             double dist = distance(treeMatchingTask, src, tgt );
             if ( dist < bestDist && dist < 0.31) {
                 bestDist = dist;
@@ -91,16 +88,16 @@ public class HierarchicalDirMatching<T extends Content> implements MatchStrategy
         return bestMatch;
     }
 
-    private double distance( TreeMatchingTask<T> treeMatchingTaskImpl, TreeDirNode<T> a, TreeDirNode<T> b) {
+    private double distance( TreeMatchingTask treeMatchingTaskImpl, TreeNode a, TreeNode b) {
 
         int deleted       = 0;
         int same          = 0;
         int sameName      = 0;
 
-        for ( TreeNode<T> kid : a.getChildren() ) {
+        for ( TreeNode kid : a.getChildren() ) {
             if ( !treeMatchingTaskImpl.isMatched( kid ) ) {
                 boolean findName = false;
-                for ( TreeNode<T> bkid : b.getChildren() ) {
+                for ( TreeNode bkid : b.getChildren() ) {
 
                     if ( ! treeMatchingTaskImpl.isMatched( bkid ) ) {
                         if ( bkid.getContent().getName().equals( kid.getContent().getName() )) {

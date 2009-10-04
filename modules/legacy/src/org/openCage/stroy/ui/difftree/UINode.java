@@ -33,11 +33,11 @@ import java.util.List;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public interface UINode<T extends Content> {
+public interface UINode {
     public ChangeVector getChangeVectorLeft();
     public ChangeVector getChangeVectorRight();
 
-    public TreeNode<T> get();
+    public TreeNode get();
 
     public void        setChangeNumbers(ChangeNumbers cn);
 

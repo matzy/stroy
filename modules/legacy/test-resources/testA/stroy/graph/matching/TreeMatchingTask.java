@@ -2,8 +2,8 @@ package org.openCage.stroy.graph.matching;
 
 import org.openCage.stroy.content.Content;
 import org.openCage.stroy.graph.SameContent;
-import org.openCage.stroy.graph.node.TreeDirNode;
-import org.openCage.stroy.graph.node.TreeLeafNode;
+import org.openCage.stroy.graph.node.TreeNode;
+import org.openCage.stroy.graph.node.TreeNode;
 import org.openCage.stroy.graph.node.TreeNode;
 import org.openCage.stroy.task.MatchingTask;
 import org.openCage.stroy.ui.ChangeVector;
@@ -49,8 +49,8 @@ public interface TreeMatchingTask<T extends Content> {
 
     public void addDup(final SameContent<T> sh);
 
-    public MatchingTask<TreeLeafNode<T>>  getLeaves();
-    public MatchingTask<TreeDirNode<T>>   getDirs();
+    public MatchingTask<TreeNode<T>>  getLeaves();
+    public MatchingTask<TreeNode<T>>   getDirs();
 
     public boolean     isMatched(  final TreeNode<T> obj );
     public TreeNode<T> getMatch(   final TreeNode<T> obj );
@@ -67,24 +67,24 @@ public interface TreeMatchingTask<T extends Content> {
     public int getRightLeaveCount();
     public int getRightDirCount();
 
-    public Collection<TreeLeafNode<T>>    getModifiedLeaves();
-    public Collection<TreeLeafNode<T>>    getRenamedLeaves();
-    public Collection<TreeLeafNode<T>>    getMovedLeaves();
+    public Collection<TreeNode<T>>    getModifiedLeaves();
+    public Collection<TreeNode<T>>    getRenamedLeaves();
+    public Collection<TreeNode<T>>    getMovedLeaves();
 
-    public Collection<TreeDirNode<T>>     getRenamedDirs();
-    public Collection<TreeDirNode<T>>     getMovedDirs();
+    public Collection<TreeNode<T>>     getRenamedDirs();
+    public Collection<TreeNode<T>>     getMovedDirs();
 
-    public Collection<TreeLeafNode<T>>     getComplexModifiedLeaves();
+    public Collection<TreeNode<T>>     getComplexModifiedLeaves();
     
     
 
-    public Collection<TreeLeafNode<T>> getUnmatchedLeftFiles();
-    public Collection<TreeDirNode<T>> getUnmatchedLeftDirs();
-    public Collection<TreeLeafNode<T>> getUnmatchedRightFiles();
-    public Collection<TreeDirNode<T>> getUnmatchedRightDirs();
+    public Collection<TreeNode<T>> getUnmatchedLeftFiles();
+    public Collection<TreeNode<T>> getUnmatchedLeftDirs();
+    public Collection<TreeNode<T>> getUnmatchedRightFiles();
+    public Collection<TreeNode<T>> getUnmatchedRightDirs();
 
-    public TreeDirNode<T> getLeftRoot();
-    public TreeDirNode<T> getRightRoot();
+    public TreeNode<T> getLeftRoot();
+    public TreeNode<T> getRightRoot();
 
     public boolean isContentChanged( TreeNode<T> obj );
 

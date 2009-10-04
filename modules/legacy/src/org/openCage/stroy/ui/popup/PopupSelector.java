@@ -44,7 +44,7 @@ public class PopupSelector<T extends Content> {
     private final DiffPopup popup;
     private final Pattern isBundle = Pattern.compile( ".+\\..*" );
 
-    public PopupSelector( final TreeMatchingTask<T> taskLeft, final TreeMatchingTask<T> taskRight) {
+    public PopupSelector( final TreeMatchingTask taskLeft, final TreeMatchingTask taskRight) {
         popup          = new DiffPopup( taskLeft, taskRight );
     }
 

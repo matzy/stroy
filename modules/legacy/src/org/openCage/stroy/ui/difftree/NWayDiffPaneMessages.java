@@ -49,7 +49,7 @@ public class NWayDiffPaneMessages<T extends Content> extends JPanel implements N
     private List<DefaultMutableTreeNode>   roots;
     private final JButton mergeToRight = new JButton( "merge =>");
 
-    public NWayDiffPaneMessages( final List<TreeMatchingTask<T>>      tasks,
+    public NWayDiffPaneMessages( final List<TreeMatchingTask>      tasks,
                                  final List<DefaultMutableTreeNode>   roots,
                                  final ShowChangeTreeCellRenderer     showChangeTreeCellRenderer ) {
 
@@ -156,7 +156,7 @@ public class NWayDiffPaneMessages<T extends Content> extends JPanel implements N
 
     }
 
-    private List<DiffTree> createTrees( List<TreeMatchingTask<T>>    tasks,
+    private List<DiffTree> createTrees( List<TreeMatchingTask>    tasks,
                                         List<DefaultMutableTreeNode> roots,
                                         ShowChangeTreeCellRenderer   showChangeTreeCellRenderer) {
         List<DiffTree> dtrees = new ArrayList<DiffTree>();

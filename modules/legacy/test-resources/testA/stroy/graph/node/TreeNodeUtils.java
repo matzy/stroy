@@ -1,7 +1,7 @@
 package org.openCage.stroy.graph.node;
 
 import org.openCage.stroy.graph.node.TreeNode;
-import org.openCage.stroy.graph.node.TreeDirNode;
+import org.openCage.stroy.graph.node.TreeNode;
 import org.openCage.stroy.content.Content;
 
 import java.util.List;
@@ -60,7 +60,7 @@ public class TreeNodeUtils {
             return;
         }
 
-        for ( TreeNode<T> child : ((TreeDirNode<T>)node).getChildren() ) {
+        for ( TreeNode<T> child : ((TreeNode<T>)node).getChildren() ) {
             addNodes( list, child );
         }
     }
@@ -68,14 +68,14 @@ public class TreeNodeUtils {
     public static <T> TreeNode<T> down( TreeNode<T> node ) {
 
         if ( !node.isLeaf() ) {
-            Collection<TreeNode<T>> childs = ((TreeDirNode<T>)node).getChildren();
+            Collection<TreeNode<T>> childs = ((TreeNode<T>)node).getChildren();
 
             if ( childs != null && childs.size() > 0 ) {
                 return childs.iterator().next();
             }
         }
 
-        TreeDirNode<T> parent = node.getParent();
+        TreeNode<T> parent = node.getParent();
 
         while ( parent != null ) {
 
@@ -92,7 +92,7 @@ public class TreeNodeUtils {
         return null;
     }
 
-    private static <T> TreeNode<T> nextSibling( TreeDirNode<T> parent, TreeNode<T> node ) {
+    private static <T> TreeNode<T> nextSibling( TreeNode<T> parent, TreeNode<T> node ) {
 
         boolean found = false;
         for ( TreeNode<T> child : parent.getChildren() ) {
@@ -116,7 +116,7 @@ public class TreeNodeUtils {
             if ( root.isLeaf() ) {
                 throw new IllegalArgumentException( "not a dir" );
             }
-            TreeDirNode<T> dir = (TreeDirNode<T>)root;
+            TreeNode<T> dir = (TreeNode<T>)root;
 
             boolean found = false;
             for ( TreeNode<T> child : dir.getChildren() ) {

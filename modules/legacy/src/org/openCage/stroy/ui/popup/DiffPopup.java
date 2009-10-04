@@ -49,8 +49,8 @@ import java.io.File;
  */
 public class DiffPopup<T extends Content> extends JPopupMenu {
 
-    private final TreeMatchingTask<T> taskRight;
-    private final TreeMatchingTask<T> taskLeft;
+    private final TreeMatchingTask taskRight;
+    private final TreeMatchingTask taskLeft;
     private TreePath                  currentPath;
 
     private FileTypes     fileTypes;
@@ -63,8 +63,8 @@ public class DiffPopup<T extends Content> extends JPopupMenu {
 
     private DiffPopupDecider decider = new DiffPopupDecider();
 
-    public DiffPopup( final TreeMatchingTask<T> taskLeft,
-                      final TreeMatchingTask<T> taskRight ) {
+    public DiffPopup( final TreeMatchingTask taskLeft,
+                      final TreeMatchingTask taskRight ) {
 
         this.taskLeft  = taskLeft;
         this.taskRight = taskRight;
@@ -214,7 +214,7 @@ public class DiffPopup<T extends Content> extends JPopupMenu {
                     return;
                 }
 
-                T2<TreeNode<T>,TreeNode<T>> nodes =
+                T2<TreeNode,TreeNode> nodes =
                         getLeftAndRightNode( NodeToNode.pathToNode( currentPath ));
 
                 String cmd = fileTypes.getDiffType(FileUtils.getExtension(nodes.i0.getContent().getName()));
@@ -237,7 +237,7 @@ public class DiffPopup<T extends Content> extends JPopupMenu {
 
         currentPath = path;
 
-        TreeNode<T>                 node    = NodeToNode.pathToNode( currentPath );
+        TreeNode                 node    = NodeToNode.pathToNode( currentPath );
         boolean                     matched = false;
 
         if ( taskRight != null ) {
@@ -277,7 +277,7 @@ public class DiffPopup<T extends Content> extends JPopupMenu {
         show( event.getComponent(), event.getX(), event.getY());
     }
 
-    T2<TreeNode<T>,TreeNode<T>> getLeftAndRightNode( TreeNode<T> node ) {
+    T2<TreeNode,TreeNode> getLeftAndRightNode( TreeNode node ) {
 
         if ( taskRight != null ) {
             return T2.c( node, taskRight.getMatch( node ));

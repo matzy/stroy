@@ -35,16 +35,16 @@ public class TreeLeaveNodeFuzzyDistanceTest extends TestCase {
 
         SimpleContentTreeBuilder b = new SimpleContentTreeBuilder();
 
-        TreeNode<ReducedContent> treeLeft = b.d( "f", b.l( "a"),
+        TreeNode treeLeft = b.d( "f", b.l( "a"),
                                                       b.d( "g", b.l("b"),
                                                                 b.l("c")));
 
-        TreeNode<ReducedContent> treeRight = b.d( "f", b.l( "a", "a12"),
+        TreeNode treeRight = b.d( "f", b.l( "a", "a12"),
                                                        b.d( "g", b.l("b", "b23"),
                                                                  b.l("c", "c7")));
 
 
-        TreeMatchingTask<ReducedContent> task =
+        TreeMatchingTask task =
                 TreeMatchingTaskNeutralBuilder.build( treeLeft, treeRight );
 
 

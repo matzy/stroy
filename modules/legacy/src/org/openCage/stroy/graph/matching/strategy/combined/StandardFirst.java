@@ -1,11 +1,10 @@
 package org.openCage.stroy.graph.matching.strategy.combined;
 
-import org.openCage.stroy.content.Content;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
-import org.openCage.stroy.graph.matching.TreeLeafNodeFuzzyLeafDistance;
 import org.openCage.stroy.graph.matching.strategy.*;
-import org.openCage.util.logging.Log;
 import com.google.inject.Inject;
+import java.util.logging.Logger;
+import org.openCage.stroy.graph.matching.TreeLeafNodeFuzzyLeafDistance;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -29,33 +28,35 @@ import com.google.inject.Inject;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public class StandardFirst<T extends Content> implements MatchStrategy<T> {
+public class StandardFirst implements MatchStrategy {
 
-    private final MatchStrategy<T> identicalLeafMatcher =
-            new IdenticalLeafMatchStrategy<T>();
-    private final MatchStrategy<T> hirDirMatcher =
-            new HierarchicalDirMatching<T>();
-    private final MatchStrategy<T> dupMatcher =
-            new DuplicateMatching<T>();
-    private final MatchStrategy<T> simpleDirMatcher =
-//            new SimpleDirMatching<T>();
-    new StandardMatching<T>();
-    private final MatchStrategy<T> historyMatcher;
+    private static final Logger LOG = Logger.getLogger( StandardFirst.class.getName());
+
+    private final MatchStrategy identicalLeafMatcher =
+            new IdenticalLeafMatchStrategy();
+    private final MatchStrategy hirDirMatcher =
+            new HierarchicalDirMatching();
+    private final MatchStrategy dupMatcher =
+            new DuplicateMatching();
+    private final MatchStrategy simpleDirMatcher =
+//            new SimpleDirMatching();
+    new StandardMatching();
+    private final MatchStrategy historyMatcher;
 
     @Inject
-    public StandardFirst( final TreeLeafNodeFuzzyLeafDistance<T> fuzzyLeafDistance ) {
-        historyMatcher = new HistoricalMatching<T>( fuzzyLeafDistance );
+    public StandardFirst( final TreeLeafNodeFuzzyLeafDistance fuzzyLeafDistance ) {
+        historyMatcher = new HistoricalMatching( fuzzyLeafDistance );
     }
 
-    public void match( TreeMatchingTask<T> task, Reporter reporter) {
+    public void match( TreeMatchingTask task, Reporter reporter) {
         task.shortStatus();
 
         // try
-        Log.info(  "Simple dir matching" );
+        LOG.info(  "Simple dir matching" );
         simpleDirMatcher.match(task, reporter);
         task.shortStatus();
 
-        Log.info( "matching identical leafs" );
+        LOG.info( "matching identical leafs" );
         identicalLeafMatcher.match(task, reporter);
         task.shortStatus();
 
@@ -63,19 +64,19 @@ public class StandardFirst<T extends Content> implements MatchStrategy<T> {
 //        simpleDirMatcher.match(task);
 //        task.shortStatus();
 
-        Log.info(  "dupplicates" );
+        LOG.info(  "dupplicates" );
         dupMatcher.match(task, reporter);
         task.shortStatus();
 
-        Log.info(  "hierarchy dir" );
+        LOG.info(  "hierarchy dir" );
         hirDirMatcher.match(task, reporter);
         task.shortStatus();
 
-        Log.info(  "history" );
+        LOG.info(  "history" );
         historyMatcher.match(task, reporter);
         task.shortStatus();
 
-        Log.info(  "hierarchy dir" );
+        LOG.info(  "hierarchy dir" );
         hirDirMatcher.match(task, reporter);
         task.shortStatus();
 

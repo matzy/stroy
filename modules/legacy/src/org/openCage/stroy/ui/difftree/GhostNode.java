@@ -35,11 +35,11 @@ import java.util.List;
  * UINode for a node without TreeNode representation
  * this is a placeholder for deleted files on the other side
  */
-public class GhostNode<T extends Content> implements UINode<T> {
+public class GhostNode<T extends Content> implements UINode {
 
-//    private final TreeNode<T>         node;
-    private final TreeMatchingTask<T> taskLeft;
-    private final TreeMatchingTask<T> taskRight;
+//    private final TreeNode         node;
+    private final TreeMatchingTask taskLeft;
+    private final TreeMatchingTask taskRight;
 
     private ChangeNumbers cn;
 
@@ -50,9 +50,9 @@ public class GhostNode<T extends Content> implements UINode<T> {
     private String name;
 
 
-    public GhostNode( TreeNode<T>         node,
-                      TreeMatchingTask<T> task1,
-                      TreeMatchingTask<T> task2,
+    public GhostNode( TreeNode         node,
+                      TreeMatchingTask task1,
+                      TreeMatchingTask task2,
                       boolean left,
                       boolean right ) {
 //        this.node       = node;

@@ -37,10 +37,10 @@ import java.util.Arrays;
 *
 ***** END LICENSE BLOCK *****/
 
-public class SimpleTreeNode<T> implements TreeDirNode<T>, TreeLeafNode<T> {
+public class SimpleTreeNode<T> implements TreeNode<T>, TreeNode<T> {
     private T                       content;
     private Collection<TreeNode<T>> kids;
-    private TreeDirNode<T>          parent;
+    private TreeNode<T>          parent;
 
 
 
@@ -79,11 +79,11 @@ public class SimpleTreeNode<T> implements TreeDirNode<T>, TreeLeafNode<T> {
         return kids == null;
     }
 
-    public void setParent(TreeDirNode<T> parent) {
+    public void setParent(TreeNode<T> parent) {
         this.parent = parent;
     }
 
-    public TreeDirNode<T> getParent() {
+    public TreeNode<T> getParent() {
         return parent;
     }
 

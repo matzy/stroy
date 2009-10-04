@@ -2,11 +2,12 @@ package org.openCage.stroy.graph.iterator;
 
 import junit.framework.TestCase;
 import org.openCage.stroy.graph.node.SimpleTreeNode;
-import org.openCage.stroy.graph.node.TreeDirNode;
+import org.openCage.stroy.graph.node.TreeNode;
 import org.openCage.stroy.graph.node.TreeNode;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.openCage.stroy.graph.node.IntegerContent;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -32,30 +33,30 @@ import java.util.List;
 public class TreeIteratorTest extends TestCase {
 
     public void testSimple() {
-        List<TreeNode<Integer>> one = new ArrayList<TreeNode<Integer>>();
+        List<TreeNode> one = new ArrayList<TreeNode>();
 
         for ( int i = 0; i < 5; ++i ) {
-            one.add( new SimpleTreeNode<Integer>( i ));
+            one.add( new SimpleTreeNode( new IntegerContent(i) ));
         }
 
-        List<TreeNode<Integer>> two = new ArrayList<TreeNode<Integer>>();
+        List<TreeNode> two = new ArrayList<TreeNode>();
         for ( int i = 20; i < 30; ++i ) {
-            two.add( new SimpleTreeNode<Integer>( i ));
+            two.add( new SimpleTreeNode( new IntegerContent(i) ));
         }
 
-        TreeDirNode<Integer> td = new SimpleTreeNode<Integer>( 15, two );
+        TreeNode td = new SimpleTreeNode( new IntegerContent(15), two );
         one.add( td );
 
         for ( int i = 5; i < 10; ++i ) {
-            one.add( new SimpleTreeNode<Integer>( i ));
+            one.add( new SimpleTreeNode( new IntegerContent(i) ));
         }
 
 
-        TreeDirNode<Integer> root = new SimpleTreeNode<Integer>( 100, one );
+        TreeNode root = new SimpleTreeNode( new IntegerContent(100), one );
 
 
 
-        for ( TreeNode<Integer> node : new DepthFirstIterable<Integer>(root)) {
+        for ( TreeNode node : new DepthFirstIterable(root)) {
             System.out.println( node );
         }
 

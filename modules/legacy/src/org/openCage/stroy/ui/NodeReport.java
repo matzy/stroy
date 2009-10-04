@@ -24,14 +24,14 @@ import org.openCage.stroy.graph.node.TreeNode;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public class NodeReport<T> {
+public class NodeReport {
 
-    public TreeNode<T>  node;
+    public TreeNode  node;
     public boolean      matched;
     // public boolean      deleted;
     public String       message;
 
-    public NodeReport( TreeNode<T>  node ) {
+    public NodeReport( TreeNode  node ) {
         this.node = node;
     }
 
@@ -44,7 +44,7 @@ public class NodeReport<T> {
         return this;
     }
 
-    public NodeReport node( TreeNode<T>  node ) {
+    public NodeReport node( TreeNode  node ) {
         this.node = node;
         return this;
     }

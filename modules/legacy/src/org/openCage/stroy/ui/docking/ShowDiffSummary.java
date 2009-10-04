@@ -46,7 +46,7 @@ public class ShowDiffSummary<T extends Content> extends JPanel {
     private final JLabel moved = new JLabel( Message.get( "Summary.moved" ));
     private final JButton refresh = new JButton( Message.get( "Button.refresh" ));
     private final JLabel leftRootDir;
-    private final List<TreeMatchingTask<T>> matchings;
+    private final List<TreeMatchingTask> matchings;
     private final JLabel leftDirsTotal = new JLabel();
     private final JLabel leftFilesTotal =  new JLabel();
     private final JLabel leftDirsOnly = new JLabel();
@@ -63,7 +63,7 @@ public class ShowDiffSummary<T extends Content> extends JPanel {
     private final JLabel rightFilesOnly = new JLabel();
     private boolean onlyhas2Rows = false;
 
-    public ShowDiffSummary( final java.util.List<TreeMatchingTask<T>> matchings,
+    public ShowDiffSummary( final java.util.List<TreeMatchingTask> matchings,
                             final java.util.List<DefaultMutableTreeNode> roots ) {
 
         this.matchings = matchings;
@@ -211,7 +211,7 @@ public class ShowDiffSummary<T extends Content> extends JPanel {
     }
 
     private String getRootPath(  final DefaultMutableTreeNode root ) {
-        final UINode<FileContent> uiNode = (UINode<FileContent>)root.getUserObject();
+        final UINode uiNode = (UINode)root.getUserObject();
         return uiNode.get().getContent().getLocation();
     }
 

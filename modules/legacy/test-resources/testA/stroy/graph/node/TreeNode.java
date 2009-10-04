@@ -38,7 +38,7 @@ package org.openCage.stroy.graph.node;
 public interface TreeNode<T> { 
 
     public boolean        isLeaf();
-    public void           setParent( TreeDirNode<T> parent );
-    public TreeDirNode<T> getParent();
+    public void           setParent( TreeNode<T> parent );
+    public TreeNode<T> getParent();
     public T              getContent();
 }

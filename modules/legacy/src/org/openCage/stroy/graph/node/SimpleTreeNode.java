@@ -2,6 +2,7 @@ package org.openCage.stroy.graph.node;
 
 import java.util.Collection;
 import java.util.Arrays;
+import org.openCage.stroy.content.Content;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -25,57 +26,57 @@ import java.util.Arrays;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public class SimpleTreeNode<T> implements TreeDirNode<T>, TreeLeafNode<T> {
-    private T                       content;
-    private Collection<TreeNode<T>> kids;
-    private TreeDirNode<T>          parent;
+public class SimpleTreeNode implements TreeNode {
+    private Content               content;
+    private Collection<TreeNode>  kids;
+    private TreeNode              parent;
 
 
 
-    public SimpleTreeNode( T t ) {
+    public SimpleTreeNode( Content t ) {
         this.content = t;
     }
 
-    public SimpleTreeNode( T t, Collection<TreeNode<T>> kids ) {
+    public SimpleTreeNode( Content t, Collection<TreeNode> kids ) {
         this.content = t;
         this.kids = kids;
 
-        for ( TreeNode<T> kid : kids ) {
+        for ( TreeNode kid : kids ) {
             kid.setParent( this );
         }
     }
 
-    public SimpleTreeNode( T t, TreeNode<T> ... kids ) {
+    public SimpleTreeNode( Content t, TreeNode ... kids ) {
         this.content = t;
         this.kids    = Arrays.asList(  kids );
 
-        for ( TreeNode<T> kid : kids ) {
+        for ( TreeNode kid : kids ) {
             kid.setParent( this );
         }
     }
 
 
-    public Collection<TreeNode<T>> getChildren() {
+    public Collection<TreeNode> getChildren() {
         return (Collection)kids;
     }
 
-    public void removeChild(TreeNode<T> child) {
-        //To change body of implemented methods use File | Settings | File Templates.
+    public void removeChild(TreeNode child) {
+        // TODO impl
     }
 
     public boolean isLeaf() {
         return kids == null;
     }
 
-    public void setParent(TreeDirNode<T> parent) {
+    public void setParent(TreeNode parent) {
         this.parent = parent;
     }
 
-    public TreeDirNode<T> getParent() {
+    public TreeNode getParent() {
         return parent;
     }
 
-    public T getContent() {
+    public Content getContent() {
         return content;
     }
 

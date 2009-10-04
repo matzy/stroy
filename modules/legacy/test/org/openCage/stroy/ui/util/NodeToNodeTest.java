@@ -31,7 +31,7 @@ public class NodeToNodeTest {
     public void testGetNamePath() {
         SimpleContentTreeBuilder b = new SimpleContentTreeBuilder();
 
-        TreeNode<ReducedContent> treeOne = b.d( "f", b.l( "a"),
+        TreeNode treeOne = b.d( "f", b.l( "a"),
                                                      b.d( "g", b.l("b"),
                                                                 b.l("c")));
 

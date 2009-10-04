@@ -1,6 +1,6 @@
 package org.openCage.utils.lang;
 
-import org.openCage.utils.func.F0;
+import org.openCage.lang.protocol.FE0;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -26,6 +26,6 @@ import org.openCage.utils.func.F0;
 
 public interface BackgroundSaver {
 
-    public void addTask( F0<Void> task );
+    public void addTask( FE0<Void> task );
 
 }

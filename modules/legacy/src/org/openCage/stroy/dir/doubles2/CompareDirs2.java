@@ -31,8 +31,8 @@ import java.io.File;
 
 public interface CompareDirs2 {
 
-    public TreeMatchingTask<FileContent>  compare( Ignore ignore, File one, File two );
-    public T2<TreeMatchingTask<FileContent>, TreeMatchingTask<FileContent>>
+    public TreeMatchingTask  compare( Ignore ignore, File one, File two );
+    public T2<TreeMatchingTask, TreeMatchingTask>
                                           compare( Ignore ignore, File one, File two, File three  );
 
     

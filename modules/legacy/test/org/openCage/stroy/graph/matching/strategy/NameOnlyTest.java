@@ -6,7 +6,7 @@ import org.openCage.stroy.graph.matching.TreeMatchingTaskNeutralBuilder;
 import org.openCage.stroy.graph.node.SimpleContentTreeBuilder;
 import org.openCage.stroy.graph.node.TreeNode;
 import org.openCage.stroy.graph.node.TreeNodeUtils;
-import org.openCage.stroy.graph.node.TreeLeafNode;
+import org.openCage.stroy.graph.node.TreeNode;
 import org.openCage.stroy.content.ReducedContent;
 import org.openCage.util.ui.TreeUtils;
 
@@ -36,27 +36,27 @@ public class NameOnlyTest extends StrategyTestsWorker implements StrategyTests {
 
     public void testSimpleIdentical() {
         strategyTestSimpleIdentical(
-                new NameOnly<ReducedContent>(),
+                new NameOnly(),
                 3,0,3,0, 2,0,2,0);
     }
 
     public void testRootMatch() {
-        strategyTestRootMatch( new NameOnly<ReducedContent>());
+        strategyTestRootMatch( new NameOnly());
     }
 
 
     public void testMoved() {
         strategyTestMoved(
-                new NameOnly<ReducedContent>(),
+                new NameOnly(),
                 1,2,1,2, 1,1,1,2);
     }
 
     public void testIgnoreChecksum() {
         strategyTestIgnoreChecksum(
-                new NameOnly<ReducedContent>(),
+                new NameOnly(),
                 3,0,3,0, 2,0,2,0);
     }
 
-//        assertEquals( 1.0, task.getLeaves().getMatchQuality( (TreeLeafNode<ReducedContent>)node ));
+//        assertEquals( 1.0, task.getLeaves().getMatchQuality( (TreeNode)node ));
 //    }
 }

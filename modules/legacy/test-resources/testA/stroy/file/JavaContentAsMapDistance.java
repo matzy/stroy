@@ -3,7 +3,7 @@
 //import com.google.inject.Inject;
 //import org.openCage.util.io.IterableFile;
 //import org.openCage.stroy.Distance;
-//import org.openCage.stroy.graph.node.TreeLeafNode;
+//import org.openCage.stroy.graph.node.TreeNode;
 //import org.openCage.stroy.fileMeta.LeafFileMeta;
 //import org.openCage.stroy.dir.FileContent;
 //import org.openCage.stroy.text.ForJava;
@@ -19,7 +19,7 @@
 // * Time: 12:05:30 PM
 // * To change this template use File | Settings | File Templates.
 // */
-//public class JavaContentAsMapDistance implements Distance<TreeLeafNode<FileContent>>{
+//public class JavaContentAsMapDistance implements Distance<TreeNode<FileContent>>{
 //    final private Distance<Map<Integer,Boolean>> mapDistance;
 //    final private LineNoise                      noise;
 //
@@ -29,14 +29,14 @@
 //        this.noise         = noise;
 //    }
 //
-//    public double distance( TreeLeafNode<FileContent> a, TreeLeafNode<FileContent> b) {
+//    public double distance( TreeNode<FileContent> a, TreeNode<FileContent> b) {
 //
 //        a.getContent().getFuzzyHash();
 //
 //        return mapDistance.distance( getContent(a), getContent(b));
 //    }
 //
-//    private Map<Integer, Boolean> getContent(TreeLeafNode<FileContent> lfm) {
+//    private Map<Integer, Boolean> getContent(TreeNode<FileContent> lfm) {
 //
 //        Object storage = lfm.get();
 //

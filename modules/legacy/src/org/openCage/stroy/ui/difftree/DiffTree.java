@@ -72,13 +72,13 @@ import java.util.List;
  *
  *    ... task(leftRoot, rightRoot) | diffTree | task(leftNode, rightNode ) | diffTree ...
  */
-public class DiffTree<T extends Content> extends JPanel implements SynchronizeListener<T> {
+public class DiffTree extends JPanel implements SynchronizeListener {
 
 
     private final JTree                         tree;
     private final JScrollPane                   scroll;
-    private final TreeMatchingTask<T>           taskRight;
-    private final TreeMatchingTask<T>           taskLeft;
+    private final TreeMatchingTask           taskRight;
+    private final TreeMatchingTask           taskLeft;
     private final List<SynchronizeListener>     syncListeners = new ArrayList<SynchronizeListener>();
     private final DefaultMutableTreeNode        root;
     private final int                           idx;
@@ -92,8 +92,8 @@ public class DiffTree<T extends Content> extends JPanel implements SynchronizeLi
 
     @Inject
     public DiffTree( final int                           idx,
-                     final TreeMatchingTask<T>           taskLeft,
-                     final TreeMatchingTask<T>           taskRight,
+                     final TreeMatchingTask           taskLeft,
+                     final TreeMatchingTask           taskRight,
                      final DefaultMutableTreeNode        root,
                      final ShowChangeTreeCellRenderer    showChangeTreeCellRenderer ) {
         this.idx       = idx;
@@ -268,8 +268,8 @@ public class DiffTree<T extends Content> extends JPanel implements SynchronizeLi
     }
 
 
-    private JudgeBlock getJudgeBlock( final TreeMatchingTask<T> matching ) {
-        return new TreeNodeJudge<T>( matching );
+    private JudgeBlock getJudgeBlock( final TreeMatchingTask matching ) {
+        return new TreeNodeJudge( matching );
     }
 
     private boolean scrollbarOnLeft() {
@@ -281,7 +281,7 @@ public class DiffTree<T extends Content> extends JPanel implements SynchronizeLi
         syncListeners.add( listener );
     }
 
-    public void scrollTo( TreePath pathOtherTree /*TreeNode<T> node*/, Rectangle rect, int sourceIdx) {
+    public void scrollTo( TreePath pathOtherTree /*TreeNode node*/, Rectangle rect, int sourceIdx) {
 
         Log.finest( " scrollTo " + idx); // NON-NLS
 

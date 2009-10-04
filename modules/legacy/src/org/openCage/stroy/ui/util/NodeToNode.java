@@ -57,7 +57,7 @@ public class NodeToNode {
     }
 
     public static File getFile( TreePath path ) {
-        return ((TreeNode<Content>)pathToNode( path)).getContent().getFile();
+        return ((TreeNode)pathToNode( path)).getContent().getFile();
     }
 
     public static String getStringPath( TreePath path ) {
@@ -161,12 +161,12 @@ public class NodeToNode {
 //    }
 
 
-    public static <T extends Content> TreePath nodeToPath( DefaultMutableTreeNode root, TreeNode<T> node ) {
+    public static <T extends Content> TreePath nodeToPath( DefaultMutableTreeNode root, TreeNode node ) {
 
         return TreeUtils.getPath( nodeToDMTNode( root, node ));
     }
 
-    public static <T extends Content> boolean isGhost( DefaultMutableTreeNode root, TreeNode<T> node ) {
+    public static <T extends Content> boolean isGhost( DefaultMutableTreeNode root, TreeNode node ) {
         List<String> namePath = TreeNodeUtils.getNamePath( node );
 
         if ( namePath.size() < 1 ) {
@@ -178,7 +178,7 @@ public class NodeToNode {
 
     }
 
-    public static <T extends Content> DefaultMutableTreeNode nodeToDMTNode( DefaultMutableTreeNode root, TreeNode<T> node ) {
+    public static <T extends Content> DefaultMutableTreeNode nodeToDMTNode( DefaultMutableTreeNode root, TreeNode node ) {
 
         List<String> namePath = TreeNodeUtils.getNamePath( node );
 
@@ -215,7 +215,7 @@ public class NodeToNode {
         return next;
     }
 
-    private static <T extends Content> boolean isInThatTree( DefaultMutableTreeNode root, TreeNode<T> node ) {
+    private static <T extends Content> boolean isInThatTree( DefaultMutableTreeNode root, TreeNode node ) {
 
         if ( !root.isRoot()) {
             root = (DefaultMutableTreeNode)root.getRoot();
@@ -225,7 +225,7 @@ public class NodeToNode {
                 ((FileContent)(((UINode)root.getUserObject()).get().getContent())).getFile().getAbsolutePath());
     }
 
-    public static <T extends Content> TreePath nodeToTreePath( DefaultMutableTreeNode root, TreeNode<T> node ) {
+    public static <T extends Content> TreePath nodeToTreePath( DefaultMutableTreeNode root, TreeNode node ) {
 
         return TreeUtils.getPath( nodeToDMTNode( root, node ));
     }
@@ -246,7 +246,7 @@ public class NodeToNode {
 //        if ( node.isRoot() ) {
 //            return ((UINode<Content>)node.getUserObject()).get().getContent().getName();
 //        } else {
-            return ((UINode<Content>)node.getUserObject()).toString(); //getContent().getName();
+            return ((UINode)node.getUserObject()).toString(); //getContent().getName();
 //        }
     }
 
@@ -257,11 +257,11 @@ public class NodeToNode {
      * @param task A task connecting both trees
      * @return
      */
-    public static <T extends Content> DefaultMutableTreeNode findMatchingNode( DefaultMutableTreeNode root, TreePath path, TreeMatchingTask<T> task) {
+    public static <T extends Content> DefaultMutableTreeNode findMatchingNode( DefaultMutableTreeNode root, TreePath path, TreeMatchingTask task) {
         List<String> namePath = new ArrayList<String>();
 
         UINode      uiNode;
-        TreeNode<T> node;
+        TreeNode node;
         while( true ) {
             uiNode = ((UINode)((DefaultMutableTreeNode)path.getLastPathComponent()).getUserObject());
             node   = uiNode.get();
@@ -313,7 +313,7 @@ public class NodeToNode {
      * @param task The task connecting both sides
      * @return
      */
-    public static <T extends Content> DefaultMutableTreeNode findMatchingNode( DefaultMutableTreeNode root, TreeNode<T> node, TreeMatchingTask<T> task) {
+    public static <T extends Content> DefaultMutableTreeNode findMatchingNode( DefaultMutableTreeNode root, TreeNode node, TreeMatchingTask task) {
 
         // find first matching parents remember list of names
         // match

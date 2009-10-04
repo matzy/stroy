@@ -2,7 +2,7 @@ package org.openCage.stroy.graph.matching.strategy.combined;
 
 import org.openCage.stroy.content.Content;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
-import org.openCage.stroy.graph.matching.TreeLeafNodeFuzzyLeafDistance;
+import org.openCage.stroy.graph.matching.TreeNodeFuzzyLeafDistance;
 import org.openCage.stroy.graph.matching.strategy.*;
 import org.openCage.stroy.dir.FileContent;
 import org.openCage.util.logging.Log;
@@ -55,7 +55,7 @@ public class ChecksumFirst<T extends Content> implements MatchStrategy<T> {
     private final MatchStrategy<T> historyMatcher;
 
     @Inject
-    public ChecksumFirst( final TreeLeafNodeFuzzyLeafDistance<T> fuzzyLeafDistance ) {
+    public ChecksumFirst( final TreeNodeFuzzyLeafDistance<T> fuzzyLeafDistance ) {
         historyMatcher = new HistoricalMatching<T>( fuzzyLeafDistance );
     }
 

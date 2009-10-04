@@ -2,7 +2,7 @@ package org.openCage.stroy.graph.matching.strategy.combined;
 
 import org.openCage.stroy.content.Content;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
-import org.openCage.stroy.graph.matching.TreeLeafNodeFuzzyLeafDistance;
+import org.openCage.stroy.graph.matching.TreeNodeFuzzyLeafDistance;
 import org.openCage.stroy.graph.matching.strategy.*;
 import org.openCage.util.logging.Log;
 import com.google.inject.Inject;
@@ -54,7 +54,7 @@ public class StructureOnly<T extends Content> implements MatchStrategy<T> {
     private final MatchStrategy<T> historyMatcher;
 
     @Inject
-    public StructureOnly( final TreeLeafNodeFuzzyLeafDistance<T> fuzzyLeafDistance ) {
+    public StructureOnly( final TreeNodeFuzzyLeafDistance<T> fuzzyLeafDistance ) {
         historyMatcher = new HistoricalMatching<T>( fuzzyLeafDistance );
     }
 

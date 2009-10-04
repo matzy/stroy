@@ -3,7 +3,7 @@ package org.openCage.stroy.ui.util;
 import junit.framework.TestCase;
 import org.openCage.stroy.graph.node.SimpleContentTreeBuilder;
 import org.openCage.stroy.graph.node.TreeNode;
-import org.openCage.stroy.graph.node.TreeDirNode;
+import org.openCage.stroy.graph.node.TreeNode;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.graph.matching.TreeMatchingTaskNeutralBuilder;
 import org.openCage.stroy.content.ReducedContent;
@@ -36,8 +36,8 @@ import java.util.List;
 
 public class DMTNMakerTest extends TestCase {
 
-    private TreeMatchingTask<ReducedContent> taskLeft;
-    private TreeMatchingTask<ReducedContent> taskRight;
+    private TreeMatchingTask taskLeft;
+    private TreeMatchingTask taskRight;
 
 
     protected void setUp() throws Exception {
@@ -45,14 +45,14 @@ public class DMTNMakerTest extends TestCase {
 
         SimpleContentTreeBuilder b = new SimpleContentTreeBuilder();
 
-        TreeNode<ReducedContent> treeOne = b.d( "f", b.l( "a"),
+        TreeNode treeOne = b.d( "f", b.l( "a"),
                                                      b.d( "g", b.l("b"),
                                                                 b.l("c")));
 
-        TreeNode<ReducedContent> treeTwo = b.d( "f2", b.l( "a"),
+        TreeNode treeTwo = b.d( "f2", b.l( "a"),
                                                       b.d( "g", b.l("b"),
                                                                  b.l("c")));
-        TreeNode<ReducedContent> treeThree = b.d( "f3", b.l( "a"),
+        TreeNode treeThree = b.d( "f3", b.l( "a"),
                                                         b.d( "g", b.l("b"),
                                                                  b.l("c")));
 
@@ -71,8 +71,8 @@ public class DMTNMakerTest extends TestCase {
         assertEquals( roots.get(0), roots.get(0).getRoot() );
         assertEquals( roots.get(1), roots.get(1).getRoot() );
 
-        assertEquals( "f", ((UINode<ReducedContent>)roots.get(0).getUserObject()).get().getContent().getName() );
-        assertEquals( "f2", ((UINode<ReducedContent>)roots.get(1).getUserObject()).get().getContent().getName() );
+        assertEquals( "f", ((UINode)roots.get(0).getUserObject()).get().getContent().getName() );
+        assertEquals( "f2", ((UINode)roots.get(1).getUserObject()).get().getContent().getName() );
     }
 
     public void testExpectation() {
@@ -98,9 +98,9 @@ public class DMTNMakerTest extends TestCase {
 
     public void testSameTree() {
         DefaultMutableTreeNode      uiRoot = DMTNMaker.makeDFTNs( taskLeft, null ).get(0);
-        TreeDirNode<ReducedContent> mRoot  = taskLeft.getLeftRoot();
+        TreeNode mRoot  = taskLeft.getLeftRoot();
 
-        for ( TreeNode<ReducedContent> child : mRoot.getChildren() ) {
+        for ( TreeNode child : mRoot.getChildren() ) {
 //            NodeToNode.nodeToPath( uiRoot, mRoot, child );
         }
     }

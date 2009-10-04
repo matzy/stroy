@@ -42,7 +42,7 @@ import org.openCage.xplatform.protocol.FileChooser;
 * License.
 *
 * The Original Code is stroy code.
-*
+
 * The Initial Developer of the Original Code is Stephan Pfab <openCage@gmail.com>.
 * Portions created by Stephan Pfab are Copyright (C) 2006 - 2009.
 * All Rights Reserved.
@@ -75,7 +75,7 @@ public class DirSelectorImpl extends JFrame
     private org.openCage.stroy.ui.menu.Menu menu;
 //    private PComboBox strategyCombo = new PComboBox( "stroy.first.strategy" );
 
-    private MatchStrategy<FileContent> matchStrategy;
+    private MatchStrategy matchStrategy;
 
     private final UpdateChecker updateChecker;
 

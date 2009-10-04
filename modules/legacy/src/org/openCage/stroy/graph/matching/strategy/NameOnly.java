@@ -1,12 +1,10 @@
 package org.openCage.stroy.graph.matching.strategy;
 
+import java.util.logging.Logger;
 import org.openCage.stroy.content.Content;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
-import org.openCage.stroy.graph.node.TreeDirNode;
 import org.openCage.stroy.graph.node.TreeNode;
-import org.openCage.stroy.graph.node.TreeLeafNode;
 import org.openCage.stroy.locale.Message;
-import org.openCage.util.logging.Log;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -34,10 +32,12 @@ import org.openCage.util.logging.Log;
  * match dirs and leaves based on same path
  */
 @SuppressWarnings({"HardCodedStringLiteral"})
-public class NameOnly <T extends Content> implements MatchStrategy<T> {
+public class NameOnly implements MatchStrategy {
 
-    public void match( TreeMatchingTask<T> treeMatchingTask, Reporter reporter) {
-        Log.fine( "match Simple dirs" );
+    private static final Logger LOG = Logger.getLogger( NameOnly.class.getName());
+
+    public void match( TreeMatchingTask treeMatchingTask, Reporter reporter) {
+        LOG.fine( "match Simple dirs" );
 
         reporter.title( Message.get( "Strategy.PathOnly" ));
 
@@ -50,7 +50,7 @@ public class NameOnly <T extends Content> implements MatchStrategy<T> {
     }
 
 
-    public void matchInChildList( TreeMatchingTask<T> treeMatchingTask, Reporter reporter, TreeNode<T> leftNode, TreeDirNode<T> toParent ) {
+    public void matchInChildList( TreeMatchingTask treeMatchingTask, Reporter reporter, TreeNode leftNode, TreeNode toParent ) {
 
         if ( ! treeMatchingTask.isMatched( leftNode )  ) {
 
@@ -63,7 +63,7 @@ public class NameOnly <T extends Content> implements MatchStrategy<T> {
             reporter.detail( Message.get( "Progress.processing" ) ,leftNode.toString() );
 
 
-            for ( TreeNode<T> tgtKid : toParent.getChildren() ) {
+            for ( TreeNode tgtKid : toParent.getChildren() ) {
 
                 if ( (leftNode.isLeaf() == tgtKid.isLeaf() ) &&
                      !treeMatchingTask.isMatched( tgtKid ) &&
@@ -75,9 +75,9 @@ public class NameOnly <T extends Content> implements MatchStrategy<T> {
 //                        if ( leftNode.getContent().getFingerprint().equals( tgtKid.getContent().getFingerprint() )) {
 //                            qual = 1.0;
 //                        }
-                        treeMatchingTask.getLeaves().match( (TreeLeafNode<T>)leftNode, (TreeLeafNode<T>)tgtKid, qual );
+                        treeMatchingTask.getLeaves().match( (TreeNode)leftNode, (TreeNode)tgtKid, qual );
                     } else {
-                        treeMatchingTask.getDirs().match( (TreeDirNode<T>)leftNode, (TreeDirNode<T>)tgtKid, 1.0 );
+                        treeMatchingTask.getDirs().match( (TreeNode)leftNode, (TreeNode)tgtKid, 1.0 );
                     }
                     break;
                 }
@@ -89,14 +89,14 @@ public class NameOnly <T extends Content> implements MatchStrategy<T> {
             return;
         }
 
-        TreeDirNode<T> newParent = treeMatchingTask.getDirs().getMatch((TreeDirNode<T>)leftNode);
+        TreeNode newParent = treeMatchingTask.getDirs().getMatch((TreeNode)leftNode);
 
         if ( newParent == null ) {
             // no match
             return;
         }
 
-        for ( TreeNode<T> fm : ((TreeDirNode<T>)leftNode).getChildren() ) {
+        for ( TreeNode fm : ((TreeNode)leftNode).getChildren() ) {
             matchInChildList(treeMatchingTask, reporter, fm, newParent );
         }
 

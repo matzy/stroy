@@ -1,5 +1,8 @@
 package org.openCage.stroy.graph.node;
 
+import java.util.Collection;
+import org.openCage.stroy.content.Content;
+
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -23,10 +26,15 @@ package org.openCage.stroy.graph.node;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public interface TreeNode<T> { 
+public interface TreeNode { 
 
-    public boolean        isLeaf();
-    public void           setParent( TreeDirNode<T> parent );
-    public TreeDirNode<T> getParent();
-    public T              getContent();
+    public boolean             isLeaf();
+    public void                setParent( TreeNode parent );
+    public TreeNode            getParent();
+    public Content              getContent();
+
+    public Collection<? extends TreeNode> getChildren();
+    public void                           removeChild( TreeNode child );
+
+
 }

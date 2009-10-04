@@ -1,7 +1,5 @@
 package org.openCage.stroy.graph.node;
 
-import org.openCage.stroy.graph.node.TreeNode;
-import org.openCage.stroy.graph.node.TreeDirNode;
 import org.openCage.stroy.content.Content;
 
 import java.util.List;
@@ -33,37 +31,37 @@ import java.util.Collections;
 
 public class TreeNodeUtils {
 
-    public static <T> List<TreeNode<T>> toList( TreeNode<T> root ) {
-        List<TreeNode<T>> list = new ArrayList<TreeNode<T>>();
+    public static <T> List<TreeNode> toList( TreeNode root ) {
+        List<TreeNode> list = new ArrayList<TreeNode>();
 
         addNodes( list, root );
 
         return list;
     }
 
-    private static <T> void addNodes(List<TreeNode<T>> list, TreeNode<T> node) {
+    private static <T> void addNodes(List<TreeNode> list, TreeNode node) {
         list.add( node );
 
         if ( node.isLeaf() ) {
             return;
         }
 
-        for ( TreeNode<T> child : ((TreeDirNode<T>)node).getChildren() ) {
+        for ( TreeNode child : ((TreeNode)node).getChildren() ) {
             addNodes( list, child );
         }
     }
 
-    public static <T> TreeNode<T> down( TreeNode<T> node ) {
+    public static <T> TreeNode down( TreeNode node ) {
 
         if ( !node.isLeaf() ) {
-            Collection<TreeNode<T>> childs = ((TreeDirNode<T>)node).getChildren();
+            Collection<? extends TreeNode> childs = ((TreeNode)node).getChildren();
 
             if ( childs != null && childs.size() > 0 ) {
                 return childs.iterator().next();
             }
         }
 
-        TreeDirNode<T> parent = node.getParent();
+        TreeNode parent = node.getParent();
 
         while ( parent != null ) {
 
@@ -80,10 +78,10 @@ public class TreeNodeUtils {
         return null;
     }
 
-    private static <T> TreeNode<T> nextSibling( TreeDirNode<T> parent, TreeNode<T> node ) {
+    private static <T> TreeNode nextSibling( TreeNode parent, TreeNode node ) {
 
         boolean found = false;
-        for ( TreeNode<T> child : parent.getChildren() ) {
+        for ( TreeNode child : parent.getChildren() ) {
             if ( found ) {
                 return child;
             }
@@ -97,17 +95,17 @@ public class TreeNodeUtils {
         return null;
     }
 
-    public static <T extends Content> TreeNode<T> getNode( TreeNode<T> root, String ... path ) {
+    public static <T extends Content> TreeNode getNode( TreeNode root, String ... path ) {
 
         for ( String name : path ) {
 
             if ( root.isLeaf() ) {
                 throw new IllegalArgumentException( "not a dir" );
             }
-            TreeDirNode<T> dir = (TreeDirNode<T>)root;
+            TreeNode dir = (TreeNode)root;
 
             boolean found = false;
-            for ( TreeNode<T> child : dir.getChildren() ) {
+            for ( TreeNode child : dir.getChildren() ) {
                 if ( child.getContent().getName().equals( name )) {
                     root = child;
                     found = true;
@@ -129,7 +127,7 @@ public class TreeNodeUtils {
      * @param node
      * @return
      */
-    public static <T  extends Content> List<String> getNamePath( TreeNode<T> node ) {
+    public static <T  extends Content> List<String> getNamePath( TreeNode node ) {
         List<String> path = new ArrayList<String>();
 
         do {
@@ -140,7 +138,7 @@ public class TreeNodeUtils {
         return path;
     }
 
-    public static <T extends Content> String getStringPath( TreeNode<T> node ) {
+    public static <T extends Content> String getStringPath( TreeNode node ) {
 
         String ret = "";
 
@@ -157,8 +155,8 @@ public class TreeNodeUtils {
      * @param nd A node.
      * @return The root of the tree.
      */
-    public static <T> TreeNode<T> getRoot( TreeNode<T> nd ) {
-        TreeNode<T> nodeRoot = nd;
+    public static <T> TreeNode getRoot( TreeNode nd ) {
+        TreeNode nodeRoot = nd;
 
         while ( nodeRoot.getParent() != null ) {
             nodeRoot = nodeRoot.getParent();

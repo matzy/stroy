@@ -1,10 +1,6 @@
 package org.openCage.stroy.ui.difftree;
 
-import org.openCage.stroy.ui.difftree.NWayDiffPane;
-import org.openCage.stroy.ui.difftree.ShowChangeTreeCellRenderer;
-import org.openCage.stroy.dir.FileContent;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
-import org.openCage.stroy.content.Content;
 import com.google.inject.Inject;
 
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -31,7 +27,7 @@ import java.util.List;
 *
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
-public class NWayDiffTreeGenImplMessages<T extends Content> implements NWayDiffPaneGenerator<T> {
+public class NWayDiffTreeGenImplMessages implements NWayDiffPaneGenerator {
 
     private final ShowChangeTreeCellRenderer showChangeTreeCellRenderer;
 
@@ -41,8 +37,8 @@ public class NWayDiffTreeGenImplMessages<T extends Content> implements NWayDiffP
     }
 
 
-    public NWayDiffPane getDiffPane(  final List<TreeMatchingTask<T>> tasks,
+    public NWayDiffPane getDiffPane(  final List<TreeMatchingTask> tasks,
                                       final List<DefaultMutableTreeNode>        roots ) {
-        return new NWayDiffPaneMessages<T>( tasks, roots, showChangeTreeCellRenderer );
+        return new NWayDiffPaneMessages( tasks, roots, showChangeTreeCellRenderer );
     }
 }

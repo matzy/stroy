@@ -1,6 +1,8 @@
-package org.openCage.util.ui;
+package org.openCage.lang.protocol;
 
-import javax.swing.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -25,13 +27,30 @@ import javax.swing.*;
 ***** END LICENSE BLOCK *****/
 
 /**
- * interactive test for the FileChooser class
+ * lazy evaluate a function with no arguments
+ * i.e. a memoization method
+ * no protection against trows
  */
-public class FileChooserTest {
+public class Lazy<T> {
+    private T              obj;
+    private boolean        evaluated = false;
+    private final FE0<T> func;
 
-    public static void main(String[] args) {
-        
-        FileChooser.getDir( new JFrame(), "/Users/spfab" );
-        FileChooser.open( new JFrame(), "/Users/spfab" );
+    public Lazy( FE0<T> func ) {
+        this.func = func;
+    }
+
+    // TODO exceptions
+    public T get() {
+        if ( !evaluated ) {
+            try {
+                obj = func.call();
+            } catch (Exception ex) {
+                Logger.getLogger(Lazy.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            evaluated = true;
+        }
+
+        return obj;
     }
 }

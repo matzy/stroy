@@ -30,7 +30,7 @@ import java.util.logging.Handler;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-@NonNls
+@Deprecated
 public class Log {
 
     // one logger for all openCage apps

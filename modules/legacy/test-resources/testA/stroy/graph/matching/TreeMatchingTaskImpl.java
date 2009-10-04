@@ -3,8 +3,8 @@
 //import org.openCage.util.generics.Generics;
 //import org.openCage.stroy.content.Content;
 //import org.openCage.stroy.graph.SameContent;
-//import org.openCage.stroy.graph.node.TreeDirNode;
-//import org.openCage.stroy.graph.node.TreeLeafNode;
+//import org.openCage.stroy.graph.node.TreeNode;
+//import org.openCage.stroy.graph.node.TreeNode;
 //import org.openCage.stroy.graph.node.TreeNode;
 //import org.openCage.stroy.graph.iterator.DepthFirstIterable;
 //import org.openCage.stroy.task.MatchingTask;
@@ -53,15 +53,15 @@
 //public class TreeMatchingTaskImpl<T extends Content> implements TreeMatchingTask<T> {
 //
 //    private List<SameContent<T>>           dups;
-//    private MatchingTask<TreeDirNode<T>>   dirTask;
-//    private MatchingTask<TreeLeafNode<T>>  fileTask;
+//    private MatchingTask<TreeNode<T>>   dirTask;
+//    private MatchingTask<TreeNode<T>>  fileTask;
 //
 //    public TreeMatchingTaskImpl() {
 //        dups         = new ArrayList<SameContent<T>>();
-////        dirTask      = new MatchingTaskImpl<TreeDirNode<T>>();
-////        fileTask     = new MatchingTaskImpl<TreeLeafNode<T>>();
-//        dirTask      = new MatchingTaskNeutral<TreeDirNode<T>>();
-//        fileTask     = new MatchingTaskNeutral<TreeLeafNode<T>>();
+////        dirTask      = new MatchingTaskImpl<TreeNode<T>>();
+////        fileTask     = new MatchingTaskImpl<TreeNode<T>>();
+//        dirTask      = new MatchingTaskNeutral<TreeNode<T>>();
+//        fileTask     = new MatchingTaskNeutral<TreeNode<T>>();
 //    }
 //
 //
@@ -69,20 +69,20 @@
 //        dups.add( sh );
 //    }
 //
-//    public MatchingTask<TreeLeafNode<T>> getLeaves() {
+//    public MatchingTask<TreeNode<T>> getLeaves() {
 //        return fileTask;
 //    }
 //
-//    public MatchingTask<TreeDirNode<T>> getDirs() {
+//    public MatchingTask<TreeNode<T>> getDirs() {
 //        return dirTask;
 //    }
 //
 //    public boolean isMatched( final TreeNode<T> obj ) {
 //        if ( obj.isLeaf() ) {
-//            return fileTask.isMatched( (TreeLeafNode<T>)obj );
+//            return fileTask.isMatched( (TreeNode<T>)obj );
 //        }
 //
-//        return dirTask.isMatched( (TreeDirNode<T>)obj );
+//        return dirTask.isMatched( (TreeNode<T>)obj );
 //    }
 //
 //    public TreeNode<T> getMatch( final TreeNode<T> obj ) {
@@ -92,10 +92,10 @@
 //        }
 //
 //        if ( obj.isLeaf() ) {
-//            return fileTask.getMatch( (TreeLeafNode<T>)obj );
+//            return fileTask.getMatch( (TreeNode<T>)obj );
 //        }
 //
-//        return dirTask.getMatch( (TreeDirNode<T>)obj );
+//        return dirTask.getMatch( (TreeNode<T>)obj );
 //    }
 //
 //
@@ -118,52 +118,52 @@
 //    public void status() {
 //        System.out.println("files deleted");
 //
-//        for ( final TreeLeafNode<T> lfm : fileTask.getUnmatchedLeft() ) {
+//        for ( final TreeNode<T> lfm : fileTask.getUnmatchedLeft() ) {
 //            System.out.println("  " + lfm );
 //        }
 //
 //        System.out.println("dirs deleted");
-//        for ( final TreeDirNode<T> fm : dirTask.getUnmatchedLeft() ) {
+//        for ( final TreeNode<T> fm : dirTask.getUnmatchedLeft() ) {
 //            System.out.println("  " + fm );
 //        }
 //
 //        System.out.println("files moved");
-//        for ( final TreeLeafNode<T> lfm : getMovedLeaves() ) {
+//        for ( final TreeNode<T> lfm : getMovedLeaves() ) {
 //            System.out.println("  " + lfm.toString() + "->" + fileTask.getMatch( lfm ).getParent() );
 //        }
 //
 //        System.out.println("files renamed");
-//        for ( TreeLeafNode<T> lfm : getRenamedLeaves() ) {
+//        for ( TreeNode<T> lfm : getRenamedLeaves() ) {
 //            System.out.println("  " + lfm.toString() + "->" + fileTask.getMatch( lfm ).getContent().getName() );
 //        }
 //
 //        System.out.println("dirs moved");
-//        for ( final TreeDirNode<T> lfm : getMovedDirs() ) {
+//        for ( final TreeNode<T> lfm : getMovedDirs() ) {
 //            System.out.println("  " + lfm.toString() + "->" + getMatch( lfm ).getParent() );
 //        }
 //
 //        System.out.println("dirs renamed");
-//        for ( TreeDirNode<T> lfm : getRenamedDirs() ) {
+//        for ( TreeNode<T> lfm : getRenamedDirs() ) {
 //            System.out.println("  " + lfm.toString() + "->" + getMatch( lfm ).getContent().getName() );
 //        }
 //
 //        System.out.println("files changed");
-//        for ( TreeLeafNode<T> lfm : getModifiedLeaves() ) {
+//        for ( TreeNode<T> lfm : getModifiedLeaves() ) {
 //            System.out.println("  " + lfm );
 //        }
 //
 //        System.out.println("new dirs");
-//        for ( TreeDirNode<T> lfm : dirTask.getUnmatchedRight() ) {
+//        for ( TreeNode<T> lfm : dirTask.getUnmatchedRight() ) {
 //            System.out.println("  " + lfm );
 //        }
 //
 //        System.out.println("new files");
-//        for ( TreeLeafNode<T> lfm : fileTask.getUnmatchedRight() ) {
+//        for ( TreeNode<T> lfm : fileTask.getUnmatchedRight() ) {
 //            System.out.println("  " + lfm );
 //        }
 //
 //        System.out.println("dirs changed");
-//        for ( TreeDirNode<T> lfm : getModifiedDirs() ) {
+//        for ( TreeNode<T> lfm : getModifiedDirs() ) {
 //            System.out.println("  " + lfm );
 //        }
 //
@@ -209,10 +209,10 @@
 //        return count;
 //    }
 //
-//    public Collection<TreeLeafNode<T>> getModifiedLeaves() {
-//        final List<TreeLeafNode<T>> modified = new ArrayList<TreeLeafNode<T>>();
+//    public Collection<TreeNode<T>> getModifiedLeaves() {
+//        final List<TreeNode<T>> modified = new ArrayList<TreeNode<T>>();
 //
-//        for ( TreeLeafNode<T> lfm : fileTask.getMatchedLeft() ) {
+//        for ( TreeNode<T> lfm : fileTask.getMatchedLeft() ) {
 //
 //            if ( fileTask.getMatch( lfm ).getQuality() < 1.0 ) {
 //                modified.add( lfm );
@@ -222,12 +222,12 @@
 //        return modified;
 //    }
 //
-//    public Collection<TreeLeafNode<T>> getRenamedLeaves() {
+//    public Collection<TreeNode<T>> getRenamedLeaves() {
 //        //noinspection unchecked
 //        return filterRenamed( (Collection) fileTask.getMatchedLeft() );
 //    }
 //
-//    public Collection<TreeDirNode<T>> getRenamedDirs() {
+//    public Collection<TreeNode<T>> getRenamedDirs() {
 //        //noinspection unchecked
 //        return filterRenamed( (Collection) dirTask.getMatchedLeft() );
 //    }
@@ -247,7 +247,7 @@
 //        }
 //
 //
-//        return fileTask.getMatch( (TreeLeafNode)obj ).getQuality() < 1.0;
+//        return fileTask.getMatch( (TreeNode)obj ).getQuality() < 1.0;
 //    }
 //
 //    public double getMatchQuality(TreeNode<T> obj) {
@@ -262,7 +262,7 @@
 //
 //
 //
-//        return fileTask.getMatch( (TreeLeafNode)obj ).getQuality();
+//        return fileTask.getMatch( (TreeNode)obj ).getQuality();
 //    }
 //
 //
@@ -279,32 +279,32 @@
 //        return renamed;
 //    }
 //
-//    public Collection<TreeLeafNode<T>> getMovedLeaves() {
+//    public Collection<TreeNode<T>> getMovedLeaves() {
 //
 //        //noinspection unchecked
-//        return getMoved( new Generics<TreeNode<T>,TreeLeafNode<T>>().cast( fileTask.getMatchedLeft() ));
+//        return getMoved( new Generics<TreeNode<T>,TreeNode<T>>().cast( fileTask.getMatchedLeft() ));
 //    }
 //
-//    public Collection<TreeDirNode<T>> getMovedDirs() {
+//    public Collection<TreeNode<T>> getMovedDirs() {
 //
 //        //noinspection unchecked
-//        return getMoved( new Generics<TreeNode<T>,TreeDirNode<T>>().cast( dirTask.getMatchedLeft()));
+//        return getMoved( new Generics<TreeNode<T>,TreeNode<T>>().cast( dirTask.getMatchedLeft()));
 //    }
 //
 //
-//    public Collection<TreeLeafNode<T>> getUnmatchedLeftFiles() {
+//    public Collection<TreeNode<T>> getUnmatchedLeftFiles() {
 //        return fileTask.getUnmatchedLeft();
 //    }
 //
-//    public Collection<TreeDirNode<T>> getUnmatchedLeftDirs() {
+//    public Collection<TreeNode<T>> getUnmatchedLeftDirs() {
 //        return dirTask.getUnmatchedLeft();
 //    }
 //
-//    public Collection<TreeLeafNode<T>> getUnmatchedRightFiles() {
+//    public Collection<TreeNode<T>> getUnmatchedRightFiles() {
 //        return fileTask.getUnmatchedRight();
 //    }
 //
-//    public Collection<TreeDirNode<T>> getUnmatchedRightDirs() {
+//    public Collection<TreeNode<T>> getUnmatchedRightDirs() {
 //        return dirTask.getUnmatchedRight();
 //    }
 //
@@ -312,7 +312,7 @@
 //        List moved = new ArrayList();
 //
 //        for ( final TreeNode<T> node : matched ) {
-//            TreeDirNode<T> parent     = node.getParent();
+//            TreeNode<T> parent     = node.getParent();
 //            TreeNode<T>    match      = getMatch( node );
 //
 //            if ( parent != null ) {
@@ -327,59 +327,59 @@
 //        return moved;
 //    }
 //
-//    public Collection<TreeDirNode<T>> getModifiedDirs() {
-//        Set<TreeDirNode<T>> modified = new HashSet<TreeDirNode<T>>();
+//    public Collection<TreeNode<T>> getModifiedDirs() {
+//        Set<TreeNode<T>> modified = new HashSet<TreeNode<T>>();
 //
-//        for ( TreeDirNode<T> node : getRenamedDirs() ) {
+//        for ( TreeNode<T> node : getRenamedDirs() ) {
 //            if ( node.getParent() != null ) {
 //                modified.add( node.getParent() );
 //            }
 //        }
 //
-//        for ( TreeLeafNode<T> node : getRenamedLeaves() ) {
+//        for ( TreeNode<T> node : getRenamedLeaves() ) {
 //            if ( node.getParent() != null ) {
 //                modified.add( node.getParent() );
 //            }
 //        }
 //
-//        for ( TreeDirNode<T> node : getMovedDirs() ) {
+//        for ( TreeNode<T> node : getMovedDirs() ) {
 //            modified.add( node.getParent() );
 //
-//            TreeDirNode<T> newParentSrc = dirTask.getMatch( dirTask.getMatch( node ).getParent());
+//            TreeNode<T> newParentSrc = dirTask.getMatch( dirTask.getMatch( node ).getParent());
 //
 //            if ( newParentSrc != null ) {
 //                modified.add( newParentSrc );
 //            }
 //        }
 //
-//        for ( TreeLeafNode<T> node : getMovedLeaves() ) {
+//        for ( TreeNode<T> node : getMovedLeaves() ) {
 //            modified.add( node.getParent() );
 //
-//            TreeDirNode<T> newParentSrc = dirTask.getMatch( fileTask.getMatch( node ).getParent());
+//            TreeNode<T> newParentSrc = dirTask.getMatch( fileTask.getMatch( node ).getParent());
 //
 //            if ( newParentSrc != null ) {
 //                modified.add( newParentSrc );
 //            }
 //        }
 //
-//        for (TreeDirNode node : dirTask.getUnmatchedLeft() ) {
+//        for (TreeNode node : dirTask.getUnmatchedLeft() ) {
 //            modified.add( node.getParent() );
 //        }
 //
-//        for (TreeLeafNode node : fileTask.getUnmatchedLeft() ) {
+//        for (TreeNode node : fileTask.getUnmatchedLeft() ) {
 //            modified.add( node.getParent() );
 //        }
 //
-//        for (TreeDirNode node : dirTask.getUnmatchedRight() ) {
-//            TreeDirNode<T> parentSrc = dirTask.getMatch( node.getParent());
+//        for (TreeNode node : dirTask.getUnmatchedRight() ) {
+//            TreeNode<T> parentSrc = dirTask.getMatch( node.getParent());
 //
 //            if ( parentSrc != null ) {
 //                modified.add( parentSrc );
 //            }
 //        }
 //
-//        for (TreeLeafNode node : fileTask.getUnmatchedRight() ) {
-//            TreeDirNode<T> parentSrc = dirTask.getMatch( node.getParent());
+//        for (TreeNode node : fileTask.getUnmatchedRight() ) {
+//            TreeNode<T> parentSrc = dirTask.getMatch( node.getParent());
 //
 //            if ( parentSrc != null ) {
 //                modified.add( parentSrc );
@@ -403,15 +403,15 @@
 //
 //        if ( obj.isLeaf() ) {
 //            if ( obj.isOriginal() ) {
-//                cv.content = ((TreeLeafNode)match ).getQuality() < 1.0;
+//                cv.content = ((TreeNode)match ).getQuality() < 1.0;
 //            } else {
-//                cv.content = ((TreeLeafNode)obj ).getQuality() < 1.0;
+//                cv.content = ((TreeNode)obj ).getQuality() < 1.0;
 //            }
 //        }
 //
 //        cv.name = ! match.getContent().getName().equals( obj.getContent().getName());
 //
-//        TreeDirNode<T> parent     = obj.getParent();
+//        TreeNode<T> parent     = obj.getParent();
 //
 //        if ( parent != null ) {
 //            if ( !dirTask.isMatched( parent )) {
@@ -429,9 +429,9 @@
 //
 //    public void remove(TreeNode<T> treeNode) {
 //        if ( treeNode.isLeaf() ) {
-//            fileTask.remove( (TreeLeafNode<T>)treeNode );
+//            fileTask.remove( (TreeNode<T>)treeNode );
 //        } else {
-//            dirTask.remove( (TreeDirNode<T>)treeNode );
+//            dirTask.remove( (TreeNode<T>)treeNode );
 //        }
 //    }
 //
@@ -439,14 +439,14 @@
 //        //To change body of implemented methods use File | Settings | File Templates.
 //    }
 //
-//    public Collection<TreeLeafNode<T>> getComplexModifiedLeaves() {
-//        Collection<TreeLeafNode<T>> struct = getMovedLeaves();
+//    public Collection<TreeNode<T>> getComplexModifiedLeaves() {
+//        Collection<TreeNode<T>> struct = getMovedLeaves();
 //
 //        struct.addAll( getRenamedLeaves() );
 //
-//        List<TreeLeafNode<T>> ret = new ArrayList<TreeLeafNode<T>>();
+//        List<TreeNode<T>> ret = new ArrayList<TreeNode<T>>();
 //
-//        for ( TreeLeafNode<T> lfm : struct ) {
+//        for ( TreeNode<T> lfm : struct ) {
 //            if ( fileTask.getMatch( lfm ).getQuality() < 1.0 ) {
 //                ret.add( lfm );
 //            }

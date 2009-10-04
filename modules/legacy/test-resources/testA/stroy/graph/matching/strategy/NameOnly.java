@@ -2,9 +2,9 @@ package org.openCage.stroy.graph.matching.strategy;
 
 import org.openCage.stroy.content.Content;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
-import org.openCage.stroy.graph.node.TreeDirNode;
 import org.openCage.stroy.graph.node.TreeNode;
-import org.openCage.stroy.graph.node.TreeLeafNode;
+import org.openCage.stroy.graph.node.TreeNode;
+import org.openCage.stroy.graph.node.TreeNode;
 import org.openCage.util.logging.Log;
 
 /***** BEGIN LICENSE BLOCK *****
@@ -58,7 +58,7 @@ public class NameOnly <T extends Content> implements MatchStrategy<T> {
     }
 
 
-    public void matchInChildList( TreeMatchingTask<T> treeMatchingTask, TreeNode<T> leftNode, TreeDirNode<T> toParent ) {
+    public void matchInChildList( TreeMatchingTask<T> treeMatchingTask, TreeNode<T> leftNode, TreeNode<T> toParent ) {
 
         if ( ! treeMatchingTask.isMatched( leftNode )  ) {
 
@@ -80,9 +80,9 @@ public class NameOnly <T extends Content> implements MatchStrategy<T> {
 //                        if ( leftNode.getContent().getChecksum().equals( tgtKid.getContent().getChecksum() )) {
 //                            qual = 1.0;
 //                        }
-                        treeMatchingTask.getLeaves().match( (TreeLeafNode<T>)leftNode, (TreeLeafNode<T>)tgtKid, qual );
+                        treeMatchingTask.getLeaves().match( (TreeNode<T>)leftNode, (TreeNode<T>)tgtKid, qual );
                     } else {
-                        treeMatchingTask.getDirs().match( (TreeDirNode<T>)leftNode, (TreeDirNode<T>)tgtKid, 1.0 );
+                        treeMatchingTask.getDirs().match( (TreeNode<T>)leftNode, (TreeNode<T>)tgtKid, 1.0 );
                     }
                     break;
                 }
@@ -94,14 +94,14 @@ public class NameOnly <T extends Content> implements MatchStrategy<T> {
             return;
         }
 
-        TreeDirNode<T> newParent = treeMatchingTask.getDirs().getMatch((TreeDirNode<T>)leftNode);
+        TreeNode<T> newParent = treeMatchingTask.getDirs().getMatch((TreeNode<T>)leftNode);
 
         if ( newParent == null ) {
             // no match
             return;
         }
 
-        for ( TreeNode<T> fm : ((TreeDirNode<T>)leftNode).getChildren() ) {
+        for ( TreeNode<T> fm : ((TreeNode<T>)leftNode).getChildren() ) {
             matchInChildList(treeMatchingTask, fm, newParent );
         }
 

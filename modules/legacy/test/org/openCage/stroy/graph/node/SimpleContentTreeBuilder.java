@@ -4,7 +4,6 @@ import org.openCage.stroy.content.ReducedContent;
 import org.openCage.stroy.fuzzyHash.FuzzyHashNever;
 import org.openCage.stroy.fuzzyHash.FuzzyHashSetFactory;
 import org.openCage.stroy.RuntimeModule;
-import org.openCage.stroy.graph.matching.TreeLeafNodeFuzzyLeafDistance;
 import org.openCage.stroy.graph.matching.strategy.HistoricalMatching;
 
 import java.util.Collections;
@@ -45,27 +44,27 @@ public class SimpleContentTreeBuilder {
         hashSetFactory = injector.getInstance( FuzzyHashSetFactory.class );
     }
 
-    public TreeNode<ReducedContent> d( ReducedContent t, TreeNode<ReducedContent> ... childs ) {
-        return new SimpleTreeNode<ReducedContent>( t, childs );
+    public TreeNode d( ReducedContent t, TreeNode ... childs ) {
+        return new SimpleTreeNode( t, childs );
     }
 
-    public TreeNode<ReducedContent> d( String name, TreeNode<ReducedContent> ... childs ) {
-        return new SimpleTreeNode<ReducedContent>( new ReducedContent( name, "" + name.hashCode(), hashSetFactory.create( Collections.EMPTY_SET), "dir"), childs );
+    public TreeNode d( String name, TreeNode ... childs ) {
+        return new SimpleTreeNode( new ReducedContent( name, "" + name.hashCode(), hashSetFactory.create( Collections.EMPTY_SET), "dir"), childs );
     }
 
-    public TreeNode<ReducedContent> l( ReducedContent t ) {
-        return new SimpleTreeNode<ReducedContent>( t );
+    public TreeNode l( ReducedContent t ) {
+        return new SimpleTreeNode( t );
     }
 
-    public TreeNode<ReducedContent> l( String name ) {
+    public TreeNode l( String name ) {
         Set<Integer> set = new HashSet<Integer>();
         set.add( new Integer( name.hashCode() ));
-        return new SimpleTreeNode<ReducedContent>( new ReducedContent( name, "" + name.hashCode(), hashSetFactory.create(set), "string") );
+        return new SimpleTreeNode( new ReducedContent( name, "" + name.hashCode(), hashSetFactory.create(set), "string") );
     }
 
-    public TreeNode<ReducedContent> l( String name, String checksum ) {
+    public TreeNode l( String name, String checksum ) {
         Set<Integer> set = new HashSet<Integer>();
         set.add( new Integer( name.hashCode() ));        
-        return new SimpleTreeNode<ReducedContent>( new ReducedContent( name, checksum, hashSetFactory.create(set), "string") );
+        return new SimpleTreeNode( new ReducedContent( name, checksum, hashSetFactory.create(set), "string") );
     }
 }

@@ -4,9 +4,9 @@ import com.google.inject.Inject;
 import org.openCage.stroy.dir.FileContent;
 import org.openCage.stroy.fuzzyHash.FuzzyHashGenerator;
 import org.openCage.stroy.algo.fuzzyHash.FuzzyHash;
-import org.openCage.utils.func.F1;
 
 import java.io.File;
+import org.openCage.lang.protocol.FE1;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -34,12 +34,12 @@ public class FileContentFactory {
 
 //    private final FuzzyHashGenerator<File> fuzzyHashGen;
 
-    private final F1<FuzzyHash,File> fuzzyHashGenerator;
+    private final FE1<FuzzyHash,File> fuzzyHashGenerator;
 
     @Inject
     public FileContentFactory( final FuzzyHashGenerator<File> fuzzyHashGen ) {
-        this.fuzzyHashGenerator = new F1<FuzzyHash, File>() {
-            public FuzzyHash c( File file ) {
+        this.fuzzyHashGenerator = new FE1<FuzzyHash, File>() {
+            public FuzzyHash call( File file ) {
                 return fuzzyHashGen.generate( file );
             }
         };

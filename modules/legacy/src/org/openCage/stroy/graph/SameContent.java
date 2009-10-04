@@ -1,7 +1,7 @@
 package org.openCage.stroy.graph;
 
 import org.openCage.stroy.content.Content;
-import org.openCage.stroy.graph.node.TreeLeafNode;
+import org.openCage.stroy.graph.node.TreeNode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,25 +28,25 @@ import java.util.List;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public class SameContent<T extends Content> {
+public class SameContent {
 
-    private final List<TreeLeafNode<T>> src;
-    private final List<TreeLeafNode<T>> tgt;
+    private final List<TreeNode> src;
+    private final List<TreeNode> tgt;
 
     public SameContent() {
-        src = new ArrayList<TreeLeafNode<T>>();
-        tgt = new ArrayList<TreeLeafNode<T>>();
+        src = new ArrayList<TreeNode>();
+        tgt = new ArrayList<TreeNode>();
     }
 
-    public List<TreeLeafNode<T>> getSources() {
+    public List<TreeNode> getSources() {
         return src;
     }
 
-    public List<TreeLeafNode<T>> getTargets() {
+    public List<TreeNode> getTargets() {
         return tgt;
     }
 
-    public void add( TreeLeafNode<T> lfm, boolean isSrc) {
+    public void add( TreeNode lfm, boolean isSrc) {
         if ( isSrc ) {
             src.add( lfm );
         } else {
@@ -72,13 +72,13 @@ public class SameContent<T extends Content> {
     public String toString() {
         String str = "same hash:\n";
 
-        for ( TreeLeafNode<T> lfm : src ) {
+        for ( TreeNode lfm : src ) {
             str += "   " + lfm + "\n";
         }
 
         str += "--\n";
 
-        for ( TreeLeafNode<T> lfm : tgt ) {
+        for ( TreeNode lfm : tgt ) {
             str += "   " + lfm + "\n";
         }
 
@@ -106,7 +106,7 @@ public class SameContent<T extends Content> {
         return ( src.size() == 1 && tgt.size() == 0 );
     }
 
-    public TreeLeafNode<T> getSingle() {
+    public TreeNode getSingle() {
         if ( isSingleNew() ) {
             return tgt.get(0);
         } else if ( isSingleOld()) {
@@ -161,7 +161,7 @@ public class SameContent<T extends Content> {
 //
 //    }
 
-    public TreeLeafNode<T> getSingleTgt() {
+    public TreeNode getSingleTgt() {
         if ( tgt.size() == 1  ) {
             return tgt.get(0);
         }
@@ -169,7 +169,7 @@ public class SameContent<T extends Content> {
         throw new Error( "not single" );
     }
 
-    public TreeLeafNode<T> getSingleSrc() {
+    public TreeNode getSingleSrc() {
         if ( src.size() == 1 )  {
             return src.get(0);
         }

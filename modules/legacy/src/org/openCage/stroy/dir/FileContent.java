@@ -1,16 +1,17 @@
 package org.openCage.stroy.dir;
 
+import org.openCage.lang.protocol.Lazy;
 import org.openCage.util.io.FileUtils;
 import org.openCage.util.lang.*;
 import org.openCage.stroy.content.Content;
 import org.openCage.stroy.algo.fuzzyHash.FuzzyHash;
 import org.openCage.util.checksum.FullFileMD5;
-import org.openCage.util.logging.Log;
-import org.openCage.utils.func.F1;
-import org.openCage.utils.func.F0;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Logger;
+import org.openCage.lang.protocol.FE0;
+import org.openCage.lang.protocol.FE1;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -35,16 +36,18 @@ import java.io.IOException;
 ***** END LICENSE BLOCK *****/
 public class FileContent implements Content {
 
+    private Logger LOG = Logger.getLogger( FileContent.class.getName());
+
     private final File                     file;
     private final Lazy<String>             checksum;
     private final Lazy1<FuzzyHash, File>   fuzzy;
 
-    public FileContent( final F1<FuzzyHash, File> fuzzyGen, final File file ) {
+    public FileContent( final FE1<FuzzyHash, File> fuzzyGen, final File file ) {
         this.file     = file;
-        this.checksum = new Lazy<String>( new F0<String>() {
-            public String c() {
+        this.checksum = new Lazy<String>( new FE0<String>() {
+            public String call() {
                 try {
-                    Log.finer( "computing fingerprint of " + file.getAbsolutePath() );
+                    LOG.finer( "computing fingerprint of " + file.getAbsolutePath() );
                     return new FullFileMD5().getChecksum( file );
                 } catch (IOException e) {
                     throw new Error(e);

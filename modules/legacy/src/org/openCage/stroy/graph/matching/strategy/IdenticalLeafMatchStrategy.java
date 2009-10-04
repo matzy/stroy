@@ -2,14 +2,13 @@ package org.openCage.stroy.graph.matching.strategy;
 
 import org.openCage.stroy.content.Content;
 import org.openCage.stroy.graph.SameContent;
-import org.openCage.stroy.graph.node.TreeLeafNode;
+import org.openCage.stroy.graph.node.TreeNode;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
-import org.openCage.stroy.graph.matching.strategy.MatchStrategy;
 import org.openCage.stroy.locale.Message;
-import org.openCage.util.logging.Log;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -33,11 +32,13 @@ import java.util.Map;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public class IdenticalLeafMatchStrategy<T extends Content> implements MatchStrategy<T> {
+public class IdenticalLeafMatchStrategy implements MatchStrategy {
 
-    public void match(TreeMatchingTask<T> treeMatchingTask, Reporter reporter) {
+    private static final Logger LOG = Logger.getLogger( IdenticalLeafMatchStrategy.class.getName());
 
-        Log.fine( "match Identical" );
+    public void match(TreeMatchingTask treeMatchingTask, Reporter reporter) {
+
+        LOG.fine( "match Identical" );
         reporter.title( Message.get( "Strategy.IdenticalLeaf" ));
 
         if ( !treeMatchingTask.isMatched( treeMatchingTask.getLeftRoot())) {
@@ -46,14 +47,14 @@ public class IdenticalLeafMatchStrategy<T extends Content> implements MatchStrat
         }
         
 
-        Map<String, SameContent<T>> sames = computeHashes(treeMatchingTask, reporter);
+        Map<String, SameContent> sames = computeHashes(treeMatchingTask, reporter);
         matchSames(treeMatchingTask, sames );
 
     }
 
-    private void matchSames( TreeMatchingTask<T> treeMatchingTask, Map<String, SameContent<T>> sames) {
+    private void matchSames( TreeMatchingTask treeMatchingTask, Map<String, SameContent> sames) {
 
-        for ( SameContent<T> sh : sames.values() ) {
+        for ( SameContent sh : sames.values() ) {
 
             if ( !sh.isSingle() ) {
                treeMatchingTask.addDup( sh );
@@ -68,39 +69,39 @@ public class IdenticalLeafMatchStrategy<T extends Content> implements MatchStrat
     }
 
 
-    private Map<String, SameContent<T>> computeHashes( TreeMatchingTask<T> matchingTask, Reporter reporter) {
-        Map<String, SameContent<T>> sames = new HashMap<String, SameContent<T>>();
+    private Map<String, SameContent> computeHashes( TreeMatchingTask matchingTask, Reporter reporter) {
+        Map<String, SameContent> sames = new HashMap<String, SameContent>();
 
-        for ( TreeLeafNode<T> lfm : matchingTask.getLeaves().getUnmatchedLeft() ) {
+        for ( TreeNode lfm : matchingTask.getLeaves().getUnmatchedLeft() ) {
 
             reporter.detail( Message.get( "Progress.checking" ), lfm.toString() );
             
             String checksum = lfm.getContent().getChecksum();
 
-            SameContent<T> sh;
+            SameContent sh;
 
             if ( sames.containsKey( checksum )) {
                 sh = sames.get( checksum );
             } else {
-                sh = new SameContent<T>();
+                sh = new SameContent();
                 sames.put( checksum, sh );
             }
 
             sh.add( lfm, true );
         }
 
-        for ( TreeLeafNode<T> lfm : matchingTask.getLeaves().getUnmatchedRight() ) {
+        for ( TreeNode lfm : matchingTask.getLeaves().getUnmatchedRight() ) {
 
             reporter.detail( Message.get( "Progress.checking" ), lfm.toString() );
 
             String checksum = lfm.getContent().getChecksum();
 
-            SameContent<T> sh;
+            SameContent sh;
 
             if ( sames.containsKey( checksum )) {
                 sh = sames.get( checksum );
             } else {
-                sh = new SameContent<T>();
+                sh = new SameContent();
                 sames.put( checksum, sh );
             }
 

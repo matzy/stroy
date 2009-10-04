@@ -27,15 +27,15 @@ import java.util.Iterator;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public class DepthFirstIterable<T> implements Iterable<TreeNode<T>>{
+public class DepthFirstIterable implements Iterable<TreeNode>{
 
-    private final TreeNode<T> node;
+    private final TreeNode node;
 
-    public DepthFirstIterable( TreeNode<T> node ) {
+    public DepthFirstIterable( TreeNode node ) {
         this.node = node;
     }
 
-    public Iterator<TreeNode<T>> iterator() {
-        return new DepthFirstIterator<T>( node );
+    public Iterator<TreeNode> iterator() {
+        return new DepthFirstIterator( node );
     }
 }

@@ -34,13 +34,13 @@ import java.util.List;
 
 
 
-public class MatchnWatch<T extends Content> extends SwingWorker< String, T2<String, String>> {
+public class MatchnWatch extends SwingWorker< String, T2<String, String>> {
 
-    private final UIApp<T>          uiApp;
-    private final MatchStrategy<T>  strategy;
+    private final UIApp          uiApp;
+    private final MatchStrategy  strategy;
     private final ModalProgress     progressUI = new ModalProgress( null );
 
-    public MatchnWatch( final UIApp uiApp, final MatchStrategy<T> strategy  ) {
+    public MatchnWatch( final UIApp uiApp, final MatchStrategy strategy  ) {
         this.uiApp    = uiApp;
         this.strategy = strategy;
 
@@ -60,7 +60,7 @@ public class MatchnWatch<T extends Content> extends SwingWorker< String, T2<Stri
         };
 
 
-        for ( TreeMatchingTask<T> task : uiApp.getTasks() ) {
+        for ( TreeMatchingTask task : uiApp.getTasks() ) {
 //            publish( "matching " + task );
             strategy.match( task, reporter);
         }

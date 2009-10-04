@@ -43,23 +43,23 @@ public class DiffPopupTest {
     public void testLeftRight_right() {
         SimpleContentTreeBuilder b = new SimpleContentTreeBuilder();
 
-        TreeNode<ReducedContent> treeLeft = b.d( "left", b.l( "a"),
+        TreeNode treeLeft = b.d( "left", b.l( "a"),
                                                       b.d( "g", b.l("b"),
                                                                 b.l("c")));
 
-        TreeNode<ReducedContent> treeRight = b.d( "right", b.l( "a"),
+        TreeNode treeRight = b.d( "right", b.l( "a"),
                                                        b.d( "g", b.l("b"),
                                                                  b.l("c")));
 
-        TreeMatchingTask<ReducedContent> task =
+        TreeMatchingTask task =
                 TreeMatchingTaskNeutralBuilder.build( treeLeft, treeRight );
 
-        new StandardMatching<ReducedContent>().match( task, new NullReporter() );
+        new StandardMatching().match( task, new NullReporter() );
 
-        DiffPopup<ReducedContent> popup =
-                new DiffPopup<ReducedContent>( task, null );
+        DiffPopup popup =
+                new DiffPopup( task, null );
 
-        T2<TreeNode<ReducedContent>, TreeNode<ReducedContent>> lr =
+        T2<TreeNode, TreeNode> lr =
                 popup.getLeftAndRightNode( TreeNodeUtils.getNode( task.getRightRoot() ));
 
         assertEquals( TreeNodeUtils.getNode( task.getLeftRoot()),
@@ -72,23 +72,23 @@ public class DiffPopupTest {
     public void testLeftRight_left() {
         SimpleContentTreeBuilder b = new SimpleContentTreeBuilder();
 
-        TreeNode<ReducedContent> treeLeft = b.d( "left", b.l( "a"),
+        TreeNode treeLeft = b.d( "left", b.l( "a"),
                                                       b.d( "g", b.l("b"),
                                                                 b.l("c")));
 
-        TreeNode<ReducedContent> treeRight = b.d( "right", b.l( "a"),
+        TreeNode treeRight = b.d( "right", b.l( "a"),
                                                        b.d( "g", b.l("b"),
                                                                  b.l("c")));
 
-        TreeMatchingTask<ReducedContent> task =
+        TreeMatchingTask task =
                 TreeMatchingTaskNeutralBuilder.build( treeLeft, treeRight );
 
-        new StandardMatching<ReducedContent>().match( task, new NullReporter() );
+        new StandardMatching().match( task, new NullReporter() );
 
-        DiffPopup<ReducedContent> popup =
-                new DiffPopup<ReducedContent>( null, task );
+        DiffPopup popup =
+                new DiffPopup( null, task );
 
-        T2<TreeNode<ReducedContent>, TreeNode<ReducedContent>> lr =
+        T2<TreeNode, TreeNode> lr =
                 popup.getLeftAndRightNode( TreeNodeUtils.getNode( task.getLeftRoot() ));
 
         assertEquals( TreeNodeUtils.getNode( task.getLeftRoot()),

@@ -130,7 +130,7 @@ public class Main {
 //                    ignore.add( pattern );
 //                }
 
-                TreeMatchingTask<FileContent> matching = cd.compare( ignore, from, to );
+                TreeMatchingTask matching = cd.compare( ignore, from, to );
                 matching.status();
 
 

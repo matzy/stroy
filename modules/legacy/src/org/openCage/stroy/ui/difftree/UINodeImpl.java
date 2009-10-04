@@ -36,26 +36,26 @@ import java.util.ArrayList;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public class UINodeImpl<T extends Content> implements UINode<T> {
+public class UINodeImpl<T extends Content> implements UINode {
 
-    private final TreeNode<T>         node;
-    private final TreeMatchingTask<T> taskLeft;
-    private final TreeMatchingTask<T> taskRight;
+    private final TreeNode         node;
+    private final TreeMatchingTask taskLeft;
+    private final TreeMatchingTask taskRight;
 
     private ChangeNumbers cn;
     private List<DefaultMutableTreeNode> hidden = new ArrayList<DefaultMutableTreeNode>();
 
     // TODO change to left, right to display more information?
 
-//    public UINodeImpl( TreeNode<T> node, TreeMatchingTask<T> task1) {
+//    public UINodeImpl( TreeNode node, TreeMatchingTask task1) {
 //        this.node  = node;
 //        this.taskLeft = task1;
 //        this.taskRight = null;
 //    }
 
-    public UINodeImpl( TreeNode<T>         node,
-                       TreeMatchingTask<T> task1,
-                       TreeMatchingTask<T> task2 ) {
+    public UINodeImpl( TreeNode         node,
+                       TreeMatchingTask task1,
+                       TreeMatchingTask task2 ) {
         this.node       = node;
         this.taskLeft   = task1;
         this.taskRight  = task2;
@@ -82,7 +82,7 @@ public class UINodeImpl<T extends Content> implements UINode<T> {
         return cv;
     }
 
-    public TreeNode<T> get() {
+    public TreeNode get() {
         return node;
     }
 

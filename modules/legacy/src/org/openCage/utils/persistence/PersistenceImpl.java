@@ -1,14 +1,7 @@
 package org.openCage.utils.persistence;
 
 import org.openCage.util.io.FileUtils;
-import org.openCage.util.logging.Log;
 import org.openCage.util.lang.V1;
-import static org.openCage.utils.io.with.WithIO.withReader;
-import static org.openCage.utils.io.with.WithIO.withWriter;
-import org.openCage.utils.io.with.ReaderFunctor;
-import org.openCage.utils.io.with.WriterFunctor;
-import org.openCage.utils.func.F1;
-import org.openCage.utils.func.F0;
 import org.openCage.utils.lang.BackgroundSaver;
 import org.jetbrains.annotations.NotNull;
 
@@ -18,6 +11,10 @@ import java.io.Reader;
 import java.io.IOException;
 
 import com.google.inject.Inject;
+import java.util.logging.Logger;
+import org.openCage.lang.protocol.FE0;
+import org.openCage.lang.protocol.FE1;
+import org.openCage.withResource.protocol.With;
 
 
 /***** BEGIN LICENSE BLOCK *****
@@ -44,13 +41,17 @@ import com.google.inject.Inject;
 
 public class PersistenceImpl<T extends Persistable> implements Persistence<T> {
 
+    private static final Logger LOG = Logger.getLogger( PersistenceImpl.class.getName());
+
     private final BackgroundSaver backgroundSaver;
+    private final With with;
 
     private final XStreamT<T> xstreamt = new XStreamT<T>();
 
     @Inject
-    public PersistenceImpl( final BackgroundSaver backgroundSaver ) {
+    public PersistenceImpl( final BackgroundSaver backgroundSaver, final With with ) {
         this.backgroundSaver = backgroundSaver;
+        this.with = with;
     }
 
 
@@ -62,20 +63,22 @@ public class PersistenceImpl<T extends Persistable> implements Persistence<T> {
 
         if ( new File( path ).exists() ) {
             try {
-                prefs = withReader( path, new ReaderFunctor<T>() {
-                    public T c(Reader reader) throws IOException {
+                prefs = with.withReader(new File(path), new FE1<T, Reader>() {
+
+                    public T call(Reader reader) throws Exception {
                         return xstreamt.fromXML( reader );
                     }
                 });
-            } catch ( Exception exp ) {
-                Log.warning( "failed to read existing preference file. Using default." );
+            } catch( Error exp ) {
+                LOG.warning( "failed to read existing preference file. Using default." );
                 prefs = init;
+
             }
         }
 
         final T prefsFinal = prefs;
-        backgroundSaver.addTask( new F0<Void>() {
-            public Void c() {
+        backgroundSaver.addTask( new FE0<Void>() {
+            public Void call() {
                 save( prefsFinal, name );
                 return null;
             }
@@ -104,9 +107,11 @@ public class PersistenceImpl<T extends Persistable> implements Persistence<T> {
 
         String path = getPathEnsure( name );
 
-        withWriter( path, new WriterFunctor() {
-            public void c( Writer writer ) {
+        with.withWriter( new File(path), new FE1<Void, Writer>() {
+
+            public Void call( Writer writer) throws Exception {
                 xstreamt.toXML( prefs, writer );
+                return null;
             }
         } );
 

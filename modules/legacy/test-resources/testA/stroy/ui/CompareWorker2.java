@@ -3,7 +3,7 @@ package org.openCage.stroy.ui;
 import org.openCage.stroy.dir.FileContent;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.graph.node.TreeNode;
-import org.openCage.stroy.graph.node.TreeDirNode;
+import org.openCage.stroy.graph.node.TreeNode;
 import org.openCage.stroy.dir.doubles2.CompareDirs2;
 import org.openCage.stroy.RuntimeModule;
 import org.openCage.stroy.ui.difftree.ChangeNumbers;
@@ -168,7 +168,7 @@ public class CompareWorker2 implements Runnable {
             return curDir;
         }
 
-        for (TreeNode<FileContent> node : ((TreeDirNode<FileContent>) treeNode).getChildren() ) {
+        for (TreeNode<FileContent> node : ((TreeNode<FileContent>) treeNode).getChildren() ) {
 
             addNodes( matching1, matching2,  curDir, node );
         }

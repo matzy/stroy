@@ -2,13 +2,10 @@ package org.openCage.stroy.ui.util;
 
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.graph.node.TreeNode;
-import org.openCage.stroy.graph.node.TreeDirNode;
 import org.openCage.stroy.content.Content;
-import org.openCage.stroy.ui.difftree.UINode;
 import org.openCage.stroy.ui.difftree.UINodeImpl;
 
 import javax.swing.tree.DefaultMutableTreeNode;
-import java.io.File;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,14 +35,14 @@ import java.util.Arrays;
 public class DMTNMaker {
 
 
-    public static <T extends Content> List<DefaultMutableTreeNode> makeDFTNs( List<TreeMatchingTask<T>> tasks ) {
+    public static List<DefaultMutableTreeNode> makeDFTNs( List<TreeMatchingTask> tasks ) {
 
         if ( tasks == null || tasks.size() == 0 ) {
             throw new IllegalArgumentException( "need some tasks" );
         }
 
 
-        for ( TreeMatchingTask<T> task : tasks ) {
+        for ( TreeMatchingTask task : tasks ) {
             if ( task == null ) {
                 throw new IllegalArgumentException( "null tasks found" );                
             }
@@ -74,7 +71,7 @@ public class DMTNMaker {
     }
 
 
-    public static <T extends Content> List<DefaultMutableTreeNode> makeDFTNs( TreeMatchingTask<T> task1, TreeMatchingTask<T> task2 ) {
+    public static  List<DefaultMutableTreeNode> makeDFTNs( TreeMatchingTask task1, TreeMatchingTask task2 ) {
 
         if ( task2 == null ) {
             return makeDFTNs( Arrays.asList( task1 ));            
@@ -83,10 +80,10 @@ public class DMTNMaker {
     }
 
 
-    private static <T extends Content>DefaultMutableTreeNode addNodes( TreeMatchingTask<T>    task1,
-                                                                       TreeMatchingTask<T>    task2,
+    private static DefaultMutableTreeNode addNodes( TreeMatchingTask    task1,
+                                                                       TreeMatchingTask    task2,
                                                                        DefaultMutableTreeNode curTop,
-                                                                       TreeNode<T>            node   ) {
+                                                                       TreeNode            node   ) {
 
 
         DefaultMutableTreeNode curDir = new DefaultMutableTreeNode( node.getContent().getName() );
@@ -101,7 +98,7 @@ public class DMTNMaker {
             return curDir;
         }
 
-        for (TreeNode<T> child : ((TreeDirNode<T>) node).getChildren() ) {
+        for (TreeNode child : ((TreeNode) node).getChildren() ) {
 
             addNodes( task1, task2,  curDir, child );
         }

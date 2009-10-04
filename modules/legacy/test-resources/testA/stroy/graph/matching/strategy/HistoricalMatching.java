@@ -5,9 +5,9 @@ import org.openCage.stroy.TreeLeafDistance;
 import org.openCage.stroy.task.MatchingTask;
 import org.openCage.stroy.array.MatchBestConnections2;
 import org.openCage.stroy.content.Content;
-import org.openCage.stroy.graph.node.TreeDirNode;
-import org.openCage.stroy.graph.node.TreeLeafNode;
-import org.openCage.stroy.graph.matching.TreeLeafNodeFuzzyLeafDistance;
+import org.openCage.stroy.graph.node.TreeNode;
+import org.openCage.stroy.graph.node.TreeNode;
+import org.openCage.stroy.graph.matching.TreeNodeFuzzyLeafDistance;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.graph.matching.strategy.MatchStrategy;
 
@@ -53,7 +53,7 @@ public class HistoricalMatching<T extends Content> implements MatchStrategy<T> {
     private final TreeLeafDistance<T> fuzzyTreeLeafDistance;
 
     @Inject
-    public HistoricalMatching( final TreeLeafNodeFuzzyLeafDistance<T> fuzzyDistance ) {
+    public HistoricalMatching( final TreeNodeFuzzyLeafDistance<T> fuzzyDistance ) {
         this.fuzzyTreeLeafDistance = fuzzyDistance;
     }
 
@@ -65,8 +65,8 @@ public class HistoricalMatching<T extends Content> implements MatchStrategy<T> {
         }
 
 
-        final MatchBestConnections2<MatchingTask<TreeDirNode<T>>,TreeLeafNode<T>> match =
-                new MatchBestConnections2<MatchingTask<TreeDirNode<T>>, TreeLeafNode<T>>(fuzzyTreeLeafDistance, false );
+        final MatchBestConnections2<MatchingTask<TreeNode<T>>,TreeNode<T>> match =
+                new MatchBestConnections2<MatchingTask<TreeNode<T>>, TreeNode<T>>(fuzzyTreeLeafDistance, false );
 
         match.match( treeMatchingTask.getDirs(),
                      treeMatchingTask.getLeaves(),

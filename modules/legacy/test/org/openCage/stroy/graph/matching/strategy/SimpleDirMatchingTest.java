@@ -34,24 +34,24 @@ public class SimpleDirMatchingTest extends StrategyTestsWorker implements Strate
 
     public void testSimpleIdentical() {
         strategyTestSimpleIdentical(
-                new SimpleDirMatching<ReducedContent>(),
+                new SimpleDirMatching(),
                 0,3,0,3, 2,0,2,0);
     }
 
     public void testRootMatch() {
-        strategyTestRootMatch( new SimpleDirMatching<ReducedContent>());
+        strategyTestRootMatch( new SimpleDirMatching());
     }
 
 
     public void testMoved() {
         strategyTestMoved(
-                new SimpleDirMatching<ReducedContent>(),
+                new SimpleDirMatching(),
                 0,3,0,3, 1,1,1,2);
     }
 
     public void testIgnoreChecksum() {
         strategyTestIgnoreChecksum(
-                new SimpleDirMatching<ReducedContent>(),
+                new SimpleDirMatching(),
                 0,3,0,3, 2,0,2,0);
     }
 }

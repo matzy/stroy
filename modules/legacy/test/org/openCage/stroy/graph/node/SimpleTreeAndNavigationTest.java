@@ -30,16 +30,16 @@ import java.util.List;
 public class SimpleTreeAndNavigationTest extends TestCase {
 
     public void testSimple() {
-        SimpleTreeBuilder<String> b = new SimpleTreeBuilder<String>();
+        SimpleTreeBuilder b = new SimpleTreeBuilder();
 
-        TreeNode<String> tree = b.d( "f", b.l("a"),
+        TreeNode tree = b.d( "f", b.l("a"),
                                           b.d( "g", b.l("b"),
                                                     b.l("c")));
         
 
         assertFalse( tree.isLeaf());
 
-        TreeDirNode<String> dir = (TreeDirNode<String>)tree;
+        TreeNode dir = (TreeNode)tree;
 
         assertEquals( 2, dir.getChildren().size() );
     }
@@ -47,14 +47,14 @@ public class SimpleTreeAndNavigationTest extends TestCase {
     public void testSimpleContent() {
         SimpleContentTreeBuilder b = new SimpleContentTreeBuilder();
 
-        TreeNode<ReducedContent> tree = b.d( "f", b.l( "a"),
+        TreeNode tree = b.d( "f", b.l( "a"),
                                                   b.d( "g", b.l("b"),
                                                             b.l("c")));
 
 
         assertFalse( tree.isLeaf());
 
-        TreeDirNode<ReducedContent> dir = (TreeDirNode<ReducedContent>)tree;
+        TreeNode dir = (TreeNode)tree;
 
         assertEquals( 2, dir.getChildren().size() );
 
@@ -65,11 +65,11 @@ public class SimpleTreeAndNavigationTest extends TestCase {
     public void testPath() {
         SimpleContentTreeBuilder b = new SimpleContentTreeBuilder();
 
-        TreeNode<ReducedContent> tree = b.d( "f", b.l( "a"),
+        TreeNode tree = b.d( "f", b.l( "a"),
                                                   b.d( "g", b.l("b"),
                                                             b.l("c")));
 
-        List<String> path = TreeNodeUtils.getNamePath(
+        List path = TreeNodeUtils.getNamePath(
                 TreeNodeUtils.getNode( tree, "g", "c"));
 
         assertEquals( 3, path.size() );
@@ -81,12 +81,12 @@ public class SimpleTreeAndNavigationTest extends TestCase {
     public void testRoot() {
         SimpleContentTreeBuilder b = new SimpleContentTreeBuilder();
 
-        TreeNode<ReducedContent> tree = b.d( "f", b.l( "a"),
+        TreeNode tree = b.d( "f", b.l( "a"),
                                                   b.d( "g", b.l("b"),
                                                             b.l("c")));
 
 
-        TreeNode<ReducedContent> node =
+        TreeNode node =
                 TreeNodeUtils.getNode( tree, "g", "c");
 
         assertEquals( tree, TreeNodeUtils.getRoot( node ));

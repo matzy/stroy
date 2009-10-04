@@ -4,7 +4,7 @@ import org.jdesktop.swingworker.SwingWorker;
 import org.openCage.util.iterator.T2;
 import org.openCage.stroy.dir.FileContent;
 import org.openCage.stroy.filter.Ignore;
-import org.openCage.stroy.graph.node.TreeDirNode;
+import org.openCage.stroy.graph.node.TreeNode;
 import org.openCage.stroy.graph.node.TreeNode;
 import org.openCage.stroy.graph.node.TreeNodeUtils;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
@@ -106,7 +106,7 @@ public class IgnoreUpdateWorker extends SwingWorker<String, T2<Integer, TreeNode
         }
 
         if ( !node.isLeaf() ) {
-            for ( TreeNode<FileContent> child : ((TreeDirNode<FileContent>)node).getChildren() ) {
+            for ( TreeNode<FileContent> child : ((TreeNode<FileContent>)node).getChildren() ) {
                 doOneTree( child, idx, ignoredAlready, toDel );
             }
         }

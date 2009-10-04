@@ -1,8 +1,9 @@
 package org.openCage.stroy.dir;
 
+import java.util.Collection;
 import org.openCage.stroy.content.FileContentFactory;
 import org.openCage.stroy.graph.node.ContentTreeNodeBaseImpl;
-import org.openCage.stroy.graph.node.TreeLeafNode;
+import org.openCage.stroy.graph.node.TreeNode;
 
 import java.io.File;
 
@@ -28,7 +29,7 @@ import java.io.File;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public class LeafTreeNodeImpl extends ContentTreeNodeBaseImpl<FileContent> implements TreeLeafNode<FileContent> {
+public class LeafTreeNodeImpl extends ContentTreeNodeBaseImpl implements TreeNode {
 
     private       Object        storage;
 
@@ -47,6 +48,14 @@ public class LeafTreeNodeImpl extends ContentTreeNodeBaseImpl<FileContent> imple
 
     public boolean isLeaf() {
         return true;
+    }
+
+    public Collection<? extends TreeNode> getChildren() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void removeChild(TreeNode child) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }

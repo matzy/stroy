@@ -77,19 +77,15 @@ public class ApplicationByBuilder implements Application {
     public Icon getIcon() {
         if (icon == null) {
             return new Icon() {
-
                 public int getIconHeight() {
-                    // TODO Auto-generated method stub
                     return 0;
                 }
 
                 public int getIconWidth() {
-                    // TODO Auto-generated method stub
                     return 0;
                 }
 
                 public void paintIcon(Component c, Graphics g, int x, int y) {
-                    // TODO Auto-generated method stub
                 }
             };
         }

@@ -2,9 +2,9 @@ package org.openCage.stroy.ui;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import java.util.logging.Logger;
 import org.openCage.stroy.RuntimeModule;
 import org.openCage.util.prefs.Preferences;
-import org.openCage.util.logging.Log;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -36,7 +36,7 @@ public class Main  {
 
         Preferences.setName( "stroy");
 
-        Log.finest( "stroy is starting" );
+        Logger.getLogger(Main.class.getName()).finest( "stroy is starting" );
 
         Injector injector = Guice.createInjector( new RuntimeModule() );
 

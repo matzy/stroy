@@ -2,11 +2,10 @@ package org.openCage.stroy.app;
 
 import org.openCage.stroy.ui.difftree.NWayDiffPane;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
-import org.openCage.stroy.graph.node.TreeDirNode;
-import org.openCage.stroy.content.Content;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.List;
+import org.openCage.stroy.graph.node.TreeNode;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -34,14 +33,14 @@ import java.util.List;
  * The class to hold the data in the ui case
  * No logic here
  */
-public class UIApp<T extends Content> {
+public class UIApp {
 
     private NWayDiffPane                        diffPane;
     private List<DefaultMutableTreeNode>        uiRoots;
-    private Tasks<T>                            tasks;
+    private Tasks                            tasks;
 //    private JFrame                              
 
-    public UIApp( NWayDiffPane diffPane, List<DefaultMutableTreeNode> uiRoots, Tasks<T> tasks ) {
+    public UIApp( NWayDiffPane diffPane, List<DefaultMutableTreeNode> uiRoots, Tasks tasks ) {
         this.diffPane = diffPane;
         this.uiRoots = uiRoots;
         this.tasks = tasks;
@@ -55,11 +54,11 @@ public class UIApp<T extends Content> {
         return uiRoots;
     }
 
-    public List<TreeMatchingTask<T>> getTasks() {
+    public List<TreeMatchingTask> getTasks() {
         return tasks.getTasks();
     }
 
-    public List<TreeDirNode<T>> getTreeRoots() {
+    public List<? extends TreeNode> getTreeRoots() {
         return tasks.getRoots();
     }
 }

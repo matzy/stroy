@@ -1,7 +1,7 @@
 package org.openCage.stroy.graph.matching.strategy;
 
 import org.openCage.stroy.content.Content;
-import org.openCage.stroy.graph.node.TreeDirNode;
+import org.openCage.stroy.graph.node.TreeNode;
 import org.openCage.stroy.graph.node.TreeNode;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.graph.matching.strategy.MatchStrategy;
@@ -58,7 +58,7 @@ public class SimpleDirMatching<T extends Content> implements MatchStrategy<T> {
     }
 
 
-    public void matchInChildList( TreeMatchingTask<T> treeMatchingTask, TreeDirNode<T> fromDir, TreeDirNode<T> toParent ) {
+    public void matchInChildList( TreeMatchingTask<T> treeMatchingTask, TreeNode<T> fromDir, TreeNode<T> toParent ) {
 
         if ( ! treeMatchingTask.isMatched( fromDir )  ) {
 
@@ -74,14 +74,14 @@ public class SimpleDirMatching<T extends Content> implements MatchStrategy<T> {
                      !treeMatchingTask.isMatched( tgtKid ) &&
                      tgtKid.getContent().getName().equals( name )) {
 
-                    treeMatchingTask.getDirs().match( fromDir, (TreeDirNode<T>)tgtKid, 1.0 );
+                    treeMatchingTask.getDirs().match( fromDir, (TreeNode<T>)tgtKid, 1.0 );
                     break;
                 }
             }
             
         }
 
-        TreeDirNode<T> newParent = treeMatchingTask.getDirs().getMatch(fromDir);
+        TreeNode<T> newParent = treeMatchingTask.getDirs().getMatch(fromDir);
 
         if ( newParent == null ) {
             return;
@@ -90,7 +90,7 @@ public class SimpleDirMatching<T extends Content> implements MatchStrategy<T> {
         for ( TreeNode<T> fm : fromDir.getChildren() ) {
 
             if ( !fm.isLeaf() ) {
-                matchInChildList(treeMatchingTask, (TreeDirNode<T>)fm, newParent );
+                matchInChildList(treeMatchingTask, (TreeNode<T>)fm, newParent );
             }
         }
 

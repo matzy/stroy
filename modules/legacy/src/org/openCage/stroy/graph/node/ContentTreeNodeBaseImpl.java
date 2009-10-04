@@ -1,8 +1,6 @@
 package org.openCage.stroy.graph.node;
 
 import org.openCage.stroy.content.Content;
-import org.openCage.stroy.graph.node.TreeDirNode;
-import org.openCage.stroy.graph.node.TreeNode;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -26,23 +24,23 @@ import org.openCage.stroy.graph.node.TreeNode;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public abstract class ContentTreeNodeBaseImpl<T extends Content> implements TreeNode<T> {
-    private final T         content;
-    private TreeDirNode<T>  parent;
+public abstract class ContentTreeNodeBaseImpl implements TreeNode {
+    private final Content         content;
+    private TreeNode  parent;
 
-    public ContentTreeNodeBaseImpl( T file, boolean generateId ) {
+    public ContentTreeNodeBaseImpl( Content file, boolean generateId ) {
         this.content = file;
     }
 
-    public T getContent() {
+    public Content getContent() {
         return content;
     }
 
-    public void setParent( TreeDirNode<T> parent) {
+    public void setParent( TreeNode parent) {
         this.parent = parent;
     }
 
-    public TreeDirNode<T> getParent() {
+    public TreeNode getParent() {
         return parent;
     }
 
