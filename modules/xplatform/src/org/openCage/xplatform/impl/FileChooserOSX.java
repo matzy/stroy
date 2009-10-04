@@ -6,12 +6,12 @@
 package org.openCage.xplatform.impl;
 
 import com.google.inject.Inject;
+import com.google.inject.name.Named;
 import java.awt.FileDialog;
 import java.awt.Frame;
 import java.io.File;
 import org.openCage.localization.protocol.Localize;
 import org.openCage.xplatform.protocol.FileChooser;
-import org.openCage.xplatform.protocol.FilePathBuilder;
 
 /**
  *
@@ -19,8 +19,7 @@ import org.openCage.xplatform.protocol.FilePathBuilder;
  */
 public class FileChooserOSX implements FileChooser {
 
-    @Inject private Localize localize;
-    @Inject private FilePathBuilder pathBuilder;
+    @Inject @Named("xplatform") private Localize localize;
 
 
     /**
@@ -45,8 +44,7 @@ public class FileChooserOSX implements FileChooser {
             return null;
         }
 
-        //return dir + File.pathSeparator + name;
-        return pathBuilder.fromString( dir ).buildChild(name).getAbsolutePath();
+        return dir + File.pathSeparator + name;
     }
 
     public String open( Frame fr, String path ) {

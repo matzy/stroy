@@ -7,9 +7,12 @@ package org.openCage.xplatform.wriring;
 
 import com.google.inject.Binder;
 import com.google.inject.Module;
+import com.google.inject.name.Names;
 import com.muchsoft.util.Sys;
+import org.openCage.localization.protocol.Localize;
 import org.openCage.xplatform.impl.FileChooserOSX;
 import org.openCage.xplatform.impl.FileChooserWindows;
+import org.openCage.xplatform.impl.XPlatformLocalizeProvider;
 import org.openCage.xplatform.protocol.FileChooser;
 
 /**
@@ -25,6 +28,20 @@ public class XPlatformWiring implements Module {
         } else if ( Sys.isWindows() ) {
             binder.bind( FileChooser.class ).to( FileChooserWindows.class );
         }
+
+        binder.bind( Localize.class).annotatedWith(Names.named("xplatform")).toProvider( XPlatformLocalizeProvider.class );
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj != null && obj instanceof XPlatformWiring;
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
+
+
 
 }

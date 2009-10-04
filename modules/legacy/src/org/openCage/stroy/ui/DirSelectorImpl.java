@@ -13,7 +13,6 @@ import org.openCage.stroy.ui.prefs.PrefsUI;
 import org.openCage.stroy.ui.menu.PortableMenu;
 import org.openCage.stroy.update.UpdateChecker;
 import org.openCage.stroy.locale.Message;
-import org.openCage.util.ui.FileChooser;
 import org.openCage.util.logging.LogHandlerPanel;
 import org.openCage.util.prefs.PreferencesChangeListener;
 import org.openCage.util.prefs.TextField;
@@ -27,6 +26,7 @@ import java.util.EventObject;
 import java.io.File;
 
 import net.java.dev.designgridlayout.DesignGridLayout;
+import org.openCage.xplatform.protocol.FileChooser;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -79,13 +79,16 @@ public class DirSelectorImpl extends JFrame
 
     private final UpdateChecker updateChecker;
 
+    private final FileChooser fileChooser;
+
 
     @Inject
-    public DirSelectorImpl( Application application, AboutSheet about, UpdateChecker updateChecker ) {
+    public DirSelectorImpl( Application application, AboutSheet about, UpdateChecker updateChecker, FileChooser fileChooser ) {
         super( "stroy");
 
         this.aboutSheet = about;
         this.updateChecker = updateChecker;
+        this.fileChooser = fileChooser;
 
         Java14Adapter.registerJava14Handler( this );
         Java14Adapter.setEnabledPrefs( true );
@@ -174,7 +177,7 @@ public class DirSelectorImpl extends JFrame
                     }
                 }
 
-                String dir = FileChooser.getDir( frameRef, baseDir);
+                String dir = fileChooser.getDir( frameRef, baseDir);
 
                 if ( dir != null ) {
                     text.setText( FileUtils.normalizePath( dir ));

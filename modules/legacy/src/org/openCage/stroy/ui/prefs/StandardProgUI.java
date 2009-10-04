@@ -1,9 +1,10 @@
 package org.openCage.stroy.ui.prefs;
 
+import com.google.inject.Guice;
+import com.google.inject.Guice;
 import javax.swing.*;
 
 import org.openCage.util.prefs.PreferenceString;
-import org.openCage.util.ui.FileChooser;
 import org.openCage.util.ui.JTextFields;
 import org.openCage.util.io.FileUtils;
 import org.openCage.util.external.ExternalProgs;
@@ -18,6 +19,8 @@ import java.awt.event.KeyEvent;
 
 import com.muchsoft.util.Sys;
 import net.java.dev.designgridlayout.DesignGridLayout;
+import org.openCage.stroy.RuntimeModule;
+import org.openCage.xplatform.protocol.FileChooser;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -62,8 +65,11 @@ public class StandardProgUI extends JPanel {
     private final JRadioButton stdDiff   = new JRadioButton( Message.get( "Pref.StandardProgs.osDiff" ));
     private final JRadioButton otherDiff = new JRadioButton( Message.get( "Pref.StandardProgs.DiffOther" ));
 
+    private final FileChooser fileChooser;
+
     public StandardProgUI( JFrame frme ) {
         this.frame = frme;
+        fileChooser = Guice.createInjector( new RuntimeModule()).getInstance(FileChooser.class);
 
         JPanel top = new JPanel();
         DesignGridLayout layout = new DesignGridLayout( top );
@@ -116,7 +122,7 @@ public class StandardProgUI extends JPanel {
 
         diffButton.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
-                    String path = FileChooser.open( frame, FileUtils.getCurrentDir());
+                    String path = fileChooser.open( frame, FileUtils.getCurrentDir());
 
                     if ( path != null ) {
                         String norm = FileUtils.normalizePath( path );
@@ -135,7 +141,7 @@ public class StandardProgUI extends JPanel {
 
         editButton.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
-                    String path = FileChooser.open( frame, FileUtils.getCurrentDir());
+                    String path = fileChooser.open( frame, FileUtils.getCurrentDir());
 
                     if ( path != null ) {
                         String norm = FileUtils.normalizePath( path );

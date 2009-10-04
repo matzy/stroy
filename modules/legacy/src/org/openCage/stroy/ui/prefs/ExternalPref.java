@@ -1,10 +1,10 @@
 package org.openCage.stroy.ui.prefs;
 
+import com.google.inject.Guice;
 import org.openCage.stroy.file.FileTypes;
 import org.openCage.stroy.file.SimilarityAlgorithm;
 import org.openCage.stroy.locale.Message;
 import org.openCage.stroy.ui.Colors;
-import org.openCage.util.ui.FileChooser;
 import org.openCage.util.ui.JTextFields;
 import org.openCage.util.io.FileUtils;
 import org.openCage.util.external.ExternalProgs;
@@ -21,6 +21,8 @@ import java.util.*;
 import java.util.List;
 
 import net.java.dev.designgridlayout.DesignGridLayout;
+import org.openCage.stroy.RuntimeModule;
+import org.openCage.xplatform.protocol.FileChooser;
 
 
 /***** BEGIN LICENSE BLOCK *****
@@ -75,9 +77,13 @@ public class ExternalPref extends JPanel {
     private Map<String, String> algo2mesg = new HashMap<String, String>();
     private Map<String, String> mesg2algo = new HashMap<String, String>();
 
+    private final FileChooser fileChooser;
+
+
     public ExternalPref( final JFrame frame ) {
 
         this.frame = frame;
+        fileChooser = Guice.createInjector( new RuntimeModule()).getInstance(FileChooser.class);
 
         fileTypes = FileTypes.create();
 
@@ -210,7 +216,7 @@ public class ExternalPref extends JPanel {
 //        });
         openDir.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
-                String path = FileChooser.open( frame, FileUtils.getCurrentDir());
+                String path = fileChooser.open( frame, FileUtils.getCurrentDir());
 
                 if ( path != null ) {
                     openText.setText( FileUtils.normalizePath( path ));
@@ -277,7 +283,7 @@ public class ExternalPref extends JPanel {
 //
         diffDir.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
-                String path = FileChooser.open( frame, FileUtils.getCurrentDir());
+                String path = fileChooser.open( frame, FileUtils.getCurrentDir());
 
                 if ( path != null ) {
                     diffOtherText.setText( FileUtils.normalizePath( path ));

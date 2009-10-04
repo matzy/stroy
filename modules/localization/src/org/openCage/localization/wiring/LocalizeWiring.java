@@ -23,5 +23,17 @@ public class LocalizeWiring implements Module {
 		binder.bind( BundleCheck.class).to( BundleCheckImpl.class );
 	}
 
+    @Override
+    public boolean equals(Object obj) {
+        return obj != null && obj instanceof LocalizeWiring;
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
+
+
+
 }
 
