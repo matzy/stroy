@@ -1,5 +1,8 @@
 package org.openCage.stroy.graph.node;
 
+import org.openCage.stroy.content.Content;
+
+
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
 *
@@ -22,13 +25,13 @@ package org.openCage.stroy.graph.node;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public class SimpleTreeBuilder<T> {
+public class SimpleTreeBuilder {
 
-    public TreeNode<T> d( T t, TreeNode<T> ... childs ) {
-        return new SimpleTreeNode<T>( t, childs );
+    public TreeNode d( Content t, TreeNode ... childs ) {
+        return new SimpleTreeNode( t, childs );
     }
 
-    public TreeNode<T> l( T t ) {
-        return new SimpleTreeNode<T>( t );
+    public TreeNode l( Content t ) {
+        return new SimpleTreeNode( t );
     }
 }

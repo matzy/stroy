@@ -1,8 +1,6 @@
 package org.openCage.stroy.ui.prefs;
 
 import com.google.inject.Guice;
-import com.google.inject.Guice;
-import javax.swing.*;
 
 import org.openCage.util.prefs.PreferenceString;
 import org.openCage.util.ui.JTextFields;
@@ -11,13 +9,20 @@ import org.openCage.util.external.ExternalProgs;
 import org.openCage.stroy.locale.Message;
 import org.openCage.stroy.ui.Colors;
 
-import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 import com.muchsoft.util.Sys;
+import java.awt.BorderLayout;
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 import net.java.dev.designgridlayout.DesignGridLayout;
 import org.openCage.stroy.RuntimeModule;
 import org.openCage.xplatform.protocol.FileChooser;
@@ -70,6 +75,7 @@ public class StandardProgUI extends JPanel {
     public StandardProgUI( JFrame frme ) {
         this.frame = frme;
         fileChooser = Guice.createInjector( new RuntimeModule()).getInstance(FileChooser.class);
+
 
         JPanel top = new JPanel();
         DesignGridLayout layout = new DesignGridLayout( top );

@@ -19,7 +19,7 @@ import org.openCage.xplatform.protocol.FileChooser;
  */
 public class FileChooserOSX implements FileChooser {
 
-    @Inject @Named("xplatform") private Localize localize;
+    @Inject @Named( "xplatform") private Localize localize;
 
 
     /**

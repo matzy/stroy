@@ -76,16 +76,13 @@ public class ExternalPref extends JPanel {
 
     private Map<String, String> algo2mesg = new HashMap<String, String>();
     private Map<String, String> mesg2algo = new HashMap<String, String>();
-
     private final FileChooser fileChooser;
-
 
     public ExternalPref( final JFrame frame ) {
 
         this.frame = frame;
         fileChooser = Guice.createInjector( new RuntimeModule()).getInstance(FileChooser.class);
-
-        fileTypes = FileTypes.create();
+        fileTypes   = FileTypes.create();
 
         List<String> exts = new ArrayList<String>( fileTypes.getTypeList());
         Collections.sort( exts );

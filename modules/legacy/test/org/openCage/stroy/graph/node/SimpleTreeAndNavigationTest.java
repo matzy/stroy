@@ -1,7 +1,6 @@
 package org.openCage.stroy.graph.node;
 
 import junit.framework.TestCase;
-import org.openCage.stroy.content.ReducedContent;
 
 import java.util.List;
 
@@ -30,7 +29,7 @@ import java.util.List;
 public class SimpleTreeAndNavigationTest extends TestCase {
 
     public void testSimple() {
-        SimpleTreeBuilder b = new SimpleTreeBuilder();
+        SimpleStringTreeBuilder b = new SimpleStringTreeBuilder();
 
         TreeNode tree = b.d( "f", b.l("a"),
                                           b.d( "g", b.l("b"),
@@ -45,7 +44,7 @@ public class SimpleTreeAndNavigationTest extends TestCase {
     }
 
     public void testSimpleContent() {
-        SimpleContentTreeBuilder b = new SimpleContentTreeBuilder();
+        SimpleStringTreeBuilder b = new SimpleStringTreeBuilder();
 
         TreeNode tree = b.d( "f", b.l( "a"),
                                                   b.d( "g", b.l("b"),

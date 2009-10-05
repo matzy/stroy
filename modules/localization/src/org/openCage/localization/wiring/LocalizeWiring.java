@@ -32,8 +32,5 @@ public class LocalizeWiring implements Module {
     public int hashCode() {
         return getClass().hashCode();
     }
-
-
-
 }
 

@@ -4,10 +4,13 @@
  */
 package org.openCage.xplatform.impl;
 
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
 import java.awt.FileDialog;
 import java.awt.Frame;
 import java.io.File;
 import javax.swing.JFileChooser;
+import org.openCage.localization.protocol.Localize;
 import org.openCage.xplatform.protocol.FileChooser;
 
 /**
@@ -15,6 +18,9 @@ import org.openCage.xplatform.protocol.FileChooser;
  * @author stephan
  */
 public class FileChooserWindows implements FileChooser {
+
+    @Inject @Named( "xplatform") private Localize localize;
+
 
     public String getDir(Frame fr, String path) {
 
@@ -33,7 +39,7 @@ public class FileChooserWindows implements FileChooser {
 
     public String open(Frame fr, String path) {
         //	System.setProperty( "apple.awt.fileDialogForDirectories", "true" );
-        FileDialog fd = new FileDialog(fr, "Choose a File", FileDialog.LOAD);
+        FileDialog fd = new FileDialog(fr, localize.localize( "xpaltform.choose_a_file"), FileDialog.LOAD);
         fd.setDirectory(path);
         fd.setVisible(true);
 

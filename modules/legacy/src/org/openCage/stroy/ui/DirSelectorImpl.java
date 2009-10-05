@@ -78,7 +78,6 @@ public class DirSelectorImpl extends JFrame
     private MatchStrategy matchStrategy;
 
     private final UpdateChecker updateChecker;
-
     private final FileChooser fileChooser;
 
 
