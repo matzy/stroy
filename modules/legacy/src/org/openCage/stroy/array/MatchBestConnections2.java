@@ -5,12 +5,12 @@ import org.openCage.stroy.locale.Message;
 import org.openCage.stroy.graph.matching.strategy.Reporter;
 import org.openCage.stroy.task.MatchingTask;
 import org.openCage.util.compare.TrippleProj1Comparator;
-import org.openCage.util.iterator.T3;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import org.openCage.lang.protocol.tuple.T3;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1

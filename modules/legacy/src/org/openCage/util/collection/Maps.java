@@ -1,10 +1,10 @@
 package org.openCage.util.collection;
 
-import org.openCage.util.iterator.T2;
 
 import java.util.Map;
 import java.util.List;
 import java.util.HashMap;
+import org.openCage.lang.protocol.tuple.T2;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1

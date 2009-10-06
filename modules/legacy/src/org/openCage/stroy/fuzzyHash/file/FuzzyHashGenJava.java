@@ -8,11 +8,13 @@ import org.openCage.stroy.fuzzyHash.FuzzyHashSetFactory;
 import org.openCage.stroy.text.ForJava;
 import org.openCage.stroy.text.LineNoise;
 import org.openCage.util.io.FileUtils;
-import org.openCage.util.lang.V1;
 
 import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
+import org.openCage.withResource.error.LogError;
+import org.openCage.withResource.protocol.FileLineIterable;
+import org.openCage.withResource.protocol.With;
 
 /***** BEGIN LICENSE BLOCK *****
  * Version: MPL 1.1
@@ -41,36 +43,22 @@ public class FuzzyHashGenJava implements FuzzyHashGenerator<File> {
     private final LineNoise    noise;
     private final Hash<String> hash;
     private final FuzzyHashSetFactory fuzzyHashSetFactory;
+    private final With with;
 
     @Inject
     public FuzzyHashGenJava( @ForJava final LineNoise javaNoise,
                              @ForJava final Hash<String> javaHash,
-                             FuzzyHashSetFactory fuzzyHashSetFactory ) {
+                             FuzzyHashSetFactory fuzzyHashSetFactory,
+                             With with ) {
         this.noise = javaNoise;
         this.hash = javaHash;
         this.fuzzyHashSetFactory = fuzzyHashSetFactory;
+        this.with = with;
     }
 
 
     public FuzzyHash generate( final File file ) {
 
-
-        final Set<Integer> set = new HashSet<Integer>();
-
-
-        FileUtils.withIterator( file, new V1<Iterable<String>>() {
-            public void call( Iterable<String> iterable ) {
-                for ( final String line :iterable ) {
-                    if ( !noise.isGrayNoise( line )) {
-                        set.add( hash.getHash( line ) );
-                    }
-                }
-            }
-        } );
-
-
-
-        return fuzzyHashSetFactory.create( set );
+        return FuzzyHashForTextFiles.gen(noise, hash, fuzzyHashSetFactory, file);
     }
-
 }

@@ -1,13 +1,19 @@
 package org.openCage.stroy.ui;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Point;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import org.openCage.stroy.locale.Message;
-import org.openCage.util.iterator.T2;
 import net.java.dev.designgridlayout.DesignGridLayout;
+import org.openCage.lang.protocol.tuple.T2;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1

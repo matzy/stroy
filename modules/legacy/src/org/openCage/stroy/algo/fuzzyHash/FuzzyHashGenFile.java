@@ -1,15 +1,13 @@
 package org.openCage.stroy.algo.fuzzyHash;
 
-import org.openCage.stroy.fuzzyHash.FuzzyHashGenerator;
-import org.openCage.stroy.algo.fuzzyHash.FuzzyHash;
-import org.openCage.stroy.algo.tree.Fiel;
 import org.openCage.stroy.text.LineNoise;
 import org.openCage.util.io.FileUtils;
-import org.openCage.util.lang.V1;
 
 import java.util.Set;
 import java.util.HashSet;
 import java.io.File;
+import java.util.logging.Logger;
+import org.openCage.withResource.error.LogError;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -39,18 +37,19 @@ public class FuzzyHashGenFile implements FuzzyHashGen<File> {
 
     public FuzzyHash create( File file, String typ ) {
 
-        final Set<String> lines = new HashSet<String>();
-
-        FileUtils.withIterator( file, new V1<Iterable<String>>() {
-            public void call( Iterable<String> iterable ) {
-                for ( String str : iterable ) {
-                    if ( !noise.isGrayNoise( str )) {
-//                        lines.add( hash. str );
-                    }
-                }
-            }
-        } );
-
-        return null;
+        throw LogError.log( new Error( "impl me" ));
+//        final Set<String> lines = new HashSet<String>();
+//
+////        FileUtils.withIterator( file, new V1<Iterable<String>>() {
+////            public void call( Iterable<String> iterable ) {
+////                for ( String str : iterable ) {
+////                    if ( !noise.isGrayNoise( str )) {
+//////                        lines.add( hash. str );
+////                    }
+////                }
+////            }
+////        } );
+//
+//        return null;
     }
 }

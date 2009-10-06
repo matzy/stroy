@@ -1,11 +1,11 @@
 package org.openCage.stroy.task;
 
 import org.openCage.util.lang.Once;
-import org.openCage.util.logging.Log;
-import org.openCage.util.iterator.T3;
 import org.openCage.stroy.diff.ContentDiff;
 
 import java.util.*;
+import java.util.logging.Logger;
+import org.openCage.lang.protocol.tuple.T3;
 
 
 /***** BEGIN LICENSE BLOCK *****
@@ -31,6 +31,8 @@ import java.util.*;
 ***** END LICENSE BLOCK *****/
 
 public class MatchingTaskNeutral<T> implements MatchingTask<T>{
+
+    private static final Logger LOG = Logger.getLogger( MatchingTaskNeutral.class.getName());
 
     private List<NodeChangeListener> listeners = new ArrayList<NodeChangeListener>();
 
@@ -142,7 +144,7 @@ public class MatchingTaskNeutral<T> implements MatchingTask<T>{
     public void match( T src, T tgt, double quality) {
 
         if ( isMatched( src) || isMatched( tgt )) {
-            Log.warning("prog error double match: one argument allready matched, one: " + isMatched(src) + ", two: " + isMatched(tgt));
+            LOG.warning("prog error double match: one argument allready matched, one: " + isMatched(src) + ", two: " + isMatched(tgt));
             throw new IllegalArgumentException( "one argument allready matched, one: " + isMatched(src) + ", two: " + isMatched(tgt));
         }
 

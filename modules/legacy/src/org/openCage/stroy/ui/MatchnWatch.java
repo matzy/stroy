@@ -4,11 +4,10 @@ import org.openCage.stroy.app.UIApp;
 import org.openCage.stroy.graph.matching.strategy.MatchStrategy;
 import org.openCage.stroy.graph.matching.strategy.Reporter;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
-import org.openCage.stroy.content.Content;
-import org.openCage.util.iterator.T2;
 import org.jdesktop.swingworker.SwingWorker;
 
 import java.util.List;
+import org.openCage.lang.protocol.tuple.T2;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1

@@ -1,8 +1,7 @@
 package org.openCage.util.compare;
 
-import org.openCage.util.iterator.T3;
-
 import java.util.Comparator;
+import org.openCage.lang.protocol.tuple.T3;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1

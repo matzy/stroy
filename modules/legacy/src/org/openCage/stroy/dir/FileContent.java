@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.logging.Logger;
 import org.openCage.lang.protocol.FE0;
 import org.openCage.lang.protocol.FE1;
+import org.openCage.lang.protocol.Lazy1;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1

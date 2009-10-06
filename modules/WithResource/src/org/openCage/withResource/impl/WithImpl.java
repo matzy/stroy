@@ -10,9 +10,12 @@ import java.io.InputStream;
 
 import java.io.Reader;
 import java.io.Writer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.openCage.lang.protocol.F1;
 import org.openCage.lang.errors.Unchecked;
 import org.openCage.lang.protocol.FE1;
+import org.openCage.withResource.protocol.FileLineIterable;
 import org.openCage.withResource.protocol.With;
 
 public class WithImpl implements With {
@@ -68,6 +71,22 @@ public class WithImpl implements With {
                     // was closed
                 }
             }
+        }
+    }
+
+    public FileLineIterable getLineIteratorCloseInFinal(File file) {
+        return new IterableFile( file );
+    }
+
+    public void close( InputStream is ) {
+        if ( is != null ) {
+            try {
+                is.close();
+            } catch (IOException ex) {
+                Logger.getLogger(WithImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            is = null;
         }
     }
 

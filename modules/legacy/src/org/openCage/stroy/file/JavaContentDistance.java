@@ -4,7 +4,7 @@ import com.google.inject.Inject;
 import org.openCage.stroy.algo.distance.Distance;
 import org.openCage.stroy.text.ForJava;
 import org.openCage.stroy.text.LineNoise;
-import org.openCage.util.io.LineReaderIterator;
+import org.openCage.withResource.impl.LineReaderIterator;
 import org.openCage.util.io.FileUtils;
 import org.openCage.util.iterator.Iterators;
 import org.openCage.util.logging.Log;
@@ -12,6 +12,7 @@ import org.openCage.util.logging.Log;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import org.openCage.withResource.error.LogError;
 
 /***** BEGIN LICENSE BLOCK *****
  * Version: MPL 1.1
@@ -53,23 +54,25 @@ public class JavaContentDistance implements Distance<File> {
 
     private List<String> getContent( File file ) {
 
-        List<String> cont = new ArrayList<String>();
-        LineReaderIterator it = FileUtils.iterator( file );
-        try {
-            it = FileUtils.iterator( file );
-            for ( String line : Iterators.loop( it ) ) {
-                if ( !noise.isGrayNoise( line )) {
-                    cont.add( line );
-                }
-            }
-        } catch ( Exception exp ) {
-            Log.warning( "can't read file: " + file.getAbsolutePath() );  // NON-NLS
-        } finally {
-            LineReaderIterator.close( it );
-        }
+                throw LogError.log( new Error( "impl me" ));
 
-
-
-        return cont;
+//        List<String> cont = new ArrayList<String>();
+//        LineReaderIterator it = FileUtils.iterator( file );
+//        try {
+//            it = FileUtils.iterator( file );
+//            for ( String line : Iterators.loop( it ) ) {
+//                if ( !noise.isGrayNoise( line )) {
+//                    cont.add( line );
+//                }
+//            }
+//        } catch ( Exception exp ) {
+//            Log.warning( "can't read file: " + file.getAbsolutePath() );  // NON-NLS
+//        } finally {
+//            LineReaderIterator.close( it );
+//        }
+//
+//
+//
+//        return cont;
     }
 }

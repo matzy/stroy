@@ -11,7 +11,6 @@ import org.openCage.stroy.ui.prefs.PrefsUI;
 import org.openCage.stroy.locale.Message;
 import org.openCage.stroy.content.Content;
 import org.openCage.util.prefs.PreferenceString;
-import org.openCage.util.iterator.T2;
 
 import javax.swing.*;
 import javax.swing.tree.TreePath;
@@ -19,6 +18,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import org.openCage.lang.protocol.tuple.T2;
 
 /***** BEGIN LICENSE BLOCK *****
  * Version: MPL 1.1

@@ -7,13 +7,13 @@ import org.openCage.stroy.fuzzyHash.FuzzyHashGenerator;
 import org.openCage.stroy.fuzzyHash.FuzzyHashSetFactory;
 import org.openCage.stroy.text.ForText;
 import org.openCage.stroy.text.LineNoise;
-import org.openCage.util.logging.Log;
 import org.openCage.util.io.FileUtils;
-import org.openCage.util.lang.V1;
 
 import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Logger;
+import org.openCage.withResource.error.LogError;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -38,6 +38,8 @@ import java.util.Set;
 ***** END LICENSE BLOCK *****/
 
 public class FuzzyHashGenText implements FuzzyHashGenerator<File> {
+
+    private static final Logger LOG = Logger.getLogger(FuzzyHashGenText.class.getName());
 
     private final LineNoise    noise;
     private final Hash<String> hash;
@@ -81,37 +83,6 @@ public class FuzzyHashGenText implements FuzzyHashGenerator<File> {
 
     public FuzzyHash generate( final File file ) {
 
-        Log.fine( "fuzzyhash gen " + file.getAbsolutePath()  );
-
-        final Set<Integer> set = new HashSet<Integer>();
-
-        String collect = "";
-        try {
-            FileUtils.withIterator( file, new V1<Iterable<String>>() {
-                public void call( Iterable<String> iterable ) {
-                    int ii = 0;
-                    for ( final String line : iterable ) {
-                        ii++;
-
-                        // TODO real solution
-                        if ( ii > 2000 ) {
-                            break;
-                        }
-                        if ( !noise.isGrayNoise( line )) {
-                            set.add( hash.getHash( line ) );
-                        }
-                    }
-                }
-            } );
-        } catch ( Exception exp ) {
-            Log.warning( "can't read file: " + file.getAbsolutePath() );
-        }
-//        catch ( Error err ) {
-//            Log.severe( "can't read file: " + file.getAbsolutePath() + "lines " + ii );
-//            Log.severe( "error " + err.getMessage() );
-//
-//        }
-
-        return fuzzyHashSetFactory.create( set );
+        return FuzzyHashForTextFiles.gen(noise, hash, fuzzyHashSetFactory, file);
     }
 }

@@ -1,6 +1,5 @@
 package org.openCage.stroy.ui;
 
-import org.openCage.stroy.dir.FileContent;
 import org.openCage.stroy.dir.FileTreeMatchingTaskBuilder;
 import org.openCage.stroy.app.Tasks;
 import org.openCage.stroy.filter.IgnoreCentral;
@@ -12,7 +11,6 @@ import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.graph.matching.strategy.Reporter;
 import org.openCage.stroy.graph.matching.strategy.NameOnly;
 import org.openCage.stroy.graph.matching.strategy.combined.WatchFull;
-import org.openCage.util.iterator.T2;
 import org.jdesktop.swingworker.SwingWorker;
 
 import java.util.List;
@@ -25,6 +23,7 @@ import com.google.inject.Guice;
 import com.google.inject.Key;
 import com.google.inject.TypeLiteral;
 import java.util.logging.Logger;
+import org.openCage.lang.protocol.tuple.T2;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1

@@ -1,6 +1,7 @@
 package org.openCage.util.iterator;
 
 import java.util.Iterator;
+import org.openCage.lang.protocol.tuple.T2;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1

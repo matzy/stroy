@@ -1,10 +1,7 @@
 package org.openCage.stroy.ui.thinning;
 
 import org.jdesktop.swingworker.SwingWorker;
-import org.openCage.util.iterator.T2;
-import org.openCage.stroy.dir.FileContent;
 import org.openCage.stroy.filter.Ignore;
-import org.openCage.stroy.graph.node.TreeNode;
 import org.openCage.stroy.graph.node.TreeNode;
 import org.openCage.stroy.graph.node.TreeNodeUtils;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
@@ -20,6 +17,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import java.util.List;
 import java.util.ArrayList;
+import org.openCage.lang.protocol.tuple.T2;
 
 
 /***** BEGIN LICENSE BLOCK *****
@@ -48,7 +46,7 @@ import java.util.ArrayList;
  * To be run if ignore is changed.
  * TODO extend to 3way
  */
-public class IgnoreUpdateWorker<T extends Content> extends SwingWorker<String, T2<Integer, TreeNode >> {
+public class IgnoreUpdateWorker extends SwingWorker<String, T2<Integer, TreeNode >> {
 
 
     private final List<TreeMatchingTask> tasks;

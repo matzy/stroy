@@ -33,8 +33,6 @@ public class XPlatformWiring implements Module {
         } else if (Sys.isWindows()) {
             binder.bind(FileChooser.class).to(FileChooserWindows.class);
         }
-
-        binder.bind(Localize.class).annotatedWith(Names.named("xplatform")).toProvider(XPlatformLocalizeProvider.class);
     }
 
     @Override

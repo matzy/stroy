@@ -9,10 +9,10 @@ import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.graph.matching.strategy.combined.FastFirst;
 import org.openCage.stroy.graph.matching.strategy.MatchStrategy;
 import org.openCage.stroy.RuntimeModule;
-import org.openCage.util.iterator.T2;
 
 import java.io.File;                                                                                       
 import java.util.logging.Logger;
+import org.openCage.lang.protocol.tuple.T2;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1

@@ -1,10 +1,9 @@
-package org.openCage.util.io;
-
-import org.openCage.util.logging.Log;
+package org.openCage.withResource.impl;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.logging.Logger;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -30,6 +29,9 @@ import java.util.Iterator;
 
 
 public class LineReaderIterator  implements Iterator<String> {
+
+    private static final Logger LOG = Logger.getLogger(LineReaderIterator.class.getName());
+
     private BufferedReader reader;
     private String         line;
 
@@ -57,21 +59,24 @@ public class LineReaderIterator  implements Iterator<String> {
         throw new UnsupportedOperationException( "this iterator has no remove" );
     }
 
-    public void close() {
-        if ( reader != null ) {
-            try {
-                reader.close();
-            } catch ( IOException e ) {
-                Log.warning( "close threw error " + e  );
-            }
-            reader = null;
-        }
-    }
 
-    public static void close( LineReaderIterator it ) {
-        if ( it != null ) {
-            it.close();
-        }
-    }
+
+
+//    public void close() {
+//        if ( reader != null ) {
+//            try {
+//                reader.close();
+//            } catch ( IOException e ) {
+//                Log.warning( "close threw error " + e  );
+//            }
+//            reader = null;
+//        }
+//    }
+
+//    public static void close( LineReaderIterator it ) {
+//        if ( it != null ) {
+//            it.close();
+//        }
+//    }
 
 }

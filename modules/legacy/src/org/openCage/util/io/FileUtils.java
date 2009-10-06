@@ -1,13 +1,17 @@
 package org.openCage.util.io;
 
+import org.openCage.withResource.impl.LineReaderIterator;
 import com.muchsoft.util.Sys;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.regex.Pattern;
 
-import org.openCage.util.lang.V1;
-import org.openCage.util.lang.V2;
-import org.openCage.util.lang.V0;
 import org.openCage.util.iterator.Iterators;
 
 /***** BEGIN LICENSE BLOCK *****
@@ -199,71 +203,57 @@ public class FileUtils {
     }
 
 
-    public static void loop( File file, V1<LineReaderIterator> func ) {
-        LineReaderIterator it = iterator( file );
-        try {
-            func.call( it );
-        } finally {
-            it.close();
-        }
-    }
+//    public static void loop( File file, V1<LineReaderIterator> func ) {
+//        LineReaderIterator it = iterator( file );
+//        try {
+//            func.call( it );
+//        } finally {
+//            it.close();
+//        }
+//    }
 
-    public static void withIterator( File file, V1<Iterable<String>> func ) {
-        LineReaderIterator it = iterator( file );
-        try {
-            Iterable<String> ita = Iterators.loop( it );
-            func.call( ita );
-        } finally {
-            it.close();
-        }
-    }
+//    public static void withIterator( File file, V1<Iterable<String>> func ) {
+//        LineReaderIterator it = iterator( file );
+//        try {
+//            Iterable<String> ita = Iterators.loop( it );
+//            func.call( ita );
+//        } finally {
+//            it.close();
+//        }
+//    }
+//
+//    public static void withIterator( InputStream is , V1<Iterable<String>> func ) {
+//        LineReaderIterator it = null;
+//        try {
+//            it = new LineReaderIterator( new BufferedReader( new InputStreamReader( is )));
+//            Iterable<String> ita = Iterators.loop( it );
+//            func.call( ita );
+//        } catch ( IOException e ) {
+//            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+//        } finally {
+//            LineReaderIterator.close( it );
+//        }
+//    }
 
-    public static void withIterator( InputStream is , V1<Iterable<String>> func ) {
-        LineReaderIterator it = null;
-        try {
-            it = new LineReaderIterator( new BufferedReader( new InputStreamReader( is )));
-            Iterable<String> ita = Iterators.loop( it );
-            func.call( ita );
-        } catch ( IOException e ) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        } finally {
-            LineReaderIterator.close( it );
-        }
-    }
-
-    public static void withOpen( File file, V2<String, LoopState> v2 ) {
-        LineReaderIterator it = iterator( file );
-        try {
-            LoopStateImpl lp = new LoopStateImpl();
-            for ( String str : Iterators.loop( it ) ) {
-                v2.c( str, lp );
-                if ( lp.isBroken()) {
-                    break;
-                }
-
-                lp.incr();
-            }
+//    public static void withOpen( File file, V2<String, LoopState> v2 ) {
+//        LineReaderIterator it = iterator( file );
+//        try {
+//            LoopStateImpl lp = new LoopStateImpl();
+//            for ( String str : Iterators.loop( it ) ) {
+//                v2.c( str, lp );
+//                if ( lp.isBroken()) {
+//                    break;
+//                }
+//
+//                lp.incr();
+//            }
+//
+//
+//        } finally {
+//            it.close();
+//        }
+//    }
 
 
-        } finally {
-            it.close();
-        }
-    }
-
-
-    public static <T> void withOpenStream( InputStream is, V0 func ) {
-        try {
-            func.c();
-        } finally {
-            if ( is != null ) {
-                try {
-                    is.close();
-                } catch ( IOException e ) {
-                    // was closed
-                }
-            }
-            return;
-        }
-    }
 
 }

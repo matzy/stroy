@@ -2,13 +2,14 @@ package org.openCage.stroy.algo.fuzzyHash;
 
 import org.openCage.stroy.fuzzyHash.metric.CountChangeMetric;
 import org.openCage.util.io.FileUtils;
-import org.openCage.util.lang.V1;
 
 import java.io.InputStream;
 import java.util.Set;
 import java.util.HashSet;
 
 import com.google.inject.Inject;
+import java.util.logging.Logger;
+import org.openCage.withResource.error.LogError;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -47,16 +48,17 @@ public class FuzzyHashGenIS implements FuzzyHashGen<InputStream>{
     public FuzzyHash create( InputStream inputStream, String type ) {
 
         final Set<String> lines = new HashSet<String>();
+        throw LogError.log( new Error( "impl me" ));
 
-        FileUtils.withIterator( inputStream, new V1<Iterable<String>>() {
-            public void call( Iterable<String> iterable ) {
-                for ( String str : iterable ) {
-                    lines.add( str );
-                }
-            }
-        } );
-
-        return null;
+////        FileUtils.withIterator( inputStream, new V1<Iterable<String>>() {
+////            public void call( Iterable<String> iterable ) {
+////                for ( String str : iterable ) {
+////                    lines.add( str );
+////                }
+////            }
+////        } );
+//
+//        return null;
 //        return new SetFuzzyHash( metric, type, lines );
     }
 }

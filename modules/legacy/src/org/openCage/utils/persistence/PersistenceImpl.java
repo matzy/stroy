@@ -1,14 +1,12 @@
 package org.openCage.utils.persistence;
 
 import org.openCage.util.io.FileUtils;
-import org.openCage.util.lang.V1;
 import org.openCage.utils.lang.BackgroundSaver;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.Writer;
 import java.io.Reader;
-import java.io.IOException;
 
 import com.google.inject.Inject;
 import java.util.logging.Logger;

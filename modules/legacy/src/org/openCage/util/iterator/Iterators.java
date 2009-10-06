@@ -2,8 +2,9 @@ package org.openCage.util.iterator;
 
 import org.openCage.util.string.IterableString;
 
-import java.io.File;
 import java.util.Iterator;
+import org.openCage.lang.protocol.tuple.T2;
+import org.openCage.lang.protocol.tuple.T3;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -36,9 +37,9 @@ public class Iterators {
         return new T2It<T, S>( t, s );
     }
 
-    public static <T,S,C> Iterable<T3<T,S,C>> together( Iterable<T> t, Iterable<S> s, Iterable<C> c ) {
-        return new T3It<T,S,C>( t, s, c );
-    }
+//    public static <T,S,C> Iterable<T3<T,S,C>> together( Iterable<T> t, Iterable<S> s, Iterable<C> c ) {
+//        return new T3It<T,S,C>( t, s, c );
+//    }
 
 
     public static <T> Iterable<Count<T>> count( Iterable<T> t ) {

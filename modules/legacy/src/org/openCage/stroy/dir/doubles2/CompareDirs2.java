@@ -1,11 +1,10 @@
 package org.openCage.stroy.dir.doubles2;
 
-import org.openCage.stroy.dir.FileContent;
 import org.openCage.stroy.filter.Ignore;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
-import org.openCage.util.iterator.T2;
 
 import java.io.File;
+import org.openCage.lang.protocol.tuple.T2;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1

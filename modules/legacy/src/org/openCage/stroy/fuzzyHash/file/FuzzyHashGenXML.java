@@ -7,12 +7,12 @@ import org.openCage.stroy.fuzzyHash.FuzzyHashGenerator;
 import org.openCage.stroy.fuzzyHash.FuzzyHashSetFactory;
 import org.openCage.stroy.text.LineNoise;
 import org.openCage.stroy.text.ForXML;
-import org.openCage.util.io.FileUtils;
-import org.openCage.util.lang.V1;
 
 import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
+import org.openCage.lang.protocol.FE1;
+import org.openCage.withResource.error.LogError;
 
 /***** BEGIN LICENSE BLOCK *****
  * Version: MPL 1.1
@@ -54,21 +54,7 @@ public class FuzzyHashGenXML implements FuzzyHashGenerator<File> {
 
     public FuzzyHash generate( final File file ) {
 
-
-        final Set<Integer> set = new HashSet<Integer>();
-
-        FileUtils.withIterator( file, new V1<Iterable<String>>() {
-            public void call( Iterable<String> iterable ) {
-                for ( final String line :iterable ) {
-                    if ( !noise.isGrayNoise( line )) {
-                        set.add( hash.getHash( line ) );
-                    }
-                }
-            }
-        } );
-
-
-        return fuzzyHashSetFactory.create( set );
+        return FuzzyHashForTextFiles.gen(noise, hash, fuzzyHashSetFactory, file);
     }
 
 }
