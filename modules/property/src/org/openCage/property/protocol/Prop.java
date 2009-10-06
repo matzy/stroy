@@ -1,9 +1,4 @@
-package org.openCage.utils.prop.poc;
-
-import org.openCage.utils.prop.Prop;
-import com.google.inject.Inject;
-import com.google.inject.Provider;
-import com.google.inject.name.Named;
+package org.openCage.property.protocol;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -26,16 +21,17 @@ import com.google.inject.name.Named;
 *
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
-public class UsingProp {
 
-    private final Prop<String> prop;
 
-    @Inject
-    public UsingProp( @Named("foo") final Provider<Prop<String>> propprov ) {
-        this.prop = propprov.get();
-    }
+/**
+ * Persistence wrapper for class T
+ * @param <T>
+ */
+public interface Prop<T> {
 
-    public Prop<String> getProp() {
-        return prop;
-    }
+    public T    get();
+    public void set( T val );
+    public void setDefault();
+    public void addListener( PropChangeListener<T> listener );
+
 }

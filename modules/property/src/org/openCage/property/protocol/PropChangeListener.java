@@ -1,8 +1,4 @@
-package org.openCage.utils.prop.poc;
-
-import org.openCage.utils.prop.PropStoreFactory;
-import org.openCage.utils.prop.PropProvider;
-import com.google.inject.Inject;
+package org.openCage.property.protocol;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -25,11 +21,7 @@ import com.google.inject.Inject;
 *
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
+public interface PropChangeListener<T> {
 
-public class PiPropProvider extends PropProvider<Double> {
-
-    @Inject
-    public PiPropProvider( final PropStoreFactory psfactory ) {
-        super( psfactory, "pi", 3.14159 );
-    }
+    public void propChanged( T newVal );
 }

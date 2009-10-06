@@ -1,5 +1,6 @@
-package org.openCage.utils.prop;
+package org.openCage.property.impl;
 
+import org.openCage.property.protocol.*;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -26,9 +27,9 @@ import java.util.ArrayList;
 ***** END LICENSE BLOCK *****/
 public class PropImpl<T> implements Prop<T>{
 
-    private T prop;
+    private T                           deflt;
+    private T                           prop;
     private List<PropChangeListener<T>> listeners = new ArrayList<PropChangeListener<T>>();
-
 
     public PropImpl( T str ) {
         prop = str;
@@ -39,7 +40,13 @@ public class PropImpl<T> implements Prop<T>{
     }
 
     public void set( T val ) {
+        if ( prop.equals(val)) {
+            // nothing to do. no event
+            return;
+        }
+
         prop = val;
+        
         for ( PropChangeListener listener : listeners ) {
             listener.propChanged( prop  );
         }
@@ -47,5 +54,9 @@ public class PropImpl<T> implements Prop<T>{
 
     public void addListener( PropChangeListener<T> listener ) {
         listeners.add( listener );
+    }
+
+    public void setDefault() {
+        set( deflt );
     }
 }
