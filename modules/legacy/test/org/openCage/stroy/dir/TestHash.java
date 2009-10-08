@@ -1,7 +1,6 @@
 package org.openCage.stroy.dir;
 
 import org.openCage.util.io.FileUtils;
-import org.openCage.util.lang.V1;
 
 import java.util.Map;
 import java.util.List;
@@ -67,39 +66,41 @@ public class TestHash {
                 return;
             }
 
-            FileUtils.withIterator( file, new V1<Iterable<String>>() {
-                public void call( Iterable<String> iterable ) {
-                    for ( String line : iterable ) {
-                        if ( !hashes.containsKey( line.hashCode())) {
-                            hashes.put( line.hashCode(), new ArrayList<String>());
-                        }
+            throw new Error( "not impl" );
 
-                        List<String> before  = hashes.get( line.hashCode() );
-
-                        boolean found = false;
-                        for ( String ll : before ) {
-                            if ( ll.equals(line )) {
-                                found = true;
-                                break;
-                            }
-                        }
-
-                        if ( !found ) {
-                            before.add( line );
-
-                            if ( before.size() > 1 ) {
-                                dup++;
-                                System.out.println("-- " + dup + " of " + hashes.size() );
-                                System.out.println("   " + line.hashCode());
-                                for ( String dd : before ) {
-                                    System.out.println("   " + dd );
-                                }
-                            }
-                        }
-
-                    }
-                }
-            } );
+//            FileUtils.withIterator( file, new V1<Iterable<String>>() {
+//                public void call( Iterable<String> iterable ) {
+//                    for ( String line : iterable ) {
+//                        if ( !hashes.containsKey( line.hashCode())) {
+//                            hashes.put( line.hashCode(), new ArrayList<String>());
+//                        }
+//
+//                        List<String> before  = hashes.get( line.hashCode() );
+//
+//                        boolean found = false;
+//                        for ( String ll : before ) {
+//                            if ( ll.equals(line )) {
+//                                found = true;
+//                                break;
+//                            }
+//                        }
+//
+//                        if ( !found ) {
+//                            before.add( line );
+//
+//                            if ( before.size() > 1 ) {
+//                                dup++;
+//                                System.out.println("-- " + dup + " of " + hashes.size() );
+//                                System.out.println("   " + line.hashCode());
+//                                for ( String dd : before ) {
+//                                    System.out.println("   " + dd );
+//                                }
+//                            }
+//                        }
+//
+//                    }
+//                }
+//            } );
 
         }
     }

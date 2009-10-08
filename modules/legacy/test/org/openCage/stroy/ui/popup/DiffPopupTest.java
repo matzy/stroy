@@ -1,6 +1,7 @@
 package org.openCage.stroy.ui.popup;
 
 import org.junit.Test;
+import org.openCage.lang.protocol.tuple.T2;
 import org.openCage.stroy.graph.node.SimpleContentTreeBuilder;
 import org.openCage.stroy.graph.node.TreeNode;
 import org.openCage.stroy.graph.node.TreeNodeUtils;
@@ -8,8 +9,6 @@ import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.graph.matching.TreeMatchingTaskNeutralBuilder;
 import org.openCage.stroy.graph.matching.strategy.StandardMatching;
 import org.openCage.stroy.graph.matching.strategy.NullReporter;
-import org.openCage.stroy.content.ReducedContent;
-import org.openCage.util.iterator.T2;
 
 import static org.junit.Assert.*;
 

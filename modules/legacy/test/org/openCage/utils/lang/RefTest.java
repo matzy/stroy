@@ -1,7 +1,7 @@
 package org.openCage.utils.lang;
 
-import org.openCage.utils.func.F1;
 import org.junit.Test;
+import org.openCage.lang.protocol.F1;
 import static junit.framework.Assert.assertEquals;
 
 /***** BEGIN LICENSE BLOCK *****
@@ -34,11 +34,12 @@ public class RefTest {
         Ref<Integer> i = Ref.c( 5 );
 
         new F1<Void, Ref<Integer>>() {
-            public Void c( Ref<Integer> integerRef ) {
+            public Void call( Ref<Integer> integerRef ) {
                 integerRef.o = 7;
                 return null;
             }
-        }.c( i );
+
+        }.call( i );
 
         assertEquals( 7, i.o.intValue());
     }
