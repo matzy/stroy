@@ -1,7 +1,7 @@
 package org.openCage.stroy.algo.tree.zip;
 
 import org.openCage.stroy.algo.tree.Fiel;
-import org.openCage.stroy.algo.fuzzyHash.FuzzyHash;
+import org.openCage.stroy.algo.fuzzyHash.HasDistance;
 import org.openCage.util.string.Strings;
 import org.openCage.lang.protocol.Lazy;
 
@@ -41,7 +41,7 @@ public class ZipFiel implements Fiel {
     private String   checkSum;
     private boolean  readError = false;
     private String   type;
-    private Lazy<FuzzyHash> lazyFuzzy;
+    private Lazy<HasDistance> lazyFuzzy;
 
     public ZipFiel( String rootPath, ZipEntry zipEntry, String type ) { //, Lazy<FuzzyHash> lazyFuzzy ) {
         this.rootPath = rootPath;
@@ -70,7 +70,7 @@ public class ZipFiel implements Fiel {
         return type;
     }
 
-    public FuzzyHash getFuzzyHash() {
+    public HasDistance getFuzzyHash() {
         return lazyFuzzy.get();
     }
 

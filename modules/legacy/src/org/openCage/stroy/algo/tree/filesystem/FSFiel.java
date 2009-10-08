@@ -4,7 +4,7 @@ import org.openCage.stroy.algo.tree.Fiel;
 import org.openCage.stroy.algo.tree.IOStateImpl;
 import org.openCage.stroy.algo.tree.IOState;
 import org.openCage.stroy.algo.fingerprint.FingerPrint;
-import org.openCage.stroy.algo.fuzzyHash.FuzzyHash;
+import org.openCage.stroy.algo.fuzzyHash.HasDistance;
 import org.openCage.util.io.FileUtils;
 import org.openCage.lang.protocol.Lazy;
 import org.openCage.utils.func.F0;
@@ -43,7 +43,7 @@ public class FSFiel implements Fiel {
     private IOState ioState = new IOStateImpl();
 
     private String           type;
-    private Lazy<FuzzyHash>  fuzzy;
+    private Lazy<HasDistance>  fuzzy;
 
     private final Lazy<String> calcChecksum;
 
@@ -57,8 +57,8 @@ public class FSFiel implements Fiel {
             }
         } );
 
-        fuzzy = new Lazy<FuzzyHash>( new FE0<FuzzyHash>() {
-            public FuzzyHash call() {
+        fuzzy = new Lazy<HasDistance>( new FE0<HasDistance>() {
+            public HasDistance call() {
                 return null;  // TODO
             }
         } );
@@ -74,7 +74,7 @@ public class FSFiel implements Fiel {
         return type;
     }
 
-    public FuzzyHash getFuzzyHash() {
+    public HasDistance getFuzzyHash() {
         return fuzzy.get();
     }
 

@@ -7,7 +7,7 @@ package org.openCage.stroy.fuzzyHash.file;
 import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
-import org.openCage.stroy.algo.fuzzyHash.FuzzyHash;
+import org.openCage.stroy.algo.fuzzyHash.HasDistance;
 import org.openCage.stroy.algo.hash.Hash;
 import org.openCage.stroy.fuzzyHash.FuzzyHashSetFactory;
 import org.openCage.stroy.text.LineNoise;
@@ -23,7 +23,7 @@ public class FuzzyHashForTextFiles {
 
     private static With with = new WithImpl();
 
-    public static FuzzyHash gen( final LineNoise noise, final Hash<String> hash, FuzzyHashSetFactory fuzzyHashSetFactory, File file ) {
+    public static HasDistance gen( final LineNoise noise, final Hash<String> hash, FuzzyHashSetFactory fuzzyHashSetFactory, File file ) {
         final Set<Integer> set = new HashSet<Integer>();
         int blockSize = 1;
         int idx = 0;

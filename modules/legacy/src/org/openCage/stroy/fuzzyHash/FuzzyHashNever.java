@@ -1,6 +1,6 @@
 package org.openCage.stroy.fuzzyHash;
 
-import org.openCage.stroy.algo.fuzzyHash.FuzzyHash;
+import org.openCage.stroy.algo.fuzzyHash.HasDistance;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -24,8 +24,8 @@ import org.openCage.stroy.algo.fuzzyHash.FuzzyHash;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public class FuzzyHashNever implements FuzzyHash {
-    public double fuzzyEqual( FuzzyHash other) {
+public class FuzzyHashNever implements HasDistance {
+    public double distance( HasDistance other) {
         return 0.0;
     }
 }

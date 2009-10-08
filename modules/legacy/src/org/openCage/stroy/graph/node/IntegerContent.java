@@ -6,7 +6,7 @@
 package org.openCage.stroy.graph.node;
 
 import java.io.File;
-import org.openCage.stroy.algo.fuzzyHash.FuzzyHash;
+import org.openCage.stroy.algo.fuzzyHash.HasDistance;
 import org.openCage.stroy.content.Content;
 
 /**
@@ -29,7 +29,7 @@ public class IntegerContent implements Content{
         return "" + inti;
     }
 
-    public FuzzyHash getFuzzyHash() {
+    public HasDistance getFuzzyHash() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

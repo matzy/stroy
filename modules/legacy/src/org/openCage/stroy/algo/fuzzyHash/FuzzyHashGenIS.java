@@ -45,7 +45,7 @@ public class FuzzyHashGenIS implements FuzzyHashGen<InputStream>{
     }
 
 
-    public FuzzyHash create( InputStream inputStream, String type ) {
+    public HasDistance create( InputStream inputStream, String type ) {
 
         final Set<String> lines = new HashSet<String>();
         throw LogError.log( new Error( "impl me" ));

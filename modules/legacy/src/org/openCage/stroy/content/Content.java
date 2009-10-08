@@ -1,6 +1,6 @@
 package org.openCage.stroy.content;
 
-import org.openCage.stroy.algo.fuzzyHash.FuzzyHash;
+import org.openCage.stroy.algo.fuzzyHash.HasDistance;
 
 import java.io.File;
 
@@ -30,7 +30,7 @@ public interface Content {
 
     public String    getName(); // TODO that should be on the node
     public String    getChecksum();
-    public FuzzyHash getFuzzyHash();
+    public HasDistance getFuzzyHash();
     public String    getType();
 
 

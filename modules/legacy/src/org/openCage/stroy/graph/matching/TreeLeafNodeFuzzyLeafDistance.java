@@ -48,7 +48,7 @@ public class TreeLeafNodeFuzzyLeafDistance implements TreeLeafDistance {
             return 1.0;
         }
 
-        double contentDist = Math.max( .001, 1 - a.getContent().getFuzzyHash().fuzzyEqual( b.getContent().getFuzzyHash() ));
+        double contentDist = Math.max( .001, a.getContent().getFuzzyHash().distance( b.getContent().getFuzzyHash() ));
 
 
         boolean sameName   = a.getContent().getName().equals( b.getContent().getName() );

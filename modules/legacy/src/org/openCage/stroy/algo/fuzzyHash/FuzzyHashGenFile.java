@@ -35,7 +35,7 @@ public class FuzzyHashGenFile implements FuzzyHashGen<File> {
     private LineNoise noise;
     private Object hash;
 
-    public FuzzyHash create( File file, String typ ) {
+    public HasDistance create( File file, String typ ) {
 
         throw LogError.log( new Error( "impl me" ));
 //        final Set<String> lines = new HashSet<String>();

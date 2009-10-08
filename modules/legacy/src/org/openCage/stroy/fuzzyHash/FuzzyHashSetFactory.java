@@ -5,7 +5,7 @@ import com.google.inject.Inject;
 import java.util.Set;
 
 import org.openCage.stroy.fuzzyHash.metric.CountChangeMetric;
-import org.openCage.stroy.algo.fuzzyHash.FuzzyHash;
+import org.openCage.stroy.algo.fuzzyHash.HasDistance;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -38,7 +38,7 @@ public class FuzzyHashSetFactory {
         this.metric = metric;
     }
 
-    public FuzzyHash create(Set<Integer> set) {
+    public HasDistance create(Set<Integer> set) {
         return new FuzzyHashSet( metric, set );
     }
 }

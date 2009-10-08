@@ -24,5 +24,5 @@ package org.openCage.stroy.algo.fuzzyHash;
 ***** END LICENSE BLOCK *****/
 public interface FuzzyHashGen<A> {
 
-    public FuzzyHash create( A a, String b );
+    public HasDistance create( A a, String b );
 }

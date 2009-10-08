@@ -21,7 +21,7 @@ package org.openCage.stroy.algo.fuzzyHash;
 *
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
-public interface FuzzyHash {
+public interface HasDistance {
 
-    public double fuzzyEqual( FuzzyHash other );
+    public double distance( HasDistance other );
 }

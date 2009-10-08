@@ -1,6 +1,6 @@
 package org.openCage.stroy.content;
 
-import org.openCage.stroy.algo.fuzzyHash.FuzzyHash;
+import org.openCage.stroy.algo.fuzzyHash.HasDistance;
 
 import java.io.File;
 
@@ -34,13 +34,13 @@ import java.io.File;
 public class ReducedContent implements Content {
     private final String    name;
     private final String    checksum;
-    private final FuzzyHash fuzzyHash;
+    private final HasDistance fuzzyHash;
     private final String    typ;
 
 
     public ReducedContent( final String    name,
                            final String    checksum,
-                           final FuzzyHash fuzzyHash,
+                           final HasDistance fuzzyHash,
                            final String    typ ) {
         this.name     = name;
         this.checksum = checksum;
@@ -64,7 +64,7 @@ public class ReducedContent implements Content {
         return checksum;
     }
 
-    public FuzzyHash getFuzzyHash() {
+    public HasDistance getFuzzyHash() {
         return fuzzyHash;
     }
 

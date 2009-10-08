@@ -2,7 +2,7 @@ package org.openCage.stroy.fuzzyHash.file;
 
 import com.google.inject.Inject;
 import org.openCage.stroy.algo.hash.Hash;
-import org.openCage.stroy.algo.fuzzyHash.FuzzyHash;
+import org.openCage.stroy.algo.fuzzyHash.HasDistance;
 import org.openCage.stroy.fuzzyHash.FuzzyHashGenerator;
 import org.openCage.stroy.fuzzyHash.FuzzyHashSetFactory;
 import org.openCage.stroy.text.ForText;
@@ -81,7 +81,7 @@ public class FuzzyHashGenText implements FuzzyHashGenerator<File> {
 //        return fuzzyHashSetFactory.getOrCreate( set );
 //    }
 
-    public FuzzyHash generate( final File file ) {
+    public HasDistance generate( final File file ) {
 
         return FuzzyHashForTextFiles.gen(noise, hash, fuzzyHashSetFactory, file);
     }

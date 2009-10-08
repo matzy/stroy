@@ -1,31 +1,33 @@
 package org.openCage.stroy.fuzzyHash;
 
-import org.openCage.stroy.algo.fuzzyHash.FuzzyHash;
+import org.openCage.stroy.algo.fuzzyHash.HasDistance;
 
 import java.util.Set;
 
-public class SetFuzzyHash implements FuzzyHash {
+public class SetFuzzyHash implements HasDistance {
 
     private String type;
     private Set<Integer> lines;
 
 
-    public double fuzzyEqual( FuzzyHash other ) {
+    public double distance( HasDistance other ) {
 
         if ( other == null ) {
-            return 0;
+            return 1;
         }
 
         if ( !(other instanceof SetFuzzyHash )) {
-            return 0;
+            return 1;
         }
 
         SetFuzzyHash otherFuzzy = (SetFuzzyHash)other;
 
         if ( !type.equals(  otherFuzzy.type )) {
-            return 0;
+            return 1;
         }
 
-        return 0;  //To change body of implemented methods use File | Settings | File Templates.
+        throw new Error( "not impl" );
+
+        //return 1;  //To change body of implemented methods use File | Settings | File Templates.
     }
 }

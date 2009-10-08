@@ -4,7 +4,7 @@ import org.openCage.lang.protocol.Lazy;
 import org.openCage.util.io.FileUtils;
 import org.openCage.util.lang.*;
 import org.openCage.stroy.content.Content;
-import org.openCage.stroy.algo.fuzzyHash.FuzzyHash;
+import org.openCage.stroy.algo.fuzzyHash.HasDistance;
 import org.openCage.util.checksum.FullFileMD5;
 
 import java.io.File;
@@ -41,9 +41,9 @@ public class FileContent implements Content {
 
     private final File                     file;
     private final Lazy<String>             checksum;
-    private final Lazy1<FuzzyHash, File>   fuzzy;
+    private final Lazy1<HasDistance, File>   fuzzy;
 
-    public FileContent( final FE1<FuzzyHash, File> fuzzyGen, final File file ) {
+    public FileContent( final FE1<HasDistance, File> fuzzyGen, final File file ) {
         this.file     = file;
         this.checksum = new Lazy<String>( new FE0<String>() {
             public String call() {
@@ -56,7 +56,7 @@ public class FileContent implements Content {
             }
         } );
 
-        this.fuzzy = new Lazy1<FuzzyHash, File>( fuzzyGen );
+        this.fuzzy = new Lazy1<HasDistance, File>( fuzzyGen );
     }
 
     public String getName() {
@@ -67,7 +67,7 @@ public class FileContent implements Content {
         return checksum.get();
     }
 
-    public FuzzyHash getFuzzyHash() {
+    public HasDistance getFuzzyHash() {
         return fuzzy.get( file );
     }
 

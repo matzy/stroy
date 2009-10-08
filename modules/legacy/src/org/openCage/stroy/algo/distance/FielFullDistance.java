@@ -41,6 +41,6 @@ public class FielFullDistance implements Distance<Fiel> {
 
         // fuzzy equality is just a heuristic to differentiate from fingerprint equal
         // add a tiny number
-        return Math.max( 1, HEURISTIC + a.getFuzzyHash().fuzzyEqual( b.getFuzzyHash()));
+        return Math.max( 1, HEURISTIC + a.getFuzzyHash().distance( b.getFuzzyHash()));
     }
 }

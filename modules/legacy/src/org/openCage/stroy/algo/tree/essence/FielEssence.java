@@ -1,7 +1,7 @@
 package org.openCage.stroy.algo.tree.essence;
 
 import org.openCage.stroy.algo.tree.Fiel;
-import org.openCage.stroy.algo.fuzzyHash.FuzzyHash;
+import org.openCage.stroy.algo.fuzzyHash.HasDistance;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -33,7 +33,7 @@ public class FielEssence implements Fiel {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    public FuzzyHash getFuzzyHash() {
+    public HasDistance getFuzzyHash() {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 

@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.openCage.stroy.fuzzyHash.metric.CountChangeMetric;
-import org.openCage.stroy.algo.fuzzyHash.FuzzyHash;
+import org.openCage.stroy.algo.fuzzyHash.HasDistance;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -31,7 +31,7 @@ import org.openCage.stroy.algo.fuzzyHash.FuzzyHash;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public class FuzzyHashList implements FuzzyHash {
+public class FuzzyHashList implements HasDistance {
 
     private final List<Integer>  list;
     // transient
@@ -45,7 +45,7 @@ public class FuzzyHashList implements FuzzyHash {
     }
 
 
-    public double fuzzyEqual( FuzzyHash other) {
+    public double distance( HasDistance other) {
 
         if ( ! ( other instanceof FuzzyHashList  )) {
             return 0.0;

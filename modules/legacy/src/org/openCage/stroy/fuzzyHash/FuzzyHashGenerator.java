@@ -1,6 +1,6 @@
 package org.openCage.stroy.fuzzyHash;
 
-import org.openCage.stroy.algo.fuzzyHash.FuzzyHash;
+import org.openCage.stroy.algo.fuzzyHash.HasDistance;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -26,5 +26,5 @@ import org.openCage.stroy.algo.fuzzyHash.FuzzyHash;
 
 public interface FuzzyHashGenerator<T> {
 
-    public FuzzyHash generate( T obj );
+    public HasDistance generate( T obj );
 }

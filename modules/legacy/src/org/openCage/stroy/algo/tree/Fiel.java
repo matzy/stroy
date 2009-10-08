@@ -1,6 +1,6 @@
 package org.openCage.stroy.algo.tree;
 
-import org.openCage.stroy.algo.fuzzyHash.FuzzyHash;
+import org.openCage.stroy.algo.fuzzyHash.HasDistance;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -28,7 +28,7 @@ public interface Fiel {
 
     public String getFingerprint();
     public String    getType();
-    public FuzzyHash getFuzzyHash();
+    public HasDistance getFuzzyHash();
 
     public long    getSize();
     public boolean hasReadError();

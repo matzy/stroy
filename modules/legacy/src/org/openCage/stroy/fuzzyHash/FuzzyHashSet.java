@@ -2,7 +2,7 @@ package org.openCage.stroy.fuzzyHash;
 
 import org.openCage.util.collection.Sets;
 import org.openCage.stroy.fuzzyHash.metric.CountChangeMetric;
-import org.openCage.stroy.algo.fuzzyHash.FuzzyHash;
+import org.openCage.stroy.algo.fuzzyHash.HasDistance;
 
 import java.util.Set;
 
@@ -28,7 +28,7 @@ import java.util.Set;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public class FuzzyHashSet implements FuzzyHash {
+public class FuzzyHashSet implements HasDistance {
 
     private final Set<Integer>       set;
     private final CountChangeMetric  metric;
@@ -38,17 +38,18 @@ public class FuzzyHashSet implements FuzzyHash {
         this.metric = metric;
     }
 
-    public double fuzzyEqual( FuzzyHash other ) {
+    public double distance( HasDistance other ) {
         if ( ! ( other instanceof FuzzyHashSet  )) {
-            return 0.0;
+            return 1.0;
         }
 
         FuzzyHashSet otherSet = (FuzzyHashSet)other;
 
-        return 1.0 - metric.distance( set.size(), Sets.intersectionSize( set, otherSet.set ), otherSet.set.size() );
+        return metric.distance( set.size(), Sets.intersectionSize( set, otherSet.set ), otherSet.set.size() );
     }
 
 
+    @Override
     public boolean equals(Object o) {
         if ( this == o ) {
             return true;
@@ -63,6 +64,7 @@ public class FuzzyHashSet implements FuzzyHash {
         return Sets.equal( set, that.set);
     }
 
+    @Override
     public int hashCode() {
         return (set != null ? set.hashCode() : 0);
     }

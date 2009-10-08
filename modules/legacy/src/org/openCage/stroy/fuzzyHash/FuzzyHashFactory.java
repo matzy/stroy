@@ -1,8 +1,8 @@
 package org.openCage.stroy.fuzzyHash;
 
-import org.openCage.stroy.algo.fuzzyHash.FuzzyHash;
+import org.openCage.stroy.algo.fuzzyHash.HasDistance;
 
 public interface FuzzyHashFactory {
 
-    public FuzzyHash get( String type, Class clazz );
+    public HasDistance get( String type, Class clazz );
 }

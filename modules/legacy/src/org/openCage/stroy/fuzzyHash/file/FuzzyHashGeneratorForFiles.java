@@ -1,7 +1,7 @@
 package org.openCage.stroy.fuzzyHash.file;
 
 import com.google.inject.Inject;
-import org.openCage.stroy.algo.fuzzyHash.FuzzyHash;
+import org.openCage.stroy.algo.fuzzyHash.HasDistance;
 import org.openCage.stroy.fuzzyHash.FuzzyHashGenerator;
 import org.openCage.stroy.fuzzyHash.FuzzyHashNever;
 import org.openCage.stroy.text.ForJava;
@@ -58,7 +58,7 @@ public class FuzzyHashGeneratorForFiles implements FuzzyHashGenerator<File> {
     }
 
 
-    public FuzzyHash generate( final File file ) {
+    public HasDistance generate( final File file ) {
         Log.finer( "fuzzy hash gen for: " + file.getAbsolutePath() );
 
 //        final String ext = FileUtils.getExtension( file );
