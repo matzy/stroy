@@ -25,7 +25,7 @@ import org.openCage.stroy.ui.*;
 import org.openCage.stroy.ui.difftree.NWayDiffPaneGenerator;
 import org.openCage.stroy.ui.difftree.NWayDiffTreeGenImplMessages;
 import org.openCage.stroy.app.ApplicationProvider;
-import org.openCage.stroy.algo.distance.Distance;
+import org.openCage.stroy.protocol.Distance;
 import org.openCage.stroy.algo.hash.Hash;
 import org.openCage.stroy.algo.hash.str.StdStringHash;
 import org.openCage.stroy.algo.hash.str.WhitespaceIgnoringHash;

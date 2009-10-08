@@ -1,4 +1,4 @@
-package org.openCage.stroy.fuzzyHash;
+package org.openCage.stroy.protocol;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -22,7 +22,14 @@ package org.openCage.stroy.fuzzyHash;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public interface FuzzyEquality<T> {
+public interface Distance<T> {
 
-    public double fuzzyEqual( T a, T b );
+    /**
+     * Measure the difference between 2 objects
+     * @param a One object.
+     * @param b Second Object
+     * @return the difference bewteen 0 and 1 (0 is equal)
+     */
+    public double distance( T a, T b);
 }
+

@@ -1,5 +1,6 @@
 package org.openCage.stroy.algo.distance;
 
+import org.openCage.stroy.impl.distance.LevensteinStringDistance;
 import junit.framework.TestCase;
 
 /***** BEGIN LICENSE BLOCK *****

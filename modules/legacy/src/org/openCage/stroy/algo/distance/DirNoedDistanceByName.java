@@ -1,5 +1,6 @@
 package org.openCage.stroy.algo.distance;
 
+import org.openCage.stroy.protocol.Distance;
 import org.openCage.stroy.algo.tree.Noed;
 
 /***** BEGIN LICENSE BLOCK *****

@@ -1,6 +1,6 @@
 package org.openCage.stroy.file;
 
-import org.openCage.stroy.algo.distance.Distance;
+import org.openCage.stroy.protocol.Distance;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1

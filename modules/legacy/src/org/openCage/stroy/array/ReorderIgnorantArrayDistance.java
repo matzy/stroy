@@ -1,7 +1,7 @@
 package org.openCage.stroy.array;
 
 import com.google.inject.Inject;
-import org.openCage.stroy.algo.distance.Distance;
+import org.openCage.stroy.protocol.Distance;
 
 import java.util.List;
 import java.util.ArrayList;

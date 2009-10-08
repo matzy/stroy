@@ -56,8 +56,4 @@ public class DirTreeNodeImpl extends ContentTreeNodeBaseImpl implements TreeNode
     public boolean isLeaf() {
         return false;
     }
-
-    public void unsetId() {
-        //To change body of implemented methods use File | Settings | File Templates.
-    }
 }

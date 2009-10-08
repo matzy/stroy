@@ -1,7 +1,7 @@
 package org.openCage.stroy.file;
 
 import com.google.inject.Inject;
-import org.openCage.stroy.algo.distance.Distance;
+import org.openCage.stroy.protocol.Distance;
 import org.openCage.stroy.text.ForJava;
 import org.openCage.stroy.text.LineNoise;
 import org.openCage.withResource.impl.LineReaderIterator;
