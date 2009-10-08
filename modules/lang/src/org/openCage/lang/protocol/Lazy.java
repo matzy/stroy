@@ -1,7 +1,9 @@
 package org.openCage.lang.protocol;
 
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.openCage.lang.errors.Unchecked;
 
 
 /***** BEGIN LICENSE BLOCK *****
@@ -33,24 +35,37 @@ import java.util.logging.Logger;
  */
 public class Lazy<T> {
     private T              obj;
-    private boolean        evaluated = false;
-    private final FE0<T> func;
+    private AtomicBoolean  evaluated = new AtomicBoolean( false );
+    private Error          exp       = null;
+    private final FE0<T>   func;
 
     public Lazy( FE0<T> func ) {
         this.func = func;
     }
 
-    // TODO exceptions
     public T get() {
-        if ( !evaluated ) {
-            try {
-                obj = func.call();
-            } catch (Exception ex) {
-                Logger.getLogger(Lazy.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            evaluated = true;
+        // get the initial value and set the next one, atomic
+        // i.e. this is the only syncronization necesarrry
+        // i.e. this call block very short unless it is not updating
+        if ( !evaluated.getAndSet(true) ) {
+            eval();
+        } 
+
+        if ( exp != null ) {
+            throw exp;            
+        }
+        
+        return obj;
+    }
+
+    private void eval() {
+        try {
+            obj   = func.call();
+        } catch (Exception ex) {
+            exp = new Unchecked(ex);
+        } catch ( Error ex ) {
+            exp = ex;
         }
 
-        return obj;
     }
 }
