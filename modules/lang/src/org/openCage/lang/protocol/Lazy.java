@@ -1,5 +1,6 @@
 package org.openCage.lang.protocol;
 
+import java.util.concurrent.FutureTask;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,7 +36,7 @@ import org.openCage.lang.errors.Unchecked;
  */
 public class Lazy<T> {
     private T              obj;
-    private AtomicBoolean  evaluated = new AtomicBoolean( false );
+    private Boolean        evaluated = false;
     private Error          exp       = null;
     private final FE0<T>   func;
 
@@ -44,12 +45,8 @@ public class Lazy<T> {
     }
 
     public T get() {
-        // get the initial value and set the next one, atomic
-        // i.e. this is the only syncronization necesarrry
-        // i.e. this call block very short unless it is not updating
-        if ( !evaluated.getAndSet(true) ) {
-            eval();
-        } 
+
+        eval();
 
         if ( exp != null ) {
             throw exp;            
@@ -58,14 +55,16 @@ public class Lazy<T> {
         return obj;
     }
 
-    private void eval() {
-        try {
-            obj   = func.call();
-        } catch (Exception ex) {
-            exp = new Unchecked(ex);
-        } catch ( Error ex ) {
-            exp = ex;
+    private synchronized void eval() {
+        if ( !evaluated ) {
+            try {
+                obj   = func.call();
+            } catch (Exception ex) {
+                exp = new Unchecked(ex);
+            } catch ( Error ex ) {
+                exp = ex;
+            }
+            evaluated = true;
         }
-
     }
 }
