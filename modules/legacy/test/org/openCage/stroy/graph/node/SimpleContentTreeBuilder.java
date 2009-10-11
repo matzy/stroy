@@ -1,5 +1,6 @@
 package org.openCage.stroy.graph.node;
 
+import org.openCage.vfs.protocol.TreeNode;
 import org.openCage.stroy.content.ReducedContent;
 import org.openCage.stroy.fuzzyHash.FuzzyHashNever;
 import org.openCage.stroy.fuzzyHash.FuzzyHashSetFactory;

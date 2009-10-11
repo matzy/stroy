@@ -1,11 +1,10 @@
 package org.openCage.stroy.matching;
 
-import org.openCage.util.logging.Log;
-import org.openCage.util.lang.P2;
 import org.openCage.stroy.algo.matching.Task;
-import org.openCage.utils.func.F2;
 
 import java.util.*;
+import java.util.logging.Logger;
+import org.openCage.lang.protocol.F2;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -30,6 +29,8 @@ import java.util.*;
 ***** END LICENSE BLOCK *****/
 
 public class TaskNeutral<T> implements Task<T> {
+    
+    private static final Logger LOG = Logger.getLogger( TaskNeutral.class.getName() );
 
     private Map<T,T>              left2right = new HashMap<T,T>();
     private Map<T,T>              right2left = new HashMap<T,T>();
@@ -59,7 +60,7 @@ public class TaskNeutral<T> implements Task<T> {
         List<T> ret = new ArrayList<T>();
 
         for ( T obj : left2right.keySet() ) {
-            if ( filter.c( this, obj )) {
+            if ( filter.call( this, obj )) {
                 ret.add( obj );
             }
         }
@@ -71,7 +72,7 @@ public class TaskNeutral<T> implements Task<T> {
         List<T> ret = new ArrayList<T>();
 
         for ( T obj : right2left.keySet() ) {
-            if ( filter.c( this, obj )) {
+            if ( filter.call( this, obj )) {
                 ret.add( obj );
             }
         }
@@ -95,7 +96,7 @@ public class TaskNeutral<T> implements Task<T> {
 
     public void match( T left, T right ) {
         if ( isMatched( left ) || isMatched( right )) {
-            Log.warning("prog error double match: one argument allready matched, one: " + isMatched(left) + ", two: " + isMatched( right));
+            LOG.warning("prog error double match: one argument allready matched, one: " + isMatched(left) + ", two: " + isMatched( right));
             throw new IllegalArgumentException( "one argument allready matched, one: " + isMatched(left) + ", two: " + isMatched( right));
         }
 

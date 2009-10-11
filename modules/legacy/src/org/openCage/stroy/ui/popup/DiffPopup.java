@@ -3,13 +3,13 @@ package org.openCage.stroy.ui.popup;
 import org.openCage.util.io.FileUtils;
 import org.openCage.util.external.ExternalProgs;
 import org.openCage.stroy.file.FileTypes;
-import org.openCage.stroy.graph.node.TreeNode;
+import org.openCage.vfs.protocol.TreeNode;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.ui.util.NodeToNode;
 import org.openCage.stroy.ui.prefs.StandardProgUI;
 import org.openCage.stroy.ui.prefs.PrefsUI;
 import org.openCage.stroy.locale.Message;
-import org.openCage.stroy.content.Content;
+import org.openCage.vfs.protocol.Content;
 import org.openCage.util.prefs.PreferenceString;
 
 import javax.swing.*;

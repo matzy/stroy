@@ -1,7 +1,7 @@
 package org.openCage.stroy.dir;
 
 import org.openCage.stroy.filter.Ignore;
-import org.openCage.stroy.graph.node.TreeNode;
+import org.openCage.vfs.protocol.TreeNode;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.graph.matching.TreeMatchingTaskNeutral;
 import org.openCage.stroy.content.FileContentFactory;

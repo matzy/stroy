@@ -1,10 +1,10 @@
 package org.openCage.stroy.ui.difftree;
 
 import org.openCage.stroy.ui.ChangeVector;
-import org.openCage.stroy.graph.node.TreeNode;
+import org.openCage.vfs.protocol.TreeNode;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.diff.ContentDiff;
-import org.openCage.stroy.content.Content;
+import org.openCage.vfs.protocol.Content;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.List;

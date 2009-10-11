@@ -4,7 +4,7 @@ import org.openCage.stroy.graph.matching.TreeMatchingTask;
 
 import java.util.List;
 import java.util.ArrayList;
-import org.openCage.stroy.graph.node.TreeNode;
+import org.openCage.vfs.protocol.TreeNode;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1

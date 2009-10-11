@@ -1,4 +1,7 @@
-package org.openCage.util.lang;
+package org.openCage.vfs.protocol;
+
+import java.util.Collection;
+
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -22,10 +25,15 @@ package org.openCage.util.lang;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-/**
- * A predicate with one argument
- */
-public interface P1<T> {
+public interface TreeNode { 
 
-    public boolean c( T t );
+    public boolean             isLeaf();
+    public void                setParent( TreeNode parent );
+    public TreeNode            getParent();
+    public Content              getContent();
+
+    public Collection<? extends TreeNode> getChildren();
+    public void                           removeChild( TreeNode child );
+
+
 }

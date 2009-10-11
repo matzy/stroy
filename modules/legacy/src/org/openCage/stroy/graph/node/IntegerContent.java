@@ -6,8 +6,8 @@
 package org.openCage.stroy.graph.node;
 
 import java.io.File;
-import org.openCage.stroy.algo.fuzzyHash.HasDistance;
-import org.openCage.stroy.content.Content;
+import org.openCage.lang.protocol.HasDistance;
+import org.openCage.vfs.protocol.Content;
 
 /**
  *

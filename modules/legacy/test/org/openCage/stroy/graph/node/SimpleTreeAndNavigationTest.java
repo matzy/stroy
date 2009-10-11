@@ -1,5 +1,6 @@
 package org.openCage.stroy.graph.node;
 
+import org.openCage.vfs.protocol.TreeNode;
 import junit.framework.TestCase;
 
 import java.util.List;

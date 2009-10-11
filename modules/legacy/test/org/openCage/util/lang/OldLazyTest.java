@@ -1,3 +1,5 @@
+package org.openCage.lang;
+
 //package org.openCage.util.lang;
 //
 //import org.openCage.lang.protocol.Lazy;

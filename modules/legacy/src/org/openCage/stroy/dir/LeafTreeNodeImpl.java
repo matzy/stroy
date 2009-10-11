@@ -3,7 +3,7 @@ package org.openCage.stroy.dir;
 import java.util.Collection;
 import org.openCage.stroy.content.FileContentFactory;
 import org.openCage.stroy.graph.node.ContentTreeNodeBaseImpl;
-import org.openCage.stroy.graph.node.TreeNode;
+import org.openCage.vfs.protocol.TreeNode;
 
 import java.io.File;
 

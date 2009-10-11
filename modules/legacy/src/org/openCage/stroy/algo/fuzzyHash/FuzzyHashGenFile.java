@@ -1,5 +1,6 @@
 package org.openCage.stroy.algo.fuzzyHash;
 
+import org.openCage.lang.protocol.HasDistance;
 import org.openCage.stroy.text.LineNoise;
 import org.openCage.util.io.FileUtils;
 

@@ -1,6 +1,6 @@
 package org.openCage.stroy.fuzzyHash;
 
-import org.openCage.stroy.algo.fuzzyHash.HasDistance;
+import org.openCage.lang.protocol.HasDistance;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1

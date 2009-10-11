@@ -4,10 +4,9 @@ import org.openCage.stroy.algo.tree.Fiel;
 import org.openCage.stroy.algo.tree.IOStateImpl;
 import org.openCage.stroy.algo.tree.IOState;
 import org.openCage.stroy.algo.fingerprint.FingerPrint;
-import org.openCage.stroy.algo.fuzzyHash.HasDistance;
+import org.openCage.lang.protocol.HasDistance;
 import org.openCage.util.io.FileUtils;
 import org.openCage.lang.protocol.Lazy;
-import org.openCage.utils.func.F0;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;

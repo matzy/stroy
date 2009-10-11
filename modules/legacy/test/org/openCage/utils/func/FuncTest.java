@@ -1,6 +1,7 @@
 package org.openCage.utils.func;
 
 import org.junit.Test;
+import org.openCage.lang.protocol.F0;
 import static org.junit.Assert.assertEquals;
 import org.openCage.utils.lang.Ref;
 
@@ -37,13 +38,13 @@ public class FuncTest {
         final Ref<Integer> res = new Ref<Integer>( 4 );
 
         F0<Void> f = new F0<Void>() {
-            public Void c() {
+            public Void call() {
                 res.o = 13;
                 return null;
             }
         };
 
-        f.c();
+        f.call();
 
         assertEquals( 13, res.o.intValue());
     }

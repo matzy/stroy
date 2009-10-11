@@ -1,8 +1,8 @@
 package org.openCage.stroy.graph.matching.strategy;
 
 import java.util.logging.Logger;
-import org.openCage.stroy.content.Content;
-import org.openCage.stroy.graph.node.TreeNode;
+import org.openCage.vfs.protocol.Content;
+import org.openCage.vfs.protocol.TreeNode;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.locale.Message;
 

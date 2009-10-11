@@ -1,4 +1,7 @@
-package org.openCage.utils.func;
+package org.openCage.vfs.protocol;
+
+import java.io.File;
+import org.openCage.lang.protocol.HasDistance;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -22,13 +25,21 @@ package org.openCage.utils.func;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
+public interface Content {
 
-/**
- * Function without parameters returning a A
- * @param <T> Any type
- */
-public interface F0<T> {
+    public String      getName(); // TODO that should be on the node
+    public String      getChecksum();
+    public HasDistance getFuzzyHash();
+    public String      getType();
 
-    public T c();
+
+    // lets refactor
+    public String getLocation();
+
+    // TODO whats that here
+    /**
+     * Get the File if there is one 
+     * @return the underlaying file if there is one
+     */
+    public File      getFile();
 }
-

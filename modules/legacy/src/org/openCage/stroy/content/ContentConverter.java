@@ -1,5 +1,7 @@
 package org.openCage.stroy.content;
 
+import org.openCage.vfs.protocol.Content;
+
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
 *

@@ -1,6 +1,6 @@
 package org.openCage.stroy;
 
-import org.openCage.stroy.graph.node.TreeNode;
+import org.openCage.vfs.protocol.TreeNode;
 import org.openCage.stroy.task.MatchingTask;
 
 /***** BEGIN LICENSE BLOCK *****

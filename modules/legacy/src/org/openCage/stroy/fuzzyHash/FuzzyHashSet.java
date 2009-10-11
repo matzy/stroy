@@ -2,7 +2,7 @@ package org.openCage.stroy.fuzzyHash;
 
 import org.openCage.util.collection.Sets;
 import org.openCage.stroy.fuzzyHash.metric.CountChangeMetric;
-import org.openCage.stroy.algo.fuzzyHash.HasDistance;
+import org.openCage.lang.protocol.HasDistance;
 
 import java.util.Set;
 

@@ -1,7 +1,7 @@
 package org.openCage.stroy.ui.popup;
 
-import org.openCage.stroy.graph.node.TreeNode;
-import org.openCage.stroy.content.Content;
+import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.Content;
 import org.openCage.stroy.file.FileTypes;
 import org.openCage.util.platform.Platform;
 import org.openCage.util.logging.Log;

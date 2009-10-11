@@ -1,5 +1,7 @@
 package org.openCage.stroy.algo.fuzzyHash;
 
+import org.openCage.lang.protocol.HasDistance;
+
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1

@@ -1,9 +1,9 @@
 package org.openCage.stroy.graph.matching;
 
 import org.openCage.stroy.content.ReducedContent;
-import org.openCage.stroy.graph.node.TreeNode;
-import org.openCage.stroy.graph.node.TreeNode;
-import org.openCage.stroy.graph.node.TreeNode;
+import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.TreeNode;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1

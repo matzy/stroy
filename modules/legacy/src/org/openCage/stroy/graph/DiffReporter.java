@@ -1,10 +1,8 @@
 package org.openCage.stroy.graph;
 
-import org.openCage.stroy.content.Content;
+import org.openCage.vfs.protocol.Content;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
-import org.openCage.stroy.graph.node.TreeNode;
-import org.openCage.stroy.graph.node.TreeNode;
-import org.openCage.stroy.graph.node.TreeNode;
+import org.openCage.vfs.protocol.TreeNode;
 import org.openCage.stroy.ui.ChangeVector;
 import org.openCage.stroy.diff.ContentDiff;
 
@@ -65,10 +63,10 @@ public class DiffReporter {
         }
 
         if ( !node.isLeaf() ) {
-            return task.getDirs().getDifference( (TreeNode)node );
+            return task.getDirs().getDifference( node );
         }
 
-        return task.getLeaves().getDifference( (TreeNode)node );
+        return task.getLeaves().getDifference( node );
     }
 
     public static <T extends Content> ChangeVector getChangeVector( TreeMatchingTask task, TreeNode node) {

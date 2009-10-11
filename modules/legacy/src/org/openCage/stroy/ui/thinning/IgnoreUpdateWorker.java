@@ -2,13 +2,13 @@ package org.openCage.stroy.ui.thinning;
 
 import org.jdesktop.swingworker.SwingWorker;
 import org.openCage.stroy.filter.Ignore;
-import org.openCage.stroy.graph.node.TreeNode;
+import org.openCage.vfs.protocol.TreeNode;
 import org.openCage.stroy.graph.node.TreeNodeUtils;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.ui.ModalProgress;
 import org.openCage.stroy.ui.difftree.NWayDiffPane;
 import org.openCage.stroy.ui.util.NodeToNode;
-import org.openCage.stroy.content.Content;
+import org.openCage.vfs.protocol.Content;
 import org.openCage.stroy.locale.Message;
 import org.openCage.util.logging.Log;
 

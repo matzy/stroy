@@ -1,8 +1,9 @@
 package org.openCage.stroy.graph.node;
 
+import org.openCage.vfs.protocol.TreeNode;
 import java.util.Collection;
 import java.util.Arrays;
-import org.openCage.stroy.content.Content;
+import org.openCage.vfs.protocol.Content;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1

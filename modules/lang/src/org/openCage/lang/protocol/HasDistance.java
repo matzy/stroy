@@ -1,4 +1,4 @@
-package org.openCage.stroy.algo.fuzzyHash;
+package org.openCage.lang.protocol;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1

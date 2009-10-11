@@ -1,6 +1,6 @@
 package org.openCage.stroy.ui.difftree;
 
-import org.openCage.stroy.content.Content;
+import org.openCage.vfs.protocol.Content;
 
 import javax.swing.tree.TreePath;
 import java.awt.*;

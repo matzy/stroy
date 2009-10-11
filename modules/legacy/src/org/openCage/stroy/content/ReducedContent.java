@@ -1,6 +1,7 @@
 package org.openCage.stroy.content;
 
-import org.openCage.stroy.algo.fuzzyHash.HasDistance;
+import org.openCage.vfs.protocol.Content;
+import org.openCage.lang.protocol.HasDistance;
 
 import java.io.File;
 

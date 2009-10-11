@@ -1,6 +1,7 @@
 package org.openCage.stroy.graph.node;
 
-import org.openCage.stroy.content.Content;
+import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.Content;
 
 
 /***** BEGIN LICENSE BLOCK *****

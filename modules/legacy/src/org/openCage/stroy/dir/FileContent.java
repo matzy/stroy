@@ -2,9 +2,8 @@ package org.openCage.stroy.dir;
 
 import org.openCage.lang.protocol.Lazy;
 import org.openCage.util.io.FileUtils;
-import org.openCage.util.lang.*;
-import org.openCage.stroy.content.Content;
-import org.openCage.stroy.algo.fuzzyHash.HasDistance;
+import org.openCage.vfs.protocol.Content;
+import org.openCage.lang.protocol.HasDistance;
 import org.openCage.util.checksum.FullFileMD5;
 
 import java.io.File;

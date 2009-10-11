@@ -1,7 +1,7 @@
 package org.openCage.stroy.algo.tree.essence;
 
 import org.openCage.stroy.algo.tree.Fiel;
-import org.openCage.stroy.algo.fuzzyHash.HasDistance;
+import org.openCage.lang.protocol.HasDistance;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1

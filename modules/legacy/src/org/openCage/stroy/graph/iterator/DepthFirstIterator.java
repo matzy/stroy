@@ -1,7 +1,7 @@
 package org.openCage.stroy.graph.iterator;
 
-import org.openCage.stroy.graph.node.TreeNode;
-import org.openCage.stroy.graph.node.TreeNode;
+import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.TreeNode;
 
 import java.util.Iterator;
 import java.util.Collection;

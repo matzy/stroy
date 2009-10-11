@@ -1,6 +1,6 @@
 package org.openCage.stroy.fuzzyHash;
 
-import org.openCage.stroy.algo.fuzzyHash.HasDistance;
+import org.openCage.lang.protocol.HasDistance;
 
 public interface FuzzyHashFactory {
 

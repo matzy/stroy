@@ -1,7 +1,7 @@
 package org.openCage.util.platform;
 
 import com.muchsoft.util.Sys;
-import org.openCage.stroy.content.Content;
+import org.openCage.vfs.protocol.Content;
 
 import java.util.regex.Pattern;
 

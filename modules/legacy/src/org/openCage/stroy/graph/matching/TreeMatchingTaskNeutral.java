@@ -1,7 +1,7 @@
 package org.openCage.stroy.graph.matching;
 
 import org.openCage.stroy.graph.SameContent;
-import org.openCage.stroy.graph.node.TreeNode;
+import org.openCage.vfs.protocol.TreeNode;
 import org.openCage.stroy.graph.iterator.DepthFirstIterable;
 import org.openCage.stroy.task.MatchingTask;
 import org.openCage.stroy.task.MatchingTaskNeutral;

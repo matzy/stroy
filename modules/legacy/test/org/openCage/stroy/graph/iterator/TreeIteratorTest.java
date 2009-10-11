@@ -2,8 +2,8 @@ package org.openCage.stroy.graph.iterator;
 
 import junit.framework.TestCase;
 import org.openCage.stroy.graph.node.SimpleTreeNode;
-import org.openCage.stroy.graph.node.TreeNode;
-import org.openCage.stroy.graph.node.TreeNode;
+import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.TreeNode;
 
 import java.util.ArrayList;
 import java.util.List;

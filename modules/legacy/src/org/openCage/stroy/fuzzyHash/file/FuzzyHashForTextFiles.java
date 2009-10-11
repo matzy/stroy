@@ -7,7 +7,7 @@ package org.openCage.stroy.fuzzyHash.file;
 import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
-import org.openCage.stroy.algo.fuzzyHash.HasDistance;
+import org.openCage.lang.protocol.HasDistance;
 import org.openCage.stroy.algo.hash.Hash;
 import org.openCage.stroy.fuzzyHash.FuzzyHashSetFactory;
 import org.openCage.stroy.text.LineNoise;

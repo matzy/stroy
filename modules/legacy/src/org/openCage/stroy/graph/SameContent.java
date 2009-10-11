@@ -1,7 +1,7 @@
 package org.openCage.stroy.graph;
 
-import org.openCage.stroy.content.Content;
-import org.openCage.stroy.graph.node.TreeNode;
+import org.openCage.vfs.protocol.Content;
+import org.openCage.vfs.protocol.TreeNode;
 
 import java.util.ArrayList;
 import java.util.List;

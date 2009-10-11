@@ -3,7 +3,7 @@ package org.openCage.stroy.content;
 import com.google.inject.Inject;
 import org.openCage.stroy.dir.FileContent;
 import org.openCage.stroy.fuzzyHash.FuzzyHashGenerator;
-import org.openCage.stroy.algo.fuzzyHash.HasDistance;
+import org.openCage.lang.protocol.HasDistance;
 
 import java.io.File;
 import org.openCage.lang.protocol.FE1;

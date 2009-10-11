@@ -2,9 +2,9 @@ package org.openCage.stroy.graph.matching;
 
 import com.google.inject.Inject;
 import org.openCage.stroy.TreeLeafDistance;
-import org.openCage.stroy.content.Content;
-import org.openCage.stroy.graph.node.TreeNode;
-import org.openCage.stroy.graph.node.TreeNode;
+import org.openCage.vfs.protocol.Content;
+import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.TreeNode;
 import org.openCage.stroy.task.MatchingTask;
 import org.openCage.stroy.task.TreeMatchingTasks;
 

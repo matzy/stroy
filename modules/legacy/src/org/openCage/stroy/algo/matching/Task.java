@@ -1,10 +1,9 @@
 package org.openCage.stroy.algo.matching;
 
 import org.openCage.stroy.matching.EdgeAttributes;
-import org.openCage.util.lang.P2;
-import org.openCage.utils.func.F2;
 
 import java.util.Collection;
+import org.openCage.lang.protocol.F2;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1

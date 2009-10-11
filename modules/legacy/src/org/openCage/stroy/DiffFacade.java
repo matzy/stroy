@@ -1,6 +1,6 @@
 package org.openCage.stroy;
 
-import org.openCage.stroy.graph.node.TreeNode;
+import org.openCage.vfs.protocol.TreeNode;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1

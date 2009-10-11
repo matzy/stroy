@@ -1,9 +1,5 @@
 package org.openCage.lang.protocol;
 
-import java.util.concurrent.FutureTask;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.openCage.lang.errors.Unchecked;
 
 
@@ -33,6 +29,7 @@ import org.openCage.lang.errors.Unchecked;
  * lazy evaluate a function with no arguments
  * i.e. a memoization method
  * no protection against trows
+ * this is similar to FutureTask
  */
 public class Lazy<T> {
     private T              obj;

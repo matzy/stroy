@@ -3,7 +3,7 @@ package org.openCage.stroy.ui.difftree;
 import org.openCage.stroy.ui.difftree.NWayDiffPane;
 import org.openCage.stroy.dir.FileContent;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
-import org.openCage.stroy.content.Content;
+import org.openCage.vfs.protocol.Content;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.List;

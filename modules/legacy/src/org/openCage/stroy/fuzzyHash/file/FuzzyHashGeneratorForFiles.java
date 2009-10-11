@@ -1,7 +1,7 @@
 package org.openCage.stroy.fuzzyHash.file;
 
 import com.google.inject.Inject;
-import org.openCage.stroy.algo.fuzzyHash.HasDistance;
+import org.openCage.lang.protocol.HasDistance;
 import org.openCage.stroy.fuzzyHash.FuzzyHashGenerator;
 import org.openCage.stroy.fuzzyHash.FuzzyHashNever;
 import org.openCage.stroy.text.ForJava;

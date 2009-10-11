@@ -3,7 +3,7 @@ package org.openCage.stroy.ui.popup;
 import org.junit.Test;
 import org.openCage.lang.protocol.tuple.T2;
 import org.openCage.stroy.graph.node.SimpleContentTreeBuilder;
-import org.openCage.stroy.graph.node.TreeNode;
+import org.openCage.vfs.protocol.TreeNode;
 import org.openCage.stroy.graph.node.TreeNodeUtils;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.graph.matching.TreeMatchingTaskNeutralBuilder;

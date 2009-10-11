@@ -1,8 +1,8 @@
 package org.openCage.stroy.ui.docking;
 
 import org.openCage.stroy.dir.FileContent;
-import org.openCage.stroy.graph.node.TreeNode;
-import org.openCage.stroy.content.Content;
+import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.Content;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1

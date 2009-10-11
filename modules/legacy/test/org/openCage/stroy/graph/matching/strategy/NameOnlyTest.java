@@ -4,9 +4,9 @@ import junit.framework.TestCase;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.graph.matching.TreeMatchingTaskNeutralBuilder;
 import org.openCage.stroy.graph.node.SimpleContentTreeBuilder;
-import org.openCage.stroy.graph.node.TreeNode;
+import org.openCage.vfs.protocol.TreeNode;
 import org.openCage.stroy.graph.node.TreeNodeUtils;
-import org.openCage.stroy.graph.node.TreeNode;
+import org.openCage.vfs.protocol.TreeNode;
 import org.openCage.stroy.content.ReducedContent;
 import org.openCage.util.ui.TreeUtils;
 
