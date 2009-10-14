@@ -18,10 +18,17 @@ public class SimpleStringTreeBuilder {
 
     public class StringContent implements Content {
 
+        private String name;
         private String str;
 
         public StringContent( String str ) {
             this.str = str;
+            this.name = str;
+        }
+
+        private StringContent(String name, String content) {
+            this.str = content;
+            this.name = name;
         }
 
         public String getName() {
@@ -31,6 +38,17 @@ public class SimpleStringTreeBuilder {
         public String getChecksum() {
             return str;
         }
+
+        @Override
+        public String toString() {
+            if ( str.endsWith(name)) {
+                return str + "-";
+            }
+
+            return name + " : " + str;
+        }
+
+
 
         public HasDistance getFuzzyHash() {
             throw new UnsupportedOperationException("Not supported yet.");
@@ -56,6 +74,10 @@ public class SimpleStringTreeBuilder {
 
     public TreeNode l( String t ) {
         return new SimpleTreeNode( new StringContent(t) );
+    }
+
+    public TreeNode l( String name, String content ) {
+        return new SimpleTreeNode( new StringContent(name,content) );
     }
 
 }

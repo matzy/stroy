@@ -22,8 +22,8 @@ public class Simple {
         SimpleStringTreeBuilder b = new SimpleStringTreeBuilder();
 
         TreeNode tree = b.d( "f", b.l("a"),
-                                          b.d( "g", b.l("b"),
-                                                    b.l("c")));
+                                  b.d( "g", b.l("b"),
+                                            b.l("c")));
         
 
 
