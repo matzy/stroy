@@ -1,11 +1,10 @@
 package org.openCage.stroy.graph.matching.strategy;
 
 import junit.framework.TestCase;
-import org.openCage.stroy.content.ReducedContent;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.graph.matching.TreeMatchingTaskNeutralBuilder;
+import org.openCage.vfs.impl.SimpleStringTreeBuilder;
 import org.openCage.vfs.protocol.TreeNodeUtils;
-import org.openCage.vfs.impl.SimpleContentTreeBuilder;
 import org.openCage.vfs.protocol.TreeNode;
 
 /***** BEGIN LICENSE BLOCK *****
@@ -41,7 +40,7 @@ public abstract class StrategyTestsWorker extends TestCase {
                                             int dmr,
                                             int dur) {
 
-        SimpleContentTreeBuilder b = new SimpleContentTreeBuilder();
+        SimpleStringTreeBuilder b = new SimpleStringTreeBuilder();
 
         TreeNode treeLeft = b.d( "f", b.l( "a"),
                                                       b.d( "g", b.l("b"),
@@ -79,7 +78,7 @@ public abstract class StrategyTestsWorker extends TestCase {
     }
 
     public void strategyTestRootMatch(MatchStrategy strategy ) {
-        SimpleContentTreeBuilder b = new SimpleContentTreeBuilder();
+        SimpleStringTreeBuilder b = new SimpleStringTreeBuilder();
 
         TreeNode treeLeft = b.d( "f", b.l( "a"),
                                                       b.d( "g", b.l("b"),
@@ -106,7 +105,7 @@ public abstract class StrategyTestsWorker extends TestCase {
                                             int dmr,
                                             int dur) {
 
-        SimpleContentTreeBuilder b = new SimpleContentTreeBuilder();
+        SimpleStringTreeBuilder b = new SimpleStringTreeBuilder();
 
         TreeNode treeLeft = b.d( "f", b.l( "a"),
                                                       b.d( "g", b.l("b"),
@@ -154,7 +153,7 @@ public abstract class StrategyTestsWorker extends TestCase {
                                             int dmr,
                                             int dur) {
 
-        SimpleContentTreeBuilder b = new SimpleContentTreeBuilder();
+        SimpleStringTreeBuilder b = new SimpleStringTreeBuilder();
 
         TreeNode treeLeft = b.d( "f", b.l( "a"),
                                                       b.d( "g", b.l("b"),

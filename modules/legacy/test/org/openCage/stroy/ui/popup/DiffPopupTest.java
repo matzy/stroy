@@ -2,7 +2,6 @@ package org.openCage.stroy.ui.popup;
 
 import org.junit.Test;
 import org.openCage.lang.protocol.tuple.T2;
-import org.openCage.vfs.impl.SimpleContentTreeBuilder;
 import org.openCage.vfs.protocol.TreeNode;
 import org.openCage.vfs.protocol.TreeNodeUtils;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
@@ -10,6 +9,7 @@ import org.openCage.stroy.graph.matching.TreeMatchingTaskNeutralBuilder;
 import org.openCage.stroy.graph.matching.strategy.StandardMatching;
 import org.openCage.stroy.graph.matching.strategy.NullReporter;
 
+import org.openCage.vfs.impl.SimpleStringTreeBuilder;
 import static org.junit.Assert.*;
 
 /***** BEGIN LICENSE BLOCK *****
@@ -40,7 +40,7 @@ public class DiffPopupTest {
      */
     @Test
     public void testLeftRight_right() {
-        SimpleContentTreeBuilder b = new SimpleContentTreeBuilder();
+        SimpleStringTreeBuilder b = new SimpleStringTreeBuilder();
 
         TreeNode treeLeft = b.d( "left", b.l( "a"),
                                                       b.d( "g", b.l("b"),
@@ -69,7 +69,7 @@ public class DiffPopupTest {
 
     @Test
     public void testLeftRight_left() {
-        SimpleContentTreeBuilder b = new SimpleContentTreeBuilder();
+        SimpleStringTreeBuilder b = new SimpleStringTreeBuilder();
 
         TreeNode treeLeft = b.d( "left", b.l( "a"),
                                                       b.d( "g", b.l("b"),

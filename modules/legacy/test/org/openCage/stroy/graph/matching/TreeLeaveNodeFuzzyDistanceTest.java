@@ -1,11 +1,8 @@
 package org.openCage.stroy.graph.matching;
 
 import junit.framework.TestCase;
-import org.openCage.vfs.impl.SimpleContentTreeBuilder;
+import org.openCage.vfs.impl.SimpleStringTreeBuilder;
 import org.openCage.vfs.protocol.TreeNode;
-import org.openCage.vfs.protocol.TreeNodeUtils;
-import org.openCage.stroy.graph.matching.strategy.StandardMatching;
-import org.openCage.stroy.content.ReducedContent;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -33,7 +30,7 @@ public class TreeLeaveNodeFuzzyDistanceTest extends TestCase {
 
     public void testFuzzyIdenticalIsNotDistance1() {
 
-        SimpleContentTreeBuilder b = new SimpleContentTreeBuilder();
+        SimpleStringTreeBuilder b = new SimpleStringTreeBuilder();
 
         TreeNode treeLeft = b.d( "f", b.l( "a"),
                                                       b.d( "g", b.l("b"),

@@ -1,12 +1,5 @@
 package org.openCage.stroy.graph.matching.strategy;
 
-import junit.framework.TestCase;
-import org.openCage.stroy.graph.matching.TreeMatchingTask;
-import org.openCage.stroy.graph.matching.TreeMatchingTaskNeutralBuilder;
-import org.openCage.vfs.impl.SimpleContentTreeBuilder;
-import org.openCage.vfs.protocol.TreeNode;
-import org.openCage.vfs.protocol.TreeNodeUtils;
-import org.openCage.stroy.content.ReducedContent;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
