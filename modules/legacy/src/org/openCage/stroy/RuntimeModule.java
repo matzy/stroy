@@ -4,6 +4,7 @@ import com.google.inject.Binder;
 import com.google.inject.Module;
 import com.google.inject.TypeLiteral;
 
+import com.google.inject.name.Names;
 import org.openCage.application.protocol.Application;
 import org.openCage.application.wiring.ApplicationWiring;
 import org.openCage.stroy.array.AddIngnorantListMetric;
@@ -74,26 +75,26 @@ public class RuntimeModule implements Module {
         //
         // LineNoise
         //
-        binder.bind( LineNoise.class ).annotatedWith( ForJava.class ).to( JavaLineNoiseForDistanceRegex.class );
-        binder.bind( LineNoise.class ).annotatedWith( ForText.class ).to( NoNoise.class );
-        binder.bind( LineNoise.class ).annotatedWith( ForC.class ).to( CLineNoise.class );
-        binder.bind( LineNoise.class ).annotatedWith( ForXML.class ).to( SpacesNoise.class );
+        binder.bind( LineNoise.class ).annotatedWith( Names.named( "java" ) ).to( JavaLineNoiseForDistanceRegex.class );
+        binder.bind( LineNoise.class ).annotatedWith( Names.named( "text") ).to( NoNoise.class );
+        binder.bind( LineNoise.class ).annotatedWith( Names.named( "c") ).to( CLineNoise.class );
+        binder.bind( LineNoise.class ).annotatedWith( Names.named( "xml") ).to( SpacesNoise.class );
 
 
         //
         // Text Line Hashes
         //
         binder.bind( new TypeLiteral<Hash<String>>() {} ).
-                annotatedWith( ForJava.class ).
+                annotatedWith( Names.named( "java" )).
                 to( WhitespaceIgnoringHash.class );
         binder.bind( new TypeLiteral<Hash<String>>() {} ).
-                annotatedWith( ForText.class ).
+                annotatedWith( Names.named( "text") ).
                 to( StdStringHash.class );
         binder.bind( new TypeLiteral<Hash<String>>() {} ).
-                annotatedWith( ForC.class ).
+                annotatedWith( Names.named( "c") ).
                 to( WhitespaceIgnoringHash.class );
         binder.bind( new TypeLiteral<Hash<String>>() {} ).
-                annotatedWith( ForXML.class ).
+                annotatedWith( Names.named( "xml") ).
                 to( WhitespaceIgnoringHash.class );
 
         //
@@ -151,16 +152,16 @@ public class RuntimeModule implements Module {
 
         binder.bind( new TypeLiteral<FuzzyHashGenerator<File>>() {} ).to( FuzzyHashGeneratorForFiles.class );
         binder.bind( new TypeLiteral<FuzzyHashGenerator<File>>() {} ).
-                annotatedWith( ForJava.class ).
+                annotatedWith( Names.named( "java" ) ).
                 to( FuzzyHashGenJava.class );
         binder.bind( new TypeLiteral<FuzzyHashGenerator<File>>() {} ).
-                annotatedWith( ForText.class ).
+                annotatedWith( Names.named( "text" ) ).
                 to( FuzzyHashGenText.class );
         binder.bind( new TypeLiteral<FuzzyHashGenerator<File>>() {} ).
-                annotatedWith( ForC.class ).
+                annotatedWith( Names.named( "c" ) ).
                 to( FuzzyHashGenC.class );
         binder.bind( new TypeLiteral<FuzzyHashGenerator<File>>() {} ).
-                annotatedWith( ForXML.class ).
+                annotatedWith( Names.named( "xml" ) ).
                 to( FuzzyHashGenXML.class );
         
 //        binder.bind( DiffProg.class ).to(MacFileMerge.class);

@@ -1,17 +1,14 @@
 package org.openCage.stroy.fuzzyHash.file;
 
 import com.google.inject.Inject;
+import com.google.inject.name.Named;
 import org.openCage.lang.protocol.HasDistance;
 import org.openCage.stroy.fuzzyHash.FuzzyHashGenerator;
 import org.openCage.stroy.fuzzyHash.FuzzyHashNever;
-import org.openCage.stroy.text.ForJava;
-import org.openCage.stroy.text.ForText;
-import org.openCage.stroy.text.ForC;
-import org.openCage.stroy.text.ForXML;
 import org.openCage.stroy.file.FileTypes;
-import org.openCage.util.logging.Log;
 
 import java.io.File;
+import java.util.logging.Logger;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -37,6 +34,8 @@ import java.io.File;
 
 public class FuzzyHashGeneratorForFiles implements FuzzyHashGenerator<File> {
 
+    static private final Logger LOG = Logger.getLogger(  FuzzyHashGeneratorForFiles.class.getName());
+
     private final FuzzyHashGenerator<File> javaHashGen;
     private final FuzzyHashGenerator<File> textHashGen;
     private final FuzzyHashGenerator<File> cHashGen;
@@ -46,10 +45,10 @@ public class FuzzyHashGeneratorForFiles implements FuzzyHashGenerator<File> {
 
     @Inject
     public FuzzyHashGeneratorForFiles(
-                         @ForJava final FuzzyHashGenerator<File> javaHashGen,
-                         @ForText final FuzzyHashGenerator<File> textHashGen,
-                         @ForC final FuzzyHashGenerator<File> cHashGen,
-                         @ForXML final FuzzyHashGenerator<File> xmlHashGen) {
+                         @Named( "java" ) final FuzzyHashGenerator<File> javaHashGen,
+                         @Named( "text" ) final FuzzyHashGenerator<File> textHashGen,
+                         @Named( "c" ) final FuzzyHashGenerator<File> cHashGen,
+                         @Named( "xml" ) final FuzzyHashGenerator<File> xmlHashGen) {
         this.javaHashGen = javaHashGen;
         this.textHashGen = textHashGen;
         this.cHashGen    = cHashGen;
@@ -59,7 +58,7 @@ public class FuzzyHashGeneratorForFiles implements FuzzyHashGenerator<File> {
 
 
     public HasDistance generate( final File file ) {
-        Log.finer( "fuzzy hash gen for: " + file.getAbsolutePath() );
+        LOG.finer( "fuzzy hash gen for: " + file.getAbsolutePath() );
 
 //        final String ext = FileUtils.getExtension( file );
 //

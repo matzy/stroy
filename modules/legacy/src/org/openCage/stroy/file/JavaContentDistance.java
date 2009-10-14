@@ -1,16 +1,11 @@
 package org.openCage.stroy.file;
 
 import com.google.inject.Inject;
+import com.google.inject.name.Named;
 import org.openCage.stroy.protocol.Distance;
-import org.openCage.stroy.text.ForJava;
 import org.openCage.stroy.text.LineNoise;
-import org.openCage.withResource.impl.LineReaderIterator;
-import org.openCage.util.io.FileUtils;
-import org.openCage.util.iterator.Iterators;
-import org.openCage.util.logging.Log;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 import org.openCage.withResource.error.LogError;
 
@@ -42,7 +37,7 @@ public class JavaContentDistance implements Distance<File> {
     final private LineNoise noise;
 
     @Inject
-    public JavaContentDistance( Distance<List<String>> arrayDistance, @ForJava LineNoise noise ) {
+    public JavaContentDistance( Distance<List<String>> arrayDistance, @Named( "java" ) LineNoise noise ) {
         this.arrayDistance = arrayDistance;
         this.noise         = noise;
     }

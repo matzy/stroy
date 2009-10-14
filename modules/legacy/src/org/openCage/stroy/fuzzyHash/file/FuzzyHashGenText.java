@@ -1,19 +1,15 @@
 package org.openCage.stroy.fuzzyHash.file;
 
 import com.google.inject.Inject;
+import com.google.inject.name.Named;
 import org.openCage.stroy.algo.hash.Hash;
 import org.openCage.lang.protocol.HasDistance;
 import org.openCage.stroy.fuzzyHash.FuzzyHashGenerator;
 import org.openCage.stroy.fuzzyHash.FuzzyHashSetFactory;
-import org.openCage.stroy.text.ForText;
 import org.openCage.stroy.text.LineNoise;
-import org.openCage.util.io.FileUtils;
 
 import java.io.File;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.logging.Logger;
-import org.openCage.withResource.error.LogError;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -46,8 +42,8 @@ public class FuzzyHashGenText implements FuzzyHashGenerator<File> {
     private final FuzzyHashSetFactory fuzzyHashSetFactory;
 
     @Inject
-    public FuzzyHashGenText( @ForText final LineNoise    javaNoise,
-                             @ForText final Hash<String> javaHash,
+    public FuzzyHashGenText( @Named("text") final LineNoise    javaNoise,
+                             @Named("text") final Hash<String> javaHash,
                              final FuzzyHashSetFactory   fuzzyHashSetFactory ) {
         this.noise               = javaNoise;
         this.hash = javaHash;

@@ -1,19 +1,14 @@
 package org.openCage.stroy.fuzzyHash.file;
 
 import com.google.inject.Inject;
+import com.google.inject.name.Named;
 import org.openCage.stroy.algo.hash.Hash;
 import org.openCage.lang.protocol.HasDistance;
 import org.openCage.stroy.fuzzyHash.FuzzyHashGenerator;
 import org.openCage.stroy.fuzzyHash.FuzzyHashSetFactory;
-import org.openCage.stroy.text.ForJava;
 import org.openCage.stroy.text.LineNoise;
-import org.openCage.util.io.FileUtils;
 
 import java.io.File;
-import java.util.HashSet;
-import java.util.Set;
-import org.openCage.withResource.error.LogError;
-import org.openCage.withResource.protocol.FileLineIterable;
 import org.openCage.withResource.protocol.With;
 
 /***** BEGIN LICENSE BLOCK *****
@@ -46,8 +41,8 @@ public class FuzzyHashGenJava implements FuzzyHashGenerator<File> {
     private final With with;
 
     @Inject
-    public FuzzyHashGenJava( @ForJava final LineNoise javaNoise,
-                             @ForJava final Hash<String> javaHash,
+    public FuzzyHashGenJava( @Named("java") final LineNoise javaNoise,
+                             @Named("java") final Hash<String> javaHash,
                              FuzzyHashSetFactory fuzzyHashSetFactory,
                              With with ) {
         this.noise = javaNoise;
