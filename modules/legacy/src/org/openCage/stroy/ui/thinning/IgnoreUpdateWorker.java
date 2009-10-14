@@ -3,7 +3,7 @@ package org.openCage.stroy.ui.thinning;
 import org.jdesktop.swingworker.SwingWorker;
 import org.openCage.stroy.filter.Ignore;
 import org.openCage.vfs.protocol.TreeNode;
-import org.openCage.stroy.graph.node.TreeNodeUtils;
+import org.openCage.vfs.protocol.TreeNodeUtils;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.ui.ModalProgress;
 import org.openCage.stroy.ui.difftree.NWayDiffPane;

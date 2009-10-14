@@ -3,8 +3,8 @@ package org.openCage.stroy.ui.popup;
 import junit.framework.TestCase;
 import org.openCage.stroy.content.ReducedContent;
 import org.openCage.vfs.protocol.TreeNode;
-import org.openCage.stroy.graph.node.SimpleTreeNode;
-import org.openCage.stroy.graph.node.SimpleContentTreeBuilder;
+import org.openCage.vfs.impl.SimpleTreeNode;
+import org.openCage.vfs.impl.SimpleContentTreeBuilder;
 import org.openCage.stroy.dir.LeafTreeNodeImpl;
 import com.muchsoft.util.Sys;
 

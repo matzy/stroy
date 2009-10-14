@@ -1,7 +1,7 @@
 package org.openCage.stroy.ui.util;
 
 import org.openCage.vfs.protocol.TreeNode;
-import org.openCage.stroy.graph.node.TreeNodeUtils;
+import org.openCage.vfs.protocol.TreeNodeUtils;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.dir.FileContent;
 import org.openCage.stroy.ui.difftree.UINode;

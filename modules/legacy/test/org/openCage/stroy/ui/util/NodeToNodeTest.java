@@ -1,6 +1,6 @@
 package org.openCage.stroy.ui.util;
 
-import org.openCage.stroy.graph.node.SimpleContentTreeBuilder;
+import org.openCage.vfs.impl.SimpleContentTreeBuilder;
 import org.openCage.vfs.protocol.TreeNode;
 import org.openCage.stroy.content.ReducedContent;
 

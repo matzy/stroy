@@ -1,7 +1,7 @@
 package org.openCage.stroy.ui.util;
 
 import junit.framework.TestCase;
-import org.openCage.stroy.graph.node.SimpleContentTreeBuilder;
+import org.openCage.vfs.impl.SimpleContentTreeBuilder;
 import org.openCage.vfs.protocol.TreeNode;
 import org.openCage.vfs.protocol.TreeNode;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
