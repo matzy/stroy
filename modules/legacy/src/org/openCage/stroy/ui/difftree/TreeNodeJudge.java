@@ -3,7 +3,7 @@ package org.openCage.stroy.ui.difftree;
 import org.openCage.util.ui.skvTree.JudgeBlock;
 import org.openCage.util.iterator.Count;
 import org.openCage.util.iterator.Iterators;
-import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.VNode;
 import org.openCage.stroy.graph.matching.TreeMatchingTaskNeutral;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.graph.DiffReporter;
@@ -56,7 +56,7 @@ public class TreeNodeJudge<T extends Content> implements JudgeBlock {
                 int i = 0;
             }
 
-            TreeNode nn = ((UINode)node.o.getUserObject()).get();
+            VNode nn = ((UINode)node.o.getUserObject()).get();
                                         
             final ChangeVector cv = matching.getChangeVector( nn );
 
@@ -84,7 +84,7 @@ public class TreeNodeJudge<T extends Content> implements JudgeBlock {
         boolean contentUnknown   = false;
 
         for ( DefaultMutableTreeNode dmtn : block ) {
-            TreeNode node = ((UINode)dmtn.getUserObject()).get();
+            VNode node = ((UINode)dmtn.getUserObject()).get();
             final ChangeVector cv = matching.getChangeVector( node );
 
             if ( cv.only ) {

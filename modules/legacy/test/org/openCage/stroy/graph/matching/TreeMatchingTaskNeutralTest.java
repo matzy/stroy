@@ -2,7 +2,7 @@ package org.openCage.stroy.graph.matching;
 
 import junit.framework.TestCase;
 import org.openCage.vfs.impl.SimpleContentTreeBuilder;
-import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.VNode;
 import org.openCage.stroy.content.ReducedContent;
 
 /***** BEGIN LICENSE BLOCK *****
@@ -32,11 +32,11 @@ public class TreeMatchingTaskNeutralTest extends TestCase {
     public void testRootsMatch() {
         SimpleContentTreeBuilder b = new SimpleContentTreeBuilder();
 
-        TreeNode treeLeft = b.d( "f", b.l( "a"),
+        VNode treeLeft = b.d( "f", b.l( "a"),
                                                       b.d( "g", b.l("b"),
                                                                 b.l("c")));
 
-        TreeNode treeRight = b.d( "f2", b.l( "a"),
+        VNode treeRight = b.d( "f2", b.l( "a"),
                                                        b.d( "g", b.l("b"),
                                                                  b.l("c")));
 

@@ -6,7 +6,7 @@ import org.openCage.stroy.task.MatchingTask;
 import org.openCage.stroy.array.MatchBestConnections2;
 import org.openCage.vfs.protocol.Content;
 import org.openCage.stroy.graph.SameContent;
-import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.VNode;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.util.logging.Log;
 
@@ -51,17 +51,17 @@ public class DuplicateMatching implements MatchStrategy {
 
     // TODO: refactor with other 
 
-    private void match( final TreeMatchingTask matchingTask, List<TreeNode> src, List<TreeNode> tgt ) {
+    private void match( final TreeMatchingTask matchingTask, List<VNode> src, List<VNode> tgt ) {
         if ( src.size() != 0 && tgt.size() != 0 ) {
 
-            MatchBestConnections2<MatchingTask<TreeNode>,TreeNode> match =
-                    new MatchBestConnections2<MatchingTask<TreeNode>,TreeNode>( new TreeLeafDistance() {
+            MatchBestConnections2<MatchingTask<VNode>,VNode> match =
+                    new MatchBestConnections2<MatchingTask<VNode>,VNode>( new TreeLeafDistance() {
 
-                public double distance(MatchingTask<TreeNode> info, TreeNode a, TreeNode b) {
+                public double distance(MatchingTask<VNode> info, VNode a, VNode b) {
                     double dist = 1.0;
                     // parent
                     if ( matchingTask.isMatched( a.getParent())) {
-                        TreeNode aparentMatch = matchingTask.getDirs().getMatch( a.getParent());
+                        VNode aparentMatch = matchingTask.getDirs().getMatch( a.getParent());
                         if ( aparentMatch == b.getParent() ) {
                             dist *= 0.25;
                         }

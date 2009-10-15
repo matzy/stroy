@@ -2,7 +2,7 @@ package org.openCage.stroy.ui.popup;
 
 import org.openCage.stroy.dir.FileContent;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
-import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.VNode;
 import org.openCage.stroy.ui.util.NodeToNode;
 import org.openCage.vfs.protocol.Content;
 import org.openCage.util.logging.Log;
@@ -50,7 +50,7 @@ public class PopupSelector<T extends Content> {
 
     public void open( MouseEvent event, TreePath path ) {
 
-        TreeNode tn = NodeToNode.pathToNode( path );
+        VNode tn = NodeToNode.pathToNode( path );
 
         if ( tn == null ) {
             // tree element without treenode, i.e. a ghost node

@@ -2,7 +2,7 @@ package org.openCage.stroy.graph.matching.strategy;
 
 import java.util.logging.Logger;
 import org.openCage.vfs.protocol.Content;
-import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.VNode;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.locale.Message;
 
@@ -47,7 +47,7 @@ public class SimpleDirMatching implements MatchStrategy {
     }
 
 
-    public void matchInChildList( TreeMatchingTask treeMatchingTask, Reporter reporter, TreeNode fromDir, TreeNode toParent ) {
+    public void matchInChildList( TreeMatchingTask treeMatchingTask, Reporter reporter, VNode fromDir, VNode toParent ) {
 
         if ( ! treeMatchingTask.isMatched( fromDir )  ) {
 
@@ -59,29 +59,29 @@ public class SimpleDirMatching implements MatchStrategy {
 
             reporter.detail( Message.get( "testing"), fromDir.toString() );
 
-            for ( TreeNode tgtKid : toParent.getChildren() ) {
+            for ( VNode tgtKid : toParent.getChildren() ) {
 
                 if ( !tgtKid.isLeaf() &&
                      !treeMatchingTask.isMatched( tgtKid ) &&
                      tgtKid.getContent().getName().equals( name )) {
 
-                    treeMatchingTask.getDirs().match( fromDir, (TreeNode)tgtKid, 1.0 );
+                    treeMatchingTask.getDirs().match( fromDir, (VNode)tgtKid, 1.0 );
                     break;
                 }
             }
             
         }
 
-        TreeNode newParent = treeMatchingTask.getDirs().getMatch(fromDir);
+        VNode newParent = treeMatchingTask.getDirs().getMatch(fromDir);
 
         if ( newParent == null ) {
             return;
         }
 
-        for ( TreeNode fm : fromDir.getChildren() ) {
+        for ( VNode fm : fromDir.getChildren() ) {
 
             if ( !fm.isLeaf() ) {
-                matchInChildList( treeMatchingTask, reporter, (TreeNode)fm, newParent );
+                matchInChildList( treeMatchingTask, reporter, (VNode)fm, newParent );
             }
         }
 

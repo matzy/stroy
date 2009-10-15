@@ -2,7 +2,7 @@ package org.openCage.stroy.ui.popup;
 
 import junit.framework.TestCase;
 import org.openCage.stroy.content.ReducedContent;
-import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.VNode;
 import org.openCage.vfs.impl.SimpleTreeNode;
 import org.openCage.vfs.impl.SimpleContentTreeBuilder;
 import org.openCage.stroy.dir.LeafTreeNodeImpl;
@@ -34,56 +34,56 @@ public class DiffPopupDeciderTest extends TestCase {
 
     public void testShowOpenLeave() {
 
-        TreeNode leave = new SimpleContentTreeBuilder().l( "foo.jpg");
+        VNode leave = new SimpleContentTreeBuilder().l( "foo.jpg");
         assertTrue( new DiffPopupDecider().showOpen( leave ));
     }
 
     public void testShowOpenLeaveWithoutContetn() {
 
-        TreeNode leave = new SimpleTreeNode( null );
+        VNode leave = new SimpleTreeNode( null );
         assertFalse( new DiffPopupDecider().showOpen( leave ));
     }
 
     public void testShowOpenDir() {
 
-        TreeNode leave = new SimpleContentTreeBuilder().l( "foo");
-        TreeNode dir = new SimpleContentTreeBuilder().d( "dd", leave);
+        VNode leave = new SimpleContentTreeBuilder().l( "foo");
+        VNode dir = new SimpleContentTreeBuilder().d( "dd", leave);
 
         assertFalse( new DiffPopupDecider().showOpen( dir ));
     }
 
     public void testShowOpenBundle() {
 
-        TreeNode leave = new SimpleContentTreeBuilder().l( "foo");
-        TreeNode dir = new SimpleContentTreeBuilder().d( "dd.app", leave);
+        VNode leave = new SimpleContentTreeBuilder().l( "foo");
+        VNode dir = new SimpleContentTreeBuilder().d( "dd.app", leave);
 
         assertEquals( Sys.isMacOSX(), new DiffPopupDecider().showOpen( dir ));
     }
 
     public void testShowOpenAsTextLeave() {
 
-        TreeNode leave = new SimpleContentTreeBuilder().l( "foo");
+        VNode leave = new SimpleContentTreeBuilder().l( "foo");
         assertTrue( new DiffPopupDecider().showOpenAsText( leave ));
     }
 
     public void testShowOpenAsTextLeaveWithoutContetn() {
 
-        TreeNode leave = new SimpleTreeNode( null );
+        VNode leave = new SimpleTreeNode( null );
         assertFalse( new DiffPopupDecider().showOpenAsText( leave ));
     }
 
     public void testShowOpenAsTextDir() {
 
-        TreeNode leave = new SimpleContentTreeBuilder().l( "foo");
-        TreeNode dir = new SimpleContentTreeBuilder().d( "dd", leave);
+        VNode leave = new SimpleContentTreeBuilder().l( "foo");
+        VNode dir = new SimpleContentTreeBuilder().d( "dd", leave);
 
         assertFalse( new DiffPopupDecider().showOpenAsText( dir ));
     }
 
     public void testShowOpenAsTextBundle() {
 
-        TreeNode leave = new SimpleContentTreeBuilder().l( "foo");
-        TreeNode dir = new SimpleContentTreeBuilder().d( "dd.app", leave);
+        VNode leave = new SimpleContentTreeBuilder().l( "foo");
+        VNode dir = new SimpleContentTreeBuilder().d( "dd.app", leave);
 
         assertFalse( new DiffPopupDecider().showOpenAsText( dir ));
     }

@@ -3,7 +3,7 @@ package org.openCage.stroy.graph.matching.strategy;
 import java.util.logging.Logger;
 import org.openCage.vfs.protocol.Content;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
-import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.VNode;
 import org.openCage.stroy.locale.Message;
 
 /***** BEGIN LICENSE BLOCK *****
@@ -52,8 +52,8 @@ public class StandardMatching  implements MatchStrategy {
 
     public void matchInChildList( TreeMatchingTask treeMatchingTask,
                                   Reporter reporter,
-                                  TreeNode         leftNode,
-                                  TreeNode      toParent ) {
+                                  VNode         leftNode,
+                                  VNode      toParent ) {
 
         if ( ! treeMatchingTask.isMatched( leftNode )  ) {
 
@@ -65,7 +65,7 @@ public class StandardMatching  implements MatchStrategy {
 
             reporter.detail( Message.get( "testing"), leftNode.toString() );
 
-            for ( TreeNode tgtKid : toParent.getChildren() ) {
+            for ( VNode tgtKid : toParent.getChildren() ) {
 
                 if ( (leftNode.isLeaf() == tgtKid.isLeaf() ) &&
                      !treeMatchingTask.isMatched( tgtKid ) &&
@@ -76,9 +76,9 @@ public class StandardMatching  implements MatchStrategy {
                         if ( leftNode.getContent().getChecksum().equals( tgtKid.getContent().getChecksum() )) {
                             qual = 1.0;
                         }
-                        treeMatchingTask.getLeaves().match( (TreeNode)leftNode, (TreeNode)tgtKid, qual );
+                        treeMatchingTask.getLeaves().match( (VNode)leftNode, (VNode)tgtKid, qual );
                     } else {
-                        treeMatchingTask.getDirs().match( (TreeNode)leftNode, (TreeNode)tgtKid, 1.0 );
+                        treeMatchingTask.getDirs().match( (VNode)leftNode, (VNode)tgtKid, 1.0 );
                     }
                     break;
                 }
@@ -90,14 +90,14 @@ public class StandardMatching  implements MatchStrategy {
             return;
         }
 
-        TreeNode newParent = treeMatchingTask.getDirs().getMatch((TreeNode)leftNode);
+        VNode newParent = treeMatchingTask.getDirs().getMatch((VNode)leftNode);
 
         if ( newParent == null ) {
             // no match
             return;
         }
 
-        for ( TreeNode fm : ((TreeNode)leftNode).getChildren() ) {
+        for ( VNode fm : ((VNode)leftNode).getChildren() ) {
             matchInChildList(treeMatchingTask, reporter, fm, newParent  );
         }
 

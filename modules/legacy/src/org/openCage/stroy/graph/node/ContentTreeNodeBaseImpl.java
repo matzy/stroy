@@ -1,6 +1,6 @@
 package org.openCage.stroy.graph.node;
 
-import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.VNode;
 import org.openCage.vfs.protocol.Content;
 
 /***** BEGIN LICENSE BLOCK *****
@@ -25,9 +25,9 @@ import org.openCage.vfs.protocol.Content;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public abstract class ContentTreeNodeBaseImpl implements TreeNode {
+public abstract class ContentTreeNodeBaseImpl implements VNode {
     private final Content         content;
-    private TreeNode  parent;
+    private VNode  parent;
 
     public ContentTreeNodeBaseImpl( Content file, boolean generateId ) {
         this.content = file;
@@ -37,11 +37,11 @@ public abstract class ContentTreeNodeBaseImpl implements TreeNode {
         return content;
     }
 
-    public void setParent( TreeNode parent) {
+    public void setParent( VNode parent) {
         this.parent = parent;
     }
 
-    public TreeNode getParent() {
+    public VNode getParent() {
         return parent;
     }
 

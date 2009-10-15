@@ -1,7 +1,7 @@
 package org.openCage.stroy.ui.difftree;
 
 import org.openCage.stroy.dir.FileContent;
-import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.VNode;
 import org.openCage.stroy.ui.difftree.ChangeNumbers;
 import org.openCage.stroy.ui.ChangeVector;
 import org.openCage.vfs.protocol.Content;
@@ -37,7 +37,7 @@ public interface UINode {
     public ChangeVector getChangeVectorLeft();
     public ChangeVector getChangeVectorRight();
 
-    public TreeNode get();
+    public VNode get();
 
     public void        setChangeNumbers(ChangeNumbers cn);
 

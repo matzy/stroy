@@ -2,8 +2,8 @@ package org.openCage.stroy.ui.util;
 
 import junit.framework.TestCase;
 import org.openCage.vfs.impl.SimpleContentTreeBuilder;
-import org.openCage.vfs.protocol.TreeNode;
-import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.VNode;
+import org.openCage.vfs.protocol.VNode;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.graph.matching.TreeMatchingTaskNeutralBuilder;
 import org.openCage.stroy.content.ReducedContent;
@@ -45,14 +45,14 @@ public class DMTNMakerTest extends TestCase {
 
         SimpleContentTreeBuilder b = new SimpleContentTreeBuilder();
 
-        TreeNode treeOne = b.d( "f", b.l( "a"),
+        VNode treeOne = b.d( "f", b.l( "a"),
                                                      b.d( "g", b.l("b"),
                                                                 b.l("c")));
 
-        TreeNode treeTwo = b.d( "f2", b.l( "a"),
+        VNode treeTwo = b.d( "f2", b.l( "a"),
                                                       b.d( "g", b.l("b"),
                                                                  b.l("c")));
-        TreeNode treeThree = b.d( "f3", b.l( "a"),
+        VNode treeThree = b.d( "f3", b.l( "a"),
                                                         b.d( "g", b.l("b"),
                                                                  b.l("c")));
 
@@ -98,9 +98,9 @@ public class DMTNMakerTest extends TestCase {
 
     public void testSameTree() {
         DefaultMutableTreeNode      uiRoot = DMTNMaker.makeDFTNs( taskLeft, null ).get(0);
-        TreeNode mRoot  = taskLeft.getLeftRoot();
+        VNode mRoot  = taskLeft.getLeftRoot();
 
-        for ( TreeNode child : mRoot.getChildren() ) {
+        for ( VNode child : mRoot.getChildren() ) {
 //            NodeToNode.nodeToPath( uiRoot, mRoot, child );
         }
     }

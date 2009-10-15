@@ -2,7 +2,7 @@ package org.openCage.stroy.ui.popup;
 
 import org.junit.Test;
 import org.openCage.lang.protocol.tuple.T2;
-import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.VNode;
 import org.openCage.vfs.protocol.TreeNodeUtils;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.graph.matching.TreeMatchingTaskNeutralBuilder;
@@ -42,11 +42,11 @@ public class DiffPopupTest {
     public void testLeftRight_right() {
         SimpleStringTreeBuilder b = new SimpleStringTreeBuilder();
 
-        TreeNode treeLeft = b.d( "left", b.l( "a"),
+        VNode treeLeft = b.d( "left", b.l( "a"),
                                                       b.d( "g", b.l("b"),
                                                                 b.l("c")));
 
-        TreeNode treeRight = b.d( "right", b.l( "a"),
+        VNode treeRight = b.d( "right", b.l( "a"),
                                                        b.d( "g", b.l("b"),
                                                                  b.l("c")));
 
@@ -58,7 +58,7 @@ public class DiffPopupTest {
         DiffPopup popup =
                 new DiffPopup( task, null );
 
-        T2<TreeNode, TreeNode> lr =
+        T2<VNode, VNode> lr =
                 popup.getLeftAndRightNode( TreeNodeUtils.getNode( task.getRightRoot() ));
 
         assertEquals( TreeNodeUtils.getNode( task.getLeftRoot()),
@@ -71,11 +71,11 @@ public class DiffPopupTest {
     public void testLeftRight_left() {
         SimpleStringTreeBuilder b = new SimpleStringTreeBuilder();
 
-        TreeNode treeLeft = b.d( "left", b.l( "a"),
+        VNode treeLeft = b.d( "left", b.l( "a"),
                                                       b.d( "g", b.l("b"),
                                                                 b.l("c")));
 
-        TreeNode treeRight = b.d( "right", b.l( "a"),
+        VNode treeRight = b.d( "right", b.l( "a"),
                                                        b.d( "g", b.l("b"),
                                                                  b.l("c")));
 
@@ -87,7 +87,7 @@ public class DiffPopupTest {
         DiffPopup popup =
                 new DiffPopup( null, task );
 
-        T2<TreeNode, TreeNode> lr =
+        T2<VNode, VNode> lr =
                 popup.getLeftAndRightNode( TreeNodeUtils.getNode( task.getLeftRoot() ));
 
         assertEquals( TreeNodeUtils.getNode( task.getLeftRoot()),

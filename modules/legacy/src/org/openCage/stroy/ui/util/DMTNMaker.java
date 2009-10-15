@@ -1,7 +1,7 @@
 package org.openCage.stroy.ui.util;
 
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
-import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.VNode;
 import org.openCage.vfs.protocol.Content;
 import org.openCage.stroy.ui.difftree.UINodeImpl;
 
@@ -83,7 +83,7 @@ public class DMTNMaker {
     private static DefaultMutableTreeNode addNodes( TreeMatchingTask    task1,
                                                                        TreeMatchingTask    task2,
                                                                        DefaultMutableTreeNode curTop,
-                                                                       TreeNode            node   ) {
+                                                                       VNode            node   ) {
 
 
         DefaultMutableTreeNode curDir = new DefaultMutableTreeNode( node.getContent().getName() );
@@ -98,7 +98,7 @@ public class DMTNMaker {
             return curDir;
         }
 
-        for (TreeNode child : ((TreeNode) node).getChildren() ) {
+        for (VNode child : ((VNode) node).getChildren() ) {
 
             addNodes( task1, task2,  curDir, child );
         }

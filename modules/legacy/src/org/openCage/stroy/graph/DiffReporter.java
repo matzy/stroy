@@ -2,7 +2,7 @@ package org.openCage.stroy.graph;
 
 import org.openCage.vfs.protocol.Content;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
-import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.VNode;
 import org.openCage.stroy.ui.ChangeVector;
 import org.openCage.stroy.diff.ContentDiff;
 
@@ -31,7 +31,7 @@ import org.openCage.stroy.diff.ContentDiff;
 
 public class DiffReporter {
 
-    public static boolean isMoved( TreeMatchingTask task, TreeNode node ) {
+    public static boolean isMoved( TreeMatchingTask task, VNode node ) {
         if ( !task.isMatched( node )) {
             return false;
         }
@@ -42,13 +42,13 @@ public class DiffReporter {
         }
 
 
-        TreeNode    parentMatch = task.getMatch( node.getParent() );
-        TreeNode matchParent = task.getMatch( node ).getParent();
+        VNode    parentMatch = task.getMatch( node.getParent() );
+        VNode matchParent = task.getMatch( node ).getParent();
 
         return parentMatch != matchParent;
     }
 
-    public static <T extends Content> boolean isRenamed(TreeMatchingTask task, TreeNode node) {
+    public static <T extends Content> boolean isRenamed(TreeMatchingTask task, VNode node) {
         if ( !task.isMatched( node )) {
             return false;
         }
@@ -57,7 +57,7 @@ public class DiffReporter {
         return !node.getContent().getName().equals( task.getMatch( node ).getContent().getName());
     }
 
-    public static <T extends Content> ContentDiff isContentChanged(TreeMatchingTask task, TreeNode node) {
+    public static <T extends Content> ContentDiff isContentChanged(TreeMatchingTask task, VNode node) {
         if ( !task.isMatched( node )) {
             return null;
         }
@@ -69,7 +69,7 @@ public class DiffReporter {
         return task.getLeaves().getDifference( node );
     }
 
-    public static <T extends Content> ChangeVector getChangeVector( TreeMatchingTask task, TreeNode node) {
+    public static <T extends Content> ChangeVector getChangeVector( TreeMatchingTask task, VNode node) {
         return null;
     }
 }

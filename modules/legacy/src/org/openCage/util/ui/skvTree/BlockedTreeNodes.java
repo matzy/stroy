@@ -2,7 +2,7 @@ package org.openCage.util.ui.skvTree;
 
 import org.openCage.util.logging.Log;
 import org.openCage.stroy.ui.util.NodeToNode;
-import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.VNode;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;

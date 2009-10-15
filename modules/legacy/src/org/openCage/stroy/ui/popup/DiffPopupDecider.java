@@ -1,6 +1,6 @@
 package org.openCage.stroy.ui.popup;
 
-import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.VNode;
 import org.openCage.vfs.protocol.Content;
 import org.openCage.stroy.file.FileTypes;
 import org.openCage.util.platform.Platform;
@@ -39,7 +39,7 @@ public class DiffPopupDecider {
 
     FileTypes fileTypes = FileTypes.create();
 
-    public boolean showOpen( TreeNode node ) {
+    public boolean showOpen( VNode node ) {
 
         if ( node.isLeaf() ) {
             return node.getContent() != null && hasOpenApp( node );
@@ -52,7 +52,7 @@ public class DiffPopupDecider {
         return false;
     }
 
-    public boolean showOpenWith( TreeNode node ) {
+    public boolean showOpenWith( VNode node ) {
 
         if ( node.isLeaf() ) {
             return node.getContent() != null && !hasOpenApp( node );
@@ -65,11 +65,11 @@ public class DiffPopupDecider {
         return false;
     }
 
-    public boolean showOpenAsText( TreeNode node ) {
+    public boolean showOpenAsText( VNode node ) {
         return node.isLeaf() && node.getContent() != null;
     }
 
-    private boolean hasOpenApp( TreeNode node ) {
+    private boolean hasOpenApp( VNode node ) {
         if ( node.getContent() == null ) {
             throw Log.log( new IllegalArgumentException( "node has no content" ));
         }
@@ -78,7 +78,7 @@ public class DiffPopupDecider {
     }
 
 
-    public boolean showDiff( TreeNode node ) {
+    public boolean showDiff( VNode node ) {
         boolean leaf  =  node.isLeaf();
         boolean content = node.getContent() != null;
         boolean diffType = fileTypes.hasDiffType( FileUtils.getExtension(((Content)node.getContent()).getName() ));
@@ -88,7 +88,7 @@ public class DiffPopupDecider {
                fileTypes.hasDiffType( FileUtils.getExtension(((Content)node.getContent()).getName() ));
     }
 
-    public boolean showDiffWith( TreeNode node ) {
+    public boolean showDiffWith( VNode node ) {
         return node.isLeaf() &&
                node.getContent() != null &&
                !fileTypes.hasDiffType( FileUtils.getExtension(((Content)node.getContent()).getName() ));

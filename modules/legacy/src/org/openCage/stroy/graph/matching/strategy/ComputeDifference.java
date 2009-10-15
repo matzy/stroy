@@ -2,7 +2,7 @@ package org.openCage.stroy.graph.matching.strategy;
 
 import org.openCage.vfs.protocol.Content;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
-import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.VNode;
 import org.openCage.stroy.locale.Message;
 import org.openCage.stroy.diff.ContentDiff;
 
@@ -35,9 +35,9 @@ public class ComputeDifference  implements MatchStrategy {
 
         leaves(treeMatchingTask, reporter);
 
-        for ( TreeNode left : treeMatchingTask.getDirs().getMatchedLeft() ) {
+        for ( VNode left : treeMatchingTask.getDirs().getMatchedLeft() ) {
             boolean change = false;
-            for ( TreeNode child : left.getChildren() ) {
+            for ( VNode child : left.getChildren() ) {
                 if ( !treeMatchingTask.isMatched( child )) {
                     change = true;
                     break;
@@ -45,9 +45,9 @@ public class ComputeDifference  implements MatchStrategy {
             }
 
             if ( !change ) {
-                TreeNode right = treeMatchingTask.getMatch( left );
+                VNode right = treeMatchingTask.getMatch( left );
 
-                for ( TreeNode child : right.getChildren() ) {
+                for ( VNode child : right.getChildren() ) {
                     if ( !treeMatchingTask.isMatched( child )) {
                         change = true;
                         break;
@@ -64,13 +64,13 @@ public class ComputeDifference  implements MatchStrategy {
     }
 
     private void leaves(TreeMatchingTask treeMatchingTask, Reporter reporter) {
-        for (TreeNode left : treeMatchingTask.getLeaves().getMatchedLeft()) {
+        for (VNode left : treeMatchingTask.getLeaves().getMatchedLeft()) {
 
             if ( treeMatchingTask.getLeaves().getDifference( left ).equals( ContentDiff.unknown )) {
                 reporter.detail( Message.get( "Progress.checking" ), left.toString() );
                 String checksumLeft = left.getContent().getChecksum();
 
-                TreeNode right = (TreeNode)treeMatchingTask.getMatch( left );
+                VNode right = (VNode)treeMatchingTask.getMatch( left );
                 reporter.detail( Message.get( "Progress.checking" ), right.toString() );
                 String checksumRight = right.getContent().getChecksum();
 

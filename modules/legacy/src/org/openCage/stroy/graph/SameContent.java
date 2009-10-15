@@ -1,7 +1,7 @@
 package org.openCage.stroy.graph;
 
 import org.openCage.vfs.protocol.Content;
-import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.VNode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,23 +30,23 @@ import java.util.List;
 
 public class SameContent {
 
-    private final List<TreeNode> src;
-    private final List<TreeNode> tgt;
+    private final List<VNode> src;
+    private final List<VNode> tgt;
 
     public SameContent() {
-        src = new ArrayList<TreeNode>();
-        tgt = new ArrayList<TreeNode>();
+        src = new ArrayList<VNode>();
+        tgt = new ArrayList<VNode>();
     }
 
-    public List<TreeNode> getSources() {
+    public List<VNode> getSources() {
         return src;
     }
 
-    public List<TreeNode> getTargets() {
+    public List<VNode> getTargets() {
         return tgt;
     }
 
-    public void add( TreeNode lfm, boolean isSrc) {
+    public void add( VNode lfm, boolean isSrc) {
         if ( isSrc ) {
             src.add( lfm );
         } else {
@@ -72,13 +72,13 @@ public class SameContent {
     public String toString() {
         String str = "same hash:\n";
 
-        for ( TreeNode lfm : src ) {
+        for ( VNode lfm : src ) {
             str += "   " + lfm + "\n";
         }
 
         str += "--\n";
 
-        for ( TreeNode lfm : tgt ) {
+        for ( VNode lfm : tgt ) {
             str += "   " + lfm + "\n";
         }
 
@@ -106,7 +106,7 @@ public class SameContent {
         return ( src.size() == 1 && tgt.size() == 0 );
     }
 
-    public TreeNode getSingle() {
+    public VNode getSingle() {
         if ( isSingleNew() ) {
             return tgt.get(0);
         } else if ( isSingleOld()) {
@@ -161,7 +161,7 @@ public class SameContent {
 //
 //    }
 
-    public TreeNode getSingleTgt() {
+    public VNode getSingleTgt() {
         if ( tgt.size() == 1  ) {
             return tgt.get(0);
         }
@@ -169,7 +169,7 @@ public class SameContent {
         throw new Error( "not single" );
     }
 
-    public TreeNode getSingleSrc() {
+    public VNode getSingleSrc() {
         if ( src.size() == 1 )  {
             return src.get(0);
         }

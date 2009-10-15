@@ -1,7 +1,7 @@
 package org.openCage.stroy.ui.util;
 
 import org.openCage.vfs.impl.SimpleContentTreeBuilder;
-import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.VNode;
 import org.openCage.stroy.content.ReducedContent;
 
 /***** BEGIN LICENSE BLOCK *****
@@ -31,7 +31,7 @@ public class NodeToNodeTest {
     public void testGetNamePath() {
         SimpleContentTreeBuilder b = new SimpleContentTreeBuilder();
 
-        TreeNode treeOne = b.d( "f", b.l( "a"),
+        VNode treeOne = b.d( "f", b.l( "a"),
                                                      b.d( "g", b.l("b"),
                                                                 b.l("c")));
 

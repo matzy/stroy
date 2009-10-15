@@ -1,7 +1,7 @@
 package org.openCage.stroy.ui.difftree;
 
 import org.openCage.stroy.ui.ChangeVector;
-import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.VNode;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.diff.ContentDiff;
 import org.openCage.vfs.protocol.Content;
@@ -50,7 +50,7 @@ public class GhostNode<T extends Content> implements UINode {
     private String name;
 
 
-    public GhostNode( TreeNode         node,
+    public GhostNode( VNode         node,
                       TreeMatchingTask task1,
                       TreeMatchingTask task2,
                       boolean left,
@@ -79,7 +79,7 @@ public class GhostNode<T extends Content> implements UINode {
         return cvRight;
     }
 
-    public TreeNode get() {
+    public VNode get() {
         return null;
     }
 

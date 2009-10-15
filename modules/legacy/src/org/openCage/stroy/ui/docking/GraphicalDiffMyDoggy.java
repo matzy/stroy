@@ -17,7 +17,7 @@ import org.openCage.vfs.protocol.Content;
 import org.openCage.stroy.filter.Ignore;
 import org.openCage.stroy.filter.IgnoreChangedListener;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
-import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.VNode;
 import org.openCage.stroy.ui.menu.PortableMenu;
 import org.openCage.stroy.ui.difftree.*;
 import org.openCage.stroy.ui.util.DMTNMaker;
@@ -139,8 +139,8 @@ public class GraphicalDiffMyDoggy<T extends Content> extends JFrame implements I
 
         app = new UIApp( diffPane, dmtRoots, tasks );
 
-        NodeChangeListener<TreeNode> listener = new NodeChangeListener<TreeNode>() {
-            public void matched( final TreeNode ll, final TreeNode rr) {
+        NodeChangeListener<VNode> listener = new NodeChangeListener<VNode>() {
+            public void matched( final VNode ll, final VNode rr) {
                 try {
                     SwingUtilities.invokeAndWait( new Runnable() {
                         public void run() {
@@ -162,7 +162,7 @@ public class GraphicalDiffMyDoggy<T extends Content> extends JFrame implements I
                 }
             }
 
-            public void matchRemoved(TreeNode left, TreeNode right) {
+            public void matchRemoved(VNode left, VNode right) {
                 try {
                     SwingUtilities.invokeAndWait( new Runnable() {
                         public void run() {
@@ -176,7 +176,7 @@ public class GraphicalDiffMyDoggy<T extends Content> extends JFrame implements I
                 }
             }
 
-            public void diffChanged(TreeNode left, TreeNode right) {
+            public void diffChanged(VNode left, VNode right) {
                 try {
                     SwingUtilities.invokeAndWait( new Runnable() {
                         public void run() {
@@ -190,12 +190,12 @@ public class GraphicalDiffMyDoggy<T extends Content> extends JFrame implements I
                 }
             }
 
-            public void removed(TreeNode obj) {
+            public void removed(VNode obj) {
                 Log.warning( "GDMD TODO removed" );
             }
 
 
-            public void beforeMatched( final TreeNode ll, final TreeNode rr) {
+            public void beforeMatched( final VNode ll, final VNode rr) {
                 try {
                     SwingUtilities.invokeAndWait( new Runnable() {
                         public void run() {

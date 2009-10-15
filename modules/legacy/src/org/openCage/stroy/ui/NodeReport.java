@@ -1,6 +1,6 @@
 package org.openCage.stroy.ui;
 
-import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.VNode;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -26,12 +26,12 @@ import org.openCage.vfs.protocol.TreeNode;
 
 public class NodeReport {
 
-    public TreeNode  node;
+    public VNode  node;
     public boolean      matched;
     // public boolean      deleted;
     public String       message;
 
-    public NodeReport( TreeNode  node ) {
+    public NodeReport( VNode  node ) {
         this.node = node;
     }
 
@@ -44,7 +44,7 @@ public class NodeReport {
         return this;
     }
 
-    public NodeReport node( TreeNode  node ) {
+    public NodeReport node( VNode  node ) {
         this.node = node;
         return this;
     }

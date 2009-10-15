@@ -1,6 +1,6 @@
 package org.openCage.stroy.ui.difftree;
 
-import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.VNode;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.graph.DiffReporter;
 import org.openCage.stroy.ui.difftree.ChangeNumbers;
@@ -38,7 +38,7 @@ import java.util.ArrayList;
 
 public class UINodeImpl<T extends Content> implements UINode {
 
-    private final TreeNode         node;
+    private final VNode         node;
     private final TreeMatchingTask taskLeft;
     private final TreeMatchingTask taskRight;
 
@@ -53,7 +53,7 @@ public class UINodeImpl<T extends Content> implements UINode {
 //        this.taskRight = null;
 //    }
 
-    public UINodeImpl( TreeNode         node,
+    public UINodeImpl( VNode         node,
                        TreeMatchingTask task1,
                        TreeMatchingTask task2 ) {
         this.node       = node;
@@ -82,7 +82,7 @@ public class UINodeImpl<T extends Content> implements UINode {
         return cv;
     }
 
-    public TreeNode get() {
+    public VNode get() {
         return node;
     }
 

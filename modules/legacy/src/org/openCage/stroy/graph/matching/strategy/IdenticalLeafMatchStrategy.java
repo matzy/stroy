@@ -2,7 +2,7 @@ package org.openCage.stroy.graph.matching.strategy;
 
 import org.openCage.vfs.protocol.Content;
 import org.openCage.stroy.graph.SameContent;
-import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.VNode;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.locale.Message;
 
@@ -72,7 +72,7 @@ public class IdenticalLeafMatchStrategy implements MatchStrategy {
     private Map<String, SameContent> computeHashes( TreeMatchingTask matchingTask, Reporter reporter) {
         Map<String, SameContent> sames = new HashMap<String, SameContent>();
 
-        for ( TreeNode lfm : matchingTask.getLeaves().getUnmatchedLeft() ) {
+        for ( VNode lfm : matchingTask.getLeaves().getUnmatchedLeft() ) {
 
             reporter.detail( Message.get( "Progress.checking" ), lfm.toString() );
             
@@ -90,7 +90,7 @@ public class IdenticalLeafMatchStrategy implements MatchStrategy {
             sh.add( lfm, true );
         }
 
-        for ( TreeNode lfm : matchingTask.getLeaves().getUnmatchedRight() ) {
+        for ( VNode lfm : matchingTask.getLeaves().getUnmatchedRight() ) {
 
             reporter.detail( Message.get( "Progress.checking" ), lfm.toString() );
 

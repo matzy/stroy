@@ -1,6 +1,6 @@
 package org.openCage.stroy.ui.util;
 
-import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.VNode;
 import org.openCage.vfs.protocol.TreeNodeUtils;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.dir.FileContent;
@@ -43,7 +43,7 @@ import java.io.File;
 
 public class NodeToNode {
 
-    public static TreeNode pathToNode(TreePath path) {
+    public static VNode pathToNode(TreePath path) {
 
         if ( path == null ) {
             return null;
@@ -57,7 +57,7 @@ public class NodeToNode {
     }
 
     public static File getFile( TreePath path ) {
-        return ((TreeNode)pathToNode( path)).getContent().getFile();
+        return ((VNode)pathToNode( path)).getContent().getFile();
     }
 
     public static String getStringPath( TreePath path ) {
@@ -161,12 +161,12 @@ public class NodeToNode {
 //    }
 
 
-    public static <T extends Content> TreePath nodeToPath( DefaultMutableTreeNode root, TreeNode node ) {
+    public static <T extends Content> TreePath nodeToPath( DefaultMutableTreeNode root, VNode node ) {
 
         return TreeUtils.getPath( nodeToDMTNode( root, node ));
     }
 
-    public static <T extends Content> boolean isGhost( DefaultMutableTreeNode root, TreeNode node ) {
+    public static <T extends Content> boolean isGhost( DefaultMutableTreeNode root, VNode node ) {
         List<String> namePath = TreeNodeUtils.getNamePath( node );
 
         if ( namePath.size() < 1 ) {
@@ -178,7 +178,7 @@ public class NodeToNode {
 
     }
 
-    public static <T extends Content> DefaultMutableTreeNode nodeToDMTNode( DefaultMutableTreeNode root, TreeNode node ) {
+    public static <T extends Content> DefaultMutableTreeNode nodeToDMTNode( DefaultMutableTreeNode root, VNode node ) {
 
         List<String> namePath = TreeNodeUtils.getNamePath( node );
 
@@ -215,7 +215,7 @@ public class NodeToNode {
         return next;
     }
 
-    private static <T extends Content> boolean isInThatTree( DefaultMutableTreeNode root, TreeNode node ) {
+    private static <T extends Content> boolean isInThatTree( DefaultMutableTreeNode root, VNode node ) {
 
         if ( !root.isRoot()) {
             root = (DefaultMutableTreeNode)root.getRoot();
@@ -225,7 +225,7 @@ public class NodeToNode {
                 ((FileContent)(((UINode)root.getUserObject()).get().getContent())).getFile().getAbsolutePath());
     }
 
-    public static <T extends Content> TreePath nodeToTreePath( DefaultMutableTreeNode root, TreeNode node ) {
+    public static <T extends Content> TreePath nodeToTreePath( DefaultMutableTreeNode root, VNode node ) {
 
         return TreeUtils.getPath( nodeToDMTNode( root, node ));
     }
@@ -261,7 +261,7 @@ public class NodeToNode {
         List<String> namePath = new ArrayList<String>();
 
         UINode      uiNode;
-        TreeNode node;
+        VNode node;
         while( true ) {
             uiNode = ((UINode)((DefaultMutableTreeNode)path.getLastPathComponent()).getUserObject());
             node   = uiNode.get();
@@ -313,7 +313,7 @@ public class NodeToNode {
      * @param task The task connecting both sides
      * @return
      */
-    public static <T extends Content> DefaultMutableTreeNode findMatchingNode( DefaultMutableTreeNode root, TreeNode node, TreeMatchingTask task) {
+    public static <T extends Content> DefaultMutableTreeNode findMatchingNode( DefaultMutableTreeNode root, VNode node, TreeMatchingTask task) {
 
         // find first matching parents remember list of names
         // match

@@ -1,7 +1,7 @@
 package org.openCage.stroy.graph.matching;
 
 import org.openCage.vfs.protocol.Content;
-import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.VNode;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -26,9 +26,9 @@ import org.openCage.vfs.protocol.TreeNode;
 ***** END LICENSE BLOCK *****/
 
 public class TaskUtils {
-    public static TreeNode getBestMatchOrParent( TreeMatchingTask matching,
-                                                                        TreeNode         node ) {
-        TreeNode match = matching.getMatch( node );
+    public static VNode getBestMatchOrParent( TreeMatchingTask matching,
+                                                                        VNode         node ) {
+        VNode match = matching.getMatch( node );
 
         while ( match == null ) {
             node  = node.getParent();
@@ -38,9 +38,9 @@ public class TaskUtils {
         return match;
     }
 
-    public static TreeNode getMatchOr( TreeMatchingTask matching,
-                                                              TreeNode         node ) {
-        TreeNode match = matching.getMatch( node );
+    public static VNode getMatchOr( TreeMatchingTask matching,
+                                                              VNode         node ) {
+        VNode match = matching.getMatch( node );
 
         if ( match == null ) {
             return node;

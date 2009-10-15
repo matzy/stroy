@@ -1,7 +1,7 @@
 package org.openCage.stroy.dir;
 
 import org.openCage.stroy.filter.Ignore;
-import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.VNode;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.graph.matching.TreeMatchingTaskNeutral;
 import org.openCage.stroy.content.FileContentFactory;
@@ -54,14 +54,14 @@ public class FileTreeMatchingTaskBuilderImpl implements FileTreeMatchingTaskBuil
             throw new Error( "top level dir is in ignore pattern" );
         }
 
-        TreeNode oneRoot = add( pool, ignore, "", one, true );
-        TreeNode twoRoot = add( pool, ignore, "", two, false );
+        VNode oneRoot = add( pool, ignore, "", one, true );
+        VNode twoRoot = add( pool, ignore, "", two, false );
 
         if ( oneRoot.isLeaf() || twoRoot.isLeaf() ) {
             LOG.severe( "oops can't handle leafs yet" );
         }
 
-        pool.getDirs().setRoots( (TreeNode)oneRoot, (TreeNode)twoRoot );
+        pool.getDirs().setRoots( (VNode)oneRoot, (VNode)twoRoot );
 
         return pool;
     }
@@ -75,22 +75,22 @@ public class FileTreeMatchingTaskBuilderImpl implements FileTreeMatchingTaskBuil
         }
 
 
-        for ( TreeNode nd : leftTask.getLeaves().getUnmatchedLeft() ) {
+        for ( VNode nd : leftTask.getLeaves().getUnmatchedLeft() ) {
             pool.getLeaves().addLeft( nd );
         }
-        for ( TreeNode nd : leftTask.getDirs().getUnmatchedLeft() ) {
+        for ( VNode nd : leftTask.getDirs().getUnmatchedLeft() ) {
             pool.getDirs().addLeft( nd );
         }
 
-        TreeNode rightRoot = add( pool, ignore, "", right, false );
+        VNode rightRoot = add( pool, ignore, "", right, false );
 
-        pool.getDirs().setRoots( leftTask.getLeftRoot(), (TreeNode)rightRoot );
+        pool.getDirs().setRoots( leftTask.getLeftRoot(), (VNode)rightRoot );
 
         return pool;
     }
 
 
-    private TreeNode add( TreeMatchingTask pool, Ignore ignore, String pathPart, File file, boolean isSrc) {
+    private VNode add( TreeMatchingTask pool, Ignore ignore, String pathPart, File file, boolean isSrc) {
 
         pathPart += "/" + file.getName();
 
@@ -105,24 +105,24 @@ public class FileTreeMatchingTaskBuilderImpl implements FileTreeMatchingTaskBuil
         }
     }
 
-    private TreeNode addDir( TreeMatchingTask pool, Ignore ignore, String pathPart, File file, boolean isSrc ) {
+    private VNode addDir( TreeMatchingTask pool, Ignore ignore, String pathPart, File file, boolean isSrc ) {
 
 //        if ( ignore.ignore( file.getName() ) || ignore.ignoreByPath( file.getPath())) {
 //            return null;
 //        }
 
-        List<TreeNode> kids = new ArrayList<TreeNode>();
+        List<VNode> kids = new ArrayList<VNode>();
 
         for ( File child : file.listFiles() ) {
 
-            TreeNode kid = add( pool, ignore, pathPart, child, isSrc );
+            VNode kid = add( pool, ignore, pathPart, child, isSrc );
 
             if ( kid != null ) {
                 kids.add( kid );
             }
         }
 
-        TreeNode dir = new DirTreeNodeImpl( fileContentFactory, file, kids, isSrc );
+        VNode dir = new DirTreeNodeImpl( fileContentFactory, file, kids, isSrc );
 
         if ( isSrc ) {
             pool.getDirs().addLeft( dir );
@@ -133,11 +133,11 @@ public class FileTreeMatchingTaskBuilderImpl implements FileTreeMatchingTaskBuil
         return dir;
     }
 
-    private TreeNode addLeaf( TreeMatchingTask pool, File file, boolean isSrc) {
+    private VNode addLeaf( TreeMatchingTask pool, File file, boolean isSrc) {
 
         assert( !file.isDirectory() );
 
-        TreeNode lfm = new LeafTreeNodeImpl( fileContentFactory, file, isSrc );
+        VNode lfm = new LeafTreeNodeImpl( fileContentFactory, file, isSrc );
 
         if ( isSrc ) {
             pool.getLeaves().addLeft( lfm );

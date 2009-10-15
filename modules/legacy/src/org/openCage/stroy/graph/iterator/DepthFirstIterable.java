@@ -1,6 +1,6 @@
 package org.openCage.stroy.graph.iterator;
 
-import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.VNode;
 import org.openCage.stroy.graph.iterator.DepthFirstIterator;
 
 import java.util.Iterator;
@@ -27,15 +27,15 @@ import java.util.Iterator;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public class DepthFirstIterable implements Iterable<TreeNode>{
+public class DepthFirstIterable implements Iterable<VNode>{
 
-    private final TreeNode node;
+    private final VNode node;
 
-    public DepthFirstIterable( TreeNode node ) {
+    public DepthFirstIterable( VNode node ) {
         this.node = node;
     }
 
-    public Iterator<TreeNode> iterator() {
+    public Iterator<VNode> iterator() {
         return new DepthFirstIterator( node );
     }
 }

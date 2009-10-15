@@ -1,7 +1,7 @@
 package org.openCage.stroy.ui.docking;
 
 import org.openCage.stroy.dir.FileContent;
-import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.VNode;
 import org.openCage.vfs.protocol.Content;
 
 /***** BEGIN LICENSE BLOCK *****
@@ -28,7 +28,7 @@ import org.openCage.vfs.protocol.Content;
 
 public class SelectionState {
 
-    private final TreeNode node;
+    private final VNode node;
     private final boolean               match;
     private final boolean               parentMatch;
     private final boolean               master;
@@ -38,7 +38,7 @@ public class SelectionState {
 //    private final boolean parent;
 //    private final boolean parentRenamed;
 
-    public SelectionState( final TreeNode node,
+    public SelectionState( final VNode node,
                            final boolean               match,
                            final boolean               parentMatch,
                            final boolean               master ) {
@@ -60,7 +60,7 @@ public class SelectionState {
     }
 
 
-    public TreeNode getNode() {
+    public VNode getNode() {
         return node;
     }
 

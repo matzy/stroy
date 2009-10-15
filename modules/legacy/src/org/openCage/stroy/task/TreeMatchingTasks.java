@@ -1,6 +1,6 @@
 package org.openCage.stroy.task;
 
-import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.VNode;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -26,7 +26,7 @@ import org.openCage.vfs.protocol.TreeNode;
 
 public class TreeMatchingTasks {
 
-    public static boolean isParentMatch( MatchingTask<TreeNode> task, TreeNode a, TreeNode b ) {
+    public static boolean isParentMatch( MatchingTask<VNode> task, VNode a, VNode b ) {
 
         if ( a.getParent() == null ) {
             return b.getParent() == null;
@@ -34,7 +34,7 @@ public class TreeMatchingTasks {
             return false;
         }
 
-        TreeNode matchedParent = task.getMatch( a.getParent() );
+        VNode matchedParent = task.getMatch( a.getParent() );
 
         if ( matchedParent == null ) {
             return false;

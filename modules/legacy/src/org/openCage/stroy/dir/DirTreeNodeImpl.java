@@ -1,6 +1,6 @@
 package org.openCage.stroy.dir;
 
-import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.VNode;
 import org.openCage.stroy.graph.node.ContentTreeNodeBaseImpl;
 import org.openCage.stroy.content.FileContentFactory;
 
@@ -29,26 +29,26 @@ import java.util.Collection;
 *
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
-public class DirTreeNodeImpl extends ContentTreeNodeBaseImpl implements TreeNode {
+public class DirTreeNodeImpl extends ContentTreeNodeBaseImpl implements VNode {
 
-    private List<TreeNode> kids;
+    private List<VNode> kids;
 
-    public DirTreeNodeImpl( final FileContentFactory factory, final File file, List<TreeNode> kids, boolean generateId  ) {
+    public DirTreeNodeImpl( final FileContentFactory factory, final File file, List<VNode> kids, boolean generateId  ) {
         super( factory.create(  file ), generateId );
         this.kids   = kids;
 
-        for ( TreeNode kid : this.kids ) {
+        for ( VNode kid : this.kids ) {
             kid.setParent( this );
         }
 
     }
 
 
-    public Collection<TreeNode> getChildren() {
+    public Collection<VNode> getChildren() {
         return kids;
     }
 
-    public void removeChild(TreeNode child) {
+    public void removeChild(VNode child) {
         kids.remove( child );
         child.setParent( null );
     }

@@ -1,6 +1,6 @@
 package org.openCage.stroy;
 
-import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.VNode;
 import org.openCage.stroy.task.MatchingTask;
 
 /***** BEGIN LICENSE BLOCK *****
@@ -26,5 +26,5 @@ import org.openCage.stroy.task.MatchingTask;
 ***** END LICENSE BLOCK *****/
 
 public interface TreeLeafDistance
-        extends InformedDistance< MatchingTask<TreeNode>, TreeNode>{
+        extends InformedDistance< MatchingTask<VNode>, VNode>{
 }

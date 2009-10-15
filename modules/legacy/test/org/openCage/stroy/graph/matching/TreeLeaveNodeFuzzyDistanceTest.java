@@ -2,7 +2,7 @@ package org.openCage.stroy.graph.matching;
 
 import junit.framework.TestCase;
 import org.openCage.vfs.impl.SimpleStringTreeBuilder;
-import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.VNode;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -32,11 +32,11 @@ public class TreeLeaveNodeFuzzyDistanceTest extends TestCase {
 
         SimpleStringTreeBuilder b = new SimpleStringTreeBuilder();
 
-        TreeNode treeLeft = b.d( "f", b.l( "a"),
+        VNode treeLeft = b.d( "f", b.l( "a"),
                                                       b.d( "g", b.l("b"),
                                                                 b.l("c")));
 
-        TreeNode treeRight = b.d( "f", b.l( "a", "a12"),
+        VNode treeRight = b.d( "f", b.l( "a", "a12"),
                                                        b.d( "g", b.l("b", "b23"),
                                                                  b.l("c", "c7")));
 

@@ -1,7 +1,7 @@
 package org.openCage.stroy.graph.iterator;
 
-import org.openCage.vfs.protocol.TreeNode;
-import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.VNode;
+import org.openCage.vfs.protocol.VNode;
 
 import java.util.Iterator;
 import java.util.Collection;
@@ -28,12 +28,12 @@ import java.util.Collection;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public class DepthFirstIterator implements Iterator<TreeNode> {
+public class DepthFirstIterator implements Iterator<VNode> {
 
-    private TreeNode node;
+    private VNode node;
 
 
-    public DepthFirstIterator(TreeNode node ) {
+    public DepthFirstIterator(VNode node ) {
         this.node = node;
     }
 
@@ -41,11 +41,11 @@ public class DepthFirstIterator implements Iterator<TreeNode> {
         return node != null;
     }
 
-    public TreeNode next() {
-        TreeNode oldNode = node;
+    public VNode next() {
+        VNode oldNode = node;
 
         if ( !node.isLeaf() ) {
-            Collection<? extends TreeNode> childs = node.getChildren();
+            Collection<? extends VNode> childs = node.getChildren();
 
             if ( childs != null && childs.size() > 0 ) {
                 node = childs.iterator().next();
@@ -54,7 +54,7 @@ public class DepthFirstIterator implements Iterator<TreeNode> {
         }
 
 
-        TreeNode parent = node.getParent();
+        VNode parent = node.getParent();
 
         while ( parent != null ) {
 
@@ -77,10 +77,10 @@ public class DepthFirstIterator implements Iterator<TreeNode> {
         throw new Error( "not impl" );
     }
 
-    private TreeNode nextSibling( TreeNode parent, TreeNode node ) {
+    private VNode nextSibling( VNode parent, VNode node ) {
 
         boolean found = false;
-        for ( TreeNode child : parent.getChildren() ) {
+        for ( VNode child : parent.getChildren() ) {
             if ( found ) {
                 return child;
             }

@@ -8,7 +8,7 @@ import org.openCage.stroy.task.MatchingTask;
 import org.openCage.stroy.array.MatchBestConnections2;
 import org.openCage.vfs.protocol.Content;
 import org.openCage.stroy.graph.matching.TreeLeafNodeFuzzyLeafDistance;
-import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.VNode;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
 
 /***** BEGIN LICENSE BLOCK *****
@@ -59,8 +59,8 @@ public class HistoricalMatching implements MatchStrategy {
 
         // TODO reporting
 
-        final MatchBestConnections2<MatchingTask<TreeNode>,TreeNode> match =
-                new MatchBestConnections2<MatchingTask<TreeNode>, TreeNode>(
+        final MatchBestConnections2<MatchingTask<VNode>,VNode> match =
+                new MatchBestConnections2<MatchingTask<VNode>, VNode>(
                         fuzzyTreeLeafDistance, false, reporter );
 
         match.match( treeMatchingTask.getDirs(),

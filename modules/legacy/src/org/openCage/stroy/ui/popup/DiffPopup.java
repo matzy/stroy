@@ -3,7 +3,7 @@ package org.openCage.stroy.ui.popup;
 import org.openCage.util.io.FileUtils;
 import org.openCage.util.external.ExternalProgs;
 import org.openCage.stroy.file.FileTypes;
-import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.VNode;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.ui.util.NodeToNode;
 import org.openCage.stroy.ui.prefs.StandardProgUI;
@@ -155,7 +155,7 @@ public class DiffPopup<T extends Content> extends JPopupMenu {
         openWith = new JMenuItem( Message.get( "Popup.openWith"));
         openWith.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
-                TreeNode node = NodeToNode.pathToNode( currentPath );
+                VNode node = NodeToNode.pathToNode( currentPath );
 
                 PrefsUI.create().showFileType( ((Content)node.getContent()).getName() );
                 PrefsUI.create().setVisible( true );
@@ -214,7 +214,7 @@ public class DiffPopup<T extends Content> extends JPopupMenu {
                     return;
                 }
 
-                T2<TreeNode,TreeNode> nodes =
+                T2<VNode,VNode> nodes =
                         getLeftAndRightNode( NodeToNode.pathToNode( currentPath ));
 
                 String cmd = fileTypes.getDiffType(FileUtils.getExtension(nodes.i0.getContent().getName()));
@@ -237,7 +237,7 @@ public class DiffPopup<T extends Content> extends JPopupMenu {
 
         currentPath = path;
 
-        TreeNode                 node    = NodeToNode.pathToNode( currentPath );
+        VNode                 node    = NodeToNode.pathToNode( currentPath );
         boolean                     matched = false;
 
         if ( taskRight != null ) {
@@ -277,7 +277,7 @@ public class DiffPopup<T extends Content> extends JPopupMenu {
         show( event.getComponent(), event.getX(), event.getY());
     }
 
-    T2<TreeNode,TreeNode> getLeftAndRightNode( TreeNode node ) {
+    T2<VNode,VNode> getLeftAndRightNode( VNode node ) {
 
         if ( taskRight != null ) {
             return T2.c( node, taskRight.getMatch( node ));

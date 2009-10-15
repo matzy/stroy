@@ -5,7 +5,7 @@ import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.graph.matching.TreeMatchingTaskNeutralBuilder;
 import org.openCage.vfs.impl.SimpleStringTreeBuilder;
 import org.openCage.vfs.protocol.TreeNodeUtils;
-import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.VNode;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -42,11 +42,11 @@ public abstract class StrategyTestsWorker extends TestCase {
 
         SimpleStringTreeBuilder b = new SimpleStringTreeBuilder();
 
-        TreeNode treeLeft = b.d( "f", b.l( "a"),
+        VNode treeLeft = b.d( "f", b.l( "a"),
                                                       b.d( "g", b.l("b"),
                                                                 b.l("c")));
 
-        TreeNode treeRight = b.d( "f", b.l( "a"),
+        VNode treeRight = b.d( "f", b.l( "a"),
                                                        b.d( "g", b.l("b"),
                                                                  b.l("c")));
 
@@ -80,11 +80,11 @@ public abstract class StrategyTestsWorker extends TestCase {
     public void strategyTestRootMatch(MatchStrategy strategy ) {
         SimpleStringTreeBuilder b = new SimpleStringTreeBuilder();
 
-        TreeNode treeLeft = b.d( "f", b.l( "a"),
+        VNode treeLeft = b.d( "f", b.l( "a"),
                                                       b.d( "g", b.l("b"),
                                                                 b.l("c")));
 
-        TreeNode treeRight = b.d( "uuu" );
+        VNode treeRight = b.d( "uuu" );
 
         TreeMatchingTask task = TreeMatchingTaskNeutralBuilder.build( treeLeft, treeRight );
         strategy.match( task, new NullReporter() );
@@ -107,11 +107,11 @@ public abstract class StrategyTestsWorker extends TestCase {
 
         SimpleStringTreeBuilder b = new SimpleStringTreeBuilder();
 
-        TreeNode treeLeft = b.d( "f", b.l( "a"),
+        VNode treeLeft = b.d( "f", b.l( "a"),
                                                       b.d( "g", b.l("b"),
                                                                 b.l("c")));
 
-        TreeNode treeRight = b.d( "f", b.l( "a"),
+        VNode treeRight = b.d( "f", b.l( "a"),
                                                        b.d( "z",
                                                             b.d( "g", b.l("b"),
                                                                       b.l("c"))));
@@ -155,11 +155,11 @@ public abstract class StrategyTestsWorker extends TestCase {
 
         SimpleStringTreeBuilder b = new SimpleStringTreeBuilder();
 
-        TreeNode treeLeft = b.d( "f", b.l( "a"),
+        VNode treeLeft = b.d( "f", b.l( "a"),
                                                       b.d( "g", b.l("b"),
                                                                 b.l("c")));
 
-        TreeNode treeRight = b.d( "f", b.l( "a", "a12"),
+        VNode treeRight = b.d( "f", b.l( "a", "a12"),
                                                        b.d( "g", b.l("b", "b23"),
                                                                  b.l("c", "c7")));
 

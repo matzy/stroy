@@ -1,9 +1,9 @@
 package org.openCage.stroy.graph.matching;
 
 import org.openCage.stroy.content.ReducedContent;
-import org.openCage.vfs.protocol.TreeNode;
-import org.openCage.vfs.protocol.TreeNode;
-import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.VNode;
+import org.openCage.vfs.protocol.VNode;
+import org.openCage.vfs.protocol.VNode;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -29,31 +29,31 @@ import org.openCage.vfs.protocol.TreeNode;
 public class TreeMatchingTaskNeutralBuilder {
 
     static public TreeMatchingTask build(
-            TreeNode treeLeft,
-            TreeNode treeRight ) {
+            VNode treeLeft,
+            VNode treeRight ) {
         TreeMatchingTask task =  build( build( new TreeMatchingTaskNeutral(), treeLeft, true ),
                                                                       treeRight,false );
-        task.getDirs().setRoots( (TreeNode)treeLeft, (TreeNode)treeRight);
+        task.getDirs().setRoots( (VNode)treeLeft, (VNode)treeRight);
 
         return task;
     }
 
-    static private TreeMatchingTask build( TreeMatchingTask task, TreeNode tree, boolean left ) {
+    static private TreeMatchingTask build( TreeMatchingTask task, VNode tree, boolean left ) {
 
         if ( tree.isLeaf() ) {
             if ( left ) {
-                task.getLeaves().addLeft( (TreeNode) tree );
+                task.getLeaves().addLeft( (VNode) tree );
             } else {
-                task.getLeaves().addRight( (TreeNode) tree );
+                task.getLeaves().addRight( (VNode) tree );
             }
         } else {
             if ( left ) {
-                task.getDirs().addLeft( (TreeNode) tree );
+                task.getDirs().addLeft( (VNode) tree );
             } else {
-                task.getDirs().addRight( (TreeNode) tree );
+                task.getDirs().addRight( (VNode) tree );
             }
 
-            for ( TreeNode child : ((TreeNode) tree).getChildren() ) {
+            for ( VNode child : ((VNode) tree).getChildren() ) {
                 build( task, child, left );
             }
         }

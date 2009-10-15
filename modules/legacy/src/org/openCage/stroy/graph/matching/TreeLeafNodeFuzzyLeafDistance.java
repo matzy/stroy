@@ -3,8 +3,8 @@ package org.openCage.stroy.graph.matching;
 import com.google.inject.Inject;
 import org.openCage.stroy.TreeLeafDistance;
 import org.openCage.vfs.protocol.Content;
-import org.openCage.vfs.protocol.TreeNode;
-import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.VNode;
+import org.openCage.vfs.protocol.VNode;
 import org.openCage.stroy.task.MatchingTask;
 import org.openCage.stroy.task.TreeMatchingTasks;
 
@@ -40,9 +40,9 @@ public class TreeLeafNodeFuzzyLeafDistance implements TreeLeafDistance {
     }
 
 
-    public double distance( MatchingTask<TreeNode> parents,
-                            TreeNode a,
-                            TreeNode b) {
+    public double distance( MatchingTask<VNode> parents,
+                            VNode a,
+                            VNode b) {
         
         if ( ! a.getContent().getType().equals( b.getContent().getType())  ) {
             return 1.0;

@@ -2,7 +2,7 @@ package org.openCage.stroy.graph.iterator;
 
 import junit.framework.TestCase;
 import org.openCage.vfs.impl.SimpleTreeNode;
-import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.VNode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,18 +32,18 @@ import org.openCage.stroy.graph.node.IntegerContent;
 public class TreeIteratorTest extends TestCase {
 
     public void testSimple() {
-        List<TreeNode> one = new ArrayList<TreeNode>();
+        List<VNode> one = new ArrayList<VNode>();
 
         for ( int i = 0; i < 5; ++i ) {
             one.add( new SimpleTreeNode( new IntegerContent(i) ));
         }
 
-        List<TreeNode> two = new ArrayList<TreeNode>();
+        List<VNode> two = new ArrayList<VNode>();
         for ( int i = 20; i < 30; ++i ) {
             two.add( new SimpleTreeNode( new IntegerContent(i) ));
         }
 
-        TreeNode td = new SimpleTreeNode( new IntegerContent(15), two );
+        VNode td = new SimpleTreeNode( new IntegerContent(15), two );
         one.add( td );
 
         for ( int i = 5; i < 10; ++i ) {
@@ -51,11 +51,11 @@ public class TreeIteratorTest extends TestCase {
         }
 
 
-        TreeNode root = new SimpleTreeNode( new IntegerContent(100), one );
+        VNode root = new SimpleTreeNode( new IntegerContent(100), one );
 
 
 
-        for ( TreeNode node : new DepthFirstIterable(root)) {
+        for ( VNode node : new DepthFirstIterable(root)) {
             System.out.println( node );
         }
 

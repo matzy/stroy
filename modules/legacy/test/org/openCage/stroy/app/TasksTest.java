@@ -2,7 +2,7 @@ package org.openCage.stroy.app;
 
 import junit.framework.TestCase;
 import org.openCage.vfs.impl.SimpleContentTreeBuilder;
-import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.VNode;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.graph.matching.TreeMatchingTaskNeutralBuilder;
 
@@ -37,11 +37,11 @@ public class TasksTest extends TestCase {
 
         SimpleContentTreeBuilder b = new SimpleContentTreeBuilder();
 
-        TreeNode treeLeft = b.d( "f", b.l( "a"),
+        VNode treeLeft = b.d( "f", b.l( "a"),
                                                       b.d( "g", b.l("b"),
                                                                 b.l("c")));
 
-        TreeNode treeRight = b.d( "f", b.l( "a"),
+        VNode treeRight = b.d( "f", b.l( "a"),
                                                        b.d( "g", b.l("b"),
                                                                  b.l("c")));
 
@@ -62,14 +62,14 @@ public class TasksTest extends TestCase {
     public void testRootSanityPositiv() {
         SimpleContentTreeBuilder b = new SimpleContentTreeBuilder();
 
-        TreeNode treeLeft = b.d( "f", b.l( "a"),
+        VNode treeLeft = b.d( "f", b.l( "a"),
                                                       b.d( "g", b.l("b"),
                                                                 b.l("c")));
 
-        TreeNode treeRight = b.d( "f2", b.l( "a"),
+        VNode treeRight = b.d( "f2", b.l( "a"),
                                                        b.d( "g", b.l("b"),
                                                                  b.l("c")));
-        TreeNode tree3 = b.d( "f3", b.l( "a"),
+        VNode tree3 = b.d( "f3", b.l( "a"),
                                                        b.d( "g", b.l("b"),
                                                                  b.l("c")));
 

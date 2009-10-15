@@ -4,7 +4,7 @@ import org.openCage.stroy.graph.matching.TreeMatchingTask;
 
 import java.util.List;
 import java.util.ArrayList;
-import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.VNode;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -31,7 +31,7 @@ import org.openCage.vfs.protocol.TreeNode;
 public class Tasks {
 
     private List<TreeMatchingTask> tasks;
-    private List<TreeNode>      roots = new ArrayList<TreeNode>();
+    private List<VNode>      roots = new ArrayList<VNode>();
 
     public Tasks( List<TreeMatchingTask> tasks ) {
         this.tasks = tasks;
@@ -54,7 +54,7 @@ public class Tasks {
         return tasks;
     }
 
-    public List<TreeNode> getRoots() {
+    public List<VNode> getRoots() {
         return roots;
     }
 }

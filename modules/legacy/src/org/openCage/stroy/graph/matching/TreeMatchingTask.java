@@ -2,9 +2,9 @@ package org.openCage.stroy.graph.matching;
 
 import org.openCage.vfs.protocol.Content;
 import org.openCage.stroy.graph.SameContent;
-import org.openCage.vfs.protocol.TreeNode;
-import org.openCage.vfs.protocol.TreeNode;
-import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.VNode;
+import org.openCage.vfs.protocol.VNode;
+import org.openCage.vfs.protocol.VNode;
 import org.openCage.stroy.task.MatchingTask;
 import org.openCage.stroy.ui.ChangeVector;
 
@@ -37,12 +37,12 @@ public interface TreeMatchingTask {
 
     public void addDup(final SameContent sh);
 
-    public MatchingTask<TreeNode>  getLeaves();
-    public MatchingTask<TreeNode>   getDirs();
+    public MatchingTask<VNode>  getLeaves();
+    public MatchingTask<VNode>   getDirs();
 
-    public boolean     isMatched(  final TreeNode obj );
-    public TreeNode    getMatch(   final TreeNode obj );
-    public double      getMatchQuality( final TreeNode obj );
+    public boolean     isMatched(  final VNode obj );
+    public VNode    getMatch(   final VNode obj );
+    public double      getMatchQuality( final VNode obj );
 
     public Collection<SameContent> getDuplicates();
 
@@ -55,35 +55,35 @@ public interface TreeMatchingTask {
     public int getRightLeaveCount();
     public int getRightDirCount();
 
-    public Collection<TreeNode>    getModifiedLeaves();
-    public Collection<TreeNode>    getRenamedLeaves();
-    public Collection<TreeNode>    getMovedLeaves();
+    public Collection<VNode>    getModifiedLeaves();
+    public Collection<VNode>    getRenamedLeaves();
+    public Collection<VNode>    getMovedLeaves();
 
-    public Collection<TreeNode>     getRenamedDirs();
-    public Collection<TreeNode>     getMovedDirs();
+    public Collection<VNode>     getRenamedDirs();
+    public Collection<VNode>     getMovedDirs();
 
-    public Collection<TreeNode>     getComplexModifiedLeaves();
+    public Collection<VNode>     getComplexModifiedLeaves();
     
     
 
-    public Collection<TreeNode> getUnmatchedLeftFiles();
-    public Collection<TreeNode> getUnmatchedLeftDirs();
-    public Collection<TreeNode> getUnmatchedRightFiles();
-    public Collection<TreeNode> getUnmatchedRightDirs();
+    public Collection<VNode> getUnmatchedLeftFiles();
+    public Collection<VNode> getUnmatchedLeftDirs();
+    public Collection<VNode> getUnmatchedRightFiles();
+    public Collection<VNode> getUnmatchedRightDirs();
 
-    public TreeNode getLeftRoot();
-    public TreeNode getRightRoot();
+    public VNode getLeftRoot();
+    public VNode getRightRoot();
 
-    public boolean isContentChanged( TreeNode obj );
+    public boolean isContentChanged( VNode obj );
 
-    public ChangeVector getChangeVector( TreeNode obj );
+    public ChangeVector getChangeVector( VNode obj );
 
-    public void remove(TreeNode node);
+    public void remove(VNode node);
 
     void merge();
 
-    public MatchingTask<TreeNode> getDirTask();
+    public MatchingTask<VNode> getDirTask();
 
-    public MatchingTask<TreeNode> getFileTask();
+    public MatchingTask<VNode> getFileTask();
 
 }

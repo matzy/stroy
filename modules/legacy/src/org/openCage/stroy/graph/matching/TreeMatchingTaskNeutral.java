@@ -1,7 +1,7 @@
 package org.openCage.stroy.graph.matching;
 
 import org.openCage.stroy.graph.SameContent;
-import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.VNode;
 import org.openCage.stroy.graph.iterator.DepthFirstIterable;
 import org.openCage.stroy.task.MatchingTask;
 import org.openCage.stroy.task.MatchingTaskNeutral;
@@ -42,13 +42,13 @@ public class TreeMatchingTaskNeutral implements TreeMatchingTask{
     private static Logger LOG = Logger.getLogger(TreeMatchingTaskNeutral.class.getName());
 
     private List<SameContent>           dups;
-    private MatchingTask<TreeNode>   dirTask;
-    private MatchingTask<TreeNode>  fileTask;
+    private MatchingTask<VNode>   dirTask;
+    private MatchingTask<VNode>  fileTask;
 
     public TreeMatchingTaskNeutral() {
         dups         = new ArrayList<SameContent>();
-        dirTask      = new MatchingTaskNeutral<TreeNode>();
-        fileTask     = new MatchingTaskNeutral<TreeNode>();
+        dirTask      = new MatchingTaskNeutral<VNode>();
+        fileTask     = new MatchingTaskNeutral<VNode>();
     }
 
 
@@ -56,15 +56,15 @@ public class TreeMatchingTaskNeutral implements TreeMatchingTask{
         dups.add( sh );
     }
 
-    public MatchingTask<TreeNode> getLeaves() {
+    public MatchingTask<VNode> getLeaves() {
         return fileTask;
     }
 
-    public MatchingTask<TreeNode> getDirs() {
+    public MatchingTask<VNode> getDirs() {
         return dirTask;
     }
 
-    public boolean isMatched( final TreeNode obj ) {
+    public boolean isMatched( final VNode obj ) {
         if ( obj.isLeaf() ) {
             return fileTask.isMatched( obj );
         }
@@ -72,7 +72,7 @@ public class TreeMatchingTaskNeutral implements TreeMatchingTask{
         return dirTask.isMatched( obj );
     }
 
-    public TreeNode getMatch( final TreeNode obj ) {
+    public VNode getMatch( final VNode obj ) {
 
         if ( obj == null ) {
             // ok for ghostnodes
@@ -86,7 +86,7 @@ public class TreeMatchingTaskNeutral implements TreeMatchingTask{
         return dirTask.getMatch( obj );
     }
 
-    public double getMatchQuality(TreeNode obj) {
+    public double getMatchQuality(VNode obj) {
         if ( obj.isLeaf() ) {
             return fileTask.getMatchQuality( obj );
         }
@@ -115,52 +115,52 @@ public class TreeMatchingTaskNeutral implements TreeMatchingTask{
     public void status() {
         System.out.println("files deleted");
 
-        for ( final TreeNode lfm : fileTask.getUnmatchedLeft() ) {
+        for ( final VNode lfm : fileTask.getUnmatchedLeft() ) {
             System.out.println("  " + lfm );
         }
 
         System.out.println("dirs deleted");
-        for ( final TreeNode fm : dirTask.getUnmatchedLeft() ) {
+        for ( final VNode fm : dirTask.getUnmatchedLeft() ) {
             System.out.println("  " + fm );
         }
 
         System.out.println("files moved");
-        for ( final TreeNode lfm : getMovedLeaves() ) {
+        for ( final VNode lfm : getMovedLeaves() ) {
             System.out.println("  " + lfm.toString() + "->" + fileTask.getMatch( lfm ).getParent() );
         }
 
         System.out.println("files renamed");
-        for ( TreeNode lfm : getRenamedLeaves() ) {
+        for ( VNode lfm : getRenamedLeaves() ) {
             System.out.println("  " + lfm.toString() + "->" + fileTask.getMatch( lfm ).getContent().getName() );
         }
 
         System.out.println("dirs moved");
-        for ( final TreeNode lfm : getMovedDirs() ) {
+        for ( final VNode lfm : getMovedDirs() ) {
             System.out.println("  " + lfm.toString() + "->" + getMatch( lfm ).getParent() );
         }
 
         System.out.println("dirs renamed");
-        for ( TreeNode lfm : getRenamedDirs() ) {
+        for ( VNode lfm : getRenamedDirs() ) {
             System.out.println("  " + lfm.toString() + "->" + getMatch( lfm ).getContent().getName() );
         }
 
         System.out.println("files changed");
-        for ( TreeNode lfm : getModifiedLeaves() ) {
+        for ( VNode lfm : getModifiedLeaves() ) {
             System.out.println("  " + lfm );
         }
 
         System.out.println("new dirs");
-        for ( TreeNode lfm : dirTask.getUnmatchedRight() ) {
+        for ( VNode lfm : dirTask.getUnmatchedRight() ) {
             System.out.println("  " + lfm );
         }
 
         System.out.println("new files");
-        for ( TreeNode lfm : fileTask.getUnmatchedRight() ) {
+        for ( VNode lfm : fileTask.getUnmatchedRight() ) {
             System.out.println("  " + lfm );
         }
 
         System.out.println("dirs changed");
-        for ( TreeNode lfm : getModifiedDirs() ) {
+        for ( VNode lfm : getModifiedDirs() ) {
             System.out.println("  " + lfm );
         }
 
@@ -168,7 +168,7 @@ public class TreeMatchingTaskNeutral implements TreeMatchingTask{
 
     public int getLeftLeaveCount() {
         int count = 0;
-        for ( TreeNode node : new DepthFirstIterable( getLeftRoot() )) {
+        for ( VNode node : new DepthFirstIterable( getLeftRoot() )) {
             if ( node.isLeaf() ) {
                 count++;
             }
@@ -178,7 +178,7 @@ public class TreeMatchingTaskNeutral implements TreeMatchingTask{
 
     public int getLeftDirCount() {
         int count = 0;
-        for ( TreeNode node : new DepthFirstIterable( getLeftRoot() )) {
+        for ( VNode node : new DepthFirstIterable( getLeftRoot() )) {
             if ( !node.isLeaf() ) {
                 count++;
             }
@@ -188,7 +188,7 @@ public class TreeMatchingTaskNeutral implements TreeMatchingTask{
 
     public int getRightLeaveCount() {
         int count = 0;
-        for ( TreeNode node : new DepthFirstIterable( getRightRoot() )) {
+        for ( VNode node : new DepthFirstIterable( getRightRoot() )) {
             if ( node.isLeaf() ) {
                 count++;
             }
@@ -198,7 +198,7 @@ public class TreeMatchingTaskNeutral implements TreeMatchingTask{
 
     public int getRightDirCount() {
         int count = 0;
-        for ( TreeNode node : new DepthFirstIterable( getRightRoot() )) {
+        for ( VNode node : new DepthFirstIterable( getRightRoot() )) {
             if ( !node.isLeaf() ) {
                 count++;
             }
@@ -206,10 +206,10 @@ public class TreeMatchingTaskNeutral implements TreeMatchingTask{
         return count;
     }
 
-    public Collection<TreeNode> getModifiedLeaves() {
-        final List<TreeNode> modified = new ArrayList<TreeNode>();
+    public Collection<VNode> getModifiedLeaves() {
+        final List<VNode> modified = new ArrayList<VNode>();
 
-        for ( TreeNode lfm : fileTask.getMatchedLeft() ) {
+        for ( VNode lfm : fileTask.getMatchedLeft() ) {
 
             if ( !fileTask.getDifference( lfm).equals( ContentDiff.same )) {
 
@@ -224,23 +224,23 @@ public class TreeMatchingTaskNeutral implements TreeMatchingTask{
         return modified;
     }
 
-    public Collection<TreeNode> getRenamedLeaves() {
+    public Collection<VNode> getRenamedLeaves() {
         return filterRenamed( fileTask.getMatchedLeft() );
     }
 
-    public Collection<TreeNode> getRenamedDirs() {
+    public Collection<VNode> getRenamedDirs() {
         return filterRenamed( dirTask.getMatchedLeft() );
     }
 
-    public TreeNode getLeftRoot() {
+    public VNode getLeftRoot() {
         return dirTask.getLeftRoot();
     }
 
-    public TreeNode getRightRoot() {
+    public VNode getRightRoot() {
         return dirTask.getRightRoot();
     }
 
-    public boolean isContentChanged(TreeNode obj) {
+    public boolean isContentChanged(VNode obj) {
 
         if ( !obj.isLeaf() || !isMatched( obj ) ) {
             return false;
@@ -255,10 +255,10 @@ public class TreeMatchingTaskNeutral implements TreeMatchingTask{
 
 
 
-    public Collection<TreeNode> filterRenamed( Collection<TreeNode> matched ) {
-        List<TreeNode> renamed = new ArrayList<TreeNode>();
+    public Collection<VNode> filterRenamed( Collection<VNode> matched ) {
+        List<VNode> renamed = new ArrayList<VNode>();
 
-        for ( TreeNode lfm : matched ) {
+        for ( VNode lfm : matched ) {
             if ( ! lfm.getContent().getName().equals( getMatch( lfm ).getContent().getName() )){
                 //noinspection unchecked
                 renamed.add( lfm );
@@ -268,39 +268,39 @@ public class TreeMatchingTaskNeutral implements TreeMatchingTask{
         return renamed;
     }
 
-    public Collection<TreeNode> getMovedLeaves() {
+    public Collection<VNode> getMovedLeaves() {
 
         //noinspection unchecked
-        return getMoved( new Generics<TreeNode,TreeNode>().cast( fileTask.getMatchedLeft() ));
+        return getMoved( new Generics<VNode,VNode>().cast( fileTask.getMatchedLeft() ));
     }
 
-    public Collection<TreeNode> getMovedDirs() {
+    public Collection<VNode> getMovedDirs() {
         return getMoved( dirTask.getMatchedLeft());
     }
 
 
-    public Collection<TreeNode> getUnmatchedLeftFiles() {
+    public Collection<VNode> getUnmatchedLeftFiles() {
         return fileTask.getUnmatchedLeft();
     }
 
-    public Collection<TreeNode> getUnmatchedLeftDirs() {
+    public Collection<VNode> getUnmatchedLeftDirs() {
         return dirTask.getUnmatchedLeft();
     }
 
-    public Collection<TreeNode> getUnmatchedRightFiles() {
+    public Collection<VNode> getUnmatchedRightFiles() {
         return fileTask.getUnmatchedRight();
     }
 
-    public Collection<TreeNode> getUnmatchedRightDirs() {
+    public Collection<VNode> getUnmatchedRightDirs() {
         return dirTask.getUnmatchedRight();
     }
 
-    private Collection<TreeNode> getMoved( Collection< TreeNode> matched ) {
-        List<TreeNode> moved = new ArrayList<TreeNode>();
+    private Collection<VNode> getMoved( Collection< VNode> matched ) {
+        List<VNode> moved = new ArrayList<VNode>();
 
-        for ( final TreeNode node : matched ) {
-            TreeNode parent     = node.getParent();
-            TreeNode    match      = getMatch( node );
+        for ( final VNode node : matched ) {
+            VNode parent     = node.getParent();
+            VNode    match      = getMatch( node );
 
             if ( parent != null ) {
                 if ( !dirTask.isMatched( parent )) {
@@ -314,59 +314,59 @@ public class TreeMatchingTaskNeutral implements TreeMatchingTask{
         return moved;
     }
 
-    public Collection<TreeNode> getModifiedDirs() {
-        Set<TreeNode> modified = new HashSet<TreeNode>();
+    public Collection<VNode> getModifiedDirs() {
+        Set<VNode> modified = new HashSet<VNode>();
 
-        for ( TreeNode node : getRenamedDirs() ) {
+        for ( VNode node : getRenamedDirs() ) {
             if ( node.getParent() != null ) {
                 modified.add( node.getParent() );
             }
         }
 
-        for ( TreeNode node : getRenamedLeaves() ) {
+        for ( VNode node : getRenamedLeaves() ) {
             if ( node.getParent() != null ) {
                 modified.add( node.getParent() );
             }
         }
 
-        for ( TreeNode node : getMovedDirs() ) {
+        for ( VNode node : getMovedDirs() ) {
             modified.add( node.getParent() );
 
-            TreeNode newParentSrc = dirTask.getMatch( dirTask.getMatch( node ).getParent());
+            VNode newParentSrc = dirTask.getMatch( dirTask.getMatch( node ).getParent());
 
             if ( newParentSrc != null ) {
                 modified.add( newParentSrc );
             }
         }
 
-        for ( TreeNode node : getMovedLeaves() ) {
+        for ( VNode node : getMovedLeaves() ) {
             modified.add( node.getParent() );
 
-            TreeNode newParentSrc = dirTask.getMatch( fileTask.getMatch( node ).getParent());
+            VNode newParentSrc = dirTask.getMatch( fileTask.getMatch( node ).getParent());
 
             if ( newParentSrc != null ) {
                 modified.add( newParentSrc );
             }
         }
 
-        for (TreeNode node : dirTask.getUnmatchedLeft() ) {
+        for (VNode node : dirTask.getUnmatchedLeft() ) {
             modified.add( node.getParent() );
         }
 
-        for (TreeNode node : fileTask.getUnmatchedLeft() ) {
+        for (VNode node : fileTask.getUnmatchedLeft() ) {
             modified.add( node.getParent() );
         }
 
-        for (TreeNode node : dirTask.getUnmatchedRight() ) {
-            TreeNode parentSrc = dirTask.getMatch( node.getParent());
+        for (VNode node : dirTask.getUnmatchedRight() ) {
+            VNode parentSrc = dirTask.getMatch( node.getParent());
 
             if ( parentSrc != null ) {
                 modified.add( parentSrc );
             }
         }
 
-        for (TreeNode node : fileTask.getUnmatchedRight() ) {
-            TreeNode parentSrc = dirTask.getMatch( node.getParent());
+        for (VNode node : fileTask.getUnmatchedRight() ) {
+            VNode parentSrc = dirTask.getMatch( node.getParent());
 
             if ( parentSrc != null ) {
                 modified.add( parentSrc );
@@ -376,11 +376,11 @@ public class TreeMatchingTaskNeutral implements TreeMatchingTask{
         return modified;
     }
 
-    public ChangeVector getChangeVector(TreeNode obj) {
+    public ChangeVector getChangeVector(VNode obj) {
 
         ChangeVector cv = new ChangeVector();
 
-        TreeNode match = getMatch( obj );
+        VNode match = getMatch( obj );
 
         if ( match == null ) {
             cv.only = true;
@@ -394,7 +394,7 @@ public class TreeMatchingTaskNeutral implements TreeMatchingTask{
 
         cv.name = ! match.getContent().getName().equals( obj.getContent().getName());
 
-        TreeNode parent     = obj.getParent();
+        VNode parent     = obj.getParent();
 
         if ( parent != null ) {
             if ( !dirTask.isMatched( parent )) {
@@ -410,7 +410,7 @@ public class TreeMatchingTaskNeutral implements TreeMatchingTask{
         return cv;
     }
 
-    public void remove(TreeNode treeNode) {
+    public void remove(VNode treeNode) {
         if ( treeNode.isLeaf() ) {
             fileTask.remove( treeNode );
         } else {
@@ -422,14 +422,14 @@ public class TreeMatchingTaskNeutral implements TreeMatchingTask{
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    public Collection<TreeNode> getComplexModifiedLeaves() {
-        Collection<TreeNode> struct = getMovedLeaves();
+    public Collection<VNode> getComplexModifiedLeaves() {
+        Collection<VNode> struct = getMovedLeaves();
 
         struct.addAll( getRenamedLeaves() );
 
-        List<TreeNode> ret = new ArrayList<TreeNode>();
+        List<VNode> ret = new ArrayList<VNode>();
 
-        for ( TreeNode lfm : struct ) {
+        for ( VNode lfm : struct ) {
             if ( fileTask.getMatchQuality( lfm ) < 1.0 ) {
                 ret.add( lfm );
             }
@@ -439,11 +439,11 @@ public class TreeMatchingTaskNeutral implements TreeMatchingTask{
     }
 
 
-    public MatchingTask<TreeNode> getDirTask() {
+    public MatchingTask<VNode> getDirTask() {
         return dirTask;
     }
 
-    public MatchingTask<TreeNode> getFileTask() {
+    public MatchingTask<VNode> getFileTask() {
         return fileTask;
     }
 

@@ -1,6 +1,6 @@
 package org.openCage.stroy;
 
-import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.VNode;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -25,5 +25,5 @@ import org.openCage.vfs.protocol.TreeNode;
 ***** END LICENSE BLOCK *****/
 public interface DiffFacade {
 
-    public UIInfo getUIInfo( TreeNode node );
+    public UIInfo getUIInfo( VNode node );
 }

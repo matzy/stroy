@@ -2,7 +2,7 @@ package org.openCage.stroy.ui.thinning;
 
 import org.jdesktop.swingworker.SwingWorker;
 import org.openCage.stroy.filter.Ignore;
-import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.VNode;
 import org.openCage.vfs.protocol.TreeNodeUtils;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.ui.ModalProgress;
@@ -46,7 +46,7 @@ import org.openCage.lang.protocol.tuple.T2;
  * To be run if ignore is changed.
  * TODO extend to 3way
  */
-public class IgnoreUpdateWorker extends SwingWorker<String, T2<Integer, TreeNode >> {
+public class IgnoreUpdateWorker extends SwingWorker<String, T2<Integer, VNode >> {
 
 
     private final List<TreeMatchingTask> tasks;
@@ -55,8 +55,8 @@ public class IgnoreUpdateWorker extends SwingWorker<String, T2<Integer, TreeNode
     private final NWayDiffPane diffPane;
 
     private boolean one = false;
-    private List<TreeNode> toDelLeft;
-    private List<TreeNode> toDelRight;
+    private List<VNode> toDelLeft;
+    private List<VNode> toDelRight;
 
     public IgnoreUpdateWorker( final JFrame frame, final NWayDiffPane diffPane, final List<TreeMatchingTask> tasks, final Ignore ignore  ) {
         this.tasks    = tasks;
@@ -72,8 +72,8 @@ public class IgnoreUpdateWorker extends SwingWorker<String, T2<Integer, TreeNode
             throw new Error("n-way not impl");
         }
 
-        toDelLeft  = new ArrayList<TreeNode>();
-        toDelRight = new ArrayList<TreeNode>();
+        toDelLeft  = new ArrayList<VNode>();
+        toDelRight = new ArrayList<VNode>();
 
         for ( TreeMatchingTask task : tasks ) {
 
@@ -85,7 +85,7 @@ public class IgnoreUpdateWorker extends SwingWorker<String, T2<Integer, TreeNode
         return "done";
     }
 
-    private void doOneTree( TreeNode node, int idx, boolean ignoredAlready, List<TreeNode> toDel) {
+    private void doOneTree( VNode node, int idx, boolean ignoredAlready, List<VNode> toDel) {
 
         String path = TreeNodeUtils.getStringPath( node );
 
@@ -95,7 +95,7 @@ public class IgnoreUpdateWorker extends SwingWorker<String, T2<Integer, TreeNode
         }
 
         if ( !node.isLeaf() ) {
-            for ( TreeNode child : ((TreeNode)node).getChildren() ) {
+            for ( VNode child : ((VNode)node).getChildren() ) {
                 doOneTree( child, idx, ignoredAlready, toDel );
             }
         }
@@ -112,18 +112,18 @@ public class IgnoreUpdateWorker extends SwingWorker<String, T2<Integer, TreeNode
         super.done();
 
         // must be here after tree stuff is done
-        for ( TreeNode node : toDelLeft ) {
+        for ( VNode node : toDelLeft ) {
             tasks.get(0).remove(node);
             node.getParent().removeChild(node);
         }
 
-        for ( TreeNode node : toDelRight ) {
+        for ( VNode node : toDelRight ) {
             tasks.get(0).remove(node);
             node.getParent().removeChild(node);
         }
 
 
-        TreeNode rr = tasks.get(0).getRightRoot();
+        VNode rr = tasks.get(0).getRightRoot();
         List l2 = TreeNodeUtils.toList( tasks.get(0).getRightRoot());
 
         diffPane.refresh(); //getSkyView(0).setList( TreeNodeUtils.toList( tasks.get(0).getRightRoot()) );
@@ -146,12 +146,12 @@ public class IgnoreUpdateWorker extends SwingWorker<String, T2<Integer, TreeNode
 
 
     // EDT
-    protected void process(List<T2<Integer, TreeNode>> nodes) {
+    protected void process(List<T2<Integer, VNode>> nodes) {
         super.process(nodes);
 
 
 
-        for ( T2<Integer, TreeNode> node : nodes ) {
+        for ( T2<Integer, VNode> node : nodes ) {
 
             progress.setText( Message.get( "Progress.filtering" ), node.i1.toString() );
             DefaultTreeModel       model   = ((DefaultTreeModel)diffPane.getTree(node.i0).getModel());

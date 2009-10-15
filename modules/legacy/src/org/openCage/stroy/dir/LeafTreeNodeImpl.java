@@ -3,7 +3,7 @@ package org.openCage.stroy.dir;
 import java.util.Collection;
 import org.openCage.stroy.content.FileContentFactory;
 import org.openCage.stroy.graph.node.ContentTreeNodeBaseImpl;
-import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.VNode;
 
 import java.io.File;
 
@@ -29,7 +29,7 @@ import java.io.File;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public class LeafTreeNodeImpl extends ContentTreeNodeBaseImpl implements TreeNode {
+public class LeafTreeNodeImpl extends ContentTreeNodeBaseImpl implements VNode {
 
     private       Object        storage;
 
@@ -50,11 +50,11 @@ public class LeafTreeNodeImpl extends ContentTreeNodeBaseImpl implements TreeNod
         return true;
     }
 
-    public Collection<? extends TreeNode> getChildren() {
+    public Collection<? extends VNode> getChildren() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public void removeChild(TreeNode child) {
+    public void removeChild(VNode child) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

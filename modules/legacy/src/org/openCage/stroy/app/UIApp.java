@@ -5,7 +5,7 @@ import org.openCage.stroy.graph.matching.TreeMatchingTask;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.List;
-import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.VNode;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -58,7 +58,7 @@ public class UIApp {
         return tasks.getTasks();
     }
 
-    public List<? extends TreeNode> getTreeRoots() {
+    public List<? extends VNode> getTreeRoots() {
         return tasks.getRoots();
     }
 }
