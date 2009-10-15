@@ -25,15 +25,15 @@ import java.util.Collection;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public interface TreeNode { 
+public interface VNode {
 
     public boolean             isLeaf();
-    public void                setParent( TreeNode parent );
-    public TreeNode            getParent();
+    public void                setParent( VNode parent );
+    public VNode            getParent();
     public Content              getContent();
 
-    public Collection<? extends TreeNode> getChildren();
-    public void                           removeChild( TreeNode child );
+    public Collection<? extends VNode> getChildren();
+    public void                           removeChild( VNode child );
 
 
 }

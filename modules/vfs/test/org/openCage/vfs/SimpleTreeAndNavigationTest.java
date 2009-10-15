@@ -1,6 +1,6 @@
 package org.openCage.vfs;
 
-import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.VNode;
 import java.util.List;
 
 import org.junit.Test;
@@ -37,14 +37,14 @@ public class SimpleTreeAndNavigationTest  {
     public void testSimple() {
         SimpleStringTreeBuilder b = new SimpleStringTreeBuilder();
 
-        TreeNode tree = b.d( "f", b.l("a"),
+        VNode tree = b.d( "f", b.l("a"),
                                           b.d( "g", b.l("b"),
                                                     b.l("c")));
         
 
         assertFalse( tree.isLeaf());
 
-        TreeNode dir = (TreeNode)tree;
+        VNode dir = (VNode)tree;
 
         assertEquals( 2, dir.getChildren().size() );
     }
@@ -52,14 +52,14 @@ public class SimpleTreeAndNavigationTest  {
     public void testSimpleContent() {
         SimpleStringTreeBuilder b = new SimpleStringTreeBuilder();
 
-        TreeNode tree = b.d( "f", b.l( "a"),
+        VNode tree = b.d( "f", b.l( "a"),
                                                   b.d( "g", b.l("b"),
                                                             b.l("c")));
 
 
         assertFalse( tree.isLeaf());
 
-        TreeNode dir = (TreeNode)tree;
+        VNode dir = (VNode)tree;
 
         assertEquals( 2, dir.getChildren().size() );
 

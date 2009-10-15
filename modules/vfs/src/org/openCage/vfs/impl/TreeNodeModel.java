@@ -6,11 +6,10 @@ package org.openCage.vfs.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import javax.print.attribute.Size2DSyntax;
 import javax.swing.event.TreeModelListener;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
-import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.VNode;
 
 /**
  *
@@ -18,9 +17,9 @@ import org.openCage.vfs.protocol.TreeNode;
  */
 public class TreeNodeModel implements TreeModel {
 
-    private TreeNode root;
+    private VNode root;
 
-    public TreeNodeModel(TreeNode root) {
+    public TreeNodeModel(VNode root) {
         this.root = root;
     }
 
@@ -30,7 +29,7 @@ public class TreeNodeModel implements TreeModel {
 
     public Object getChild(Object parent, int index) {
 
-        Collection<? extends TreeNode> childs = ((TreeNode) parent).getChildren();
+        Collection<? extends VNode> childs = ((VNode) parent).getChildren();
 
         if (childs == null) {
             return null;
@@ -42,13 +41,13 @@ public class TreeNodeModel implements TreeModel {
     }
 
     public int getChildCount(Object parent) {
-        Collection<? extends TreeNode> childs = ((TreeNode) parent).getChildren();
+        Collection<? extends VNode> childs = ((VNode) parent).getChildren();
 
         if (childs == null) {
             return 0;
         }
 
-        return ((TreeNode) parent).getChildren().size();
+        return ((VNode) parent).getChildren().size();
     }
 
     public boolean isLeaf(Object node) {
@@ -61,7 +60,7 @@ public class TreeNodeModel implements TreeModel {
     public int getIndexOfChild(Object parent, Object child) {
 
         int idx = 0;
-        for (TreeNode node : ((TreeNode) parent).getChildren()) {
+        for (VNode node : ((VNode) parent).getChildren()) {
             if (node.equals(child)) {
                 return idx;
             }
@@ -74,6 +73,7 @@ public class TreeNodeModel implements TreeModel {
     }
 
     public void addTreeModelListener(TreeModelListener l) {
+        System.out.println("WOO");
     }
 
     public void removeTreeModelListener(TreeModelListener l) {

@@ -1,6 +1,6 @@
 package org.openCage.vfs.impl;
 
-import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.VNode;
 import org.openCage.vfs.protocol.Content;
 
 
@@ -28,11 +28,11 @@ import org.openCage.vfs.protocol.Content;
 
 public class SimpleTreeBuilder {
 
-    public TreeNode d( Content t, TreeNode ... childs ) {
+    public VNode d( Content t, VNode ... childs ) {
         return new SimpleTreeNode( t, childs );
     }
 
-    public TreeNode l( Content t ) {
+    public VNode l( Content t ) {
         return new SimpleTreeNode( t );
     }
 }

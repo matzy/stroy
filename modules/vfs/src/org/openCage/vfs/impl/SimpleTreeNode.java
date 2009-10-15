@@ -1,6 +1,6 @@
 package org.openCage.vfs.impl;
 
-import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.VNode;
 import java.util.Collection;
 import java.util.Arrays;
 import org.openCage.vfs.protocol.Content;
@@ -27,10 +27,10 @@ import org.openCage.vfs.protocol.Content;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public class SimpleTreeNode implements TreeNode {
+public class SimpleTreeNode implements VNode {
     private Content               content;
-    private Collection<TreeNode>  kids;
-    private TreeNode              parent;
+    private Collection<VNode>  kids;
+    private VNode              parent;
 
 
 
@@ -38,30 +38,30 @@ public class SimpleTreeNode implements TreeNode {
         this.content = t;
     }
 
-    public SimpleTreeNode( Content t, Collection<TreeNode> kids ) {
+    public SimpleTreeNode( Content t, Collection<VNode> kids ) {
         this.content = t;
         this.kids = kids;
 
-        for ( TreeNode kid : kids ) {
+        for ( VNode kid : kids ) {
             kid.setParent( this );
         }
     }
 
-    public SimpleTreeNode( Content t, TreeNode ... kids ) {
+    public SimpleTreeNode( Content t, VNode ... kids ) {
         this.content = t;
         this.kids    = Arrays.asList(  kids );
 
-        for ( TreeNode kid : kids ) {
+        for ( VNode kid : kids ) {
             kid.setParent( this );
         }
     }
 
 
-    public Collection<TreeNode> getChildren() {
+    public Collection<VNode> getChildren() {
         return (Collection)kids;
     }
 
-    public void removeChild(TreeNode child) {
+    public void removeChild(VNode child) {
         // TODO impl
     }
 
@@ -69,11 +69,11 @@ public class SimpleTreeNode implements TreeNode {
         return kids == null;
     }
 
-    public void setParent(TreeNode parent) {
+    public void setParent(VNode parent) {
         this.parent = parent;
     }
 
-    public TreeNode getParent() {
+    public VNode getParent() {
         return parent;
     }
 

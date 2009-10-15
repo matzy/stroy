@@ -5,7 +5,7 @@
 
 package org.openCage.vfs.impl;
 
-import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.VNode;
 import java.io.File;
 import org.openCage.lang.protocol.HasDistance;
 import org.openCage.vfs.protocol.Content;
@@ -68,15 +68,15 @@ public class SimpleStringTreeBuilder {
 
     }
 
-    public TreeNode d( String t, TreeNode ... childs ) {
+    public VNode d( String t, VNode ... childs ) {
         return new SimpleTreeNode( new StringContent(t), childs );
     }
 
-    public TreeNode l( String t ) {
+    public VNode l( String t ) {
         return new SimpleTreeNode( new StringContent(t) );
     }
 
-    public TreeNode l( String name, String content ) {
+    public VNode l( String name, String content ) {
         return new SimpleTreeNode( new StringContent(name,content) );
     }
 

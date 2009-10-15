@@ -10,7 +10,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import org.openCage.vfs.impl.SimpleStringTreeBuilder;
 import org.openCage.vfs.impl.TreeNodeModel;
-import org.openCage.vfs.protocol.TreeNode;
+import org.openCage.vfs.protocol.VNode;
 
 /**
  *
@@ -21,7 +21,7 @@ public class Simple {
 
         SimpleStringTreeBuilder b = new SimpleStringTreeBuilder();
 
-        TreeNode tree = b.d( "f", b.l("a"),
+        VNode tree = b.d( "f", b.l("a"),
                                   b.d( "g", b.l("b"),
                                             b.l("c")));
         
