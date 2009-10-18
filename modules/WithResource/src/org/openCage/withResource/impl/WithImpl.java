@@ -10,6 +10,7 @@ import java.io.InputStream;
 
 import java.io.Reader;
 import java.io.Writer;
+import java.net.URI;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.openCage.lang.protocol.F1;
@@ -24,6 +25,25 @@ public class WithImpl implements With {
         InputStream is = null;
         try {
             is = new FileInputStream(file);
+            return reader.call(is);
+        } catch (Exception e) {
+            throw new Unchecked(e);
+        } finally {
+            if (is != null) {
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    // was closed
+                }
+            }
+        }
+    }
+
+    public <T> T withInputStream( URI file, FE1<T, InputStream> reader) {
+        InputStream is = null;
+        try {
+
+            is = file.toURL().openStream();
             return reader.call(is);
         } catch (Exception e) {
             throw new Unchecked(e);
@@ -89,5 +109,7 @@ public class WithImpl implements With {
             is = null;
         }
     }
+
+
 
 }
