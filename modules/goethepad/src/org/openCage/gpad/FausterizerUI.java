@@ -30,10 +30,8 @@ public class FausterizerUI extends JFrame {
 
         JButton save = new JButton("save");
         save.addActionListener( new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 new WithImpl().withWriter( new File(message), new FE1<Object, Writer>() {
-                    @Override
                     public Object call(Writer writer) throws Exception {
                         System.out.println(textUI.getText());
                         String code = tts.encode( textUI.getText());
@@ -48,6 +46,9 @@ public class FausterizerUI extends JFrame {
         getContentPane().setLayout( new BorderLayout());
         getContentPane().add( new JScrollPane(textUI), BorderLayout.CENTER  );
         getContentPane().add( save, BorderLayout.SOUTH );
+
+        setTitle( "Fausterize" );
+        setSize( 800, 600 );
 
         pack();
 
@@ -74,7 +75,9 @@ public class FausterizerUI extends JFrame {
         }
 
 
+
     }
+
 
 
     public static void main(String[] args) {

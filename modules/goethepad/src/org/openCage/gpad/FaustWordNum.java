@@ -51,13 +51,11 @@ public class FaustWordNum implements TextEncoder<Character>{
         }
     }
 
-    @Override
     public String encode( Character ch ) {
         List<String> posi =  num2line[ch]; // TODO limit 255 for now
         return posi.get(((int)(Math.random() * posi.size())));
     }
 
-    @Override
     public Character decode( String line ) {
         return (char)(line2num.get( line ).intValue());
     }

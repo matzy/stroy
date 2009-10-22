@@ -31,7 +31,6 @@ public class TextToStory implements TextEncoder<String>{
 
         final byte[] uncompressedPad = new byte[10000];
         new WithImpl().withInputStream( path, new FE1<Integer, InputStream>() {
-            @Override
             public Integer call(InputStream inputStream) throws Exception {
                 return inputStream.read( uncompressedPad );
             }
@@ -66,7 +65,6 @@ public class TextToStory implements TextEncoder<String>{
         
     }
 
-    @Override
     public String encode(String str) {
 
         String ret = "";
@@ -83,7 +81,6 @@ public class TextToStory implements TextEncoder<String>{
         return ret;
     }
 
-    @Override
     public String decode( String lines ) {
         String ret = "";
         cursor = -1;

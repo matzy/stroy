@@ -4,35 +4,41 @@ import java.io.ObjectStreamException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import net.jcip.annotations.Immutable;
 import org.jetbrains.annotations.NotNull;
 import org.openCage.application.protocol.EmailAddress;
 import org.openCage.lang.errors.ValidationError;
 
+@Immutable
 public class EmailAddressImpl implements EmailAddress {
 
-	private String email;
+	private String        email;
+    private transient URI emailURI;
 	
 	public EmailAddressImpl( @NotNull String email ) {
 		this.email = email;
-		gettEmail();
+		setURI();
 	}
-	
+
  	public URI gettEmail() {
-		try {
-			URI uri = new URI(email);
-			if ( uri.getScheme() == null || !uri.getScheme().equals("mailto")) {
-				throw new ValidationError( getClass(), "email address without mailto://" );
-			}
-			
-			return uri;
-		} catch (URISyntaxException e) {
-			throw new ValidationError( getClass(), "", e);
-		} 		
+         return emailURI;
 	}
 
  	private Object readResolve() throws ObjectStreamException {
- 		gettEmail();
+ 		setURI();
  		return this;
  	}
  	
+    private void setURI() {
+        try {
+            emailURI = new URI(email);
+            if ( emailURI.getScheme() == null || !emailURI.getScheme().equals("mailto")) {
+                throw new ValidationError( getClass(), "email address without mailto://" );
+            }
+
+        } catch (URISyntaxException e) {
+            throw new ValidationError( getClass(), "", e);
+        } 		        
+    }
+
 }
