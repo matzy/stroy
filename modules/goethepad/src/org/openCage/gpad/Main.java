@@ -6,6 +6,7 @@ import org.openCage.withResource.protocol.FileLineIterable;
 import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.charset.Charset;
 import java.util.*;
 
 /**
@@ -36,6 +37,21 @@ public class Main {
 //        System.out.println( faust.encode('a'));
 //        System.out.println( faust.encode('d'));
 //        System.out.println( faust.encode('e'));
+
+        String foo = "abcü\u81FF??¨ß";
+        FaustString fs = new FaustString();
+        try {
+            fs.setPad( new URI("file://" + Main.class.getResource("Main.class").getPath()));
+            String code = fs.encode(foo,0);
+            System.out.println(code);
+
+            String foo2 = fs.decode(code,0);
+            int i = 0;
+        } catch (URISyntaxException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+
+
 
         URI pad = null;
         try {
