@@ -1,14 +1,20 @@
 package org.openCage.gpad;
 
+import com.explodingpixels.macwidgets.*;
 import net.java.dev.designgridlayout.DesignGridLayout;
 import org.openCage.lang.protocol.FE1;
 import org.openCage.withResource.impl.WithImpl;
 import org.openCage.withResource.protocol.FileLineIterable;
 
 import javax.swing.*;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DefaultHighlighter;
+import javax.swing.text.Highlighter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.Writer;
 import java.net.URI;
@@ -43,12 +49,54 @@ public class FaustUI extends JFrame {
             }
         });
 
+        JScrollPane scroll =  new JScrollPane(textUI);
+        scroll.setSize( 800, 600 );
+        scroll.setMinimumSize( new Dimension(400,400));
         getContentPane().setLayout( new BorderLayout());
-        getContentPane().add( new JScrollPane(textUI), BorderLayout.CENTER  );
-        getContentPane().add( save, BorderLayout.SOUTH );
+        getContentPane().add( scroll, BorderLayout.CENTER  );
+
+        // For some versions of Mac OS X, Java will handle painting the Unified Tool Bar.
+        // Calling this method ensures that this painting is turned on if necessary.
+        MacUtils.makeWindowLeopardStyle( getRootPane());
+
+        UnifiedToolBar toolBar = new UnifiedToolBar();
+        save.putClientProperty("JButton.buttonType", "textured");
+        toolBar.addComponentToLeft(save);
+        final JTextField textField = new JTextField(10);
+        textField.putClientProperty("JTextField.variant", "search");
+        toolBar.addComponentToRight(new LabeledComponentGroup("Search", textField).getComponent());
+        
+
+        getContentPane().add( toolBar.getComponent(), BorderLayout.NORTH );
+
+        BottomBar bottomBar = new BottomBar(BottomBarSize.LARGE);
+        bottomBar.addComponentToCenter(MacWidgetFactory.createEmphasizedLabel(message));
+        getContentPane().add( bottomBar.getComponent(), BorderLayout.SOUTH );
 
         setTitle( "Fausterize" );
         setSize( 800, 600 );
+
+
+        textField.addKeyListener( new KeyAdapter(){
+            public void keyReleased(KeyEvent keyEvent) {
+                super.keyReleased( keyEvent );
+                String searchStr = textField.getText();
+                String text = textUI.getText();
+                int pos = text.indexOf( searchStr );
+                System.out.println("" + searchStr + " " + pos );
+                if ( pos > -1 ) {
+                    textUI.setCaretPosition( pos );
+                    Highlighter h = textUI.getHighlighter();
+                    h.removeAllHighlights();
+                    try {
+                        h.addHighlight( pos, pos + searchStr.length(), DefaultHighlighter.DefaultPainter);
+                    } catch (BadLocationException e) {
+                        e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                    }
+                }
+            }
+
+        });
 
         pack();
 
