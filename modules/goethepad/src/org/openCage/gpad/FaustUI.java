@@ -5,6 +5,7 @@ import net.java.dev.designgridlayout.DesignGridLayout;
 import org.openCage.lang.protocol.FE1;
 import org.openCage.withResource.impl.WithImpl;
 import org.openCage.withResource.protocol.FileLineIterable;
+import org.openCage.xplatform.impl.FileChooserWindows;
 
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
@@ -49,9 +50,18 @@ public class FaustUI extends JFrame {
             }
         });
 
+        JButton padButton = new JButton("pad");
+        final JFrame theFrame = this;
+        padButton.addActionListener( new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                new FileChooserWindows().open( theFrame, "C:");
+            }
+        });
+
         JScrollPane scroll =  new JScrollPane(textUI);
         scroll.setSize( 800, 600 );
         scroll.setMinimumSize( new Dimension(400,400));
+        textUI.setMinimumSize( new Dimension( 400, 400 ));
         getContentPane().setLayout( new BorderLayout());
         getContentPane().add( scroll, BorderLayout.CENTER  );
 
@@ -62,6 +72,7 @@ public class FaustUI extends JFrame {
         UnifiedToolBar toolBar = new UnifiedToolBar();
         save.putClientProperty("JButton.buttonType", "textured");
         toolBar.addComponentToLeft(save);
+        toolBar.addComponentToLeft(padButton);
         final JTextField textField = new JTextField(10);
         textField.putClientProperty("JTextField.variant", "search");
         toolBar.addComponentToRight(new LabeledComponentGroup("Search", textField).getComponent());
@@ -100,6 +111,12 @@ public class FaustUI extends JFrame {
 
         pack();
 
+//        setPad(pad, message);
+//
+//
+    }
+
+    private void setPad(String pad, String message) {
         try {
             tts = new FaustString();
             tts.setPad(  new URI( pad ) );
@@ -116,17 +133,13 @@ public class FaustUI extends JFrame {
                 } finally {
                     it.close();
                 }
-                textUI.append( tts.decode( text, 0 ));                
+                textUI.append( tts.decode( text, 0 ));
             }
 
         } catch (URISyntaxException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
-
-
-
     }
-
 
 
     public static void main(String[] args) {
