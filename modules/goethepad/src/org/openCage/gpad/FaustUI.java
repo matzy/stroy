@@ -1,11 +1,11 @@
 package org.openCage.gpad;
 
+import com.apple.eawt.Application;
 import com.explodingpixels.macwidgets.*;
 import net.java.dev.designgridlayout.DesignGridLayout;
 import org.openCage.lang.protocol.FE1;
 import org.openCage.withResource.impl.WithImpl;
 import org.openCage.withResource.protocol.FileLineIterable;
-import org.openCage.xplatform.impl.FileChooserWindows;
 
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
@@ -21,6 +21,7 @@ import java.io.Writer;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+
 /**
  * Created by IntelliJ IDEA.
  * User: stephan
@@ -29,6 +30,8 @@ import java.net.URISyntaxException;
  * To change this template use File | Settings | File Templates.
  */
 public class FaustUI extends JFrame {
+
+    private Application app;
 
     private JTextArea textUI = new JTextArea();
     TextEncoderIdx<String> tts;
@@ -54,7 +57,7 @@ public class FaustUI extends JFrame {
         final JFrame theFrame = this;
         padButton.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                new FileChooserWindows().open( theFrame, "C:");
+                //new FileChooserWindows().open( theFrame, "C:");
             }
         });
 

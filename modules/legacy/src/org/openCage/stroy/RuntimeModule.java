@@ -30,14 +30,13 @@ import org.openCage.stroy.protocol.Distance;
 import org.openCage.stroy.algo.hash.Hash;
 import org.openCage.stroy.algo.hash.str.StdStringHash;
 import org.openCage.stroy.algo.hash.str.WhitespaceIgnoringHash;
-import org.openCage.util.app.*;
 import org.openCage.util.external.ExecProvider;
 import org.openCage.util.external.ExecProviderImpl;
 
 import java.io.File;
 import java.util.List;
 import java.util.Map;
-import org.openCage.xplatform.wriring.XPlatformWiring;
+import org.openCage.ui.wriring.XPlatformWiring;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1

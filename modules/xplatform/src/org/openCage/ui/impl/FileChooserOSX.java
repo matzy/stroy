@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package org.openCage.xplatform.impl;
+package org.openCage.ui.impl;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
@@ -11,7 +11,7 @@ import java.awt.FileDialog;
 import java.awt.Frame;
 import java.io.File;
 import org.openCage.localization.protocol.Localize;
-import org.openCage.xplatform.protocol.FileChooser;
+import org.openCage.ui.protocol.FileChooser;
 
 /**
  *
@@ -19,7 +19,7 @@ import org.openCage.xplatform.protocol.FileChooser;
  */
 public class FileChooserOSX implements FileChooser {
 
-    @Inject @Named( "xplatform") private Localize localize;
+    @Inject @Named( "ui") private Localize localize;
 
 
     /**

@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.openCage.xplatform.impl;
+package org.openCage.ui.impl;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -20,6 +20,6 @@ public class XPlatformLocalizeProvider implements Provider<Localize>{
     private LocalizeBuilder builder;
 
     public Localize get() {
-        return builder.build("org.openCage.xplatform.impl.xplatformtexts", Arrays.asList(builder.get()));
+        return builder.build("org.openCage.ui.impl.xplatformtexts", Arrays.asList(builder.get()));
     }
 }

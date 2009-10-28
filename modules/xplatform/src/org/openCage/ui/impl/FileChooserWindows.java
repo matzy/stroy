@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.openCage.xplatform.impl;
+package org.openCage.ui.impl;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
@@ -11,7 +11,7 @@ import java.awt.Frame;
 import java.io.File;
 import javax.swing.JFileChooser;
 import org.openCage.localization.protocol.Localize;
-import org.openCage.xplatform.protocol.FileChooser;
+import org.openCage.ui.protocol.FileChooser;
 
 /**
  *
@@ -19,7 +19,7 @@ import org.openCage.xplatform.protocol.FileChooser;
  */
 public class FileChooserWindows implements FileChooser {
 
-    @Inject @Named( "xplatform") private Localize localize;
+    @Inject @Named( "ui") private Localize localize;
 
 
     public String getDir(Frame fr, String path) {

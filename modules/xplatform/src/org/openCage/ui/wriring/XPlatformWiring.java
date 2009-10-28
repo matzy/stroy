@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.openCage.xplatform.wriring;
+package org.openCage.ui.wriring;
 
 import com.google.inject.Binder;
 import com.google.inject.Module;
@@ -10,10 +10,10 @@ import com.google.inject.name.Names;
 import com.muchsoft.util.Sys;
 import org.openCage.localization.protocol.Localize;
 import org.openCage.localization.wiring.LocalizeWiring;
-import org.openCage.xplatform.impl.FileChooserOSX;
-import org.openCage.xplatform.impl.FileChooserWindows;
-import org.openCage.xplatform.impl.XPlatformLocalizeProvider;
-import org.openCage.xplatform.protocol.FileChooser;
+import org.openCage.ui.impl.FileChooserOSX;
+import org.openCage.ui.impl.FileChooserWindows;
+import org.openCage.ui.impl.XPlatformLocalizeProvider;
+import org.openCage.ui.protocol.FileChooser;
 
 /**
  *
@@ -26,7 +26,7 @@ public class XPlatformWiring implements Module {
         binder.install(new LocalizeWiring());
 
         binder.bind(Localize.class).
-                annotatedWith(Names.named("xplatform")).toProvider(XPlatformLocalizeProvider.class);
+                annotatedWith(Names.named("ui")).toProvider(XPlatformLocalizeProvider.class);
 
         if (Sys.isMacOSX()) {
             binder.bind(FileChooser.class).to(FileChooserOSX.class);

@@ -3,10 +3,10 @@
  * and open the template in the editor.
  */
 
-package org.openCage.xplatform.wiring;
+package org.openCage.ui.wiring;
 
 import org.junit.Test;
-import org.openCage.xplatform.wriring.XPlatformWiring;
+import org.openCage.ui.wriring.XPlatformWiring;
 import static org.junit.Assert.assertEquals;
 
 /**

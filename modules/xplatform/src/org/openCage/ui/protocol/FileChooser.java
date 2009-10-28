@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package org.openCage.xplatform.protocol;
+package org.openCage.ui.protocol;
 
 import java.awt.Frame;
 
