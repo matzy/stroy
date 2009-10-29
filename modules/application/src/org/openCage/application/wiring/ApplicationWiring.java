@@ -2,17 +2,13 @@ package org.openCage.application.wiring;
 
 import org.openCage.application.impl.ApplicationFromConfigXStream;
 import org.openCage.application.impl.ApplicationLocalizeProvider;
-import org.openCage.application.impl.about.AboutSheetFromApplication;
-import org.openCage.application.protocol.AboutSheet;
 import org.openCage.application.protocol.ApplicationFromConfig;
-import org.openCage.application.protocol.AuthorBuilder;
 import org.openCage.localization.protocol.Localize;
 import org.openCage.localization.wiring.LocalizeWiring;
 
 import com.google.inject.Binder;
 import com.google.inject.Module;
 import com.google.inject.name.Names;
-import org.openCage.application.protocol.UpdateChecker;
 import org.openCage.withResource.wiring.WithResourceWiring;
 
 public class ApplicationWiring implements Module{
@@ -23,8 +19,6 @@ public class ApplicationWiring implements Module{
 		binder.install( new LocalizeWiring());
 		binder.bind( ApplicationFromConfig.class).
 			to( ApplicationFromConfigXStream.class );
-		binder.bind( AboutSheet.class ).
-			to( AboutSheetFromApplication.class );
 		binder.bind( Localize.class ).
 			annotatedWith( Names.named("application" )).toProvider( ApplicationLocalizeProvider.class );
 //                binder.bind( UpdateChecker.class ).to( UpdateChecker.class );

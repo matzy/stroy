@@ -1,17 +1,18 @@
-package org.openCage.other;
+package other.org.openCage.ui;
 
 import org.junit.Test;
-import org.openCage.application.protocol.AboutSheet;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import org.openCage.ui.protocol.AboutSheet;
+import org.openCage.ui.wiring.UIWiring;
 
 
 public class UITest {
 
 	@Test
 	public void AboutTest() {
-        Injector injector = Guice.createInjector( new UIWiring() );
+        Injector injector = Guice.createInjector( new TestWiring() );
 
 		AboutSheet about = injector.getInstance( AboutSheet.class );
 		

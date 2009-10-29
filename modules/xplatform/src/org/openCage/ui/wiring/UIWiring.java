@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.openCage.ui.wriring;
+package org.openCage.ui.wiring;
 
 import com.google.inject.Binder;
 import com.google.inject.Module;
@@ -13,13 +13,15 @@ import org.openCage.localization.wiring.LocalizeWiring;
 import org.openCage.ui.impl.FileChooserOSX;
 import org.openCage.ui.impl.FileChooserWindows;
 import org.openCage.ui.impl.XPlatformLocalizeProvider;
+import org.openCage.ui.impl.about.AboutSheetFromApplication;
+import org.openCage.ui.protocol.AboutSheet;
 import org.openCage.ui.protocol.FileChooser;
 
 /**
  *
  * @author stephan
  */
-public class XPlatformWiring implements Module {
+public class UIWiring implements Module {
 
     public void configure(Binder binder) {
 
@@ -33,11 +35,15 @@ public class XPlatformWiring implements Module {
         } else if (Sys.isWindows()) {
             binder.bind(FileChooser.class).to(FileChooserWindows.class);
         }
+
+        binder.bind( AboutSheet.class ).
+            to( AboutSheetFromApplication.class );
+
     }
 
     @Override
     public boolean equals(Object obj) {
-        return obj != null && obj instanceof XPlatformWiring;
+        return obj != null && obj instanceof UIWiring;
     }
 
     @Override

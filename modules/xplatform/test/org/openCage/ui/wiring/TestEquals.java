@@ -6,7 +6,7 @@
 package org.openCage.ui.wiring;
 
 import org.junit.Test;
-import org.openCage.ui.wriring.XPlatformWiring;
+import org.openCage.ui.wiring.UIWiring;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -22,6 +22,6 @@ public class TestEquals {
         //     N
         //  A    B
         //     this
-        assertEquals( new XPlatformWiring(), new XPlatformWiring());
+        assertEquals( new UIWiring(), new UIWiring());
     }
 }

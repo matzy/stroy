@@ -1,4 +1,4 @@
-package org.openCage.application.protocol;
+package org.openCage.ui.protocol;
 
 public interface AboutSheet {
 

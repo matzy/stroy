@@ -22,7 +22,7 @@ import java.util.List;
 
 import net.java.dev.designgridlayout.DesignGridLayout;
 import org.openCage.stroy.RuntimeModule;
-import org.openCage.xplatform.protocol.FileChooser;
+import org.openCage.ui.protocol.FileChooser;
 
 
 /***** BEGIN LICENSE BLOCK *****

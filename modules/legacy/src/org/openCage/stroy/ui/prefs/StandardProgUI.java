@@ -25,7 +25,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import net.java.dev.designgridlayout.DesignGridLayout;
 import org.openCage.stroy.RuntimeModule;
-import org.openCage.xplatform.protocol.FileChooser;
+import org.openCage.ui.protocol.FileChooser;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1

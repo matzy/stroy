@@ -1,4 +1,4 @@
-package org.openCage.application.impl.about;
+package org.openCage.ui.impl.about;
 
 import java.awt.BorderLayout;
 
@@ -11,22 +11,22 @@ import javax.swing.JPanel;
 import net.java.dev.designgridlayout.DesignGridLayout;
 import net.java.dev.designgridlayout.IGridRow;
 
-import org.openCage.application.protocol.AboutSheet;
+
 import org.openCage.application.protocol.Application;
 import org.openCage.application.protocol.Author;
-
+import org.openCage.application.protocol.EmailAddress;
+import org.openCage.application.protocol.Webpage;
 import org.openCage.localization.protocol.Localize;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
-import org.openCage.application.protocol.EmailAddress;
-import org.openCage.application.protocol.Webpage;
+import org.openCage.ui.protocol.AboutSheet;
 
 public class AboutSheetFromApplication extends JDialog implements AboutSheet {
 
 	private static final long serialVersionUID = -1275151496727359312L;
 
-	private final Application  app;
+	private final Application app;
 	private final Localize     localize; 
 	
 	@Inject

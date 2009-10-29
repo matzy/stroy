@@ -4,7 +4,7 @@ import com.google.inject.Binder;
 import com.google.inject.Module;
 import org.openCage.application.protocol.Application;
 import org.openCage.application.wiring.ApplicationWiring;
-import org.openCage.xplatform.wriring.XPlatformWiring;
+import org.openCage.ui.wiring.UIWiring;
 
 /**
  * Created by IntelliJ IDEA.
@@ -16,7 +16,7 @@ import org.openCage.xplatform.wriring.XPlatformWiring;
 public class FausterizeWiring implements Module {
     public void configure(Binder binder) {
         binder.install( new ApplicationWiring());
-        binder.install( new XPlatformWiring());
+        binder.install( new UIWiring());
 
         binder.bind( Application.class ).toProvider( ApplicationProvider.class );
     }

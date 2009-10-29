@@ -4,10 +4,9 @@ import com.google.inject.Inject;
 import com.muchsoft.util.mac.Java14Adapter;
 import com.muchsoft.util.mac.Java14Handler;
 import com.muchsoft.util.Sys;
+import org.openCage.ui.protocol.AboutSheet;
 import org.openCage.util.io.FileUtils;
-import org.openCage.application.protocol.AboutSheet;
 import org.openCage.application.protocol.Application;
-import org.openCage.stroy.dir.FileContent;
 import org.openCage.stroy.graph.matching.strategy.MatchStrategy;
 import org.openCage.stroy.ui.prefs.PrefsUI;
 import org.openCage.stroy.ui.menu.PortableMenu;
@@ -26,7 +25,7 @@ import java.util.EventObject;
 import java.io.File;
 
 import net.java.dev.designgridlayout.DesignGridLayout;
-import org.openCage.xplatform.protocol.FileChooser;
+import org.openCage.ui.protocol.FileChooser;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1

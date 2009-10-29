@@ -36,7 +36,7 @@ import org.openCage.util.external.ExecProviderImpl;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
-import org.openCage.ui.wriring.XPlatformWiring;
+import org.openCage.ui.wiring.UIWiring;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -66,7 +66,7 @@ public class RuntimeModule implements Module {
     public void configure(Binder binder) {
 
     	binder.install( new ApplicationWiring());
-        binder.install( new XPlatformWiring());
+        binder.install( new UIWiring());
     	
     	binder.bind( Application.class ).toProvider( ApplicationProvider.class );
 

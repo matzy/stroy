@@ -1,4 +1,4 @@
-package org.openCage.application.impl.locale;
+package org.openCage.ui.impl.locale;
 
 import java.util.Arrays;
 
@@ -14,7 +14,7 @@ public class ApplicationLocalizeProvider implements Provider<Localize>{
 	private LocalizeBuilder builder;
 	
 	public Localize get() {
-		return builder.build( "org.openCage.application.impl.locale.abouttexts", Arrays.asList( builder.get()));
+		return builder.build( "org.openCage.ui.impl.locale.abouttexts", Arrays.asList( builder.get()));
 	}
 
 }
