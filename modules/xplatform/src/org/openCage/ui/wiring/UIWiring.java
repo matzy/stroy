@@ -8,11 +8,12 @@ import com.google.inject.Binder;
 import com.google.inject.Module;
 import com.google.inject.name.Names;
 import com.muchsoft.util.Sys;
+import org.openCage.application.wiring.ApplicationWiring;
 import org.openCage.localization.protocol.Localize;
 import org.openCage.localization.wiring.LocalizeWiring;
 import org.openCage.ui.impl.FileChooserOSX;
 import org.openCage.ui.impl.FileChooserWindows;
-import org.openCage.ui.impl.XPlatformLocalizeProvider;
+import org.openCage.ui.impl.UILocalizeProvider;
 import org.openCage.ui.impl.about.AboutSheetFromApplication;
 import org.openCage.ui.protocol.AboutSheet;
 import org.openCage.ui.protocol.FileChooser;
@@ -26,9 +27,10 @@ public class UIWiring implements Module {
     public void configure(Binder binder) {
 
         binder.install(new LocalizeWiring());
+        binder.install(new ApplicationWiring());
 
         binder.bind(Localize.class).
-                annotatedWith(Names.named("ui")).toProvider(XPlatformLocalizeProvider.class);
+                annotatedWith(Names.named("ui")).toProvider(UILocalizeProvider.class);
 
         if (Sys.isMacOSX()) {
             binder.bind(FileChooser.class).to(FileChooserOSX.class);

@@ -27,10 +27,10 @@ public class AboutSheetFromApplication extends JDialog implements AboutSheet {
 	private static final long serialVersionUID = -1275151496727359312L;
 
 	private final Application app;
-	private final Localize     localize; 
+	private final Localize    localize;
 	
 	@Inject
-	public AboutSheetFromApplication( final Application app, @Named( "application" ) final Localize localize ) {
+	public AboutSheetFromApplication( final Application app, @Named( "ui" ) final Localize localize ) {
 		this.app = app;		
 		this.localize = localize;
 		build();

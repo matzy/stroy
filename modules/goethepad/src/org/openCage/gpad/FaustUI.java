@@ -1,9 +1,11 @@
 package org.openCage.gpad;
 
-import com.apple.eawt.Application;
 import com.explodingpixels.macwidgets.*;
+import com.google.inject.Guice;
+import com.google.inject.Inject;
+import com.google.inject.Injector;
 import net.java.dev.designgridlayout.DesignGridLayout;
-import org.openCage.lang.protocol.FE1;
+import org.openCage.application.protocol.Application;
 import org.openCage.withResource.impl.WithImpl;
 import org.openCage.withResource.protocol.FileLineIterable;
 
@@ -31,27 +33,29 @@ import java.net.URISyntaxException;
  */
 public class FaustUI extends JFrame {
 
-    private Application app;
+    final private Application application;
 
     private JTextArea textUI = new JTextArea();
     TextEncoderIdx<String> tts;
 
-    public FaustUI(String pad, final String message ) {
+    @Inject
+    public FaustUI( Application application ) {
+        this.application = application;
 
-        JButton save = new JButton("save");
-        save.addActionListener( new ActionListener() {
-            public void actionPerformed(ActionEvent actionEvent) {
-                new WithImpl().withWriter( new File(message), new FE1<Object, Writer>() {
-                    public Object call(Writer writer) throws Exception {
-                        System.out.println(textUI.getText());
-                        String code = tts.encode( textUI.getText(),0);
-                        System.out.println( code );
-                        writer.append( code );
-                        return null;
-                    }
-                });
-            }
-        });
+//        JButton save = new JButton("save");
+//        save.addActionListener( new ActionListener() {
+//            public void actionPerformed(ActionEvent actionEvent) {
+//                new WithImpl().withWriter( new File(message), new FE1<Object, Writer>() {
+//                    public Object call(Writer writer) throws Exception {
+//                        System.out.println(textUI.getText());
+//                        String code = tts.encode( textUI.getText(),0);
+//                        System.out.println( code );
+//                        writer.append( code );
+//                        return null;
+//                    }
+//                });
+//            }
+//        });
 
         JButton padButton = new JButton("pad");
         final JFrame theFrame = this;
@@ -73,8 +77,8 @@ public class FaustUI extends JFrame {
         MacUtils.makeWindowLeopardStyle( getRootPane());
 
         UnifiedToolBar toolBar = new UnifiedToolBar();
-        save.putClientProperty("JButton.buttonType", "textured");
-        toolBar.addComponentToLeft(save);
+//        save.putClientProperty("JButton.buttonType", "textured");
+//        toolBar.addComponentToLeft(save);
         toolBar.addComponentToLeft(padButton);
         final JTextField textField = new JTextField(10);
         textField.putClientProperty("JTextField.variant", "search");
@@ -84,10 +88,10 @@ public class FaustUI extends JFrame {
         getContentPane().add( toolBar.getComponent(), BorderLayout.NORTH );
 
         BottomBar bottomBar = new BottomBar(BottomBarSize.LARGE);
-        bottomBar.addComponentToCenter(MacWidgetFactory.createEmphasizedLabel(message));
+//        bottomBar.addComponentToCenter(MacWidgetFactory.createEmphasizedLabel(message));
         getContentPane().add( bottomBar.getComponent(), BorderLayout.SOUTH );
 
-        setTitle( "Fausterize" );
+        setTitle( application.gettName());
         setSize( 800, 600 );
 
 
@@ -144,8 +148,4 @@ public class FaustUI extends JFrame {
         }
     }
 
-
-    public static void main(String[] args) {
-        new FaustUI( args[0], args[1] ).setVisible(true);
-    }
 }

@@ -14,12 +14,12 @@ import org.openCage.localization.protocol.LocalizeBuilder;
  *
  * @author stephan
  */
-public class XPlatformLocalizeProvider implements Provider<Localize>{
+public class UILocalizeProvider implements Provider<Localize>{
 
     @Inject
     private LocalizeBuilder builder;
 
     public Localize get() {
-        return builder.build("org.openCage.ui.impl.xplatformtexts", Arrays.asList(builder.get()));
+        return builder.build("org.openCage.ui.impl.uitexts", Arrays.asList(builder.get()));
     }
 }
