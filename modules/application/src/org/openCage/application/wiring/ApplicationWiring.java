@@ -23,4 +23,14 @@ public class ApplicationWiring implements Module{
 			annotatedWith( Names.named("application" )).toProvider( ApplicationLocalizeProvider.class );
 //                binder.bind( UpdateChecker.class ).to( UpdateChecker.class );
 	}
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj != null && obj instanceof ApplicationWiring;
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

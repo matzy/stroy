@@ -1,12 +1,10 @@
 package org.openCage.stroy.ui.util;
 
 import junit.framework.TestCase;
-import org.openCage.vfs.impl.SimpleContentTreeBuilder;
-import org.openCage.vfs.protocol.VNode;
+import org.openCage.vfs.impl.SimpleStringTreeBuilder;
 import org.openCage.vfs.protocol.VNode;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.graph.matching.TreeMatchingTaskNeutralBuilder;
-import org.openCage.stroy.content.ReducedContent;
 import org.openCage.stroy.ui.difftree.UINode;
 
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -43,7 +41,7 @@ public class DMTNMakerTest extends TestCase {
     protected void setUp() throws Exception {
         super.setUp();
 
-        SimpleContentTreeBuilder b = new SimpleContentTreeBuilder();
+        SimpleStringTreeBuilder b = new SimpleStringTreeBuilder();
 
         VNode treeOne = b.d( "f", b.l( "a"),
                                                      b.d( "g", b.l("b"),

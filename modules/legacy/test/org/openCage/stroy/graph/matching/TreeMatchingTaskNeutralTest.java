@@ -1,7 +1,7 @@
 package org.openCage.stroy.graph.matching;
 
 import junit.framework.TestCase;
-import org.openCage.vfs.impl.SimpleContentTreeBuilder;
+import org.openCage.vfs.impl.SimpleStringTreeBuilder;
 import org.openCage.vfs.protocol.VNode;
 import org.openCage.stroy.content.ReducedContent;
 
@@ -30,7 +30,7 @@ import org.openCage.stroy.content.ReducedContent;
 public class TreeMatchingTaskNeutralTest extends TestCase {
 
     public void testRootsMatch() {
-        SimpleContentTreeBuilder b = new SimpleContentTreeBuilder();
+        SimpleStringTreeBuilder b = new SimpleStringTreeBuilder();
 
         VNode treeLeft = b.d( "f", b.l( "a"),
                                                       b.d( "g", b.l("b"),

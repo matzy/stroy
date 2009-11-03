@@ -4,10 +4,14 @@ import com.explodingpixels.macwidgets.*;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
-import net.java.dev.designgridlayout.DesignGridLayout;
+import com.muchsoft.util.mac.Java14Adapter;
+import com.muchsoft.util.mac.Java14Handler;
 import org.openCage.application.protocol.Application;
-import org.openCage.withResource.impl.WithImpl;
+import org.openCage.ui.protocol.AboutSheet;
+import org.openCage.ui.protocol.FileChooser;
+import org.openCage.ui.protocol.OSXStandardEventHandler;
 import org.openCage.withResource.protocol.FileLineIterable;
+import org.openCage.withResource.protocol.With;
 
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
@@ -22,6 +26,7 @@ import java.io.File;
 import java.io.Writer;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.EventObject;
 
 
 /**
@@ -34,13 +39,21 @@ import java.net.URISyntaxException;
 public class FaustUI extends JFrame {
 
     final private Application application;
+    final private With with;
+    final private FileChooser fileChooser;
+    final private AboutSheet about;
+    final private OSXStandardEventHandler osxEventHandler;
 
     private JTextArea textUI = new JTextArea();
     TextEncoderIdx<String> tts;
 
     @Inject
-    public FaustUI( Application application ) {
+    public FaustUI( Application application, With with, FileChooser chooser, AboutSheet about, OSXStandardEventHandler osxEventHandler ) {
         this.application = application;
+        this.with = with;
+        this.fileChooser = chooser;
+        this.about = about;
+        this.osxEventHandler = osxEventHandler;
 
 //        JButton save = new JButton("save");
 //        save.addActionListener( new ActionListener() {
@@ -61,7 +74,6 @@ public class FaustUI extends JFrame {
         final JFrame theFrame = this;
         padButton.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //new FileChooserWindows().open( theFrame, "C:");
             }
         });
 
@@ -118,9 +130,6 @@ public class FaustUI extends JFrame {
 
         pack();
 
-//        setPad(pad, message);
-//
-//
     }
 
     private void setPad(String pad, String message) {
@@ -132,7 +141,7 @@ public class FaustUI extends JFrame {
             String text = "";
 
             if ( filem.exists() ) {
-                FileLineIterable it =  new WithImpl().getLineIteratorCloseInFinal( filem );
+                FileLineIterable it =  with.getLineIteratorCloseInFinal( filem );
                 try {
                     for ( String str : it ) {
                         text += str + "\n";

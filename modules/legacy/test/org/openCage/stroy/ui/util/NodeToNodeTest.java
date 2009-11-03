@@ -1,6 +1,6 @@
 package org.openCage.stroy.ui.util;
 
-import org.openCage.vfs.impl.SimpleContentTreeBuilder;
+import org.openCage.vfs.impl.SimpleStringTreeBuilder;
 import org.openCage.vfs.protocol.VNode;
 import org.openCage.stroy.content.ReducedContent;
 
@@ -29,7 +29,7 @@ import org.openCage.stroy.content.ReducedContent;
 public class NodeToNodeTest {
 
     public void testGetNamePath() {
-        SimpleContentTreeBuilder b = new SimpleContentTreeBuilder();
+        SimpleStringTreeBuilder b = new SimpleStringTreeBuilder();
 
         VNode treeOne = b.d( "f", b.l( "a"),
                                                      b.d( "g", b.l("b"),

@@ -4,7 +4,9 @@ import com.google.inject.Inject;
 import com.muchsoft.util.mac.Java14Adapter;
 import com.muchsoft.util.mac.Java14Handler;
 import com.muchsoft.util.Sys;
+import org.openCage.lang.protocol.F0;
 import org.openCage.ui.protocol.AboutSheet;
+import org.openCage.ui.protocol.OSXStandardEventHandler;
 import org.openCage.util.io.FileUtils;
 import org.openCage.application.protocol.Application;
 import org.openCage.stroy.graph.matching.strategy.MatchStrategy;
@@ -50,7 +52,7 @@ import org.openCage.ui.protocol.FileChooser;
 ***** END LICENSE BLOCK *****/
 
 public class DirSelectorImpl extends JFrame
-        implements DirSelector, Java14Handler{
+        implements DirSelector {
 
 
     private final JProgressBar progressBar = new JProgressBar();
@@ -69,7 +71,7 @@ public class DirSelectorImpl extends JFrame
 //    private final Application appInfo;
     private final AboutSheet aboutSheet;
 
-    private final LogHandlerPanel logHandlerPanel = new LogHandlerPanel();
+//    private final LogHandlerPanel logHandlerPanel = new LogHandlerPanel();
 
     private org.openCage.stroy.ui.menu.Menu menu;
 //    private PComboBox strategyCombo = new PComboBox( "stroy.first.strategy" );
@@ -78,18 +80,25 @@ public class DirSelectorImpl extends JFrame
 
     private final UpdateChecker updateChecker;
     private final FileChooser fileChooser;
+    private final OSXStandardEventHandler osxEventHandler;
 
 
     @Inject
-    public DirSelectorImpl( Application application, AboutSheet about, UpdateChecker updateChecker, FileChooser fileChooser ) {
+    public DirSelectorImpl( Application application, AboutSheet about, UpdateChecker updateChecker, FileChooser fileChooser, OSXStandardEventHandler osxEventHandler) {
         super( "stroy");
 
         this.aboutSheet = about;
         this.updateChecker = updateChecker;
         this.fileChooser = fileChooser;
+        this.osxEventHandler = osxEventHandler;
 
-        Java14Adapter.registerJava14Handler( this );
-        Java14Adapter.setEnabledPrefs( true );
+        osxEventHandler.addPrefsDelegate( new F0<Void>() {
+            @Override
+            public Void call() {
+                PrefsUI.create().setVisible( true );
+                return null;
+            }
+        });
 
         createLayout();
         createMenu( application );
@@ -146,11 +155,11 @@ public class DirSelectorImpl extends JFrame
 
     private void createMenu(Application appInfo) {
 
-        for ( JFrame frame : Arrays.asList( this, logHandlerPanel/*, presetsPanel */)) {
+        for ( JFrame frame : Arrays.asList( this /*,logHandlerPanel*//*, presetsPanel */)) {
             PortableMenu menu = new PortableMenu();
             menu.setFrame( frame );
             //menu.setFilterView( filterFrame );
-            menu.setLogView( logHandlerPanel );
+  //          menu.setLogView( logHandlerPanel );
             menu.setAppInfo( appInfo );
 
             menu.create();            
@@ -294,28 +303,6 @@ public class DirSelectorImpl extends JFrame
 //
 //        dispose();
 //    }
-
-    public void handleAbout(EventObject eventObject) {
-        Java14Adapter.setHandled( eventObject, true );
-		aboutSheet.setVisible( true );
-    }
-
-    public void handlePrefs(EventObject eventObject) {
-        Java14Adapter.setHandled( eventObject, true );
-        PrefsUI.create().setVisible( true );
-    }
-
-    public void handleQuit(EventObject eventObject) {
-        System.exit(0);
-    }
-
-    public void handleOpenApplication(EventObject eventObject) {}
-
-    public void handleReOpenApplication(EventObject eventObject) {}
-
-    public void handleOpenFile(EventObject eventObject, String string) {}
-
-    public void handlePrintFile(EventObject eventObject, String string) {}
 
 
     @Override
