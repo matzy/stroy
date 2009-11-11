@@ -30,13 +30,11 @@ public class OSXStandardEventHandlerImpl implements OSXStandardEventHandler, Jav
         Java14Adapter.setEnabledPrefs( true );
     }
 
-    @Override
     public void handleAbout(EventObject eventObject) {
         Java14Adapter.setHandled( eventObject, true );
         about.setVisible( true );
     }
 
-    @Override
     public void handlePrefs(EventObject eventObject) {
         if ( prefs != null ) {
             Java14Adapter.setHandled( eventObject, true );
@@ -44,33 +42,27 @@ public class OSXStandardEventHandlerImpl implements OSXStandardEventHandler, Jav
         }
     }
 
-    @Override
     public void handleQuit(EventObject eventObject) {
         Java14Adapter.setHandled( eventObject, true );
         System.exit(0);
     }
 
-    @Override
     public void handleOpenApplication(EventObject eventObject) {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    @Override
     public void handleReOpenApplication(EventObject eventObject) {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    @Override
     public void handleOpenFile(EventObject eventObject, String s) {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    @Override
     public void handlePrintFile(EventObject eventObject, String s) {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    @Override
     public void addPrefsDelegate(F0<Void> prefs) {
         this.prefs = prefs;
     }

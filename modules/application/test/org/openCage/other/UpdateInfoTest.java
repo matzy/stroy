@@ -6,6 +6,7 @@ import org.openCage.application.impl.update.UpdateInfo;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import org.openCage.ui.wiring.UIWiring;
 
 public class UpdateInfoTest {
 

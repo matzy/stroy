@@ -19,24 +19,20 @@ public class StringIterator implements Iterator<Character>, Iterable<Character> 
         this.idx = 0;
     }
 
-    @Override
     public boolean hasNext() {
         return str.length() > idx;
     }
 
-    @Override
     public Character next() {
         Character ch = str.charAt(idx);
         ++idx;
         return ch;
     }
 
-    @Override
     public void remove() {
         throw new Error( "strings are imutable" );
     }
 
-    @Override
     public Iterator<Character> iterator() {
         return this;
     }

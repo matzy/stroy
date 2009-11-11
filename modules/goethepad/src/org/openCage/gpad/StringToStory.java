@@ -20,11 +20,9 @@ public class StringToStory implements TextEncoder<String>{
     public StringToStory() {
     }
 
-    @Override
     public String encode( final String str ) {
         return new WithImpl().withInputStream( new File( getClass().getResource("FaustNum.class").getPath()),
                 new FE1<String, InputStream>() {
-                    @Override
                     public String call(InputStream inputStream) throws Exception {
                         String ret = "";
                         for ( int i = 0; i < str.length(); ++i ) {
@@ -39,7 +37,6 @@ public class StringToStory implements TextEncoder<String>{
                 });
     }
 
-    @Override
     public String decode(String line) {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }

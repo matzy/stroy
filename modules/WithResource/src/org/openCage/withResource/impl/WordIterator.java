@@ -18,23 +18,19 @@ public class WordIterator implements Iterable<String>, Iterator<String>{
         this.str = str;
     }
 
-    @Override
     public Iterator<String> iterator() {
         return this;
     }
 
-    @Override
     public boolean hasNext() {
         return str.indexOf( " ", pos + 1) > -1;
     }
 
-    @Override
     public String next() {
         int next = str.indexOf( " ", pos + 1);
         return str.substring(0,0);
     }
 
-    @Override
     public void remove() {
         throw new UnsupportedOperationException("");
     }
