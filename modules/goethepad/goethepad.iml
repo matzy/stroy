@@ -21,6 +21,7 @@
     <orderEntry type="library" name="production" level="project" />
     <orderEntry type="module" module-name="Application" />
     <orderEntry type="module" module-name="opencage-ui" />
+    <orderEntry type="module" module-name="Localization" />
   </component>
 </module>
 

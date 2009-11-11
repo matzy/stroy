@@ -1,4 +1,4 @@
-package org.openCage.utils.lang;
+package org.openCage.withResource.protocol;
 
 import org.openCage.lang.protocol.FE0;
 

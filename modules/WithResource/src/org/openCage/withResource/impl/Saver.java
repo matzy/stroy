@@ -1,8 +1,9 @@
-package org.openCage.utils.lang;
+package org.openCage.withResource.impl;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.openCage.lang.protocol.FE0;
+import org.openCage.withResource.protocol.BackgroundSaver;
 
 /***** BEGIN LICENSE BLOCK *****
  * Version: MPL 1.1
@@ -56,7 +57,7 @@ public class Saver implements BackgroundSaver {
                         Thread.sleep(WAITING);
                         task.call();
                     } catch (Exception exp) {
-                        LOG.warning("PrefSaveThread cought " + exp);
+                        LOG.warning("Saver caught " + exp);
                     }
                 }
             }

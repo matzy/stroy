@@ -1,7 +1,7 @@
 package org.openCage.utils.persistence;
 
 import org.openCage.util.io.FileUtils;
-import org.openCage.utils.lang.BackgroundSaver;
+import org.openCage.withResource.protocol.BackgroundSaver;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;

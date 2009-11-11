@@ -4,12 +4,18 @@ import com.explodingpixels.macwidgets.*;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+import com.google.inject.name.Named;
 import com.muchsoft.util.mac.Java14Adapter;
 import com.muchsoft.util.mac.Java14Handler;
+import com.sun.xml.internal.xsom.util.NameGetter;
 import org.openCage.application.protocol.Application;
+import org.openCage.lang.protocol.FE0;
+import org.openCage.lang.protocol.FE1;
+import org.openCage.localization.protocol.Localize;
 import org.openCage.ui.protocol.AboutSheet;
 import org.openCage.ui.protocol.FileChooser;
 import org.openCage.ui.protocol.OSXStandardEventHandler;
+import org.openCage.withResource.protocol.BackgroundSaver;
 import org.openCage.withResource.protocol.FileLineIterable;
 import org.openCage.withResource.protocol.With;
 
@@ -43,17 +49,29 @@ public class FaustUI extends JFrame {
     final private FileChooser fileChooser;
     final private AboutSheet about;
     final private OSXStandardEventHandler osxEventHandler;
+    private URI pad;
+    private String message = "/Users/stephan/woo.txt";
+    private BackgroundSaver saver;
 
     private JTextArea textUI = new JTextArea();
     TextEncoderIdx<String> tts;
+    final private Localize localize;
 
     @Inject
-    public FaustUI( Application application, With with, FileChooser chooser, AboutSheet about, OSXStandardEventHandler osxEventHandler ) {
+    public FaustUI( Application application,
+                    With wth,
+                    FileChooser chooser,
+                    AboutSheet about,
+                    OSXStandardEventHandler osxEventHandler,
+                    BackgroundSaver saver,
+                    @Named( "fausterize") Localize localize ) {
         this.application = application;
-        this.with = with;
+        this.with = wth;
         this.fileChooser = chooser;
         this.about = about;
         this.osxEventHandler = osxEventHandler;
+        this.saver = saver;
+        this.localize = localize;
 
 //        JButton save = new JButton("save");
 //        save.addActionListener( new ActionListener() {
@@ -70,10 +88,19 @@ public class FaustUI extends JFrame {
 //            }
 //        });
 
-        JButton padButton = new JButton("pad");
+        JButton padButton = new JButton( localize.localize( "org.openCage.fausterize.decode"));
         final JFrame theFrame = this;
         padButton.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                String path = fileChooser.open( theFrame, "/");
+                if ( path != null ) {
+                    try {
+                        pad = new URI("file://" + path);
+                        setPad( "file://" + path, message );
+                    } catch (URISyntaxException e1) {
+                        e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                    }
+                }
             }
         });
 
@@ -129,6 +156,23 @@ public class FaustUI extends JFrame {
         });
 
         pack();
+
+        saver.addTask( new FE0<Void>() {
+            @Override
+            public Void call() throws Exception {
+
+                with.withWriter( new File(message), new FE1<Void, Writer>() {
+                    @Override
+                    public Void call(Writer writer) throws Exception {
+                        if ( textUI.getText().length() > 0 ) {
+                            writer.write( tts.encode( textUI.getText(), 0 ));
+                        }
+                        return null;
+                    }
+                });
+                return null;
+            }
+        });
 
     }
 
