@@ -1,5 +1,6 @@
 package org.openCage.gpad;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
@@ -21,9 +22,13 @@ public class FaustString implements TextEncoderIdx<String>{
         encoder.setPad( uri );
     }
 
-    @Override
     public String encode(String ch, int ix ) {
-        byte[] bytes = ch.getBytes( UTF8 );
+        byte[] bytes = new byte[0];
+        try {
+            bytes = ch.getBytes( "utf8" );
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
         String ret = "";
         int idx = 0;
         for ( byte by : bytes ) {
@@ -33,7 +38,6 @@ public class FaustString implements TextEncoderIdx<String>{
         return ret;
     }
 
-    @Override
     public String decode(String lines, int ix ) {
         List<Byte> bytes = new ArrayList<Byte>();
 
@@ -48,6 +52,11 @@ public class FaustString implements TextEncoderIdx<String>{
             byteArr[i] = by;
             ++i;
         }
-        return new String( byteArr, UTF8);
+        try {
+            return new String( byteArr, "utf8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            return null;
+        }
     }
 }

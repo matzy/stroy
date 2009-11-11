@@ -13,7 +13,6 @@ import org.openCage.ui.wiring.UIWiring;
  * To change this template use File | Settings | File Templates.
  */
 public class FaustWiring implements Module {
-    @Override
     public void configure(Binder binder) {
         binder.install( new UIWiring() );
 

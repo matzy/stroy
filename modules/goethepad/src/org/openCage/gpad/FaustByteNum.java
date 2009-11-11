@@ -71,13 +71,11 @@ public class FaustByteNum implements TextEncoderIdx<Byte> {
         }
     }
 
-    @Override
     public String encode( Byte ch, int idx ) {
         List<String> posi =  num2line[xor(ch, getByte(idx)) + 127];
         return posi.get(((int)(Math.random() * posi.size())));
     }
 
-    @Override
     public Byte decode( String line, int idx ) {
         return xor((byte)((line2num.get( line ).intValue())-127), getByte(idx));
     }
