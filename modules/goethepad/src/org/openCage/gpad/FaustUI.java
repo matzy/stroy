@@ -7,7 +7,6 @@ import com.google.inject.Injector;
 import com.google.inject.name.Named;
 import com.muchsoft.util.mac.Java14Adapter;
 import com.muchsoft.util.mac.Java14Handler;
-import com.sun.xml.internal.xsom.util.NameGetter;
 import org.openCage.application.protocol.Application;
 import org.openCage.lang.protocol.FE0;
 import org.openCage.lang.protocol.FE1;
@@ -158,11 +157,9 @@ public class FaustUI extends JFrame {
         pack();
 
         saver.addTask( new FE0<Void>() {
-            @Override
             public Void call() throws Exception {
 
                 with.withWriter( new File(message), new FE1<Void, Writer>() {
-                    @Override
                     public Void call(Writer writer) throws Exception {
                         if ( textUI.getText().length() > 0 ) {
                             writer.write( tts.encode( textUI.getText(), 0 ));
