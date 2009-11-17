@@ -22,6 +22,11 @@ public class FaustString implements TextEncoderIdx<String>{
         encoder.setPad( uri );
     }
 
+    @Override
+    public boolean isSet() {
+        return encoder.isSet();
+    }
+
     public String encode(String ch, int ix ) {
         byte[] bytes = new byte[0];
         try {

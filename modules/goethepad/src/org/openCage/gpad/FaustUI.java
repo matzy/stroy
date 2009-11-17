@@ -96,6 +96,7 @@ public class FaustUI extends JFrame {
                     try {
                         pad = new URI("file://" + path);
                         setPad( "file://" + path, message );
+                        textUI.setEditable(true);
                     } catch (URISyntaxException e1) {
                         e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                     }
@@ -109,6 +110,8 @@ public class FaustUI extends JFrame {
         textUI.setMinimumSize( new Dimension( 400, 400 ));
         getContentPane().setLayout( new BorderLayout());
         getContentPane().add( scroll, BorderLayout.CENTER  );
+        textUI.setEditable(false);
+        setInitial( message );
 
         // For some versions of Mac OS X, Java will handle painting the Unified Tool Bar.
         // Calling this method ensures that this painting is turned on if necessary.
@@ -159,21 +162,21 @@ public class FaustUI extends JFrame {
         saver.addTask( new FE0<Void>() {
             public Void call() throws Exception {
 
-                with.withWriter( new File(message), new FE1<Void, Writer>() {
-                    public Void call(Writer writer) throws Exception {
-                        if ( textUI.getText().length() > 0 ) {
-                            writer.write( tts.encode( textUI.getText(), 0 ));
+                if ( textUI.getText().length() > 0 && tts != null && tts.isSet()) {
+                    with.withWriter( new File(message), new FE1<Void, Writer>() {
+                        public Void call(Writer writer) throws Exception {
+                             writer.write( tts.encode( textUI.getText(), 0 ));
+                            return null;
                         }
-                        return null;
-                    }
-                });
+                    });
+                }
                 return null;
             }
         });
 
     }
 
-    private void setPad(String pad, String message) {
+    private synchronized void setPad(String pad, String message) {
         try {
             tts = new FaustString();
             tts.setPad(  new URI( pad ) );
@@ -182,6 +185,7 @@ public class FaustUI extends JFrame {
             String text = "";
 
             if ( filem.exists() ) {
+                textUI.setText("");
                 FileLineIterable it =  with.getLineIteratorCloseInFinal( filem );
                 try {
                     for ( String str : it ) {
@@ -197,5 +201,28 @@ public class FaustUI extends JFrame {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
     }
+
+    private void setInitial( String message) {
+        File filem = new File(message);
+        String text = "";
+
+        if ( filem.exists() ) {
+            FileLineIterable it =  with.getLineIteratorCloseInFinal( filem );
+            try {
+                for ( String str : it ) {
+                    text += str + "\n";
+                }
+            } finally {
+                it.close();
+            }
+
+            textUI.append( text );
+            
+        } else {
+
+            textUI.append( localize.localize("org.openCage.fausterize.intro"));
+        }
+    }
+
 
 }

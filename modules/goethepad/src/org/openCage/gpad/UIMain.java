@@ -14,11 +14,8 @@ public class UIMain {
 
 
     public static void main(String[] args) {
-        Injector injector = Guice.createInjector( new FaustWiring() );
+        Injector injector = Guice.createInjector( new FausterizeWiring() );
         FaustUI faust = injector.getInstance( FaustUI.class );
-//
-//        ApplicationBuilder ab = injector.getInstance( ApplicationBuilder.class );
-
         faust.setVisible(true);
     }
 }

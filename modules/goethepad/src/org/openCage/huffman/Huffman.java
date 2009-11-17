@@ -9,32 +9,32 @@ package org.openCage.huffman;
  */
 public class Huffman {
 
-    public byte[] encode( byte[] array ) {
+    public DynamicBitArray encode( byte[] array ) {
 
         PQue pq = buildPriorityQue( array );
 
-        System.out.println( pq );
+        //System.out.println( pq );
 
         combine( pq );
 
-        System.out.println("-----");
+        //System.out.println("-----");
 
-        System.out.println( pq );
+        //System.out.println( pq );
 
         DynamicBitArray[] codes = new DynamicBitArray[257];
         computeCodes( pq.pop(), new DynamicBitArray(), codes );
 
 
-        for ( int i = 0; i < 257; i++ )  {
-            System.out.println( codes[i]);
-        }
+//        for ( int i = 0; i < 257; i++ )  {
+//            System.out.println( codes[i]);
+//        }
 
         DynamicBitArray result = encode( array, codes );
 
-        System.out.println( result.toString8() );
+        //System.out.println( result.toString8() );
 
 
-        return null;
+        return result;
     }
 
     private DynamicBitArray encode(byte[] array, DynamicBitArray[] codes) {
@@ -51,7 +51,7 @@ public class Huffman {
         return res;
     }
 
-    public PQue buildPriorityQue( byte[] arr ) {
+    private PQue buildPriorityQue( byte[] arr ) {
         int[] weight = new int[257];
 
         for ( byte by : arr ) {
@@ -67,7 +67,7 @@ public class Huffman {
         return pq;
     }
 
-    public void combine( PQue pque ) {
+    private void combine( PQue pque ) {
 
         while( pque.size() > 1 ) {
             HNode left = pque.pop();
@@ -77,9 +77,9 @@ public class Huffman {
         }
     }
 
-    public void computeCodes( HNode node, DynamicBitArray prefix, DynamicBitArray[] codes ) {
+    private void computeCodes( HNode node, DynamicBitArray prefix, DynamicBitArray[] codes ) {
         if ( node.left == null && node.right == null ) {
-            System.out.println( "" + node + " -> "  + prefix );
+            //System.out.println( "" + node + " -> "  + prefix );
             codes[ node.character - Byte.MIN_VALUE ] = prefix;
             return;
         }

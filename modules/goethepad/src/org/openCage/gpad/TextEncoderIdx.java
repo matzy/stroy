@@ -15,4 +15,5 @@ public interface TextEncoderIdx<T> {
     T      decode( String line, int idx );
 
     void   setPad( URI path );
+    boolean isSet();
 }

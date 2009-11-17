@@ -98,4 +98,9 @@ public class DynamicBitArray {
 
         return dba;
     }
+
+    public Byte getByteModulo( int idx ) {
+        return bytes.get( idx % bytes.size() );
+    }
+
 }
