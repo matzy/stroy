@@ -1,0 +1,21 @@
+<project name="openCage-apps" default="help" basedir=".">
+
+    <target name="help">
+        <echo message="targets are (depending on platform):"/>
+        <echo message="    osx: stroy.app"/>
+        <echo message="    osx: stroy.app-jp"/>
+        <echo message="    windows: stroy.exe"/>
+        <echo message="    xplatform: stroy-xplatform"/>
+        <echo message="    fausterize"/> 
+    </target>
+
+    <target name="build-all">
+    <buildlist reference="my-build-path">
+      <fileset dir="." includes="module-*/build.xml"/>
+    </buildlist>
+    <subant target="jar">
+      <buildpath refid="my-build-path"/>
+    </subant>
+  </target>
+
+</project>

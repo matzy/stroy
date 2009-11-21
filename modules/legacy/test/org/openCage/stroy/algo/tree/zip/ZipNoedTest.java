@@ -43,7 +43,7 @@
 //    public void testResourcePath() {
 //        URL url = getClass().getResource( "../../../algo/tree/zip/dir.zip" );
 //
-//        assertNotNull( "add .zip files to IDEA prefs: compiler resource patterns or build.xml",  url );
+//        assertNotNull( "add .zip files to IDEA prefs: compiler resource patterns or build-lang.xml",  url );
 //    }
 //
 //    public void testCreateZipNoed() {

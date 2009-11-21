@@ -327,7 +327,7 @@
 //        add( 143, "d", "generate reference section for help" ).ref(57);
 //
 //        defaultVersion = "0.8.189";
-//        add( 162, "d", "osx help does not always work (build.xml did not clean enough/ no univeral lib)" ).tag("OSX");
+//        add( 162, "d", "osx help does not always work (build-lang.xml did not clean enough/ no univeral lib)" ).tag("OSX");
 //        add( 164, "d", ".css added to filetypes" );
 //        add( 165, "d", "standard progs pane needs description of std open" );
 //        add( 168, "d", "filetypes need set to standard button" );

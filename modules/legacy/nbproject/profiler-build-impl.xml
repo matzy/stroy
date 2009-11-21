@@ -21,11 +21,11 @@ is divided into following sections:
     <target name="profile-init" depends="-profile-pre-init, init, -profile-post-init, -profile-init-macrodef-profile, -profile-init-check"/>
     <target name="-profile-pre-init">
         <!-- Empty placeholder for easier customization. -->
-        <!-- You can override this target in the ../build.xml file. -->
+        <!-- You can override this target in the ../build-lang.xml file. -->
     </target>
     <target name="-profile-post-init">
         <!-- Empty placeholder for easier customization. -->
-        <!-- You can override this target in the ../build.xml file. -->
+        <!-- You can override this target in the ../build-lang.xml file. -->
     </target>
     <target name="-profile-init-macrodef-profile">
         <macrodef name="resolve">

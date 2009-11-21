@@ -79,10 +79,10 @@ public class FileUtils {
     }
 
     /**
-     * Normalizes an absolute file path to use only '/' as seperatros.
+     * Normalizes an absolute file path to use only '/' as separator.
      * On windows drive letter plus ':' is used.
      * @param in An absolute path.
-     * @return The same path whith '/'
+     * @return The same path with '/'
      */
     static public String normalizePath( String in ) {
 
