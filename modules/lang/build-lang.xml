@@ -6,7 +6,9 @@
     <property name="buildnumber" value="1"/>
     <property name="copyright" value="Copyright &#xa9; 2006-2009 Stephan Pfab MPL1.1"/>
 
-    <property name="src" value="src"/>
+    <property name="lang-base" value="${basedir}/modules/lang"/>
+
+    <property name="src" value="${lang-base}/src"/>
     <property name="target" value="../../libs"/>
     <property name="classes" value="../../classes/lang"/>
 
@@ -20,6 +22,8 @@
     </target>
 
     <target name="compile" depends="prepare">
+
+        <echo  message="${basedir}"/>
 
         <javac srcdir="${src}" destdir="${classes}">
             <!--<classpath refid="externals"></classpath>-->

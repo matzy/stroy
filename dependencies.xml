@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="dependencies" default="depend.all">
+    <dirname property="dependencies.basedir" file="${ant.file.dependencies}"/>
+    <!-- ================================================================== -->
+    <target name="depend.all"
+            depends="depend.lang, depend.localization">
+    </target>
+    <!-- ================================================================== -->
+    <target name="depend.localization"
+            depends="depend.lang">
+        <ant dir="${dependencies.basedir}/modules/localization" inheritAll="false"/>
+    </target>
+    <!-- ================================================================== -->
+    <target name="depend.lang">
+        <ant dir="${dependencies.basedir}/modules/lang" inheritAll="false"/>
+    </target>
+</project>

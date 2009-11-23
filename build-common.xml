@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="build-common" default="default">
+    <import file="dependencies.xml"/>
+
+    <target name="default" depends="dist"/>
+
+    <target name="clean">
+        <delete dir="${dependencies.basedir}/classes"/>
+        <delete dir="${dependencies.basedir}/libs"/>
+    </target>
+
+    <target  name="prepare">
+            <tstamp/>
+        <mkdir dir="${dependencies.basedir}/classes/${ant.project.name}"/>
+        <mkdir dir="${dependencies.basedir}/libs"/>
+    </target>
+
+
+    <target name="compile" depends="prepare">
+        <echo message="${ant.project.name} - build-common.compile"/>
+        <echo message="foo = ${foo} - woo"/>
+        <javac srcdir="${dependencies.basedir}/modules/${ant.project.name}/src"
+               destdir="${dependencies.basedir}/classes/${ant.project.name}">
+            <!--<classpath refid="externals"></classpath>-->
+        </javac>
+
+    </target>
+
+    <target name="dist" depends="compile">
+        <echo message="${ant.project.name} - build-common.dist"/>
+    </target>
+
+    <target name="dist.dependencies">
+        <antcall target="depend.${ant.project.name}"/>
+    </target>
+</project>

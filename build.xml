@@ -9,13 +9,10 @@
         <echo message="    fausterize"/> 
     </target>
 
-    <target name="build-all">
-    <buildlist reference="my-build-path">
-      <fileset dir="." includes="module-*/build.xml"/>
-    </buildlist>
-    <subant target="jar">
-      <buildpath refid="my-build-path"/>
-    </subant>
-  </target>
+    <import file="modules/lang/build-lang.xml"/>
+
+    <target name="build-all" >
+        <antcall target="openCage-lang-jar"></antcall>
+    </target>
 
 </project>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="lang" default="default" basedir=".">
+    <description>Builds, tests, and runs the project lang.</description>
+
+    <import file="../../build-common.xml"/>
+
+    <property  name = "foo" value="lang-duh" />
+
+
+</project>
