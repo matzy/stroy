@@ -16,18 +16,36 @@
     </target>
 
 
+    <fileset id="externalsSet" dir="${dependencies.basedir}/external/production">
+        <include name="*.jar"/>
+    </fileset>
+    <fileset id="internalsSet" dir="${dependencies.basedir}/libs">
+        <include name="*.jar"/>
+    </fileset>
+    <path id="jars">
+        <fileset refid="externalsSet"/>
+        <fileset refid="internalsSet"/>
+    </path>
+
+
     <target name="compile" depends="prepare">
-        <echo message="${ant.project.name} - build-common.compile"/>
-        <echo message="foo = ${foo} - woo"/>
+        <!--<echo message="${ant.project.name} - build-common.compile"/>-->
+        <!--<echo message="foo = ${foo} - woo"/>-->
         <javac srcdir="${dependencies.basedir}/modules/${ant.project.name}/src"
                destdir="${dependencies.basedir}/classes/${ant.project.name}">
-            <!--<classpath refid="externals"></classpath>-->
+            <classpath refid="jars"></classpath>
         </javac>
 
     </target>
 
     <target name="dist" depends="compile">
         <echo message="${ant.project.name} - build-common.dist"/>
+        <jar jarfile="${dependencies.basedir}/libs/${ant.project.name}-${version}.jar"
+             basedir="${dependencies.basedir}/classes/${ant.project.name}"
+             manifest="${dependencies.basedir}/modules/${ant.project.name}/manifest.mf">
+            <fileset dir="${dependencies.basedir}/classes/${ant.project.name}" excludes="**/*test*"/>
+        </jar>
+
     </target>
 
     <target name="dist.dependencies">

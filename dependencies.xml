@@ -6,8 +6,22 @@
             depends="depend.lang, depend.localization">
     </target>
     <!-- ================================================================== -->
-    <target name="depend.localization"
-            depends="depend.lang">
+    <target name="depend.fausterize"
+            depends="depend.lang, depend.localization, depend.WithResource, depend.application">
+        <ant dir="${dependencies.basedir}/modules/goethepad" inheritAll="false"/>
+    </target>
+    <!-- ================================================================== -->
+    <!-- ================================================================== -->
+    <target name="depend.application"
+            depends="depend.lang, depend.localization, depend.WithResource">
+        <ant dir="${dependencies.basedir}/modules/application" inheritAll="false"/>
+    </target>
+    <!-- ================================================================== -->
+    <target name="depend.WithResource">
+        <ant dir="${dependencies.basedir}/modules/WithResource" inheritAll="false"/>
+    </target>
+    <!-- ================================================================== -->
+    <target name="depend.localization" >
         <ant dir="${dependencies.basedir}/modules/localization" inheritAll="false"/>
     </target>
     <!-- ================================================================== -->

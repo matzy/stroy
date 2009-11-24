@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="localization" default="default" basedir=".">
+<project name="fausterize" default="default" basedir=".">
     <description>Builds, tests, and runs the project lang.</description>
 
     <import file="../../build-common.xml"/>
-
     <property  name = "version" value="0.0.1" />
-
-
 </project>

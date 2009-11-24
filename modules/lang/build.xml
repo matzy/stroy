@@ -4,7 +4,7 @@
 
     <import file="../../build-common.xml"/>
 
-    <property  name = "foo" value="lang-duh" />
+    <property  name = "version" value="0.0.1" />
 
 
 </project>
