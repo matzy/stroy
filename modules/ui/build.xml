@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="xplatform" default="default" basedir=".">
+<project name="ui" default="default" basedir=".">
     <description>Builds, tests, and runs the project lang.</description>
 
     <import file="../../build-common.xml"/>

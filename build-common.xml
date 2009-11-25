@@ -28,9 +28,13 @@
     </path>
 
 
+
     <target name="compile" depends="prepare">
         <!--<echo message="${ant.project.name} - build-common.compile"/>-->
         <!--<echo message="foo = ${foo} - woo"/>-->
+        <!--<echo  message="### ${jars-var}"/>-->
+        <!-- Translate fileset into plain string first -->
+
         <javac srcdir="${dependencies.basedir}/modules/${ant.project.name}/src"
                destdir="${dependencies.basedir}/classes/${ant.project.name}">
             <classpath refid="jars"></classpath>
@@ -38,11 +42,27 @@
 
     </target>
 
-    <target name="dist" depends="compile">
+    <target name="copy-resources" depends="prepare">
+        <copy file="${dependencies.basedir}/modules/${ant.project.name}/manifest.mf"
+              todir="${dependencies.basedir}/classes/${ant.project.name}"/>
+    </target>
+
+    <target name="create-manifest" depends="copy-resources">
+        <pathconvert property="jars-var" pathsep=" " refid="internalsSet">
+            <map from="${dependencies.basedir}/libs/" to=""/>
+        </pathconvert>
+         <echo message="class-path: ${jars-var}"
+               file="${dependencies.basedir}/classes/${ant.project.name}/manifest.mf"
+               append="yes"/>
+    </target>
+
+
+
+    <target name="dist" depends="compile,create-manifest">
         <echo message="${ant.project.name} - build-common.dist"/>
         <jar jarfile="${dependencies.basedir}/libs/openCage-${ant.project.name}-${version}.jar"
              basedir="${dependencies.basedir}/classes/${ant.project.name}"
-             manifest="${dependencies.basedir}/modules/${ant.project.name}/manifest.mf">
+             manifest="${dependencies.basedir}/classes/${ant.project.name}/manifest.mf">
             <fileset dir="${dependencies.basedir}/classes/${ant.project.name}" excludes="**/*test*"/>
         </jar>
 
