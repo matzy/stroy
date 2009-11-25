@@ -7,14 +7,18 @@
     </target>
     <!-- ================================================================== -->
     <target name="depend.fausterize"
-            depends="depend.lang, depend.localization, depend.WithResource, depend.application">
-        <ant dir="${dependencies.basedir}/modules/goethepad" inheritAll="false"/>
+            depends="depend.lang, depend.localization, depend.WithResource, depend.application, depend.xplatform">
+        <ant dir="${dependencies.basedir}/modules/fausterize" inheritAll="false"/>
     </target>
-    <!-- ================================================================== -->
     <!-- ================================================================== -->
     <target name="depend.application"
             depends="depend.lang, depend.localization, depend.WithResource">
         <ant dir="${dependencies.basedir}/modules/application" inheritAll="false"/>
+    </target>
+    <!-- ================================================================== -->
+    <target name="depend.xplatform"
+            depends="depend.lang, depend.localization">
+        <ant dir="${dependencies.basedir}/modules/xplatform" inheritAll="false"/>
     </target>
     <!-- ================================================================== -->
     <target name="depend.WithResource">
