@@ -11,14 +11,14 @@
         <ant dir="${dependencies.basedir}/modules/fausterize" inheritAll="false"/>
     </target>
     <!-- ================================================================== -->
+    <target name="depend.ui"
+            depends="depend.lang, depend.localization, depend.application">
+        <ant dir="${dependencies.basedir}/modules/ui" inheritAll="false"/>
+    </target>
+    <!-- ================================================================== -->
     <target name="depend.application"
             depends="depend.lang, depend.localization, depend.WithResource">
         <ant dir="${dependencies.basedir}/modules/application" inheritAll="false"/>
-    </target>
-    <!-- ================================================================== -->
-    <target name="depend.ui"
-            depends="depend.lang, depend.localization">
-        <ant dir="${dependencies.basedir}/modules/ui" inheritAll="false"/>
     </target>
     <!-- ================================================================== -->
     <target name="depend.WithResource">

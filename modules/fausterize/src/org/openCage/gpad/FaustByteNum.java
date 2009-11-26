@@ -44,7 +44,6 @@ public class FaustByteNum implements TextEncoderIdx<Byte> {
         int i = 0;
     }
 
-    @Override
     public boolean isSet() {
         return pad != null;
     }

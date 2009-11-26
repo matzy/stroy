@@ -7,12 +7,14 @@
     <target name="clean">
         <delete dir="${dependencies.basedir}/classes"/>
         <delete dir="${dependencies.basedir}/libs"/>
+        <delete dir="${dependencies.basedir}/dist"/>
     </target>
 
     <target  name="prepare">
             <tstamp/>
         <mkdir dir="${dependencies.basedir}/classes/${ant.project.name}"/>
         <mkdir dir="${dependencies.basedir}/libs"/>
+        <mkdir dir="${dependencies.basedir}/dist/${ant.project.name}"/>
     </target>
 
 
@@ -28,13 +30,8 @@
     </path>
 
 
-
+    <!-- compile sources -->
     <target name="compile" depends="prepare">
-        <!--<echo message="${ant.project.name} - build-common.compile"/>-->
-        <!--<echo message="foo = ${foo} - woo"/>-->
-        <!--<echo  message="### ${jars-var}"/>-->
-        <!-- Translate fileset into plain string first -->
-
         <javac srcdir="${dependencies.basedir}/modules/${ant.project.name}/src"
                destdir="${dependencies.basedir}/classes/${ant.project.name}">
             <classpath refid="jars"></classpath>
@@ -51,20 +48,28 @@
         <pathconvert property="jars-var" pathsep=" " refid="internalsSet">
             <map from="${dependencies.basedir}/libs/" to=""/>
         </pathconvert>
-         <echo message="class-path: ${jars-var}"
+         <echo message="Class-Path: ${jars-var} ${jars-external} ${line.separator}"
                file="${dependencies.basedir}/classes/${ant.project.name}/manifest.mf"
                append="yes"/>
     </target>
 
 
 
-    <target name="dist" depends="compile,create-manifest">
+    <target name="create-jar" depends="compile,create-manifest">
         <echo message="${ant.project.name} - build-common.dist"/>
         <jar jarfile="${dependencies.basedir}/libs/openCage-${ant.project.name}-${version}.jar"
              basedir="${dependencies.basedir}/classes/${ant.project.name}"
              manifest="${dependencies.basedir}/classes/${ant.project.name}/manifest.mf">
             <fileset dir="${dependencies.basedir}/classes/${ant.project.name}" excludes="**/*test*"/>
         </jar>
+    </target>
+
+    <target name="dist" depends="create-jar" >
+        <copy todir="${dependencies.basedir}/dist/${ant.project.name}">
+            <!--<fileset dir="${deploydir-other}"/>-->
+            <fileset dir="${dependencies.basedir}/libs"/>
+            <fileset refid="externalsSet"/>
+        </copy>
 
     </target>
 
