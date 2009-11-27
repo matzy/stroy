@@ -4,24 +4,33 @@
 
     <target name="default" depends="dist"/>
 
+
+    <property name="classes"    value="${dependencies.basedir}/classes/${ant.project.name}"/>
+    <property name="libs"       value="${dependencies.basedir}/libs"/>
+    <property name="dist"       value="${dependencies.basedir}/dist/${ant.project.name}"/>
+    <property name="module"     value="${dependencies.basedir}/modules/${ant.project.name}"/>
+    <property name="resources"  value="${dependencies.basedir}/resources/${ant.project.name}"/>
+
     <target name="clean">
         <delete dir="${dependencies.basedir}/classes"/>
         <delete dir="${dependencies.basedir}/libs"/>
         <delete dir="${dependencies.basedir}/dist"/>
+        <delete dir="${dependencies.basedir}/resources"/>
     </target>
 
     <target  name="prepare">
             <tstamp/>
-        <mkdir dir="${dependencies.basedir}/classes/${ant.project.name}"/>
-        <mkdir dir="${dependencies.basedir}/libs"/>
-        <mkdir dir="${dependencies.basedir}/dist/${ant.project.name}"/>
+        <mkdir dir="${classes}"/>
+        <mkdir dir="${libs}"/>
+        <mkdir dir="${dist}"/>
+        <mkdir dir="${resources}"/>
     </target>
 
 
     <fileset id="externalsSet" dir="${dependencies.basedir}/external/production">
         <include name="*.jar"/>
     </fileset>
-    <fileset id="internalsSet" dir="${dependencies.basedir}/libs">
+    <fileset id="internalsSet" dir="${libs}">
         <include name="*.jar"/>
     </fileset>
     <path id="jars">
@@ -32,16 +41,14 @@
 
     <!-- compile sources -->
     <target name="compile" depends="prepare">
-        <javac srcdir="${dependencies.basedir}/modules/${ant.project.name}/src"
-               destdir="${dependencies.basedir}/classes/${ant.project.name}">
+        <javac srcdir="${module}/src" destdir="${classes}">
             <classpath refid="jars"></classpath>
         </javac>
 
     </target>
 
     <target name="copy-resources" depends="prepare">
-        <copy file="${dependencies.basedir}/modules/${ant.project.name}/manifest.mf"
-              todir="${dependencies.basedir}/classes/${ant.project.name}"/>
+        <copy file="${module}/manifest.mf" todir="${resources}"/>
     </target>
 
     <target name="create-manifest" depends="copy-resources">
@@ -49,7 +56,7 @@
             <map from="${dependencies.basedir}/libs/" to=""/>
         </pathconvert>
          <echo message="Class-Path: ${jars-var} ${jars-external} ${line.separator}"
-               file="${dependencies.basedir}/classes/${ant.project.name}/manifest.mf"
+               file="${resources}/manifest.mf"
                append="yes"/>
     </target>
 
@@ -57,17 +64,15 @@
 
     <target name="create-jar" depends="compile,create-manifest">
         <echo message="${ant.project.name} - build-common.dist"/>
-        <jar jarfile="${dependencies.basedir}/libs/openCage-${ant.project.name}-${version}.jar"
-             basedir="${dependencies.basedir}/classes/${ant.project.name}"
-             manifest="${dependencies.basedir}/classes/${ant.project.name}/manifest.mf">
-            <fileset dir="${dependencies.basedir}/classes/${ant.project.name}" excludes="**/*test*"/>
+        <jar jarfile="${libs}/openCage-${ant.project.name}-${version}.jar"
+             manifest="${resources}/manifest.mf">
+            <fileset dir="${classes}" excludes="**/*test*"/>
         </jar>
     </target>
 
     <target name="dist" depends="create-jar" >
-        <copy todir="${dependencies.basedir}/dist/${ant.project.name}">
-            <!--<fileset dir="${deploydir-other}"/>-->
-            <fileset dir="${dependencies.basedir}/libs"/>
+        <copy todir="${dist}">
+            <fileset dir="${libs}"/>
             <fileset refid="externalsSet"/>
         </copy>
 
