@@ -13,8 +13,15 @@ import com.google.inject.Provider;
 
 public class LocalizeBuilderImpl implements LocalizeBuilder, Provider<Localize> {
 
-	@Inject private BundleCheck check;
-	@Inject private TheLocale   theLocale;
+	private BundleCheck check;
+	private TheLocale   theLocale;
+
+    @Inject
+    public LocalizeBuilderImpl( BundleCheck check, TheLocale theLocale ) {
+        this.check = check;
+        this.theLocale = theLocale;
+
+    }
 	
 	public Localize build(String fullyqualifiedName, List<Localize> parents) {
 		check.checkBundle( fullyqualifiedName );
@@ -22,7 +29,7 @@ public class LocalizeBuilderImpl implements LocalizeBuilder, Provider<Localize> 
 	}
 
 	public Localize get() {
-		return new LocalizeImpl( "org.openCage.localization.impl.text", Collections.EMPTY_LIST, theLocale );
+		return new LocalizeImpl( "org.openCage.localization.impl.text", Collections.<Localize>emptyList(), theLocale );
 	}
 
 }

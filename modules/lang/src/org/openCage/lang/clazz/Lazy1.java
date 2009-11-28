@@ -3,7 +3,9 @@
  * and open the template in the editor.
  */
 
-package org.openCage.lang.protocol;
+package org.openCage.lang.clazz;
+
+import org.openCage.lang.protocol.FE1;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;

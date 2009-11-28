@@ -1,30 +1,30 @@
 package org.openCage.lang.errors;
 
 /**
- * Wrapper for checked exceptions to be used in methods without throws 
+ * Wrapper for checked exceptions to be used in methods without throws
  * good for closures and slim code
- * @author stephan
  *
+ * @author stephan
  */
 public class Unchecked extends Error {
-	
-	private static final long serialVersionUID = 1310525450890886497L;
 
-	private Exception source;
+    private static final long serialVersionUID = 1310525450890886497L;
 
-	public Unchecked( Exception source ) {
-		this.source = source;
-	}
-	
-	public String toString() {
-		return "Unchecked Exception, Caused by: " + source;
-	}
+    private final Exception source;
 
-	public Exception getSource() {
-		return source;
-	}
+    public Unchecked( Exception source) {
+        this.source = source;
+    }
 
-        public static Unchecked wrap( Exception cause ) {
-            return new Unchecked(cause);
-        }
+    public String toString() {
+        return "Unchecked Exception, Caused by: " + source;
+    }
+
+    public Exception getSource() {
+        return source;
+    }
+
+    public static Unchecked wrap( Exception cause ) {
+        return new Unchecked(cause);
+    }
 }

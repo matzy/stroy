@@ -1,12 +1,12 @@
 package org.openCage.stroy.algo.tree.filesystem;
 
+import org.openCage.lang.clazz.Lazy;
 import org.openCage.stroy.algo.tree.Fiel;
 import org.openCage.stroy.algo.tree.IOStateImpl;
 import org.openCage.stroy.algo.tree.IOState;
 import org.openCage.stroy.algo.fingerprint.FingerPrint;
 import org.openCage.lang.protocol.HasDistance;
 import org.openCage.util.io.FileUtils;
-import org.openCage.lang.protocol.Lazy;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;

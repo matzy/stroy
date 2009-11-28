@@ -1,6 +1,7 @@
 package org.openCage.stroy.dir;
 
-import org.openCage.lang.protocol.Lazy;
+import org.openCage.lang.clazz.Lazy1;
+import org.openCage.lang.clazz.Lazy;
 import org.openCage.util.io.FileUtils;
 import org.openCage.vfs.protocol.Content;
 import org.openCage.lang.protocol.HasDistance;
@@ -11,7 +12,6 @@ import java.io.IOException;
 import java.util.logging.Logger;
 import org.openCage.lang.protocol.FE0;
 import org.openCage.lang.protocol.FE1;
-import org.openCage.lang.protocol.Lazy1;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1

@@ -1,6 +1,7 @@
-package org.openCage.lang.protocol;
+package org.openCage.lang.clazz;
 
 import org.openCage.lang.errors.Unchecked;
+import org.openCage.lang.protocol.FE0;
 
 
 /***** BEGIN LICENSE BLOCK *****
@@ -35,7 +36,7 @@ public class Lazy<T> {
     private T              obj;
     private Boolean        evaluated = false;
     private Error          exp       = null;
-    private final FE0<T>   func;
+    private final FE0<T> func;
 
     public Lazy( FE0<T> func ) {
         this.func = func;
@@ -53,12 +54,12 @@ public class Lazy<T> {
     }
 
     private synchronized void eval() {
-        if ( !evaluated ) {
+        if (!evaluated) {
             try {
-                obj   = func.call();
+                obj = func.call();
             } catch (Exception ex) {
                 exp = new Unchecked(ex);
-            } catch ( Error ex ) {
+            } catch (Error ex) {
                 exp = ex;
             }
             evaluated = true;
