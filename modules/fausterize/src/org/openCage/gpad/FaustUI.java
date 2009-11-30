@@ -7,6 +7,7 @@ import com.google.inject.Injector;
 import com.google.inject.name.Named;
 import com.muchsoft.util.mac.Java14Adapter;
 import com.muchsoft.util.mac.Java14Handler;
+import org.apache.commons.lang.SystemUtils;
 import org.openCage.application.protocol.Application;
 import org.openCage.lang.protocol.FE0;
 import org.openCage.lang.protocol.FE1;
@@ -71,6 +72,8 @@ public class FaustUI extends JFrame {
         this.osxEventHandler = osxEventHandler;
         this.saver = saver;
         this.localize = localize;
+
+        message = SystemUtils.getUserHome().toString() + "/.openCage/.1.fausterize";
 
 //        JButton save = new JButton("save");
 //        save.addActionListener( new ActionListener() {
