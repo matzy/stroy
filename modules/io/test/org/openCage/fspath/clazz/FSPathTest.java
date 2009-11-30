@@ -1,6 +1,8 @@
 package org.openCage.fspath.clazz;
 
 import org.junit.Test;
+import org.openCage.fspath.impl.FSPathUnix;
+import org.openCage.fspath.protocol.FSPath;
 
 import static junit.framework.Assert.assertEquals;
 
@@ -15,7 +17,7 @@ public class FSPathTest {
 
     @Test
     public void testSimple() {
-        FSPath path = new FSPath("/");
+        FSPath path = new FSPathUnix("/");
 
         assertEquals( 0, path.size());
         assertEquals( "/", path.toString());

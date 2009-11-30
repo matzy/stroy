@@ -1,5 +1,7 @@
 package org.openCage.fspath.clazz;
 
+import org.openCage.fspath.protocol.FSPath;
+
 import java.util.Iterator;
 
 /**
