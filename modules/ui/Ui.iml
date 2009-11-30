@@ -11,11 +11,8 @@
     <orderEntry type="library" name="test" level="project" />
     <orderEntry type="library" name="production" level="project" />
     <orderEntry type="module" module-name="Lang" />
-    <orderEntry type="module" module-name="Vfs" />
-    <orderEntry type="module" module-name="Test-resources" />
-    <orderEntry type="module" module-name="Ui" />
-    <orderEntry type="module" module-name="WithResource" />
     <orderEntry type="module" module-name="Application" />
+    <orderEntry type="module" module-name="Localization" />
   </component>
 </module>
 
