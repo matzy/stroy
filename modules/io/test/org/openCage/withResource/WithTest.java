@@ -13,7 +13,7 @@ import org.junit.Test;
 import org.openCage.lang.errors.Unchecked;
 import org.openCage.lang.protocol.FE1;
 import org.openCage.withResource.protocol.With;
-import org.openCage.withResource.wiring.WithResourceWiring;
+import org.openCage.withResource.wiring.IoWiring;
 
 /**
  *
@@ -23,7 +23,7 @@ public class WithTest {
 
     @Test( expected=Unchecked.class)
     public void testNonExisitngFile() {
-        Injector injector = Guice.createInjector(new WithResourceWiring());
+        Injector injector = Guice.createInjector(new IoWiring());
         With with = injector.getInstance(With.class);
 
         with.withInputStream( new File( "idontexist" ), new FE1<Void, InputStream>() {
@@ -36,7 +36,7 @@ public class WithTest {
 
     @Test( expected=Unchecked.class )
     public void testExeptionWhileReading() {
-        Injector injector = Guice.createInjector(new WithResourceWiring());
+        Injector injector = Guice.createInjector(new IoWiring());
         With with = injector.getInstance(With.class);
 
 
@@ -50,7 +50,7 @@ public class WithTest {
 
     @Test( expected=Unchecked.class )
     public void testWithExecption() {
-        Injector injector = Guice.createInjector(new WithResourceWiring());
+        Injector injector = Guice.createInjector(new IoWiring());
         With with = injector.getInstance(With.class);
 
         with.withInputStream( new File( getClass().getResource("WithTest.class").getPath() ), new FE1<Void, InputStream>() {
@@ -63,7 +63,7 @@ public class WithTest {
 
     @Test
     public void testReadSomething() {
-        Injector injector = Guice.createInjector(new WithResourceWiring());
+        Injector injector = Guice.createInjector(new IoWiring());
         With with = injector.getInstance(With.class);
 
         with.withInputStream( new File( getClass().getResource("WithTest.class").getPath() ), new FE1<Void, InputStream>() {
@@ -77,7 +77,7 @@ public class WithTest {
 
     @Test
     public void testClosingStreamInRead() {
-        Injector injector = Guice.createInjector(new WithResourceWiring());
+        Injector injector = Guice.createInjector(new IoWiring());
         With with = injector.getInstance(With.class);
 
         with.withInputStream( new File( getClass().getResource("WithTest.class").getPath() ), new FE1<Void, InputStream>() {

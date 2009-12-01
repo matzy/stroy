@@ -1,7 +1,7 @@
 //package org.openCage.utils.persistence;
 //
 //import org.openCage.util.logging.Log;
-//import org.openCage.withResource.impl.Saver;
+//import org.openCage.lang.impl.BackgroundExecutorImpl;
 //
 //import java.util.Map;
 //import java.util.HashMap;
@@ -48,7 +48,7 @@
 //    private static synchronized Preferences get() {
 //        if ( thePref == null ) {
 //            Log.info( "preferences initialized" );
-//            thePref = new PersistenceImpl<Preferences>( new Saver() ).load( new Preferences(), name);
+//            thePref = new PersistenceImpl<Preferences>( new BackgroundExecutorImpl() ).load( new Preferences(), name);
 //        }
 //
 //        return thePref;

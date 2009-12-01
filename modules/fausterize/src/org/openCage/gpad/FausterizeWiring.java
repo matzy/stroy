@@ -5,9 +5,11 @@ import com.google.inject.Module;
 import com.google.inject.name.Names;
 import org.openCage.application.protocol.Application;
 import org.openCage.application.wiring.ApplicationWiring;
+import org.openCage.lang.protocol.LangWiring;
 import org.openCage.localization.protocol.Localize;
-import org.openCage.ui.impl.UILocalizeProvider;
+import org.openCage.localization.wiring.LocalizeWiring;
 import org.openCage.ui.wiring.UIWiring;
+import org.openCage.withResource.wiring.IoWiring;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -34,7 +36,11 @@ import org.openCage.ui.wiring.UIWiring;
 public class FausterizeWiring implements Module {
     public void configure(Binder binder) {
         binder.install( new ApplicationWiring());
+        binder.install( new IoWiring());
         binder.install( new UIWiring());
+        binder.install( new LangWiring());
+        binder.install( new LocalizeWiring());
+
         binder.bind( Application.class ).toProvider( ApplicationProvider.class );
         binder.bind(Localize.class).
                 annotatedWith(Names.named("fausterize")).toProvider(LocalizeProvider.class);

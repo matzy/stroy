@@ -3,8 +3,7 @@ package org.openCage.fspath.wiring;
 import com.google.inject.Binder;
 import com.google.inject.Module;
 import com.muchsoft.util.Sys;
-import org.openCage.fspath.impl.FSPathBuilderUnix;
-import org.openCage.fspath.protocol.FSPathBuilder;
+import org.openCage.fspath.clazz.FSPathBuilder;
 
 /**
  * Created by IntelliJ IDEA.
@@ -16,9 +15,9 @@ import org.openCage.fspath.protocol.FSPathBuilder;
 public class FSPathWiring implements Module {
     public void configure(Binder binder) {
 
-        if ( Sys.isMacOSX() || Sys.isLinux() ) {
-            binder.bind( FSPathBuilder.class).to( FSPathBuilderUnix.class );
-        }
+//        if ( Sys.isMacOSX() || Sys.isLinux() ) {
+//            binder.bind( FSPathBuilder.class).to( FSPathBuilderUnix.class );
+//        }
     }
 
     @Override

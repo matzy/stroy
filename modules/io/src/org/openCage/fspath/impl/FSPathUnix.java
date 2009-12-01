@@ -22,6 +22,11 @@ public class FSPathUnix implements FSPath {
     private List<String> elements = new ArrayList<String>();
 
     public FSPathUnix( String absolutePath ) {
+
+        if ( StringUtils.isEmpty( absolutePath )) {
+            throw new IllegalArgumentException("an absolute path can't be empty");
+        }
+
         String[] els = absolutePath.split("/");
 
         elements.addAll( Arrays.asList( els ));
@@ -39,10 +44,10 @@ public class FSPathUnix implements FSPath {
         return new File( toString() );
     }
 
-    public FSPath add( String element ) {
-        FSPathUnix ret = new FSPathUnix("");
+    public FSPath add( String ... els ) {
+        FSPathUnix ret = new FSPathUnix("/");
         ret.elements.addAll( elements );
-        ret.elements.add( element );
+        ret.elements.addAll( Arrays.asList( els ));
         return ret;
     }
 

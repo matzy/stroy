@@ -1,4 +1,4 @@
-package org.openCage.withResource.protocol;
+package org.openCage.lang.protocol;
 
 import org.openCage.lang.protocol.FE0;
 
@@ -24,8 +24,10 @@ import org.openCage.lang.protocol.FE0;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public interface BackgroundSaver {
+public interface BackgroundExecutor {
 
-    public void addTask( FE0<Void> task );
+    public void addPeriodicAndExitTask( FE0<Void> task );
+    public void addPeriodicTask( FE0<Void> task );
+    public void addExitTask( FE0<Void> task );
 
 }

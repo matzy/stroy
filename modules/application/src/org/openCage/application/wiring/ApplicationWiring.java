@@ -9,13 +9,13 @@ import org.openCage.localization.wiring.LocalizeWiring;
 import com.google.inject.Binder;
 import com.google.inject.Module;
 import com.google.inject.name.Names;
-import org.openCage.withResource.wiring.WithResourceWiring;
+import org.openCage.withResource.wiring.IoWiring;
 
 public class ApplicationWiring implements Module{
 
 	public void configure(Binder binder ) {
 
-		binder.install( new WithResourceWiring() );
+		binder.install( new IoWiring() );
 		binder.install( new LocalizeWiring());
 		binder.bind( ApplicationFromConfig.class).
 			to( ApplicationFromConfigXStream.class );

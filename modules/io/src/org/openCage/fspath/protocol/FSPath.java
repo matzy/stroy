@@ -15,7 +15,7 @@ public interface FSPath extends Iterable<String> {
 
     File toFile();
 
-    FSPath add( String element );
+    FSPath add( String ... elements );
 
     Iterator<String> iterator();
 

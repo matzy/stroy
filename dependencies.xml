@@ -7,7 +7,7 @@
     </target>
     <!-- ================================================================== -->
     <target name="depend.fausterize"
-            depends="depend.lang, depend.localization, depend.WithResource, depend.application, depend.ui">
+            depends="depend.lang, depend.localization, depend.io, depend.application, depend.ui">
         <ant dir="${dependencies.basedir}/modules/fausterize" inheritAll="false"/>
     </target>
     <!-- ================================================================== -->
@@ -17,12 +17,12 @@
     </target>
     <!-- ================================================================== -->
     <target name="depend.application"
-            depends="depend.lang, depend.localization, depend.WithResource">
+            depends="depend.lang, depend.localization, depend.io">
         <ant dir="${dependencies.basedir}/modules/application" inheritAll="false"/>
     </target>
     <!-- ================================================================== -->
-    <target name="depend.WithResource">
-        <ant dir="${dependencies.basedir}/modules/WithResource" inheritAll="false"/>
+    <target name="depend.io">
+        <ant dir="${dependencies.basedir}/modules/io" inheritAll="false"/>
     </target>
     <!-- ================================================================== -->
     <target name="depend.localization" >

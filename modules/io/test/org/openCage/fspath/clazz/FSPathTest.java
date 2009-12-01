@@ -17,10 +17,22 @@ public class FSPathTest {
 
     @Test
     public void testSimple() {
-        FSPath path = new FSPathUnix("/");
+        FSPath path = FSPathBuilder.getPath("/");
 
         assertEquals( 0, path.size());
         assertEquals( "/", path.toString());
+    }
 
+    @Test
+    public void testAdd() {
+        FSPath path = FSPathBuilder.getPath("/").add("foo", "bar");
+
+        assertEquals( 2, path.size());
+        assertEquals( "/foo/bar", path.toString());
+    }
+
+    @Test( expected = IllegalArgumentException.class )
+    public void testEmptyPath() {
+        FSPathBuilder.getPath( "" );
     }
 }

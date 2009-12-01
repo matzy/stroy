@@ -1,21 +1,17 @@
 package org.openCage.gpad;
 
 import com.explodingpixels.macwidgets.*;
-import com.google.inject.Guice;
 import com.google.inject.Inject;
-import com.google.inject.Injector;
 import com.google.inject.name.Named;
-import com.muchsoft.util.mac.Java14Adapter;
-import com.muchsoft.util.mac.Java14Handler;
-import org.apache.commons.lang.SystemUtils;
 import org.openCage.application.protocol.Application;
+import org.openCage.fspath.clazz.FSPathBuilder;
+import org.openCage.lang.protocol.BackgroundExecutor;
 import org.openCage.lang.protocol.FE0;
 import org.openCage.lang.protocol.FE1;
 import org.openCage.localization.protocol.Localize;
 import org.openCage.ui.protocol.AboutSheet;
 import org.openCage.ui.protocol.FileChooser;
 import org.openCage.ui.protocol.OSXStandardEventHandler;
-import org.openCage.withResource.protocol.BackgroundSaver;
 import org.openCage.withResource.protocol.FileLineIterable;
 import org.openCage.withResource.protocol.With;
 
@@ -32,7 +28,6 @@ import java.io.File;
 import java.io.Writer;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.EventObject;
 
 
 /**
@@ -51,7 +46,7 @@ public class FaustUI extends JFrame {
     final private OSXStandardEventHandler osxEventHandler;
     private URI pad;
     private String message = "/Users/stephan/woo.txt";
-    private BackgroundSaver saver;
+    private BackgroundExecutor executor;
 
     private JTextArea textUI = new JTextArea();
     TextEncoderIdx<String> tts;
@@ -63,17 +58,17 @@ public class FaustUI extends JFrame {
                     FileChooser chooser,
                     AboutSheet about,
                     OSXStandardEventHandler osxEventHandler,
-                    BackgroundSaver saver,
+                    BackgroundExecutor executor,
                     @Named( "fausterize") Localize localize ) {
         this.application = application;
         this.with = wth;
         this.fileChooser = chooser;
         this.about = about;
         this.osxEventHandler = osxEventHandler;
-        this.saver = saver;
+        this.executor = executor;
         this.localize = localize;
 
-        message = SystemUtils.getUserHome().toString() + "/.openCage/.1.fausterize";
+        message = FSPathBuilder.getHome().add( ".openCage", ".1.fausterize").toString();
 
 //        JButton save = new JButton("save");
 //        save.addActionListener( new ActionListener() {
@@ -162,7 +157,7 @@ public class FaustUI extends JFrame {
 
         pack();
 
-        saver.addTask( new FE0<Void>() {
+        executor.addPeriodicAndExitTask( new FE0<Void>() {
             public Void call() throws Exception {
 
                 if ( textUI.getText().length() > 0 && tts != null && tts.isSet()) {

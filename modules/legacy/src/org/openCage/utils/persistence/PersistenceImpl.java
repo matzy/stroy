@@ -1,7 +1,7 @@
 package org.openCage.utils.persistence;
 
+import org.openCage.lang.protocol.BackgroundExecutor;
 import org.openCage.util.io.FileUtils;
-import org.openCage.withResource.protocol.BackgroundSaver;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -41,14 +41,14 @@ public class PersistenceImpl<T extends Persistable> implements Persistence<T> {
 
     private static final Logger LOG = Logger.getLogger( PersistenceImpl.class.getName());
 
-    private final BackgroundSaver backgroundSaver;
+    private final BackgroundExecutor backgroundExecutor;
     private final With with;
 
     private final XStreamT<T> xstreamt = new XStreamT<T>();
 
     @Inject
-    public PersistenceImpl( final BackgroundSaver backgroundSaver, final With with ) {
-        this.backgroundSaver = backgroundSaver;
+    public PersistenceImpl( final BackgroundExecutor backgroundExecutor, final With with ) {
+        this.backgroundExecutor = backgroundExecutor;
         this.with = with;
     }
 
@@ -75,7 +75,7 @@ public class PersistenceImpl<T extends Persistable> implements Persistence<T> {
         }
 
         final T prefsFinal = prefs;
-        backgroundSaver.addTask( new FE0<Void>() {
+        backgroundExecutor.addPeriodicAndExitTask( new FE0<Void>() {
             public Void call() {
                 save( prefsFinal, name );
                 return null;
