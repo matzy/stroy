@@ -11,7 +11,7 @@ public class AuthorImpl implements Author {
 
 	public AuthorImpl( final String name ) {
 		this.name = name;
-                email = null;
+        email = null;
 	}
 
         public AuthorImpl( final String name, EmailAddress email ) {
@@ -26,4 +26,9 @@ public class AuthorImpl implements Author {
 	public EmailAddress getEmail() {
 		return email;
 	}
+
+    @Override
+    public String toString() {
+        return "<Author: " + name + ">";
+    }
 }

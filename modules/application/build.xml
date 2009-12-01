@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="application" default="default" basedir=".">
     <import file="../../build-common.xml"/>
-    <property  name = "version" value="0.0.1" />
+    <property  name = "version"       value="0.0.1" />
     <property  name = "jars-external" value="guice-2.0.jar" />
+    <property  name = "main"          value="org.openCage.application.demo.Demo"/>
 </project>

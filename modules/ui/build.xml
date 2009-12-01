@@ -2,5 +2,5 @@
 <project name="ui" default="default" basedir=".">
     <import file="../../build-common.xml"/>
     <property  name = "version" value="0.0.1" />
-    <property  name = "jars-external" value = "guice-2.0.jar sys.jar designgridlayout-0.9.jar" />
+    <property  name = "jars-external" value = "guice-2.0.jar sys.jar designgridlayout-0.9.jar Sys.jar" />
 </project>

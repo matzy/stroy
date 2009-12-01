@@ -1,0 +1,30 @@
+<Application>
+  <name>DemoApp</name>
+  <authors>
+    <Author>
+      <name>me</name>
+    </Author>
+    <Author>
+      <name>you</name>
+    </Author>
+  </authors>
+  <version>
+  	<major>7</major>
+  	<minor>8</minor>
+  	<patch>9</patch>
+  	<build>42</build>
+  </version>
+  <contributors>
+    <Author>
+      <name>other person</name>
+    </Author>
+    <Author>
+      <name>Joe Smith</name>
+    </Author>
+  </contributors>
+  <email>
+    <email>mailto:me</email>
+  </email>  <licence>
+    <name>MPL 1.1</name>
+  </licence>
+</Application>

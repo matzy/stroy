@@ -11,6 +11,12 @@
     <property name="module"     value="${dependencies.basedir}/modules/${ant.project.name}"/>
     <property name="resources"  value="${dependencies.basedir}/resources/${ant.project.name}"/>
 
+    <taskdef resource="net/sf/antcontrib/antlib.xml">
+      <classpath>
+        <pathelement location="${dependencies.basedir}/external/build/ant-contrib-1.0b3.jar"/>
+      </classpath>
+    </taskdef>
+
     <target name="clean">
         <delete dir="${dependencies.basedir}/classes"/>
         <delete dir="${dependencies.basedir}/libs"/>
@@ -47,17 +53,30 @@
 
     </target>
 
-    <target name="copy-resources" depends="prepare">
-        <copy file="${module}/manifest.mf" todir="${resources}"/>
-    </target>
+    <!--<target name="copy-resources" depends="prepare">-->
+        <!--<copy file="${module}/manifest.mf" todir="${resources}"/>-->
+    <!--</target>-->
 
-    <target name="create-manifest" depends="copy-resources">
+    <!-- create manifest from some module specific properties-->
+    <target name="create-manifest" depends="prepare">
         <pathconvert property="jars-var" pathsep=" " refid="internalsSet">
             <map from="${dependencies.basedir}/libs/" to=""/>
         </pathconvert>
-         <echo message="Class-Path: ${jars-var} ${jars-external} ${line.separator}"
+        <echo message="Manifest-Version: 1.0 ${line.separator}Created-By: Stephan Pfab${line.separator}Class-Path: ${jars-var} ${jars-external} ${line.separator}"
                file="${resources}/manifest.mf"
-               append="yes"/>
+               append="no"/>
+        <if>
+            <isset property="main"/>
+             <then>
+                 <echo message="Main-Class: ${main}${line.separator}"
+                        file="${resources}/manifest.mf"
+                        append="yes"/>
+             </then>
+             <else>
+               <echo message="property main is not set" />
+             </else>
+        </if>
+
     </target>
 
 

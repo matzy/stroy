@@ -13,7 +13,7 @@ public class AppProviderXML implements Provider<Application>{
 
 	@Inject
 	private ApplicationFromConfig appFromConfig;
-	
+	   
 	public Application get() {
 
 		String xmlpath = getClass().getResource("TestApp.xml").getPath();
