@@ -2,6 +2,15 @@
 <project name="application" default="default" basedir=".">
     <import file="../../build-common.xml"/>
     <property  name = "version"       value="0.0.1" />
-    <property  name = "jars-external" value="guice-2.0.jar" />
     <property  name = "main"          value="org.openCage.application.demo.Demo"/>
+
+    <fileset id="externalsSet" dir="${dependencies.basedir}/external/production">
+        <include name="guice-2.0.jar"/>
+        <include name="xstream-1.3.1.jar"/>
+        <include name="jcip-annotations.jar"/>
+        <include name="annotations.jar"/>
+    </fileset>
+    <fileset id="runtimeExternalsSet" dir="${dependencies.basedir}/external/production">
+    </fileset>
+
 </project>

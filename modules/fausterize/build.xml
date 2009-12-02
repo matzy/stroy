@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="fausterize" default="default" basedir=".">
     <import file="../../build-common.xml"/>
-    <property name= "version"       value="0.0.1" />
-    <property name= "jars-external" value="guice-2.0.jar" />
+    <property name = "version"  value="0.0.1" />
+    <property name = "main"     value="org.openCage.gpad.UIMain"/>
+
+    <fileset id="externalsSet" dir="${dependencies.basedir}/external/production">
+        <include name = "guice-2.0.jar"/>
+        <include name = "annotations.jar"/>
+        <include name = "designgridlayout-0.9.jar"/>
+        <include name = "mac_widgets-0.9.5.jar"/>
+    </fileset>
+    <fileset id="runtimeExternalsSet" dir="${dependencies.basedir}/external/production">
+    </fileset>
+
 </project>

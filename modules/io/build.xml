@@ -3,6 +3,14 @@
     <import file="../../build-common.xml"/>
 
     <property  name = "version"       value="0.0.1" />
-    <property  name = "jars-external" value="commons-lang-2.4.jar guice-2.0.jar" /> 
+    
+    <fileset id="externalsSet" dir="${dependencies.basedir}/external/production">
+        <include name="guice-2.0.jar"/>
+        <include name="commons-lang-2.4.jar"/>
+        <include name="Sys.jar"/>
+    </fileset>
+    <fileset id="runtimeExternalsSet" dir="${dependencies.basedir}/external/production">
+    </fileset>
+
 
 </project>

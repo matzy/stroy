@@ -3,7 +3,7 @@
     <dirname property="dependencies.basedir" file="${ant.file.dependencies}"/>
     <!-- ================================================================== -->
     <target name="depend.all"
-            depends="depend.lang, depend.localization">
+            depends="depend.fausterize">
     </target>
     <!-- ================================================================== -->
     <target name="depend.fausterize"

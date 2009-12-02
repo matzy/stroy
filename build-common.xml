@@ -33,9 +33,6 @@
     </target>
 
 
-    <fileset id="externalsSet" dir="${dependencies.basedir}/external/production">
-        <include name="*.jar"/>
-    </fileset>
     <fileset id="internalsSet" dir="${libs}">
         <include name="*.jar"/>
     </fileset>
@@ -43,7 +40,6 @@
         <fileset refid="externalsSet"/>
         <fileset refid="internalsSet"/>
     </path>
-
 
     <!-- compile sources -->
     <target name="compile" depends="prepare">
@@ -53,32 +49,26 @@
 
     </target>
 
-    <!--<target name="copy-resources" depends="prepare">-->
-        <!--<copy file="${module}/manifest.mf" todir="${resources}"/>-->
-    <!--</target>-->
-
-    <!-- create manifest from some module specific properties-->
+    <!-- construct the manifest -->
     <target name="create-manifest" depends="prepare">
-        <pathconvert property="jars-var" pathsep=" " refid="internalsSet">
+        <pathconvert property="jars-var" pathsep=" " refid="jars">
             <map from="${dependencies.basedir}/libs/" to=""/>
         </pathconvert>
-        <echo message="Manifest-Version: 1.0 ${line.separator}Created-By: Stephan Pfab${line.separator}Class-Path: ${jars-var} ${jars-external} ${line.separator}"
-               file="${resources}/manifest.mf"
-               append="no"/>
+
+        <manifest file="${resources}/manifest.mf" mode="replace">
+            <attribute name="Built-By" value="${user.name}"/>
+            <attribute name="Created-By" value="Stephan Pfab"/>
+            <attribute name="Class-Path" value="${jars-var}"/>
+        </manifest>
         <if>
             <isset property="main"/>
-             <then>
-                 <echo message="Main-Class: ${main}${line.separator}"
-                        file="${resources}/manifest.mf"
-                        append="yes"/>
-             </then>
-             <else>
-               <echo message="property main is not set" />
-             </else>
+            <then>
+                <manifest file="${resources}/manifest.mf" mode="update">
+                    <attribute name="Main-Class" value="${main}"/>
+                </manifest>
+            </then>
         </if>
-
     </target>
-
 
 
     <target name="create-jar" depends="compile,create-manifest">
@@ -91,8 +81,9 @@
 
     <target name="dist" depends="create-jar" >
         <copy todir="${dist}">
-            <fileset dir="${libs}"/>
+            <fileset refid="internalsSet"/>
             <fileset refid="externalsSet"/>
+            <fileset refid="runtimeExternalsSet"/>
         </copy>
 
     </target>

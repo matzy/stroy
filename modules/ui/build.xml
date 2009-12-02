@@ -2,5 +2,11 @@
 <project name="ui" default="default" basedir=".">
     <import file="../../build-common.xml"/>
     <property  name = "version" value="0.0.1" />
-    <property  name = "jars-external" value = "guice-2.0.jar sys.jar designgridlayout-0.9.jar Sys.jar" />
+    <fileset id="externalsSet" dir="${dependencies.basedir}/external/production">
+        <include name="guice-2.0.jar"/>
+        <include name="Sys.jar"/>
+        <include name="designgridlayout-0.9.jar"/>
+    </fileset>
+    <fileset id="runtimeExternalsSet" dir="${dependencies.basedir}/external/production">
+    </fileset>
 </project>
