@@ -37,7 +37,6 @@
         <include name="*.jar"/>
     </fileset>
     <path id="jars">
-        <fileset refid="externalsSet"/>
         <fileset refid="internalsSet"/>
     </path>
 
@@ -82,8 +81,6 @@
     <target name="dist" depends="create-jar" >
         <copy todir="${dist}">
             <fileset refid="internalsSet"/>
-            <fileset refid="externalsSet"/>
-            <fileset refid="runtimeExternalsSet"/>
         </copy>
 
     </target>

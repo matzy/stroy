@@ -7,21 +7,21 @@
     </target>
     <!-- ================================================================== -->
     <target name="depend.fausterize"
-            depends="depend.lang, depend.localization, depend.io, depend.application, depend.ui">
+            depends="depend.lang, depend.localization, depend.io, depend.application, depend.ui, designgridlayout, guice, mac-widgets">
         <ant dir="${dependencies.basedir}/modules/fausterize" inheritAll="false"/>
     </target>
     <!-- ================================================================== -->
     <target name="depend.ui"
-            depends="depend.lang, depend.localization, depend.application">
+            depends="depend.lang, depend.localization, depend.application, designgridlayout">
         <ant dir="${dependencies.basedir}/modules/ui" inheritAll="false"/>
     </target>
     <!-- ================================================================== -->
     <target name="depend.application"
-            depends="depend.lang, depend.localization, depend.io">
+            depends="depend.lang, depend.localization, depend.io, xstream, jcip-annotations, annotations">
         <ant dir="${dependencies.basedir}/modules/application" inheritAll="false"/>
     </target>
     <!-- ================================================================== -->
-    <target name="depend.io">
+    <target name="depend.io" depends="commons-lang, sys">
         <ant dir="${dependencies.basedir}/modules/io" inheritAll="false"/>
     </target>
     <!-- ================================================================== -->
@@ -29,7 +29,48 @@
         <ant dir="${dependencies.basedir}/modules/localization" inheritAll="false"/>
     </target>
     <!-- ================================================================== -->
-    <target name="depend.lang">
+    <target name="depend.lang" depends="guice">
         <ant dir="${dependencies.basedir}/modules/lang" inheritAll="false"/>
+    </target>
+
+    <!-- ================================================================== -->
+
+    <!--     external library dependencies       --> 
+
+    <!-- ================================================================== -->
+    <target name="designgridlayout" depends="swinglayout">
+        <copy todir="${dependencies.basedir}/libs" file="${dependencies.basedir}/external/production/designgridlayout-0.9.jar"/>
+    </target>
+    <!-- ================================================================== -->
+    <target name="swinglayout">
+        <copy todir="${dependencies.basedir}/libs" file="${dependencies.basedir}/external/production/swing-layout-1.0.2.jar"/>
+    </target>
+    <!-- ================================================================== -->
+    <target name="guice">
+        <copy todir="${dependencies.basedir}/libs" file="${dependencies.basedir}/external/production/guice-2.0.jar"/>
+    </target>
+    <!-- ================================================================== -->
+    <target name="commons-lang">
+        <copy todir="${dependencies.basedir}/libs" file="${dependencies.basedir}/external/production/commons-lang-2.4.jar"/>
+    </target>
+    <!-- ================================================================== -->
+    <target name="annotations">
+        <copy todir="${dependencies.basedir}/libs" file="${dependencies.basedir}/external/production/annotations.jar"/>
+    </target>
+    <!-- ================================================================== -->
+    <target name="jcip-annotations">
+        <copy todir="${dependencies.basedir}/libs" file="${dependencies.basedir}/external/production/jcip-annotations.jar"/>
+    </target>
+    <!-- ================================================================== -->
+    <target name="mac-widgets">
+        <copy todir="${dependencies.basedir}/libs" file="${dependencies.basedir}/external/production/mac_widgets-0.9.5.jar"/>
+    </target>
+    <!-- ================================================================== -->
+    <target name="sys">
+        <copy todir="${dependencies.basedir}/libs" file="${dependencies.basedir}/external/production/Sys.jar"/>
+    </target>
+    <!-- ================================================================== -->
+    <target name="xstream">
+        <copy todir="${dependencies.basedir}/libs" file="${dependencies.basedir}/external/production/xstream-1.3.1.jar"/>
     </target>
 </project>
