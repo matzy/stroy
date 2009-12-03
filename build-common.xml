@@ -2,14 +2,18 @@
 <project name="build-common" default="default">
     <import file="dependencies.xml"/>
 
-    <target name="default" depends="dist"/>
+    <target name="default" depends="os-app"/>
 
+    <!-- ====== properties ========== -->
 
-    <property name="classes"    value="${dependencies.basedir}/classes/${ant.project.name}"/>
-    <property name="libs"       value="${dependencies.basedir}/libs"/>
-    <property name="dist"       value="${dependencies.basedir}/dist/${ant.project.name}"/>
+    <property name="classes"    value="${dependencies.basedir}/build/classes/${ant.project.name}"/>
+    <property name="libs"       value="${dependencies.basedir}/build/libs"/>
+    <property name="dist"       value="${dependencies.basedir}/build/dist/${ant.project.name}"/>
     <property name="module"     value="${dependencies.basedir}/modules/${ant.project.name}"/>
-    <property name="resources"  value="${dependencies.basedir}/resources/${ant.project.name}"/>
+    <property name="resources"  value="${dependencies.basedir}/build/resources/${ant.project.name}"/>
+    <property name="deploy"     value="${dependencies.basedir}/build/deploy/${ant.project.name}"/>
+
+    <!-- ====== extra tasks ========== -->
 
     <taskdef resource="net/sf/antcontrib/antlib.xml">
       <classpath>
@@ -17,11 +21,15 @@
       </classpath>
     </taskdef>
 
+    <taskdef name="jarbundler"
+             classpath="${dependencies.basedir}/external/build/jarbundler-2.0.0.jar"
+             classname="net.sourceforge.jarbundler.JarBundler" />
+
+
+    <!-- ====== targets ========== -->    
+
     <target name="clean">
-        <delete dir="${dependencies.basedir}/classes"/>
-        <delete dir="${dependencies.basedir}/libs"/>
-        <delete dir="${dependencies.basedir}/dist"/>
-        <delete dir="${dependencies.basedir}/resources"/>
+        <delete dir="${dependencies.basedir}/build"/>
     </target>
 
     <target  name="prepare">
@@ -30,6 +38,7 @@
         <mkdir dir="${libs}"/>
         <mkdir dir="${dist}"/>
         <mkdir dir="${resources}"/>
+        <mkdir dir="${deploy}"/>
     </target>
 
 
@@ -40,11 +49,16 @@
         <fileset refid="internalsSet"/>
     </path>
 
-    <!-- compile sources -->
+    <!-- compile sources and copy pictures and xmsl -->
     <target name="compile" depends="prepare">
         <javac srcdir="${module}/src" destdir="${classes}">
             <classpath refid="jars"></classpath>
         </javac>
+
+        <copy todir="${classes}" flatten="no">
+            <fileset dir="${module}/src" includes="**/*.xml"/>
+        </copy>
+
 
     </target>
 
@@ -78,11 +92,50 @@
         </jar>
     </target>
 
+    <target name="os-app" depends="dist" > <!-- ,jni"> -->
+        <if >
+           <isset property="app-name"/>
+            <then>
+           <jarbundler dir="${deploy}"
+                       verbose="true"
+                       name="${app-name}"
+                       shortname="${app-name}"
+                       stubfile="${app-name}"
+                       signature="${app-signature}"
+                       mainclass="${main}"
+                       jvmversion="1.6+"
+                       version="${version}"
+                       infostring="${app-name}, MPL1.1"
+                       build="${buildnumber}"
+                       bundleid="${bundleid}"
+                   >
+               <!--helpbookfolder="HelpBook"-->
+               <!--helpbookname="Stroy Help"-->
+               <!--icon="${resources}/stroy.icns"-->
+               <jarfileset refid="internalsSet"/>
+               <!--<jarfilelist dir="${lib}" files="stroy2ui.jar" />-->
+
+               <!-- Copy the HelpBook JNI library  -->
+               <!--<javafilelist dir="${build-objc}" files="libHelpBookJNI.jnilib"/>-->
+
+               <javaproperty name="apple.laf.useScreenMenuBar" value="true"/>
+               <javaproperty name="com.apple.macos.useScreenMenuBar" value="true"/>
+
+               <!--<HelpBook locale="English">-->
+                   <!--<fileset dir="${resources}/HelpBook/English" />-->
+                   <!--<fileset dir="${resources}/HelpBook/common" />-->
+               <!--</HelpBook>-->
+
+           </jarbundler>
+            </then>
+           </if>
+       </target>
+
+
     <target name="dist" depends="create-jar" >
         <copy todir="${dist}">
             <fileset refid="internalsSet"/>
         </copy>
-
     </target>
 
     <target name="dist.dependencies">

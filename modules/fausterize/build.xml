@@ -2,6 +2,10 @@
 <project name="fausterize" default="default" basedir=".">
     <import file="../../build-common.xml"/>
     <property name = "version"  value="0.0.1" />
+    <property name = "buildnumber"     value="303"/>
     <property name = "main"     value="org.openCage.gpad.UIMain"/>
+    <property name = "app-name"     value="fausterize"/>
+    <property name = "app-signature"     value="faust"/>
+    <property name = "bundleid"     value="org.openCage.fausterize"/>
 
 </project>
