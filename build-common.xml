@@ -108,10 +108,10 @@
                        infostring="${app-name}, MPL1.1"
                        build="${buildnumber}"
                        bundleid="${bundleid}"
+                       icon="${module}/src/${osx-icon}"
                    >
                <!--helpbookfolder="HelpBook"-->
                <!--helpbookname="Stroy Help"-->
-               <!--icon="${resources}/stroy.icns"-->
                <jarfileset refid="internalsSet"/>
                <!--<jarfilelist dir="${lib}" files="stroy2ui.jar" />-->
 

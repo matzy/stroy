@@ -7,5 +7,6 @@
     <property name = "app-name"     value="fausterize"/>
     <property name = "app-signature"     value="faust"/>
     <property name = "bundleid"     value="org.openCage.fausterize"/>
+    <property name = "osx-icon"     value="org/openCage/gpad/fausterize.icns"/>
 
 </project>
