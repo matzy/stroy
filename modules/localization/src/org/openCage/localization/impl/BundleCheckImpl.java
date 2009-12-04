@@ -8,7 +8,7 @@ import org.openCage.localization.protocol.BundleCheck;
 
 public class BundleCheckImpl implements BundleCheck {
 	
-	private Locale unknownLocale = new Locale("xx", "URGH");
+	private static Locale unknownLocale = new Locale("xx", "URGH");
 	
 	public void checkBundle( String bundleLocation, Locale ... locales  ) {
 		

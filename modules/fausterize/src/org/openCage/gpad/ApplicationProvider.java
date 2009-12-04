@@ -19,6 +19,6 @@ public class ApplicationProvider implements Provider<Application > {
 	public Application get() {
 
 		return fromConfig.get( getClass().getResource( "FausterizeApp.xml" ),
-				               getClass().getResource( "stroy.png"));
+				               getClass().getResource( "faust.png"));
 	}
 }

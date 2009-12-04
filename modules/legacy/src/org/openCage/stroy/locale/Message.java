@@ -1,10 +1,10 @@
 package org.openCage.stroy.locale;
 
-import org.openCage.util.logging.Log;
 import org.openCage.util.prefs.PListSelectionString;
 
 import javax.swing.*;
 import java.util.*;
+import java.util.logging.Logger;
 
 /***** BEGIN LICENSE BLOCK *****
  * Version: MPL 1.1
@@ -29,6 +29,8 @@ import java.util.*;
  ***** END LICENSE BLOCK *****/
 
 public class Message {
+
+    private static Logger LOG = Logger.getLogger( Message.class.getName());
 
     public final static String localKey = "language.locale";
 
@@ -96,7 +98,7 @@ public class Message {
             messages = ResourceBundle.getBundle( "org.openCage.stroy.locale.messages",
                     local);
         } catch ( MissingResourceException exp ) {
-            Log.warning( "no localization for " + local + " found, falling back on English"  );
+            LOG.warning( "no localization for " + local + " found, falling back on English"  );
             local = new Locale( "en", "US" );
             messages = ResourceBundle.getBundle( "messages", local );
         }
@@ -107,7 +109,7 @@ public class Message {
 
             if ( !notFoundLocales.contains( local )) {
                 notFoundLocales.add(  local );
-                Log.warning( "localization not found: key \"" + key + "\" for locale: " +  local );
+                LOG.warning( "localization not found: key \"" + key + "\" for locale: " +  local );
             }
 
             return key;

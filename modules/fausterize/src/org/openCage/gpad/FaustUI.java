@@ -68,7 +68,8 @@ public class FaustUI extends JFrame {
         this.executor = executor;
         this.localize = localize;
 
-        message = FSPathBuilder.getHome().add( ".openCage", ".1.fausterize").toString();
+        message = FSPathBuilder.getHome().add( ".openCage", "1.fausterize").toString();
+        new File( message ).getParentFile().mkdirs();
 
 //        JButton save = new JButton("save");
 //        save.addActionListener( new ActionListener() {
