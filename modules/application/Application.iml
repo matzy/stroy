@@ -8,11 +8,21 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="production" level="project" />
-    <orderEntry type="library" name="test" level="project" />
     <orderEntry type="module" module-name="Lang" />
     <orderEntry type="module" module-name="Localization" />
     <orderEntry type="module" module-name="Io" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../external/production/guice-2.0.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../external/production/commons-io-1.4.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="library" name="test" level="project" />
+    <orderEntry type="library" name="production" level="project" />
   </component>
 </module>
 

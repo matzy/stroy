@@ -14,7 +14,7 @@ public class ApplicationProvider implements Provider<Application > {
 
 	public Application get() {
 
-		return fromConfig.get( new File( getClass().getResource( "TestApp.xml" ).getPath()),
+		return fromConfig.get( getClass().getResource( "TestApp.xml" ),
 				               getClass().getResource( "bogen1.png"));
 	}
 }

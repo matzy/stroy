@@ -16,14 +16,14 @@ public class AppProviderXML implements Provider<Application>{
 	   
 	public Application get() {
 
-		String xmlpath = getClass().getResource("TestApp.xml").getPath();
+		URL xmlpath = getClass().getResource("TestApp.xml");
 		URL iconpath = getClass().getResource("bogen1.jpg");
         
-        boolean ex = new File( xmlpath ).exists();
+        boolean ex = new File( xmlpath.toString() ).exists();
 //        ex = new File( iconpath ).exists();
         
 
-        return appFromConfig.get( new File( xmlpath ), iconpath );
+        return appFromConfig.get( xmlpath, iconpath );
 	}
 
 }

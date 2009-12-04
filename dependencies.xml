@@ -17,7 +17,7 @@
     </target>
     <!-- ================================================================== -->
     <target name="depend.application"
-            depends="depend.lang, depend.localization, depend.io, xstream, jcip-annotations, annotations">
+            depends="depend.lang, depend.localization, depend.io, xstream, jcip-annotations, annotations, commons-io">
         <ant dir="${dependencies.basedir}/modules/application" inheritAll="false"/>
     </target>
     <!-- ================================================================== -->
@@ -80,5 +80,9 @@
     <!-- ================================================================== -->
     <target name="forms">
         <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/forms-1.2.1.jar"/>
+    </target>
+    <!-- ================================================================== -->
+    <target name="commons-io">
+        <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/commons-io-1.4.jar"/>
     </target>
 </project>

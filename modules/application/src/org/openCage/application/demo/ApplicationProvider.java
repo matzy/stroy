@@ -13,11 +13,6 @@ public class ApplicationProvider implements Provider<Application > {
 	private ApplicationFromConfig fromConfig;
 
 	public Application get() {
-        try {
-		    return fromConfig.get( new File( getClass().getResource( "demo.xml" ).getPath()), null );
-        } catch ( NullPointerException exp ) {
-            System.out.println("aargh");
-            return null;
-        }
+        return fromConfig.get( getClass().getResource( "demo.xml" ), null );
 	}
 }

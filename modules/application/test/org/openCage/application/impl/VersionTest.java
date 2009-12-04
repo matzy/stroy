@@ -3,7 +3,7 @@ package org.openCage.application.impl;
 import org.junit.Test;
 import org.openCage.application.impl.pojos.VersionImpl;
 import org.openCage.application.impl.pojos.VersionParserImpl;
-import static org.junit.Assert.assertEquals;
+import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /***** BEGIN LICENSE BLOCK *****
