@@ -86,19 +86,16 @@ public class FaustUI extends JFrame {
 //            }
 //        });
 
-        JButton padButton = new JButton( localize.localize( "org.openCage.fausterize.decode"));
+
+        JButton padButton = new JButton( new ImageIcon( getClass().getResource("lock_closed.png") )); //localize.localize( "org.openCage.fausterize.decode"));
         final JFrame theFrame = this;
         padButton.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String path = fileChooser.open( theFrame, "/");
                 if ( path != null ) {
-                    try {
-                        pad = new URI("file://" + path);
-                        setPad( "file://" + path, message );
-                        textUI.setEditable(true);
-                    } catch (URISyntaxException e1) {
-                        e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-                    }
+                    pad = new File( path ).toURI();
+                    setPad( pad, message );
+                    textUI.setEditable(true);
                 }
             }
         });
@@ -175,29 +172,24 @@ public class FaustUI extends JFrame {
 
     }
 
-    private synchronized void setPad(String pad, String message) {
-        try {
-            tts = new FaustString();
-            tts.setPad(  new URI( pad ) );
+    private synchronized void setPad( URI pad, String message) {
+        tts = new FaustString();
+        tts.setPad( pad);
 
-            File filem = new File(message);
-            String text = "";
+        File filem = new File(message);
+        String text = "";
 
-            if ( filem.exists() ) {
-                textUI.setText("");
-                FileLineIterable it =  with.getLineIteratorCloseInFinal( filem );
-                try {
-                    for ( String str : it ) {
-                        text += str + "\n";
-                    }
-                } finally {
-                    it.close();
+        if ( filem.exists() ) {
+            textUI.setText("");
+            FileLineIterable it =  with.getLineIteratorCloseInFinal( filem );
+            try {
+                for ( String str : it ) {
+                    text += str + "\n";
                 }
-                textUI.append( tts.decode( text, 0 ));
+            } finally {
+                it.close();
             }
-
-        } catch (URISyntaxException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            textUI.append( tts.decode( text, 0 ));
         }
     }
 

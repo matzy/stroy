@@ -58,6 +58,7 @@
         <copy todir="${classes}" flatten="no">
             <fileset dir="${module}/src" includes="**/*.xml"/>
             <fileset dir="${module}/src" includes="**/*.properties"/>
+            <fileset dir="${module}/src" includes="**/*.png"/>
          </copy>
 
 
