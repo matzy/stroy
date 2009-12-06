@@ -3,11 +3,5 @@
     <import file="../../build-common.xml"/>
 
     <property  name = "version" value="0.0.1" />
-    <fileset id="externalsSet" dir="${dependencies.basedir}/external/production">
-        <include name="guice-2.0.jar"/>
-    </fileset>
-    <fileset id="runtimeExternalsSet" dir="${dependencies.basedir}/external/production">
-    </fileset>
-
 
 </project>

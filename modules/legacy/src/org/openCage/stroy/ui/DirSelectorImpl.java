@@ -1,8 +1,6 @@
 package org.openCage.stroy.ui;
 
 import com.google.inject.Inject;
-import com.muchsoft.util.mac.Java14Adapter;
-import com.muchsoft.util.mac.Java14Handler;
 import com.muchsoft.util.Sys;
 import org.openCage.lang.protocol.F0;
 import org.openCage.ui.protocol.AboutSheet;
@@ -14,7 +12,6 @@ import org.openCage.stroy.ui.prefs.PrefsUI;
 import org.openCage.stroy.ui.menu.PortableMenu;
 import org.openCage.stroy.update.UpdateChecker;
 import org.openCage.stroy.locale.Message;
-import org.openCage.util.logging.LogHandlerPanel;
 import org.openCage.util.prefs.PreferencesChangeListener;
 import org.openCage.util.prefs.TextField;
 
@@ -23,7 +20,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
-import java.util.EventObject;
 import java.io.File;
 
 import net.java.dev.designgridlayout.DesignGridLayout;
@@ -93,7 +89,6 @@ public class DirSelectorImpl extends JFrame
         this.osxEventHandler = osxEventHandler;
 
         osxEventHandler.addPrefsDelegate( new F0<Void>() {
-            @Override
             public Void call() {
                 PrefsUI.create().setVisible( true );
                 return null;

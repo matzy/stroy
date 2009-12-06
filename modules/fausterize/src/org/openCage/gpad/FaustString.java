@@ -22,7 +22,6 @@ public class FaustString implements TextEncoderIdx<String>{
         encoder.setPad( uri );
     }
 
-    @Override
     public boolean isSet() {
         return encoder.isSet();
     }

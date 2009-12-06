@@ -1,6 +1,6 @@
 package org.openCage.stroy.update;
 
-import org.openCage.application.impl.update.UpdateInfo;
+import org.openCage.ui.impl.UpdateInfo;
 import org.openCage.util.logging.Log;
 
 import java.io.BufferedReader;

@@ -3,7 +3,12 @@
     <dirname property="dependencies.basedir" file="${ant.file.dependencies}"/>
     <!-- ================================================================== -->
     <target name="depend.all"
-            depends="depend.fausterize">
+            depends="depend.fausterize, depend.legacy">
+    </target>
+    <!-- ================================================================== -->
+    <target name="depend.legacy"
+            depends="depend.lang, depend.localization, depend.io, depend.application, depend.ui, depend.vfs, designgridlayout, guice, mydoggy-api, mydoggy-plaf, swingworker, jdic">
+        <ant dir="${dependencies.basedir}/modules/legacy" inheritAll="false"/>
     </target>
     <!-- ================================================================== -->
     <target name="depend.fausterize"
@@ -28,6 +33,10 @@
     <!-- ================================================================== -->
     <target name="depend.localization" >
         <ant dir="${dependencies.basedir}/modules/localization" inheritAll="false"/>
+    </target>
+    <!-- ================================================================== -->
+    <target name="depend.vfs" >
+        <ant dir="${dependencies.basedir}/modules/vfs" inheritAll="false"/>
     </target>
     <!-- ================================================================== -->
     <target name="depend.lang"
@@ -84,5 +93,22 @@
     <!-- ================================================================== -->
     <target name="commons-io">
         <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/commons-io-1.4.jar"/>
+    </target>
+    <!-- ================================================================== -->
+    <target name="mydoggy-api">
+        <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/mydoggy-api-1.3.1.jar"/>
+    </target>
+    <!-- ================================================================== -->
+    <target name="mydoggy-plaf">
+        <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/mydoggy-plaf-1.3.1.jar"/>
+    </target>
+    <!-- ================================================================== -->
+    <target name="swingworker">
+        <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/swing-worker-1.1.jar"/>
+    </target>
+    <!-- ================================================================== -->
+    <target name="jdic">
+        <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/jdic.jar"/>
+        <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/jdic.dll"/>
     </target>
 </project>
