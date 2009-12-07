@@ -1,18 +1,37 @@
 package org.openCage.gpad;
 
+import org.apache.commons.lang.SystemUtils;
+import org.apache.commons.lang.math.RandomUtils;
+import org.openCage.lang.errors.Unchecked;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by IntelliJ IDEA.
- * User: stephan
- * Date: Oct 23, 2009
- * Time: 5:32:00 AM
- * To change this template use File | Settings | File Templates.
- */
+/***** BEGIN LICENSE BLOCK *****
+* Version: MPL 1.1
+*
+* The contents of this file are subject to the Mozilla Public License Version
+* 1.1 (the "License"); you may not use this file except in compliance with
+* the License. You may obtain a copy of the License at
+* http://www.mozilla.org/MPL/
+*
+* Software distributed under the License is distributed on an "AS IS" basis,
+* WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+* for the specific language governing rights and limitations under the
+* License.
+*
+* The Original Code is stroy code.
+*
+* The Initial Developer of the Original Code is Stephan Pfab <openCage@gmail.com>.
+* Portions created by Stephan Pfab are Copyright (C) 2006 - 2010.
+* All Rights Reserved.
+*
+* Contributor(s):
+***** END LICENSE BLOCK *****/
+
 public class FaustString implements TextEncoderIdx<String>{
 
     private static Charset UTF8 = Charset.forName("utf8");
@@ -27,12 +46,13 @@ public class FaustString implements TextEncoderIdx<String>{
     }
 
     public String encode(String ch, int ix ) {
-        byte[] bytes = new byte[0];
+        byte[] bytes = null;
         try {
-            bytes = ch.getBytes( "utf8" );
+            bytes = (createPrefix() + ch).getBytes( "utf8" );
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            throw new Unchecked( e );
         }
+
         String ret = "";
         int idx = 0;
         for ( byte by : bytes ) {
@@ -57,10 +77,22 @@ public class FaustString implements TextEncoderIdx<String>{
             ++i;
         }
         try {
-            return new String( byteArr, "utf8");
+            String ret =  new String( byteArr, "utf8");
+            return ret.substring( ret.indexOf("\n") + 1);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             return null;
         }
+    }
+
+    private String createPrefix() {
+        int strlen = RandomUtils.nextInt() % 80;
+        String prefix = "";
+
+        for ( int i = 0; i < strlen; ++i ) {
+            prefix += (char)('A' + (RandomUtils.nextInt() % 26));
+        }
+
+        return prefix + '\n';
     }
 }

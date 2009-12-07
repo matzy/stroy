@@ -27,30 +27,44 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.Writer;
 import java.net.URI;
-import java.net.URISyntaxException;
 
+/***** BEGIN LICENSE BLOCK *****
+* Version: MPL 1.1
+*
+* The contents of this file are subject to the Mozilla Public License Version
+* 1.1 (the "License"); you may not use this file except in compliance with
+* the License. You may obtain a copy of the License at
+* http://www.mozilla.org/MPL/
+*
+* Software distributed under the License is distributed on an "AS IS" basis,
+* WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+* for the specific language governing rights and limitations under the
+* License.
+*
+* The Original Code is stroy code.
+*
+* The Initial Developer of the Original Code is Stephan Pfab <openCage@gmail.com>.
+* Portions created by Stephan Pfab are Copyright (C) 2006 - 2010.
+* All Rights Reserved.
+*
+* Contributor(s):
+***** END LICENSE BLOCK *****/
 
-/**
- * Created by IntelliJ IDEA.
- * User: stephan
- * Date: Oct 18, 2009
- * Time: 5:08:08 PM
- * To change this template use File | Settings | File Templates.
- */
 public class FaustUI extends JFrame {
 
-    final private Application application;
-    final private With with;
-    final private FileChooser fileChooser;
-    final private AboutSheet about;
+    final private Application             application;
+    final private With                    with;
+    final private FileChooser             fileChooser;
+    final private AboutSheet              about;
     final private OSXStandardEventHandler osxEventHandler;
-    private URI pad;
-    private String message = "/Users/stephan/woo.txt";
-    private BackgroundExecutor executor;
+    final private Localize                localize;
+    final private BackgroundExecutor      executor;
 
-    private JTextArea textUI = new JTextArea();
-    TextEncoderIdx<String> tts;
-    final private Localize localize;
+//    private URI                     pad;
+    private String                  message;
+    private JTextArea               textUI = new JTextArea();
+    private TextEncoderIdx<String>  textEncoder;
+    final private JButton           padButton = new JButton( new ImageIcon( getClass().getResource("lock_closed.png")));
 
     @Inject
     public FaustUI( Application application,
@@ -60,44 +74,31 @@ public class FaustUI extends JFrame {
                     OSXStandardEventHandler osxEventHandler,
                     BackgroundExecutor executor,
                     @Named( "fausterize") Localize localize ) {
-        this.application = application;
-        this.with = wth;
-        this.fileChooser = chooser;
-        this.about = about;
-        this.osxEventHandler = osxEventHandler;
-        this.executor = executor;
-        this.localize = localize;
 
-        message = FSPathBuilder.getHome().add( ".openCage", "1.fausterize").toString();
+        this.application     = application;
+        this.with            = wth;
+        this.fileChooser     = chooser;
+        this.about           = about;
+        this.osxEventHandler = osxEventHandler;
+        this.executor        = executor;
+        this.localize        = localize;
+
+        // TODO remove magic strings
+        message = FSPathBuilder.getHome().add( ".openCage", "1.fst1").toString();
         new File( message ).getParentFile().mkdirs();
 
-//        JButton save = new JButton("save");
-//        save.addActionListener( new ActionListener() {
-//            public void actionPerformed(ActionEvent actionEvent) {
-//                new WithImpl().withWriter( new File(message), new FE1<Object, Writer>() {
-//                    public Object call(Writer writer) throws Exception {
-//                        System.out.println(textUI.getText());
-//                        String code = tts.encode( textUI.getText(),0);
-//                        System.out.println( code );
-//                        writer.append( code );
-//                        return null;
-//                    }
-//                });
-//            }
-//        });
 
-
-        JButton padButton = new JButton( new ImageIcon( getClass().getResource("lock_closed.png") )); //localize.localize( "org.openCage.fausterize.decode"));
+        padButton.setBackground( Color.LIGHT_GRAY );
         final JFrame theFrame = this;
         padButton.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String path = fileChooser.open( theFrame, "/");
                 if ( path != null ) {
-                    pad = new File( path ).toURI();
-                    setPad( pad, message );
-                    textUI.setEditable(true);
+                    setPad( new File( path ).toURI(), message );
+                    setTextEnabled( true );
                 }
             }
+
         });
 
         JScrollPane scroll =  new JScrollPane(textUI);
@@ -106,8 +107,7 @@ public class FaustUI extends JFrame {
         textUI.setMinimumSize( new Dimension( 400, 400 ));
         getContentPane().setLayout( new BorderLayout());
         getContentPane().add( scroll, BorderLayout.CENTER  );
-        textUI.setEditable(false);
-        setInitial( message );
+
 
         // For some versions of Mac OS X, Java will handle painting the Unified Tool Bar.
         // Calling this method ensures that this painting is turned on if necessary.
@@ -116,7 +116,10 @@ public class FaustUI extends JFrame {
         UnifiedToolBar toolBar = new UnifiedToolBar();
 //        save.putClientProperty("JButton.buttonType", "textured");
 //        toolBar.addComponentToLeft(save);
-        toolBar.addComponentToLeft(padButton);
+        toolBar.addComponentToLeft( new LabeledComponentGroup( localize.localize( "org.openCage.fausterize.decode"),
+                                                               padButton).getComponent());
+
+        //padButton.putClientProperty("JButton.buttonType", "textured");
         final JTextField textField = new JTextField(10);
         textField.putClientProperty("JTextField.variant", "search");
         toolBar.addComponentToRight(new LabeledComponentGroup("Search", textField).getComponent());
@@ -131,6 +134,9 @@ public class FaustUI extends JFrame {
         setTitle( application.gettName());
         setSize( 800, 600 );
 
+        setTextEnabled( false );
+        setInitial( message );
+        
 
         textField.addKeyListener( new KeyAdapter(){
             public void keyReleased(KeyEvent keyEvent) {
@@ -158,10 +164,10 @@ public class FaustUI extends JFrame {
         executor.addPeriodicAndExitTask( new FE0<Void>() {
             public Void call() throws Exception {
 
-                if ( textUI.getText().length() > 0 && tts != null && tts.isSet()) {
+                if ( textUI.getText().length() > 0 && textEncoder != null && textEncoder.isSet()) {
                     with.withWriter( new File(message), new FE1<Void, Writer>() {
                         public Void call(Writer writer) throws Exception {
-                             writer.write( tts.encode( textUI.getText(), 0 ));
+                             writer.write( textEncoder.encode( textUI.getText(), 0 ));
                             return null;
                         }
                     });
@@ -173,8 +179,8 @@ public class FaustUI extends JFrame {
     }
 
     private synchronized void setPad( URI pad, String message) {
-        tts = new FaustString();
-        tts.setPad( pad);
+        textEncoder = new FaustString();
+        textEncoder.setPad( pad);
 
         File filem = new File(message);
         String text = "";
@@ -189,7 +195,7 @@ public class FaustUI extends JFrame {
             } finally {
                 it.close();
             }
-            textUI.append( tts.decode( text, 0 ));
+            textUI.append( textEncoder.decode( text, 0 ));
         }
     }
 
@@ -215,5 +221,16 @@ public class FaustUI extends JFrame {
         }
     }
 
+    private void setTextEnabled( boolean enable ) {
+        if ( enable ) {
+            textUI.setEditable(true);
+            textUI.setBackground( Color.WHITE);
+            padButton.setIcon( new ImageIcon( getClass().getResource("lock_open.png")) );
+        } else {
+            textUI.setEditable(false);
+            textUI.setBackground( Color.LIGHT_GRAY);
+            padButton.setIcon( new ImageIcon( getClass().getResource("lock_closed.png")) );
+        }
+    }
 
 }
