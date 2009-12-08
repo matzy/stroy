@@ -1,5 +1,6 @@
 package org.openCage.gpad;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.SystemUtils;
 import org.apache.commons.lang.math.RandomUtils;
 import org.openCage.lang.errors.Unchecked;
@@ -48,7 +49,7 @@ public class FaustString implements TextEncoderIdx<String>{
     public String encode(String ch, int ix ) {
         byte[] bytes = null;
         try {
-            bytes = (createPrefix() + ch).getBytes( "utf8" );
+            bytes = ArrayUtils.addAll( createPrefix(), ch.getBytes( "utf8" ));
         } catch (UnsupportedEncodingException e) {
             throw new Unchecked( e );
         }
@@ -65,17 +66,29 @@ public class FaustString implements TextEncoderIdx<String>{
     public String decode(String lines, int ix ) {
         List<Byte> bytes = new ArrayList<Byte>();
 
+        boolean prefix = true;
         int idx = 0;
         for ( String line : lines.split("\n")) {
-            bytes.add( encoder.decode(line,idx));
+            byte dec = encoder.decode(line,idx);
             ++idx;
+            
+            if ( prefix ) {
+                if ( dec == Byte.MAX_VALUE ) {
+                    prefix = false;
+                }
+                continue;
+            }
+
+            bytes.add( dec );
         }
+
         byte[] byteArr = new byte[ bytes.size()];
         int i = 0;
         for ( Byte by : bytes ) {
             byteArr[i] = by;
             ++i;
         }
+
         try {
             String ret =  new String( byteArr, "utf8");
             return ret.substring( ret.indexOf("\n") + 1);
@@ -85,14 +98,16 @@ public class FaustString implements TextEncoderIdx<String>{
         }
     }
 
-    private String createPrefix() {
+    private byte[] createPrefix() {
         int strlen = RandomUtils.nextInt() % 80;
-        String prefix = "";
+        byte[] prefix = new byte[ strlen + 1 ];
 
         for ( int i = 0; i < strlen; ++i ) {
-            prefix += (char)('A' + (RandomUtils.nextInt() % 26));
+            prefix[i] = (byte)((RandomUtils.nextInt() % 255 ) + Byte.MIN_VALUE);
         }
 
-        return prefix + '\n';
+        prefix[ strlen] = Byte.MAX_VALUE;
+
+        return prefix;
     }
 }
