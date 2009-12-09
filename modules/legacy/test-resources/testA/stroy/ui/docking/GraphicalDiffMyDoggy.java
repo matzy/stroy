@@ -88,10 +88,10 @@ public class GraphicalDiffMyDoggy extends JFrame implements IgnoreChangedListene
         diffPane.getTree(0).setSelectionRow(0);
 
         final JComponent top = new ShowDiffSummery(tasks, roots );
-  //      final ShowCurrentDiff current = new ShowCurrentDiff( tasks );
+  //      final ShowCurrentDiff obj = new ShowCurrentDiff( tasks );
         final Buttons buttons = new Buttons( this );
 
-    //    center.addNSelectionListener( current );
+    //    center.addNSelectionListener( obj );
 
         toolWindowManager = new MyDoggyToolWindowManager( this );
         getContentPane().add( toolWindowManager, BorderLayout.CENTER );
@@ -104,7 +104,7 @@ public class GraphicalDiffMyDoggy extends JFrame implements IgnoreChangedListene
 //        toolWindowManager.registerToolWindow( "Selection",       // Id
 //                                              "Details",                 // Title
 //                                              null,                         // Icon
-//                                              current,    // Component
+//                                              obj,    // Component
 //                                              ToolWindowAnchor.BOTTOM);       // Anchor
 //          toolWindowManager.registerToolWindow( "Global",       // Id
 //                                              "actions",                 // Title

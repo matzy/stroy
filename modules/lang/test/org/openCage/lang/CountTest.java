@@ -1,8 +1,12 @@
-package org.openCage.lang.protocol;
+package org.openCage.lang;
 
-import com.google.inject.Binder;
-import com.google.inject.Module;
-import org.openCage.lang.impl.BackgroundExecutorImpl;
+import org.junit.Test;
+import org.openCage.lang.clazz.Count;
+
+import java.util.Arrays;
+import java.util.List;
+
+import static junit.framework.Assert.assertEquals;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -26,20 +30,22 @@ import org.openCage.lang.impl.BackgroundExecutorImpl;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public class LangWiring implements Module {
+public class CountTest {
 
-    public void configure(Binder binder) {
-        binder.bind( BackgroundExecutor.class ).to( BackgroundExecutorImpl.class );
-        
+    @Test
+    public void testCount() {
+        List<Integer> list = Arrays.asList( 0, 1, 2, 3, 4 );
+
+        int i = 0;
+        for ( Count<Integer> ci : Count.count( list )) {
+            assertEquals( "index: ", i, ci.idx );
+            assertEquals( "elem: ", i, ci.obj.intValue() );
+            assertEquals( "first: ", i == 0 , ci.isFirst() );
+            assertEquals( "last: ", i == 4 , ci.isLast() );
+
+            i++;
+        }
     }
 
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
 
-    @Override
-    public boolean equals(Object obj) {
-        return obj != null && (obj instanceof LangWiring );
-    }
 }

@@ -77,7 +77,7 @@ public class MD5OutputStream extends FilterOutputStream {
 
     /**
      * Returns array of bytes representing hash of the stream as finalized
-     * for the current state.
+     * for the obj state.
      * @see MD5#Final
      */
 

@@ -112,7 +112,9 @@ public class Main {
         in[8] = 'b';
         in[9] = 'b';
 
+
         new Huffman().encode( in );
+
 
     }
 

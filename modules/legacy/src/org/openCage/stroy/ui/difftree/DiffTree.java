@@ -4,7 +4,6 @@ import com.google.inject.Inject;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.ui.util.NodeToNode;
 import org.openCage.stroy.ui.popup.PopupSelector;
-import org.openCage.vfs.protocol.Content;
 import org.openCage.util.ui.TreeUtils;
 import org.openCage.util.ui.skvTree.SkvTree;
 import org.openCage.util.ui.skvTree.JudgeBlock;
@@ -187,7 +186,7 @@ public class DiffTree extends JPanel implements SynchronizeListener {
 
                     if ( !scroll.getViewport().getViewRect().contains( rec ) ) {
 
-                        // the current selected node was moved outside the window
+                        // the obj selected node was moved outside the window
                         // => select a new node
 
                         int vy = (int)scroll.getViewport().getViewRect().getY();

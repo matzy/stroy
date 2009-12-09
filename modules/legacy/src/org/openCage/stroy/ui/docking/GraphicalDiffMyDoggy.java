@@ -7,7 +7,6 @@ import org.noos.xing.mydoggy.ToolWindow;
 import org.noos.xing.mydoggy.ToolWindowAnchor;
 import org.noos.xing.mydoggy.plaf.MyDoggyToolWindowManager;
 import org.openCage.application.protocol.Application;
-import org.openCage.application.protocol.Author;
 import org.openCage.stroy.RuntimeModule;
 import org.openCage.stroy.locale.Message;
 import org.openCage.stroy.task.NodeChangeListener;
@@ -90,10 +89,10 @@ public class GraphicalDiffMyDoggy<T extends Content> extends JFrame implements I
         diffPane = gen.getDiffPane( this.tasks, dmtRoots );
 
         final JComponent top = new ShowDiffSummary( this.tasks, dmtRoots );
-  //      final ShowCurrentDiff current = new ShowCurrentDiff( tasks );
+  //      final ShowCurrentDiff obj = new ShowCurrentDiff( tasks );
 //        final Buttons buttons = new Buttons( this );
 
-    //    center.addNSelectionListener( current );
+    //    center.addNSelectionListener( obj );
 
         toolWindowManager = new MyDoggyToolWindowManager( this );
 
@@ -108,7 +107,7 @@ public class GraphicalDiffMyDoggy<T extends Content> extends JFrame implements I
 //        toolWindowManager.registerToolWindow( "Selection",       // Id
 //                                              "Details",                 // Title
 //                                              null,                         // Icon
-//                                              current,    // Component
+//                                              obj,    // Component
 //                                              ToolWindowAnchor.BOTTOM);       // Anchor
 //          toolWindowManager.registerToolWindow( "Global",       // Id
 //                                              "actions",                 // Title
@@ -328,10 +327,10 @@ public class GraphicalDiffMyDoggy<T extends Content> extends JFrame implements I
 //        diffPane.getTree(0).setSelectionRow(0);
 //
 //        final JComponent top = new ShowDiffSummary(tasks, roots );
-//  //      final ShowCurrentDiff current = new ShowCurrentDiff( tasks );
+//  //      final ShowCurrentDiff obj = new ShowCurrentDiff( tasks );
 //        final Buttons buttons = new Buttons( this );
 //
-//    //    center.addNSelectionListener( current );
+//    //    center.addNSelectionListener( obj );
 //
 //        toolWindowManager = new MyDoggyToolWindowManager( this );
 //        getContentPane().add( toolWindowManager, BorderLayout.CENTER );
@@ -344,7 +343,7 @@ public class GraphicalDiffMyDoggy<T extends Content> extends JFrame implements I
 ////        toolWindowManager.registerToolWindow( "Selection",       // Id
 ////                                              "Details",                 // Title
 ////                                              null,                         // Icon
-////                                              current,    // Component
+////                                              obj,    // Component
 ////                                              ToolWindowAnchor.BOTTOM);       // Anchor
 ////          toolWindowManager.registerToolWindow( "Global",       // Id
 ////                                              "actions",                 // Title

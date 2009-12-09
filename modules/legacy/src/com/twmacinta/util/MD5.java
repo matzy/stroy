@@ -62,7 +62,7 @@ import java.io.*;
  *       On Linux for x86, this is "lib/arch/linux_x86/".  On Windows for
  *       x86, this is "lib/arch/win32_x86/".
  *   <li>Within the "lib/" directory.
- *   <li>Within the current directory.
+ *   <li>Within the obj directory.
  * </ol>
  *
  * <p>
@@ -101,7 +101,7 @@ public class MD5 {
     MD5State	state;
 
     /**
-     * If Final() has been called, finals is set to the current finals
+     * If Final() has been called, finals is set to the obj finals
      * state. Any Update() causes this to be set to null.
      */
     MD5State 	finals;
@@ -503,7 +503,7 @@ public class MD5 {
      * the s.getBytes() method without parameters is used to convert the
      * string to a byte array, the results of this method may be different
      * on different platforms.  The s.getBytes() method converts the string
-     * into a byte array using the current platform's default character set
+     * into a byte array using the obj platform's default character set
      * and may therefore have different results on platforms with different
      * default character sets.  If a version that works consistently
      * across platforms with different default character sets is desired,
@@ -566,7 +566,7 @@ public class MD5 {
 
     /**
      * Returns array of bytes (16 bytes) representing hash as of the
-     * current state of this object. Note: getting a hash does not
+     * obj state of this object. Note: getting a hash does not
      * invalidate the hash object, it only creates a copy of the real
      * state which is finalized.
      *

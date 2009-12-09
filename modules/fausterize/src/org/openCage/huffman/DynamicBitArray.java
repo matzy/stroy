@@ -1,5 +1,7 @@
 package org.openCage.huffman;
 
+import org.openCage.lang.clazz.Count;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,11 +65,16 @@ public class DynamicBitArray {
     }
 
     public String toString() {
-        String ret = "DBA: ";
-        for ( Byte by : bytes ) {
-            for ( int i = 0; i < 8; i++ ) {
+        String ret = "";
+        for ( Count<Byte> by : Count.count(bytes) ) {
+            int to = 8;
+            if ( by.isLast() ) {
+                to = last;
+            }
+
+            for ( int i = 0; i < to; i++ ) {
                 byte pattern = (byte) (1 << i);
-                if ( (by & pattern) == pattern ) {
+                if ( (by.obj & pattern) == pattern ) {
                     ret += "1";
                 } else {
                     ret += "0";
@@ -75,15 +82,24 @@ public class DynamicBitArray {
             }
         }
 
+        if ( ret.equals("")) {
+            return "0";
+        }
+
         return ret;
     }
 
     public String toString8() {
         String ret = "DBA: ";
-        for ( Byte by : bytes ) {
-            for ( int i = 0; i < 8; i++ ) {
+        for ( Count<Byte> by : Count.count(bytes) ) {
+            int to = 8;
+            if ( by.isLast() ) {
+                to = last;
+            }
+
+            for ( int i = 0; i < to; i++ ) {
                 byte pattern = (byte) (1 << i);
-                if ( (by & pattern) == pattern ) {
+                if ( (by.obj & pattern) == pattern ) {
                     ret += "1";
                 } else {
                     ret += "0";
@@ -117,4 +133,75 @@ public class DynamicBitArray {
         return bytes.get( idx % bytes.size() );
     }
 
+    public int getBitSize() {
+        return ((bytes.size() - 1) * 8) + last;
+    }
+
+    public static DynamicBitArray toDba( int num ) {
+        if ( num < 0 ) {
+            throw new IllegalArgumentException();
+        }
+
+        DynamicBitArray ret = new DynamicBitArray();
+
+        int max = 0;
+        int val = 1;
+        while ( val <= num ) {
+            val *= 2;
+            max++;
+        }
+
+        for ( int i = 0; i < max; ++i ) {
+            byte pattern = (byte) (1 << i);
+            ret.append( (num & pattern) == pattern );                
+        }
+
+        return ret;
+    }
+
+    public static DynamicBitArray toDba( int i, int size ) {
+        DynamicBitArray ret = toDba( i );
+
+        while ( ret.getBitSize() < size ) {
+            ret.append( false );
+        }
+
+        return ret;
+    }
+
+    public int toInt( int size ) {
+        int ret = 0;
+        int val = 1;
+
+        String str = toString();
+
+        for ( int i = 0; i < Math.min( size, str.length()); i++ ) {
+            if ( str.charAt( i) == '1') {
+                ret += val;
+            }
+
+            val *= 2;
+        }
+
+        return ret;
+
+    }
+
+    public int toInt( int from, int size ) {
+        int ret = 0;
+        int val = 1;
+
+        String str = toString();
+
+        for ( int i = from; i < Math.min( from+size, str.length()); i++ ) {
+            if ( str.charAt( i) == '1') {
+                ret += val;
+            }
+
+            val *= 2;
+        }
+
+        return ret;
+
+    }
 }

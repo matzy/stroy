@@ -90,7 +90,7 @@ public class MD5InputStream extends FilterInputStream {
 
   /**
    * Returns array of bytes representing hash of the stream as
-   * finalized for the current state. 
+   * finalized for the obj state.
    * @see MD5#Final
    */
   public byte[] hash () {

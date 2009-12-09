@@ -137,7 +137,7 @@
 //
 //        for ( Count<Foo> foo : Iterators.count( arr )) {
 //            do stuff with foo.o (object of type Foo)
-//            and foo.i (current index)
+//            and foo.i (obj index)
 //        }
 //
 //        The same way you can use an extra construction to use

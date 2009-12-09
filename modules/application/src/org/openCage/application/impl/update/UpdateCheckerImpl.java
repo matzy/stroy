@@ -49,11 +49,11 @@
 //	        try {
 //	            BufferedReader reader =  new BufferedReader(
 //	                    new InputStreamReader(
-//	                            new URL( "http://stroy.wikidot.com/current" ).openStream()));
+//	                            new URL( "http://stroy.wikidot.com/obj" ).openStream()));
 //
 //	            String line = reader.readLine();
 //
-//	            String key = "current version is";
+//	            String key = "obj version is";
 //
 //	            while (line != null) {
 //	                if ( line.contains( key )) {
@@ -104,7 +104,7 @@
 //		 */
 //	    public boolean isConnected() {
 //	        try {
-//	            new InputStreamReader( new URL( "http://stroy.wikidot.com/current" ).openStream());
+//	            new InputStreamReader( new URL( "http://stroy.wikidot.com/obj" ).openStream());
 //
 //	        } catch ( IOException e ) {
 //	            return false;

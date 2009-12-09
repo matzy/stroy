@@ -12,8 +12,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.regex.Pattern;
 
-import org.openCage.util.iterator.Iterators;
-
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
 *
@@ -64,14 +62,14 @@ public class FileUtils {
     }
 
     /**
-     * @return the current directory
+     * @return the obj directory
      */
     static public String getCurrentDir() {
         return System.getProperty("user.dir");
     }
 
     /**
-     * return the current users home directory
+     * return the obj users home directory
      * @return the home directory
      */
     static public String getHomeDir() {

@@ -1,5 +1,9 @@
 package org.openCage.huffman;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
 *
@@ -47,6 +51,8 @@ public class Huffman {
 
         //System.out.println( result.toString8() );
 
+        System.out.println("codes: " + encodeCodes( codes).toString8() );
+
 
         return result;
     }
@@ -75,7 +81,9 @@ public class Huffman {
         PQue pq = new PQue();
 
         for ( int i = 0; i < 257; i++ ) {
-            pq.push( new HNode( i + Byte.MIN_VALUE, null, null, weight[i]));
+            if ( i == 256 || weight[i] > 0 ) {
+                pq.push( new HNode( i + Byte.MIN_VALUE, null, null, weight[i]));
+            }
         }
 
         return pq;
@@ -100,5 +108,35 @@ public class Huffman {
 
         computeCodes( node.left, prefix.clone().append( false  ), codes );
         computeCodes( node.right, prefix.clone().append( true  ), codes );
+    }
+
+    private DynamicBitArray encodeCodes( DynamicBitArray[] codes ) {
+
+        List<Integer> indeces = new ArrayList<Integer>();
+        for ( int i = 0; i < 256; ++i ) {
+            indeces.add( i );
+        }
+
+        Collections.shuffle( indeces );
+        indeces.add( 256 );
+
+        DynamicBitArray res = new DynamicBitArray();
+        for ( Integer i : indeces ) {
+            if ( codes[i] != null ) {
+                System.out.println("" + i + " " + codes[i].toString8());
+                System.out.println(DynamicBitArray.toDba( i, 9).toString8());
+                res.append( DynamicBitArray.toDba( i, 9));
+                res.append( DynamicBitArray.toDba( codes[i].getBitSize(), 5));
+                res.append( codes[i] );
+            }
+        }
+
+        return res;
+    }
+
+    private void decodeCodes( DynamicBitArray dba ) {
+        int i = dba.toInt( 9 );
+        int len = dba.toInt( 10, i );
+//        DynamicBitArray dba = slice 
     }
 }

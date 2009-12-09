@@ -211,7 +211,7 @@
 //        // 206
 //
 //        add(  6, "f", "show selection in skybar" ).tag( "visualization" );
-//        add(209, "F", "show current window in skybar" ).tag("ui").from("Mike").tag( "visualization" );
+//        add(209, "F", "show obj window in skybar" ).tag("ui").from("Mike").tag( "visualization" );
 //        add(  7, "f", "keyboard navigation" ).tag("ui").tag("keys");
 //        add( 17, "f", "generate fuzzyhash file for bugreport" ).tag("test").tag("algo");
 //        add( 39, "f", "total diff for 3 way" ).tag( "3way" );
@@ -368,7 +368,7 @@
 //        add( 148, "d", "popup filter sometimes does not work (e.g. alienbrain get_date...)" );
 //
 //        defaultVersion = "0.8.181";
-//        add( 146, "F", " show current filepath" );
+//        add( 146, "F", " show obj filepath" );
 //        add( 141, "d", " handle newer (version) or corrupted prefs (duplicate)" ).ref(81);
 //        add( 81, "f", " robust: unreadable preset" );
 //
