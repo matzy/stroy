@@ -49,7 +49,7 @@ public class FaustString implements TextEncoderIdx<String>{
     public String encode(String ch, int ix ) {
         byte[] bytes = null;
         try {
-            bytes = ArrayUtils.addAll( createPrefix(), ch.getBytes( "utf8" ));
+            bytes = ch.getBytes( "utf8" ); // ArrayUtils.addAll( createPrefix(), ch.getBytes( "utf8" ));
         } catch (UnsupportedEncodingException e) {
             throw new Unchecked( e );
         }
@@ -66,18 +66,18 @@ public class FaustString implements TextEncoderIdx<String>{
     public String decode(String lines, int ix ) {
         List<Byte> bytes = new ArrayList<Byte>();
 
-        boolean prefix = true;
+//        boolean prefix = true;
         int idx = 0;
         for ( String line : lines.split("\n")) {
             byte dec = encoder.decode(line,idx);
             ++idx;
             
-            if ( prefix ) {
-                if ( dec == Byte.MAX_VALUE ) {
-                    prefix = false;
-                }
-                continue;
-            }
+//            if ( prefix ) {
+//                if ( dec == Byte.MAX_VALUE ) {
+//                    prefix = false;
+//                }
+//                continue;
+//            }
 
             bytes.add( dec );
         }
@@ -90,8 +90,7 @@ public class FaustString implements TextEncoderIdx<String>{
         }
 
         try {
-            String ret =  new String( byteArr, "utf8");
-            return ret.substring( ret.indexOf("\n") + 1);
+            return new String( byteArr, "utf8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             return null;

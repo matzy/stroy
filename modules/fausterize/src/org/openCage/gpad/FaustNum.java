@@ -1,9 +1,14 @@
 package org.openCage.gpad;
 
+import org.apache.commons.io.IOUtils;
 import org.openCage.withResource.impl.WithImpl;
 import org.openCage.withResource.protocol.FileLineIterable;
+import org.openCage.withResource.protocol.Iterators;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.*;
 
 /***** BEGIN LICENSE BLOCK *****
@@ -39,12 +44,12 @@ public class FaustNum implements TextEncoder<Character> {
             num2line[i] = new ArrayList<String>();
         }
 
-        File ff = new File( getClass().getResource( "faust.txt" ).getPath());
-
-        int idx = 0;
-        FileLineIterable it = new WithImpl().getLineIteratorCloseInFinal( ff );
+        BufferedReader reader = null;
         try {
-            for ( String str : it ) {
+            reader = new BufferedReader( new InputStreamReader( getClass().getResource( "faust.txt" ).openStream()) );
+
+            int idx = 0;
+            for ( String str : Iterators.lines( reader ) ) {
                 if ( str.contains(":") || str.contains("(") || str.trim().equals( "" )) {
                     continue;
                 }
@@ -58,9 +63,37 @@ public class FaustNum implements TextEncoder<Character> {
                 num2line[idx % 256].add(str);
                 line2num.put( str, idx % 256 );
             }
+
+
+        } catch (IOException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         } finally {
-            it.close();
+            IOUtils.closeQuietly( reader );
         }
+
+
+//        File ff = new File( getClass().getResource( "faust.txt" ).getPath());
+//
+//        int idx = 0;
+//        FileLineIterable it = new WithImpl().getLineIteratorCloseInFinal( ff );
+//        try {
+//            for ( String str : it ) {
+//                if ( str.contains(":") || str.contains("(") || str.trim().equals( "" )) {
+//                    continue;
+//                }
+//
+//                if ( knownLines.contains(str )) {
+//                    continue;
+//                }
+//
+//                ++idx;
+//                knownLines.add( str );
+//                num2line[idx % 256].add(str);
+//                line2num.put( str, idx % 256 );
+//            }
+//        } finally {
+//            it.close();
+//        }
     }
 
     public String encode( Character ch ) {

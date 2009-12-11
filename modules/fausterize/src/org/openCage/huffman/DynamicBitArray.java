@@ -202,6 +202,19 @@ public class DynamicBitArray {
         }
 
         return ret;
+    }
 
+    public DynamicBitArray getSlice( int from, int size ) {
+        DynamicBitArray ret = new DynamicBitArray();
+
+        for ( int i = from; i < from + size; ++i ) {
+            ret.append( bitAt(i));
+        }
+
+        return ret;
+    }
+
+    public boolean bitAt( int idx ) {
+        return (bytes.get(idx / 8).byteValue() & ((byte) (1 << (idx % 8)))) != 0; 
     }
 }

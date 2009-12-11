@@ -21,7 +21,7 @@ public class FaustStringTest {
         FaustString ds = new FaustString();
         ds.setPad( getClass().getResource("FaustStringTest.class").toURI());
 
-        String txt = "\nhi\nwooo";
+        String txt = "\n"; //hi\nwooo";
 
         String enc = ds.encode( txt, 0 );
         String dec = ds.decode( enc, 0 );

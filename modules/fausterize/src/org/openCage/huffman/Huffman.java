@@ -25,33 +25,19 @@ import java.util.List;
 *
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
+
 public class Huffman {
 
     public DynamicBitArray encode( byte[] array ) {
 
         PQue pq = buildPriorityQue( array );
 
-        //System.out.println( pq );
-
         combine( pq );
-
-        //System.out.println("-----");
-
-        //System.out.println( pq );
 
         DynamicBitArray[] codes = new DynamicBitArray[257];
         computeCodes( pq.pop(), new DynamicBitArray(), codes );
 
-
-//        for ( int i = 0; i < 257; i++ )  {
-//            System.out.println( codes[i]);
-//        }
-
         DynamicBitArray result = encode( array, codes );
-
-        //System.out.println( result.toString8() );
-
-        System.out.println("codes: " + encodeCodes( codes).toString8() );
 
 
         return result;
@@ -123,8 +109,8 @@ public class Huffman {
         DynamicBitArray res = new DynamicBitArray();
         for ( Integer i : indeces ) {
             if ( codes[i] != null ) {
-                System.out.println("" + i + " " + codes[i].toString8());
-                System.out.println(DynamicBitArray.toDba( i, 9).toString8());
+//                System.out.println("" + i + " " + codes[i].toString8());
+//                System.out.println(DynamicBitArray.toDba( i, 9).toString8());
                 res.append( DynamicBitArray.toDba( i, 9));
                 res.append( DynamicBitArray.toDba( codes[i].getBitSize(), 5));
                 res.append( codes[i] );
@@ -135,8 +121,8 @@ public class Huffman {
     }
 
     private void decodeCodes( DynamicBitArray dba ) {
-        int i = dba.toInt( 9 );
-        int len = dba.toInt( 10, i );
-//        DynamicBitArray dba = slice 
+        int idx = dba.toInt( 9 );
+        int len = dba.toInt( 10, 5 );
+        DynamicBitArray code = dba.getSlice( 15, len ); 
     }
 }

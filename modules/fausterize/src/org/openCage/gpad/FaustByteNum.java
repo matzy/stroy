@@ -1,16 +1,15 @@
 package org.openCage.gpad;
 
+import org.apache.commons.io.IOUtils;
 import org.jetbrains.annotations.NotNull;
 import org.openCage.huffman.DynamicBitArray;
 import org.openCage.huffman.Huffman;
 import org.openCage.lang.protocol.FE1;
 import org.openCage.withResource.impl.WithImpl;
 import org.openCage.withResource.protocol.FileLineIterable;
+import org.openCage.withResource.protocol.Iterators;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.URI;
 import java.util.*;
 import java.util.zip.Deflater;
@@ -68,12 +67,12 @@ public class FaustByteNum implements TextEncoderIdx<Byte> {
             num2line[i] = new ArrayList<String>();
         }
 
-        File ff = new File( getClass().getResource( "faust.txt" ).getPath());
-
-        int idx = 0;
-        FileLineIterable it = new WithImpl().getLineIteratorCloseInFinal( ff );
+        BufferedReader reader = null;
         try {
-            for ( String str : it ) {
+            reader = new BufferedReader( new InputStreamReader( getClass().getResource( "faust.txt" ).openStream()) );
+
+            int idx = 0;
+            for ( String str : Iterators.lines( reader ) ) {
                 if ( str.contains(":") || str.contains("(") || str.trim().equals( "" )) {
                     continue;
                 }
@@ -87,8 +86,12 @@ public class FaustByteNum implements TextEncoderIdx<Byte> {
                 num2line[idx % 256].add(str);
                 line2num.put( str, idx % 256 );
             }
+
+
+        } catch (IOException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         } finally {
-            it.close();
+            IOUtils.closeQuietly( reader );
         }
     }
 

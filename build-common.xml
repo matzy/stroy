@@ -59,6 +59,7 @@
             <fileset dir="${module}/src" includes="**/*.xml"/>
             <fileset dir="${module}/src" includes="**/*.properties"/>
             <fileset dir="${module}/src" includes="**/*.png"/>
+            <fileset dir="${module}/src" includes="**/*.txt"/>
          </copy>
 
 

@@ -58,11 +58,7 @@ public class IterableFile implements FileLineIterable {
     }
 
     public Iterator<String> iterator() {
-        try {
-            return new LineReaderIterator( reader );
-        } catch (IOException e) {
-            throw new IllegalStateException( "reader has problem now" );
-        }
+        return new LineReaderIterator( reader );
     }
 
     public void close() {

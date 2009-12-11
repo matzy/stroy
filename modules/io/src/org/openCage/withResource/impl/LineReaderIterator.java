@@ -28,7 +28,7 @@ import java.util.logging.Logger;
 ***** END LICENSE BLOCK *****/
 
 
-public class LineReaderIterator  implements Iterator<String> {
+public class LineReaderIterator  implements Iterator<String>, Iterable<String> {
 
     private static final Logger LOG = Logger.getLogger(LineReaderIterator.class.getName());
 
@@ -36,9 +36,13 @@ public class LineReaderIterator  implements Iterator<String> {
     private String         line;
 
 
-    public LineReaderIterator( BufferedReader reader ) throws IOException {
+    public LineReaderIterator( BufferedReader reader ) {
         this.reader = reader;
-        this.line   = reader.readLine();
+        try {
+            this.line   = reader.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
     }
 
     public boolean hasNext() {
@@ -50,7 +54,7 @@ public class LineReaderIterator  implements Iterator<String> {
         try {
             line = reader.readLine();
         } catch (IOException e) {
-            throw new IllegalStateException("read not readble anymore" );
+            throw new IllegalStateException("reader not readable anymore" );
         }
         return oldLine;
     }
@@ -59,24 +63,9 @@ public class LineReaderIterator  implements Iterator<String> {
         throw new UnsupportedOperationException( "this iterator has no remove" );
     }
 
+    public Iterator<String> iterator() {
+        return this;
+    }
 
-
-
-//    public void close() {
-//        if ( reader != null ) {
-//            try {
-//                reader.close();
-//            } catch ( IOException e ) {
-//                Log.warning( "close threw error " + e  );
-//            }
-//            reader = null;
-//        }
-//    }
-
-//    public static void close( LineReaderIterator it ) {
-//        if ( it != null ) {
-//            it.close();
-//        }
-//    }
-
+//    public static
 }

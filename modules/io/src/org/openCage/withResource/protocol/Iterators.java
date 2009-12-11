@@ -1,6 +1,9 @@
 package org.openCage.withResource.protocol;
 
+import org.openCage.withResource.impl.LineReaderIterator;
 import org.openCage.withResource.impl.StringIterator;
+
+import java.io.BufferedReader;
 
 /**
  * Created by IntelliJ IDEA.
@@ -21,5 +24,9 @@ public class Iterators {
 
     public static String[] lines( String str ) {
         return str.split( "\n|\r");
+    }
+
+    public static LineReaderIterator lines( BufferedReader reader ) {
+        return new LineReaderIterator( reader );
     }
 }
