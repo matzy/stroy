@@ -51,20 +51,20 @@ public class AboutSheetFromApplication extends JDialog implements AboutSheet {
         layout.row().add( pic );
         
         layout.row().add( new JLabel( app.gettName() ));
-        layout.row().label( new JLabel( localize.localize( "version" ))).add( new JLabel( app.gettVersion().toString() ));
+        layout.row().label( new JLabel( localize.localize("org.openCage.localization.version"))).add( new JLabel( app.gettVersion().toString() ));
 //        layout.row().label( new JLabel( localize.localize( "About.copyright" ))).add( new JLabel( app.getCopyright() ), 3 );
-        layout.row().label( new JLabel( localize.localize( "application.about.short" ))).add( new JLabel( localize.localize( "description" )), 6 );
-        layout.row().label( new JLabel( localize.localize( "licence" ))).add( new JLabel( app.getLicence().getName()), 6 );
+        layout.row().label( new JLabel( localize.localize( "application.about.short" ))).add( new JLabel( localize.localize("org.openCage.localization.description")), 6 );
+        layout.row().label( new JLabel( localize.localize("org.openCage.localization.licence"))).add( new JLabel( app.getLicence().getName()), 6 );
 
-        JButton help = new JButton( localize.localize( "help" ) );
-        layout.row().label( new JLabel( localize.localize( "help" )))/*.add( new JLabel(""), 3 )*/.add( help ).add( new JLabel(""), 5 );
+        JButton help = new JButton( localize.localize("org.openCage.localization.help") );
+        layout.row().label( new JLabel( localize.localize("org.openCage.localization.help")))/*.add( new JLabel(""), 3 )*/.add( help ).add( new JLabel(""), 5 );
 
         boolean first = true;
         for ( final Author author : app.getAuthors() ) {
 
             if ( first ) {
                 first = false;
-                layout.row().label( new JLabel( localize.localize( "author" ))).add( new JLabel( author.gettName() ),2 );
+                layout.row().label( new JLabel( localize.localize("org.openCage.localization.author"))).add( new JLabel( author.gettName() ),2 );
             } else {
                 layout.row().add( new JLabel( author.gettName() ), 2 );
             }
@@ -79,7 +79,7 @@ public class AboutSheetFromApplication extends JDialog implements AboutSheet {
         	if ( first ) {
             	row = layout.row();
                 first = false;
-                row.label( new JLabel( localize.localize( "contributors" )));
+                row.label( new JLabel( localize.localize("org.openCage.localization.contributors")));
             } else if ( idx < 5 ) {
             	idx++;
             } else {
@@ -115,7 +115,7 @@ public class AboutSheetFromApplication extends JDialog implements AboutSheet {
         Webpage page = app.getWebpage();
         if ( page != null ) {
             JButton web = new JButton( page.gettPage().toString() );
-            layout.row().label( new JLabel( localize.localize( "web" ))).add( web, 3 ).add( new JLabel(""), 3);
+            layout.row().label( new JLabel( localize.localize("org.openCage.localization.web"))).add( web, 3 ).add( new JLabel(""), 3);
         }
 
 //        web.addActionListener( new ActionListener() {

@@ -187,8 +187,8 @@ public class Main {
 
     private void createOptions() {
 
-        options.addOption( "h", "help", false, "show this message" );
-        optionsPublic.addOption( "h", "help", false, "show this message" );
+        options.addOption( "h", "org.openCage.localization.help", false, "show this message" );
+        optionsPublic.addOption( "h", "org.openCage.localization.help", false, "show this message" );
 
         Option loglevel   = OptionBuilder.withArgName( "loglevel" )
                 .hasArg()
