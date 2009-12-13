@@ -1,6 +1,5 @@
 package org.openCage.stroy.ui.menu;
 
-import org.openCage.util.www.Mailto;
 import org.openCage.util.ui.BrowserLauncher;
 import org.openCage.application.protocol.Application;
 import org.openCage.stroy.ui.prefs.PrefsUI;
@@ -43,7 +42,7 @@ public class PortableMenu implements Menu {
     private static JFrame  logView;
 
     private JMenu menuWinFile = new JMenu( Message.get( "Menu.File" ) );
-    private JMenu menuView    = new JMenu( Message.get( "Menu.View" ) );
+    private JMenu menuView    = new JMenu( Message.get("org.openCage.localization.dict.view") );
     private JMenu menuHelp    = new JMenu( Message.get( "Menu.Help" ) );
 
     public PortableMenu() {
@@ -70,7 +69,7 @@ public class PortableMenu implements Menu {
 
     private void createFile() {
         JMenuItem prefs = new JMenuItem( Message.get(  "Menu.Preference" ));
-        JMenuItem ex = new JMenuItem( Message.get(  "Menu.Exit" ));
+        JMenuItem ex = new JMenuItem( Message.get("org.openCage.localization.dict.exit"));
         menuWinFile.add( prefs );
 
         prefs.addActionListener( new ActionListener() {
@@ -79,7 +78,7 @@ public class PortableMenu implements Menu {
             }
         });
 
-        JMenuItem exi = new JMenuItem( Message.get(  "Menu.Exit" ));
+        JMenuItem exi = new JMenuItem( Message.get("org.openCage.localization.dict.exit"));
         menuWinFile.add( exi );
 
         exi.addActionListener( new ActionListener() {

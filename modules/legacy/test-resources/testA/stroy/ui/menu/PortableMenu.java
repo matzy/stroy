@@ -148,7 +148,7 @@ public class PortableMenu implements Menu {
 
         menuHelp.addSeparator();
 
-        JMenuItem help = new JMenuItem("org.openCage.localization.help");
+        JMenuItem help = new JMenuItem("org.openCage.localization.dict.help");
         menuHelp.add( help );
         help.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {

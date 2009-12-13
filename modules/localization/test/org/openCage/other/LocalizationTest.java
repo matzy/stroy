@@ -20,7 +20,7 @@ public class LocalizationTest {
 
         Localize loc = injector.getInstance(Localize.class);
         
-        assertEquals( "Author", loc.localize("org.openCage.localization.author"));
+        assertEquals( "Author", loc.localize("org.openCage.localization.dict.author"));
 	}
 
 	@Test
@@ -29,6 +29,6 @@ public class LocalizationTest {
 
         Localize loc = injector.getInstance(Localize.class);
         
-        assertEquals( "Autor", loc.localize( new Locale( "de", "DE" ), "org.openCage.localization.author"));
+        assertEquals( "Autor", loc.localize( new Locale( "de", "DE" ), "org.openCage.localization.dict.author"));
 	}
 }
