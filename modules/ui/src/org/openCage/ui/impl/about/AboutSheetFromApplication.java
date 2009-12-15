@@ -143,7 +143,9 @@ public class AboutSheetFromApplication extends JDialog implements AboutSheet {
 
         pack();
 
-        KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventPostProcessor( new GlobalKeyListener() );
+        GlobalKeyListener gl = new GlobalKeyListener();
+        gl.addCloseable( this );
+        KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventPostProcessor( gl );
 
 	}
 	

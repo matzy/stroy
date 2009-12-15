@@ -12,6 +12,8 @@ import java.awt.event.KeyEvent;
  * To change this template use File | Settings | File Templates.
  */
 public class GlobalKeyListener implements KeyEventPostProcessor {
+    private Component hideable = null;
+
     public boolean postProcessKeyEvent(KeyEvent e) {
         KeyStroke ks = KeyStroke.getKeyStroke( KeyEvent.VK_W, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask());
         System.out.println( "woooooooo   " + e );
@@ -21,8 +23,11 @@ public class GlobalKeyListener implements KeyEventPostProcessor {
 
             System.out.println( e.getKeyChar() + "::" + e.getModifiersEx() + ":::" + e.getModifiers() + "::::" + e.getKeyCode());
 
-            if ( e.getKeyChar() == 'w' && e.getModifiersEx() == 260 ) {
+            if ( e.getKeyChar() == 'w' && e.getModifiersEx() == 256 ) {
                 System.out.println("huuu");
+                if ( hideable != null ) {
+                    hideable.setVisible( false );
+                }
             } else {
 
             }
@@ -50,4 +55,11 @@ public class GlobalKeyListener implements KeyEventPostProcessor {
 //        return true;
         return false;  //To change body of implemented methods use File | Settings | File Templates.
     }
+
+    public void addCloseable( Component compo ) {
+        hideable = compo;
+    }
+
+
+
 }
