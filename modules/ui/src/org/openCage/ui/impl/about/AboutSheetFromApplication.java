@@ -1,6 +1,9 @@
 package org.openCage.ui.impl.about;
 
-import java.awt.BorderLayout;
+import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -20,6 +23,7 @@ import org.openCage.localization.protocol.Localize;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
+import org.openCage.ui.impl.GlobalKeyListener;
 import org.openCage.ui.protocol.AboutSheet;
 
 public class AboutSheetFromApplication extends JDialog implements AboutSheet {
@@ -138,6 +142,8 @@ public class AboutSheetFromApplication extends JDialog implements AboutSheet {
         getContentPane().add( top, BorderLayout.CENTER  );
 
         pack();
+
+        KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventPostProcessor( new GlobalKeyListener() );
 
 	}
 	

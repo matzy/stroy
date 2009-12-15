@@ -8,7 +8,7 @@ import org.openCage.ui.protocol.AboutSheet;
 import org.openCage.ui.wiring.UIWiring;
 
 
-public class UITest {
+public class AboutSheetTest {
 
 	@Test
 	public void AboutTest() {

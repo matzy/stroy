@@ -11,13 +11,11 @@ import com.muchsoft.util.Sys;
 import org.openCage.application.wiring.ApplicationWiring;
 import org.openCage.localization.protocol.Localize;
 import org.openCage.localization.wiring.LocalizeWiring;
-import org.openCage.ui.impl.FileChooserOSX;
-import org.openCage.ui.impl.FileChooserWindows;
-import org.openCage.ui.impl.OSXStandardEventHandlerImpl;
-import org.openCage.ui.impl.UILocalizeProvider;
+import org.openCage.ui.impl.*;
 import org.openCage.ui.impl.about.AboutSheetFromApplication;
 import org.openCage.ui.protocol.AboutSheet;
 import org.openCage.ui.protocol.FileChooser;
+import org.openCage.ui.protocol.MenuBuilder;
 import org.openCage.ui.protocol.OSXStandardEventHandler;
 
 /**
@@ -44,6 +42,8 @@ public class UIWiring implements Module {
             to( AboutSheetFromApplication.class );
 
         binder.bind(OSXStandardEventHandler.class ).to( OSXStandardEventHandlerImpl.class );
+
+        binder.bind(MenuBuilder.class).to( MenuBuilderImpl.class );
 
     }
 
