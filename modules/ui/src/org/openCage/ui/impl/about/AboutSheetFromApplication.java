@@ -1,9 +1,6 @@
 package org.openCage.ui.impl.about;
 
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -23,8 +20,8 @@ import org.openCage.localization.protocol.Localize;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
-import org.openCage.ui.impl.GlobalKeyListener;
 import org.openCage.ui.protocol.AboutSheet;
+import org.openCage.ui.protocol.GlobalKeyEventHandler;
 
 public class AboutSheetFromApplication extends JDialog implements AboutSheet {
 
@@ -32,12 +29,14 @@ public class AboutSheetFromApplication extends JDialog implements AboutSheet {
 
 	private final Application app;
 	private final Localize    localize;
-	
-	@Inject
-	public AboutSheetFromApplication( final Application app, @Named( "ui" ) final Localize localize ) {
+
+    @Inject
+	public AboutSheetFromApplication( final Application app, @Named( "ui" ) final Localize localize, GlobalKeyEventHandler keyEventHandler ) {
 		this.app = app;		
 		this.localize = localize;
 		build();
+
+        keyEventHandler.addCloseWindow( this );
 	}
 	
 	private void build() {
@@ -51,7 +50,6 @@ public class AboutSheetFromApplication extends JDialog implements AboutSheet {
 
         JLabel pic = new JLabel();
         pic.setIcon( app.getIcon());
-//        pic.setIcon( new ImageIcon( "/Users/stephan/Documents/prs/stroy-ng/modules/application/test/org/openCage/other/Photo 1.jpg" ));
         layout.row().add( pic );
         
         layout.row().add( new JLabel( app.gettName() ));
@@ -143,9 +141,6 @@ public class AboutSheetFromApplication extends JDialog implements AboutSheet {
 
         pack();
 
-        GlobalKeyListener gl = new GlobalKeyListener();
-        gl.addCloseable( this );
-        KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventPostProcessor( gl );
 
 	}
 	

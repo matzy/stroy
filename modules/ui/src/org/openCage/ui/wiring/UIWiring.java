@@ -13,10 +13,7 @@ import org.openCage.localization.protocol.Localize;
 import org.openCage.localization.wiring.LocalizeWiring;
 import org.openCage.ui.impl.*;
 import org.openCage.ui.impl.about.AboutSheetFromApplication;
-import org.openCage.ui.protocol.AboutSheet;
-import org.openCage.ui.protocol.FileChooser;
-import org.openCage.ui.protocol.MenuBuilder;
-import org.openCage.ui.protocol.OSXStandardEventHandler;
+import org.openCage.ui.protocol.*;
 
 /**
  *
@@ -44,6 +41,7 @@ public class UIWiring implements Module {
         binder.bind(OSXStandardEventHandler.class ).to( OSXStandardEventHandlerImpl.class );
 
         binder.bind(MenuBuilder.class).to( MenuBuilderImpl.class );
+        binder.bind( GlobalKeyEventHandler.class ).to( GlobalKeyEventHandlerImpl.class );
 
     }
 
