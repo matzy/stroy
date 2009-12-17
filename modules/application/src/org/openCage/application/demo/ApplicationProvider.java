@@ -13,6 +13,6 @@ public class ApplicationProvider implements Provider<Application > {
 	private ApplicationFromConfig fromConfig;
 
 	public Application get() {
-        return fromConfig.get( getClass().getResource( "demo.xml" ), null );
+        return fromConfig.get( getClass().getResource( "demo.xml" ), null, null );
 	}
 }

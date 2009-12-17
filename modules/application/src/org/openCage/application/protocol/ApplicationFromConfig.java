@@ -4,5 +4,5 @@ import java.io.File;
 import java.net.URL;
 
 public interface ApplicationFromConfig {
-	public Application get( URL path, URL iconPath );
+	public Application get( URL path, URL iconPath, String localizedDescription );
 }

@@ -5,11 +5,13 @@ import com.google.inject.Provider;
 
 import java.io.File;
 
+import com.google.inject.name.Named;
 import org.openCage.application.protocol.Application;
 import org.openCage.application.protocol.ApplicationFromConfig;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import org.openCage.localization.protocol.Localize;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -36,10 +38,12 @@ public class ApplicationProvider implements Provider<Application > {
 
 	@Inject
 	private ApplicationFromConfig fromConfig;
+    @Inject @Named( "fausterize" ) Localize localize;
 
 	public Application get() {
 
 		return fromConfig.get( getClass().getResource( "FausterizeApp.xml" ),
-				               getClass().getResource( "faust.png"));
+				               getClass().getResource( "faust.png" ),
+                               localize.localize( "org.openCage.fausterize.description" ));
 	}
 }

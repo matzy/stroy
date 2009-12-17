@@ -2,6 +2,6 @@
 <project name="localization" default="default" basedir=".">
     <import file="../../build-common.xml"/>
 
-    <property  name = "version" value="0.0.1" />
+    <property  name = "version" value="0.0.2" />
 
 </project>

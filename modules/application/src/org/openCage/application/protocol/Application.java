@@ -10,8 +10,8 @@ public interface Application {
 	public Licence                        getLicence();
 	public Collection<? extends Author>   getAuthors(); 
 	public Collection<? extends Author>   getContributors();
-	public String                         getDescprition();
+	public String                         getDescription();
 	public Icon                           getIcon();
-        public EmailAddress                   getSupportEmail();
-        public Webpage                        getWebpage();
+    public EmailAddress                   getSupportEmail();
+    public Webpage                        getWebpage();
 }

@@ -25,6 +25,7 @@ public class ApplicationByBuilder implements Application {
     private Icon icon;
     private EmailAddressImpl email;
     private WebpageImpl webpage;
+    private String description;
 
     public ApplicationByBuilder(final String name,
             final List<AuthorImpl> authors,
@@ -65,9 +66,8 @@ public class ApplicationByBuilder implements Application {
         return contributors;
     }
 
-    public String getDescprition() {
-        // TODO Auto-generated method stub
-        return null;
+    public String getDescription() {
+        return description;
     }
 
     public void setIcon(Icon icon) {
@@ -103,5 +103,9 @@ public class ApplicationByBuilder implements Application {
 
     public Webpage getWebpage() {
         return webpage;
+    }
+
+    public void setDescription(String localizedDescription) {
+        this.description = localizedDescription;
     }
 }

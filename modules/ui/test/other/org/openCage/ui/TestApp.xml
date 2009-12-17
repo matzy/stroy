@@ -24,7 +24,11 @@
   </contributors>
   <email>
     <email>mailto:me</email>
-  </email>  <licence>
+  </email>
+    <licence>
     <name>MPL 1.1</name>
   </licence>
+    <webpage>
+       <page>http://stroy.wikidot.og</page>
+    </webpage>
 </Application>

@@ -23,7 +23,7 @@ public class AppProviderXML implements Provider<Application>{
 //        ex = new File( iconpath ).exists();
         
 
-        return appFromConfig.get( xmlpath, iconpath );
+        return appFromConfig.get( xmlpath, iconpath, null );
 	}
 
 }

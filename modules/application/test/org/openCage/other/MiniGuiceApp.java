@@ -93,7 +93,7 @@ public class MiniGuiceApp {
 				new LicenceImpl("MPL 1.1"),
 				null,
 				"mailto:foo",
-                                "http://404");
+                "http://404");
 		
 		app.validate();
 		

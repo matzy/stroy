@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="fausterize" default="default" basedir=".">
     <import file="../../build-common.xml"/>
-    <property name = "version"  value="0.0.1" />
-    <property name = "buildnumber"     value="303"/>
+    <property name = "version"  value="0.2.0" />
+    <property name = "buildnumber"     value="323"/>
     <property name = "main"     value="org.openCage.gpad.UIMain"/>
     <property name = "app-name"     value="fausterize"/>
     <property name = "app-signature"     value="faust"/>

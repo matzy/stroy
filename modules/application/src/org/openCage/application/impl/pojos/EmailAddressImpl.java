@@ -33,7 +33,7 @@ public class EmailAddressImpl implements EmailAddress {
         try {
             emailURI = new URI(email);
             if ( emailURI.getScheme() == null || !emailURI.getScheme().equals("mailto")) {
-                throw new ValidationError( getClass(), "email address without mailto://" );
+                throw new ValidationError( getClass(), "email address without mailto:" );
             }
 
         } catch (URISyntaxException e) {
