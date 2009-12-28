@@ -21,12 +21,10 @@ package org.openCage.lang.errors;
 *
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
-
+                      
 /**
  * Wrapper for checked exceptions to be used in methods without throws
  * good for closures and slim code
- *
- * @author stephan
  */
 public class Unchecked extends Error {
 

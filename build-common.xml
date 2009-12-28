@@ -6,12 +6,18 @@
 
     <!-- ====== properties ========== -->
 
-    <property name="classes"    value="${dependencies.basedir}/build/classes/${ant.project.name}"/>
-    <property name="libs"       value="${dependencies.basedir}/build/libs"/>
-    <property name="dist"       value="${dependencies.basedir}/build/dist/${ant.project.name}"/>
-    <property name="module"     value="${dependencies.basedir}/modules/${ant.project.name}"/>
-    <property name="resources"  value="${dependencies.basedir}/build/resources/${ant.project.name}"/>
-    <property name="deploy"     value="${dependencies.basedir}/build/deploy/${ant.project.name}"/>
+    <property name="classes"         value="${dependencies.basedir}/build/classes/${ant.project.name}"/>
+    <property name="objc-classes"    value="${dependencies.basedir}/build/objc-classes/${ant.project.name}"/>
+    <property name="libs"            value="${dependencies.basedir}/build/libs"/>
+    <property name="objc-libs"       value="${dependencies.basedir}/build/objc-libs"/>
+    <property name="dist"            value="${dependencies.basedir}/build/dist/${ant.project.name}"/>
+    <property name="module"          value="${dependencies.basedir}/modules/${ant.project.name}"/>
+    <property name="resources"       value="${dependencies.basedir}/build/resources/${ant.project.name}"/>
+    <property name="deploy"          value="${dependencies.basedir}/build/deploy/${ant.project.name}"/>
+
+    <!-- ====== overrideable properties ========== -->
+
+    <!--<property name="version"     value="0.0.1"/>-->
 
     <!-- ====== extra tasks ========== -->
 
@@ -35,7 +41,9 @@
     <target  name="prepare">
             <tstamp/>
         <mkdir dir="${classes}"/>
+        <mkdir dir="${objc-classes}"/>
         <mkdir dir="${libs}"/>
+        <mkdir dir="${objc-libs}"/>
         <mkdir dir="${dist}"/>
         <mkdir dir="${resources}"/>
         <mkdir dir="${deploy}"/>
@@ -61,6 +69,29 @@
             <fileset dir="${module}/src" includes="**/*.png"/>
             <fileset dir="${module}/src" includes="**/*.txt"/>
          </copy>
+
+        <if>
+            <isset property="objective-c-helpviewer"/>
+            <then>
+                <!-- Create a JNI library for launching the Help Viewer -->
+                    <exec executable="cc">
+                        <arg line="-c"/>
+                        <arg line="-I/System/Library/Frameworks/JavaVM.framework/Headers"/>
+                        <arg line="-o ${objc-classes}/HelpBookJNI.o"/>
+                        <arg value="${module}/objc-src/HelpBookJNI.m"/>
+                    </exec>
+
+                    <exec executable="cc">
+                        <arg line="-dynamiclib"/>
+                        <arg line="-framework JavaVM"/>
+                        <arg line="-framework Cocoa"/>
+                        <arg line="-o ${objc-libs}/libHelpBookJNI.jnilib"/>
+                        <arg value="${objc-classes}/HelpBookJNI.o"/>
+                    </exec>
+
+                    <delete file="${objc-classes}/HelpBookJNI.o" quiet="true"/>
+            </then>
+        </if>
 
 
     </target>
@@ -95,10 +126,12 @@
         </jar>
     </target>
 
+    
+
     <target name="os-app" depends="dist" > <!-- ,jni"> -->
         <if >
            <isset property="app-name"/>
-            <then>
+           <then>
            <jarbundler dir="${deploy}"
                        verbose="true"
                        name="${app-name}"
@@ -112,27 +145,36 @@
                        build="${buildnumber}"
                        bundleid="${bundleid}"
                        icon="${module}/src/${osx-icon}"
+                       helpbookfolder="HelpBook"
+                       helpbookname="${app-name}"
                    >
-               <!--helpbookfolder="HelpBook"-->
-               <!--helpbookname="Stroy Help"-->
                <jarfileset refid="internalsSet"/>
-               <!--<jarfilelist dir="${lib}" files="stroy2ui.jar" />-->
 
                <!-- Copy the HelpBook JNI library  -->
-               <!--<javafilelist dir="${build-objc}" files="libHelpBookJNI.jnilib"/>-->
+               <javafilelist dir="${objc-libs}" files="libHelpBookJNI.jnilib"/>
 
                <javaproperty name="apple.laf.useScreenMenuBar" value="true"/>
                <javaproperty name="com.apple.macos.useScreenMenuBar" value="true"/>
 
-               <!--<HelpBook locale="English">-->
-                   <!--<fileset dir="${resources}/HelpBook/English" />-->
-                   <!--<fileset dir="${resources}/HelpBook/common" />-->
-               <!--</HelpBook>-->
+               <HelpBook locale="English">
+                   <fileset dir="${module}/src/${helpbook}/English" />
+                   <fileset dir="${module}/src/${helpbook}/common" />
+               </HelpBook>
 
-           </jarbundler>
+               <HelpBook locale="German">
+                   <fileset dir="${module}/src/${helpbook}/German" />
+                   <fileset dir="${module}/src/${helpbook}/common" />
+               </HelpBook>
+
+               <HelpBook locale="Japanese">
+                   <fileset dir="${module}/src/${helpbook}/Japanese" />
+                   <fileset dir="${module}/src/${helpbook}/common" />
+               </HelpBook>
+
+            </jarbundler>
             </then>
-           </if>
-       </target>
+        </if>
+    </target>
 
 
     <target name="dist" depends="create-jar" >

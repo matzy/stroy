@@ -30,6 +30,7 @@ public class UIMain {
 
     public static void main(String[] args) {
         Injector injector = Guice.createInjector( new FausterizeWiring() );
+
         FaustUI faust = injector.getInstance( FaustUI.class );
         faust.setVisible(true);
     }

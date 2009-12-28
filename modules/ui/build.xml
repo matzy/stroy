@@ -2,4 +2,6 @@
 <project name="ui" default="default" basedir=".">
     <import file="../../build-common.xml"/>
     <property  name = "version" value="0.0.2" />
+
+    <property name="objective-c-helpviewer" value="yes" /> 
 </project>

@@ -24,13 +24,25 @@ import java.util.Iterator;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
+/**
+ * Adds and index and isFirst and isLast to any Iteratable
+ * <pre>{@code for(Count<String> str : Count.count( stringlist)) \}
+ *                 System.out.println("idx " + str.dx() + " = " + str.obj() );
+ *                }</pre>
+ * @param <T> Any Type
+ * @throws UnsupportedOperationException on remove
+ */
 public class Count<T> implements Iterable<Count<T>>, Iterator<Count<T>> {
 
-    public  T           obj;
-    public  int         idx;
+    private  T           obj;
+    private  int         idx;
 
-    private Iterator<T> orig;
+    private final Iterator<T> orig;
 
+    /**
+     * Add an index and isLast and isFirst to any element in the iteration
+     * @param t
+     */
     public Count( final Iterable<T> t) {
         orig = t.iterator();
         idx  = -1;
@@ -54,15 +66,47 @@ public class Count<T> implements Iterable<Count<T>>, Iterator<Count<T>> {
         return this;
     }
 
+    /**
+     * returns true if it is the last element in the iteration
+     * @return if it is the last element in the iteration
+     */
     public boolean isLast() {
         return !hasNext();
     }
 
+    /**
+     * returns true if it is the first element in the iteration
+     * @return if it is the first element in the iteration
+     */
     public boolean isFirst() {
         return idx == 0;
     }
 
     public static <T> Count<T> count( Iterable<T> iter ) {
         return new Count<T>( iter );
+    }
+
+    /**
+     * returns the wrapped object of the iteration
+     * @return wrapped object of the iteration
+     */
+    public T obj() {
+        return obj;
+    }
+
+    /**
+     * return the index of the current iteration
+     * @return the index of the current iteration
+     */
+    public int idx() {
+        return idx;
+    }
+
+    @Override
+    public String toString() {
+        return "Count{" +
+                "obj=" + obj +
+                ", idx=" + idx +
+                '}';
     }
 }

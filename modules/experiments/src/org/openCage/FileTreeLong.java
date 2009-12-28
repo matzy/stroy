@@ -145,7 +145,8 @@ public class FileTreeLong extends JPanel {
     Container cp = frame.getContentPane();
 
     if (av.length == 0) {
-      cp.add(new FileTreeLong(new File("\\\\127.0.0.1\\c$\\home\\accurev\\CICOTeam\\muc-server\\muc-external\\AAFExpander\\aafexpander-jardist\\")));
+//        cp.add(new FileTreeLong(new File("\\\\127.0.0.1\\c$\\home\\accurev\\CICOTeam\\muc-server\\muc-external\\AAFExpander\\aafexpander-jardist\\")));
+        cp.add(new FileTreeLong(new File("/Users/stephan")));
     } else {
       cp.setLayout(new BoxLayout(cp, BoxLayout.X_AXIS));
       for (int i = 0; i < av.length; i++)

@@ -35,9 +35,10 @@ import java.net.URISyntaxException;
 *
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
+
 public class FausterizerUI extends JFrame {
 
-    private JTextArea textUI = new JTextArea();
+    private final JTextArea textUI = new JTextArea();
     TextEncoder<String> tts;
 
     public FausterizerUI(String pad, final String message ) {

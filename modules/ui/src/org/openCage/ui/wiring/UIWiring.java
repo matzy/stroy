@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.openCage.ui.wiring;
 
 import com.google.inject.Binder;
@@ -11,28 +7,66 @@ import com.muchsoft.util.Sys;
 import org.openCage.application.wiring.ApplicationWiring;
 import org.openCage.localization.protocol.Localize;
 import org.openCage.localization.wiring.LocalizeWiring;
-import org.openCage.ui.impl.*;
+import org.openCage.ui.impl.FileChooserGeneral;
+import org.openCage.ui.impl.FileChooserOSX;
+import org.openCage.ui.impl.FileChooserWindows;
+import org.openCage.ui.impl.GlobalKeyEventHandlerImpl;
+import org.openCage.ui.impl.MenuBuilderImpl;
+import org.openCage.ui.impl.OSXStandardEventHandlerImpl;
+import org.openCage.ui.impl.UILocalizeProvider;
 import org.openCage.ui.impl.about.AboutSheetFromApplication;
-import org.openCage.ui.protocol.*;
+import org.openCage.ui.impl.help.HelpViewerOSX;
+import org.openCage.ui.impl.pref.LocalePrefBuilderImpl;
+import org.openCage.ui.protocol.AboutSheet;
+import org.openCage.ui.protocol.FileChooser;
+import org.openCage.ui.protocol.GlobalKeyEventHandler;
+import org.openCage.ui.protocol.HelpViewer;
+import org.openCage.ui.protocol.PrefBuilder;
+import org.openCage.ui.protocol.MenuBuilder;
+import org.openCage.ui.protocol.OSXStandardEventHandler;
 
-/**
+import static org.openCage.ui.Constants.*;
+
+/***** BEGIN LICENSE BLOCK *****
+ * Version: MPL 1.1
  *
- * @author stephan
- */
+ * The contents of this file are subject to the Mozilla Public License Version
+ * 1.1 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ * http://www.mozilla.org/MPL/
+ *
+ * Software distributed under the License is distributed on an "AS IS" basis,
+ * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+ * for the specific language governing rights and limitations under the
+ * License.
+ *
+ * The Original Code is stroy code.
+ *
+ * The Initial Developer of the Original Code is Stephan Pfab <openCage@gmail.com>.
+ * Portions created by Stephan Pfab are Copyright (C) 2006 - 2010.
+ * All Rights Reserved.
+ *
+ * Contributor(s):
+ ***** END LICENSE BLOCK *****/
+
+@SuppressWarnings({"OverlyCoupledClass"})
 public class UIWiring implements Module {
 
+    @Override
     public void configure(Binder binder) {
 
         binder.install(new LocalizeWiring());
         binder.install(new ApplicationWiring());
 
         binder.bind(Localize.class).
-                annotatedWith(Names.named("ui")).toProvider(UILocalizeProvider.class);
+                annotatedWith(Names.named(UI)).toProvider(UILocalizeProvider.class);
 
         if (Sys.isMacOSX()) {
             binder.bind(FileChooser.class).to(FileChooserOSX.class);
         } else if (Sys.isWindows()) {
             binder.bind(FileChooser.class).to(FileChooserWindows.class);
+        } else {
+            binder.bind(FileChooser.class).to(FileChooserGeneral.class);            
         }
 
         binder.bind( AboutSheet.class ).
@@ -42,6 +76,12 @@ public class UIWiring implements Module {
 
         binder.bind(MenuBuilder.class).to( MenuBuilderImpl.class );
         binder.bind( GlobalKeyEventHandler.class ).to( GlobalKeyEventHandlerImpl.class );
+
+        if (Sys.isMacOSX()) {
+            binder.bind(HelpViewer.class).to(HelpViewerOSX.class);
+        }
+
+        binder.bind(PrefBuilder.class ).annotatedWith( Names.named(LOCALE)).to(LocalePrefBuilderImpl.class);
 
     }
 

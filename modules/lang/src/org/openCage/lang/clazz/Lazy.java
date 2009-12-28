@@ -31,12 +31,13 @@ import org.openCage.lang.protocol.FE0;
  * i.e. a memoization method
  * no protection against trows
  * this is similar to FutureTask
+ * @param <T> Any type
  */
 public class Lazy<T> {
     private T              obj;
     private Boolean        evaluated = false;
     private Error          exp       = null;
-    private final FE0<T> func;
+    private final FE0<T>   func;
 
     public Lazy( FE0<T> func ) {
         this.func = func;

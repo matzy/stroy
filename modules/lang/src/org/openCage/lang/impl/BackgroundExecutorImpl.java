@@ -27,6 +27,10 @@ import org.openCage.lang.protocol.FE0;
  *
  * Contributor(s):
  ***** END LICENSE BLOCK *****/
+
+/**
+ * Executes tasks repeatedly (every  10s) and/or at the end of the program
+ */
 public class BackgroundExecutorImpl implements BackgroundExecutor {
 
     private static final int WAITING = 10000; // 10s

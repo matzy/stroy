@@ -16,6 +16,7 @@ public class ApplicationProvider implements Provider<Application >{
 	public Application get() {
 		
 		return fromConfig.get( getClass().getResource( "StroyApp.xml" ),
-				               getClass().getResource( "stroy.png"));
+				               getClass().getResource( "stroy.png"),
+                               "nonlocalized description" );
 	}	
 }

@@ -32,10 +32,11 @@ import java.util.*;
 *
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
+
 public class FaustNum implements TextEncoder<Character> {
 
     List<String>[] num2line;
-    Set<String> knownLines = new HashSet();
+    Set<String> knownLines = new HashSet<String>();
     Map<String,Integer> line2num = new HashMap<String,Integer>();
 
     public FaustNum() {

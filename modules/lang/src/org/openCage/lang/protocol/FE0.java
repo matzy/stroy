@@ -27,6 +27,10 @@ package org.openCage.lang.protocol;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
+/**
+ * Generic method with one paramater throwing some exception
+ * @param <R> Any type
+ */
 public interface FE0<R> {
     public R call() throws Exception;
 

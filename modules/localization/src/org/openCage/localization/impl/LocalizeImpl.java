@@ -7,26 +7,50 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import org.openCage.localization.protocol.Localize;
-import org.openCage.localization.protocol.TheLocale;
+import org.openCage.property.protocol.Property;
+
+/***** BEGIN LICENSE BLOCK *****
+* Version: MPL 1.1
+*
+* The contents of this file are subject to the Mozilla Public License Version
+* 1.1 (the "License"); you may not use this file except in compliance with
+* the License. You may obtain a copy of the License at
+* http://www.mozilla.org/MPL/
+*
+* Software distributed under the License is distributed on an "AS IS" basis,
+* WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+* for the specific language governing rights and limitations under the
+* License.
+*
+* The Original Code is stroy code.
+*
+* The Initial Developer of the Original Code is Stephan Pfab <openCage@gmail.com>.
+* Portions created by Stephan Pfab are Copyright (C) 2006 - 2010.
+* All Rights Reserved.
+*
+* Contributor(s):
+***** END LICENSE BLOCK *****/
 
 public class LocalizeImpl implements Localize {
 
-	private final String         bundleName;
-	private final List<Localize> parents    = new ArrayList<Localize>();
-	private final TheLocale      theLocale;
+	private final String           bundleName;
+	private final List<Localize>   parents    = new ArrayList<Localize>();
+	private final Property<Locale> theLocale;
 	
 	
-	public LocalizeImpl( String name, List<Localize> parents, TheLocale theLocale ) {
+	public LocalizeImpl( String name, List<Localize> parents, Property<Locale> theLocale ) {
 		this.parents.addAll( parents );
 		this.bundleName = name;
 		this.theLocale = theLocale;
 	}
 	
-	public String localize(String key) {		
-		return localize( theLocale.getLocale(), key );
+	@Override
+    public String localize(String key) {
+		return localize( theLocale.get(), key );
 	}
 
-	public String localize(Locale locale, String key) {
+	@Override
+    public String localize(Locale locale, String key) {
 		ResourceBundle bundle = ResourceBundle.getBundle( bundleName, locale );
 		try {
 			return bundle.getString(key);
@@ -34,13 +58,23 @@ public class LocalizeImpl implements Localize {
 			for ( Localize parent : parents ) {
 				try {
 					return parent.localize( locale, key);
-				} catch ( MissingResourceException parentExp ) {					
+				} catch ( MissingResourceException ignored) {					
 				}
 			}
 			
 			throw exp;
 		}
 	}
+
+    @Override
+    public Locale getLocale() {
+        return theLocale.get();
+    }
+
+    @Override
+    public void setLocale(Locale locale) {
+        theLocale.set( locale );
+    }
 
 
 }

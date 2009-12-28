@@ -74,7 +74,7 @@ public class DynamicBitArray {
 
             for ( int i = 0; i < to; i++ ) {
                 byte pattern = (byte) (1 << i);
-                if ( (by.obj & pattern) == pattern ) {
+                if ( (by.obj() & pattern) == pattern ) {
                     ret += "1";
                 } else {
                     ret += "0";
@@ -99,7 +99,7 @@ public class DynamicBitArray {
 
             for ( int i = 0; i < to; i++ ) {
                 byte pattern = (byte) (1 << i);
-                if ( (by.obj & pattern) == pattern ) {
+                if ( (by.obj() & pattern) == pattern ) {
                     ret += "1";
                 } else {
                     ret += "0";

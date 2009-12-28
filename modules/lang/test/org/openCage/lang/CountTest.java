@@ -38,8 +38,8 @@ public class CountTest {
 
         int i = 0;
         for ( Count<Integer> ci : Count.count( list )) {
-            assertEquals( "index: ", i, ci.idx );
-            assertEquals( "elem: ", i, ci.obj.intValue() );
+            assertEquals( "index: ", i, ci.idx() );
+            assertEquals( "elem: ", i, ci.obj().intValue() );
             assertEquals( "first: ", i == 0 , ci.isFirst() );
             assertEquals( "last: ", i == 4 , ci.isLast() );
 

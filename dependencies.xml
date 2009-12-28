@@ -17,12 +17,12 @@
     </target>
     <!-- ================================================================== -->
     <target name="depend.ui"
-            depends="depend.lang, depend.localization, depend.application, designgridlayout">
+            depends="depend.lang, depend.localization, depend.application, depend.io, designgridlayout, guice, preferencePanel, jgoodies-binding">
         <ant dir="${dependencies.basedir}/modules/ui" inheritAll="false"/>
     </target>
     <!-- ================================================================== -->
     <target name="depend.application"
-            depends="depend.lang, depend.localization, depend.io, xstream, jcip-annotations, annotations, commons-io">
+            depends="depend.lang, depend.localization, depend.io, xstream, jcip-annotations, idea-annotations, commons-io">
         <ant dir="${dependencies.basedir}/modules/application" inheritAll="false"/>
     </target>
     <!-- ================================================================== -->
@@ -31,12 +31,18 @@
         <ant dir="${dependencies.basedir}/modules/io" inheritAll="false"/>
     </target>
     <!-- ================================================================== -->
-    <target name="depend.localization" >
+    <target name="depend.localization"
+            depends="depend.property">
         <ant dir="${dependencies.basedir}/modules/localization" inheritAll="false"/>
     </target>
     <!-- ================================================================== -->
     <target name="depend.vfs" >
         <ant dir="${dependencies.basedir}/modules/vfs" inheritAll="false"/>
+    </target>
+    <!-- ================================================================== -->
+    <target name="depend.property"
+            depends= "depend.lang, commons-io, guice, idea-annotations, xstream">
+        <ant dir="${dependencies.basedir}/modules/property" inheritAll="false"/>
     </target>
     <!-- ================================================================== -->
     <target name="depend.lang"
@@ -66,7 +72,7 @@
         <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/commons-lang-2.4.jar"/>
     </target>
     <!-- ================================================================== -->
-    <target name="annotations">
+    <target name="idea-annotations">
         <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/annotations.jar"/>
     </target>
     <!-- ================================================================== -->
@@ -85,6 +91,10 @@
     <!-- ================================================================== -->
     <target name="xstream">
         <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/xstream-1.3.1.jar"/>
+        <!--<copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/xstream-1.3.1.jar" />-->
+        <!--<echo message="http://xstream.codehaus.org xstream" file="${dependencies.basedir}/build/resources/libs.html"-->
+                <!--/>-->
+
     </target>
     <!-- ================================================================== -->
     <target name="forms">
@@ -110,5 +120,13 @@
     <target name="jdic">
         <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/jdic.jar"/>
         <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/jdic.dll"/>
+    </target>
+    <!-- ================================================================== -->
+    <target name="preferencePanel">
+        <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/PreferencePanel.jar"/>
+    </target>
+    <!-- ================================================================== -->
+    <target name="jgoodies-binding">
+        <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/binding-2.0.6.jar"/>
     </target>
 </project>

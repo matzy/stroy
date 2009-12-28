@@ -1,6 +1,7 @@
 package org.openCage.ui.impl.about;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -11,7 +12,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import net.java.dev.designgridlayout.DesignGridLayout;
-import net.java.dev.designgridlayout.IGridRow;
 
 
 import org.apache.commons.lang.StringUtils;
@@ -27,6 +27,28 @@ import com.google.inject.name.Named;
 import org.openCage.ui.impl.BrowseTmp;
 import org.openCage.ui.protocol.AboutSheet;
 import org.openCage.ui.protocol.GlobalKeyEventHandler;
+
+/***** BEGIN LICENSE BLOCK *****
+* Version: MPL 1.1
+*
+* The contents of this file are subject to the Mozilla Public License Version
+* 1.1 (the "License"); you may not use this file except in compliance with
+* the License. You may obtain a copy of the License at
+* http://www.mozilla.org/MPL/
+*
+* Software distributed under the License is distributed on an "AS IS" basis,
+* WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+* for the specific language governing rights and limitations under the
+* License.
+*
+* The Original Code is stroy code.
+*
+* The Initial Developer of the Original Code is Stephan Pfab <openCage@gmail.com>.
+* Portions created by Stephan Pfab are Copyright (C) 2006 - 2010.
+* All Rights Reserved.
+*
+* Contributor(s):
+***** END LICENSE BLOCK *****/
 
 public class AboutSheetFromApplication extends JDialog implements AboutSheet {
 
@@ -48,7 +70,7 @@ public class AboutSheetFromApplication extends JDialog implements AboutSheet {
 	private void build() {
         setTitle( app.gettName() );
         setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
-        setSize( 400, 200 );
+        setBounds( 20, 20,400, 200 );
 
         JPanel top = new JPanel();
         DesignGridLayout layout = new DesignGridLayout( top );
@@ -74,7 +96,7 @@ public class AboutSheetFromApplication extends JDialog implements AboutSheet {
 
         String str = "";
         for ( Count<? extends Author> author : Count.count(app.getAuthors()) ) {
-            str += author.obj.gettName();
+            str += author.obj().gettName();
 
             if ( !author.isLast() ) {
                 str += "; ";
@@ -87,7 +109,7 @@ public class AboutSheetFromApplication extends JDialog implements AboutSheet {
         
         str = "";
         for ( Count<? extends Author> author : Count.count(app.getContributors()) ) {
-            str += author.obj.gettName();
+            str += author.obj().gettName();
 
             if ( !author.isLast() ) {
                 str += "; ";
@@ -163,8 +185,13 @@ public class AboutSheetFromApplication extends JDialog implements AboutSheet {
     }
     
     private JLabel newIntro( String txt ) {
-        JLabel label = new JLabel( txt + ": ");
-        return label;
+        return new JLabel( txt + ": ");
     }
-	
+
+    @Override
+    public String toString() {
+        return "AboutSheetFromApplication{" +
+                "app=" + app +
+                '}';
+    }
 }

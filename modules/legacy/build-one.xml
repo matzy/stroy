@@ -122,7 +122,7 @@
 
 
     <!-- Create a JNI library for launching the Help Viewer -->
-    <target name="jni"  description="Create HelpBook JNI Library">
+    <target name="jni"  description="Create org.openCage.gpad.HelpBook JNI Library">
         <exec executable="cc">
             <arg line="-c"/>
             <arg line="-I/System/Library/Frameworks/JavaVM.framework/Headers"/>
@@ -155,22 +155,22 @@
                     infostring="stroy, ${copyright}"
                     build="${buildnumber}"
                     bundleid="org.openCage.stroy"
-                    helpbookfolder="HelpBook"
+                    helpbookfolder="org.openCage.gpad.HelpBook"
                     helpbookname="Stroy Help"
                     icon="src/org/openCage/stroy/ui/stroy.icns">
             <jarfileset refid="externalsSet"/>
             <jarfilelist dir="${lib}" files="stroy2ui.jar" />
 
-            <!-- Copy the HelpBook JNI library  -->
+            <!-- Copy the org.openCage.gpad.HelpBook JNI library  -->
             <javafilelist dir="${build-objc}" files="libHelpBookJNI.jnilib"/>
 
             <javaproperty name="apple.laf.useScreenMenuBar" value="true"/>
             <javaproperty name="com.apple.macos.useScreenMenuBar" value="true"/>
 
-            <HelpBook locale="English">
+            <org.openCage.gpad.HelpBook locale="English">
                 <fileset dir="${resources}/HelpBook/English" />
                 <fileset dir="${resources}/HelpBook/common" />
-            </HelpBook>
+            </org.openCage.gpad.HelpBook>
 
         </jarbundler>
 
@@ -189,22 +189,22 @@
                     infostring="stroy, ${copyright}"
                     build="${buildnumber}"
                     bundleid="org.openCage.stroy"
-                    helpbookfolder="HelpBook"
+                    helpbookfolder="org.openCage.gpad.HelpBook"
                     helpbookname="Stroy Help"
                     icon="src/org/openCage/stroy/ui/stroy.icns">
             <jarfileset refid="externalsSet"/>
             <jarfilelist dir="${lib}" files="stroy2ui.jar" />
 
-            <!-- Copy the HelpBook JNI library  -->
+            <!-- Copy the org.openCage.gpad.HelpBook JNI library  -->
             <javafilelist dir="${build-objc}" files="libHelpBookJNI.jnilib"/>
 
             <javaproperty name="apple.laf.useScreenMenuBar" value="true"/>
             <javaproperty name="com.apple.macos.useScreenMenuBar" value="true"/>
 
-            <HelpBook locale="Japanese">
+            <org.openCage.gpad.HelpBook locale="Japanese">
                 <fileset dir="${resources}/HelpBook/English" />
                 <fileset dir="${resources}/HelpBook/common" />
-            </HelpBook>
+            </org.openCage.gpad.HelpBook>
 
         </jarbundler>
 

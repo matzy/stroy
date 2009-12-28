@@ -5,25 +5,43 @@ import com.google.inject.name.Named;
 import com.muchsoft.util.Sys;
 import org.openCage.application.protocol.Application;
 import org.openCage.localization.protocol.Localize;
+import org.openCage.ui.impl.help.HelpLauncher;
 import org.openCage.ui.protocol.AboutSheet;
+import org.openCage.ui.protocol.HelpViewer;
 import org.openCage.ui.protocol.MenuBuilder;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**
- * Created by IntelliJ IDEA.
- * User: stephan
- * Date: Dec 14, 2009
- * Time: 5:59:11 PM
- * To change this template use File | Settings | File Templates.
- */
+/***** BEGIN LICENSE BLOCK *****
+* Version: MPL 1.1
+*
+* The contents of this file are subject to the Mozilla Public License Version
+* 1.1 (the "License"); you may not use this file except in compliance with
+* the License. You may obtain a copy of the License at
+* http://www.mozilla.org/MPL/
+*
+* Software distributed under the License is distributed on an "AS IS" basis,
+* WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+* for the specific language governing rights and limitations under the
+* License.
+*
+* The Original Code is stroy code.
+*
+* The Initial Developer of the Original Code is Stephan Pfab <openCage@gmail.com>.
+* Portions created by Stephan Pfab are Copyright (C) 2006 - 2010.
+* All Rights Reserved.
+*
+* Contributor(s):
+***** END LICENSE BLOCK *****/
+
 public class MenuBuilderImpl implements MenuBuilder {
 
     private final Localize loca;
     private final Application app;
     private final AboutSheet aboutSheet;
+    private final HelpViewer helpViewer;
 
     private JMenuBar mbar = new JMenuBar();
     private boolean showPrefs = true;
@@ -33,15 +51,15 @@ public class MenuBuilderImpl implements MenuBuilder {
     private boolean showHelp;
     private JMenu menuView;
 
-    private boolean isMac = false; //Sys.isMacOSX();
-
+    private boolean isMac = Sys.isMacOSX();
 
 
     @Inject
-    public MenuBuilderImpl( Application app, @Named( "ui" ) Localize loca, 	AboutSheet aboutSheet ) {
+    public MenuBuilderImpl( Application app, @Named( "ui" ) Localize loca, 	AboutSheet aboutSheet, HelpViewer helpViewer ) {
         this.app = app;
         this.loca = loca;
         this.aboutSheet = aboutSheet;
+        this.helpViewer = helpViewer;
 
         menuFile = new JMenu( loca.localize( "org.openCage.localization.dict.file" ) );
         menuView = new JMenu( loca.localize( "org.openCage.localization.dict.view" ) );
@@ -82,7 +100,7 @@ public class MenuBuilderImpl implements MenuBuilder {
         mbar.add( menuFile );
 
         if (showPrefs) {
-            if ( isMac ) {
+            if ( !isMac ) {
                 JMenuItem prefs = new JMenuItem( loca.localize( "org.openCage.localization.dict.preference" ));
                 menuFile.add( prefs );
             }
@@ -174,13 +192,13 @@ public class MenuBuilderImpl implements MenuBuilder {
 //
 ////        menuHelp.addSeparator();
 //
-//        JMenuItem help = new JMenuItem( Message.get(  "Menu.Help" ));
-//        menuHelp.add( help );
-//        help.addActionListener( new ActionListener() {
-//            public void actionPerformed(ActionEvent actionEvent) {
-//                HelpLauncher.showHelp();
-//            }
-//        });
+        JMenuItem help = new JMenuItem( loca.localize("org.openCage.localization.dict.help" ));
+        menuHelp.add( help );
+        help.addActionListener( new ActionListener() {
+            public void actionPerformed(ActionEvent actionEvent) {
+                helpViewer.viewHelp();
+            }
+        });
 
     }
 

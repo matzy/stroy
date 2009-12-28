@@ -21,11 +21,11 @@ package org.openCage.lang.protocol;
 *
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
+
 /**
  * A generic function with one argument
- * @author stephan
- * @param <R>
- * @param <A>
+ * @param <R> Any type
+ * @param <A> Any type
  */
 public interface F1<R,A> {
 	public R call( A a);

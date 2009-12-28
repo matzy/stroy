@@ -2,7 +2,6 @@ package org.openCage.util.logging;
 
 import org.openCage.util.prefs.PListSelectionString;
 import org.openCage.util.prefs.ListSelection;
-import org.jetbrains.annotations.NonNls;
 
 import java.util.logging.Logger;
 import java.util.logging.Level;
@@ -34,7 +33,7 @@ import java.util.logging.Handler;
 public class Log {
 
     // one logger for all openCage apps
-    private static Logger logger = Logger.getLogger( Log.class.getName() );
+    private static final Logger logger = Logger.getLogger( Log.class.getName() );
 
     static {
         String[] levelNames = { "ALL", "FINEST", "FINER", "FINE", "CONFIG", "INFO", "WARNING", "SEVERE", "OFF" };
@@ -51,7 +50,7 @@ public class Log {
         while ( logIt != null ) {
             System.out.println("logger: " + logIt.getName() + " " + logIt.getLevel().getName());
 
-            Handler[] handlers = java.util.logging.Logger.getLogger( logIt.getName() ).getHandlers();
+            Handler[] handlers = Logger.getLogger( logIt.getName() ).getHandlers();
 
             for (Handler handler : handlers) {
                 System.out.println("   handler: " + handler.getClass().getName() + " " + handler.getLevel().getName() );
@@ -98,7 +97,7 @@ public class Log {
         // crank them up. We could crank up only some of them
         // if we wanted, but we will turn them all up.
 
-        Handler[] handlers = java.util.logging.Logger.getLogger( "" ).getHandlers();
+        Handler[] handlers = Logger.getLogger( "" ).getHandlers();
 
         for (Handler handler : handlers) {
             handler.setLevel( level );

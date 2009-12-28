@@ -10,6 +10,8 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="production" level="project" />
     <orderEntry type="library" name="test" level="project" />
+    <orderEntry type="module" module-name="Property" />
+    <orderEntry type="module" module-name="Lang" />
   </component>
 </module>
 

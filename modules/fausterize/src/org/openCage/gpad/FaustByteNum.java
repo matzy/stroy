@@ -4,15 +4,25 @@ import org.apache.commons.io.IOUtils;
 import org.jetbrains.annotations.NotNull;
 import org.openCage.huffman.DynamicBitArray;
 import org.openCage.huffman.Huffman;
+import org.openCage.lang.errors.Unchecked;
 import org.openCage.lang.protocol.FE1;
 import org.openCage.withResource.impl.WithImpl;
-import org.openCage.withResource.protocol.FileLineIterable;
 import org.openCage.withResource.protocol.Iterators;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URI;
-import java.util.*;
-import java.util.zip.Deflater;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.logging.Logger;
+
+import static org.openCage.lang.clazz.MathOps.xor;
 
 
 /***** BEGIN LICENSE BLOCK *****
@@ -38,15 +48,17 @@ import java.util.zip.Deflater;
 ***** END LICENSE BLOCK *****/
 public class FaustByteNum implements TextEncoderIdx<Byte> {
 
-    List<String>[] num2line;
-    Set<String> knownLines = new HashSet();
-    Map<String,Integer> line2num = new HashMap<String,Integer>();
+    List<String>[]          num2line;
+    Set<String>             knownLines = new HashSet<String>();
+    Map<String,Integer>     line2num = new HashMap<String,Integer>();
     private DynamicBitArray pad;
-
+    private static final int PAD_SIZE = 10000;
+    private static final int UNSIGNED_BYTE_MAX = 256;
+    private static final Logger LOG = Logger.getLogger( FaustByteNum.class.getName());
 
 
     public void setPad( @NotNull URI path ) {
-        final byte[] uncompressedPad = new byte[10000];
+        final byte[] uncompressedPad = new byte[PAD_SIZE];
         new WithImpl().withInputStream( path, new FE1<Integer, InputStream>() {
             public Integer call(InputStream inputStream) throws Exception {
                 return inputStream.read( uncompressedPad );
@@ -54,7 +66,6 @@ public class FaustByteNum implements TextEncoderIdx<Byte> {
         });
 
         pad = new Huffman().encode( uncompressedPad );// compress( uncompressedPad );
-        int i = 0;
     }
 
     public boolean isSet() {
@@ -62,8 +73,8 @@ public class FaustByteNum implements TextEncoderIdx<Byte> {
     }
 
     public FaustByteNum() {
-        num2line = new List[256];
-        for ( int i = 0; i < 256; ++i ) {
+        num2line = new List[UNSIGNED_BYTE_MAX];
+        for ( int i = 0; i < UNSIGNED_BYTE_MAX; ++i ) {
             num2line[i] = new ArrayList<String>();
         }
 
@@ -83,13 +94,14 @@ public class FaustByteNum implements TextEncoderIdx<Byte> {
 
                 ++idx;
                 knownLines.add( str );
-                num2line[idx % 256].add(str);
-                line2num.put( str, idx % 256 );
+                num2line[idx % UNSIGNED_BYTE_MAX].add(str);
+                line2num.put( str, idx % UNSIGNED_BYTE_MAX);
             }
 
 
         } catch (IOException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            LOG.severe( "can't read internal resource" );
+            throw new Unchecked(e);
         } finally {
             IOUtils.closeQuietly( reader );
         }
@@ -109,12 +121,9 @@ public class FaustByteNum implements TextEncoderIdx<Byte> {
             throw new IllegalStateException("no pad yet");
         }
 
-        return xor((byte)((line2num.get( line ).intValue()) + Byte.MIN_VALUE), getByte(idx));
+        return xor((byte)((line2num.get(line)) + Byte.MIN_VALUE), getByte(idx));
     }
 
-    public static byte xor( byte a, byte b ) {
-        return (byte)((int)a ^ (int)b);
-    }
 
 
 

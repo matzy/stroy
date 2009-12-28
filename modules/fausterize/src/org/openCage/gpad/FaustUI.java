@@ -6,11 +6,16 @@ import com.google.inject.name.Named;
 import org.openCage.application.protocol.Application;
 import org.openCage.fspath.clazz.FSPathBuilder;
 import org.openCage.lang.protocol.BackgroundExecutor;
+import org.openCage.lang.protocol.F0;
 import org.openCage.lang.protocol.FE0;
 import org.openCage.lang.protocol.FE1;
 import org.openCage.localization.protocol.Localize;
+import org.openCage.ui.*;
+import org.openCage.ui.clazz.PreferenceFrame;
 import org.openCage.ui.protocol.AboutSheet;
 import org.openCage.ui.protocol.FileChooser;
+import org.openCage.ui.protocol.PrefBuilder;
+import org.openCage.ui.protocol.MenuBuilder;
 import org.openCage.ui.protocol.OSXStandardEventHandler;
 import org.openCage.withResource.protocol.FileLineIterable;
 import org.openCage.withResource.protocol.With;
@@ -27,6 +32,9 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.Writer;
 import java.net.URI;
+
+import static org.openCage.gpad.Constants.*;
+import static org.openCage.ui.Constants.*;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -73,7 +81,11 @@ public class FaustUI extends JFrame {
                     AboutSheet about,
                     OSXStandardEventHandler osxEventHandler,
                     BackgroundExecutor executor,
-                    @Named( "fausterize") Localize localize ) {
+                    @Named(FAUSTERIZE) Localize localize,
+                    MenuBuilder menubuilder,
+                    @Named(LOCALE) PrefBuilder localePrefBuilder,
+                    @Named( FAUSTERIZE ) PrefBuilder codePref,
+                    final PreferenceFrame prefFrame ) {
 
         this.application     = application;
         this.with            = wth;
@@ -84,15 +96,16 @@ public class FaustUI extends JFrame {
         this.localize        = localize;
 
         // TODO remove magic strings
-        message = FSPathBuilder.getHome().add( ".openCage", "1.fst1").toString();
+        message = FSPathBuilder.getHome().add(PROJECT_DIR, "1.fst1").toString();
         new File( message ).getParentFile().mkdirs();
 
 
-        padButton.setBackground( Color.LIGHT_GRAY );
+        padButton.setBackground( Color.DARK_GRAY);
         final JFrame theFrame = this;
         padButton.addActionListener( new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
-                String path = fileChooser.open( theFrame, "/");
+                String path = fileChooser.open( theFrame, FSPathBuilder.getARoot().toString());
                 if ( path != null ) {
                     setPad( new File( path ).toURI(), message );
                     setTextEnabled( true );
@@ -122,13 +135,14 @@ public class FaustUI extends JFrame {
         //padButton.putClientProperty("JButton.buttonType", "textured");
         final JTextField textField = new JTextField(10);
         textField.putClientProperty("JTextField.variant", "search");
-        toolBar.addComponentToRight(new LabeledComponentGroup("Search", textField).getComponent());
+        toolBar.addComponentToRight( new LabeledComponentGroup( localize.localize( "org.openCage.localization.dict.search"),
+                                                                textField).getComponent());
         
 
         getContentPane().add( toolBar.getComponent(), BorderLayout.NORTH );
 
-        BottomBar bottomBar = new BottomBar(BottomBarSize.LARGE);
-//        bottomBar.addComponentToCenter(MacWidgetFactory.createEmphasizedLabel(message));
+        BottomBar bottomBar = new BottomBar(BottomBarSize.SMALL);
+        bottomBar.addComponentToCenter(MacWidgetFactory.createEmphasizedLabel( message ));
         getContentPane().add( bottomBar.getComponent(), BorderLayout.SOUTH );
 
         setTitle( application.gettName());
@@ -139,6 +153,7 @@ public class FaustUI extends JFrame {
         
 
         textField.addKeyListener( new KeyAdapter(){
+            @Override
             public void keyReleased(KeyEvent keyEvent) {
                 super.keyReleased( keyEvent );
                 String searchStr = textField.getText();
@@ -162,6 +177,7 @@ public class FaustUI extends JFrame {
         pack();
 
         executor.addPeriodicAndExitTask( new FE0<Void>() {
+            @Override
             public Void call() throws Exception {
 
                 if ( textUI.getText().length() > 0 && textEncoder != null && textEncoder.isSet()) {
@@ -175,6 +191,21 @@ public class FaustUI extends JFrame {
                 return null;
             }
         });
+
+
+        menubuilder.setMenuOnFrame( this );
+
+        prefFrame.addRow( "woo" ).add( codePref).add( localePrefBuilder ).build();
+
+        osxEventHandler.addPrefsDelegate( new F0<Void>() {
+            @Override
+            public Void call() {
+                prefFrame.setVisible( true );
+                return null;
+            }
+        });
+
+
 
     }
 

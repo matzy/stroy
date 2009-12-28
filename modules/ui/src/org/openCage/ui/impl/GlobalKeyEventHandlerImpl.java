@@ -35,7 +35,7 @@ import java.util.List;
 @Singleton
 public class GlobalKeyEventHandlerImpl implements GlobalKeyEventHandler, KeyEventPostProcessor {
 
-    private List<GlobalKeyEventListener> listeners = new ArrayList<GlobalKeyEventListener>();
+    private final List<GlobalKeyEventListener> listeners = new ArrayList<GlobalKeyEventListener>();
     
     public GlobalKeyEventHandlerImpl() {
         // this call requires singleton scope in guice
