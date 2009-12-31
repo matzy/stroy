@@ -2,7 +2,7 @@ package org.openCage.stroy.app.lega;
 //package org.openCage.stroy.app;
 //
 //import org.openCage.util.app.AppInfo;
-//import org.openCage.util.app.Reference;
+//import org.openCage.webgen.clazz.Reference;
 //import org.openCage.util.app.Change;
 //import org.openCage.util.app.Version2;
 //

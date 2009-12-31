@@ -1,8 +1,8 @@
 //package org.openCage.util.app.gen;
 //
 //import org.openCage.application.protocol.Application;
-//import org.openCage.util.app.Reference;
-//import org.openCage.util.www.html.HtmlGen;
+//import org.openCage.webgen.clazz.Reference;
+//import org.openCage.webgen.clazz.HtmlGen;
 //
 ///***** BEGIN LICENSE BLOCK *****
 //* Version: MPL 1.1

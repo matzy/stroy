@@ -1,6 +1,6 @@
 //package org.openCage.util.app;
 //
-//import org.openCage.util.www.wikidot.WikiDotGen;
+//import org.openCage.webgen.clazz.WikiDotGen;
 //
 ///***** BEGIN LICENSE BLOCK *****
 //* Version: MPL 1.1

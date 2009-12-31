@@ -1,7 +1,11 @@
-package org.openCage.util.app;
+package org.openCage.webgen.clazz;
 
-import org.openCage.util.www.wikidot.WikiDotGen;
-import org.openCage.util.www.html.HtmlGen;
+import com.sun.tools.javac.main.JavaCompiler;
+import org.openCage.lang.clazz.Count;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -43,6 +47,9 @@ public class Reference {
     private String typ;
     private String version;
 
+    private String libName;
+    private List<String> dependencies = new ArrayList<String>();
+
 
     public Reference( String prog  ) {
         this.prog = prog;
@@ -61,6 +68,11 @@ public class Reference {
     public Reference address( String address, String shortAdd ) {
         this.address = address;
         this.shortAddress = shortAdd;
+        return this;
+    }
+
+    public Reference libName( String libName ) {
+        this.libName = libName;
         return this;
     }
 
@@ -98,6 +110,11 @@ public class Reference {
     public Reference bsd() {
         licence = "http://www.opensource.org/licenses/bsd-license.php";
         licenceShort = "BSD";
+        return this;
+    }
+    public Reference mpl() {
+        licence = "http://www.mozilla.org/MPL/MPL-1.1.html";
+        licenceShort = "MPL1.1";
         return this;
     }
 
@@ -147,6 +164,35 @@ public class Reference {
         }
     }
 
+    public void printAnt() {
+        if ( libName != null ) {
+            System.out.println("<!-- ================================================================== -->");
+            System.out.print("<target name= \"" + prog + "\"");
+            for ( Count<String> dep : Count.count(dependencies) ) {
+                if ( dep.isFirst() ) {
+                    System.out.print("\n    depends=\"");
+                }
+
+                System.out.print(  dep.obj() );
+
+                if ( dep.isLast()) {
+                    System.out.print("\"");
+                } else {
+                    System.out.print(", ");
+                }
+            }
+            System.out.println( ">");
+            System.out.println("   <copy todir=\"${dependencies.basedir}/build/libs\" file=\"${dependencies.basedir}/external/production/" +
+                libName + "\"/>");
+            System.out.println("</target>");
+    //        <target name="jgoodies-binding">
+    //            <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/binding-2.0.6.jar"/>
+    //            <concat destfile="${dependencies.basedir}/build/references.html" append="yes"> <file file="${dependencies.basedir}/external/description/jgoodies/binding-short.txt"/> </concat>
+    //        </target>
+        }
+//
+    }
+
     public boolean isRuntime() {
         return typ.equals( "runtime" );
     }
@@ -154,8 +200,13 @@ public class Reference {
     public boolean isTest() {
         return typ.equals( "test" );
     }
+
     public boolean isBuild() {
         return typ.equals( "build" );
+    }
+
+    public boolean isInternal() {
+        return typ.equals( "internal" );
     }
 
     public void printHtmlLink() {
@@ -185,4 +236,14 @@ public class Reference {
     public String getDescr_es() {
         return descr_es;
     }
+
+    public Reference depends(String depends) {
+        dependencies.add(depends );
+        return this;
+    }
+
+    public List<String> getDependencies() {
+        return dependencies;
+    }
+
 }

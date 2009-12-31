@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <project name="dependencies" default="depend.all">
+
     <dirname property="dependencies.basedir" file="${ant.file.dependencies}"/>
+    <!--<taskdef resource="net/sf/antcontrib/antlib.xml">-->
+      <!--<classpath>-->
+        <!--<pathelement location="${dependencies.basedir}/external/build/ant-contrib-1.0b3.jar"/>-->
+      <!--</classpath>-->
+    <!--</taskdef>-->
+
     <!-- ================================================================== -->
     <target name="depend.all"
             depends="depend.fausterize, depend.legacy">
@@ -16,10 +23,21 @@
         <ant dir="${dependencies.basedir}/modules/fausterize" inheritAll="false"/>
     </target>
     <!-- ================================================================== -->
+    <!--<if>-->
+         <!--<equals arg1="bar" arg2="bar" />-->
+        <!--<then>-->
     <target name="depend.ui"
             depends="depend.lang, depend.localization, depend.application, depend.io, designgridlayout, guice, preferencePanel, jgoodies-binding">
         <ant dir="${dependencies.basedir}/modules/ui" inheritAll="false"/>
     </target>
+        <!--</then>-->
+        <!--<else>-->
+            <!--<target name="depend.ui"-->
+                    <!--depends="depend.lang, depend.localization, depend.application, depend.io, designgridlayout, guice, preferencePanel, jgoodies-binding">-->
+                <!--<ant dir="${dependencies.basedir}/modules/ui" inheritAll="false"/>-->
+            <!--</target>-->
+        <!--</else>-->
+    <!--</if>-->
     <!-- ================================================================== -->
     <target name="depend.application"
             depends="depend.lang, depend.localization, depend.io, xstream, jcip-annotations, idea-annotations, commons-io">
@@ -58,6 +76,7 @@
     <target name="designgridlayout"
             depends="swinglayout">
         <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/designgridlayout-0.9.jar"/>
+        <concat destfile="${dependencies.basedir}/build/references.html" append="yes"> <file file="${dependencies.basedir}/external/description/designgridlayout/designgridlayout-short.txt"/> </concat>
     </target>
     <!-- ================================================================== -->
     <target name="swinglayout">
@@ -66,10 +85,12 @@
     <!-- ================================================================== -->
     <target name="guice">
         <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/guice-2.0.jar"/>
+        <concat destfile="${dependencies.basedir}/build/references.html" append="yes"> <file file="${dependencies.basedir}/external/description/google/guice-short.txt"/> </concat>
     </target>
     <!-- ================================================================== -->
     <target name="commons-lang">
         <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/commons-lang-2.4.jar"/>
+        <concat destfile="${dependencies.basedir}/build/references.html" append="yes"> <file file="${dependencies.basedir}/external/description/apache-commons/commons-lang-short.txt"/> </concat>
     </target>
     <!-- ================================================================== -->
     <target name="idea-annotations">
@@ -91,18 +112,12 @@
     <!-- ================================================================== -->
     <target name="xstream">
         <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/xstream-1.3.1.jar"/>
-        <!--<copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/xstream-1.3.1.jar" />-->
-        <!--<echo message="http://xstream.codehaus.org xstream" file="${dependencies.basedir}/build/resources/libs.html"-->
-                <!--/>-->
-
-    </target>
-    <!-- ================================================================== -->
-    <target name="forms">
-        <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/forms-1.2.1.jar"/>
+        <concat destfile="${dependencies.basedir}/build/references.html" append="yes"> <file file="${dependencies.basedir}/external/description/xstream/xstream-short.txt"/> </concat>
     </target>
     <!-- ================================================================== -->
     <target name="commons-io">
         <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/commons-io-1.4.jar"/>
+        <concat destfile="${dependencies.basedir}/build/references.html" append="yes"> <file file="${dependencies.basedir}/external/description/apache-commons/commons-io-short.txt"/> </concat>
     </target>
     <!-- ================================================================== -->
     <target name="mydoggy-api">
@@ -115,6 +130,7 @@
     <!-- ================================================================== -->
     <target name="swingworker">
         <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/swing-worker-1.1.jar"/>
+        <concat destfile="${dependencies.basedir}/build/references.html" append="yes"> <file file="${dependencies.basedir}/external/description/swingworker/swingworker-short.txt"/> </concat>
     </target>
     <!-- ================================================================== -->
     <target name="jdic">
@@ -124,9 +140,16 @@
     <!-- ================================================================== -->
     <target name="preferencePanel">
         <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/PreferencePanel.jar"/>
+        <concat destfile="${dependencies.basedir}/build/references.html" append="yes"> <file file="${dependencies.basedir}/external/description/javagraphics/preferencepanel-short.txt"/> </concat>
+    </target>
+    <!-- ================================================================== -->
+    <target name="forms">
+        <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/forms-1.2.1.jar"/>
+        <concat destfile="${dependencies.basedir}/build/references.html" append="yes"> <file file="${dependencies.basedir}/external/description/jgoodies/forms-short.txt"/> </concat>
     </target>
     <!-- ================================================================== -->
     <target name="jgoodies-binding">
         <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/binding-2.0.6.jar"/>
+        <concat destfile="${dependencies.basedir}/build/references.html" append="yes"> <file file="${dependencies.basedir}/external/description/jgoodies/binding-short.txt"/> </concat>
     </target>
 </project>

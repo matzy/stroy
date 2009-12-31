@@ -1,4 +1,4 @@
-package org.openCage.util.www.wikidot;
+package org.openCage.webgen.clazz;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1

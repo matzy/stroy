@@ -2,7 +2,7 @@
 //
 //
 //import org.openCage.util.app.Change;
-//import org.openCage.util.www.wikidot.WikiDotGen;
+//import org.openCage.webgen.clazz.WikiDotGen;
 //
 //import java.util.*;
 //

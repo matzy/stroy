@@ -1,6 +1,11 @@
-package org.openCage.util.www.wikidot;
+package org.openCage.webgen.clazz;
 
 import junit.framework.TestCase;
+import org.junit.Test;
+import sun.jvm.hotspot.utilities.Assert;
+
+import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -24,14 +29,16 @@ import junit.framework.TestCase;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public class WikiDotGenTest extends TestCase {
+public class WikiDotGenTest {
 
+    @Test
     public void testNormalize() {
         assertEquals( "0-1-123", WikiDotGen.normalize( "0.1.123" ) );
 
         assertFalse( WikiDotGen.normalize( "1.2.3" ).contains( "." ));
     }
 
+    @Test
     public void testAncor() {
         assertFalse( WikiDotGen.ancor( "1.2.3" ).contains( "." ));        
     }

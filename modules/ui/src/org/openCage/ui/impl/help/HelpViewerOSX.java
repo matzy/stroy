@@ -34,7 +34,7 @@ import java.util.logging.Logger;
 
 public class HelpViewerOSX implements HelpViewer {
 
-    private final Logger LOG = Logger.getLogger( HelpViewerOSX.class.getName());
+    private static final Logger LOG = Logger.getLogger( HelpViewerOSX.class.getName());
 
     @Override
     public void viewHelp() {

@@ -15,13 +15,28 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.util.List;
 
-/**
- * Created by IntelliJ IDEA.
- * User: stephan
- * Date: Dec 24, 2009
- * Time: 8:32:56 AM
- * To change this template use File | Settings | File Templates.
- */
+/***** BEGIN LICENSE BLOCK *****
+* Version: MPL 1.1
+*
+* The contents of this file are subject to the Mozilla Public License Version
+* 1.1 (the "License"); you may not use this file except in compliance with
+* the License. You may obtain a copy of the License at
+* http://www.mozilla.org/MPL/
+*
+* Software distributed under the License is distributed on an "AS IS" basis,
+* WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+* for the specific language governing rights and limitations under the
+* License.
+*
+* The Original Code is stroy code.
+*
+* The Initial Developer of the Original Code is Stephan Pfab <openCage@gmail.com>.
+* Portions created by Stephan Pfab are Copyright (C) 2006 - 2010.
+* All Rights Reserved.
+*
+* Contributor(s):
+***** END LICENSE BLOCK *****/
+
 public class CodePrefBuilder implements PrefBuilder {
 
     private final Localize localize;
@@ -36,18 +51,6 @@ public class CodePrefBuilder implements PrefBuilder {
         public CodePref() {
             setLayout( new BorderLayout());
             add( new JLabel( "TODO" ), BorderLayout.CENTER  );
-
-//            List<String> countryList = localized.getLocalizedLocales();
-//            ValueModel countryModel = new PropertyAdapter(localized, "locale", false);
-//            ComboBoxAdapter adapter = new ComboBoxAdapter(countryList, countryModel);
-//            JComboBox countryBox    = new JComboBox(adapter);
-//
-//            DesignGridLayout layout = new DesignGridLayout( this );
-//            setLayout( layout );
-//
-//            layout.row().label( new JLabel( localize.localize("org.openCage.localization.dict.language" )) ).add( countryBox );
-//            layout.row().add( new JLabel(""));
-//            layout.row().add( new JLabel( localize.localize( "org.openCage.ui.languageWarning" )));
 
         }
     }

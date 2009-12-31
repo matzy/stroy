@@ -1,7 +1,7 @@
 package org.openCage.stroy.app.lega;
 //package org.openCage.stroy.app;
 //
-//import org.openCage.util.app.gen.GenWikiRefs;
+//import org.openCage.webgen.clazz.GenWikiRefs;
 //
 ///***** BEGIN LICENSE BLOCK *****
 //* Version: MPL 1.1

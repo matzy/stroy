@@ -1,7 +1,5 @@
 package org.openCage.gpad;
 
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.SystemUtils;
 import org.apache.commons.lang.math.RandomUtils;
 import org.openCage.lang.errors.Unchecked;
 

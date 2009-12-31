@@ -1,6 +1,6 @@
 //package org.openCage.util.app.gen;
 //
-//import org.openCage.util.www.wikidot.WikiDotGen;
+//import org.openCage.webgen.clazz.WikiDotGen;
 //import org.openCage.util.app.Change;
 //import org.openCage.util.app.Version2;
 //import org.openCage.util.app.AppInfo;
