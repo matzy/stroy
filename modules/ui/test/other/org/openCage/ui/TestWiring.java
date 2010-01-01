@@ -3,6 +3,8 @@ package other.org.openCage.ui;
 import com.google.inject.Binder;
 import com.google.inject.Module;
 import org.openCage.application.protocol.Application;
+import org.openCage.property.clazz.DummyPropStore;
+import org.openCage.property.protocol.PropStore;
 import org.openCage.ui.wiring.UIWiring;
 
 /**
@@ -17,5 +19,6 @@ public class TestWiring implements Module {
         binder.install( new UIWiring());
 
         binder.bind( Application.class ).toProvider( ApplicationProvider.class );        
+        binder.bind( PropStore.class ).to( DummyPropStore.class );
     }
 }

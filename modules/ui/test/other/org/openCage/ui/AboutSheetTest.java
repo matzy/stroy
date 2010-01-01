@@ -5,7 +5,6 @@ import org.junit.Test;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import org.openCage.ui.protocol.AboutSheet;
-import org.openCage.ui.wiring.UIWiring;
 
 
 public class AboutSheetTest {

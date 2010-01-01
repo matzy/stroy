@@ -48,14 +48,15 @@ public class ApplicationFromConfigXStream implements ApplicationFromConfig {
 
         InputStream stream = null;
         try {
-            stream = path.openStream();
+            stream     = path.openStream();
             XStream xs = new XStream(new DomDriver());
             setAliasesOnXStream( xs );
+
             @SuppressWarnings({"CastToConcreteClass"})
             ApplicationByBuilder app = (ApplicationByBuilder) xs.fromXML(stream);
 
             if (iconPath != null) {
-                app.setIcon(new ImageIcon(iconPath));
+                app.setIcon( new ImageIcon(iconPath ));
             }
 
             app.setDescription( localizedDescription ) ;

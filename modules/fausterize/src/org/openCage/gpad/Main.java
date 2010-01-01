@@ -52,7 +52,7 @@ public class Main {
 //        System.out.println( faust.encode('d'));
 //        System.out.println( faust.encode('e'));
 
-        String foo = "abcŸ\u81FF??¬§";
+        String foo = "dua"; //"abcï¿½\u81FF??ï¿½ï¿½";
         FaustString fs = new FaustString();
         try {
             fs.setPad( new URI("file://" + Main.class.getResource("Main.class").getPath()));

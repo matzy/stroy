@@ -15,7 +15,7 @@ public class ApplicationProvider implements Provider<Application > {
 	public Application get() {
 
 		return fromConfig.get( getClass().getResource( "TestApp.xml" ),
-				               getClass().getResource( "bogen1.png"),
+				               getClass().getResource( "bogen1.jpg"),
                                "not localized descr");
 	}
 }
