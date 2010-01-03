@@ -2,7 +2,7 @@
 <project name="build-common" default="default">
     <import file="dependencies.xml"/>
 
-    <target name="default" depends="os-app"/>
+    <target name="default" depends="goal"/>
 
     <!-- ====== properties ========== -->
 
@@ -14,6 +14,30 @@
     <property name="module"          value="${dependencies.basedir}/modules/${ant.project.name}"/>
     <property name="resources"       value="${dependencies.basedir}/build/resources/${ant.project.name}"/>
     <property name="deploy"          value="${dependencies.basedir}/build/deploy/${ant.project.name}"/>
+
+    <condition property="isOSX">
+        <and>
+          <os family="mac"/>
+          <os family="unix"/>
+        </and>
+      </condition>
+    <condition property="isLinux">
+       <and>
+         <not>  <os family="mac"/> </not>
+         <os family="unix"/>
+       </and>
+     </condition>
+    <condition property="isWindows">
+       <and>
+         <os family="winnt"/>
+       </and>
+     </condition>
+    <condition property="isUnix">
+       <and>
+         <os family="unix"/>
+       </and>
+    </condition>
+
 
     <!-- ====== overrideable properties ========== -->
 
@@ -47,6 +71,10 @@
         <mkdir dir="${dist}"/>
         <mkdir dir="${resources}"/>
         <mkdir dir="${deploy}"/>
+        <mkdir dir="${deploy}/linux"/>
+        <mkdir dir="${deploy}/unix"/>
+        <mkdir dir="${deploy}/windows"/>
+        <mkdir dir="${deploy}/osx"/>
     </target>
 
 
@@ -130,9 +158,12 @@
 
     <target name="os-app" depends="dist" > <!-- ,jni"> -->
         <if >
-           <isset property="app-name"/>
+           <and>
+                <isset property="isOSX"/>
+                <isset property="isApp"/>
+           </and>
            <then>
-           <jarbundler dir="${deploy}"
+           <jarbundler dir="${deploy}/osx"
                        verbose="true"
                        name="${app-name}"
                        shortname="${app-name}"
@@ -176,12 +207,27 @@
         </if>
     </target>
 
+    <target name="unix-app"
+            depends="dist">
+        <if>
+            <isset property="isApp"/>
+        <then>
+            <mkdir dir="${deploy}/unix/stroy/libs" />
+            <copy todir="${deploy}/unix/stroy/libs">
+                <fileset refid="internalsSet"/>
+            </copy>
+        </then>
+        </if>
+    </target>
+
 
     <target name="dist" depends="create-jar" >
         <copy todir="${dist}">
             <fileset refid="internalsSet"/>
         </copy>
     </target>
+
+    <target name="goal" depends="unix-app, os-app" />
 
     <target name="dist.dependencies">
         <antcall target="depend.${ant.project.name}"/>
