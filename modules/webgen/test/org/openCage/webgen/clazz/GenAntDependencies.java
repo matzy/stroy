@@ -20,8 +20,8 @@ public class GenAntDependencies {
     List<Reference> refs = new LinkCollection().getRefs();
 
     public static void main(String[] args) {
-//        new GenAntDependencies().print();
-        new GenAntDependencies().printDependentLinks( Arrays.asList( "designgridlayout", "guice", "mac-widgets", "depend.lang", "depend.io", "depend.application", "depend.ui" ));
+        new GenAntDependencies().print();
+//        new GenAntDependencies().printDependentLinks( Arrays.asList( "designgridlayout", "guice", "mac-widgets", "depend.lang", "depend.io", "depend.application", "depend.ui" ));
     }
 
     private void print() {

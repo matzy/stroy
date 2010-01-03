@@ -4,8 +4,8 @@ import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.muchsoft.util.Sys;
 import org.openCage.application.protocol.Application;
+import org.openCage.lang.protocol.F0;
 import org.openCage.localization.protocol.Localize;
-import org.openCage.ui.impl.help.HelpLauncher;
 import org.openCage.ui.protocol.AboutSheet;
 import org.openCage.ui.protocol.HelpViewer;
 import org.openCage.ui.protocol.MenuBuilder;
@@ -52,6 +52,7 @@ public class MenuBuilderImpl implements MenuBuilder {
     private JMenu menuView;
 
     private boolean isMac = Sys.isMacOSX();
+    private JMenuItem menuItemPrefs;
 
 
     @Inject
@@ -61,9 +62,10 @@ public class MenuBuilderImpl implements MenuBuilder {
         this.aboutSheet = aboutSheet;
         this.helpViewer = helpViewer;
 
-        menuFile = new JMenu( loca.localize( "org.openCage.localization.dict.file" ) );
-        menuView = new JMenu( loca.localize( "org.openCage.localization.dict.view" ) );
-        menuHelp = new JMenu( loca.localize( "org.openCage.localization.dict.help" ) );
+        menuFile  = new JMenu( loca.localize( "org.openCage.localization.dict.file" ) );
+        menuView  = new JMenu( loca.localize( "org.openCage.localization.dict.view" ) );
+        menuHelp  = new JMenu( loca.localize( "org.openCage.localization.dict.help" ) );
+        menuItemPrefs = new JMenuItem( loca.localize( "org.openCage.localization.dict.preference" ));
     }
 
     public void setMenuOnFrame(JFrame frame) {
@@ -95,14 +97,23 @@ public class MenuBuilderImpl implements MenuBuilder {
         return this;
     }
 
+    @Override
+    public void addPrefsDelegate( final F0<Void> prefs) {
+        menuItemPrefs.addActionListener( new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                prefs.call();                
+            }
+        });
+    }
+
     private void createFile() {
 
         mbar.add( menuFile );
 
         if (showPrefs) {
             if ( !isMac ) {
-                JMenuItem prefs = new JMenuItem( loca.localize( "org.openCage.localization.dict.preference" ));
-                menuFile.add( prefs );
+                menuFile.add(menuItemPrefs);
             }
         }
 

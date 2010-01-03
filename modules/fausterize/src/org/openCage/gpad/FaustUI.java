@@ -193,17 +193,21 @@ public class FaustUI extends JFrame {
         });
 
 
+        // TODO 
         menubuilder.setMenuOnFrame( this );
 
         prefFrame.addRow( "woo" ).add( codePref).add( localePrefBuilder ).build();
 
-        osxEventHandler.addPrefsDelegate( new F0<Void>() {
+        F0<Void> showPrefs = new F0<Void>() {
             @Override
             public Void call() {
                 prefFrame.setVisible( true );
                 return null;
             }
-        });
+        };
+
+        osxEventHandler.addPrefsDelegate( showPrefs );
+        menubuilder.addPrefsDelegate( showPrefs );
 
 
 

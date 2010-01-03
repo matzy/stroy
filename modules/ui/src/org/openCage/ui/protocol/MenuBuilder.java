@@ -1,6 +1,8 @@
 package org.openCage.ui.protocol;
 
-import javax.swing.*;
+import org.openCage.lang.protocol.F0;
+
+import javax.swing.JFrame;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -32,4 +34,6 @@ public interface MenuBuilder {
     public MenuBuilder withAbout();
     public MenuBuilder withHelp();
     public MenuBuilder withPreferences();
+
+    public void addPrefsDelegate( F0<Void> prefs );
 }
