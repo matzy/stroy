@@ -202,6 +202,7 @@ public class LinkCollection {
                     address( "http://code.google.com/p/macwidgets/", "code.google").
                     lgpl().
                     version( "0.9.5" ).
+                    depends( JGOODIES_FORMS ).
                     libName( "mac_widgets-0.9.5.jar" ).
                     typ( "runtime" );
 

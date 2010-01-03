@@ -81,7 +81,8 @@
    <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/forms-1.2.1.jar"/>
 </target>
 <!-- ================================================================== -->
-<target name= "mac-widgets">
+<target name= "mac-widgets"
+    depends="jgoodies-forms">
    <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/mac_widgets-0.9.5.jar"/>
 </target>
 <!-- ================================================================== -->
