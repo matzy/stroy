@@ -10,7 +10,6 @@ import org.openCage.lang.protocol.F0;
 import org.openCage.lang.protocol.FE0;
 import org.openCage.lang.protocol.FE1;
 import org.openCage.localization.protocol.Localize;
-import org.openCage.ui.*;
 import org.openCage.ui.clazz.PreferenceFrame;
 import org.openCage.ui.protocol.AboutSheet;
 import org.openCage.ui.protocol.FileChooser;
@@ -20,11 +19,18 @@ import org.openCage.ui.protocol.OSXStandardEventHandler;
 import org.openCage.withResource.protocol.FileLineIterable;
 import org.openCage.withResource.protocol.With;
 
-import javax.swing.*;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Highlighter;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -60,13 +66,13 @@ import static org.openCage.ui.Constants.*;
 
 public class FaustUI extends JFrame {
 
-    final private Application             application;
-    final private With                    with;
-    final private FileChooser             fileChooser;
-    final private AboutSheet              about;
-    final private OSXStandardEventHandler osxEventHandler;
-    final private Localize                localize;
-    final private BackgroundExecutor      executor;
+    private final Application             application;
+    private final With                    with;
+    private final FileChooser             fileChooser;
+    private final AboutSheet              about;
+    private final OSXStandardEventHandler osxEventHandler;
+    private final Localize                localize;
+    private final BackgroundExecutor      executor;
 
 //    private URI                     pad;
     private String                  message;

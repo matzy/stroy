@@ -167,23 +167,16 @@ public class Reference {
     public void printAnt() {
         if ( libName != null ) {
             System.out.println("<!-- ================================================================== -->");
-            System.out.print("<target name= \"" + prog + "\"");
-            for ( Count<String> dep : Count.count(dependencies) ) {
-                if ( dep.isFirst() ) {
-                    System.out.print("\n    depends=\"");
-                }
+            printTargetAndDepends();
 
-                System.out.print(  dep.obj() );
+            if ( isRuntime() ) {
+                System.out.println("   <copy todir=\"${dependencies.basedir}/build/libs\" file=\"${dependencies.basedir}/external/production/" +
+                    libName + "\"/>");
+            } else if ( isInternal() ) {
 
-                if ( dep.isLast()) {
-                    System.out.print("\"");
-                } else {
-                    System.out.print(", ");
-                }
+                System.out.println("    <ant dir=\"${dependencies.basedir}/modules/" + getInternalName() + "\" inheritAll=\"false\"/>");
             }
-            System.out.println( ">");
-            System.out.println("   <copy todir=\"${dependencies.basedir}/build/libs\" file=\"${dependencies.basedir}/external/production/" +
-                libName + "\"/>");
+
             System.out.println("</target>");
     //        <target name="jgoodies-binding">
     //            <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/binding-2.0.6.jar"/>
@@ -191,6 +184,24 @@ public class Reference {
     //        </target>
         }
 //
+    }
+
+    private void printTargetAndDepends() {
+        System.out.print("<target name= \"" + prog + "\"");
+        for ( Count<String> dep : Count.count(dependencies) ) {
+            if ( dep.isFirst() ) {
+                System.out.print("\n    depends=\"");
+            }
+
+            System.out.print(  dep.obj() );
+
+            if ( dep.isLast()) {
+                System.out.print("\"");
+            } else {
+                System.out.print(", ");
+            }
+        }
+        System.out.println( ">");
     }
 
     public boolean isRuntime() {
@@ -246,4 +257,11 @@ public class Reference {
         return dependencies;
     }
 
+    public String getInternalName() {
+        if ( !isInternal() ) {
+            throw new UnsupportedOperationException("huh");
+        }
+
+        return prog.substring( "depend.".length() );
+    }
 }

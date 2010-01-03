@@ -27,6 +27,40 @@ import java.util.List;
 
 public class LinkCollection {
     private List<Reference> refs = new ArrayList<Reference>();
+    private static final String ANT_CONTRIB = "ant-contrib";
+    private static final String COMMONS_CLI = "commons-cli";
+    private static final String COMMONS_IO = "commons-io";
+    private static final String COMMONS_LANG = "commons-lang";
+    private static final String COMMONS_VFS = "commons-vfs";
+    private static final String DESIGNGRIDLAYOUT = "designgridlayout";
+    private static final String GUICE = "guice";
+    private static final String IDEA_ANNOTATIONS = "idea-annotations";
+    private static final String JARBUNDLER = "jarbundler";
+    private static final String JAVAGRAPHICS_PREFERENCEPANEL = "javagraphics-preferencepanel";
+    private static final String JCIP_ANNOTATIONS = "jcip-annotations";
+    private static final String JDIC = "jdic";
+    private static final String JGOODIES_BINDING = "jgoodies-binding";
+    private static final String JGOODIES_FORMS = "jgoodies-forms";
+    private static final String JMOCK = "jmock";
+    private static final String JSMOOTH = "jsmooth";
+    private static final String JUNIT = "junit";
+    private static final String MAC_WIDGETS = "mac-widgets";
+    private static final String MD5 = "MD5";
+    private static final String MUCHSOFT_SYS = "muchsoft-sys";
+    private static final String MYDOGGY = "mydoggy";
+    private static final String RANDOM_GUID = "RandomGUID";
+    private static final String SWING_LAYOUT = "swing-layout";
+    private static final String SWING_WORKER = "SwingWorker";
+    private static final String TABLELAYOUT = "tablelayout";
+    private static final String URLUTF8_ENCODER = "URLUTF8Encoder";
+    private static final String XSTREAM = "xstream";
+    private static final String DEPEND_APPLICATION = "depend.application";
+    private static final String DEPEND_IO = "depend.io";
+    private static final String DEPEND_FAUSTERIZE = "depend.fausterize";
+    private static final String DEPEND_LOCALIZATION = "depend.localization";
+    private static final String DEPEND_LANG = "depend.lang";
+    private static final String DEPEND_PROPERTY = "depend.property";
+    private static final String DEPEND_UI = "depend.ui";
 
     public LinkCollection() {
         fill();
@@ -38,21 +72,21 @@ public class LinkCollection {
 
 
     private void fill() {
-        ref("ant-contrib" ).
+        ref(ANT_CONTRIB).
                     description( "Ant task collection. Includes if-task" ).
                     address( "http://ant-contrib.sourceforge.net/", "sourceforge.net" ).
                     apache2().
                     version( "1.0b3" ).
                     typ( "build" );
 
-        ref("commons-cli" ).
+        ref(COMMONS_CLI).
                     description( "Apache command line tools." ).
                     address( "http://commons.apache.org/cli", "apache").
                     apache2().
                     version( "1.2" ).
                     typ( "runtime" );
 
-        ref("commons-io" ).
+        ref(COMMONS_IO).
                     description( "Apache IO tools. e.g. tools to cleanly close resources." ).
                     address( "http://commons.apache.org/io", "apache").
                     apache2().
@@ -60,7 +94,7 @@ public class LinkCollection {
                     libName( "commons-io-1.4.jar" ).
                     typ( "runtime" );
 
-        ref("commons-lang" ).
+        ref(COMMONS_LANG).
                     description( "Apache java language level tools. Random number helpers, system property tools, string tools." ).
                     address( "http://commons.apache.org/lang/", "apache").
                     apache2().
@@ -68,23 +102,23 @@ public class LinkCollection {
                     libName("commons-lang-2.4.jar").
                     typ( "runtime" );
 
-        ref("commons-vfs" ).
+        ref(COMMONS_VFS).
                     description( "Apache java library for virtual file systems." ).
                     address( "http://commons.apache.org/vfs/", "apache").
                     apache2().
                     version( "1.0" ).
                     typ( "runtime" );
 
-        ref( "designgridlayout" ).
+        ref(DESIGNGRIDLAYOUT).
                     description( "Swing layout manager based on the use of canonical grids for user interface design." ).
                     address( "https://designgridlayout.dev.java.net/", "dev.java" ).
                     lgpl().
                     version( "0.9" ).
                     libName( "designgridlayout-0.9.jar" ).
-                    depends( "swing-layout" ).
+                    depends(SWING_LAYOUT).
                     typ( "runtime" );
 
-        ref("guice" ).
+        ref(GUICE).
                     description( "Google dependency injection lib in pure java.").
                     de("Google Dependecy Injection lib ohne XML").
                     address( "http://code.google.com/p/google-guice/", "code.google" ).
@@ -93,74 +127,77 @@ public class LinkCollection {
                     libName( "guice-2.0.jar").
                     typ( "runtime" );
 
-        ref("idea-annotations" ).
+        ref(IDEA_ANNOTATIONS).
                     description( "Nullable annotations (bundled with Idea CE)" ).
                     address( "http://www.jetbrains.com/index.html", "jetbrains").
                     apache2().
                     libName( "annotations.jar").
                     typ( "runtime" );
 
-        ref("jarbundler" ).
+        ref(JARBUNDLER).
                     description( "Ant task to create OSX bundles." ).
                     address( "http://informagen.com/JarBundler/", "informagen" ).
                     apache2().
                     version( "2.0.0" ).
                     typ( "build" );
 
-        ref("javagraphics-preferencepanel" ).
+        ref(JAVAGRAPHICS_PREFERENCEPANEL).
                     description( "A OSX style preference panel." ).
                     address( "https://javagraphics.dev.java.net/", "dev.java" ).
                     bsd().
+                    libName( "PreferencePanel.jar" ).                
                     typ( "runtime" );
 
-        ref("jcip-annotations" ).
+        ref(JCIP_ANNOTATIONS).
                     description( "Concurrency Annotations. Compile time comments about concurrency intentions which Intellij understands." ).
                     address( "http://www.javaconcurrencyinpractice.com/", "javaconcurrencyinpractice" ).
                     libName( "jcip-annotations.jar").
                     typ( "runtime" );
 
-        ref("jdic" ).
+        ref(JDIC).
                     description( "jdesctop library for e.g. opening files with their OS associated program" ).
                     address( "https://jdic.dev.java.net/releases.html", "dev.java").
                     lgpl().
                     version( "0.9.1").
                     typ( "runtime" );
 
-        ref("jgoodies-binding" ).
+        ref(JGOODIES_BINDING).
                     description( "Twoway binding of domain objects and ui objects. Changes to the domain object are displayed by the ui object, changes to the ui object modify the domain object." ).
                     address( "http://www.jgoodies.com/downloads/libraries.html", "jgoodies").
                     bsd().
                     version( "2.0.6" ).
+                    libName( "binding-2.0.6.jar" ).
                     typ( "runtime" );
 
-        ref("jgoodies-forms" ).
+        ref(JGOODIES_FORMS).
                     description( "JGoodies Forms library," ).
                     address( "http://www.jgoodies.com/downloads/libraries.html", "jgoodies").
                     bsd().
                     version( "1.2.1" ).
+                    libName( "forms-1.2.1.jar" ).
                     typ( "runtime" );
 
-        ref("jmock" ).
+        ref(JMOCK).
                     description( "A mocking library for java" ).
                     address( "http://www.jmock.org/", "jmock.org").
-                    licence( "http://www.jmock.org/license.html", "jmock" ).
+                    licence( "http://www.jmock.org/license.html", JMOCK).
                     typ( "test" );
 
-        ref("jsmooth" ).
+        ref(JSMOOTH).
                     description( "Win32 exe builder. (not in stroy google code)" ).
                     address( "http://jsmooth.sourceforge.net/", "sourceforge").
                     gpl2().
                     version("0.9.9-7").
                     typ( "build" );
 
-        ref("junit" ).
+        ref(JUNIT).
                     description( "The Junit lib." ).
                     address( "http://www.junit.org/", "junit.org").
                     cpl().
                     version( "4.4" ).
                     typ( "test" );
 
-        ref("mac-widgets" ).
+        ref(MAC_WIDGETS).
                     description( "Library with OSX inspired swing components. e.g. a toolbar that blends in with the title bar, better buttons ..." ).
                     address( "http://code.google.com/p/macwidgets/", "code.google").
                     lgpl().
@@ -168,14 +205,14 @@ public class LinkCollection {
                     libName( "mac_widgets-0.9.5.jar" ).
                     typ( "runtime" );
 
-        ref("MD5" ).description( "Fast implementation of RSA's MD5 hash generator" ).
+        ref(MD5).description( "Fast implementation of RSA's MD5 hash generator" ).
                     de( "Efficiente und schnelle Implementation eines MD5 Generators" ).
                     es( "Puesta en pr‡ctica r‡pida del generador del picadillo de MD5 de RSA." ).
                     address( "http://www.helsinki.fi/~sjpaavol/programs/md5", "helsinki.fi").
                     lgpl().
                     typ( "runtime" );
 
-        ref( "muchsoft-sys" ).
+        ref(MUCHSOFT_SYS).
                     description( "Tool to help make java apps behave and look like native osx apps. e.g. Menus in menu bar, Preferences open on command-, ... " ).
                     de("Eine Bibliothek mit der sich Java Programme wie richtige OSX Programme verhalten.").
                     address( "http://www.muchsoft.com/", "munchsoft" ).
@@ -183,7 +220,7 @@ public class LinkCollection {
                     libName("Sys.jar").
                     typ( "runtime" );
 
-        ref("mydoggy" ).
+        ref(MYDOGGY).
                     description( "Java UI docking framework, IDEA like." ).
                     de( "Eine Java Docking Library ala IDEA" ).
                     address( "http://mydoggy.sourceforge.net/", "sourceforge" ).
@@ -191,115 +228,130 @@ public class LinkCollection {
                     version( "1.3.1" ).
                     typ( "runtime" );
 
-        ref("RandomGUID" ).
+        ref(RANDOM_GUID).
                     description( "GUID generator").
                     de( "Ein GUID Generator" ).
                     address( "http://www.javaexchange.com/", "javaexchange.com").
                     licence( "http://www.javaexchange.com/", "Open"  ).
                     typ( "runtime" );
 
-        ref("swing-layout" ).
+        ref(SWING_LAYOUT).
                     description( "Extensions to Swing to create professional cross platform layouts (used by designgridlayout)").
                     address( "https://swing-layout.dev.java.net/", "dev.java" ).
                     lgpl().
                     libName( "swing-layout-1.0.2.jar" ).
                     typ( "runtime" );
 
-        ref("SwingWorker" ).
+        ref(SWING_WORKER).
                     description( "Swingworker backported to java 1.5" ).
                     address( "https://SwingWorker.dev.java.net/", "dev.java").
                     lgpl().
                     typ( "runtime" );
 
-        ref( "tablelayout" ).
+        ref(TABLELAYOUT).
                     description( "Swing table layout manager (used by mydoggy)" ).
                     de( "Ein Swing tabelleb layout manager (von Mydoggy benutzt)" ).
                     address( "https://tablelayout.dev.java.net/", "dev.java").
                     licence( "https://tablelayout.dev.java.net/files/documents/3495/59349/License.txt", "Clearthought" ).
                     typ( "runtime" );
 
-        ref("URLUTF8Encoder" ).
+        ref(URLUTF8_ENCODER).
                     description( "Encodes strings url safe" ).
                     address( "http://www.w3.org/International/URLUTF8Encoder.java", "w3c").
                     licence( "http://www.w3.org/Consortium/Legal/2002/copyright-software-20021231", "W3C" ).
                     typ( "runtime" );
 
-        ref( "xstream" ).
+        ref(XSTREAM).
                     description( "The java to XML serialization library." ).
                     address( "http://xstream.codehaus.org/", "codehaus" ).
                     bsd().
                     version("1.3.1").
-                    libName( "xstream-1.3.1" ).
+                    libName( "xstream-1.3.1.jar" ).
                     typ( "runtime" );
 
-        ref( "depend.application" ).
+        ref(DEPEND_APPLICATION).
                     description( "application description tool" ).
                     address( "http://code.google.com/p/stroy", "code.google" ).
                     mpl().
                     version("0.0.1").
-                    depends( "depend.lang" ).
-                    depends( "depend.localization" ).
-                    depends( "depend.io" ).
-                    depends( "xstream" ).
-                    depends( "jcip-annotations" ).
-                    depends( "idea-annotations" ).
-                    depends( "commons-io" ).
+                    depends(DEPEND_LANG).
+                    depends(DEPEND_LOCALIZATION).
+                    depends(DEPEND_IO).
+                    depends(XSTREAM).
+                    depends(JCIP_ANNOTATIONS).
+                    depends(IDEA_ANNOTATIONS).
+                    depends(COMMONS_IO).
                     libName( "opencage-io??.jar" ).
                     typ( "internal" );
 
-        ref( "depend.io" ).
+        ref(DEPEND_IO).
                     description( "io tools" ).
                     address( "http://code.google.com/p/stroy", "code.google" ).
                     mpl().
                     version("0.0.1").
-                    depends( "depend.lang" ).
-                    depends( "muchsoft-sys" ).
+                    depends(DEPEND_LANG).
+                    depends(COMMONS_LANG).
+                    depends(MUCHSOFT_SYS).
                     libName( "opencage-io??.jar" ).
                     typ( "internal" );
 
-        ref( "depend.localization" ).
+        ref(DEPEND_FAUSTERIZE).
+                    description( "encrypting texteditor" ).
+                    address( "http://code.google.com/p/stroy", "code.google" ).
+                    mpl().
+                    version("0.0.3").
+                    depends(DEPEND_LANG).
+                    depends(MAC_WIDGETS).
+                    depends(DESIGNGRIDLAYOUT).
+                    depends(DEPEND_APPLICATION).
+                    depends(COMMONS_IO).
+                    depends(DEPEND_UI).
+                    libName( "opencage-io??.jar" ).
+                    typ( "internal" );
+
+        ref(DEPEND_LOCALIZATION).
                     description( "localization tools and dictionary" ).
                     address( "http://code.google.com/p/stroy", "code.google" ).
                     mpl().
                     version("0.0.1").
-                    depends( "depend.property" ).
+                    depends(DEPEND_PROPERTY).
                     libName( "opencage-localization??.jar" ).
                     typ( "internal" );
 
-        ref( "depend.lang" ).
+        ref(DEPEND_LANG).
                     description( "Java level utils" ).
                     address( "http://code.google.com/p/stroy", "code.google" ).
                     mpl().
                     version("0.0.3").
-                    depends( "guice" ).
+                    depends(GUICE).
                     libName( "opencage-lang??.jar" ).
                     typ( "internal" );
 
-        ref( "depend.property" ).
+        ref(DEPEND_PROPERTY).
                     description( "persistet properties" ).
                     address( "http://code.google.com/p/stroy", "code.google" ).
                     mpl().
                     version("0.0.1").
-                    depends( "commons-io" ).
-                    depends( "idea-annotations" ).
-                    depends( "xstream" ).
-                    depends( "depend.lang" ).
+                    depends(COMMONS_IO).
+                    depends(IDEA_ANNOTATIONS).
+                    depends(XSTREAM).
+                    depends(DEPEND_LANG).
                     libName( "opencage-property??.jar" ).
                     typ( "internal" );
 
-        ref( "depend.ui" ).
+        ref(DEPEND_UI).
                     description( "ui tools" ).
                     address( "http://code.google.com/p/stroy", "code.google" ).
                     mpl().
                     version("0.0.1").
-                    depends( "depend.localization" ).
-                    depends( "depend.application" ).
-                    depends( "depend.io" ).
-                    depends( "designgridlayout" ).
-                    depends( "depend.lang" ).
-                    depends( "guice" ).
-                    depends( "javagraphics-preferencepanel" ).
-                    depends( "jgoodies-binding" ).
+                    depends(DEPEND_LOCALIZATION).
+                    depends(DEPEND_APPLICATION).
+                    depends(DEPEND_IO).
+                    depends(DESIGNGRIDLAYOUT).
+                    depends(DEPEND_LANG).
+                    depends(GUICE).
+                    depends(JAVAGRAPHICS_PREFERENCEPANEL).
+                    depends(JGOODIES_BINDING).
                     libName( "opencage-ui??.jar" ).
                     typ( "internal" );
 

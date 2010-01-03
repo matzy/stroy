@@ -25,11 +25,34 @@ public class GenAntDependencies {
     }
 
     private void print() {
+
+        System.out.println("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n" +
+                "<project name=\"dependencies\" default=\"depend.fausterize\">\n" +
+                "\n" +
+                "    <dirname property=\"dependencies.basedir\" file=\"${ant.file.dependencies}\"/>\n");
+
+        for ( Reference ref : refs ) {
+            if ( ref.isInternal() ) {
+                ref.printAnt();
+            }
+        }
+
+        System.out.println("\n" +
+                "    <!-- ================================================================== -->\n" +
+                "    <!--     external library dependencies       --> \n" +
+                "    <!-- ================================================================== -->    \n" +
+                "");
+
+
         for ( Reference ref : refs ) {
             if ( ref.isRuntime() ) {
                 ref.printAnt();
             }
         }
+
+        System.out.println("</project>");                                                  
+
+
     }
 
     private void printDependentLinks( List<String> lnks ) {
