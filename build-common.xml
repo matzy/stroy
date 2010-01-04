@@ -127,8 +127,10 @@
     <!-- construct the manifest -->
     <target name="create-manifest" depends="prepare">
         <pathconvert property="jars-var" pathsep=" " refid="jars">
-            <map from="${dependencies.basedir}/libs/" to=""/>
+            <map from="${libs}/" to=""/>
         </pathconvert>
+
+        <echo message="jars-vars = ${jars-var}" />
 
         <manifest file="${resources}/manifest.mf" mode="replace">
             <attribute name="Built-By" value="${user.name}"/>
