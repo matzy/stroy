@@ -15,6 +15,7 @@
     <property name="resources"       value="${dependencies.basedir}/build/resources/${ant.project.name}"/>
     <property name="deploy"          value="${dependencies.basedir}/build/deploy/${ant.project.name}"/>
     <property name="src"             value="${module}/src"/>
+    <!--<property name="jar-name"        value="openCage-${ant.project.name}-${version}.jar"/>-->
 
     <condition property="isOSX">
         <and>
@@ -149,6 +150,8 @@
     </target>
 
 
+
+    <!--      jar      -->
     <target name="create-jar" depends="compile,create-manifest">
         <echo message="${ant.project.name} - build-common.dist"/>
         <jar jarfile="${libs}/openCage-${ant.project.name}-${version}.jar"
@@ -219,18 +222,20 @@
             <copy todir="${deploy}/unix/${app-name}/libs">
                 <fileset refid="internalsSet"/>
             </copy>
-            <copy todir="${deploy}/unix/${app-name}/English.lproj">
+            <copy todir="${deploy}/unix/${app-name}/English.lproj/HelpBook">
                 <fileset dir="${src}/${helpbook}/English" />
                 <fileset dir="${src}/${helpbook}/common" />
             </copy>
-            <copy todir="${deploy}/unix/${app-name}/German.lproj">
+            <copy todir="${deploy}/unix/${app-name}/Deutsch.lproj/HelpBook">
                 <fileset dir="${src}/${helpbook}/German" />
                 <fileset dir="${src}/${helpbook}/common" />
             </copy>
-            <copy todir="${deploy}/unix/${app-name}/Japanese.lproj">
+            <copy todir="${deploy}/unix/${app-name}/Japanese.lproj/HelpBook">
                 <fileset dir="${src}/${helpbook}/Japanese" />
                 <fileset dir="${src}/${helpbook}/common" />
             </copy>
+            <echo  message="java -jar libs/openCage-${ant.project.name}-${version}.jar" file="${deploy}/unix/${app-name}/${app-name}.sh"/>
+            <chmod file="${deploy}/unix/${app-name}/${app-name}.sh" perm="ugo+x" />
         </then>
         </if>
     </target>

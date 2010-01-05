@@ -46,7 +46,7 @@ public class OSXStandardEventHandlerImpl implements OSXStandardEventHandler, Jav
     }
 
     public void handleAbout(EventObject eventObject) {
-        Java14Adapter.setHandled( eventObject, true );
+        Java14Adapter.setHandled( eventObject, true );                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
         about.setVisible( true );
     }
 
