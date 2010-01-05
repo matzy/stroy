@@ -62,7 +62,7 @@ public class MenuBuilderImpl implements MenuBuilder {
         this.aboutSheet = aboutSheet;
         this.helpViewer = helpViewer;
 
-        menuFile  = new JMenu( loca.localize( "org.openCage.localization.dict.file" ) );
+        menuFile  = new JMenu( loca.localize( "org.openCage.ui.menu.file" ) );
         menuView  = new JMenu( loca.localize( "org.openCage.localization.dict.view" ) );
         menuHelp  = new JMenu( loca.localize( "org.openCage.localization.dict.help" ) );
         menuItemPrefs = new JMenuItem( loca.localize( "org.openCage.localization.dict.preference" ));
@@ -135,7 +135,7 @@ public class MenuBuilderImpl implements MenuBuilder {
         mbar.add( menuHelp );
 
         if ( !isMac ) {
-            JMenuItem about = new JMenuItem( loca.localize("org.openCage.localization.dict.about" ));
+            JMenuItem about = new JMenuItem( loca.localize("org.openCage.ui.about_prog", app.gettName() ));
             menuHelp.add( about );
             about.addActionListener( new ActionListener() {
                 public void actionPerformed(ActionEvent actionEvent) {

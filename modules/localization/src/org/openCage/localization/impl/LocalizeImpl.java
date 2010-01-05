@@ -1,5 +1,6 @@
 package org.openCage.localization.impl;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -65,6 +66,30 @@ public class LocalizeImpl implements Localize {
 			throw exp;
 		}
 	}
+
+    @Override
+    public String localize(String key, Object... args) {
+        return localize( theLocale.get(), key, args );    
+
+    }
+
+    public String localize(Locale locale, String key, Object ... args ) {
+        ResourceBundle bundle = ResourceBundle.getBundle( bundleName, locale );
+        try {
+            String trans =  bundle.getString(key);
+            return MessageFormat.format( trans, args );
+
+        } catch ( MissingResourceException exp ) {
+            for ( Localize parent : parents ) {
+                try {
+                    return parent.localize( locale, key);
+                } catch ( MissingResourceException ignored) {
+                }
+            }
+
+            throw exp;
+        }
+    }
 
     @Override
     public Locale getLocale() {

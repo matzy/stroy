@@ -14,6 +14,7 @@
     <property name="module"          value="${dependencies.basedir}/modules/${ant.project.name}"/>
     <property name="resources"       value="${dependencies.basedir}/build/resources/${ant.project.name}"/>
     <property name="deploy"          value="${dependencies.basedir}/build/deploy/${ant.project.name}"/>
+    <property name="src"             value="${module}/src"/>
 
     <condition property="isOSX">
         <and>
@@ -87,15 +88,15 @@
 
     <!-- compile sources and copy pictures and xmsl -->
     <target name="compile" depends="prepare">
-        <javac srcdir="${module}/src" destdir="${classes}">
+        <javac srcdir="${src}" destdir="${classes}">
             <classpath refid="jars"></classpath>
         </javac>
 
         <copy todir="${classes}" flatten="no">
-            <fileset dir="${module}/src" includes="**/*.xml"/>
-            <fileset dir="${module}/src" includes="**/*.properties"/>
-            <fileset dir="${module}/src" includes="**/*.png"/>
-            <fileset dir="${module}/src" includes="**/*.txt"/>
+            <fileset dir="${src}" includes="**/*.xml"/>
+            <fileset dir="${src}" includes="**/*.properties"/>
+            <fileset dir="${src}" includes="**/*.png"/>
+            <fileset dir="${src}" includes="**/*.txt"/>
          </copy>
 
         <if>
@@ -177,7 +178,7 @@
                        infostring="${app-name}, MPL1.1"
                        build="${buildnumber}"
                        bundleid="${bundleid}"
-                       icon="${module}/src/${osx-icon}"
+                       icon="${src}/${osx-icon}"
                        helpbookfolder="HelpBook"
                        helpbookname="${app-name}"
                    >
@@ -190,18 +191,18 @@
                <javaproperty name="com.apple.macos.useScreenMenuBar" value="true"/>
 
                <HelpBook locale="English">
-                   <fileset dir="${module}/src/${helpbook}/English" />
-                   <fileset dir="${module}/src/${helpbook}/common" />
+                   <fileset dir="${src}/${helpbook}/English" />
+                   <fileset dir="${src}/${helpbook}/common" />
                </HelpBook>
 
                <HelpBook locale="German">
-                   <fileset dir="${module}/src/${helpbook}/German" />
-                   <fileset dir="${module}/src/${helpbook}/common" />
+                   <fileset dir="${src}/${helpbook}/German" />
+                   <fileset dir="${src}/${helpbook}/common" />
                </HelpBook>
 
                <HelpBook locale="Japanese">
-                   <fileset dir="${module}/src/${helpbook}/Japanese" />
-                   <fileset dir="${module}/src/${helpbook}/common" />
+                   <fileset dir="${src}/${helpbook}/Japanese" />
+                   <fileset dir="${src}/${helpbook}/common" />
                </HelpBook>
 
             </jarbundler>
@@ -214,9 +215,21 @@
         <if>
             <isset property="isApp"/>
         <then>
-            <mkdir dir="${deploy}/unix/stroy/libs" />
-            <copy todir="${deploy}/unix/stroy/libs">
+            <mkdir dir="${deploy}/unix/${app-name}/libs" />
+            <copy todir="${deploy}/unix/${app-name}/libs">
                 <fileset refid="internalsSet"/>
+            </copy>
+            <copy todir="${deploy}/unix/${app-name}/English.lproj">
+                <fileset dir="${src}/${helpbook}/English" />
+                <fileset dir="${src}/${helpbook}/common" />
+            </copy>
+            <copy todir="${deploy}/unix/${app-name}/German.lproj">
+                <fileset dir="${src}/${helpbook}/German" />
+                <fileset dir="${src}/${helpbook}/common" />
+            </copy>
+            <copy todir="${deploy}/unix/${app-name}/Japanese.lproj">
+                <fileset dir="${src}/${helpbook}/Japanese" />
+                <fileset dir="${src}/${helpbook}/common" />
             </copy>
         </then>
         </if>

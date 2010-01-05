@@ -26,8 +26,10 @@ import java.util.Locale;
 
 public interface Localize {
 	
-	public String localize( String key );
-	public String localize( Locale locale, String key );
+    public String localize( String key );
+    public String localize( Locale locale, String key );
+    public String localize( String key, Object ... args  );
+    public String localize( Locale locale, String key, Object ... args );
 
     public Locale getLocale();
     public void   setLocale( Locale locale );
