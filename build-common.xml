@@ -226,7 +226,7 @@
                 <fileset dir="${src}/${helpbook}/English" />
                 <fileset dir="${src}/${helpbook}/common" />
             </copy>
-            <copy todir="${deploy}/unix/${app-name}/Deutsch.lproj/HelpBook">
+            <copy todir="${deploy}/unix/${app-name}/German.lproj/HelpBook">
                 <fileset dir="${src}/${helpbook}/German" />
                 <fileset dir="${src}/${helpbook}/common" />
             </copy>

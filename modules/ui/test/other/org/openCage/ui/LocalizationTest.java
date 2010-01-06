@@ -38,4 +38,13 @@ public class LocalizationTest {
 
     }
 
+    @Test
+    public void testDisplay() {
+        assertEquals( "German", Locale.GERMAN.getDisplayLanguage( Locale.US ) );
+        assertEquals( "English", Locale.US.getDisplayLanguage( Locale.US ) );
+        assertEquals( "English", Locale.UK.getDisplayLanguage( Locale.US ) );
+        assertEquals( "English", Locale.ENGLISH.getDisplayLanguage( Locale.US ) );
+        assertEquals( "Japanese", Locale.JAPAN.getDisplayLanguage( Locale.US ) );
+    }
+
 }

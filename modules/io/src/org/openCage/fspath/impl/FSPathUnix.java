@@ -44,7 +44,12 @@ public class FSPathUnix implements FSPath {
 
         String[] els = absolutePath.split("/");
 
-        elements.addAll( Arrays.asList( els ));
+        for ( String element : els ) {
+            if ( !element.trim().isEmpty() ) {
+                elements.add( element );
+            }
+        }
+        //elements.addAll( Arrays.asList( els ));
     }
 
     public FSPathUnix( File file ) {

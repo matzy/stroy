@@ -1,6 +1,10 @@
 package org.openCage.ui.impl.help;
 
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
+import org.openCage.fspath.clazz.FSPathBuilder;
 import org.openCage.io.clazz.Location;
+import org.openCage.localization.protocol.Localize;
 import org.openCage.ui.impl.BrowseTmp;
 import org.openCage.ui.protocol.HelpViewer;
 
@@ -35,6 +39,8 @@ import java.util.logging.Logger;
 public class HelpViewerOSX implements HelpViewer {
 
     private static final Logger LOG = Logger.getLogger( HelpViewerOSX.class.getName());
+    @Inject
+    @Named( "ui") private Localize localize;
 
     @Override
     public void viewHelp() {
@@ -57,7 +63,10 @@ public class HelpViewerOSX implements HelpViewer {
     }
 
     private String getHelpbookInApp( String jarpath ) {
-        String resourcepath = new File( jarpath ).getParentFile().getParentFile().getAbsolutePath();
-        return resourcepath + "/" + Locale.getDefault().getDisplayLanguage() + ".lproj/HelpBook/index.html";
+//        String resourcepath = new File( jarpath ).getParentFile().getParentFile().getAbsolutePath();
+        return FSPathBuilder.getPath( new File( jarpath ).getParentFile().getParentFile() ).
+                  add( localize.getLocale().getDisplayLanguage( Locale.US ) + ".lproj" ).
+                  add( "HelpBook" ).
+                  add( "index.html").toString();
     }
 }
