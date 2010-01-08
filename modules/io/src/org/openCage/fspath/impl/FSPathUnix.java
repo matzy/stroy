@@ -2,11 +2,13 @@ package org.openCage.fspath.impl;
 
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.SystemUtils;
 import org.openCage.fspath.protocol.FSPath;
 
 import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -34,7 +36,7 @@ import java.util.*;
 // UNIX only for now, split in builder and path and xplatformize
 public class FSPathUnix implements FSPath {
 
-    private List<String> elements = new ArrayList<String>();
+    private final List<String> elements = new ArrayList<String>();
 
     public FSPathUnix( String absolutePath ) {
 
@@ -64,6 +66,7 @@ public class FSPathUnix implements FSPath {
         return new File( toString() );
     }
 
+    @Override
     public FSPath add( String ... els ) {
         FSPathUnix ret = new FSPathUnix("/");
         ret.elements.addAll( elements );

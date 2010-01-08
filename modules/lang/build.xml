@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="lang" default="default" basedir=".">
-    <import file="../../build-common.xml"/>
 
     <property name= "version"       value="0.0.3" />
+
+    <import file="../../build-common.xml"/>
 </project>

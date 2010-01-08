@@ -4,6 +4,18 @@
 
     <target name="default" depends="goal"/>
 
+    <!-- ====== overrideable properties ========== -->
+
+    <property name="main" value=""/>
+    <property name="version" value="0.0.1"/>
+    <property name="app-name" value=""/>
+    <property name="app-signature" value=""/>
+    <property name="buildnumber" value=""/>
+    <property name="bundleid" value=""/>
+    <property name="osx-icon" value=""/>
+    <property name="helpbook" value=""/>
+
+
     <!-- ====== properties ========== -->
 
     <property name="classes"         value="${dependencies.basedir}/build/classes/${ant.project.name}"/>
@@ -40,10 +52,6 @@
        </and>
     </condition>
 
-
-    <!-- ====== overrideable properties ========== -->
-
-    <!--<property name="version"     value="0.0.1"/>-->
 
     <!-- ====== extra tasks ========== -->
 
@@ -90,7 +98,7 @@
     <!-- compile sources and copy pictures and xmsl -->
     <target name="compile" depends="prepare">
         <javac srcdir="${src}" destdir="${classes}">
-            <classpath refid="jars"></classpath>
+            <classpath refid="jars"/>
         </javac>
 
         <copy todir="${classes}" flatten="no">
@@ -160,7 +168,6 @@
         </jar>
     </target>
 
-    
 
     <target name="os-app" depends="dist" > <!-- ,jni"> -->
         <if >

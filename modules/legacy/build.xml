@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="legacy" default="default" basedir=".">
-    <import file="../../build-common.xml"/>
-    <property name = "version"  value="1.0.4" />
+    <property name = "version"  value="1.0.5" />
     <property name = "buildnumber"     value="303"/>
     <property name = "main"     value="org.openCage.stroy.ui.Main"/>
     <property name = "app-name"     value="stroy"/>
@@ -9,4 +8,5 @@
     <property name = "bundleid"     value="org.openCage.stroy"/>
     <property name = "osx-icon"     value="org/openCage/stroy/ui/stroy.icns"/>
 
+    <import file="../../build-common.xml"/>
 </project>
