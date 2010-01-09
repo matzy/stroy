@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="fausterize" default="default" basedir=".">
-    <property name = "version"  value="0.3.0" />
-    <property name="isApp" value="true"/>
+
+    <property name = "version"  value="0.4.0" />
+
+    <property name = "isApp" value="true"/>
 
     <property name = "buildnumber"     value="328"/>
     <property name = "main"     value="org.openCage.gpad.UIMain"/>
