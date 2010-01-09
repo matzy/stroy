@@ -79,6 +79,8 @@ public class UIWiring implements Module {
 
         if (Sys.isMacOSX()) {
             binder.bind(HelpViewer.class).to(HelpViewerOSX.class);
+        } else if ( Sys.isLinux() ) {
+            binder.bind(HelpViewer.class).to(HelpViewerOSX.class); // TODO            
         }
 
         binder.bind(PrefBuilder.class ).annotatedWith( Names.named(LOCALE)).to(LocalePrefBuilderImpl.class);

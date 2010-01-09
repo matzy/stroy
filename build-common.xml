@@ -202,17 +202,17 @@
                <javaproperty name="com.apple.macos.useScreenMenuBar" value="true"/>
 
                <HelpBook locale="English">
-                   <fileset dir="${resources}/helpbook/English.lproj" />
+                   <fileset dir="${resources}/helpbook/English.lproj/HelpBook" />
                    <!--<fileset dir="${src}/${helpbook}/common" />-->
                </HelpBook>
 
                <HelpBook locale="German">
-                   <fileset dir="${resources}/helpbook/German.lproj" />
+                   <fileset dir="${resources}/helpbook/German.lproj/HelpBook" />
                    <!--<fileset dir="${src}/${helpbook}/common" />-->
                </HelpBook>
 
                <HelpBook locale="Japanese">
-                   <fileset dir="${resources}/helpbook/Japanese.lproj" />
+                   <fileset dir="${resources}/helpbook/Japanese.lproj/HelpBook" />
                    <!--<fileset dir="${src}/${helpbook}/common" />-->
                </HelpBook>
 
@@ -245,20 +245,20 @@
         <if>
             <isset property="isApp"/>
         <then>
-            <copy todir="${resources}/helpbook/English.lproj">
+            <copy todir="${resources}/helpbook/English.lproj/HelpBook">
                 <fileset dir="${helpbooksrc}/English" />
                 <fileset dir="${helpbooksrc}/common" />
             </copy>
             <if>
                 <available file="${helpbooksrc}/Japanese"/>
             <then>
-                <copy todir="${resources}/helpbook/Japanese.lproj">
+                <copy todir="${resources}/helpbook/Japanese.lproj/HelpBook">
                     <fileset dir="${helpbooksrc}/Japanese" />
                     <fileset dir="${helpbooksrc}/common" />
                 </copy>
             </then>
             <else>
-                <copy todir="${resources}/helpbook/Japanese.lproj">
+                <copy todir="${resources}/helpbook/Japanese.lproj/HelpBook">
                     <fileset dir="${helpbooksrc}/English" />
                     <fileset dir="${helpbooksrc}/common" />
                 </copy>
@@ -267,13 +267,13 @@
             <if>
                 <available file="${helpbooksrc}/German"/>
             <then>
-                <copy todir="${resources}/helpbook/German.lproj">
+                <copy todir="${resources}/helpbook/German.lproj/HelpBook">
                     <fileset dir="${helpbooksrc}/German" />
                     <fileset dir="${helpbooksrc}/common" />
                 </copy>
             </then>
             <else>
-                <copy todir="${resources}/helpbook/German.lproj">
+                <copy todir="${resources}/helpbook/German.lproj/HelpBook">
                     <fileset dir="${helpbooksrc}/English" />
                     <fileset dir="${helpbooksrc}/common" />
                 </copy>
@@ -282,13 +282,13 @@
             <if>
                 <available file="${helpbooksrc}/Spanish"/>
             <then>
-                <copy todir="${resources}/helpbook/Spanish.lproj">
+                <copy todir="${resources}/helpbook/Spanish.lproj/HelpBook">
                     <fileset dir="${helpbooksrc}/German" />
                     <fileset dir="${helpbooksrc}/common" />
                 </copy>
             </then>
             <else>
-                <copy todir="${resources}/helpbook/Spanish.lproj">
+                <copy todir="${resources}/helpbook/Spanish.lproj/HelpBook">
                     <fileset dir="${helpbooksrc}/English" />
                     <fileset dir="${helpbooksrc}/common" />
                 </copy>
