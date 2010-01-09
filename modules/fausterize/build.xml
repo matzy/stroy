@@ -11,7 +11,7 @@
     <property name = "app-signature"     value="faust"/>
     <property name = "bundleid"     value="org.openCage.fausterize"/>
     <property name = "osx-icon"     value="org/openCage/gpad/fausterize.icns"/>
-    <property name = "helpbook" value="org/openCage/gpad/HelpBook"/>
+    <property name = "helpbook" value="HelpBook"/>
 
     <import file="../../build-common.xml"/>
 </project>

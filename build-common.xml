@@ -27,6 +27,7 @@
     <property name="resources"       value="${dependencies.basedir}/build/resources/${ant.project.name}"/>
     <property name="deploy"          value="${dependencies.basedir}/build/deploy/${ant.project.name}"/>
     <property name="src"             value="${module}/src"/>
+    <property name="helpbooksrc"     value="${module}/${helpbook}"/>
     <!--<property name="jar-name"        value="openCage-${ant.project.name}-${version}.jar"/>-->
 
     <condition property="isOSX">
@@ -201,18 +202,18 @@
                <javaproperty name="com.apple.macos.useScreenMenuBar" value="true"/>
 
                <HelpBook locale="English">
-                   <fileset dir="${src}/${helpbook}/English" />
-                   <fileset dir="${src}/${helpbook}/common" />
+                   <fileset dir="${resources}/helpbook/English.lproj" />
+                   <!--<fileset dir="${src}/${helpbook}/common" />-->
                </HelpBook>
 
                <HelpBook locale="German">
-                   <fileset dir="${src}/${helpbook}/German" />
-                   <fileset dir="${src}/${helpbook}/common" />
+                   <fileset dir="${resources}/helpbook/German.lproj" />
+                   <!--<fileset dir="${src}/${helpbook}/common" />-->
                </HelpBook>
 
                <HelpBook locale="Japanese">
-                   <fileset dir="${src}/${helpbook}/Japanese" />
-                   <fileset dir="${src}/${helpbook}/common" />
+                   <fileset dir="${resources}/helpbook/Japanese.lproj" />
+                   <!--<fileset dir="${src}/${helpbook}/common" />-->
                </HelpBook>
 
             </jarbundler>
@@ -221,7 +222,7 @@
     </target>
 
     <target name="unix-app"
-            depends="dist">
+            depends="dist,helpsetup">
         <if>
             <isset property="isApp"/>
         <then>
@@ -229,20 +230,70 @@
             <copy todir="${deploy}/unix/${app-name}/libs">
                 <fileset refid="internalsSet"/>
             </copy>
-            <copy todir="${deploy}/unix/${app-name}/English.lproj/HelpBook">
-                <fileset dir="${src}/${helpbook}/English" />
-                <fileset dir="${src}/${helpbook}/common" />
+
+            <copy todir="${deploy}/unix/${app-name}/">
+                <fileset dir="${resources}/helpbook" />
             </copy>
-            <copy todir="${deploy}/unix/${app-name}/German.lproj/HelpBook">
-                <fileset dir="${src}/${helpbook}/German" />
-                <fileset dir="${src}/${helpbook}/common" />
-            </copy>
-            <copy todir="${deploy}/unix/${app-name}/Japanese.lproj/HelpBook">
-                <fileset dir="${src}/${helpbook}/Japanese" />
-                <fileset dir="${src}/${helpbook}/common" />
-            </copy>
+
             <echo  message="java -jar libs/openCage-${ant.project.name}-${version}.jar" file="${deploy}/unix/${app-name}/${app-name}.sh"/>
             <chmod file="${deploy}/unix/${app-name}/${app-name}.sh" perm="ugo+x" />
+        </then>
+        </if>
+    </target>
+
+    <target  name = "helpsetup">
+        <if>
+            <isset property="isApp"/>
+        <then>
+            <copy todir="${resources}/helpbook/English.lproj">
+                <fileset dir="${helpbooksrc}/English" />
+                <fileset dir="${helpbooksrc}/common" />
+            </copy>
+            <if>
+                <available file="${helpbooksrc}/Japanese"/>
+            <then>
+                <copy todir="${resources}/helpbook/Japanese.lproj">
+                    <fileset dir="${helpbooksrc}/Japanese" />
+                    <fileset dir="${helpbooksrc}/common" />
+                </copy>
+            </then>
+            <else>
+                <copy todir="${resources}/helpbook/Japanese.lproj">
+                    <fileset dir="${helpbooksrc}/English" />
+                    <fileset dir="${helpbooksrc}/common" />
+                </copy>
+            </else>
+            </if>
+            <if>
+                <available file="${helpbooksrc}/German"/>
+            <then>
+                <copy todir="${resources}/helpbook/German.lproj">
+                    <fileset dir="${helpbooksrc}/German" />
+                    <fileset dir="${helpbooksrc}/common" />
+                </copy>
+            </then>
+            <else>
+                <copy todir="${resources}/helpbook/German.lproj">
+                    <fileset dir="${helpbooksrc}/English" />
+                    <fileset dir="${helpbooksrc}/common" />
+                </copy>
+            </else>
+            </if>
+            <if>
+                <available file="${helpbooksrc}/Spanish"/>
+            <then>
+                <copy todir="${resources}/helpbook/Spanish.lproj">
+                    <fileset dir="${helpbooksrc}/German" />
+                    <fileset dir="${helpbooksrc}/common" />
+                </copy>
+            </then>
+            <else>
+                <copy todir="${resources}/helpbook/Spanish.lproj">
+                    <fileset dir="${helpbooksrc}/English" />
+                    <fileset dir="${helpbooksrc}/common" />
+                </copy>
+            </else>
+            </if>
         </then>
         </if>
     </target>

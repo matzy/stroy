@@ -135,7 +135,7 @@ public class FaustUI extends JFrame {
         UnifiedToolBar toolBar = new UnifiedToolBar();
 //        save.putClientProperty("JButton.buttonType", "textured");
 //        toolBar.addComponentToLeft(save);
-        toolBar.addComponentToLeft( new LabeledComponentGroup( localize.localize( "org.openCage.fausterize.decode"),
+        toolBar.addComponentToLeft( new LabeledComponentGroup( localize.localize( "org.openCage.localization.dict.decode"),
                                                                padButton).getComponent());
 
         //padButton.putClientProperty("JButton.buttonType", "textured");
