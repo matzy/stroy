@@ -14,6 +14,7 @@
     <property name="bundleid" value=""/>
     <property name="osx-icon" value=""/>
     <property name="helpbook" value=""/>
+    <property name="creator" value="Stephan Pfab"/>
 
 
     <!-- ====== properties ========== -->
@@ -56,12 +57,14 @@
 
     <!-- ====== extra tasks ========== -->
 
+    <!-- if-task -->
     <taskdef resource="net/sf/antcontrib/antlib.xml">
       <classpath>
         <pathelement location="${dependencies.basedir}/external/build/ant-contrib-1.0b3.jar"/>
       </classpath>
     </taskdef>
 
+    <!-- build osx apps -->
     <taskdef name="jarbundler"
              classpath="${dependencies.basedir}/external/build/jarbundler-2.0.0.jar"
              classname="net.sourceforge.jarbundler.JarBundler" />
@@ -135,21 +138,24 @@
 
     </target>
 
-    <!-- construct the manifest -->
+    <!-- construct the manifest                                                              -->
+    <!-- classpath is everything already in libs, i.e. all libs the current build depends on -->
+    <!-- which is specified in dependencies.xml                                              -->
     <target name="create-manifest" depends="prepare">
         <pathconvert property="jars-var" pathsep=" " refid="jars">
             <map from="${libs}/" to=""/>
         </pathconvert>
 
+        <!-- dbg -->
         <echo message="jars-vars = ${jars-var}" />
 
         <manifest file="${resources}/manifest.mf" mode="replace">
             <attribute name="Built-By" value="${user.name}"/>
-            <attribute name="Created-By" value="Stephan Pfab"/>
+            <attribute name="Created-By" value="${creator}"/>
             <attribute name="Class-Path" value="${jars-var}"/>
         </manifest>
         <if>
-            <isset property="main"/>
+            <isset property="isApp"/>
             <then>
                 <manifest file="${resources}/manifest.mf" mode="update">
                     <attribute name="Main-Class" value="${main}"/>
@@ -170,77 +176,9 @@
     </target>
 
 
-    <target name="os-app" depends="dist" > <!-- ,jni"> -->
-        <if >
-           <and>
-                <isset property="isOSX"/>
-                <isset property="isApp"/>
-           </and>
-           <then>
-           <jarbundler dir="${deploy}/osx"
-                       verbose="true"
-                       name="${app-name}"
-                       shortname="${app-name}"
-                       stubfile="${app-name}"
-                       signature="${app-signature}"
-                       mainclass="${main}"
-                       jvmversion="1.6+"
-                       version="${version}"
-                       infostring="${app-name}, MPL1.1"
-                       build="${buildnumber}"
-                       bundleid="${bundleid}"
-                       icon="${src}/${osx-icon}"
-                       helpbookfolder="HelpBook"
-                       helpbookname="${app-name}"
-                   >
-               <jarfileset refid="internalsSet"/>
-
-               <!-- Copy the HelpBook JNI library  -->
-               <javafilelist dir="${objc-libs}" files="libHelpBookJNI.jnilib"/>
-
-               <javaproperty name="apple.laf.useScreenMenuBar" value="true"/>
-               <javaproperty name="com.apple.macos.useScreenMenuBar" value="true"/>
-
-               <HelpBook locale="English">
-                   <fileset dir="${resources}/helpbook/English.lproj/HelpBook" />
-                   <!--<fileset dir="${src}/${helpbook}/common" />-->
-               </HelpBook>
-
-               <HelpBook locale="German">
-                   <fileset dir="${resources}/helpbook/German.lproj/HelpBook" />
-                   <!--<fileset dir="${src}/${helpbook}/common" />-->
-               </HelpBook>
-
-               <HelpBook locale="Japanese">
-                   <fileset dir="${resources}/helpbook/Japanese.lproj/HelpBook" />
-                   <!--<fileset dir="${src}/${helpbook}/common" />-->
-               </HelpBook>
-
-            </jarbundler>
-            </then>
-        </if>
-    </target>
-
-    <target name="unix-app"
-            depends="dist,helpsetup">
-        <if>
-            <isset property="isApp"/>
-        <then>
-            <mkdir dir="${deploy}/unix/${app-name}/libs" />
-            <copy todir="${deploy}/unix/${app-name}/libs">
-                <fileset refid="internalsSet"/>
-            </copy>
-
-            <copy todir="${deploy}/unix/${app-name}/">
-                <fileset dir="${resources}/helpbook" />
-            </copy>
-
-            <echo  message="java -jar libs/openCage-${ant.project.name}-${version}.jar" file="${deploy}/unix/${app-name}/${app-name}.sh"/>
-            <chmod file="${deploy}/unix/${app-name}/${app-name}.sh" perm="ugo+x" />
-        </then>
-        </if>
-    </target>
-
+    <!-- copy help html pages together                                         -->
+    <!-- based on osx help layout                                              -->
+    <!-- English is required other languages are optional and will use English -->
     <target  name = "helpsetup">
         <if>
             <isset property="isApp"/>
@@ -297,6 +235,83 @@
         </then>
         </if>
     </target>
+
+    <!-- build a osx app, app layout, plist, icon, help -->
+    <target name="os-app" depends="dist" > <!-- ,jni"> -->
+        <if >
+           <and>
+                <isset property="isOSX"/>
+                <isset property="isApp"/>
+           </and>
+           <then>
+           <jarbundler dir="${deploy}/osx"
+                       verbose="true"
+                       name="${app-name}"
+                       shortname="${app-name}"
+                       stubfile="${app-name}"
+                       signature="${app-signature}"
+                       mainclass="${main}"
+                       jvmversion="1.6+"
+                       version="${version}"
+                       infostring="${app-name}, MPL1.1"
+                       build="${buildnumber}"
+                       bundleid="${bundleid}"
+                       icon="${src}/${osx-icon}"
+                       helpbookfolder="HelpBook"
+                       helpbookname="${app-name}"
+                   >
+               <jarfileset refid="internalsSet"/>
+
+               <!-- Copy the HelpBook JNI library  -->
+               <javafilelist dir="${objc-libs}" files="libHelpBookJNI.jnilib"/>
+
+               <javaproperty name="apple.laf.useScreenMenuBar" value="true"/>
+               <javaproperty name="com.apple.macos.useScreenMenuBar" value="true"/>
+
+               <HelpBook locale="English">
+                   <fileset dir="${resources}/helpbook/English.lproj/HelpBook" />
+               </HelpBook>
+
+               <HelpBook locale="German">
+                   <fileset dir="${resources}/helpbook/German.lproj/HelpBook" />
+               </HelpBook>
+
+               <HelpBook locale="Japanese">
+                   <fileset dir="${resources}/helpbook/Japanese.lproj/HelpBook" />
+               </HelpBook>
+
+            </jarbundler>
+
+            <zip destfile="${deploy}/osx/${app-name}.app-${version}.zip" basedir="${deploy}/osx/${app-name}.app" /> 
+
+            </then>
+        </if>
+    </target>
+
+    <!-- build a unix deliverable   -->
+    <!-- inspired by osx app layout -->
+    <target name="unix-app"
+            depends="dist,helpsetup">
+        <if>
+            <isset property="isApp"/>
+        <then>
+            <mkdir dir="${deploy}/unix/${app-name}/resources/java" />
+            <copy todir="${deploy}/unix/${app-name}/resources/java">
+                <fileset refid="internalsSet"/>
+            </copy>
+
+            <copy todir="${deploy}/unix/${app-name}/resources">
+                <fileset dir="${resources}/helpbook" />
+            </copy>
+
+            <echo  message="java -jar resources/java/openCage-${ant.project.name}-${version}.jar" file="${deploy}/unix/${app-name}/${app-name}.sh"/>
+            <chmod file="${deploy}/unix/${app-name}/${app-name}.sh" perm="ugo+x" />
+
+            <zip destfile="${deploy}/unix/${app-name}-${version}.zip" basedir="${deploy}/unix/${app-name}" /> 
+        </then>
+        </if>
+    </target>
+
 
 
     <target name="dist" depends="create-jar" >
