@@ -2,7 +2,6 @@ package org.openCage.webgen.clazz;
 
 import junit.framework.TestCase;
 import org.junit.Test;
-import sun.jvm.hotspot.utilities.Assert;
 
 import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

@@ -113,7 +113,10 @@
          </copy>
 
         <if>
-            <isset property="objective-c-helpviewer"/>
+            <and>
+                <isset property="objective-c-helpviewer"/>
+                <isset property="isOSX"/>
+            </and>
             <then>
                 <!-- Create a JNI library for launching the Help Viewer -->
                     <exec executable="cc">
