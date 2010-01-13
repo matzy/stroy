@@ -15,7 +15,7 @@
 </target>
 <!-- ================================================================== -->
 <target name= "depend.fausterize"
-    depends="depend.lang, mac-widgets, designgridlayout, depend.application, commons-io, depend.ui">
+    depends="depend.lang, mac-widgets, designgridlayout, depend.application, commons-io, depend.ui, args4j">
     <ant dir="${dependencies.basedir}/modules/fausterize" inheritAll="false"/>
 </target>
 <!-- ================================================================== -->
@@ -93,8 +93,12 @@
 <target name= "swing-layout">
    <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/swing-layout-1.0.2.jar"/>
 </target>
-<!-- ================================================================== -->
-<target name= "xstream">
-   <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/xstream-1.3.1.jar"/>
-</target>
+    <!-- ================================================================== -->
+    <target name= "xstream">
+       <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/xstream-1.3.1.jar"/>
+    </target>
+    <!-- ================================================================== -->
+    <target name= "args4j">
+       <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/args4j-2.0.10.jar"/>
+    </target>
 </project>
