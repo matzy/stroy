@@ -40,8 +40,14 @@ import java.util.Locale;
 ***** END LICENSE BLOCK *****/
 
 public class LocalizeWiring implements Module {
+    private static boolean once;
 
-	public void configure(Binder binder) {
+    public void configure(Binder binder) {
+
+        if ( once ) {
+            return;
+        }
+        once = true;
 
         binder.install( new LangWiring());
 

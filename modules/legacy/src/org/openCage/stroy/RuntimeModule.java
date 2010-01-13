@@ -174,4 +174,15 @@ public class RuntimeModule implements Module {
         binder.bind(NWayDiffPaneGenerator.class ).to( NWayDiffTreeGenImplMessages.class );
 
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj != null && obj instanceof RuntimeModule;
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
+
 }

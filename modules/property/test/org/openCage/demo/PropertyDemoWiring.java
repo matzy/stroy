@@ -35,4 +35,15 @@ public class PropertyDemoWiring implements Module {
                 in( Singleton.class );
 
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj != null && obj instanceof PropertyDemoWiring;
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
+
 }

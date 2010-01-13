@@ -60,4 +60,15 @@ public class FausterizeWiring implements Module {
 
 
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj != null && obj instanceof FausterizeWiring;
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
+
 }

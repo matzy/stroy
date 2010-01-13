@@ -37,4 +37,15 @@ public class DemoWiring implements Module {
         // wire the specifc application provider
         binder.bind( Application.class ).toProvider( ApplicationProvider.class );
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj != null && obj instanceof DemoWiring;
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
+
 }

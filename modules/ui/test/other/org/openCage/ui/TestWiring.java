@@ -35,4 +35,15 @@ public class TestWiring implements Module {
         binder.bind( Application.class ).toProvider( ApplicationProvider.class );        
         binder.bind( PropStore.class ).to( DummyPropStore.class );
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj != null && obj instanceof TestWiring;
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
+
 }

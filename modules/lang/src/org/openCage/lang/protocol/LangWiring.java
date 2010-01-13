@@ -28,7 +28,14 @@ import org.openCage.lang.impl.BackgroundExecutorImpl;
 
 public class LangWiring implements Module {
 
+    private static boolean once;
+
     public void configure(Binder binder) {
+        if ( once ) {
+            return;
+        }
+        once = true;
+
         binder.bind( BackgroundExecutor.class ).to( BackgroundExecutorImpl.class );
         
     }

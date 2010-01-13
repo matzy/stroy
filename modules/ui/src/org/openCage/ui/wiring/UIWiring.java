@@ -27,27 +27,29 @@ import org.openCage.ui.protocol.OSXStandardEventHandler;
 
 import static org.openCage.ui.Constants.*;
 
-/***** BEGIN LICENSE BLOCK *****
+/**
+ * ** BEGIN LICENSE BLOCK *****
  * Version: MPL 1.1
- *
+ * <p/>
  * The contents of this file are subject to the Mozilla Public License Version
  * 1.1 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
  * http://www.mozilla.org/MPL/
- *
+ * <p/>
  * Software distributed under the License is distributed on an "AS IS" basis,
  * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
  * for the specific language governing rights and limitations under the
  * License.
- *
+ * <p/>
  * The Original Code is stroy code.
- *
+ * <p/>
  * The Initial Developer of the Original Code is Stephan Pfab <openCage@gmail.com>.
  * Portions created by Stephan Pfab are Copyright (C) 2006 - 2010.
  * All Rights Reserved.
- *
+ * <p/>
  * Contributor(s):
- ***** END LICENSE BLOCK *****/
+ * **** END LICENSE BLOCK ****
+ */
 
 @SuppressWarnings({"OverlyCoupledClass"})
 public class UIWiring implements Module {
@@ -66,29 +68,35 @@ public class UIWiring implements Module {
         } else if (Sys.isWindows()) {
             binder.bind(FileChooser.class).to(FileChooserWindows.class);
         } else {
-            binder.bind(FileChooser.class).to(FileChooserGeneral.class);            
+            binder.bind(FileChooser.class).to(FileChooserGeneral.class);
         }
 
-        binder.bind( AboutSheet.class ).
-            to( AboutSheetFromApplication.class );
+        binder.bind(AboutSheet.class).
+                to(AboutSheetFromApplication.class);
 
-        binder.bind(OSXStandardEventHandler.class ).to( OSXStandardEventHandlerImpl.class );
+        binder.bind(OSXStandardEventHandler.class).to(OSXStandardEventHandlerImpl.class);
 
-        binder.bind(MenuBuilder.class).to( MenuBuilderImpl.class );
-        binder.bind( GlobalKeyEventHandler.class ).to( GlobalKeyEventHandlerImpl.class );
+        binder.bind(MenuBuilder.class).to(MenuBuilderImpl.class);
+        binder.bind(GlobalKeyEventHandler.class).to(GlobalKeyEventHandlerImpl.class);
 
         if (Sys.isMacOSX()) {
+            System.out.println("mac");
             binder.bind(HelpViewer.class).to(HelpViewerOSX.class);
-        } else if ( Sys.isLinux() ) {
-            binder.bind(HelpViewer.class).to(HelpViewerOSX.class); // TODO            
+        } else if (Sys.isLinux()) {
+            System.out.println("linu");
+            binder.bind(HelpViewer.class).to(HelpViewerOSX.class); // TODO
+        } else {
+            System.out.println("else");
+            binder.bind(HelpViewer.class).to(HelpViewerOSX.class); // TODO
         }
 
-        binder.bind(PrefBuilder.class ).annotatedWith( Names.named(LOCALE)).to(LocalePrefBuilderImpl.class);
+        binder.bind(PrefBuilder.class).annotatedWith(Names.named(LOCALE)).to(LocalePrefBuilderImpl.class);
 
     }
 
     @Override
     public boolean equals(Object obj) {
+        System.out.println("---- ui --- ");
         return obj != null && obj instanceof UIWiring;
     }
 

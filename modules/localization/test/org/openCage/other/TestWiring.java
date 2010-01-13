@@ -17,4 +17,15 @@ public class TestWiring implements Module {
 
 	}
 
+    @Override
+    public boolean equals(Object obj) {
+        return obj != null && obj instanceof TestWiring;
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
+
+
 }

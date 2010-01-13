@@ -1,7 +1,9 @@
 package org.openCage.fspath.clazz;
 
 import org.apache.commons.lang.SystemUtils;
+import org.openCage.fspath.impl.FSPathUNC;
 import org.openCage.fspath.impl.FSPathUnix;
+import org.openCage.fspath.impl.FSPathWindows;
 import org.openCage.fspath.protocol.FSPath;
 
 import java.io.File;
@@ -35,6 +37,14 @@ public class FSPathBuilder {
             return new FSPathUnix(str);
         }
 
+        if ( SystemUtils.IS_OS_WINDOWS ) {
+
+            if ( str.startsWith( "\\\\" )) {
+                return new FSPathUNC(str);
+            }
+
+            return new FSPathWindows(str);
+        }
 
         throw new UnsupportedOperationException("impl me");
     }

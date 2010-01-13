@@ -36,8 +36,15 @@ import org.openCage.withResource.wiring.IoWiring;
 
 public class ApplicationWiring implements Module{
 
+    private static boolean once = false;
+
 	@Override
     public void configure(Binder binder ) {
+
+        if ( once ) {
+            return;
+        }
+        once = true;
 
 		binder.install( new IoWiring() );
 		binder.install( new LocalizeWiring());
@@ -51,7 +58,7 @@ public class ApplicationWiring implements Module{
 
     @Override
     public boolean equals(Object obj) {
-        return obj != null && obj instanceof ApplicationWiring;
+        return obj != null && (obj instanceof ApplicationWiring);
     }
 
     @Override
