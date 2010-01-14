@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="dependencies" default="depend.app">
+
+    <dirname property="dependencies.basedir" file="${ant.file.dependencies}"/>
+
+    <!-- ================================================================== -->
+    <target name="depend.app"
+            depends="depend.moo, args4j">
+        <ant dir="${dependencies.basedir}/modules/app" inheritAll="false"/>
+    </target>
+    <!-- ================================================================== -->
+    <target name="depend.moo"
+            depends="commons-lang">
+        <ant dir="${dependencies.basedir}/modules/moo" inheritAll="false"/>
+    </target>
+
+    <!-- ================================================================== -->
+    <!--     external library dependencies       -->
+    <!-- ================================================================== -->
+
+    <!-- ================================================================== -->
+    <target name="commons-lang">
+        <copy todir="${dependencies.basedir}/build/libs"
+              file="${dependencies.basedir}/external/production/commons-lang-2.4.jar"/>
+    </target>
+    <!-- ================================================================== -->
+    <target name="args4j">
+        <copy todir="${dependencies.basedir}/build/libs"
+              file="${dependencies.basedir}/external/production/args4j-2.0.10.jar"/>
+    </target>
+</project>

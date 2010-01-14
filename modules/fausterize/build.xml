@@ -5,7 +5,7 @@
 
     <property name = "isApp" value="true"/>
 
-    <property name = "buildnumber"     value="345"/>
+    <property name = "buildnumber"     value="349"/>
     <property name = "main"     value="org.openCage.gpad.UIMain"/>
     <property name = "app-name"     value="fausterize"/>
     <property name = "app-signature"     value="faust"/>

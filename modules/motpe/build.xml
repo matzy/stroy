@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="motpe" default="deploy">
+
+    <property name="version" value="0.1" />
+
+    <property name="stroy"  value="${ant.file.motpe}/../../.." />
+    <property name="deploy" value="${stroy}/build/deploy/motpe"/>
+    <property name="tmp"    value="${stroy}/build/tmp/motpe"/>
+    <property name="mod"    value="${ant.file.motpe}/.."/>
+
+    <target name="prepare">
+        <echo  message="${deploy}"/>
+        <mkdir dir="${deploy}"/>
+        <mkdir dir="${tmp}"/>
+    </target>
+
+    <target name="clean">
+        <delete dir="${deploy}"/>
+        <delete dir="${tmp}"/>
+    </target>
+
+    <target name="assemble" depends="prepare" >
+        <copy  todir="${tmp}">
+            <fileset dir="${mod}">
+                <exclude name="build.xml" />
+                <exclude name="motpe.iml" />
+            </fileset>
+        </copy>
+
+        <mkdir dir="${tmp}/external/build" />
+        <mkdir dir="${tmp}/external/production" />
+        <mkdir dir="${tmp}/external/test" />
+
+        <copy todir="${tmp}/external/build" >
+            <fileset dir="${stroy}/external/build" />
+        </copy>
+
+        <!--<copy todir="${tmp}/external/test" >-->
+            <!--<fileset dir="${stroy}/external/test" />-->
+        <!--</copy>-->
+
+        <copy todir="${tmp}/external/production" file="${stroy}/external/production/args4j-2.0.10.jar" />
+        <copy todir="${tmp}/external/production" file="${stroy}/external/production/commons-lang-2.4.jar" />
+
+        <copy todir="${tmp}" file="${stroy}/build-common.xml" />
+
+    </target>
+
+
+    <target name="deploy" depends="prepare, assemble">
+        <zip destfile="${deploy}/motpe-${version}.zip" basedir="${tmp}" />
+    </target>
+</project>
