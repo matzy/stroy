@@ -285,7 +285,13 @@
 
             </jarbundler>
 
-            <zip destfile="${deploy}/osx/${app-name}.app-${version}.zip" basedir="${deploy}/osx/${app-name}.app" /> 
+            <mkdir dir="${deploy}/osx/${app-name}" />
+            <copy todir="${deploy}/osx/${app-name}" >
+                <fileset dir="${deploy}/osx/" >
+                    <exclude name="${app-name}"/>
+                </fileset>
+            </copy>
+            <zip destfile="${deploy}/osx/${app-name}.app-${version}.zip" basedir="${deploy}/osx/${app-name}" />
 
             </then>
         </if>
