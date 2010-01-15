@@ -6,12 +6,12 @@
     <property name = "isApp" value="true"/>
 
     <property name = "buildnumber"     value="349"/>
-    <property name = "main"     value="org.openCage.gpad.UIMain"/>
-    <property name = "app-name"     value="fausterize"/>
-    <property name = "app-signature"     value="faust"/>
-    <property name = "bundleid"     value="org.openCage.fausterize"/>
-    <property name = "osx-icon"     value="org/openCage/gpad/fausterize.icns"/>
-    <property name = "helpbook" value="HelpBook"/>
+    <property name = "app.main"        value="org.openCage.gpad.UIMain"/>
+    <property name = "app.name"        value="fausterize"/>
+    <property name = "app.signature"   value="faust"/>
+    <property name = "app.bundleid"    value="org.openCage.fausterize"/>
+    <property name = "app.icon.osx"    value="org/openCage/gpad/fausterize.icns"/>
+    <property name = "app.helpbook"    value="HelpBook"/>
 
     <import file="../../build-common.xml"/>
 </project>

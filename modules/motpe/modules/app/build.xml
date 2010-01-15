@@ -2,5 +2,16 @@
 <project name="app" default="default" basedir=".">
     <property  name = "version" value="1.2.1" />
 
+    <property name = "isApp" value="true"/>
+
+    <!--<property name = "buildnumber"     value="42"/>-->
+    <!--<property name = "app.main"        value="org.someclass"/>-->
+    <property name = "app.name"        value="app"/>
+    <!--<property name = "app.signature"   value="app"/>-->
+    <!--<property name = "app.bundleid"    value="org.app.app"/>-->
+    <!--<property name = "app.icon.osx"    value="org/openCage/gpad/fausterize.icns"/>-->
+    <!--<property name = "app.helpbook"        value="HelpBook"/>-->
+
+    <!-- keep it last -->
     <import file="../../build-common.xml"/>
 </project>

@@ -1,14 +1,9 @@
+package org.motpe.app;
+
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
 import org.motpe.moo.Moo;
 
-/**
- * Created by IntelliJ IDEA.
- * User: stephan
- * Date: Jan 14, 2010
- * Time: 7:29:45 PM
- * To change this template use File | Settings | File Templates.
- */
 public class Main {
 
     public static void main(String[] args) {

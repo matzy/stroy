@@ -6,15 +6,15 @@
 
     <!-- ====== overrideable properties ========== -->
 
-    <property name="main" value=""/>
     <property name="version" value="0.0.1"/>
-    <property name="app-name" value=""/>
-    <property name="app-signature" value=""/>
-    <property name="buildnumber" value=""/>
-    <property name="bundleid" value=""/>
-    <property name="osx-icon" value=""/>
-    <property name="helpbook" value=""/>
     <property name="creator" value="Stephan Pfab"/>
+    <property name="buildnumber" value=""/>
+    <property name="app.name" value=""/>
+    <property name="app.main" value="${ant.project.name}"/>
+    <property name="app.signature" value=""/>
+    <property name="app.bundleid" value=""/>
+    <property name="app.icon.osx" value=""/>
+    <property name="app.helpbook" value=""/>
 
 
     <!-- ====== properties ========== -->
@@ -28,7 +28,7 @@
     <property name="resources"       value="${dependencies.basedir}/build/resources/${ant.project.name}"/>
     <property name="deploy"          value="${dependencies.basedir}/build/deploy/${ant.project.name}"/>
     <property name="src"             value="${module}/src"/>
-    <property name="helpbooksrc"     value="${module}/${helpbook}"/>
+    <property name="helpbooksrc"     value="${module}/${app.helpbook}"/>
     <!--<property name="jar-name"        value="openCage-${ant.project.name}-${version}.jar"/>-->
 
     <condition property="isOSX">
@@ -52,6 +52,12 @@
        <and>
          <os family="unix"/>
        </and>
+    </condition>
+    <condition property="isOSXApp">
+        <and>
+            <not> <equals arg1="${app.icon.osx}" arg2="" /> </not>
+            <not> <equals arg1="${app.bundleid}" arg2="" /> </not>
+        </and>
     </condition>
 
 
@@ -161,7 +167,7 @@
             <isset property="isApp"/>
             <then>
                 <manifest file="${resources}/manifest.mf" mode="update">
-                    <attribute name="Main-Class" value="${main}"/>
+                    <attribute name="Main-Class" value="${app.main}"/>
                 </manifest>
             </then>
         </if>
@@ -184,7 +190,10 @@
     <!-- English is required other languages are optional and will use English -->
     <target  name = "helpsetup">
         <if>
-            <isset property="isApp"/>
+            <and>
+                <isset property="isApp"/>
+                <available file="${helpbooksrc}/English"/>
+            </and>
         <then>
             <copy todir="${resources}/helpbook/English.lproj/HelpBook">
                 <fileset dir="${helpbooksrc}/English" />
@@ -247,21 +256,25 @@
                 <isset property="isApp"/>
            </and>
            <then>
+           <if>
+               <isset property="isOSXApp" />
+               <then>
+
            <jarbundler dir="${deploy}/osx"
                        verbose="true"
-                       name="${app-name}"
-                       shortname="${app-name}"
-                       stubfile="${app-name}"
-                       signature="${app-signature}"
-                       mainclass="${main}"
+                       name="${app.name}"
+                       shortname="${app.name}"
+                       stubfile="${app.name}"
+                       signature="${app.signature}"
+                       mainclass="${app.main}"
                        jvmversion="1.6+"
                        version="${version}"
-                       infostring="${app-name}, MPL1.1"
+                       infostring="${app.name}, MPL1.1"
                        build="${buildnumber}"
-                       bundleid="${bundleid}"
-                       icon="${src}/${osx-icon}"
+                       bundleid="${app.bundleid}"
+                       icon="${src}/${app.icon.osx}"
                        helpbookfolder="HelpBook"
-                       helpbookname="${app-name}"
+                       helpbookname="${app.name}"
                    >
                <jarfileset refid="internalsSet"/>
 
@@ -285,15 +298,20 @@
 
             </jarbundler>
 
-            <mkdir dir="${deploy}/osx/${app-name}" />
-            <copy todir="${deploy}/osx/${app-name}" >
+            <mkdir dir="${deploy}/osx/${app.name}" />
+            <copy todir="${deploy}/osx/${app.name}" >
                 <fileset dir="${deploy}/osx/" >
-                    <exclude name="${app-name}"/>
+                    <exclude name="${app.name}"/>
                 </fileset>
             </copy>
-            <zip destfile="${deploy}/osx/${app-name}.app-${version}.zip" basedir="${deploy}/osx/${app-name}" />
+            <zip destfile="${deploy}/osx/${app.name}.app-${version}.zip" basedir="${deploy}/osx/${app.name}" />
 
             </then>
+        </if>
+           </then>
+            <else>
+                <echo message="not all properties set to build and osx.app"/>
+            </else>
         </if>
     </target>
 
@@ -304,19 +322,24 @@
         <if>
             <isset property="isApp"/>
         <then>
-            <mkdir dir="${deploy}/unix/${app-name}/resources/java" />
-            <copy todir="${deploy}/unix/${app-name}/resources/java">
+            <mkdir dir="${deploy}/unix/${app.name}/resources/java" />
+            <copy todir="${deploy}/unix/${app.name}/resources/java">
                 <fileset refid="internalsSet"/>
             </copy>
 
-            <copy todir="${deploy}/unix/${app-name}/resources">
-                <fileset dir="${resources}/helpbook" />
-            </copy>
+            <if>
+                <available file="${resources}/helpbook"/>
+                <then>
+                    <copy todir="${deploy}/unix/${app.name}/resources">
+                        <fileset dir="${resources}/helpbook" />
+                    </copy>
+                </then>
+            </if>
 
-            <echo  message="java -jar resources/java/openCage-${ant.project.name}-${version}.jar" file="${deploy}/unix/${app-name}/${app-name}.sh"/>
-            <chmod file="${deploy}/unix/${app-name}/${app-name}.sh" perm="ugo+x" />
+            <echo  message="java -jar resources/java/openCage-${ant.project.name}-${version}.jar" file="${deploy}/unix/${app.name}/${app.name}.sh"/>
+            <chmod file="${deploy}/unix/${app.name}/${app.name}.sh" perm="ugo+x" />
 
-            <zip destfile="${deploy}/unix/${app-name}-${version}.zip" basedir="${deploy}/unix/${app-name}" /> 
+            <zip destfile="${deploy}/unix/${app.name}-${version}.zip" basedir="${deploy}/unix/${app.name}" /> 
         </then>
         </if>
     </target>

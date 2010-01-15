@@ -2,11 +2,11 @@
 <project name="legacy" default="default" basedir=".">
     <property name = "version"  value="1.0.5" />
     <property name = "buildnumber"     value="303"/>
-    <property name = "main"     value="org.openCage.stroy.ui.Main"/>
-    <property name = "app-name"     value="stroy"/>
-    <property name = "app-signature"     value="stry"/>
-    <property name = "bundleid"     value="org.openCage.stroy"/>
-    <property name = "osx-icon"     value="org/openCage/stroy/ui/stroy.icns"/>
+    <property name = "app.main"     value="org.openCage.stroy.ui.app.main"/>
+    <property name = "app.name"     value="stroy"/>
+    <property name = "app.signature"     value="stry"/>
+    <property name = "app.bundleid"     value="org.openCage.stroy"/>
+    <property name = "app.icon.osx"     value="org/openCage/stroy/ui/stroy.icns"/>
 
     <import file="../../build-common.xml"/>
 </project>
