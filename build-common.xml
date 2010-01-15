@@ -9,8 +9,8 @@
     <property name="version" value="0.0.1"/>
     <property name="creator" value="Stephan Pfab"/>
     <property name="buildnumber" value=""/>
-    <property name="app.name" value=""/>
-    <property name="app.main" value="${ant.project.name}"/>
+    <property name="app.name" value="${ant.project.name}"/>
+    <property name="app.main" value=""/>
     <property name="app.signature" value=""/>
     <property name="app.bundleid" value=""/>
     <property name="app.icon.osx" value=""/>

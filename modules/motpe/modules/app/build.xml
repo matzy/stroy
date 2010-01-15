@@ -5,7 +5,7 @@
     <property name = "isApp" value="true"/>
 
     <!--<property name = "buildnumber"     value="42"/>-->
-    <!--<property name = "app.main"        value="org.someclass"/>-->
+    <property name = "app.main"        value="org.motpe.app.Main"/>
     <property name = "app.name"        value="app"/>
     <!--<property name = "app.signature"   value="app"/>-->
     <!--<property name = "app.bundleid"    value="org.app.app"/>-->
