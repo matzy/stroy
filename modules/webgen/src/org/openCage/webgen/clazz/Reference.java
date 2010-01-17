@@ -1,5 +1,6 @@
 package org.openCage.webgen.clazz;
 
+import com.sun.tools.javac.main.JavaCompiler;
 import org.openCage.lang.clazz.Count;
 
 import java.util.ArrayList;
@@ -117,6 +118,13 @@ public class Reference {
         return this;
     }
 
+    public Reference mit() {
+        licence = "http://www.opensource.org/licenses/mit-license.php";
+        licenceShort = "MIT";
+        return this;
+    }
+
+
     public Reference description( String text ) {
         descr = text;
         return this;
@@ -185,7 +193,7 @@ public class Reference {
 //
     }
 
-    private void printTargetAndDepends() {
+    protected void printTargetAndDepends() {
         System.out.print("<target name= \"" + prog + "\"");
         for ( Count<String> dep : Count.count(dependencies) ) {
             if ( dep.isFirst() ) {
@@ -262,5 +270,21 @@ public class Reference {
         }
 
         return prog.substring( "depend.".length() );
+    }
+
+    public Reference internal() {
+        return typ( "internal" );
+    }
+
+    public Reference runtime() {
+        return typ( "runtime" );
+    }
+
+    public Reference knowhow() {
+        return typ( "knowhow" );
+    }
+
+    public boolean hasLibrary() {
+        return libName != null; 
     }
 }

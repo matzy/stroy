@@ -8,16 +8,31 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by IntelliJ IDEA.
- * User: stephan
- * Date: Dec 29, 2009
- * Time: 3:42:22 PM
- * To change this template use File | Settings | File Templates.
- */
+/***** BEGIN LICENSE BLOCK *****
+* Version: MPL 1.1
+*
+* The contents of this file are subject to the Mozilla Public License Version
+* 1.1 (the "License"); you may not use this file except in compliance with
+* the License. You may obtain a copy of the License at
+* http://www.mozilla.org/MPL/
+*
+* Software distributed under the License is distributed on an "AS IS" basis,
+* WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+* for the specific language governing rights and limitations under the
+* License.
+*
+* The Original Code is stroy code.
+*
+* The Initial Developer of the Original Code is Stephan Pfab <openCage@gmail.com>.
+* Portions created by Stephan Pfab are Copyright (C) 2006 - 2010.
+* All Rights Reserved.
+*
+* Contributor(s):
+***** END LICENSE BLOCK *****/
+
 public class GenAntDependencies {
 
-    List<Reference> refs = new LinkCollection().getRefs();
+    List<Ref> refs = new LinkCollection().getRefs();
 
     public static void main(String[] args) {
         new GenAntDependencies().print();
@@ -31,8 +46,8 @@ public class GenAntDependencies {
                 "\n" +
                 "    <dirname property=\"dependencies.basedir\" file=\"${ant.file.dependencies}\"/>\n");
 
-        for ( Reference ref : refs ) {
-            if ( ref.isInternal() ) {
+        for ( Ref ref : refs ) {
+            if ( ref instanceof Module ) {
                 ref.printAnt();
             }
         }
@@ -44,8 +59,11 @@ public class GenAntDependencies {
                 "");
 
 
-        for ( Reference ref : refs ) {
-            if ( ref.isRuntime() ) {
+        for ( Ref ref : refs ) {
+            if ( ref instanceof Lib ) {
+//                if ( !ref.hasLibrary() ) {
+//                    throw new IllegalStateException("runtime dependency without lib:" + ref.getProg() );
+//                }
                 ref.printAnt();
             }
         }
@@ -56,43 +74,43 @@ public class GenAntDependencies {
     }
 
     private void printDependentLinks( List<String> lnks ) {
-        Set<Reference> refLinks = new HashSet<Reference>();
-        Set<String>    links    = new HashSet<String>( lnks );
-        
-        while( true ) {
-            for ( String ln : links ) {
-                refLinks.add( find( refs, ln ));
-            }
-
-            int lncount = links.size();
-
-            for ( Reference ref : refLinks ) {
-                links.addAll( ref.getDependencies() );
-            }
-
-            if ( lncount == links.size() ) {
-                break;
-            }
-        }
-
-        List<Reference> sortedRefs = new ArrayList<Reference>();
-        for ( Reference ref : refLinks ) {
-            if ( !ref.isInternal() ) {
-                sortedRefs.add(ref);
-            }
-        }
-
-        Collections.sort( sortedRefs, new Comparator<Reference>() {
-            @Override
-            public int compare(Reference reference, Reference reference1) {
-                return reference.getProg().compareTo(reference1.getProg());
-            }
-        });
-
-        for ( Reference ref : sortedRefs ) {
-            ref.printHtmlLink();            
-        }
-
+//        Set<Reference> refLinks = new HashSet<Reference>();
+//        Set<String>    links    = new HashSet<String>( lnks );
+//
+//        while( true ) {
+//            for ( String ln : links ) {
+//                refLinks.add( find( refs, ln ));
+//            }
+//
+//            int lncount = links.size();
+//
+//            for ( Reference ref : refLinks ) {
+//                links.addAll( ref.getDependencies() );
+//            }
+//
+//            if ( lncount == links.size() ) {
+//                break;
+//            }
+//        }
+//
+//        List<Reference> sortedRefs = new ArrayList<Reference>();
+//        for ( Reference ref : refLinks ) {
+//            if ( !ref.isInternal() ) {
+//                sortedRefs.add(ref);
+//            }
+//        }
+//
+//        Collections.sort( sortedRefs, new Comparator<Reference>() {
+//            @Override
+//            public int compare(Reference reference, Reference reference1) {
+//                return reference.getProg().compareTo(reference1.getProg());
+//            }
+//        });
+//
+//        for ( Reference ref : sortedRefs ) {
+//            ref.printHtmlLink();
+//        }
+//
     }
 
     private Reference find( List<Reference> refs, String name ) {

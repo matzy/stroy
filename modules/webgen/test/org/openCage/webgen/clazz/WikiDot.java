@@ -10,9 +10,9 @@ package org.openCage.webgen.clazz;
 public class WikiDot {
 
     public static void main(String[] args) {
-        GenWikiRefs gen = new GenWikiRefs( new LinkCollection().getRefs());
-        
-        gen.gen();
+//        GenWikiRefs gen = new GenWikiRefs( new LinkCollection().getRefs());
+//
+//        gen.gen();
     }
 
 }

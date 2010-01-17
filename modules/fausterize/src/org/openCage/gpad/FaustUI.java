@@ -101,6 +101,8 @@ public class FaustUI extends JFrame {
         this.executor        = executor;
         this.localize        = localize;
 
+        setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );        
+
         // TODO remove magic strings
         message = FSPathBuilder.getHome().add(PROJECT_DIR, "1.fst1").toString();
         new File( message ).getParentFile().mkdirs();

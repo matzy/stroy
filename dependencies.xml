@@ -3,102 +3,140 @@
 
     <dirname property="dependencies.basedir" file="${ant.file.dependencies}"/>
 
-<!-- ================================================================== -->
-<target name= "depend.application"
-    depends="depend.lang, depend.localization, depend.io, xstream, jcip-annotations, idea-annotations, commons-io">
-    <ant dir="${dependencies.basedir}/modules/application" inheritAll="false"/>
-</target>
-<!-- ================================================================== -->
-<target name= "depend.io"
-    depends="depend.lang, commons-lang, muchsoft-sys">
-    <ant dir="${dependencies.basedir}/modules/io" inheritAll="false"/>
-</target>
-<!-- ================================================================== -->
-<target name= "depend.fausterize"
-    depends="depend.lang, mac-widgets, designgridlayout, depend.application, commons-io, depend.ui, args4j">
-    <ant dir="${dependencies.basedir}/modules/fausterize" inheritAll="false"/>
-</target>
-<!-- ================================================================== -->
-<target name= "depend.localization"
-    depends="depend.property">
-    <ant dir="${dependencies.basedir}/modules/localization" inheritAll="false"/>
-</target>
-<!-- ================================================================== -->
-<target name= "depend.lang"
-    depends="guice">
-    <ant dir="${dependencies.basedir}/modules/lang" inheritAll="false"/>
-</target>
-<!-- ================================================================== -->
-<target name= "depend.property"
-    depends="commons-io, idea-annotations, xstream, depend.lang">
-    <ant dir="${dependencies.basedir}/modules/property" inheritAll="false"/>
-</target>
-<!-- ================================================================== -->
-<target name= "depend.ui"
-    depends="depend.localization, depend.application, depend.io, designgridlayout, depend.lang, guice, javagraphics-preferencepanel, jgoodies-binding">
-    <ant dir="${dependencies.basedir}/modules/ui" inheritAll="false"/>
-</target>
+    <!-- ================================================================== -->
+    <target name="depend.application"
+            depends="depend.lang, depend.localization, depend.io, xstream, jcip-annotations, idea-annotations, commons-io">
+        <ant dir="${dependencies.basedir}/modules/application" inheritAll="false"/>
+    </target>
+    <!-- ================================================================== -->
+    <target name="depend.io"
+            depends="depend.lang, commons-lang, muchsoft-sys">
+        <ant dir="${dependencies.basedir}/modules/io" inheritAll="false"/>
+    </target>
+    <!-- ================================================================== -->
+    <target name="depend.fausterize"
+            depends="depend.lang, mac-widgets, designgridlayout, depend.application, commons-io, depend.ui, args4j">
+        <ant dir="${dependencies.basedir}/modules/fausterize" inheritAll="false"/>
+    </target>
+    <!-- ================================================================== -->
+    <target name="depend.localization"
+            depends="depend.property">
+        <ant dir="${dependencies.basedir}/modules/localization" inheritAll="false"/>
+    </target>
+    <!-- ================================================================== -->
+    <target name="depend.lang"
+            depends="guice">
+        <ant dir="${dependencies.basedir}/modules/lang" inheritAll="false"/>
+    </target>
+    <!-- ================================================================== -->
+    <target name="depend.property"
+            depends="commons-io, idea-annotations, xstream, depend.lang">
+        <ant dir="${dependencies.basedir}/modules/property" inheritAll="false"/>
+    </target>
+    <!-- ================================================================== -->
+    <target name="depend.ui"
+            depends="depend.localization, depend.application, depend.io, designgridlayout, depend.lang, guice, javagraphics-preferencepanel, jgoodies-binding">
+        <ant dir="${dependencies.basedir}/modules/ui" inheritAll="false"/>
+    </target>
 
     <!-- ================================================================== -->
     <!--     external library dependencies       -->
     <!-- ================================================================== -->
 
-<!-- ================================================================== -->
-<target name= "commons-io">
-   <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/commons-io-1.4.jar"/>
-</target>
-<!-- ================================================================== -->
-<target name= "commons-lang">
-   <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/commons-lang-2.4.jar"/>
-</target>
-<!-- ================================================================== -->
-<target name= "designgridlayout"
-    depends="swing-layout">
-   <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/designgridlayout-0.9.jar"/>
-</target>
-<!-- ================================================================== -->
-<target name= "guice">
-   <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/guice-2.0.jar"/>
-</target>
-<!-- ================================================================== -->
-<target name= "idea-annotations">
-   <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/annotations.jar"/>
-</target>
-<!-- ================================================================== -->
-<target name= "javagraphics-preferencepanel">
-   <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/PreferencePanel.jar"/>
-</target>
-<!-- ================================================================== -->
-<target name= "jcip-annotations">
-   <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/jcip-annotations.jar"/>
-</target>
-<!-- ================================================================== -->
-<target name= "jgoodies-binding">
-   <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/binding-2.0.6.jar"/>
-</target>
-<!-- ================================================================== -->
-<target name= "jgoodies-forms">
-   <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/forms-1.2.1.jar"/>
-</target>
-<!-- ================================================================== -->
-<target name= "mac-widgets"
-    depends="jgoodies-forms">
-   <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/mac_widgets-0.9.5.jar"/>
-</target>
-<!-- ================================================================== -->
-<target name= "muchsoft-sys">
-   <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/Sys.jar"/>
-</target>
-<!-- ================================================================== -->
-<target name= "swing-layout">
-   <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/swing-layout-1.0.2.jar"/>
-</target>
     <!-- ================================================================== -->
-    <target name= "xstream">
-       <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/xstream-1.3.1.jar"/>
+    <target name="ant-contrib">
+        <copy todir="${dependencies.basedir}/build/libs"
+              file="${dependencies.basedir}/external/production/ant-contrib-1.0b3"/>
     </target>
     <!-- ================================================================== -->
-    <target name= "args4j">
-       <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/args4j-2.0.10.jar"/>
+    <target name="args4j">
+        <copy todir="${dependencies.basedir}/build/libs"
+              file="${dependencies.basedir}/external/production/args4j-2.0.10.jar"/>
+    </target>
+    <!-- ================================================================== -->
+    <target name="commons-cli">
+        <copy todir="${dependencies.basedir}/build/libs"
+              file="${dependencies.basedir}/external/production/commons-cli-1.0.jar"/>
+    </target>
+    <!-- ================================================================== -->
+    <target name="commons-io">
+        <copy todir="${dependencies.basedir}/build/libs"
+              file="${dependencies.basedir}/external/production/commons-io-1.4.jar"/>
+    </target>
+    <!-- ================================================================== -->
+    <target name="commons-lang">
+        <copy todir="${dependencies.basedir}/build/libs"
+              file="${dependencies.basedir}/external/production/commons-lang-2.4.jar"/>
+    </target>
+    <!-- ================================================================== -->
+    <target name="designgridlayout"
+            depends="swing-layout">
+        <copy todir="${dependencies.basedir}/build/libs"
+              file="${dependencies.basedir}/external/production/designgridlayout-0.9.jar"/>
+    </target>
+    <!-- ================================================================== -->
+    <target name="guice">
+        <copy todir="${dependencies.basedir}/build/libs"
+              file="${dependencies.basedir}/external/production/guice-2.0.jar"/>
+    </target>
+    <!-- ================================================================== -->
+    <target name="idea-annotations">
+        <copy todir="${dependencies.basedir}/build/libs"
+              file="${dependencies.basedir}/external/production/annotations.jar"/>
+    </target>
+    <!-- ================================================================== -->
+    <target name="jarbundler">
+        <copy todir="${dependencies.basedir}/build/libs"
+              file="${dependencies.basedir}/external/build/jarbundler-2.0.0.jar"/>
+    </target>
+    <!-- ================================================================== -->
+    <target name="javagraphics-preferencepanel">
+        <copy todir="${dependencies.basedir}/build/libs"
+              file="${dependencies.basedir}/external/production/PreferencePanel.jar"/>
+    </target>
+    <!-- ================================================================== -->
+    <target name="jcip-annotations">
+        <copy todir="${dependencies.basedir}/build/libs"
+              file="${dependencies.basedir}/external/production/jcip-annotations.jar"/>
+    </target>
+    <!-- ================================================================== -->
+    <target name="jdic">
+        <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/jdic.dll"/>
+        <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/jdic.jar"/>
+    </target>
+    <!-- ================================================================== -->
+    <target name="jgoodies-binding">
+        <copy todir="${dependencies.basedir}/build/libs"
+              file="${dependencies.basedir}/external/production/binding-2.0.6.jar"/>
+    </target>
+    <!-- ================================================================== -->
+    <target name="jgoodies-forms">
+        <copy todir="${dependencies.basedir}/build/libs"
+              file="${dependencies.basedir}/external/production/forms-1.2.1.jar"/>
+    </target>
+    <!-- ================================================================== -->
+    <target name="mac-widgets"
+            depends="jgoodies-forms">
+        <copy todir="${dependencies.basedir}/build/libs"
+              file="${dependencies.basedir}/external/production/mac_widgets-0.9.5.jar"/>
+    </target>
+    <!-- ================================================================== -->
+    <target name="muchsoft-sys">
+        <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/Sys.jar"/>
+    </target>
+    <!-- ================================================================== -->
+    <target name="swing-layout">
+        <copy todir="${dependencies.basedir}/build/libs"
+              file="${dependencies.basedir}/external/production/swing-layout-1.0.2.jar"/>
+    </target>
+    <!-- ================================================================== -->
+    <target name="tablelayout">
+        <copy todir="${dependencies.basedir}/build/libs"
+              file="${dependencies.basedir}/external/production/TableLayout-20020517.jar"/>
+    </target>
+    <!-- ================================================================== -->
+    <target name="xstream">
+        <copy todir="${dependencies.basedir}/build/libs"
+              file="${dependencies.basedir}/external/production/xstream-1.3.1.jar"/>
     </target>
 </project>
