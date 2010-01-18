@@ -2,6 +2,8 @@
 <project name="build-common" default="default">
     <import file="dependencies.xml"/>
 
+    <!-- March of the Pink Elephants: version: 0.2 -->
+
     <target name="default" depends="goal"/>
 
     <!-- ====== overrideable properties ========== -->
@@ -19,44 +21,50 @@
 
     <!-- ====== properties ========== -->
 
-    <property name="classes"         value="${dependencies.basedir}/build/classes/${ant.project.name}"/>
-    <property name="objc-classes"    value="${dependencies.basedir}/build/objc-classes/${ant.project.name}"/>
-    <property name="libs"            value="${dependencies.basedir}/build/libs"/>
-    <property name="objc-libs"       value="${dependencies.basedir}/build/objc-libs"/>
-    <property name="dist"            value="${dependencies.basedir}/build/dist/${ant.project.name}"/>
-    <property name="module"          value="${dependencies.basedir}/modules/${ant.project.name}"/>
-    <property name="resources"       value="${dependencies.basedir}/build/resources/${ant.project.name}"/>
-    <property name="deploy"          value="${dependencies.basedir}/build/deploy/${ant.project.name}"/>
-    <property name="src"             value="${module}/src"/>
-    <property name="helpbooksrc"     value="${module}/${app.helpbook}"/>
+    <property name="classes" value="${dependencies.basedir}/build/classes/${ant.project.name}"/>
+    <property name="objc-classes" value="${dependencies.basedir}/build/objc-classes/${ant.project.name}"/>
+    <property name="libs" value="${dependencies.basedir}/build/libs"/>
+    <property name="objc-libs" value="${dependencies.basedir}/build/objc-libs"/>
+    <property name="dist" value="${dependencies.basedir}/build/dist/${ant.project.name}"/>
+    <property name="module" value="${dependencies.basedir}/modules/${ant.project.name}"/>
+    <property name="resources" value="${dependencies.basedir}/build/resources/${ant.project.name}"/>
+    <property name="deploy" value="${dependencies.basedir}/build/deploy/${ant.project.name}"/>
+    <property name="src" value="${module}/src"/>
+    <property name="helpbooksrc" value="${module}/${app.helpbook}"/>
     <!--<property name="jar-name"        value="openCage-${ant.project.name}-${version}.jar"/>-->
 
     <condition property="isOSX">
         <and>
-          <os family="mac"/>
-          <os family="unix"/>
+            <os family="mac"/>
+            <os family="unix"/>
         </and>
-      </condition>
+    </condition>
     <condition property="isLinux">
-       <and>
-         <not>  <os family="mac"/> </not>
-         <os family="unix"/>
-       </and>
-     </condition>
+        <and>
+            <not>
+                <os family="mac"/>
+            </not>
+            <os family="unix"/>
+        </and>
+    </condition>
     <condition property="isWindows">
-       <and>
-         <os family="winnt"/>
-       </and>
-     </condition>
+        <and>
+            <os family="winnt"/>
+        </and>
+    </condition>
     <condition property="isUnix">
-       <and>
-         <os family="unix"/>
-       </and>
+        <and>
+            <os family="unix"/>
+        </and>
     </condition>
     <condition property="isOSXApp">
         <and>
-            <not> <equals arg1="${app.icon.osx}" arg2="" /> </not>
-            <not> <equals arg1="${app.bundleid}" arg2="" /> </not>
+            <not>
+                <equals arg1="${app.icon.osx}" arg2=""/>
+            </not>
+            <not>
+                <equals arg1="${app.bundleid}" arg2=""/>
+            </not>
         </and>
     </condition>
 
@@ -65,25 +73,26 @@
 
     <!-- if-task -->
     <taskdef resource="net/sf/antcontrib/antlib.xml">
-      <classpath>
-        <pathelement location="${dependencies.basedir}/external/build/ant-contrib-1.0b3.jar"/>
-      </classpath>
+        <classpath>
+            <pathelement location="${dependencies.basedir}/external/build/ant-contrib-1.0b3.jar"/>
+        </classpath>
     </taskdef>
+
 
     <!-- build osx apps -->
     <taskdef name="jarbundler"
              classpath="${dependencies.basedir}/external/build/jarbundler-2.0.0.jar"
-             classname="net.sourceforge.jarbundler.JarBundler" />
+             classname="net.sourceforge.jarbundler.JarBundler"/>
 
 
-    <!-- ====== targets ========== -->    
+    <!-- ====== targets ========== -->
 
     <target name="clean">
         <delete dir="${dependencies.basedir}/build"/>
     </target>
 
-    <target  name="prepare">
-            <tstamp/>
+    <target name="prepare">
+        <tstamp/>
         <mkdir dir="${classes}"/>
         <mkdir dir="${objc-classes}"/>
         <mkdir dir="${libs}"/>
@@ -116,7 +125,7 @@
             <fileset dir="${src}" includes="**/*.properties"/>
             <fileset dir="${src}" includes="**/*.png"/>
             <fileset dir="${src}" includes="**/*.txt"/>
-         </copy>
+        </copy>
 
         <if>
             <and>
@@ -125,22 +134,22 @@
             </and>
             <then>
                 <!-- Create a JNI library for launching the Help Viewer -->
-                    <exec executable="cc">
-                        <arg line="-c"/>
-                        <arg line="-I/System/Library/Frameworks/JavaVM.framework/Headers"/>
-                        <arg line="-o ${objc-classes}/HelpBookJNI.o"/>
-                        <arg value="${module}/objc-src/HelpBookJNI.m"/>
-                    </exec>
+                <exec executable="cc">
+                    <arg line="-c"/>
+                    <arg line="-I/System/Library/Frameworks/JavaVM.framework/Headers"/>
+                    <arg line="-o ${objc-classes}/HelpBookJNI.o"/>
+                    <arg value="${module}/objc-src/HelpBookJNI.m"/>
+                </exec>
 
-                    <exec executable="cc">
-                        <arg line="-dynamiclib"/>
-                        <arg line="-framework JavaVM"/>
-                        <arg line="-framework Cocoa"/>
-                        <arg line="-o ${objc-libs}/libHelpBookJNI.jnilib"/>
-                        <arg value="${objc-classes}/HelpBookJNI.o"/>
-                    </exec>
+                <exec executable="cc">
+                    <arg line="-dynamiclib"/>
+                    <arg line="-framework JavaVM"/>
+                    <arg line="-framework Cocoa"/>
+                    <arg line="-o ${objc-libs}/libHelpBookJNI.jnilib"/>
+                    <arg value="${objc-classes}/HelpBookJNI.o"/>
+                </exec>
 
-                    <delete file="${objc-classes}/HelpBookJNI.o" quiet="true"/>
+                <delete file="${objc-classes}/HelpBookJNI.o" quiet="true"/>
             </then>
         </if>
 
@@ -156,7 +165,7 @@
         </pathconvert>
 
         <!-- dbg -->
-        <echo message="jars-vars = ${jars-var}" />
+        <echo message="jars-vars = ${jars-var}"/>
 
         <manifest file="${resources}/manifest.mf" mode="replace">
             <attribute name="Built-By" value="${user.name}"/>
@@ -174,7 +183,6 @@
     </target>
 
 
-
     <!--      jar      -->
     <target name="create-jar" depends="compile,create-manifest">
         <echo message="${ant.project.name} - build-common.dist"/>
@@ -188,127 +196,129 @@
     <!-- copy help html pages together                                         -->
     <!-- based on osx help layout                                              -->
     <!-- English is required other languages are optional and will use English -->
-    <target  name = "helpsetup">
+    <target name="helpsetup">
         <if>
             <and>
                 <isset property="isApp"/>
                 <available file="${helpbooksrc}/English"/>
             </and>
-        <then>
-            <copy todir="${resources}/helpbook/English.lproj/HelpBook">
-                <fileset dir="${helpbooksrc}/English" />
-                <fileset dir="${helpbooksrc}/common" />
-            </copy>
-            <if>
-                <available file="${helpbooksrc}/Japanese"/>
             <then>
-                <copy todir="${resources}/helpbook/Japanese.lproj/HelpBook">
-                    <fileset dir="${helpbooksrc}/Japanese" />
-                    <fileset dir="${helpbooksrc}/common" />
+                <copy todir="${resources}/helpbook/English.lproj/HelpBook">
+                    <fileset dir="${helpbooksrc}/English"/>
+                    <fileset dir="${helpbooksrc}/common"/>
                 </copy>
+                <if>
+                    <available file="${helpbooksrc}/Japanese"/>
+                    <then>
+                        <copy todir="${resources}/helpbook/Japanese.lproj/HelpBook">
+                            <fileset dir="${helpbooksrc}/Japanese"/>
+                            <fileset dir="${helpbooksrc}/common"/>
+                        </copy>
+                    </then>
+                    <else>
+                        <copy todir="${resources}/helpbook/Japanese.lproj/HelpBook">
+                            <fileset dir="${helpbooksrc}/English"/>
+                            <fileset dir="${helpbooksrc}/common"/>
+                        </copy>
+                    </else>
+                </if>
+                <if>
+                    <available file="${helpbooksrc}/German"/>
+                    <then>
+                        <copy todir="${resources}/helpbook/German.lproj/HelpBook">
+                            <fileset dir="${helpbooksrc}/German"/>
+                            <fileset dir="${helpbooksrc}/common"/>
+                        </copy>
+                    </then>
+                    <else>
+                        <copy todir="${resources}/helpbook/German.lproj/HelpBook">
+                            <fileset dir="${helpbooksrc}/English"/>
+                            <fileset dir="${helpbooksrc}/common"/>
+                        </copy>
+                    </else>
+                </if>
+                <if>
+                    <available file="${helpbooksrc}/Spanish"/>
+                    <then>
+                        <copy todir="${resources}/helpbook/Spanish.lproj/HelpBook">
+                            <fileset dir="${helpbooksrc}/German"/>
+                            <fileset dir="${helpbooksrc}/common"/>
+                        </copy>
+                    </then>
+                    <else>
+                        <copy todir="${resources}/helpbook/Spanish.lproj/HelpBook">
+                            <fileset dir="${helpbooksrc}/English"/>
+                            <fileset dir="${helpbooksrc}/common"/>
+                        </copy>
+                    </else>
+                </if>
             </then>
-            <else>
-                <copy todir="${resources}/helpbook/Japanese.lproj/HelpBook">
-                    <fileset dir="${helpbooksrc}/English" />
-                    <fileset dir="${helpbooksrc}/common" />
-                </copy>
-            </else>
-            </if>
-            <if>
-                <available file="${helpbooksrc}/German"/>
-            <then>
-                <copy todir="${resources}/helpbook/German.lproj/HelpBook">
-                    <fileset dir="${helpbooksrc}/German" />
-                    <fileset dir="${helpbooksrc}/common" />
-                </copy>
-            </then>
-            <else>
-                <copy todir="${resources}/helpbook/German.lproj/HelpBook">
-                    <fileset dir="${helpbooksrc}/English" />
-                    <fileset dir="${helpbooksrc}/common" />
-                </copy>
-            </else>
-            </if>
-            <if>
-                <available file="${helpbooksrc}/Spanish"/>
-            <then>
-                <copy todir="${resources}/helpbook/Spanish.lproj/HelpBook">
-                    <fileset dir="${helpbooksrc}/German" />
-                    <fileset dir="${helpbooksrc}/common" />
-                </copy>
-            </then>
-            <else>
-                <copy todir="${resources}/helpbook/Spanish.lproj/HelpBook">
-                    <fileset dir="${helpbooksrc}/English" />
-                    <fileset dir="${helpbooksrc}/common" />
-                </copy>
-            </else>
-            </if>
-        </then>
         </if>
     </target>
 
     <!-- build a osx app, app layout, plist, icon, help -->
-    <target name="os-app" depends="dist" > <!-- ,jni"> -->
-        <if >
-           <and>
+    <target name="osx-app" depends="dist"> <!-- ,jni"> -->
+        <if>
+            <and>
                 <isset property="isOSX"/>
                 <isset property="isApp"/>
-           </and>
-           <then>
-           <if>
-               <isset property="isOSXApp" />
-               <then>
+            </and>
+            <then>
+                <if>
+                    <isset property="isOSXApp"/>
+                    <then>
 
-           <jarbundler dir="${deploy}/osx"
-                       verbose="true"
-                       name="${app.name}"
-                       shortname="${app.name}"
-                       stubfile="${app.name}"
-                       signature="${app.signature}"
-                       mainclass="${app.main}"
-                       jvmversion="1.6+"
-                       version="${version}"
-                       infostring="${app.name}, MPL1.1"
-                       build="${buildnumber}"
-                       bundleid="${app.bundleid}"
-                       icon="${src}/${app.icon.osx}"
-                       helpbookfolder="HelpBook"
-                       helpbookname="${app.name}"
-                   >
-               <jarfileset refid="internalsSet"/>
+                        <!-- location changed to help with zipping, ant copy does not work for osx-apps -->
+                        <mkdir dir="${deploy}/osx/${app.name}"/>
+                        <jarbundler dir="${deploy}/osx/${app.name}"
+                                    verbose="true"
+                                    name="${app.name}"
+                                    shortname="${app.name}"
+                                    stubfile="${app.name}"
+                                    signature="${app.signature}"
+                                    mainclass="${app.main}"
+                                    jvmversion="1.6+"
+                                    version="${version}"
+                                    infostring="${app.name}, MPL1.1"
+                                    build="${buildnumber}"
+                                    bundleid="${app.bundleid}"
+                                    icon="${src}/${app.icon.osx}"
+                                    helpbookfolder="HelpBook"
+                                    helpbookname="${app.name}"
+                                >
+                            <jarfileset refid="internalsSet"/>
 
-               <!-- Copy the HelpBook JNI library  -->
-               <javafilelist dir="${objc-libs}" files="libHelpBookJNI.jnilib"/>
+                            <!-- Copy the HelpBook JNI library  -->
+                            <javafilelist dir="${objc-libs}" files="libHelpBookJNI.jnilib"/>
 
-               <javaproperty name="apple.laf.useScreenMenuBar" value="true"/>
-               <javaproperty name="com.apple.macos.useScreenMenuBar" value="true"/>
+                            <javaproperty name="apple.laf.useScreenMenuBar" value="true"/>
+                            <javaproperty name="com.apple.macos.useScreenMenuBar" value="true"/>
 
-               <HelpBook locale="English">
-                   <fileset dir="${resources}/helpbook/English.lproj/HelpBook" />
-               </HelpBook>
+                            <HelpBook locale="English">
+                                <fileset dir="${resources}/helpbook/English.lproj/HelpBook"/>
+                            </HelpBook>
 
-               <HelpBook locale="German">
-                   <fileset dir="${resources}/helpbook/German.lproj/HelpBook" />
-               </HelpBook>
+                            <HelpBook locale="German">
+                                <fileset dir="${resources}/helpbook/German.lproj/HelpBook"/>
+                            </HelpBook>
 
-               <HelpBook locale="Japanese">
-                   <fileset dir="${resources}/helpbook/Japanese.lproj/HelpBook" />
-               </HelpBook>
+                            <HelpBook locale="Japanese">
+                                <fileset dir="${resources}/helpbook/Japanese.lproj/HelpBook"/>
+                            </HelpBook>
 
-            </jarbundler>
+                        </jarbundler>
 
-            <mkdir dir="${deploy}/osx/${app.name}" />
-            <copy todir="${deploy}/osx/${app.name}" >
-                <fileset dir="${deploy}/osx/" >
-                    <exclude name="${app.name}"/>
-                </fileset>
-            </copy>
-            <zip destfile="${deploy}/osx/${app.name}.app-${version}.zip" basedir="${deploy}/osx/${app.name}" />
+                        <!--<copy todir="${deploy}/osx/${app.name}" >-->
+                        <!--<fileset dir="${deploy}/osx/" >-->
+                        <!--<exclude name="${app.name}"/>-->
+                        <!--</fileset>-->
+                        <!--</copy>-->
+                        <zip destfile="${deploy}/osx/${app.name}.app-${version}.zip"
+                             basedir="${deploy}/osx/${app.name}"/>
 
+                    </then>
+                </if>
             </then>
-        </if>
-           </then>
             <else>
                 <echo message="not all properties set to build and osx.app"/>
             </else>
@@ -321,38 +331,126 @@
             depends="dist,helpsetup">
         <if>
             <isset property="isApp"/>
-        <then>
-            <mkdir dir="${deploy}/unix/${app.name}/resources/java" />
-            <copy todir="${deploy}/unix/${app.name}/resources/java">
-                <fileset refid="internalsSet"/>
-            </copy>
+            <then>
+                <mkdir dir="${deploy}/unix/${app.name}/resources/java"/>
+                <copy todir="${deploy}/unix/${app.name}/resources/java">
+                    <fileset refid="internalsSet"/>
+                </copy>
 
-            <if>
-                <available file="${resources}/helpbook"/>
-                <then>
-                    <copy todir="${deploy}/unix/${app.name}/resources">
-                        <fileset dir="${resources}/helpbook" />
-                    </copy>
-                </then>
-            </if>
+                <if>
+                    <available file="${resources}/helpbook"/>
+                    <then>
+                        <copy todir="${deploy}/unix/${app.name}/resources">
+                            <fileset dir="${resources}/helpbook"/>
+                        </copy>
+                    </then>
+                </if>
 
-            <echo  message="java -jar resources/java/openCage-${ant.project.name}-${version}.jar" file="${deploy}/unix/${app.name}/${app.name}.sh"/>
-            <chmod file="${deploy}/unix/${app.name}/${app.name}.sh" perm="ugo+x" />
+                <echo message="java -jar resources/java/openCage-${ant.project.name}-${version}.jar"
+                      file="${deploy}/unix/${app.name}/${app.name}.sh"/>
+                <chmod file="${deploy}/unix/${app.name}/${app.name}.sh" perm="ugo+x"/>
 
-            <zip destfile="${deploy}/unix/${app.name}-${version}.zip" basedir="${deploy}/unix/${app.name}" /> 
+                <zip destfile="${deploy}/unix/${app.name}-${version}.zip" basedir="${deploy}/unix/${app.name}"/>
+            </then>
+        </if>
+    </target>
+
+    <!-- Create a DMG - This only works on MacOSX (requires hdiutil) -->
+    <target name="dmg" depends="osx-app"
+            description="Create a DMG package for MacOSX (only works on MacOSX)">
+
+        <if>
+            <isset property="isOSXApp"/>
+            <then>
+
+        <!-- Set this property value to your application name -->
+        <!--<property name="app.name"-->
+                  <!--value="MY_APPLICATION_NAME"/>-->
+
+        <!-- Set this property value to a directory where you can
+ mount temporarily your images, for example /tmp -->
+        <property name="mountdir"
+                  value="/tmp"/>
+
+        <!-- Delete previously created DMG -->
+        <!--<delete file="${app.name}.dmg}"-->
+                <!--quiet="yes" failonerror="false"/>-->
+
+        <property name="tmpdmg" value="${deploy}/osx/${app.name}-tmp.dmg"/>
+
+        <!-- Create a temporary Disk Image -->
+        <exec executable="/usr/bin/hdiutil" os="Mac OS X" failonerror="true">
+            <arg value="create"/>
+            <arg value="-srcfolder"/>
+            <arg value="${deploy}/osx/${app.name}/${app.name}.app"/>
+            <arg value="-volname"/>
+            <arg value="${app.name}"/>
+            <arg value="-ov"/>
+            <arg value="${tmpdmg}"/>
+            <arg value="-format"/>
+            <arg value="UDRW"/>
+        </exec>
+
+        <!-- Attach the temporary image -->
+        <exec executable="/usr/bin/hdiutil" os="Mac OS X" failonerror="true">
+            <arg value="attach"/>
+            <arg value="${tmpdmg}"/>
+            <arg value="-mountroot"/>
+            <arg value="${mountdir}/"/>
+        </exec>
+
+        <!-- Copy the background, the volume icon and DS_Store files -->
+        <mkdir dir="${mountdir}/${app.name}/.background"/>
+        <!--<copy file="/Users/stephan/tmp/faust4.png"-->
+              <!--tofile="${mountdir}/${app.name}/.background/background.png"-->
+              <!--overwrite="true"/>-->
+        <!--<copy file=""${src}/${app.icon.osx}""-->
+              <!--tofile="${mountdir}/${app.name}/.VolumeIcon.icns"-->
+              <!--overwrite="true"/>-->
+        <!--<copy file="DS_Store"-->
+              <!--tofile="${mountdir}/${app.name}/.DS_Store"-->
+              <!--overwrite="true"/>-->
+
+        <!-- Indicate that we want a custom icon -->
+        <exec executable="/Developer/Tools/SetFile" os="Mac OS X">
+            <arg value="-a"/>
+            <arg value="C"/>
+            <arg value="${mountdir}/${app.name}"/>
+        </exec>
+
+        <!-- Add a symbolic link to the Applications directory -->
+        <symlink link="${mountdir}/${app.name}" resource="/Applications"/>
+
+        <!-- Detach the temporary image -->
+        <exec executable="/usr/bin/hdiutil" os="Mac OS X" failonerror="true">
+            <arg value="detach"/>
+            <arg value="${mountdir}/${app.name}"/>
+        </exec>
+
+        <!-- Compress it to a new image -->
+        <exec executable="/usr/bin/hdiutil" os="Mac OS X" failonerror="true">
+            <arg value="convert"/>
+            <arg value="${tmpdmg}"/>
+            <arg value="-format"/>
+            <arg value="UDZO"/>
+            <arg value="-o"/>
+            <arg value="${deploy}/osx/${app.name}.dmg"/>
+        </exec>
+
+        <!-- Delete the temporary image -->
+        <delete file="${app.name}-tmp.dmg"
+                quiet="yes" failonerror="false"/>
         </then>
         </if>
     </target>
 
-
-
-    <target name="dist" depends="create-jar" >
+    <target name="dist" depends="create-jar">
         <copy todir="${dist}">
             <fileset refid="internalsSet"/>
         </copy>
     </target>
 
-    <target name="goal" depends="unix-app, os-app" />
+    <target name="goal" depends="unix-app, osx-app, dmg"/>
 
     <target name="dist.dependencies">
         <antcall target="depend.${ant.project.name}"/>

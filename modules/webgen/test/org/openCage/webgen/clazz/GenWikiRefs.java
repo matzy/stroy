@@ -26,17 +26,17 @@ import java.util.List;
 
 public class GenWikiRefs {
 
-    private final List<Reference> refs;
+    private final List<Ref> refs;
 
-    public GenWikiRefs( List<Reference> refs ) {
+    public GenWikiRefs( List<Ref> refs ) {
         this.refs = refs;
     }
 
     public void gen() {
         printTOC();
         printRuntime();
-        printBuild();
-        printTest();
+        printOther();
+//        printTest();
     }
 
     private void printTOC() {
@@ -53,34 +53,34 @@ public class GenWikiRefs {
         System.out.println( WikiDotGen.ancor( "Runtime" ));
         System.out.println( "+ Runtime" );
         System.out.println("These libraries are used by the application and are deployed with it.");
-        for ( Reference ref : refs ) {
-            if ( ref.isRuntime() ) {
+        for ( Ref ref : refs ) {
+            if ( ref instanceof  Lib ) {
                 ref.printWikiFull();
             }
         }
     }
 
-    private void printBuild() {
+    private void printOther() {
         System.out.println( WikiDotGen.ancor( "Build" ));
         System.out.println( "+ Build" );
         System.out.println("These libraries are used to build the application and are deployed with the source code if their licence allows this.");
         System.out.println( "DE: Mit diesen libs wird das Programm gebaut. Sie sind im Quellcodepacket" );
         System.out.println( "ES: Estas bibliotecas se utilizan para construir el uso y se despliegan con el c�digo de fuente." );
-        for ( Reference ref : refs ) {
-            if ( ref.isBuild() ) {
+        for ( Ref ref : refs ) {
+            if ( ref instanceof  Other ) {
                 ref.printWikiFull();
             }
         }
     }
-
-    private void printTest() {
-        System.out.println( WikiDotGen.ancor( "Test" ));
-        System.out.println( "+ Test" );
-        System.out.println("These libraries are used to test the application and are deployed with the source code.");
-        for ( Reference ref : refs ) {
-            if ( ref.isTest() ) {
-                ref.printWikiFull();
-            }
-        }
-    }
+//
+//    private void printTest() {
+//        System.out.println( WikiDotGen.ancor( "Test" ));
+//        System.out.println( "+ Test" );
+//        System.out.println("These libraries are used to test the application and are deployed with the source code.");
+//        for ( Reference ref : refs ) {
+//            if ( ref.isTest() ) {
+//                ref.printWikiFull();
+//            }
+//        }
+//    }
 }

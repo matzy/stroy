@@ -185,4 +185,25 @@ public class Ref {
     public String getLocation() {
         return location;
     }
+
+    public void printWikiFull() {
+        System.out.println("+++ " + name );
+        if ( version != null ) {
+            System.out.print("Version: " + version + ", ");
+        }
+        System.out.print( "Link: " + WikiDotGen.externalLink( address, shortAddress ) + ", ");
+        if ( licence != null ) {
+            System.out.println( "Licence: " + WikiDotGen.externalLink( licence, licenceShort ));
+        }    
+        System.out.println( descr );
+//        if ( descr_de != null ) {
+//            System.out.println( "DE: " + descr_de );
+//        }
+//
+//        if ( descr_es != null ) {
+//            System.out.println( "ES: " +  descr_es );
+//        }
+    }
+
+
 }

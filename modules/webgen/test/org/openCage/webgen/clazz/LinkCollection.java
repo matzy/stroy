@@ -345,11 +345,19 @@ public class LinkCollection {
         other(MOTPE ).
                 description( "March of the Pink Elephants: ant based build system to build all" ).
                 address( "http://stroy.wikidot.com/motpe", "wikidot").
-                other_depends( PROJECT_DEPENDENCIES_USING_ANT );
+                depends( JARBUNDLER ).
+                other_depends( PROJECT_DEPENDENCIES_USING_ANT ).
+                other_depends( "AntDMG" );
+
 
         other(PROJECT_DEPENDENCIES_USING_ANT ).
                 description( "Project Dependencies Using Ant" ).
                 address( "http://www.exubero.com/ant/dependencies.html", "exubero.com" );
+
+        other( "AntDMG" ).
+                description( "Create osx DMGs from ant" ).
+                address( "http://www.rkuntz.org/pmwiki.php?n=Code.AntDiskImage", "rkuntz.org" );
+
 
 
 

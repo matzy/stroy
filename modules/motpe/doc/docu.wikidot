@@ -1,0 +1,118 @@
+[[image http://stroy.wikidot.com/local--files/motpe/pele(1).png]]
+
+[[toc]]
+
++ Overview
+
+
+A ant based build system for java / scala based projects.
+
+I hate configuring. I rather write a meta system and maintain that instead of setting up projects over and over again. Thus a build system with simple setup
+that does all with one click and no extra manual steps.
+
++ Goals
+
+* simple
+* allows multi module projects
+* dependency management of modules and external resources
+* builds apps for osx, linux, unix and windows
+* all sources in one scm, including external dependencies, i.e. no magic downloads
+
++ The name
+
+Well names are important and I could not come up with a nice one and my wife said don't think about a pink elephant. Now if elephants start their march there is no sense stopping them and when they stop they are done.
+
++ Examples
+
+++ Add a module //moo//
+
+* mkdir //modules/moo/src//
+* copy a build.xml from an other module to that dir
+* edit it, i.e. at least change the name
+
+[[code]]
+  <?xml version="1.0" encoding="UTF-8"?>
+  <project name="moo" default="default" basedir=".">
+      <import file="../../build-common.xml"/>
+  </project>
+[[/code]]
+
+* add it to the dependencies.xml
+
+[[code]]
+  <?xml version="1.0" encoding="ISO-8859-1"?>
+  <project name="dependencies" default="depend.stuff">
+
+    <dirname property="dependencies.basedir" file="${ant.file.dependencies}"/>
+
+    <!-- ================================================================== -->
+    <target name= "depend.moo"
+        depends="guice">
+    <ant dir="${dependencies.basedir}/modules/moo" inheritAll="false"/>
+    </target>
+
+    ...
+[[/code]]
+
+++ Add an external lib //external-1.7.4.jar//
+
+* add it it external/production
+* add a line to dependencies.xml
+
+[[code]]
+<target name= "external"
+    depends="other-stuff">
+   <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/external-1.7.4.jar"/>
+</target>
+[[/code]]
+
+Now you can use it as any other dependency.
+
+
+++ Build everything for module //foo//
+
+* cd to module //foo//
+* ant dist.dependencies
+
+This builds all dependent modules (transitive) and builds platform specific app for osx, unix, windows and zips them for delivery.
+
+Results are in projectname/build/deploy/foo
+
+++ Make module //moo// dependend on //external// and module //duh//
+
+* change dependencies.xml for //moo//
+
+[[code]]
+    <target name= "depend.moo"
+        depends="guice, depend.duh, external">
+    <ant dir="${dependencies.basedir}/modules/moo" inheritAll="false"/>
+    </target>
+[[/code]]
+
++ Why Not X?
+
+++ Why not maven?
+Maven does only some of the stuff I want to have, e.g. no exe or os apps. But more important it does does things I don't want it to do, i.e. automatic downloads and
+uses an extra source repository. You can suppress the downloads but why is that not the default? The second point is about the maven repo which is an other scm for external libraries only without a history.
+A build system should be scm agnostic so that all the sources can live in it.
+
+++ Why not Ivy?
+May actually work for me but I have to get it off the automatic downloads.
+
++ References
+
+* The Dependency Management
+is from http://www.exubero.com/ant/dependencies.html
+
+* Building osx-apps
+is via jarbundler
+
+
++ Todo
+
+* test integration
+* windows exe
+* debian packages
+* rpm packages
+* javadoc generation
+* scala
