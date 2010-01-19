@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <project name="build-common" default="default">
-    <import file="dependencies.xml"/>
+    <import file="../dependencies.xml"/>
 
     <!-- March of the Pink Elephants: version: 0.2 -->
 
@@ -17,6 +17,7 @@
     <property name="app.bundleid" value=""/>
     <property name="app.icon.osx" value=""/>
     <property name="app.helpbook" value=""/>
+    <property name="icon.background" value="${dependencies.basedir}/build-resources/elephant.icns"/>
 
 
     <!-- ====== properties ========== -->
@@ -401,12 +402,23 @@
 
         <!-- Copy the background, the volume icon and DS_Store files -->
         <mkdir dir="${mountdir}/${app.name}/.background"/>
-        <!--<copy file="/Users/stephan/tmp/faust4.png"-->
-              <!--tofile="${mountdir}/${app.name}/.background/background.png"-->
-              <!--overwrite="true"/>-->
-        <!--<copy file=""${src}/${app.icon.osx}""-->
-              <!--tofile="${mountdir}/${app.name}/.VolumeIcon.icns"-->
-              <!--overwrite="true"/>-->
+        <copy file="${icon.background}"
+              tofile="${mountdir}/${app.name}/.background/background.png"
+              overwrite="true"/>
+        <if>
+            <available file="${app.icon.osx}"/>
+            <then>
+                <copy file="${app.icon.osx}"
+                      tofile="${mountdir}/${app.name}/.VolumeIcon.icns"
+                      overwrite="true"/>
+            </then>
+            <else>
+                <copy file="${dependencies.basedir}/build-resources/elephant.png"
+                      tofile="${mountdir}/${app.name}/.VolumeIcon.icns"
+                      overwrite="true"/>
+
+            </else>
+        </if>
         <!--<copy file="DS_Store"-->
               <!--tofile="${mountdir}/${app.name}/.DS_Store"-->
               <!--overwrite="true"/>-->
