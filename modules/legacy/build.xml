@@ -8,5 +8,5 @@
     <property name = "app.bundleid"     value="org.openCage.stroy"/>
     <property name = "app.icon.osx"     value="org/openCage/stroy/ui/stroy.icns"/>
 
-    <import file="../../build-common.xml"/>
+    <import file="../../build-resources/build-common.xml"/>
 </project>
