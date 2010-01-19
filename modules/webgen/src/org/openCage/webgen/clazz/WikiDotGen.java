@@ -52,4 +52,8 @@ public class WikiDotGen {
     public static String externalLink(String ext, String text) {
         return "[" +  ext + " " + text + "]";
     }
+
+    public static String title1(String text) {
+        return "+ " + text;
+    }
 }

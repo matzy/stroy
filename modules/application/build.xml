@@ -3,5 +3,5 @@
     <property  name = "version"       value="0.0.1" />
     <property  name = "app.main"          value="org.openCage.application.demo.Demo"/>
 
-    <import file="../../build-common.xml"/>
+    <import file="../../build-resources/build-common.xml"/>
 </project>

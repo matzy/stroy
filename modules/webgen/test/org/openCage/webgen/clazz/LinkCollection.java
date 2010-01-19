@@ -66,7 +66,7 @@ public class LinkCollection {
     private static final String PROJECT_DEPENDENCIES_USING_ANT = "Project Dependencies Using Ant";
     private static final String CODE_GOOGLE = "code.google";
     private static final String SOURCEFORGE = "sourceforge";
-    private static final String MOTPE = "March-of-the-Pink-Elephants";
+    private static final String MOTPE = "March of the Pink Elephants";
 
     private List<Ref> refs = new ArrayList<Ref>();
 

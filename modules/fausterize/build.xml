@@ -13,5 +13,5 @@
     <property name = "app.icon.osx"    value="org/openCage/gpad/fausterize.icns"/>
     <property name = "app.helpbook"    value="HelpBook"/>
 
-    <import file="../../build-common.xml"/>
+    <import file="../../build-resources/build-common.xml"/>
 </project>

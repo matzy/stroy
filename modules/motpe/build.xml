@@ -42,7 +42,7 @@
         <copy todir="${tmp}/external/production" file="${stroy}/external/production/args4j-2.0.10.jar" />
         <copy todir="${tmp}/external/production" file="${stroy}/external/production/commons-lang-2.4.jar" />
 
-        <copy todir="${tmp}" file="${stroy}/build-common.xml" />
+        <copy todir="${tmp}" file="../../build-resources/build-common.xml" />
 
     </target>
 

@@ -1,10 +1,11 @@
 package org.openCage.webgen.clazz;
 
-import com.sun.tools.javac.main.JavaCompiler;
 import org.openCage.lang.clazz.Count;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.openCage.webgen.impl.WikidotGen;
 
 /**
  * Created by IntelliJ IDEA.
@@ -187,6 +188,7 @@ public class Ref {
     }
 
     public void printWikiFull() {
+        System.out.println( WikiDotGen.ancor( name ));
         System.out.println("+++ " + name );
         if ( version != null ) {
             System.out.print("Version: " + version + ", ");
@@ -205,5 +207,42 @@ public class Ref {
 //        }
     }
 
+    public void printWikiShort() {
 
+        System.out.print( new WikidotGen().link( name, name ) + " ");        
+
+    }
+
+    public List<String> getRuntime() {
+        return runtime;
+    }
+
+    public List<String> getBuild() {
+        return build;
+    }
+
+    public List<String> getTest() {
+        return test;
+    }
+
+    public List<String> getOther() {
+        return other;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Ref)) return false;
+
+        Ref ref = (Ref) o;
+
+        if (name != null ? !name.equals(ref.name) : ref.name != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return name != null ? name.hashCode() : 0;
+    }
 }

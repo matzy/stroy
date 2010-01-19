@@ -1,6 +1,9 @@
 package org.openCage.webgen.clazz;
 
-import java.util.List;
+import org.openCage.webgen.protocol.WebGen;
+import org.openCage.webgen.impl.WikidotGen;
+
+import java.util.*;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -27,6 +30,7 @@ import java.util.List;
 public class GenWikiRefs {
 
     private final List<Ref> refs;
+    private final WebGen gen = new WikidotGen(); 
 
     public GenWikiRefs( List<Ref> refs ) {
         this.refs = refs;
@@ -34,25 +38,63 @@ public class GenWikiRefs {
 
     public void gen() {
         printTOC();
+        printDeps();
         printRuntime();
         printOther();
 //        printTest();
     }
 
     private void printTOC() {
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
         System.out.println("I use a collection of great libraries and tools. " +
                 "Have a look maybe they solve a problem of yours.");
 
-        System.out.println( WikiDotGen.link( "Runtime", "Runtime" ) );
-        System.out.println( WikiDotGen.link( "Build", "Build" ) );
-        System.out.println( WikiDotGen.link( "Test", "Test" ) );
+        System.out.println( gen.link( "Libraries", "Libraries" ) );
+        System.out.println( gen.link( "Knowhow", "Knowhow" ) );
+//        System.out.println( gen.link( "Test", "Test" ) );
 
     }
 
+    private void printDeps() {
+        System.out.println( gen.ancor( "Project Dependencies" ));
+        System.out.println( gen.title( 1, "Project Dependencies" ));
+
+        printProjectDepends( "fausterize", "depend.fausterize" );
+        System.out.println("");
+
+        printProjectDepends( "March of the Pink Elephants", "March of the Pink Elephants" );
+
+    }
+
+    private void printProjectDepends( String name, String real ) {
+        System.out.println( name + " depends on");
+        Collection<Ref> faustDeps = new UsingUsed().transitiveClosure( refs, real);
+        List<Ref> ordered = new ArrayList<Ref>( faustDeps );
+
+        Collections.sort( ordered, new Comparator<Ref>() {
+            @Override
+            public int compare(Ref a, Ref b) {
+                return a.getName().compareTo( b.getName());
+            }
+        });
+
+        System.out.println("");
+        for ( Ref ref: ordered ) {
+            if ( !(ref instanceof Module )) {
+                System.out.print( gen.link( ref.getName(), ref.getName()) + " " );                
+            }
+        }
+
+        System.out.println("");
+    }
+
     private void printRuntime() {
-        System.out.println( WikiDotGen.ancor( "Runtime" ));
-        System.out.println( "+ Runtime" );
-        System.out.println("These libraries are used by the application and are deployed with it.");
+        System.out.println( gen.ancor( "Libraries" ));
+        System.out.println( gen.title( 1, "Libraries" ));
+        System.out.println("These libraries are used by the application and are deployed with it (if the licence allows it).");
         for ( Ref ref : refs ) {
             if ( ref instanceof  Lib ) {
                 ref.printWikiFull();
@@ -61,11 +103,11 @@ public class GenWikiRefs {
     }
 
     private void printOther() {
-        System.out.println( WikiDotGen.ancor( "Build" ));
-        System.out.println( "+ Build" );
-        System.out.println("These libraries are used to build the application and are deployed with the source code if their licence allows this.");
-        System.out.println( "DE: Mit diesen libs wird das Programm gebaut. Sie sind im Quellcodepacket" );
-        System.out.println( "ES: Estas bibliotecas se utilizan para construir el uso y se despliegan con el c�digo de fuente." );
+        System.out.println( gen.ancor( "Knowhow" ));
+        System.out.println( gen.title( 1, "Knowhow" ));
+        System.out.println("Resources in other form, e.g. apps, articles, code snippets");
+//        System.out.println( "DE: Mit diesen libs wird das Programm gebaut. Sie sind im Quellcodepacket" );
+//        System.out.println( "ES: Estas bibliotecas se utilizan para construir el uso y se despliegan con el c�digo de fuente." );
         for ( Ref ref : refs ) {
             if ( ref instanceof  Other ) {
                 ref.printWikiFull();
@@ -74,7 +116,7 @@ public class GenWikiRefs {
     }
 //
 //    private void printTest() {
-//        System.out.println( WikiDotGen.ancor( "Test" ));
+//        System.out.println( gen.ancor( "Test" ));
 //        System.out.println( "+ Test" );
 //        System.out.println("These libraries are used to test the application and are deployed with the source code.");
 //        for ( Reference ref : refs ) {

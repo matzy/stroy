@@ -3,5 +3,5 @@
 
     <property name= "version"       value="0.0.3" />
 
-    <import file="../../build-common.xml"/>
+    <import file="../../build-resources/build-common.xml"/>
 </project>
