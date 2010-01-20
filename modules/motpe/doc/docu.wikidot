@@ -33,7 +33,7 @@ Well names are important and I could not come up with a nice one and my wife sai
 [[code]]
   <?xml version="1.0" encoding="UTF-8"?>
   <project name="moo" default="default" basedir=".">
-      <import file="../../build-common.xml"/>
+      <import file="../../build-resources/build-common.xml"/>
   </project>
 [[/code]]
 
@@ -76,7 +76,30 @@ Now you can use it as any other dependency.
 
 This builds all dependent modules (transitive) and builds platform specific app for osx, unix, windows and zips them for delivery.
 
-Results are in projectname/build/deploy/foo
++++ Build a DMG package //foo// for OSX
+
+On OSX
+
+* cd to module //foo//
+* set the //isApp// property in the build.xml
+[[code]]
+  <?xml version="1.0" encoding="UTF-8"?>
+  <project name="moo" default="default" basedir=".">
+      <property name="isApp" value="true"
+      <import file="../../build-resources/build-common.xml"/>
+  </project>
+[[/code]]
+
+* ant dist.dependencies
+
+Result: build/deploy/foo/osx/foo.dmg
+
++++ Build a cross platform application
+
+On OSX, unix, linux or windows set the //isApp// property as above.
+
+Result: build/deploy/foo/xlatform/foo/foo-version.zip.
+This file includes scripts for unix and windows to start the app.
 
 ++ Make module //moo// dependend on //external// and module //duh//
 
