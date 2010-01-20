@@ -5,8 +5,10 @@ import org.openCage.fspath.protocol.FSPath;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  * Created by IntelliJ IDEA.
@@ -19,13 +21,15 @@ public class FSPathWindows implements FSPath {
 
     private String drive;
     private List<String> elements = new ArrayList<String>();
+    private Pattern driveLetter = Pattern.compile( "[a-zA-Z]\\:" );
 
     public FSPathWindows(String absolutePath) {
         if ( StringUtils.isEmpty( absolutePath )) {
             throw new IllegalArgumentException("an absolute path can't be empty");
         }
 
-        if ( !absolutePath.startsWith( "C:" )) { // TODO
+
+        if ( absolutePath.length() < 2 || !driveLetter.matcher( absolutePath.substring(0,2)).matches() ) { 
             throw new IllegalArgumentException("no drive letter: " + absolutePath);
         }
 
@@ -54,7 +58,10 @@ public class FSPathWindows implements FSPath {
 
     @Override
     public FSPath add(String... elements) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        // clone
+        FSPathWindows ret = new FSPathWindows( toString() );
+        ret.elements.addAll( Arrays.asList( elements ));
+        return ret;
     }
 
     @Override
@@ -64,6 +71,6 @@ public class FSPathWindows implements FSPath {
 
     @Override
     public int size() {
-        return 0;  //To change body of implemented methods use File | Settings | File Templates.
+        return elements.size();
     }
 }
