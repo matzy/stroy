@@ -25,5 +25,7 @@ public class Main {
 
 
         System.out.println( new Moo().what() );
+
+        new BigLabel( new Moo().what() ).setVisible( true );
     }
 }

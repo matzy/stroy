@@ -30,6 +30,7 @@
         <mkdir dir="${tmp}/external/build" />
         <mkdir dir="${tmp}/external/production" />
         <mkdir dir="${tmp}/external/test" />
+        <mkdir dir="${tmp}/build-resources" />
 
         <copy todir="${tmp}/external/build" >
             <fileset dir="${stroy}/external/build" />
@@ -42,7 +43,9 @@
         <copy todir="${tmp}/external/production" file="${stroy}/external/production/args4j-2.0.10.jar" />
         <copy todir="${tmp}/external/production" file="${stroy}/external/production/commons-lang-2.4.jar" />
 
-        <copy todir="${tmp}" file="../../build-resources/build-common.xml" />
+        <copy todir="${tmp}/build-resources">
+            <fileset dir="../../build-resources/"/>
+        </copy>
 
     </target>
 
