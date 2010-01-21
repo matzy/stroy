@@ -19,12 +19,7 @@ import org.openCage.ui.protocol.OSXStandardEventHandler;
 import org.openCage.withResource.protocol.FileLineIterable;
 import org.openCage.withResource.protocol.With;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Highlighter;
@@ -74,11 +69,14 @@ public class FaustUI extends JFrame {
     private final Localize                localize;
     private final BackgroundExecutor      executor;
 
+    private final UI2File ui2file;
+
 //    private URI                     pad;
     private String                  message;
     private JTextArea               textUI = new JTextArea();
     private TextEncoderIdx<String>  textEncoder;
-    final private JButton           padButton = new JButton( new ImageIcon( getClass().getResource("lock_closed.png")));
+    final private JButton           padButton = new JButton( new ImageIcon( getClass().getResource("faust-small.png")));
+    private LabeledComponentGroup padGroup;
 
     @Inject
     public FaustUI( Application application,
@@ -100,23 +98,36 @@ public class FaustUI extends JFrame {
         this.osxEventHandler = osxEventHandler;
         this.executor        = executor;
         this.localize        = localize;
-
+        
         setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );        
 
         // TODO remove magic strings
         message = FSPathBuilder.getHome().add(PROJECT_DIR, "1.fst1").toString();
         new File( message ).getParentFile().mkdirs();
 
+        this.ui2file = new UI2File( textUI, executor, localize,  new File(message));
 
-        padButton.setBackground( Color.DARK_GRAY);
+        //padButton.setBackground( Color.DARK_GRAY);
         final JFrame theFrame = this;
         padButton.addActionListener( new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String path = fileChooser.open( theFrame, FSPathBuilder.getARoot().toString());
-                if ( path != null ) {
-                    setPad( new File( path ).toURI(), message );
-                    setTextEnabled( true );
+
+                if ( ui2file.isPadSet() ) {
+                    ui2file.codeToggle();
+                    setTextEnabled( !ui2file.isEncoded() );
+                } else {
+
+                    String path = fileChooser.open( theFrame, FSPathBuilder.getARoot().toString());
+                    if ( path != null ) {
+
+                        ui2file.setPad( new File( path ).toURI() );
+                        if ( ui2file.isEncoded() ) {
+                            ui2file.codeToggle();
+                        }
+    //                    setPad( new File( path ).toURI(), message );
+                        setTextEnabled( true );
+                    }
                 }
             }
 
@@ -135,10 +146,14 @@ public class FaustUI extends JFrame {
         MacUtils.makeWindowLeopardStyle( getRootPane());
 
         UnifiedToolBar toolBar = new UnifiedToolBar();
+        toolBar.installWindowDraggerOnWindow( this );
 //        save.putClientProperty("JButton.buttonType", "textured");
 //        toolBar.addComponentToLeft(save);
-        toolBar.addComponentToLeft( new LabeledComponentGroup( localize.localize( "org.openCage.localization.dict.decode"),
-                                                               padButton).getComponent());
+
+        padGroup = new LabeledComponentGroup( localize.localize( "org.openCage.fausterize.toggleCode"),
+                                                               padButton);
+
+        toolBar.addComponentToLeft( padGroup.getComponent() );
 
         //padButton.putClientProperty("JButton.buttonType", "textured");
         final JTextField textField = new JTextField(10);
@@ -156,8 +171,12 @@ public class FaustUI extends JFrame {
         setTitle( application.gettName());
         setSize( 800, 600 );
 
-        setTextEnabled( false );
-        setInitial( message );
+        // TODO
+        textUI.setEditable(false);
+        textUI.setBackground( Color.LIGHT_GRAY);
+
+//        setTextEnabled( false );
+//        setInitial( message );
         
 
         textField.addKeyListener( new KeyAdapter(){
@@ -184,22 +203,6 @@ public class FaustUI extends JFrame {
 
         pack();
 
-        executor.addPeriodicAndExitTask( new FE0<Void>() {
-            @Override
-            public Void call() throws Exception {
-
-                if ( textUI.getText().length() > 0 && textEncoder != null && textEncoder.isSet()) {
-                    with.withWriter( new File(message), new FE1<Void, Writer>() {
-                        public Void call(Writer writer) throws Exception {
-                             writer.write( textEncoder.encode( textUI.getText(), 0 ));
-                            return null;
-                        }
-                    });
-                }
-                return null;
-            }
-        });
-
 
         // TODO 
         menubuilder.setMenuOnFrame( this );
@@ -221,48 +224,6 @@ public class FaustUI extends JFrame {
 
     }
 
-    private synchronized void setPad( URI pad, String message) {
-        textEncoder = new FaustString();
-        textEncoder.setPad( pad);
-
-        File filem = new File(message);
-        String text = "";
-
-        if ( filem.exists() ) {
-            textUI.setText("");
-            FileLineIterable it =  with.getLineIteratorCloseInFinal( filem );
-            try {
-                for ( String str : it ) {
-                    text += str + "\n";
-                }
-            } finally {
-                it.close();
-            }
-            textUI.append( textEncoder.decode( text, 0 ));
-        }
-    }
-
-    private void setInitial( String message) {
-        File filem = new File(message);
-        String text = "";
-
-        if ( filem.exists() ) {
-            FileLineIterable it =  with.getLineIteratorCloseInFinal( filem );
-            try {
-                for ( String str : it ) {
-                    text += str + "\n";
-                }
-            } finally {
-                it.close();
-            }
-
-            textUI.append( text );
-            
-        } else {
-
-            textUI.append( localize.localize("org.openCage.fausterize.intro"));
-        }
-    }
 
     private void setTextEnabled( boolean enable ) {
         if ( enable ) {

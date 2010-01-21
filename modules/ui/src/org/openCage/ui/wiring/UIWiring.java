@@ -80,13 +80,13 @@ public class UIWiring implements Module {
         binder.bind(GlobalKeyEventHandler.class).to(GlobalKeyEventHandlerImpl.class);
 
         if (Sys.isMacOSX()) {
-            System.out.println("mac");
+//            System.out.println("mac");
             binder.bind(HelpViewer.class).to(HelpViewerOSX.class);
         } else if (Sys.isLinux()) {
-            System.out.println("linu");
+//            System.out.println("linu");
             binder.bind(HelpViewer.class).to(HelpViewerOSX.class); // TODO
         } else {
-            System.out.println("else");
+//            System.out.println("else");
             binder.bind(HelpViewer.class).to(HelpViewerOSX.class); // TODO
         }
 

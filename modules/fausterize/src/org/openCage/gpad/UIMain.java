@@ -49,9 +49,9 @@ public class UIMain {
         if ( bean.getFilepath() == null ) {
             FaustUI faust = injector.getInstance(FaustUI.class);
             faust.setVisible(true);
+        } else {
+            System.out.println("++++ " + bean.getFilepath());
         }
-
-        System.out.println("++++ " + bean.getFilepath());
 
     }
 }
