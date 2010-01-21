@@ -2,18 +2,15 @@ package org.openCage.gpad;
 
 import com.sun.istack.internal.NotNull;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.openCage.lang.protocol.BackgroundExecutor;
 import org.openCage.lang.protocol.FE0;
-import org.openCage.lang.protocol.FE1;
 import org.openCage.localization.protocol.Localize;
-import org.openCage.withResource.protocol.FileLineIterable;
 
 import javax.swing.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.Writer;
 import java.net.URI;
 
 /**
@@ -25,7 +22,7 @@ import java.net.URI;
  */
 public class UI2File {
 
-    private final JTextArea               area;
+    private final JTextArea textArea;
     private final BackgroundExecutor      executor;
     private final TextEncoderIdx<String>  textEncoder  = new FaustString();
     private final Localize                localize;
@@ -33,12 +30,13 @@ public class UI2File {
     private File                     file;
     private URI                      pad;
     private boolean                  encoded;
+    private boolean                  changed = false;
 
     public UI2File( @NotNull JTextArea area,
                     @NotNull BackgroundExecutor executor,
                     @NotNull Localize localize,
                     @NotNull File file ) {
-        this.area = area;
+        this.textArea = area;
         this.executor = executor;
         this.localize = localize;
         this.file = file;
@@ -52,6 +50,15 @@ public class UI2File {
             }
         });
 
+        textArea.addKeyListener( new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if ( textArea.isEditable() ) {
+                    changed = true;
+                }
+            }
+        });
+
         setInitialText();
 
     }
@@ -60,7 +67,7 @@ public class UI2File {
 
         if ( file.exists() ) {
             try {
-                area.append( FileUtils.readFileToString( file ));
+                textArea.append( FileUtils.readFileToString( file ));
                 encoded = true;
             } catch (IOException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
@@ -69,7 +76,7 @@ public class UI2File {
             return;
         }
 
-        area.append( localize.localize("org.openCage.fausterize.intro"));
+        textArea.append( localize.localize("org.openCage.fausterize.intro"));
         encoded = false;
     }
 
@@ -81,29 +88,29 @@ public class UI2File {
         }
 
         if ( encoded ) {
-            area.setText( textEncoder.decode( area.getText(), 0 ));
+            textArea.setText( textEncoder.decode( textArea.getText(), 0 ));
             encoded = false;
         } else {
-            area.setText( textEncoder.encode( area.getText(), 0 ));
+            textArea.setText( textEncoder.encode( textArea.getText(), 0 ));
             encoded = true;
         }
     }
 
     private boolean canWrite() {
-        return file != null & pad != null ;
+        return file != null & pad != null && changed;
     }
 
     private synchronized void write() {
         if ( canWrite() ) {
             if ( encoded ) {
                 try {
-                    FileUtils.writeStringToFile( file, area.getText() );
+                    FileUtils.writeStringToFile( file, textArea.getText() );
                 } catch (IOException e) {
                     e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                 }
             } else {
                 try {
-                    FileUtils.writeStringToFile( file, textEncoder.encode( area.getText(), 0 ));
+                    FileUtils.writeStringToFile( file, textEncoder.encode( textArea.getText(), 0 ));
                 } catch (IOException e) {
                     e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                 }
