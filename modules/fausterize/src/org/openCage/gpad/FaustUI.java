@@ -224,6 +224,10 @@ public class FaustUI extends JFrame {
                     return (event.getKeyChar() == 'f') && event.getModifiersEx() == 256;
                 }
 
+                if ( event.getKeyChar() == 'f' ) {
+                    int i = 0;
+                }
+
                 // TODO
                 return false;
             }

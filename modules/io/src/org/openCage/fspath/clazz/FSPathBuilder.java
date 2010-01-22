@@ -64,9 +64,10 @@ public class FSPathBuilder {
             return new FSPathUnix("/");
         }
 
+        return new FSPathWindows("C:");
 
-        throw new UnsupportedOperationException("impl me");
-        //return new FSPath( "C:\\");
+//        throw new UnsupportedOperationException("impl me");
+//        //return new FSPath( "C:\\");
 
     }
 }
