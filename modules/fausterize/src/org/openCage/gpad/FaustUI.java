@@ -3,6 +3,7 @@ package org.openCage.gpad;
 import com.explodingpixels.macwidgets.*;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
+import com.muchsoft.util.Sys;
 import org.openCage.application.protocol.Application;
 import org.openCage.fspath.clazz.FSPathBuilder;
 import org.openCage.lang.protocol.BackgroundExecutor;
@@ -11,11 +12,7 @@ import org.openCage.lang.protocol.FE0;
 import org.openCage.lang.protocol.FE1;
 import org.openCage.localization.protocol.Localize;
 import org.openCage.ui.clazz.PreferenceFrame;
-import org.openCage.ui.protocol.AboutSheet;
-import org.openCage.ui.protocol.FileChooser;
-import org.openCage.ui.protocol.PrefBuilder;
-import org.openCage.ui.protocol.MenuBuilder;
-import org.openCage.ui.protocol.OSXStandardEventHandler;
+import org.openCage.ui.protocol.*;
 import org.openCage.withResource.protocol.FileLineIterable;
 import org.openCage.withResource.protocol.With;
 
@@ -23,9 +20,7 @@ import javax.swing.*;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Highlighter;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -89,7 +84,8 @@ public class FaustUI extends JFrame {
                     MenuBuilder menubuilder,
                     @Named(LOCALE) PrefBuilder localePrefBuilder,
                     @Named( FAUSTERIZE ) PrefBuilder codePref,
-                    final PreferenceFrame prefFrame ) {
+                    final PreferenceFrame prefFrame,
+                    GlobalKeyEventHandler keyHandler ) {
 
         this.application     = application;
         this.with            = wth;
@@ -98,7 +94,7 @@ public class FaustUI extends JFrame {
         this.osxEventHandler = osxEventHandler;
         this.executor        = executor;
         this.localize        = localize;
-        
+
         setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );        
 
         // TODO remove magic strings
@@ -125,7 +121,6 @@ public class FaustUI extends JFrame {
                         if ( ui2file.isEncoded() ) {
                             ui2file.codeToggle();
                         }
-    //                    setPad( new File( path ).toURI(), message );
                         setTextEnabled( true );
                     }
                 }
@@ -183,22 +178,60 @@ public class FaustUI extends JFrame {
             @Override
             public void keyReleased(KeyEvent keyEvent) {
                 super.keyReleased( keyEvent );
+
                 String searchStr = textField.getText();
                 String text = textUI.getText();
                 int pos = text.indexOf( searchStr );
-                System.out.println("" + searchStr + " " + pos );
+                Highlighter h = null;
                 if ( pos > -1 ) {
                     textUI.setCaretPosition( pos );
-                    Highlighter h = textUI.getHighlighter();
+                    h = textUI.getHighlighter();
                     h.removeAllHighlights();
-                    try {
-                        h.addHighlight( pos, pos + searchStr.length(), DefaultHighlighter.DefaultPainter);
-                    } catch (BadLocationException e) {
-                        e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                }
+
+                if ( keyEvent.getKeyChar() == '\n' ) {
+                    // goto text again
+
+                    textUI.setCaretPosition( pos );
+                    textUI.grabFocus();
+
+                } else {
+
+                    if ( pos > -1 ) {
+                        try {
+                            h.addHighlight( pos, pos + searchStr.length(), DefaultHighlighter.DefaultPainter);
+                        } catch (BadLocationException e) {
+                            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                        }
                     }
                 }
             }
 
+        });
+
+
+        final JFrame that = this;
+
+        keyHandler.addListener( new GlobalKeyEventListener() {
+            @Override
+            public Component getComponent() {
+                return that;
+            }
+
+            @Override
+            public boolean keyMatches(KeyEvent event) {
+                if ( Sys.isMacOSX() ) {
+                    return (event.getKeyChar() == 'f') && event.getModifiersEx() == 256;
+                }
+
+                // TODO
+                return false;
+            }
+
+            @Override
+            public void action() {
+                textField.grabFocus();
+            }
         });
 
         pack();
