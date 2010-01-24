@@ -224,8 +224,18 @@ public class FaustUI extends JFrame {
                     return (event.getKeyChar() == 'f') && event.getModifiersEx() == 256;
                 }
 
-                if ( event.getKeyChar() == 'f' ) {
+                if ( event.isControlDown() ) {
                     int i = 0;
+                }
+
+                if ( event.getKeyChar() == 'f' ) {
+                    int e = event.getModifiersEx();
+                    int i = 0;
+                    if ( event.isControlDown() ) {
+                        int j = 0;
+                    }
+                    //KeyEvent.VK_CONTROL
+
                 }
 
                 // TODO
@@ -237,6 +247,21 @@ public class FaustUI extends JFrame {
                 textField.grabFocus();
             }
         });
+
+        Action action = new AbstractAction() {
+
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                System.out.println("wohoo");
+                textField.grabFocus();
+            }
+        };
+        String keyStrokeAndKey = "control F";
+        KeyStroke keyStroke = KeyStroke.getKeyStroke(keyStrokeAndKey);
+        textUI.getInputMap( JComponent.WHEN_FOCUSED).put(keyStroke, keyStrokeAndKey);
+        textUI.getActionMap().put(keyStrokeAndKey, action);
+
+        
 
         pack();
 

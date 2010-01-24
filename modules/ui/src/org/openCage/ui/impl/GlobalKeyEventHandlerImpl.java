@@ -33,14 +33,15 @@ import java.util.List;
 ***** END LICENSE BLOCK *****/
 
 @Singleton
-public class GlobalKeyEventHandlerImpl implements GlobalKeyEventHandler, KeyEventPostProcessor {
+public class GlobalKeyEventHandlerImpl implements GlobalKeyEventHandler, KeyEventPostProcessor, KeyEventDispatcher {
 
     private final List<GlobalKeyEventListener> listeners = new ArrayList<GlobalKeyEventListener>();
     
     public GlobalKeyEventHandlerImpl() {
         // this call requires singleton scope in guice
-        KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventPostProcessor( this );        
-    }
+        //KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventPostProcessor( this );
+        KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher( this );
+        }
 
 
     public boolean postProcessKeyEvent(KeyEvent e) {
@@ -52,6 +53,10 @@ public class GlobalKeyEventHandlerImpl implements GlobalKeyEventHandler, KeyEven
             if ( listener.keyMatches( e )) {
                 current.add( listener );
             }
+        }
+
+        if ( current.isEmpty() ) {
+            return false;
         }
 
         // walk source parent chain
@@ -105,4 +110,8 @@ public class GlobalKeyEventHandlerImpl implements GlobalKeyEventHandler, KeyEven
     }
 
 
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent keyEvent) {
+        return postProcessKeyEvent( keyEvent );
+    }
 }
