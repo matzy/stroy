@@ -12,6 +12,7 @@ import org.openCage.lang.protocol.FE0;
 import org.openCage.lang.protocol.FE1;
 import org.openCage.localization.protocol.Localize;
 import org.openCage.ui.clazz.PreferenceFrame;
+import org.openCage.ui.clazz.TextEditor;
 import org.openCage.ui.protocol.*;
 import org.openCage.withResource.protocol.FileLineIterable;
 import org.openCage.withResource.protocol.With;
@@ -66,7 +67,6 @@ public class FaustUI extends JFrame {
 
     private final UI2File ui2file;
 
-//    private URI                     pad;
     private String                  message;
     private JTextArea               textUI = new JTextArea();
     private TextEncoderIdx<String>  textEncoder;
@@ -142,12 +142,11 @@ public class FaustUI extends JFrame {
 
         UnifiedToolBar toolBar = new UnifiedToolBar();
         toolBar.installWindowDraggerOnWindow( this );
-//        save.putClientProperty("JButton.buttonType", "textured");
+//        padButton.putClientProperty("JButton.buttonType", "textured");
 //        toolBar.addComponentToLeft(save);
 
         padGroup = new LabeledComponentGroup( localize.localize( "org.openCage.fausterize.toggleCode"),
                                                                padButton);
-
         toolBar.addComponentToLeft( padGroup.getComponent() );
 
         //padButton.putClientProperty("JButton.buttonType", "textured");
@@ -174,94 +173,8 @@ public class FaustUI extends JFrame {
 //        setInitial( message );
         
 
-        textField.addKeyListener( new KeyAdapter(){
-            @Override
-            public void keyReleased(KeyEvent keyEvent) {
-                super.keyReleased( keyEvent );
 
-                String searchStr = textField.getText();
-                String text = textUI.getText();
-                int pos = text.indexOf( searchStr );
-                Highlighter h = null;
-                if ( pos > -1 ) {
-                    textUI.setCaretPosition( pos );
-                    h = textUI.getHighlighter();
-                    h.removeAllHighlights();
-                }
-
-                if ( keyEvent.getKeyChar() == '\n' ) {
-                    // goto text again
-
-                    textUI.setCaretPosition( pos );
-                    textUI.grabFocus();
-
-                } else {
-
-                    if ( pos > -1 ) {
-                        try {
-                            h.addHighlight( pos, pos + searchStr.length(), DefaultHighlighter.DefaultPainter);
-                        } catch (BadLocationException e) {
-                            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-                        }
-                    }
-                }
-            }
-
-        });
-
-
-        final JFrame that = this;
-
-        keyHandler.addListener( new GlobalKeyEventListener() {
-            @Override
-            public Component getComponent() {
-                return that;
-            }
-
-            @Override
-            public boolean keyMatches(KeyEvent event) {
-                if ( Sys.isMacOSX() ) {
-                    return (event.getKeyChar() == 'f') && event.getModifiersEx() == 256;
-                }
-
-                if ( event.isControlDown() ) {
-                    int i = 0;
-                }
-
-                if ( event.getKeyChar() == 'f' ) {
-                    int e = event.getModifiersEx();
-                    int i = 0;
-                    if ( event.isControlDown() ) {
-                        int j = 0;
-                    }
-                    //KeyEvent.VK_CONTROL
-
-                }
-
-                // TODO
-                return false;
-            }
-
-            @Override
-            public void action() {
-                textField.grabFocus();
-            }
-        });
-
-        Action action = new AbstractAction() {
-
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                System.out.println("wohoo");
-                textField.grabFocus();
-            }
-        };
-        String keyStrokeAndKey = "control F";
-        KeyStroke keyStroke = KeyStroke.getKeyStroke(keyStrokeAndKey);
-        textUI.getInputMap( JComponent.WHEN_FOCUSED).put(keyStroke, keyStrokeAndKey);
-        textUI.getActionMap().put(keyStrokeAndKey, action);
-
-        
+        new TextEditor( textUI ).setFindField( textField );
 
         pack();
 
