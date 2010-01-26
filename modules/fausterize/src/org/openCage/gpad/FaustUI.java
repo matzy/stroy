@@ -3,32 +3,23 @@ package org.openCage.gpad;
 import com.explodingpixels.macwidgets.*;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
-import com.muchsoft.util.Sys;
 import org.openCage.application.protocol.Application;
 import org.openCage.fspath.clazz.FSPathBuilder;
 import org.openCage.lang.protocol.BackgroundExecutor;
 import org.openCage.lang.protocol.F0;
-import org.openCage.lang.protocol.FE0;
-import org.openCage.lang.protocol.FE1;
 import org.openCage.localization.protocol.Localize;
+import org.openCage.ui.clazz.MenuBuilder;
+import org.openCage.ui.clazz.MenuHelper;
 import org.openCage.ui.clazz.PreferenceFrame;
-import org.openCage.ui.clazz.TextEditor;
+import org.openCage.ui.clazz.TextEditorBuilder;
 import org.openCage.ui.protocol.*;
-import org.openCage.withResource.protocol.FileLineIterable;
 import org.openCage.withResource.protocol.With;
 
 import javax.swing.*;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.DefaultHighlighter;
-import javax.swing.text.Highlighter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.io.File;
-import java.io.Writer;
-import java.net.URI;
 
 import static org.openCage.gpad.Constants.*;
 import static org.openCage.ui.Constants.*;
@@ -64,6 +55,8 @@ public class FaustUI extends JFrame {
     private final OSXStandardEventHandler osxEventHandler;
     private final Localize                localize;
     private final BackgroundExecutor      executor;
+    private final MenuHelper              menuHelper;
+    private final TextEditorBuilder       textEditorBuilder;
 
     private final UI2File ui2file;
 
@@ -74,18 +67,20 @@ public class FaustUI extends JFrame {
     private LabeledComponentGroup padGroup;
 
     @Inject
-    public FaustUI( Application application,
-                    With wth,
-                    FileChooser chooser,
-                    AboutSheet about,
-                    OSXStandardEventHandler osxEventHandler,
-                    BackgroundExecutor executor,
-                    @Named(FAUSTERIZE) Localize localize,
-                    MenuBuilder menubuilder,
-                    @Named(LOCALE) PrefBuilder localePrefBuilder,
-                    @Named( FAUSTERIZE ) PrefBuilder codePref,
-                    final PreferenceFrame prefFrame,
-                    GlobalKeyEventHandler keyHandler ) {
+    public FaustUI(Application application,
+                   With wth,
+                   FileChooser chooser,
+                   AboutSheet about,
+                   OSXStandardEventHandler osxEventHandler,
+                   BackgroundExecutor executor,
+                   @Named(FAUSTERIZE) Localize localize,
+                   MenuBuilder menubuilder,
+                   @Named(LOCALE) PrefBuilder localePrefBuilder,
+                   @Named(FAUSTERIZE) PrefBuilder codePref,
+                   final PreferenceFrame prefFrame,
+                   GlobalKeyEventHandler keyHandler,
+                   MenuHelper menuHelper,
+                   TextEditorBuilder textEditorBuilder) {
 
         this.application     = application;
         this.with            = wth;
@@ -94,6 +89,8 @@ public class FaustUI extends JFrame {
         this.osxEventHandler = osxEventHandler;
         this.executor        = executor;
         this.localize        = localize;
+        this.menuHelper = menuHelper;
+        this.textEditorBuilder = textEditorBuilder;
 
         setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );        
 
@@ -109,21 +106,7 @@ public class FaustUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                if ( ui2file.isPadSet() ) {
-                    ui2file.codeToggle();
-                    setTextEnabled( !ui2file.isEncoded() );
-                } else {
-
-                    String path = fileChooser.open( theFrame, FSPathBuilder.getARoot().toString());
-                    if ( path != null ) {
-
-                        ui2file.setPad( new File( path ).toURI() );
-                        if ( ui2file.isEncoded() ) {
-                            ui2file.codeToggle();
-                        }
-                        setTextEnabled( true );
-                    }
-                }
+                toggleEncryption(theFrame);
             }
 
         });
@@ -174,14 +157,15 @@ public class FaustUI extends JFrame {
         
 
 
-        new TextEditor( textUI ).setFindField( textField );
+        textEditorBuilder.setTextArea( textUI );
+        textEditorBuilder.setFindField( textField );
 
         pack();
 
 
-        // TODO 
-        menubuilder.setMenuOnFrame( this );
+        buildMenu( menubuilder, prefFrame, textEditorBuilder );
 
+        // TODO
         prefFrame.addRow( "woo" ).add( codePref).add( localePrefBuilder ).build();
 
         F0<Void> showPrefs = new F0<Void>() {
@@ -193,10 +177,28 @@ public class FaustUI extends JFrame {
         };
 
         osxEventHandler.addPrefsDelegate( showPrefs );
-        menubuilder.addPrefsDelegate( showPrefs );
+        //menubuilder.addPrefsDelegate( showPrefs );
 
 
 
+    }
+
+    private void toggleEncryption(JFrame theFrame) {
+        if ( ui2file.isPadSet() ) {
+            ui2file.codeToggle();
+            setTextEnabled( !ui2file.isEncoded() );
+        } else {
+
+            String path = fileChooser.open( theFrame, FSPathBuilder.getARoot().toString());
+            if ( path != null ) {
+
+                ui2file.setPad( new File( path ).toURI() );
+                if ( ui2file.isEncoded() ) {
+                    ui2file.codeToggle();
+                }
+                setTextEnabled( true );
+            }
+        }
     }
 
 
@@ -210,6 +212,45 @@ public class FaustUI extends JFrame {
             textUI.setBackground( Color.LIGHT_GRAY);
             padButton.setIcon( new ImageIcon( getClass().getResource("lock_closed.png")) );
         }
+    }
+
+    private void buildMenu(  MenuBuilder mb, final PreferenceFrame prefFrame, TextEditorBuilder teBuilder ) {
+
+        final JFrame that = this;
+
+        mb.setOnFrame( this );
+
+        mb.addFile().
+                add( mb.itemPrefs().action( new F0<Void>() {
+                    @Override
+                    public Void call() {
+                        prefFrame.setVisible( true );
+                        return null;
+                    }
+                }) ).
+                add( mb.itemExit() );
+
+        mb.addEdit().
+                add( mb.item( localize.localize( "org.openCage.fausterize.toggleCode")).
+                        action( new F0<Void>() {
+                    @Override
+                    public Void call() {
+                        toggleEncryption( that );
+                        return null;
+                    }
+                })).
+                separator().
+                add( teBuilder.itemCopy( mb )).
+                add( teBuilder.itemPaste( mb ));
+
+        mb.addSearch().
+                add( teBuilder.itemFind( mb )).
+                add( teBuilder.itemFindNext( mb ));
+
+        mb.addHelp().
+                add( mb.itemAbout()).
+                add( mb.itemHelp());
+
     }
 
 }

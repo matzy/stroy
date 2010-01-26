@@ -11,7 +11,6 @@ import org.openCage.ui.impl.FileChooserGeneral;
 import org.openCage.ui.impl.FileChooserOSX;
 import org.openCage.ui.impl.FileChooserWindows;
 import org.openCage.ui.impl.GlobalKeyEventHandlerImpl;
-import org.openCage.ui.impl.MenuBuilderImpl;
 import org.openCage.ui.impl.OSXStandardEventHandlerImpl;
 import org.openCage.ui.impl.UILocalizeProvider;
 import org.openCage.ui.impl.about.AboutSheetFromApplication;
@@ -22,7 +21,6 @@ import org.openCage.ui.protocol.FileChooser;
 import org.openCage.ui.protocol.GlobalKeyEventHandler;
 import org.openCage.ui.protocol.HelpViewer;
 import org.openCage.ui.protocol.PrefBuilder;
-import org.openCage.ui.protocol.MenuBuilder;
 import org.openCage.ui.protocol.OSXStandardEventHandler;
 
 import static org.openCage.ui.Constants.*;
@@ -76,7 +74,6 @@ public class UIWiring implements Module {
 
         binder.bind(OSXStandardEventHandler.class).to(OSXStandardEventHandlerImpl.class);
 
-        binder.bind(MenuBuilder.class).to(MenuBuilderImpl.class);
         binder.bind(GlobalKeyEventHandler.class).to(GlobalKeyEventHandlerImpl.class);
 
         if (Sys.isMacOSX()) {
