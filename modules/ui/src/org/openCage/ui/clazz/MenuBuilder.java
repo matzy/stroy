@@ -17,7 +17,7 @@ import java.awt.event.KeyEvent;
 
 public class MenuBuilder {
 
-    public static Color BAR_BACKGROUND = new Color(30, 30, 30);
+    public static Color BAR_BACKGROUND = new Color(180, 180, 180);
 
     @Inject @Named( "ui" ) private Localize loca;
     @Inject private Application app;
@@ -149,7 +149,7 @@ public class MenuBuilder {
         }
 
         return item( loca.localize( "org.openCage.localization.dict.preference") ).
-                accelerator( KeyStroke.getKeyStroke(KeyEvent.VK_Q, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+                accelerator( KeyStroke.getKeyStroke(KeyEvent.VK_COMMA, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
     }
 
     public ItemIM itemAbout() {
