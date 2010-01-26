@@ -186,10 +186,14 @@ public class MenuBuilder {
 
 
     public Color getBarBackground() {
-        if ( Sys.isWindows() ) {
-            new Color(180, 180, 180);
+        if ( Sys.isMacOSX() ) {
+            new Color( 30, 30, 30);
         }
 
-        return new Color( 30, 30, 30);
+        if ( Sys.isLinux() ) {
+            return new Color(230, 230, 230);
+        }
+
+        return new Color(180, 180, 180);
     }
 }
