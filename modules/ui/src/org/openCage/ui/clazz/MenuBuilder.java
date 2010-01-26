@@ -17,7 +17,6 @@ import java.awt.event.KeyEvent;
 
 public class MenuBuilder {
 
-    public static Color BAR_BACKGROUND = new Color(180, 180, 180);
 
     @Inject @Named( "ui" ) private Localize loca;
     @Inject private Application app;
@@ -91,7 +90,7 @@ public class MenuBuilder {
 
     public MenuIM add(String title ) {
         JMenu menu = new JMenu( title );
-        menu.setBackground( BAR_BACKGROUND );
+        menu.setBackground( getBarBackground() );
         mbar.add( menu );
         return new MenuIM( menu );
     }
@@ -181,8 +180,16 @@ public class MenuBuilder {
 
 
     public void setOnFrame( JFrame frame ) {
-        mbar.setBackground( BAR_BACKGROUND );
+        mbar.setBackground( getBarBackground() );
         frame.setJMenuBar( mbar );
     }
 
+
+    public Color getBarBackground() {
+        if ( Sys.isWindows() ) {
+            new Color(180, 180, 180);
+        }
+
+        return new Color( 30, 30, 30);
+    }
 }
