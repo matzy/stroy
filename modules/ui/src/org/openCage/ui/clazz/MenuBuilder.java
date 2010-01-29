@@ -177,6 +177,16 @@ public class MenuBuilder {
                 });
     }
 
+    public ItemIM itemOpen() {
+        return item( loca.localize("org.openCage.localization.dict.open" ) ).
+                accelerator( KeyStroke.getKeyStroke(KeyEvent.VK_O, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+    }
+
+    public ItemIM itemNew() {
+        return item( loca.localize("org.openCage.localization.dict.new" ) ).
+                accelerator( KeyStroke.getKeyStroke(KeyEvent.VK_N, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask())); 
+    }
+
 
 
     public void setOnFrame( JFrame frame ) {

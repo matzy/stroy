@@ -70,4 +70,16 @@ public class FSPathBuilder {
 //        //return new FSPath( "C:\\");
 
     }
+
+    public static FSPath getDocuments() {
+        if ( SystemUtils.IS_OS_MAC_OSX || SystemUtils.IS_OS_UNIX ) {
+            return new FSPathUnix( "~/Documents" );
+        }
+
+        if ( SystemUtils.IS_OS_WINDOWS ) {
+            return getPath(SystemUtils.getUserHome());
+        }
+
+        throw new Error( "unknown os" );
+    }
 }

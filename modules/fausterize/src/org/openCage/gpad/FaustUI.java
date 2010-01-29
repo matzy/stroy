@@ -65,6 +65,7 @@ public class FaustUI extends JFrame {
     private TextEncoderIdx<String>  textEncoder;
     final private JButton           padButton = new JButton( new ImageIcon( getClass().getResource("faust-small.png")));
     private LabeledComponentGroup padGroup;
+    private JLabel infoLabel;
 
     @Inject
     public FaustUI(Application application,
@@ -142,7 +143,10 @@ public class FaustUI extends JFrame {
         getContentPane().add( toolBar.getComponent(), BorderLayout.NORTH );
 
         BottomBar bottomBar = new BottomBar(BottomBarSize.SMALL);
-        bottomBar.addComponentToCenter(MacWidgetFactory.createEmphasizedLabel( message ));
+
+        infoLabel = MacWidgetFactory.createEmphasizedLabel( message );
+
+        bottomBar.addComponentToCenter( infoLabel );
         getContentPane().add( bottomBar.getComponent(), BorderLayout.SOUTH );
 
         setTitle( application.gettName());
@@ -159,6 +163,7 @@ public class FaustUI extends JFrame {
 
         textEditorBuilder.setTextArea( textUI );
         textEditorBuilder.setFindField( textField );
+        //textEditorBuilder.setConfCaret();
 
         pack();
 
@@ -181,6 +186,22 @@ public class FaustUI extends JFrame {
 
 
 
+    }
+
+    private String newMessage() {
+
+        int i = 1;
+
+        File file = null;
+
+        do {
+            file = FSPathBuilder.getHome().add(PROJECT_DIR, "" + i + ".fst1").toFile();
+            i++;
+        } while ( file.exists());
+
+        file.getParentFile().mkdirs();
+
+        return file.getAbsolutePath();
     }
 
     private void toggleEncryption(JFrame theFrame) {
@@ -221,6 +242,27 @@ public class FaustUI extends JFrame {
         mb.setOnFrame( this );
 
         mb.addFile().
+                add( mb.itemNew().action( new F0<Void>() {
+                    @Override
+                    public Void call() {
+                        String path = newMessage();
+                        ui2file.setFile( new File(path));
+                        setTextEnabled( false );
+                        infoLabel.setText( path );
+                        return null;
+                    }
+                }) ).
+                add( mb.itemOpen().action( new F0<Void>() {
+                    @Override
+                    public Void call() {
+                        String path = fileChooser.open( that, FSPathBuilder.getARoot().toString());
+                        if ( path != null ) {
+                            ui2file.setFile( new File(path));
+                            setTextEnabled( false );
+                        }
+                        return null;
+                    }
+                }) ).
                 add( mb.itemPrefs().action( new F0<Void>() {
                     @Override
                     public Void call() {
@@ -228,6 +270,7 @@ public class FaustUI extends JFrame {
                         return null;
                     }
                 }) ).
+                separator().
                 add( mb.itemExit() );
 
         mb.addEdit().

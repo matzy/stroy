@@ -221,5 +221,11 @@ public class TextEditorBuilder {
                 });
     }
 
+    public void setConfCaret() {
+        ConfigurableCaret caret = new ConfigurableCaret();
+        caret.setStyle( ConfigurableCaret.BLOCK_STYLE );
+        area.setCaret( caret );
+    }
+
 
 }

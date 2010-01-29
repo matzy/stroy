@@ -59,8 +59,14 @@ public class UI2File {
             }
         });
 
+        init();
         setInitialText();
+    }
 
+    private void init() {
+        pad = null;
+        changed = false;
+        textArea.setText("");
     }
 
     private void setInitialText() {
@@ -97,7 +103,7 @@ public class UI2File {
     }
 
     private boolean canWrite() {
-        return file != null & pad != null && changed;
+        return file != null && pad != null && changed;
     }
 
     private synchronized void write() {
@@ -106,6 +112,7 @@ public class UI2File {
                 try {
                     FileUtils.writeStringToFile( file, textArea.getText() );
                 } catch (IOException e) {
+                    // TODO
                     e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                 }
             } else {
@@ -120,7 +127,10 @@ public class UI2File {
 
 
     public void setFile( @NotNull File file ) {
+        write();
+        init();
         this.file = file;
+        setInitialText();
     }
 
     public void setPad( @NotNull URI pad ) {
