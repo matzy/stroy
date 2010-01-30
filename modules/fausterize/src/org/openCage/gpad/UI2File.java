@@ -1,12 +1,12 @@
 package org.openCage.gpad;
 
-import com.sun.istack.internal.NotNull;
 import org.apache.commons.io.FileUtils;
+import org.jetbrains.annotations.NotNull;
 import org.openCage.lang.protocol.BackgroundExecutor;
 import org.openCage.lang.protocol.FE0;
 import org.openCage.localization.protocol.Localize;
 
-import javax.swing.*;
+import javax.swing.JTextArea;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
@@ -126,13 +126,6 @@ public class UI2File {
     }
 
 
-    public void setFile( @NotNull File file ) {
-        write();
-        init();
-        this.file = file;
-        setInitialText();
-    }
-
     public void setPad( @NotNull URI pad ) {
         this.pad  = pad;
         textEncoder.setPad( pad);
@@ -145,5 +138,16 @@ public class UI2File {
 
     public boolean isEncoded() {
         return encoded;
+    }
+
+    public void setFile( @NotNull File file ) {
+        write();
+        init();
+        this.file = file;
+        setInitialText();
+    }
+
+    public void changeFile(File file) {
+        this.file = file;
     }
 }

@@ -258,11 +258,24 @@ public class FaustUI extends JFrame {
                         String path = fileChooser.open( that, FSPathBuilder.getARoot().toString());
                         if ( path != null ) {
                             ui2file.setFile( new File(path));
-                            setTextEnabled( false );
+                            setTextEnabled(false);
+                            infoLabel.setText( path );
                         }
                         return null;
                     }
                 }) ).
+                add( mb.itemSaveAs().action( new F0<Void>() {
+                    @Override
+                    public Void call() {
+                        String path = fileChooser.saveas( that, FSPathBuilder.getARoot().toString());
+                        if ( path != null ) {
+                            ui2file.changeFile( new File(path));
+                            infoLabel.setText( path );
+                        }
+                        return null;
+                    }
+                }) ).
+                separator().
                 add( mb.itemPrefs().action( new F0<Void>() {
                     @Override
                     public Void call() {
@@ -270,7 +283,6 @@ public class FaustUI extends JFrame {
                         return null;
                     }
                 }) ).
-                separator().
                 add( mb.itemExit() );
 
         mb.addEdit().

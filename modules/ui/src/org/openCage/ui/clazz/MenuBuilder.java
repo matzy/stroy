@@ -187,6 +187,11 @@ public class MenuBuilder {
                 accelerator( KeyStroke.getKeyStroke(KeyEvent.VK_N, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask())); 
     }
 
+    public ItemIM itemSaveAs() {
+        return item( loca.localize("org.openCage.localization.dict.saveAs" ) ).
+                accelerator( KeyStroke.getKeyStroke(KeyEvent.VK_S, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+    }
+
 
 
     public void setOnFrame( JFrame frame ) {
