@@ -1,7 +1,7 @@
 package org.openCage.property.clazz;
 
-import com.google.inject.Inject;
 import com.google.inject.Provider;
+import org.jetbrains.annotations.NotNull;
 import org.openCage.property.impl.PropertyImpl;
 import org.openCage.property.protocol.PropStore;
 import org.openCage.property.protocol.Property;
@@ -30,14 +30,14 @@ import org.openCage.property.protocol.Property;
 
 public abstract class AbstractPropertyProvider<T> implements Provider<Property<T>> {
 
-    @Inject
-    private PropStore store;
     private final T val;
     private final String key;
+    private final PropStore store;
 
-    public AbstractPropertyProvider( String key, T val ) {
+    public AbstractPropertyProvider( @NotNull PropStore store, @NotNull String key, T val ) {
         this.key = key;
         this.val = val;
+        this.store = store;
     }
 
     @Override

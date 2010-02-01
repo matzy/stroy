@@ -6,12 +6,7 @@ import org.openCage.lang.protocol.BackgroundExecutor;
 import org.openCage.property.impl.PropStoreImpl;
 import org.openCage.property.protocol.PropStore;
 
-import java.io.File;
-
-/**
- * propstore without a backing file, i.e. non persistet
- */
-public class PropStoreProvider implements Provider<PropStore> {
+public class OtherProperStoreProvider  implements Provider<PropStore> {
 
     @Inject
     private BackgroundExecutor executor;

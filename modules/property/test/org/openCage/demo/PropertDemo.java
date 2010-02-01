@@ -21,6 +21,9 @@ public class PropertDemo {
     @Inject @Named( DuhProp.HICKER )
     public Property<Integer> prop2;
 
+    @Inject @Named( OtherStoreProp.KEY )
+    public Property<String> otherProp;
+
     public static void main(String[] args) {
         Injector injector = Guice.createInjector( new PropertyDemoWiring() );
 
@@ -32,5 +35,7 @@ public class PropertDemo {
         System.out.println( demo.prop2.get() );
         demo.prop2.setDefault();
         System.out.println( demo.prop2.get() );
+
+        System.out.println( demo.otherProp.get());
     }
 }

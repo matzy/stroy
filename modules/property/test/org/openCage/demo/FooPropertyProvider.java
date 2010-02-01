@@ -2,6 +2,7 @@ package org.openCage.demo;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.google.inject.name.Named;
 import org.openCage.property.impl.PropertyImpl;
 import org.openCage.property.protocol.PropStore;
 import org.openCage.property.protocol.Property;
@@ -15,7 +16,7 @@ import org.openCage.property.protocol.Property;
  */
 public class FooPropertyProvider implements Provider<Property<String>> {
 
-    @Inject
+    @Inject @Named( "std")
     private PropStore store;
     private static final String DEMO_FOO = "demo.foo";
 

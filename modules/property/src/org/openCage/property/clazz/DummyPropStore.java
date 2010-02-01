@@ -30,7 +30,7 @@ import java.util.Map;
 
 /**
  * A propstore implementation ignoring all
- * Props still work but are not peristet
+ * Props still work but are not persistet
  */
 public class DummyPropStore implements PropStore {
 

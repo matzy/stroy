@@ -2,23 +2,26 @@ package org.openCage.gpad;
 
 import com.google.inject.Binder;
 import com.google.inject.Module;
+import com.google.inject.Singleton;
+import com.google.inject.TypeLiteral;
 import com.google.inject.name.Names;
 import org.openCage.application.protocol.Application;
 import org.openCage.application.wiring.ApplicationWiring;
 import org.openCage.gpad.providers.ApplicationProvider;
 import org.openCage.gpad.providers.LocalizeProvider;
 import org.openCage.gpad.providers.PropStoreProvider;
+import org.openCage.lang.clazz.MRU;
 import org.openCage.lang.protocol.LangWiring;
 import org.openCage.localization.protocol.Localize;
 import org.openCage.localization.wiring.LocalizeWiring;
 import org.openCage.property.protocol.PropStore;
-import org.openCage.ui.impl.pref.LocalePrefBuilderImpl;
+import org.openCage.property.protocol.Property;
 import org.openCage.ui.protocol.PrefBuilder;
 import org.openCage.ui.wiring.UIWiring;
 import org.openCage.withResource.wiring.IoWiring;
 
+
 import static org.openCage.gpad.Constants.FAUSTERIZE;
-import static org.openCage.ui.Constants.LOCALE;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -52,11 +55,19 @@ public class FausterizeWiring implements Module {
 
         binder.bind( Application.class ).toProvider( ApplicationProvider.class );
         binder.bind( PropStore.class ).toProvider( PropStoreProvider.class );
+        binder.bind( PropStore.class ).
+                annotatedWith( Names.named("trans")).
+                toProvider( PropStoreProvider.class );
         binder.bind( Localize.class).
                 annotatedWith( Names.named(FAUSTERIZE)).
                 toProvider( LocalizeProvider.class);
 
         binder.bind(PrefBuilder.class ).annotatedWith( Names.named(FAUSTERIZE)).to(CodePrefBuilder.class);
+
+        binder.bind( new TypeLiteral<Property<MRU<String>>>() {} ).
+                //annotatedWith( Names.named( LocaleProperty.THE_LOCALE)).
+                toProvider( FaustMRUProperty.class ).
+                in( Singleton.class );
 
 
     }

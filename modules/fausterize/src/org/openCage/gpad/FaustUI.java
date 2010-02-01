@@ -101,10 +101,10 @@ public class FaustUI extends JFrame {
         message = FSPathBuilder.getHome().add(PROJECT_DIR, "1.fst1").toString();
         new File( message ).getParentFile().mkdirs();
 
-        // add legacy message (0.6 and before)
-        if ( new File( message ).exists() ) {
-            mru.use(message);
-        }
+//        // add legacy message (0.6 and before)
+//        if ( new File( message ).exists() ) {
+//            mru.use(message);
+//        }
 
         this.ui2file = new UI2File( textUI, executor, localize,  new File(message));
 

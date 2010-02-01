@@ -22,7 +22,12 @@ public class PropertyDemoWiring implements Module {
     public void configure(Binder binder) {
         binder.install( new LangWiring());
 
-        binder.bind( PropStore.class ).toProvider( PropStoreProvider.class );
+        binder.bind( PropStore.class ).
+                annotatedWith( Names.named( "std" )).
+                toProvider( PropStoreProvider.class );
+        binder.bind( PropStore.class ).
+                annotatedWith( Names.named( "trans" )).
+                toProvider( PropStoreProvider.class );
 
         binder.bind( new TypeLiteral<Property<String>>() {} ).
                 annotatedWith( Names.named("demo")).
@@ -32,6 +37,11 @@ public class PropertyDemoWiring implements Module {
         binder.bind( new TypeLiteral<Property<Integer>>() {} ).
                 annotatedWith( Names.named( DuhProp.HICKER )).
                 toProvider( DuhProp.class ).
+                in( Singleton.class );
+
+        binder.bind( new TypeLiteral<Property<String>>() {} ).
+                annotatedWith( Names.named( OtherStoreProp.KEY )).
+                toProvider( OtherStoreProp.class ).
                 in( Singleton.class );
 
     }

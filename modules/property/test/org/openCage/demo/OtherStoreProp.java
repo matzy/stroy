@@ -5,12 +5,12 @@ import com.google.inject.name.Named;
 import org.openCage.property.clazz.AbstractPropertyProvider;
 import org.openCage.property.protocol.PropStore;
 
-public class DuhProp extends AbstractPropertyProvider<Integer>{
+public class OtherStoreProp extends AbstractPropertyProvider<String> {
 
-    public static final String HICKER = "hicker";
+    public final static String KEY = "Other";
 
     @Inject
-    public DuhProp( @Named( "std" ) PropStore store) {
-        super( store, HICKER, 42 );
+    public OtherStoreProp( @Named( "trans" ) PropStore store ) {
+        super( store, KEY, "totally different");
     }
 }
