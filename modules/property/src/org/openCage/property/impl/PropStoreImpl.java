@@ -46,11 +46,18 @@ public class PropStoreImpl implements PropStore {
     private final XStream              xs      = new XStream( new DomDriver());
     private boolean                    isDirty = false;
 
+    // TODO
     private static final int BACKINGSIZE = 500000;
 
-    public PropStoreImpl( @NotNull BackgroundExecutor background, final File backing ) {
+    public PropStoreImpl( @NotNull BackgroundExecutor background, final File backing, Map<String, Class> aliases ) {
 
         xs.alias( "Property", PropertyImpl.class );
+
+        if ( aliases != null ) {
+            for ( Map.Entry<String, Class> alias : aliases.entrySet() ) {
+                xs.alias( alias.getKey(), alias.getValue());
+            }
+        }
 
         final PropStoreImpl propStore = this;
 

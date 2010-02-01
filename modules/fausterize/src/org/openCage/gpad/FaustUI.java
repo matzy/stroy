@@ -9,6 +9,7 @@ import org.openCage.lang.clazz.MRU;
 import org.openCage.lang.protocol.BackgroundExecutor;
 import org.openCage.lang.protocol.F0;
 import org.openCage.localization.protocol.Localize;
+import org.openCage.property.protocol.Property;
 import org.openCage.ui.clazz.MenuBuilder;
 import org.openCage.ui.clazz.MenuHelper;
 import org.openCage.ui.clazz.PreferenceFrame;
@@ -67,7 +68,6 @@ public class FaustUI extends JFrame {
     final private JButton           padButton = new JButton( new ImageIcon( getClass().getResource("faust-small.png")));
     private LabeledComponentGroup padGroup;
     private JLabel infoLabel;
-    private MRU<String> mru;
 
     @Inject
     public FaustUI(Application application,
@@ -83,7 +83,8 @@ public class FaustUI extends JFrame {
                    final PreferenceFrame prefFrame,
                    GlobalKeyEventHandler keyHandler,
                    MenuHelper menuHelper,
-                   TextEditorBuilder textEditorBuilder) {
+                   TextEditorBuilder textEditorBuilder,
+                   Property<MRU<String>> mru ) {
 
         this.application     = application;
         this.with            = wth;

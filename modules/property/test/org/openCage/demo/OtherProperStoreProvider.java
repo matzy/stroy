@@ -13,6 +13,6 @@ public class OtherProperStoreProvider  implements Provider<PropStore> {
 
     @Override
     public PropStore get() {
-        return new PropStoreImpl( executor, null );
+        return new PropStoreImpl( executor, null, null );
     }
 }
