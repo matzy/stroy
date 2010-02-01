@@ -5,6 +5,7 @@ import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import org.openCage.application.protocol.Application;
 import org.openCage.fspath.clazz.FSPathBuilder;
+import org.openCage.lang.clazz.MRU;
 import org.openCage.lang.protocol.BackgroundExecutor;
 import org.openCage.lang.protocol.F0;
 import org.openCage.localization.protocol.Localize;
@@ -66,6 +67,7 @@ public class FaustUI extends JFrame {
     final private JButton           padButton = new JButton( new ImageIcon( getClass().getResource("faust-small.png")));
     private LabeledComponentGroup padGroup;
     private JLabel infoLabel;
+    private MRU<String> mru;
 
     @Inject
     public FaustUI(Application application,
@@ -98,6 +100,11 @@ public class FaustUI extends JFrame {
         // TODO remove magic strings
         message = FSPathBuilder.getHome().add(PROJECT_DIR, "1.fst1").toString();
         new File( message ).getParentFile().mkdirs();
+
+        // add legacy message (0.6 and before)
+        if ( new File( message ).exists() ) {
+            mru.use(message);
+        }
 
         this.ui2file = new UI2File( textUI, executor, localize,  new File(message));
 
@@ -241,6 +248,8 @@ public class FaustUI extends JFrame {
 
         mb.setOnFrame( this );
 
+        MenuBuilder.MenuIM recent = mb.menuOpenRecent();
+
         mb.addFile().
                 add( mb.itemNew().action( new F0<Void>() {
                     @Override
@@ -264,6 +273,7 @@ public class FaustUI extends JFrame {
                         return null;
                     }
                 }) ).
+                add( recent ).
                 add( mb.itemSaveAs().action( new F0<Void>() {
                     @Override
                     public Void call() {

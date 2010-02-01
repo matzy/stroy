@@ -27,6 +27,7 @@ public class MenuBuilder {
 
     private JMenuBar mbar = new JMenuBar();
 
+
     public class MenuIM {
         private final JMenu menu;
 
@@ -41,11 +42,21 @@ public class MenuBuilder {
             return this;
         }
 
+        public MenuIM add( MenuIM subMenu ) {
+            if ( subMenu.getMenu() != null ) {
+                menu.add( subMenu.getMenu() );
+            }
+            return this;
+        }
+
         public MenuIM separator() {
             menu.addSeparator();
             return this;
         }
 
+        public JMenu getMenu() {
+            return menu;
+        }
     }
 
     public class ItemIM {
@@ -87,11 +98,19 @@ public class MenuBuilder {
         }
     }
 
+    private class SubMenuIM {
+    }
 
     public MenuIM add(String title ) {
         JMenu menu = new JMenu( title );
         menu.setBackground( getBarBackground() );
         mbar.add( menu );
+        return new MenuIM( menu );
+    }
+
+    private MenuIM subMenu(String title) {
+        JMenu menu = new JMenu( title );
+//        menu.setBackground( getBarBackground() );
         return new MenuIM( menu );
     }
 
@@ -199,6 +218,10 @@ public class MenuBuilder {
         frame.setJMenuBar( mbar );
     }
 
+    public MenuIM menuOpenRecent() {
+        return subMenu( loca.localize("org.openCage.localization.dict.openRecent") );
+    }
+
 
     public Color getBarBackground() {
         if ( Sys.isMacOSX() ) {
@@ -211,4 +234,5 @@ public class MenuBuilder {
 
         return new Color(180, 180, 180);
     }
+
 }
