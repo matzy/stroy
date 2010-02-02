@@ -51,6 +51,13 @@ public class PropertyImpl<T> implements Property<T> {
     }
 
     @Override
+    public void setDirty() {
+        if ( store != null ) {
+            store.setDirty();
+        }
+    }
+
+    @Override
     public void setDefault() {
         set( dflt );
     }

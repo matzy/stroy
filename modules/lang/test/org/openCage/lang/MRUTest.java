@@ -19,23 +19,23 @@ public class MRUTest {
         MRU<String> mru = new MRU<String>();
 
         mru.use( "foo" );
-        assertEquals( "foo", mru.getTop() );
+        assertEquals( "foo", mru.getAll().iterator().next() );
 
         mru.use( "duda" );
-        assertEquals( "duda", mru.getTop() );
+        assertEquals( "duda", mru.getAll().iterator().next() );
 
         mru.use( "foo" );
-        assertEquals( "foo", mru.getTop() );
+        assertEquals( "foo", mru.getAll().iterator().next() );
         assertEquals( 2, mru.getAll().size());
 
         mru.use( "333" );
-        assertEquals( "333", mru.getTop() );
+        assertEquals( "333", mru.getAll().iterator().next() );
         assertEquals( 3, mru.getAll().size());
         mru.setMaxSize( 2 );
         assertEquals( 2, mru.getAll().size());
 
         mru.use( "444" );
-        assertEquals( "444", mru.getTop() );
+        assertEquals( "444", mru.getAll().iterator().next() );
         assertEquals( 2, mru.getAll().size());
     }
 }

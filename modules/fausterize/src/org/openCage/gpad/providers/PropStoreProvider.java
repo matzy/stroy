@@ -29,6 +29,6 @@ import org.openCage.property.clazz.AbstractPropStoreProvider;
 public class PropStoreProvider extends AbstractPropStoreProvider{
 
     public PropStoreProvider() {
-        super( FSPathBuilder.getHome().add( Constants.PROJECT_DIR, ".prefs.xml").toFile());
+        super( FSPathBuilder.getPreferences().add( Constants.FAUSTERIZE, "prefs.xml").toFile());
     }
 }

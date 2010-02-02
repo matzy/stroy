@@ -30,6 +30,8 @@ public class FaustMRUProperty extends AbstractPropertyProvider<MRU<String>> {
         // add legacy message (0.6 and before)
         if ( new File( message ).exists() ) {
             mru.use(message);
+        } else {
+            mru.use( FSPathBuilder.getDocuments().add( Constants.FAUSTERIZE, "1.fst1").toString());
         }
 
         return mru;

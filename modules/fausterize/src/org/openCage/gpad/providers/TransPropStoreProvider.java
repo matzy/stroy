@@ -18,7 +18,7 @@ import java.util.Map;
 public class TransPropStoreProvider  extends AbstractPropStoreProvider {
 
     public TransPropStoreProvider() {
-        super( FSPathBuilder.getHome().add( Constants.PROJECT_DIR, ".prefs-trans.xml").toFile());
+        super( FSPathBuilder.getPreferences().add( Constants.FAUSTERIZE, "prefs-trans.xml").toFile(), getAliases());
     }
 
     private static Map<String,Class> getAliases() {

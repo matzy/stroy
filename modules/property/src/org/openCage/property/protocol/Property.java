@@ -26,5 +26,6 @@ public interface Property<T> {
 
     public T    get();
     public void set( T t);
+    public void setDirty();
     public void setDefault();
 }

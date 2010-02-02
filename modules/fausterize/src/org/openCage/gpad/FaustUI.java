@@ -5,6 +5,7 @@ import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import org.openCage.application.protocol.Application;
 import org.openCage.fspath.clazz.FSPathBuilder;
+import org.openCage.lang.clazz.Count;
 import org.openCage.lang.clazz.MRU;
 import org.openCage.lang.protocol.BackgroundExecutor;
 import org.openCage.lang.protocol.F0;
@@ -59,15 +60,20 @@ public class FaustUI extends JFrame {
     private final BackgroundExecutor      executor;
     private final MenuHelper              menuHelper;
     private final TextEditorBuilder       textEditorBuilder;
+    private final Property<MRU<String>> mru;
 
     private final UI2File ui2file;
 
     private String                  message;
     private JTextArea               textUI = new JTextArea();
     private TextEncoderIdx<String>  textEncoder;
-    final private JButton           padButton = new JButton( new ImageIcon( getClass().getResource("faust-small.png")));
+    final private JButton           padButton = new JButton( new ImageIcon( getClass().getResource(LOCK_CLOSED_PNG)));//"faust-small.png")));
     private LabeledComponentGroup padGroup;
     private JLabel infoLabel;
+    private MenuBuilder.MenuIM recent;
+    private MenuBuilder menuBuilder;
+    private static final String LOCK_OPEN_PNG = "lock_open.png";
+    private static final String LOCK_CLOSED_PNG = "lock_closed.png";
 
     @Inject
     public FaustUI(Application application,
@@ -95,21 +101,16 @@ public class FaustUI extends JFrame {
         this.localize        = localize;
         this.menuHelper = menuHelper;
         this.textEditorBuilder = textEditorBuilder;
+        this.mru = mru;
+        this.menuBuilder = menubuilder;
 
         setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );        
 
-        // TODO remove magic strings
-        message = FSPathBuilder.getHome().add(PROJECT_DIR, "1.fst1").toString();
-        new File( message ).getParentFile().mkdirs();
 
-//        // add legacy message (0.6 and before)
-//        if ( new File( message ).exists() ) {
-//            mru.use(message);
-//        }
+        message = mru.get().getAll().iterator().next();
 
         this.ui2file = new UI2File( textUI, executor, localize,  new File(message));
 
-        //padButton.setBackground( Color.DARK_GRAY);
         final JFrame theFrame = this;
         padButton.addActionListener( new ActionListener() {
             @Override
@@ -190,7 +191,6 @@ public class FaustUI extends JFrame {
         };
 
         osxEventHandler.addPrefsDelegate( showPrefs );
-        //menubuilder.addPrefsDelegate( showPrefs );
 
 
 
@@ -198,12 +198,15 @@ public class FaustUI extends JFrame {
 
     private String newMessage() {
 
+        // exists check might not find this otherwise
+        ui2file.write();
+
         int i = 1;
 
         File file = null;
 
         do {
-            file = FSPathBuilder.getHome().add(PROJECT_DIR, "" + i + ".fst1").toFile();
+            file = FSPathBuilder.getDocuments().add( Constants.FAUSTERIZE, "" + i + ".fst1").toFile();
             i++;
         } while ( file.exists());
 
@@ -213,7 +216,7 @@ public class FaustUI extends JFrame {
     }
 
     private void toggleEncryption(JFrame theFrame) {
-        if ( ui2file.isPadSet() ) {
+        if ( ui2file.isPadSet() && !ui2file.isEncoded()) {
             ui2file.codeToggle();
             setTextEnabled( !ui2file.isEncoded() );
         } else {
@@ -235,11 +238,11 @@ public class FaustUI extends JFrame {
         if ( enable ) {
             textUI.setEditable(true);
             textUI.setBackground( Color.WHITE);
-            padButton.setIcon( new ImageIcon( getClass().getResource("lock_open.png")) );
+            padButton.setIcon( new ImageIcon( getClass().getResource(LOCK_OPEN_PNG)) );
         } else {
             textUI.setEditable(false);
             textUI.setBackground( Color.LIGHT_GRAY);
-            padButton.setIcon( new ImageIcon( getClass().getResource("lock_closed.png")) );
+            padButton.setIcon( new ImageIcon( getClass().getResource(LOCK_CLOSED_PNG)) );
         }
     }
 
@@ -249,28 +252,21 @@ public class FaustUI extends JFrame {
 
         mb.setOnFrame( this );
 
-        MenuBuilder.MenuIM recent = mb.menuOpenRecent();
+        recent = mb.menuOpenRecent();
+        buildOpenRecentMenu();
 
         mb.addFile().
                 add( mb.itemNew().action( new F0<Void>() {
                     @Override
                     public Void call() {
-                        String path = newMessage();
-                        ui2file.setFile( new File(path));
-                        setTextEnabled( false );
-                        infoLabel.setText( path );
+                        newOpenFile( newMessage() );
                         return null;
                     }
                 }) ).
                 add( mb.itemOpen().action( new F0<Void>() {
                     @Override
                     public Void call() {
-                        String path = fileChooser.open( that, FSPathBuilder.getARoot().toString());
-                        if ( path != null ) {
-                            ui2file.setFile( new File(path));
-                            setTextEnabled(false);
-                            infoLabel.setText( path );
-                        }
+                        newOpenFile(fileChooser.open( that, FSPathBuilder.getARoot().toString()));
                         return null;
                     }
                 }) ).
@@ -282,6 +278,9 @@ public class FaustUI extends JFrame {
                         if ( path != null ) {
                             ui2file.changeFile( new File(path));
                             infoLabel.setText( path );
+                            mru.get().use( path );
+                            mru.setDirty();
+                            buildOpenRecentMenu();
                         }
                         return null;
                     }
@@ -318,5 +317,37 @@ public class FaustUI extends JFrame {
                 add( mb.itemHelp());
 
     }
+
+    private void newOpenFile(String path) {
+        if ( path != null ) {
+            ui2file.setFile( new File(path));
+            setTextEnabled(false);
+            infoLabel.setText( path );
+            mru.get().use( path );
+            mru.setDirty();
+            buildOpenRecentMenu();
+        }
+    }
+
+    private void buildOpenRecentMenu() {
+        // rebuild
+        recent.getMenu().removeAll();
+
+        // add all but the current visible file
+        for ( final Count<String> file : Count.count(mru.get().getAll())) {
+            if ( !file.isFirst()) {
+                final String path = file.obj();
+                recent.add( menuBuilder.item( path ).
+                    action( new F0<Void>() {
+                        @Override
+                        public Void call() {
+                            newOpenFile( path );
+                            return null;
+                        }
+                }));
+            }
+        }
+    }
+
 
 }

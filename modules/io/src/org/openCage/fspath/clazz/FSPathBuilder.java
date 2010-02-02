@@ -73,11 +73,25 @@ public class FSPathBuilder {
 
     public static FSPath getDocuments() {
         if ( SystemUtils.IS_OS_MAC_OSX || SystemUtils.IS_OS_UNIX ) {
-            return new FSPathUnix( "~/Documents" );
+            return FSPathBuilder.getHome().add( "Documents" );
         }
 
         if ( SystemUtils.IS_OS_WINDOWS ) {
             return getPath(SystemUtils.getUserHome());
+        }
+
+        throw new Error( "unknown os" );
+    }
+
+    public static FSPath getPreferences() {
+        if ( SystemUtils.IS_OS_MAC_OSX || SystemUtils.IS_OS_UNIX ) {
+            return FSPathBuilder.getHome().add( "Library", "Preferences");
+        }
+
+        if ( SystemUtils.IS_OS_WINDOWS ) {
+            // TODO make this localization safe
+            //      but is this possible without a native call ?
+            return FSPathBuilder.getHome().add( "Application Data");
         }
 
         throw new Error( "unknown os" );

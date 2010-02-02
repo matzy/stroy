@@ -13,13 +13,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 
-/**
- * Created by IntelliJ IDEA.
- * User: stephan
- * Date: Jan 21, 2010
- * Time: 9:16:37 AM
- * To change this template use File | Settings | File Templates.
- */
 public class UI2File {
 
     private final JTextArea textArea;
@@ -53,7 +46,7 @@ public class UI2File {
         textArea.addKeyListener( new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
-                if ( textArea.isEditable() ) {
+                if ( textArea.isEditable() && !changed ) {
                     changed = true;
                 }
             }
@@ -73,10 +66,11 @@ public class UI2File {
 
         if ( file.exists() ) {
             try {
-                textArea.append( FileUtils.readFileToString( file ));
+                textArea.setText( FileUtils.readFileToString( file ));
                 encoded = true;
+                changed = false;
             } catch (IOException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                e.printStackTrace();  //TODO
             }
 
             return;
@@ -97,8 +91,17 @@ public class UI2File {
             textArea.setText( textEncoder.decode( textArea.getText(), 0 ));
             encoded = false;
         } else {
-            textArea.setText( textEncoder.encode( textArea.getText(), 0 ));
-            encoded = true;
+
+
+            if ( changed ) {
+                textArea.setText( textEncoder.encode( textArea.getText(), 0 ));
+                encoded = true;
+            } else {
+                // the text is decoded, but th wrong pad might have been used
+                // so lets just read from disk
+                
+                setInitialText();
+            }
         }
     }
 
@@ -106,8 +109,11 @@ public class UI2File {
         return file != null && pad != null && changed;
     }
 
-    private synchronized void write() {
+    synchronized void write() {
         if ( canWrite() ) {
+            // make sure the directory exists
+            file.getParentFile().mkdirs();
+            
             if ( encoded ) {
                 try {
                     FileUtils.writeStringToFile( file, textArea.getText() );
@@ -119,7 +125,7 @@ public class UI2File {
                 try {
                     FileUtils.writeStringToFile( file, textEncoder.encode( textArea.getText(), 0 ));
                 } catch (IOException e) {
-                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                    e.printStackTrace();  //TODO
                 }
             }
         }

@@ -70,6 +70,8 @@ public class PropStoreImpl implements PropStore {
                         synchronized ( propStore ) {
                             FileWriter writer = null;
                             try {
+                                // make sure the directory exists
+                                backing.getParentFile().mkdirs();
                                 writer = new FileWriter( backing );
                                 xs.toXML( store, writer );
                             } finally {

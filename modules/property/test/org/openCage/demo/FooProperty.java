@@ -21,6 +21,11 @@ public class FooProperty implements Property<String> {
     }
 
     @Override
+    public void setDirty() {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
     public void setDefault() {
         //To change body of implemented methods use File | Settings | File Templates.
     }
