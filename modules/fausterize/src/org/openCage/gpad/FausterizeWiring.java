@@ -10,6 +10,7 @@ import org.openCage.application.wiring.ApplicationWiring;
 import org.openCage.gpad.providers.ApplicationProvider;
 import org.openCage.gpad.providers.LocalizeProvider;
 import org.openCage.gpad.providers.PropStoreProvider;
+import org.openCage.gpad.providers.TransPropStoreProvider;
 import org.openCage.lang.clazz.MRU;
 import org.openCage.lang.protocol.LangWiring;
 import org.openCage.localization.protocol.Localize;
@@ -54,10 +55,12 @@ public class FausterizeWiring implements Module {
         binder.install( new LocalizeWiring());
 
         binder.bind( Application.class ).toProvider( ApplicationProvider.class );
-        binder.bind( PropStore.class ).toProvider( PropStoreProvider.class );
+        binder.bind( PropStore.class ).
+                annotatedWith( Names.named("std")).
+                toProvider( PropStoreProvider.class );
         binder.bind( PropStore.class ).
                 annotatedWith( Names.named("trans")).
-                toProvider( PropStoreProvider.class );
+                toProvider( TransPropStoreProvider.class );
         binder.bind( Localize.class).
                 annotatedWith( Names.named(FAUSTERIZE)).
                 toProvider( LocalizeProvider.class);

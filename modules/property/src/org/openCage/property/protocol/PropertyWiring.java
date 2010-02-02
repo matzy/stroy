@@ -8,15 +8,6 @@ public class PropertyWiring implements Module {
     @Override
     public void configure(Binder binder) {
         binder.install( new LangWiring());
-
-//        binder.bind( PropStore.class ).toProvider( PropStoreProvider.class );
-
-
-//        binder.bind( new TypeLiteral<Property<Integer>>() {} ).
-//                annotatedWith( Names.named( DuhProp.HICKER )).
-//                toProvider( DuhProp.class ).
-//                in( Singleton.class );
-
     }
 
     @Override

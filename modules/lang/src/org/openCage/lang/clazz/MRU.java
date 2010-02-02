@@ -1,12 +1,15 @@
 package org.openCage.lang.clazz;
 
+import org.openCage.lang.annotations.HiddenCall;
+
+import java.io.ObjectStreamException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 public class MRU<T> {
-    private int maxSize = 10;
+    private transient int maxSize = 10;
     private List<T> used = new ArrayList<T>();
 
     public synchronized  T getTop() {
@@ -22,8 +25,8 @@ public class MRU<T> {
         List<T> newUsed = new ArrayList();
         newUsed.add( t );
         newUsed.addAll( used );
-        if ( newUsed.size() > maxSize ) {
-            newUsed.remove( maxSize );
+        while( used.size() > maxSize ) {
+            used.remove( maxSize );
         }
         used = newUsed;
     }
@@ -39,6 +42,18 @@ public class MRU<T> {
             used.remove( maxSize );
         }
     }
+
+    public synchronized void clear() {
+        used.clear();
+    }
+
+    @SuppressWarnings({"RedundantThrowsDeclaration"})
+    @HiddenCall
+ 	private Object readResolve() throws ObjectStreamException {
+        maxSize = Math.max( 10, used.size());
+ 		return this;
+ 	}
+
 
 
 }

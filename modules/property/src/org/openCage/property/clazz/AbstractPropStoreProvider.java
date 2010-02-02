@@ -7,6 +7,7 @@ import org.openCage.property.impl.PropStoreImpl;
 import org.openCage.property.protocol.PropStore;
 
 import java.io.File;
+import java.util.Map;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -35,13 +36,20 @@ public abstract class AbstractPropStoreProvider implements Provider<PropStore> {
     @Inject
     private BackgroundExecutor executor;
     private final File backing;
+    private final Map<String, Class> aliases;
+
+    public AbstractPropStoreProvider( File backing, Map<String, Class> aliases ) {
+        this.backing = backing;
+        this.aliases = aliases;
+    }
 
     public AbstractPropStoreProvider( File backing ) {
         this.backing = backing;
+        this.aliases = null;
     }
 
     @Override
     public PropStore get() {
-        return new PropStoreImpl( executor, backing );
+        return new PropStoreImpl( executor, backing, aliases );
     }
 }
