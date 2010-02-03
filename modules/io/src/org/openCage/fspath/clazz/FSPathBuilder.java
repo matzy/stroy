@@ -72,7 +72,13 @@ public class FSPathBuilder {
     }
 
     public static FSPath getDocuments() {
-        if ( SystemUtils.IS_OS_MAC_OSX || SystemUtils.IS_OS_UNIX ) {
+        if ( SystemUtils.IS_OS_MAC_OSX ) {
+            return FSPathBuilder.getHome().add( "Documents" );
+        }
+
+        if ( SystemUtils.IS_OS_UNIX ) {
+            // true at least for Ubuntu
+            // TODO localize
             return FSPathBuilder.getHome().add( "Documents" );
         }
 
@@ -84,8 +90,13 @@ public class FSPathBuilder {
     }
 
     public static FSPath getPreferences() {
-        if ( SystemUtils.IS_OS_MAC_OSX || SystemUtils.IS_OS_UNIX ) {
+        if ( SystemUtils.IS_OS_MAC_OSX ) {
             return FSPathBuilder.getHome().add( "Library", "Preferences");
+        }
+
+        if ( SystemUtils.IS_OS_UNIX ) {
+            // TODO were to really
+            return FSPathBuilder.getHome().add( ".openCage" );
         }
 
         if ( SystemUtils.IS_OS_WINDOWS ) {
