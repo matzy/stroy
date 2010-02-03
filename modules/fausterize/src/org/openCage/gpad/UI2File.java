@@ -94,19 +94,21 @@ public class UI2File {
 
 
             if ( changed ) {
+                write();
                 textArea.setText( textEncoder.encode( textArea.getText(), 0 ));
                 encoded = true;
+                changed = false;
             } else {
-                // the text is decoded, but th wrong pad might have been used
+                // the text is decoded, but the wrong pad might have been used
                 // so lets just read from disk
-                
+                init();
                 setInitialText();
             }
         }
     }
 
     private boolean canWrite() {
-        return file != null && pad != null && changed;
+        return file != null && pad != null && changed && !encoded;
     }
 
     synchronized void write() {
@@ -116,13 +118,15 @@ public class UI2File {
             
             if ( encoded ) {
                 try {
+                    //System.out.println("writing " + toString());
                     FileUtils.writeStringToFile( file, textArea.getText() );
                 } catch (IOException e) {
                     // TODO
                     e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                 }
-            } else {
+            } else {  // TODO we should not get here
                 try {
+                    //System.out.println("writing " + toString());
                     FileUtils.writeStringToFile( file, textEncoder.encode( textArea.getText(), 0 ));
                 } catch (IOException e) {
                     e.printStackTrace();  //TODO
@@ -155,5 +159,10 @@ public class UI2File {
 
     public void changeFile(File file) {
         this.file = file;
+    }
+
+    @Override
+    public String toString() {
+        return "ui2file pad: " + pad + " file: " + file + " encoded " + encoded + " changed " + changed;
     }
 }
