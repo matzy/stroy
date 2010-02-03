@@ -83,7 +83,7 @@ public class FSPathBuilder {
         }
 
         if ( SystemUtils.IS_OS_WINDOWS ) {
-            return getPath(SystemUtils.getUserHome());
+            return getHome();
         }
 
         throw new Error( "unknown os" );
@@ -100,9 +100,7 @@ public class FSPathBuilder {
         }
 
         if ( SystemUtils.IS_OS_WINDOWS ) {
-            // TODO make this localization safe
-            //      but is this possible without a native call ?
-            return FSPathBuilder.getHome().add( "Application Data");
+            return getPath( System.getenv("APPDATA"));
         }
 
         throw new Error( "unknown os" );

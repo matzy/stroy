@@ -3,6 +3,9 @@ package org.openCage.fspath.clazz;
 import org.junit.Test;
 import org.openCage.fspath.protocol.FSPath;
 
+import java.util.Properties;
+import java.util.prefs.Preferences;
+
 import static junit.framework.Assert.assertEquals;
 
 /**
@@ -50,5 +53,19 @@ public class FSPathWindowssTest {
         assertEquals( 1, path.size());
 
         assertEquals( "D:\\foo", path.toString() );
+    }
+
+
+    @Test
+    public void testEnv() {
+        System.out.println( System.getProperty("%APPDATA%"));
+
+        Properties prop = System.getProperties();
+
+        int i = 0;
+
+        System.out.println( Preferences.systemRoot().absolutePath());
+
+        System.out.println( System.getenv("APPDATA"));
     }
 }
