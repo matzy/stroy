@@ -6,6 +6,8 @@ import org.openCage.fspath.impl.FSPathUnix;
 import org.openCage.fspath.impl.FSPathWindows;
 import org.openCage.fspath.protocol.FSPath;
 
+import javax.swing.*;
+import javax.swing.filechooser.FileSystemView;
 import java.io.File;
 
 /***** BEGIN LICENSE BLOCK *****
@@ -31,6 +33,9 @@ import java.io.File;
 ***** END LICENSE BLOCK *****/
 
 public class FSPathBuilder {
+
+    private static JFileChooser fileChooser = new JFileChooser();
+
 
     public static FSPath getPath( String str ) {
         if (SystemUtils.IS_OS_MAC_OSX || SystemUtils.IS_OS_UNIX ) {
@@ -83,7 +88,9 @@ public class FSPathBuilder {
         }
 
         if ( SystemUtils.IS_OS_WINDOWS ) {
-            return getHome();
+
+            // "my documents" in windows (or whatever it is mapped to)
+            return getPath( fileChooser.getFileSystemView().getDefaultDirectory());
         }
 
         throw new Error( "unknown os" );

@@ -67,5 +67,12 @@ public class FSPathWindowssTest {
         System.out.println( Preferences.systemRoot().absolutePath());
 
         System.out.println( System.getenv("APPDATA"));
+
+        javax.swing.JFileChooser fr = new javax.swing.JFileChooser();
+           javax.swing.filechooser.FileSystemView fw=fr.getFileSystemView();
+           System.out.println(fw.getDefaultDirectory());
+
+        
+
     }
 }
