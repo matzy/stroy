@@ -95,8 +95,13 @@ public class FSPathBuilder {
         }
 
         if ( SystemUtils.IS_OS_UNIX ) {
-            // TODO were to really
-            return FSPathBuilder.getHome().add( ".openCage" );
+            // folllow freedesktop.org xdg base dir spec
+            String conf = System.getenv( "XDG_CONFIG" );
+            if ( conf != null ) {
+                return getPath( conf );
+            }
+
+            return FSPathBuilder.getHome().add( ".config" );
         }
 
         if ( SystemUtils.IS_OS_WINDOWS ) {
