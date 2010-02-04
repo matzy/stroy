@@ -285,7 +285,7 @@ public class LinkCollection {
                     description( "io tools" ).
                     address( "http://code.google.com/p/stroy", CODE_GOOGLE).
                     mpl().
-                    version("0.0.1").
+                    version("0.0.2").
                     depends(DEPEND_LANG).
                     depends(COMMONS_LANG).
                     depends(MUCHSOFT_SYS);
@@ -294,7 +294,7 @@ public class LinkCollection {
                     description( "encrypting texteditor" ).
                     address( "http://code.google.com/p/stroy", CODE_GOOGLE).
                     mpl().
-                    version("0.0.3").
+                    version("0.7.0").
                     depends(DEPEND_LANG).
                     depends(MAC_WIDGETS).
                     depends(DESIGNGRIDLAYOUT).
@@ -315,14 +315,15 @@ public class LinkCollection {
                     description( "Java level utils" ).
                     address( "http://code.google.com/p/stroy", CODE_GOOGLE).
                     mpl().
-                    version("0.0.3").
+                    version("0.0.4").
+                    depends( JCIP_ANNOTATIONS ).
                     depends(GUICE);
 
         module(DEPEND_PROPERTY ).
                     description( "persistet properties" ).
                     address( "http://code.google.com/p/stroy", CODE_GOOGLE).
                     mpl().
-                    version("0.0.1").
+                    version("0.0.2").
                     depends(COMMONS_IO).
                     depends(IDEA_ANNOTATIONS).
                     depends(XSTREAM).
@@ -332,7 +333,7 @@ public class LinkCollection {
                     description( "ui tools" ).
                     address( "http://code.google.com/p/stroy", CODE_GOOGLE).
                     mpl().
-                    version("0.0.1").
+                    version("0.0.2").
                     depends(DEPEND_LOCALIZATION).
                     depends(DEPEND_APPLICATION).
                     depends(DEPEND_IO).

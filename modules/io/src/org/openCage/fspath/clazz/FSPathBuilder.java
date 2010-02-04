@@ -65,10 +65,6 @@ public class FSPathBuilder {
         }
 
         return new FSPathWindows("C:");
-
-//        throw new UnsupportedOperationException("impl me");
-//        //return new FSPath( "C:\\");
-
     }
 
     public static FSPath getDocuments() {
@@ -77,8 +73,12 @@ public class FSPathBuilder {
         }
 
         if ( SystemUtils.IS_OS_UNIX ) {
-            // true at least for Ubuntu
-            // TODO localize
+            // follow freedesktop.org xdg base dir spec
+            String docs = System.getenv( "XDG_DOCUMENTS_DIR" );
+            if ( docs != null ) {
+                return getPath( docs );
+            }
+
             return FSPathBuilder.getHome().add( "Documents" );
         }
 
@@ -95,7 +95,7 @@ public class FSPathBuilder {
         }
 
         if ( SystemUtils.IS_OS_UNIX ) {
-            // folllow freedesktop.org xdg base dir spec
+            // follow freedesktop.org xdg base dir spec
             String conf = System.getenv( "XDG_CONFIG" );
             if ( conf != null ) {
                 return getPath( conf );
