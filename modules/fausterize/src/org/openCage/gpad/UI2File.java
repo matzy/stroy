@@ -116,7 +116,7 @@ public class UI2File {
             // make sure the directory exists
             file.getParentFile().mkdirs();
             
-            if ( encoded ) {
+            if ( encoded ) { // TODO we should not get here
                 try {
                     //System.out.println("writing " + toString());
                     FileUtils.writeStringToFile( file, textArea.getText() );
@@ -124,7 +124,7 @@ public class UI2File {
                     // TODO
                     e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                 }
-            } else {  // TODO we should not get here
+            } else {
                 try {
                     //System.out.println("writing " + toString());
                     FileUtils.writeStringToFile( file, textEncoder.encode( textArea.getText(), 0 ));
@@ -132,6 +132,25 @@ public class UI2File {
                     e.printStackTrace();  //TODO
                 }
             }
+        }
+    }
+
+    private synchronized void writeEncoded() {
+
+
+        if ( file == null || !encoded ) {
+            throw new IllegalStateException( "called in wrong context" );
+        }
+
+        // make sure the directory exists
+        file.getParentFile().mkdirs();
+
+        try {
+            //System.out.println("writing " + toString());
+            FileUtils.writeStringToFile( file, textArea.getText() );
+        } catch (IOException e) {
+            // TODO
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
     }
 
@@ -159,6 +178,12 @@ public class UI2File {
 
     public void changeFile(File file) {
         this.file = file;
+        if ( encoded ) {
+            writeEncoded();
+        } else {
+            // picked up by std write
+            changed = true;
+        }
     }
 
     @Override

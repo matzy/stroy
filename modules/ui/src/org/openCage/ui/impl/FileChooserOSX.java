@@ -5,6 +5,8 @@ import com.google.inject.name.Named;
 import java.awt.FileDialog;
 import java.awt.Frame;
 import java.io.File;
+
+import org.openCage.fspath.clazz.FSPathBuilder;
 import org.openCage.localization.protocol.Localize;
 import org.openCage.ui.protocol.FileChooser;
 
@@ -44,8 +46,8 @@ public class FileChooserOSX implements FileChooser {
     public String getDir( Frame fr, String path ) {
 
         // OSX has filters for directories: use native osx finder
-
         System.setProperty( "apple.awt.fileDialogForDirectories", "true" );
+
         FileDialog fd = new FileDialog( fr, localize. localize("org.openCage.ui.chooseADir"), FileDialog.LOAD );
         fd.setDirectory( path );
         fd.setVisible( true );
@@ -57,7 +59,7 @@ public class FileChooserOSX implements FileChooser {
             return null;
         }
 
-        return dir + File.pathSeparator + name;
+        return FSPathBuilder.getPath( dir ).add( name ).toString();
     }
 
     public String open( Frame fr, String path ) {
@@ -73,12 +75,11 @@ public class FileChooserOSX implements FileChooser {
         	return null;
         }
 
-        return dir + name;
+        return FSPathBuilder.getPath( dir ).add( name ).toString();
     }
 
     public String saveas( Frame fr, String path ) {
-    	//System.setProperty( "apple.awt.fileDialogForDirectories", "true" );
-        FileDialog fd = new FileDialog( fr, "org.openCage.localization.dict.saveAs", FileDialog.SAVE );
+        FileDialog fd = new FileDialog( fr, localize.localize( "org.openCage.localization.dict.saveAs"), FileDialog.SAVE );
         fd.setDirectory( path );
         fd.setVisible( true );
 
@@ -88,7 +89,7 @@ public class FileChooserOSX implements FileChooser {
         	return null;
         }
 
-        return dir + File.pathSeparator + name;
+        return FSPathBuilder.getPath( dir ).add( name ).toString();
     }
 
 }
