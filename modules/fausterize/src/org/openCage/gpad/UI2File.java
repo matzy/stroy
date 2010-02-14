@@ -13,10 +13,13 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 
+/**
+ * connect a file to a JTextArea
+ * TODO generalize and move to ui package
+ */
 public class UI2File {
 
-    private final JTextArea textArea;
-    private final BackgroundExecutor      executor;
+    private final JTextArea               textArea;
     private final TextEncoderIdx<String>  textEncoder  = new FaustString();
     private final Localize                localize;
 
@@ -30,9 +33,8 @@ public class UI2File {
                     @NotNull Localize localize,
                     @NotNull File file ) {
         this.textArea = area;
-        this.executor = executor;
         this.localize = localize;
-        this.file = file;
+        this.file     = file;
 
         executor.addPeriodicAndExitTask( new FE0<Void>() {
             @Override

@@ -1,5 +1,7 @@
 package org.openCage.lang.errors;
 
+import java.util.logging.Logger;
+
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
 *
@@ -31,8 +33,10 @@ public class Unchecked extends Error {
     private static final long serialVersionUID = 1310525450890886497L;
 
     private final Exception source;
+    private static final Logger LOG = Logger.getLogger( Unchecked.class.getName() );
 
     public Unchecked( Exception source) {
+        LOG.info( "Unchecked: " + source );
         this.source = source;
     }
 

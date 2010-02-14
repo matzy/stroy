@@ -3,14 +3,17 @@ package org.openCage.gpad;
 import com.explodingpixels.macwidgets.*;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
+import net.java.dev.designgridlayout.DesignGridLayout;
 import org.openCage.application.protocol.Application;
 import org.openCage.fspath.clazz.FSPathBuilder;
 import org.openCage.lang.clazz.Count;
 import org.openCage.lang.clazz.MRU;
+import org.openCage.lang.errors.Unchecked;
 import org.openCage.lang.protocol.BackgroundExecutor;
 import org.openCage.lang.protocol.F0;
 import org.openCage.localization.protocol.Localize;
 import org.openCage.property.protocol.Property;
+import org.openCage.ui.clazz.HUDWarning;
 import org.openCage.ui.clazz.MenuBuilder;
 import org.openCage.ui.clazz.MenuHelper;
 import org.openCage.ui.clazz.PreferenceFrame;
@@ -74,6 +77,7 @@ public class FaustUI extends JFrame {
     private MenuBuilder menuBuilder;
     private static final String LOCK_OPEN_PNG = "lock_open.png";
     private static final String LOCK_CLOSED_PNG = "lock_closed.png";
+    private final HUDWarning warning;
 
     @Inject
     public FaustUI(Application application,
@@ -90,7 +94,8 @@ public class FaustUI extends JFrame {
                    GlobalKeyEventHandler keyHandler,
                    MenuHelper menuHelper,
                    TextEditorBuilder textEditorBuilder,
-                   Property<MRU<String>> mru ) {
+                   Property<MRU<String>> mru,
+                   HUDWarning warning ) {
 
         this.application     = application;
         this.with            = wth;
@@ -103,6 +108,7 @@ public class FaustUI extends JFrame {
         this.textEditorBuilder = textEditorBuilder;
         this.mru = mru;
         this.menuBuilder = menubuilder;
+        this.warning = warning;
 
         setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );        
 
@@ -224,11 +230,16 @@ public class FaustUI extends JFrame {
             String path = fileChooser.open( theFrame, FSPathBuilder.getARoot().toString());
             if ( path != null ) {
 
-                ui2file.setPad( new File( path ).toURI() );
-                if ( ui2file.isEncoded() ) {
-                    ui2file.codeToggle();
+                try {
+                    ui2file.setPad( new File( path ).toURI() );
+                    if ( ui2file.isEncoded() ) {
+                        ui2file.codeToggle();
+                    }
+                    setTextEnabled( true );
+                } catch ( Unchecked exp ) {
+                    // TODO localize, add reason
+                    warning.show( "Not a valid Pad Error", "Not a valid Pad" );
                 }
-                setTextEnabled( true );
             }
         }
     }
