@@ -29,6 +29,9 @@ import java.util.Locale;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
+/**
+ * The locale used throught the application, stored in a property
+ */
 public class LocaleProperty extends AbstractPropertyProvider<Locale>{
     public static final String THE_LOCALE = "org.openCage.localization.locale";
 

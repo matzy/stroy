@@ -11,6 +11,7 @@ import org.openCage.lang.clazz.MRU;
 import org.openCage.lang.errors.Unchecked;
 import org.openCage.lang.protocol.BackgroundExecutor;
 import org.openCage.lang.protocol.F0;
+import org.openCage.lang.protocol.F1;
 import org.openCage.localization.protocol.Localize;
 import org.openCage.property.protocol.Property;
 import org.openCage.ui.clazz.HUDWarning;
@@ -285,12 +286,17 @@ public class FaustUI extends JFrame {
                 add( mb.itemSaveAs().action( new F0<Void>() {
                     @Override
                     public Void call() {
-                        String path = fileChooser.saveas( that, FSPathBuilder.getARoot().toString());
+                        final String path = fileChooser.saveas( that, FSPathBuilder.getARoot().toString());
                         if ( path != null ) {
                             ui2file.changeFile( new File(path));
                             infoLabel.setText( path );
-                            mru.get().use( path );
-                            mru.setDirty();
+                            mru.modify( new F1<Void, MRU<String>>() {
+                                @Override
+                                public Void call(MRU<String> mru) {
+                                    mru.use( path );
+                                    return null;
+                                }
+                            });
                             buildOpenRecentMenu();
                         }
                         return null;
@@ -329,13 +335,25 @@ public class FaustUI extends JFrame {
 
     }
 
-    private void newOpenFile(String path) {
+    private void newOpenFile( final String path) {
         if ( path != null ) {
-            ui2file.setFile( new File(path));
+            try {
+                ui2file.setFile( new File(path));
+            } catch ( Unchecked exp ) {
+                // TODO localize
+                // TODO handle long message
+                warning.show( "Warning", "file can not be read: " + path  );
+                return;
+            }
             setTextEnabled(false);
             infoLabel.setText( path );
-            mru.get().use( path );
-            mru.setDirty();
+            mru.modify( new F1<Void, MRU<String>>() {
+                @Override
+                public Void call(MRU<String> mru) {
+                    mru.use( path );
+                    return null;
+                }
+            });
             buildOpenRecentMenu();
         }
     }

@@ -1,5 +1,7 @@
 package org.openCage.demo;
 
+import org.openCage.lang.protocol.F0;
+import org.openCage.lang.protocol.F1;
 import org.openCage.property.protocol.Property;
 
 /**
@@ -20,13 +22,15 @@ public class FooProperty implements Property<String> {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    @Override
-    public void setDirty() {
-        //To change body of implemented methods use File | Settings | File Templates.
-    }
 
     @Override
     public void setDefault() {
         //To change body of implemented methods use File | Settings | File Templates.
     }
+
+    @Override
+    public void modify(F1<Void, String> modi) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
 }

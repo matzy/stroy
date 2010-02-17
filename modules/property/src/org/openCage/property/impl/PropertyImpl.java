@@ -1,5 +1,9 @@
 package org.openCage.property.impl;
 
+import net.jcip.annotations.ThreadSafe;
+import org.openCage.lang.errors.Unchecked;
+import org.openCage.lang.protocol.F0;
+import org.openCage.lang.protocol.F1;
 import org.openCage.property.protocol.PropStore;
 import org.openCage.property.protocol.Property;
 
@@ -25,6 +29,7 @@ import org.openCage.property.protocol.Property;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
+@ThreadSafe
 public class PropertyImpl<T> implements Property<T> {
 
     private T                          obj;
@@ -38,29 +43,46 @@ public class PropertyImpl<T> implements Property<T> {
     }
 
     @Override
-    public T get() {
+    public synchronized T get() {
         return obj;
     }
 
     @Override
-    public void set(T t) {
+    public synchronized void set(T t) {
         obj = t;
         if ( store != null ) {
             store.setDirty();
         }
     }
 
-    @Override
-    public void setDirty() {
+    private void setDirty() {
         if ( store != null ) {
             store.setDirty();
         }
     }
 
     @Override
-    public void setDefault() {
+    public synchronized void setDefault() {
         set( dflt );
     }
+
+    @Override
+    public synchronized void modify(F1<Void, T> modi) {
+        // try to modify the object
+        // if it fails return to the only object we know, i.e. the default
+        try {
+            modi.call( obj );
+        } catch ( Exception exp ) {
+            setDefault();
+            throw Unchecked.wrap( exp );
+        } catch ( Error err ) {
+            setDefault();
+            throw err;            
+        } finally {
+            setDirty();
+        }
+    }
+
 
     @Override
     public String toString() {
@@ -70,7 +92,7 @@ public class PropertyImpl<T> implements Property<T> {
                 '}';
     }
 
-    public void setStore(PropStore store) {
+    public synchronized void setStore(PropStore store) {
         this.store = store;
     }
 }

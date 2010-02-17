@@ -1,5 +1,9 @@
 package org.openCage.property.protocol;
 
+import org.openCage.lang.protocol.F0;
+import org.openCage.lang.protocol.F1;
+import org.openCage.lang.protocol.FE0;
+
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
 *
@@ -22,10 +26,37 @@ package org.openCage.property.protocol;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
+/**
+ * A property in the sense of a per application singleton
+ * possible persisted
+ * The intendend use is for small objects
+ * TODO: tie in property updates messages
+ * @param <T>
+ */
 public interface Property<T> {
 
+    /**
+     * return the wrapped oject
+     * expects no modification of that object (by convention)
+     * @return
+     */
     public T    get();
+
+    /**
+     * change the object
+     * @param t
+     */
     public void set( T t);
-    public void setDirty();
+
+
+    /**
+     * set object to its default value
+     */
     public void setDefault();
+
+    /**
+     * modify the object, i.e. call modi on the object and mark the property as changed afterwards
+     * @param modi
+     */
+    public void modify( F1<Void,T> modi );
 }

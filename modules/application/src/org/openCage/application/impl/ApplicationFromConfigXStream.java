@@ -42,6 +42,9 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
  * Contributor(s):
  ***** END LICENSE BLOCK *****/
 
+/**
+ * Build a Application object from a Configuration read via xstream
+ */
 public class ApplicationFromConfigXStream implements ApplicationFromConfig {
 
     public Application get( URL path, final URL iconPath, String localizedDescription ) {
