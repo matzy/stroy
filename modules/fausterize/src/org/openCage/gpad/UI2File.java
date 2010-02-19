@@ -2,6 +2,7 @@ package org.openCage.gpad;
 
 import org.apache.commons.io.FileUtils;
 import org.jetbrains.annotations.NotNull;
+import org.openCage.lang.errors.Unchecked;
 import org.openCage.lang.protocol.BackgroundExecutor;
 import org.openCage.lang.protocol.FE0;
 import org.openCage.localization.protocol.Localize;
@@ -72,7 +73,7 @@ public class UI2File {
                 encoded = true;
                 changed = false;
             } catch (IOException e) {
-                e.printStackTrace();  //TODO
+                throw Unchecked.wrap( e );
             }
 
             return;
@@ -117,20 +118,26 @@ public class UI2File {
         if ( canWrite() ) {
             // make sure the directory exists
             file.getParentFile().mkdirs();
-            
-            if ( encoded ) { // TODO we should not get here
-                try {
-                    //System.out.println("writing " + toString());
-                    FileUtils.writeStringToFile( file, textArea.getText() );
-                } catch (IOException e) {
-                    // TODO
-                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-                }
+
+            assert !encoded;
+            if ( encoded ) { //     TODO we should not get here
+//                try {
+//                    //System.out.println("writing " + toString());
+//                    FileUtils.writeStringToFile( file, textArea.getText() );
+//                } catch (IOException e) {
+//                    // TODO
+//                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+//                }
+                throw new IllegalStateException( "we should not be here" );
             } else {
                 try {
                     //System.out.println("writing " + toString());
                     FileUtils.writeStringToFile( file, textEncoder.encode( textArea.getText(), 0 ));
                 } catch (IOException e) {
+                    // readonly file
+                    // must be handled before
+                    // i.e. prevent changes to text
+                    // but also handle if it became readonly after
                     e.printStackTrace();  //TODO
                 }
             }
@@ -152,6 +159,9 @@ public class UI2File {
             FileUtils.writeStringToFile( file, textArea.getText() );
         } catch (IOException e) {
             // TODO
+            // readonly file
+            // must be handled before
+            // i.e. prevent changes to text
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
     }
@@ -172,12 +182,17 @@ public class UI2File {
     }
 
     public void setFile( @NotNull File file ) {
+        if ( !file.canRead() ) {
+            throw new Unchecked( new IOException( "file can not be read: " + file.getAbsolutePath() ) );
+        }
+
         write();
         init();
         this.file = file;
         setInitialText();
     }
 
+    // TODO check file exists, file writable, readable
     public void changeFile(File file) {
         this.file = file;
         if ( encoded ) {

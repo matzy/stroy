@@ -2,6 +2,7 @@ package other.org.openCage.ui;
 
 import com.google.inject.Binder;
 import com.google.inject.Module;
+import com.google.inject.name.Names;
 import org.openCage.application.protocol.Application;
 import org.openCage.property.clazz.DummyPropStore;
 import org.openCage.property.protocol.PropStore;
@@ -33,7 +34,7 @@ public class TestWiring implements Module {
         binder.install( new UIWiring());
 
         binder.bind( Application.class ).toProvider( ApplicationProvider.class );        
-        binder.bind( PropStore.class ).to( DummyPropStore.class );
+        binder.bind( PropStore.class ).annotatedWith(Names.named("std")).to( DummyPropStore.class );
     }
 
     @Override

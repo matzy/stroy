@@ -27,6 +27,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 
 import static org.openCage.gpad.Constants.*;
 import static org.openCage.ui.Constants.*;
@@ -238,8 +239,11 @@ public class FaustUI extends JFrame {
                     }
                     setTextEnabled( true );
                 } catch ( Unchecked exp ) {
-                    // TODO localize, add reason
-                    warning.show( "Not a valid Pad Error", "Not a valid Pad" );
+                    if ( exp.getSource() instanceof IOException ) {
+                        warning.show( "Warning", localize.localize( "org.openCage.fausterize.fileReadWarning", path));
+                    } else {
+                        warning.show( "Not a valid Pad Error", localize.localize( "org.openCage.fausterize.padWarning", path, exp.getSource().getMessage()) );
+                    }
                 }
             }
         }
@@ -340,9 +344,7 @@ public class FaustUI extends JFrame {
             try {
                 ui2file.setFile( new File(path));
             } catch ( Unchecked exp ) {
-                // TODO localize
-                // TODO handle long message
-                warning.show( "Warning", "file can not be read: " + path  );
+                warning.show( "Warning", localize.localize( "org.openCage.fausterize.fileReadWarning", path  ));
                 return;
             }
             setTextEnabled(false);

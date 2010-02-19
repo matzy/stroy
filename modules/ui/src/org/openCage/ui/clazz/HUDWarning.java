@@ -31,8 +31,8 @@ public class HUDWarning {
 
     public void show( @NotNull String title, @NotNull String message ) {
 
-        final HudWindow hud = new HudWindow(title );
-        hud.getJDialog().setSize(300, 120 );
+        final HudWindow hud = new HudWindow( localize.localize( "org.openCage.localization.dict.warning") );
+        hud.getJDialog().setSize(500, 120 );
         hud.getJDialog().setLocationRelativeTo(null);
         hud.getJDialog().setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         JLabel label = HudWidgetFactory.createHudLabel( message );
@@ -69,6 +69,7 @@ public class HUDWarning {
         cnstraint = new GridBagConstraints();
         cnstraint.fill = GridBagConstraints.BOTH;
         cnstraint.gridx = 0;
+        cnstraint.gridwidth = 2;
         cnstraint.gridy = 1;
         cnstraint.weightx = 1;
         cnstraint.weighty = 0.3;
