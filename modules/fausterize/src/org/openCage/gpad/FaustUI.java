@@ -252,8 +252,8 @@ public class FaustUI extends JFrame {
 
     private void setTextEnabled( boolean enable ) {
         if ( enable ) {
-            textUI.setEditable(true);
-            textUI.setBackground( Color.WHITE);
+            textUI.setEditable( ui2file.isWritable() );
+            textUI.setBackground( new Color( 220, 220, 255 ));
             padButton.setIcon( new ImageIcon( getClass().getResource(LOCK_OPEN_PNG)) );
         } else {
             textUI.setEditable(false);
@@ -292,7 +292,13 @@ public class FaustUI extends JFrame {
                     public Void call() {
                         final String path = fileChooser.saveas( that, FSPathBuilder.getARoot().toString());
                         if ( path != null ) {
-                            ui2file.changeFile( new File(path));
+                            try {
+                                ui2file.changeFile( new File(path));
+                            } catch ( Unchecked exp ) {
+                                warning.show( "foo", localize.localize( "org.openCage.fausterize.fileWriteWarning", path ) );
+                                return null;
+                            }
+                            
                             infoLabel.setText( path );
                             mru.modify( new F1<Void, MRU<String>>() {
                                 @Override

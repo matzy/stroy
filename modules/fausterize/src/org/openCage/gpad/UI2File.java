@@ -28,6 +28,7 @@ public class UI2File {
     private URI                      pad;
     private boolean                  encoded;
     private boolean                  changed = false;
+    private boolean                  writable = true;
 
     public UI2File( @NotNull JTextArea area,
                     @NotNull BackgroundExecutor executor,
@@ -36,6 +37,7 @@ public class UI2File {
         this.textArea = area;
         this.localize = localize;
         this.file     = file;
+
 
         executor.addPeriodicAndExitTask( new FE0<Void>() {
             @Override
@@ -68,6 +70,10 @@ public class UI2File {
     private void setInitialText() {
 
         if ( file.exists() ) {
+            if ( !file.canWrite()) {
+                writable = false;
+            }
+
             try {
                 textArea.setText( FileUtils.readFileToString( file ));
                 encoded = true;
@@ -111,7 +117,7 @@ public class UI2File {
     }
 
     private boolean canWrite() {
-        return file != null && pad != null && changed && !encoded;
+        return file != null && pad != null && changed && !encoded && writable;
     }
 
     synchronized void write() {
@@ -137,7 +143,7 @@ public class UI2File {
                     // readonly file
                     // must be handled before
                     // i.e. prevent changes to text
-                    // but also handle if it became readonly after
+                    // 2. it is handled before but what if the status changes?
                     e.printStackTrace();  //TODO
                 }
             }
@@ -192,9 +198,12 @@ public class UI2File {
         setInitialText();
     }
 
-    // TODO check file exists, file writable, readable
     public void changeFile(File file) {
         this.file = file;
+        if ( file.exists() && !file.canWrite()) {
+            throw new Unchecked( new IOException( "file is readonly" ));
+        }
+        
         if ( encoded ) {
             writeEncoded();
         } else {
@@ -205,6 +214,10 @@ public class UI2File {
 
     @Override
     public String toString() {
-        return "ui2file pad: " + pad + " file: " + file + " encoded " + encoded + " changed " + changed;
+        return "ui2file pad: " + pad + " file: " + file + " encoded " + encoded + " changed " + changed + " writable " + writable;
+    }
+
+    public boolean isWritable() {
+        return writable;
     }
 }
