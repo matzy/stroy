@@ -119,6 +119,22 @@ public class FaustUI extends JFrame {
 
         this.ui2file = new UI2File( textUI, executor, localize,  new File(message));
 
+        final FaustUI that = this;
+
+        ui2file.addWriteProblemListener( new F1<Void, Boolean>() {
+            @Override
+            public Void call( Boolean goodp ) {
+
+                if ( goodp ) {
+                    showInfo( false );
+                } else {
+                    showInfo( true );
+                    that.warning.show("", that.localize.localize( "org.openCage.fausterize.fileWriteSurprise", message ));
+                }
+                return null;
+            }
+        });
+
         final JFrame theFrame = this;
         padButton.addActionListener( new ActionListener() {
             @Override
@@ -253,12 +269,22 @@ public class FaustUI extends JFrame {
     private void setTextEnabled( boolean enable ) {
         if ( enable ) {
             textUI.setEditable( ui2file.isWritable() );
-            textUI.setBackground( new Color( 220, 220, 255 ));
+            textUI.setBackground( ui2file.isWritable() ? Color.WHITE : new Color( 220, 220, 255 ));
             padButton.setIcon( new ImageIcon( getClass().getResource(LOCK_OPEN_PNG)) );
         } else {
             textUI.setEditable(false);
             textUI.setBackground( Color.LIGHT_GRAY);
             padButton.setIcon( new ImageIcon( getClass().getResource(LOCK_CLOSED_PNG)) );
+        }
+    }
+
+    private void showInfo( boolean writeProblem ) {
+        if ( writeProblem ) {
+            infoLabel.setText( localize.localize( "org.openCage.fausterize.notBacked") + "   " + message  );
+            textUI.setBackground( new Color( 255, 220, 220 )); 
+        } else {
+            infoLabel.setText( message  );
+            textUI.setBackground( Color.WHITE );            
         }
     }
 
