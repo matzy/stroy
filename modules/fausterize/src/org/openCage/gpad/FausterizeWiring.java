@@ -46,6 +46,9 @@ import static org.openCage.gpad.Constants.FAUSTERIZE;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
+/**
+ * Wiring for GUICE classes used by fausterize 
+ */
 public class FausterizeWiring implements Module {
     public void configure(Binder binder) {
         binder.install( new ApplicationWiring());

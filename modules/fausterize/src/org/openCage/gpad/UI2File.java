@@ -4,6 +4,7 @@ import org.apache.commons.io.FileUtils;
 import org.jetbrains.annotations.NotNull;
 import org.openCage.lang.errors.Unchecked;
 import org.openCage.lang.protocol.BackgroundExecutor;
+import org.openCage.lang.protocol.F1;
 import org.openCage.lang.protocol.FE0;
 import org.openCage.localization.protocol.Localize;
 
@@ -13,6 +14,9 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * connect a file to a JTextArea
@@ -29,6 +33,9 @@ public class UI2File {
     private boolean                  encoded;
     private boolean                  changed = false;
     private boolean                  writable = true;
+    private List<F1<Void, Boolean>> listeners = new ArrayList<F1<Void, Boolean>>();
+    private static final Logger LOG = Logger.getLogger( UI2File.class.getName());
+    private boolean warned = false;
 
     public UI2File( @NotNull JTextArea area,
                     @NotNull BackgroundExecutor executor,
@@ -65,6 +72,7 @@ public class UI2File {
         pad = null;
         changed = false;
         textArea.setText("");
+        warned = false;
     }
 
     private void setInitialText() {
@@ -99,9 +107,8 @@ public class UI2File {
         if ( encoded ) {
             textArea.setText( textEncoder.decode( textArea.getText(), 0 ));
             encoded = false;
+            changed = false;
         } else {
-
-
             if ( changed ) {
                 write();
                 textArea.setText( textEncoder.encode( textArea.getText(), 0 ));
@@ -137,14 +144,31 @@ public class UI2File {
                 throw new IllegalStateException( "we should not be here" );
             } else {
                 try {
-                    //System.out.println("writing " + toString());
                     FileUtils.writeStringToFile( file, textEncoder.encode( textArea.getText(), 0 ));
+
+                    if ( warned ) {
+                        warned = false;
+                        LOG.warning( "file writable again " + file.getAbsolutePath()  );
+                        for ( F1<Void, Boolean> listener : listeners ) {
+                            try {
+                                listener.call( true );
+                            } catch ( Exception exp ) {
+                                LOG.warning( exp.getMessage() );
+                            }
+                        }
+                    }
                 } catch (IOException e) {
-                    // readonly file
-                    // must be handled before
-                    // i.e. prevent changes to text
-                    // 2. it is handled before but what if the status changes?
-                    e.printStackTrace();  //TODO
+                    LOG.warning( "file suddenly readonly " + file.getAbsolutePath()  );
+                    if ( !warned ) {
+                        warned = true;
+                        for ( F1<Void, Boolean> listener : listeners ) {
+                            try {
+                                listener.call( false );
+                            } catch ( Exception exp ) {
+                                LOG.warning( exp.getMessage() );
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -187,8 +211,12 @@ public class UI2File {
         return encoded;
     }
 
+    /**
+     *  switch to a new file, new content
+     * @param file
+     */
     public void setFile( @NotNull File file ) {
-        if ( !file.canRead() ) {
+        if ( file.exists() && !file.canRead() ) {
             throw new Unchecked( new IOException( "file can not be read: " + file.getAbsolutePath() ) );
         }
 
@@ -198,6 +226,10 @@ public class UI2File {
         setInitialText();
     }
 
+    /**
+     * switch to a new file, same content (save as)
+     * @param file
+     */
     public void changeFile(File file) {
         this.file = file;
         if ( file.exists() && !file.canWrite()) {
@@ -219,5 +251,10 @@ public class UI2File {
 
     public boolean isWritable() {
         return writable;
+    }
+
+
+    public void addWriteProblemListener( F1<Void, Boolean> listener ) {
+        this.listeners.add( listener );
     }
 }

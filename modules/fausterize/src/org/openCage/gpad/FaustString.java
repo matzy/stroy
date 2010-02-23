@@ -1,13 +1,14 @@
 package org.openCage.gpad;
 
-import org.apache.commons.lang.math.RandomUtils;
+import org.openCage.lang.clazz.ArrayCount;
+import org.openCage.lang.clazz.ByteCount;
 import org.openCage.lang.errors.Unchecked;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
+import java.util.Collection;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -31,9 +32,13 @@ import java.util.List;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
+/**
+ * Implement the fausterize specific text encryption
+ * i.e. text <-> utf8 <-> encode with FaustByteNum
+ */
 public class FaustString implements TextEncoderIdx<String>{
 
-    private static Charset UTF8 = Charset.forName("utf8");
+    private static final String UTF8 = Charset.forName("utf8").name();
     private TextEncoderIdx<Byte> encoder = new FaustByteNum();
 
     public void setPad( URI uri ) {
@@ -44,67 +49,59 @@ public class FaustString implements TextEncoderIdx<String>{
         return encoder.isSet();
     }
 
-    public String encode(String ch, int ix ) {
-        byte[] bytes = null;
-        try {
-            bytes = ch.getBytes( "utf8" ); // ArrayUtils.addAll( createPrefix(), ch.getBytes( "utf8" ));
+    public String encode(String txt, int ix ) {
+        byte[] bytes;
+        try {        
+            bytes = txt.getBytes( UTF8 );
         } catch (UnsupportedEncodingException e) {
             throw new Unchecked( e );
         }
 
-        String ret = "";
-        int idx = 0;
-        for ( byte by : bytes ) {
-            ret += encoder.encode(by,idx) + "\n";
-            ++idx;
+        StringBuilder str = new StringBuilder();
+        for ( ByteCount by : ByteCount.count(bytes)) {
+            str.append( encoder.encode( by.obj(), by.idx()) + "\n");
         }
-        return ret;
+
+        return str.toString();
     }
 
     public String decode(String lines, int ix ) {
-        List<Byte> bytes = new ArrayList<Byte>();
 
-//        boolean prefix = true;
-        int idx = 0;
-        for ( String line : lines.split("\n")) {
-            byte dec = encoder.decode(line,idx);
-            ++idx;
-            
-//            if ( prefix ) {
-//                if ( dec == Byte.MAX_VALUE ) {
-//                    prefix = false;
-//                }
-//                continue;
-//            }
+        String[] linesArr = lines.split("\n");
+        byte[]   byteArr  = new byte[ linesArr.length];
 
-            bytes.add( dec );
+        for ( ArrayCount<String> line : ArrayCount.count(linesArr)) {
+            byteArr[ line.idx()] = encoder.decode(line.obj(),line.idx());
         }
 
-        byte[] byteArr = new byte[ bytes.size()];
-        int i = 0;
-        for ( Byte by : bytes ) {
-            byteArr[i] = by;
-            ++i;
+        EncodingGuesser.setSupportedEncodings( Arrays.asList( UTF8 ));
+        Collection<String> coll = EncodingGuesser.getPossibleEncodings( byteArr );
+
+        if ( !coll.contains( UTF8)) {
+            throw new IllegalArgumentException( "not a correct pad" );
         }
 
         try {
-            return new String( byteArr, "utf8");
+            String str =  new String( byteArr, UTF8 );
+            return new String( byteArr, UTF8 );
         } catch (UnsupportedEncodingException e) {
+            // TODO
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             return null;
         }
     }
 
-    private byte[] createPrefix() {
-        int strlen = RandomUtils.nextInt() % 80;
-        byte[] prefix = new byte[ strlen + 1 ];
-
-        for ( int i = 0; i < strlen; ++i ) {
-            prefix[i] = (byte)((RandomUtils.nextInt() % 255 ) + Byte.MIN_VALUE);
-        }
-
-        prefix[ strlen] = Byte.MAX_VALUE;
-
-        return prefix;
-    }
+    // idea of a random prefix to enhance security
+//    private byte[] createPrefix() {
+//        int strlen = RandomUtils.nextInt() % 80;
+//        byte[] prefix = new byte[ strlen + 1 ];
+//
+//        for ( int i = 0; i < strlen; ++i ) {
+//            prefix[i] = (byte)((RandomUtils.nextInt() % 255 ) + Byte.MIN_VALUE);
+//        }
+//
+//        prefix[ strlen] = Byte.MAX_VALUE;
+//
+//        return prefix;
+//    }
 }

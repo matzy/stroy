@@ -37,6 +37,10 @@ import java.util.List;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
+/**
+ * A preference pane to select encoding schemes
+ * TODO put in some life
+ */
 public class CodePrefBuilder implements PrefBuilder {
 
     private final Localize localize;

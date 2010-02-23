@@ -1,5 +1,6 @@
 package org.openCage.gpad;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.jetbrains.annotations.NotNull;
 import org.openCage.huffman.DynamicBitArray;
@@ -46,18 +47,23 @@ import static org.openCage.lang.clazz.MathOps.xor;
 *
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
+
+/**
+ * Encode bytes into lines of the poem faust
+ */
 public class FaustByteNum implements TextEncoderIdx<Byte> {
+
+    private static final int PAD_SIZE = 10000;
+    private static final int UNSIGNED_BYTE_MAX = 256;
+    private static final Logger LOG = Logger.getLogger( FaustByteNum.class.getName());
 
     List<String>[]          num2line;
     Set<String>             knownLines = new HashSet<String>();
     Map<String,Integer>     line2num = new HashMap<String,Integer>();
     private DynamicBitArray pad;
-    private static final int PAD_SIZE = 10000;
-    private static final int UNSIGNED_BYTE_MAX = 256;
-    private static final Logger LOG = Logger.getLogger( FaustByteNum.class.getName());
-
 
     public void setPad( @NotNull URI path ) {
+
         final byte[] uncompressedPad = new byte[PAD_SIZE];
         new WithImpl().withInputStream( path, new FE1<Integer, InputStream>() {
             public Integer call(InputStream inputStream) throws Exception {
@@ -65,7 +71,7 @@ public class FaustByteNum implements TextEncoderIdx<Byte> {
             }
         });
 
-        pad = new Huffman().encode( uncompressedPad );// compress( uncompressedPad );
+        pad = new Huffman().encode( uncompressedPad );
     }
 
     public boolean isSet() {
@@ -73,6 +79,10 @@ public class FaustByteNum implements TextEncoderIdx<Byte> {
     }
 
     public FaustByteNum() {
+
+        // read faust.txt line by line and put them in a array size 256 (max unsigned byte)
+        // i.e. several entries per char
+
         num2line = new List[UNSIGNED_BYTE_MAX];
         for ( int i = 0; i < UNSIGNED_BYTE_MAX; ++i ) {
             num2line[i] = new ArrayList<String>();

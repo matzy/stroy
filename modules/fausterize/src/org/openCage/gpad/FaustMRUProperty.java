@@ -11,6 +11,9 @@ import java.io.File;
 
 import static org.openCage.gpad.Constants.PROJECT_DIR;
 
+/**
+ * A persisted MRU for opened files for fausterize
+ */
 public class FaustMRUProperty extends AbstractPropertyProvider<MRU<String>> {
 
     public static final String KEY = "FaustMRU";

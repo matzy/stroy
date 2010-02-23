@@ -54,6 +54,9 @@ import static org.openCage.ui.Constants.*;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
+/**
+ * The UI main window for fausterize
+ */
 public class FaustUI extends JFrame {
 
     private final Application             application;
@@ -260,6 +263,8 @@ public class FaustUI extends JFrame {
                     } else {
                         warning.show( "Not a valid Pad Error", localize.localize( "org.openCage.fausterize.padWarning", path, exp.getSource().getMessage()) );
                     }
+                } catch ( IllegalArgumentException exp ) {
+                    warning.show( "Warning", localize.localize( "org.openCage.fausterize.wrongPad", path));                    
                 }
             }
         }

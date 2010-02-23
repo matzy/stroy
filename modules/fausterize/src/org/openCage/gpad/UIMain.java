@@ -29,6 +29,10 @@ import org.kohsuke.args4j.CmdLineParser;
  * **** END LICENSE BLOCK ****
  */
 
+/**
+ * Main class for fausterize
+ * TODO finish cli
+ */
 public class UIMain {
 
 

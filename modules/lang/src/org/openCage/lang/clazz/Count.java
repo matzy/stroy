@@ -82,9 +82,16 @@ public class Count<T> implements Iterable<Count<T>>, Iterator<Count<T>> {
         return idx == 0;
     }
 
+    /**
+     * Factory method to construct Counts
+     * @param iter
+     * @param <T>
+     * @return
+     */
     public static <T> Count<T> count( Iterable<T> iter ) {
         return new Count<T>( iter );
     }
+
 
     /**
      * returns the wrapped object of the iteration
@@ -109,4 +116,6 @@ public class Count<T> implements Iterable<Count<T>>, Iterator<Count<T>> {
                 ", idx=" + idx +
                 '}';
     }
+
+
 }

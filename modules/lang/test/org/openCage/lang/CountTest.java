@@ -1,6 +1,7 @@
 package org.openCage.lang;
 
 import org.junit.Test;
+import org.openCage.lang.clazz.ArrayCount;
 import org.openCage.lang.clazz.Count;
 
 import java.util.Arrays;
@@ -44,6 +45,22 @@ public class CountTest {
             assertEquals( "last: ", i == 4 , ci.isLast() );
 
             i++;
+        }
+    }
+
+    @Test
+    public void testArrayCount() {
+        Integer[] ii = {0,1,2,3,4};
+
+        int i = 0;
+        for ( ArrayCount<Integer> ci : ArrayCount.count(ii)) {
+            assertEquals( "index: ", i, ci.idx() );
+            assertEquals( "elem: ", i, ci.obj().intValue() );
+            assertEquals( "first: ", i == 0 , ci.isFirst() );
+            assertEquals( "last: ", i == 4 , ci.isLast() );
+
+            i++;
+
         }
     }
 

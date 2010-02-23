@@ -27,6 +27,8 @@ import java.io.InputStream;
 *
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
+
+
 public class StringToStory implements TextEncoder<String>{
 
     private FaustNum faust = new FaustNum();
