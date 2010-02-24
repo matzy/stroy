@@ -32,6 +32,14 @@ import java.util.zip.Deflater;
 *
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
+
+/**
+ * earlier encoding idea
+ * compress the pad qith zip
+ * flaw: depends on the exact bit by bit output of the zip algorithm
+ *       i.e. a change of this algorithm destroys this code
+ */
+@Deprecated
 public class TextToStory implements TextEncoder<String>{
 
     private byte[] pad;
@@ -41,7 +49,6 @@ public class TextToStory implements TextEncoder<String>{
 
     public TextToStory( @NotNull URI path ) {
 
-        // TODO zip
 
         final byte[] uncompressedPad = new byte[10000];
         new WithImpl().withInputStream( path, new FE1<Integer, InputStream>() {
@@ -52,31 +59,6 @@ public class TextToStory implements TextEncoder<String>{
 
         pad = compress( uncompressedPad );
 
-//        for ( char ch = 0; ch < 256; ch++ ) {
-//            for ( byte b = -127; b < 127; b++ ) {
-//                System.out.println("" + ch + " " + b);
-//                if ( chxor( chxor(ch,b),b) != ch ) {
-//                    int i = 0;
-//                }
-//            }
-//        }
-
-//        for ( char ch = 0; ch < 256; ch++ ) {
-//            for ( byte b = -127; b < 127; b++ ) {
-//                for ( byte c = -127; c < 127; c++ ) {
-//                    System.out.println("" + ch + " " + b + " " + c);
-//                    char u = xor( ch, b, c);
-//                    char v = xor(u, b, c );
-//                    if (xor( xor( ch, b, c), b, c) != ch ) {
-//                        int i = 0;
-//                        xor(ch,b,c);
-//                    }
-//                }
-//            }
-//
-//        }
-
-        
     }
 
     public String encode(String str) {

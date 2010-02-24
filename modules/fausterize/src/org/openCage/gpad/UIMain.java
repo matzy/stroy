@@ -51,9 +51,13 @@ public class UIMain {
         }
 
         if ( bean.getFilepath() == null ) {
+
+            // ui case
             FaustUI faust = injector.getInstance(FaustUI.class);
             faust.setVisible(true);
         } else {
+
+            // cli case
             System.out.println("++++ " + bean.getFilepath());
         }
 

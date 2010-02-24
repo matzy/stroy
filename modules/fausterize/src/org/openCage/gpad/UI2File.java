@@ -21,11 +21,12 @@ import java.util.logging.Logger;
 /**
  * connect a file to a JTextArea
  * TODO generalize and move to ui package
+ * i.e. make it into an binding between a textarea and a file with a possible filter (e.g. encryption inbetween)
  */
 public class UI2File {
 
     private final JTextArea               textArea;
-    private final TextEncoderIdx<String>  textEncoder  = new FaustString();
+    private final TextEncoderIdx<String,String>  textEncoder  = new FaustString();
     private final Localize                localize;
 
     private File                     file;

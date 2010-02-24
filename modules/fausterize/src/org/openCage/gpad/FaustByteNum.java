@@ -51,7 +51,7 @@ import static org.openCage.lang.clazz.MathOps.xor;
 /**
  * Encode bytes into lines of the poem faust
  */
-public class FaustByteNum implements TextEncoderIdx<Byte> {
+public class FaustByteNum implements TextEncoderIdx<Byte,String> {
 
     private static final int PAD_SIZE = 10000;
     private static final int UNSIGNED_BYTE_MAX = 256;

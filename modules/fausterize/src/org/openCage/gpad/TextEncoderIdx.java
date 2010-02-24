@@ -23,11 +23,39 @@ import java.net.URI;
 *
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
-public interface TextEncoderIdx<T> {
 
-    String encode( T item, int idx );
-    T      decode( String line, int idx );
+/**
+ * encode object of type T to a string
+ * use a URI as key (i.e. the content of the URI)
+ * @param <T>
+ */
+public interface TextEncoderIdx<T,Z> {
 
+    /**
+     * encode a item to a string
+     * @param item arbitrary item of type T
+     * @param idx  index into the pad file
+     * @return
+     */
+    Z encode( T item, int idx );
+
+    /**
+     * decode a string to object of type T
+     * @param line crypt input
+     * @param idx  index into pad file
+     * @return
+     */
+    T      decode( Z line, int idx );
+
+    /**
+     * set the pad file
+     * @param path a file or url .. in uri form
+     */
     void   setPad( URI path );
+
+    /**
+     * is the pad set?
+     * @return
+     */
     boolean isSet();
 }

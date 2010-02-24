@@ -27,6 +27,11 @@ import java.util.*;
 *
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
+
+/**
+ * encode to words from novel faust
+ */
+@Deprecated
 public class FaustWordNum implements TextEncoder<Character>{
     List<String>[] num2line;
     Set<String> knownLines = new HashSet();

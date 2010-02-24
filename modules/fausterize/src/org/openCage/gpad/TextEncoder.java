@@ -21,6 +21,8 @@ package org.openCage.gpad;
 *
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
+
+@Deprecated
 public interface TextEncoder<T> {
     String encode( T ch );
 

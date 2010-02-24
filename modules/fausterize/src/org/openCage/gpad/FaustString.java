@@ -36,10 +36,10 @@ import java.util.Collection;
  * Implement the fausterize specific text encryption
  * i.e. text <-> utf8 <-> encode with FaustByteNum
  */
-public class FaustString implements TextEncoderIdx<String>{
+public class FaustString implements TextEncoderIdx<String,String>{
 
     private static final String UTF8 = Charset.forName("utf8").name();
-    private TextEncoderIdx<Byte> encoder = new FaustByteNum();
+    private TextEncoderIdx<Byte,String> encoder = new FaustByteNum();
 
     public void setPad( URI uri ) {
         encoder.setPad( uri );

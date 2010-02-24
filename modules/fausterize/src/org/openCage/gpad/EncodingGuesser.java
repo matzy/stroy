@@ -30,7 +30,7 @@ import java.util.logging.Logger;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
 
- // TODO use mime lib , needs log4j config
+ // TODO use mime lib , needs slf4j
 
 
 

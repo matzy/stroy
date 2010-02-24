@@ -28,12 +28,12 @@ public class FaustMRUProperty extends AbstractPropertyProvider<MRU<String>> {
         MRU<String> mru = new MRU<String>();
 
         String message = FSPathBuilder.getHome().add(PROJECT_DIR, "1.fst1").toString();
-        new File( message ).getParentFile().mkdirs();
 
-        // add legacy message (0.6 and before)
+        // add legacy message (0.6 and before) if it exists
         if ( new File( message ).exists() ) {
             mru.use(message);
         } else {
+            // new default location is documents
             mru.use( FSPathBuilder.getDocuments().add( Constants.FAUSTERIZE, "1.fst1").toString());
         }
 

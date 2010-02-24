@@ -74,7 +74,7 @@ public class FaustUI extends JFrame {
 
     private String                  message;
     private JTextArea               textUI = new JTextArea();
-    private TextEncoderIdx<String>  textEncoder;
+    private TextEncoderIdx<String,String>  textEncoder;
     final private JButton           padButton = new JButton( new ImageIcon( getClass().getResource(LOCK_CLOSED_PNG)));//"faust-small.png")));
     private LabeledComponentGroup padGroup;
     private JLabel infoLabel;
