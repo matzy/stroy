@@ -70,7 +70,7 @@ public class FaustUI extends JFrame {
     private final TextEditorBuilder       textEditorBuilder;
     private final Property<MRU<String>> mru;
 
-    private final UI2File ui2file;
+    private UI2File ui2file;
 
     private String                  message;
     private JTextArea               textUI = new JTextArea();
@@ -80,8 +80,8 @@ public class FaustUI extends JFrame {
     private JLabel infoLabel;
     private MenuBuilder.MenuIM recent;
     private MenuBuilder menuBuilder;
-    private static final String LOCK_OPEN_PNG = "lock_open.png";
-    private static final String LOCK_CLOSED_PNG = "lock_closed.png";
+    private static final String LOCK_OPEN_PNG = "resources/lock_open.png";
+    private static final String LOCK_CLOSED_PNG = "resources/lock_closed.png";
     private final HUDWarning warning;
 
     @Inject
@@ -120,7 +120,13 @@ public class FaustUI extends JFrame {
 
         message = mru.get().getAll().iterator().next();
 
-        this.ui2file = new UI2File( textUI, executor, localize,  new File(message));
+        try {
+            this.ui2file = new UI2File( textUI, executor, localize,  new File(message));
+        } catch ( Unchecked exp ) {
+            String newMessage  = newMessage();
+            warning.show("", localize.localize( "org.openCage.fausterize.fileReadWarningInitial", message, newMessage ));
+            this.ui2file = new UI2File( textUI, executor, localize,  new File( newMessage ));
+        }
 
         final FaustUI that = this;
 
@@ -226,7 +232,9 @@ public class FaustUI extends JFrame {
     private String newMessage() {
 
         // exists check might not find this otherwise
-        ui2file.write();
+        if ( ui2file != null ) {
+            ui2file.write();
+        }
 
         int i = 1;
 

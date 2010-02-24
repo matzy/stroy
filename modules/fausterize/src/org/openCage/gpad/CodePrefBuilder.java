@@ -68,7 +68,7 @@ public class CodePrefBuilder implements PrefBuilder {
     @Override
     public JButton getPrefButton() {
         JButton button = new JButton( localize.localize( "org.openCage.fausterize.code" ));
-        button.setIcon( new ImageIcon( getClass().getResource( "code.png" )));
+        button.setIcon( new ImageIcon( getClass().getResource( "resources/code.png" )));
 
         button.setVerticalTextPosition(AbstractButton.BOTTOM);
         button.setHorizontalTextPosition( AbstractButton.CENTER);
