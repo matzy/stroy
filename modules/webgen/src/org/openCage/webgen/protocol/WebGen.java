@@ -8,10 +8,10 @@ package org.openCage.webgen.protocol;
  * To change this template use File | Settings | File Templates.
  */
 public interface WebGen {
-    public String ancor( String name );
+    public String anchor( String name );
 
-//    public static String ancor( int num ) {
-//        return ancor( "" + num );
+//    public static String anchor( int num ) {
+//        return anchor( "" + num );
 //    }
 
     public String link( String name, String text );

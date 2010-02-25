@@ -38,7 +38,7 @@ public class WikiDotGenTest {
     }
 
     @Test
-    public void testAncor() {
+    public void testAnchor() {
         assertFalse( WikiDotGen.ancor( "1.2.3" ).contains( "." ));        
     }
 }

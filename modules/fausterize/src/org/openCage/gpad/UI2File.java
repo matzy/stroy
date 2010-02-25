@@ -240,8 +240,9 @@ public class UI2File {
         if ( encoded ) {
             writeEncoded();
         } else {
-            // picked up by std write
-            changed = true;
+            changed = true; // force a write out
+            writable = true; // be optimistic
+            write();
         }
     }
 

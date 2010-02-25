@@ -46,7 +46,7 @@ public class WikiDotGen {
 
 
     public static String normalize( String ref ) {
-        return ref.replace( '.', '-');
+        return ref.replace( '.', '-').replace(' ', '-');
     }
 
     public static String externalLink(String ext, String text) {

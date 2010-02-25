@@ -45,21 +45,22 @@ public class GenWikiRefs {
     }
 
     private void printTOC() {
-        System.out.println("");
-        System.out.println("");
-        System.out.println("");
-        System.out.println("");
+        System.out.println("[[toc]]");
+//        System.out.println("");
+//        System.out.println("");
+//        System.out.println("");
+//        System.out.println("");
         System.out.println("I use a collection of great libraries and tools. " +
                 "Have a look maybe they solve a problem of yours.");
 
-        System.out.println( gen.link( "Libraries", "Libraries" ) );
-        System.out.println( gen.link( "Knowhow", "Knowhow" ) );
+//        System.out.println( gen.link( "Libraries", "Libraries" ) );
+//        System.out.println( gen.link( "Knowhow", "Knowhow" ) );
 //        System.out.println( gen.link( "Test", "Test" ) );
 
     }
 
     private void printDeps() {
-        System.out.println( gen.ancor( "Project Dependencies" ));
+        //System.out.println( gen.anchor( "Project Dependencies" ));
         System.out.println( gen.title( 1, "Project Dependencies" ));
 
         printProjectDepends( "fausterize", "depend.fausterize" );
@@ -70,7 +71,7 @@ public class GenWikiRefs {
     }
 
     private void printProjectDepends( String name, String real ) {
-        System.out.println( name + " depends on");
+        System.out.println( gen.title( 3, name + "  Dependencies"));
         Collection<Ref> faustDeps = new UsingUsed().transitiveClosure( refs, real);
         List<Ref> ordered = new ArrayList<Ref>( faustDeps );
 
@@ -92,7 +93,7 @@ public class GenWikiRefs {
     }
 
     private void printRuntime() {
-        System.out.println( gen.ancor( "Libraries" ));
+        //System.out.println( gen.anchor( "Libraries" ));
         System.out.println( gen.title( 1, "Libraries" ));
         System.out.println("These libraries are used by the application and are deployed with it (if the licence allows it).");
         for ( Ref ref : refs ) {
@@ -103,7 +104,7 @@ public class GenWikiRefs {
     }
 
     private void printOther() {
-        System.out.println( gen.ancor( "Knowhow" ));
+        //System.out.println( gen.anchor( "Knowhow" ));
         System.out.println( gen.title( 1, "Knowhow" ));
         System.out.println("Resources in other form, e.g. apps, articles, code snippets");
 //        System.out.println( "DE: Mit diesen libs wird das Programm gebaut. Sie sind im Quellcodepacket" );
@@ -116,7 +117,7 @@ public class GenWikiRefs {
     }
 //
 //    private void printTest() {
-//        System.out.println( gen.ancor( "Test" ));
+//        System.out.println( gen.anchor( "Test" ));
 //        System.out.println( "+ Test" );
 //        System.out.println("These libraries are used to test the application and are deployed with the source code.");
 //        for ( Reference ref : refs ) {

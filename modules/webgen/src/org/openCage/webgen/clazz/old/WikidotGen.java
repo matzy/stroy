@@ -24,12 +24,12 @@
 //
 //public class WikidotGen {
 //
-//    public static String ancor( String name ) {
+//    public static String anchor( String name ) {
 //        return "[[# " + normalize( name ) + "]]";
 //    }
 //
-//    public static String ancor( int num ) {
-//        return ancor( "" + num );
+//    public static String anchor( int num ) {
+//        return anchor( "" + num );
 //    }
 //
 //    public static String link( String name  ) {

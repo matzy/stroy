@@ -11,7 +11,7 @@ import org.openCage.webgen.protocol.WebGen;
  */
 public class WikidotGen implements WebGen {
     @Override
-    public String ancor(String name) {
+    public String anchor(String name) {
         return "[[# " + normalize( name ) + "]]";
     }
 
@@ -27,7 +27,7 @@ public class WikidotGen implements WebGen {
 
     @Override
     public String normalize(String ref) {
-        return ref.replace( '.', '-');
+        return ref.replace( '.', '-').replace( ' ', '-');
     }
 
     @Override

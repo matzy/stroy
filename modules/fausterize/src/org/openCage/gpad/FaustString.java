@@ -83,12 +83,10 @@ public class FaustString implements TextEncoderIdx<String,String>{
         }
 
         try {
-            String str =  new String( byteArr, UTF8 );
             return new String( byteArr, UTF8 );
         } catch (UnsupportedEncodingException e) {
-            // TODO
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-            return null;
+            // should be unlikely after the check just above
+            throw new IllegalArgumentException( "not a correct pad" );
         }
     }
 

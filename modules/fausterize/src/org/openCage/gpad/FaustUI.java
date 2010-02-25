@@ -241,7 +241,7 @@ public class FaustUI extends JFrame {
         File file = null;
 
         do {
-            file = FSPathBuilder.getDocuments().add( Constants.FAUSTERIZE, "" + i + ".fst1").toFile();
+            file = FSPathBuilder.getDocuments().add( application.gettName(), "" + i + ".fst1").toFile();
             i++;
         } while ( file.exists());
 
@@ -251,9 +251,9 @@ public class FaustUI extends JFrame {
     }
 
     private void toggleEncryption(JFrame theFrame) {
-        if ( ui2file.isPadSet() && !ui2file.isEncoded()) {
+        if ( ui2file.isPadSet() ) { //&& !ui2file.isEncoded()) {
             ui2file.codeToggle();
-            setTextEnabled( !ui2file.isEncoded() );
+            setTextEnabled( false );
         } else {
 
             String path = fileChooser.open( theFrame, FSPathBuilder.getARoot().toString());
@@ -281,6 +281,9 @@ public class FaustUI extends JFrame {
 
     private void setTextEnabled( boolean enable ) {
         if ( enable ) {
+            if ( !ui2file.isWritable() ) {
+                int i = 0;
+            }
             textUI.setEditable( ui2file.isWritable() );
             textUI.setBackground( ui2file.isWritable() ? Color.WHITE : new Color( 220, 220, 255 ));
             padButton.setIcon( new ImageIcon( getClass().getResource(LOCK_OPEN_PNG)) );
@@ -333,6 +336,10 @@ public class FaustUI extends JFrame {
                         if ( path != null ) {
                             try {
                                 ui2file.changeFile( new File(path));
+
+                                if ( ui2file.isPadSet() ) {
+                                    setTextEnabled( ui2file.isWritable() );
+                                }
                             } catch ( Unchecked exp ) {
                                 warning.show( "foo", localize.localize( "org.openCage.fausterize.fileWriteWarning", path ) );
                                 return null;
