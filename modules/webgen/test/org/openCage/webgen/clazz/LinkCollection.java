@@ -69,6 +69,8 @@ public class LinkCollection {
     private static final String MOTPE = "March of the Pink Elephants";
 
     private List<Ref> refs = new ArrayList<Ref>();
+    private static final String SLF4_J = "SLF4J";
+    private static final String MIME_UTIL = "mime-util";
 
     public LinkCollection() {
         fill();
@@ -217,6 +219,13 @@ public class LinkCollection {
                     address( "http://www.helsinki.fi/~sjpaavol/programs/md5", "helsinki.fi").
                     lgpl();
 
+        lib(MIME_UTIL).
+                    description( "mime type detection utility, works via extension and/or content").
+                    address( "http://www.medsea.eu/mime-util/", SOURCEFORGE ).
+                    apache2().
+                    depends( SLF4_J ).
+                    provides( "mime-util-2.1.3.jar" );
+
         lib(MUCHSOFT_SYS).
                     description( "Tool to help make java apps behave and look like native osx apps. e.g. Menus in menu bar, Preferences open on command-, ... " ).
                     //de("Eine Bibliothek mit der sich Java Programme wie richtige OSX Programme verhalten.").
@@ -237,6 +246,13 @@ public class LinkCollection {
                     //de( "Ein GUID Generator" ).
                     address( "http://www.javaexchange.com/", "javaexchange.com").
                     licence( "http://www.javaexchange.com/", "Open"  );
+
+        lib(SLF4_J).
+                    description( "The simple logging facade for java abstracts several java logging implementations").
+                    address( "http://www.slf4j.org/", "slf4.org" ).
+                    mit().
+                    provides( "slf4j-simple-1.5.10.jar" ). // and more
+                    provides( "slf4j-api-1.5.10.jar" );
 
         lib(SWING_LAYOUT ).
                     description( "Extensions to Swing to create professional cross platform layouts (used by designgridlayout)").
@@ -302,6 +318,7 @@ public class LinkCollection {
                     depends(COMMONS_IO).
                     depends(DEPEND_UI).
                     depends(ARGS4J).
+                    depends(MIME_UTIL).
                     build_depends( MOTPE );
 
         module(DEPEND_LOCALIZATION ).

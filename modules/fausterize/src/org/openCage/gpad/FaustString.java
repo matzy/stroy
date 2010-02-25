@@ -1,5 +1,6 @@
 package org.openCage.gpad;
 
+import eu.medsea.util.EncodingGuesser;
 import org.openCage.lang.clazz.ArrayCount;
 import org.openCage.lang.clazz.ByteCount;
 import org.openCage.lang.errors.Unchecked;

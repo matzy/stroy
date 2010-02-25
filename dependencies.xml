@@ -15,7 +15,7 @@
 </target>
 <!-- ================================================================== -->
 <target name= "depend.fausterize"
-    depends="depend.lang, mac-widgets, designgridlayout, depend.application, commons-io, depend.ui, args4j">
+    depends="depend.lang, mac-widgets, designgridlayout, depend.application, commons-io, depend.ui, args4j, mime-util">
     <ant dir="${dependencies.basedir}/modules/fausterize" inheritAll="false"/>
 </target>
 <!-- ================================================================== -->
@@ -107,8 +107,18 @@
    <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/mac_widgets-0.9.5.jar"/>
 </target>
 <!-- ================================================================== -->
+<target name= "mime-util"
+    depends="SLF4J">
+   <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/mime-util-2.1.3.jar"/>
+</target>
+<!-- ================================================================== -->
 <target name= "muchsoft-sys">
    <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/Sys.jar"/>
+</target>
+<!-- ================================================================== -->
+<target name= "SLF4J">
+   <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/slf4j-simple-1.5.10.jar"/>
+   <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/slf4j-api-1.5.10.jar"/>
 </target>
 <!-- ================================================================== -->
 <target name= "swing-layout">
