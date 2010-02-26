@@ -123,6 +123,7 @@ public class TextEditorBuilder {
                 }
 
                 // TODO message not found
+                // background color ?
 
             }
         };

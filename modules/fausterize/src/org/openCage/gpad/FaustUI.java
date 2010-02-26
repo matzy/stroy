@@ -94,6 +94,8 @@ public class FaustUI extends JFrame {
     private static final String LOCK_CLOSED_PNG = "resources/lock_closed.png";
     private final HUDWarning warning;
     private JTextField textField;
+    private static final Color READONLY_COLOR = new Color( 220, 220, 255 );
+    private static final Color WARNING_COLOR = new Color( 255, 220, 220 );
 
     @Inject
     public FaustUI(Application application,
@@ -299,11 +301,8 @@ public class FaustUI extends JFrame {
 
     private void setTextEnabled( boolean enable ) {
         if ( enable ) {
-            if ( !ui2file.isWritable() ) {
-                int i = 0;
-            }
             textUI.setEditable( ui2file.isWritable() );
-            textUI.setBackground( ui2file.isWritable() ? Color.WHITE : new Color( 220, 220, 255 ));
+            textUI.setBackground( ui2file.isWritable() ? Color.WHITE : READONLY_COLOR);
             padButton.setIcon( new ImageIcon( getClass().getResource(LOCK_OPEN_PNG)) );
         } else {
             textUI.setEditable(false);
@@ -315,7 +314,7 @@ public class FaustUI extends JFrame {
     private void showInfo( boolean writeProblem ) {
         if ( writeProblem ) {
             infoLabel.setText( localize.localize( "org.openCage.fausterize.notBacked") + "   " + message  );
-            textUI.setBackground( new Color( 255, 220, 220 )); 
+            textUI.setBackground(WARNING_COLOR);
         } else {
             infoLabel.setText( message  );
             textUI.setBackground( Color.WHITE );            

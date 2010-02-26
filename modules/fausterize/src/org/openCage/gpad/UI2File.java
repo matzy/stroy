@@ -134,40 +134,33 @@ public class UI2File {
             file.getParentFile().mkdirs();
 
             assert !encoded;
-            if ( encoded ) { //     TODO we should not get here
-//                try {
-//                    //System.out.println("writing " + toString());
-//                    FileUtils.writeStringToFile( file, textArea.getText() );
-//                } catch (IOException e) {
-//                    // TODO
-//                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-//                }
+            if ( encoded ) {
                 throw new IllegalStateException( "we should not be here" );
-            } else {
-                try {
-                    FileUtils.writeStringToFile( file, textEncoder.encode( textArea.getText(), 0 ));
+            }
 
-                    if ( warned ) {
-                        warned = false;
-                        LOG.warning( "file writable again " + file.getAbsolutePath()  );
-                        for ( F1<Void, Boolean> listener : listeners ) {
-                            try {
-                                listener.call( true );
-                            } catch ( Exception exp ) {
-                                LOG.warning( exp.getMessage() );
-                            }
+            try {
+                FileUtils.writeStringToFile( file, textEncoder.encode( textArea.getText(), 0 ));
+
+                if ( warned ) {
+                    warned = false;
+                    LOG.warning( "file writable again " + file.getAbsolutePath()  );
+                    for ( F1<Void, Boolean> listener : listeners ) {
+                        try {
+                            listener.call( true );
+                        } catch ( Exception exp ) {
+                            LOG.warning( exp.getMessage() );
                         }
                     }
-                } catch (IOException e) {
-                    LOG.warning( "file suddenly readonly " + file.getAbsolutePath()  );
-                    if ( !warned ) {
-                        warned = true;
-                        for ( F1<Void, Boolean> listener : listeners ) {
-                            try {
-                                listener.call( false );
-                            } catch ( Exception exp ) {
-                                LOG.warning( exp.getMessage() );
-                            }
+                }
+            } catch (IOException e) {
+                LOG.warning( "file suddenly readonly " + file.getAbsolutePath()  );
+                if ( !warned ) {
+                    warned = true;
+                    for ( F1<Void, Boolean> listener : listeners ) {
+                        try {
+                            listener.call( false );
+                        } catch ( Exception exp ) {
+                            LOG.warning( exp.getMessage() );
                         }
                     }
                 }
@@ -189,11 +182,9 @@ public class UI2File {
             //System.out.println("writing " + toString());
             FileUtils.writeStringToFile( file, textArea.getText() );
         } catch (IOException e) {
-            // TODO
-            // readonly file
-            // must be handled before
-            // i.e. prevent changes to text
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            // huh, we just checked that the file either exists writable or is new
+            // so we probably have a new file which is not writabel
+            throw Unchecked.wrap( new IOException("not writable"));
         }
     }
 
