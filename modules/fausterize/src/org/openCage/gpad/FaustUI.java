@@ -1,9 +1,13 @@
 package org.openCage.gpad;
 
-import com.explodingpixels.macwidgets.*;
+import com.explodingpixels.macwidgets.BottomBar;
+import com.explodingpixels.macwidgets.BottomBarSize;
+import com.explodingpixels.macwidgets.LabeledComponentGroup;
+import com.explodingpixels.macwidgets.MacUtils;
+import com.explodingpixels.macwidgets.MacWidgetFactory;
+import com.explodingpixels.macwidgets.UnifiedToolBar;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
-import net.java.dev.designgridlayout.DesignGridLayout;
 import org.openCage.application.protocol.Application;
 import org.openCage.fspath.clazz.FSPathBuilder;
 import org.openCage.lang.clazz.Count;
@@ -20,10 +24,17 @@ import org.openCage.ui.clazz.MenuHelper;
 import org.openCage.ui.clazz.PreferenceFrame;
 import org.openCage.ui.clazz.TextEditorBuilder;
 import org.openCage.ui.protocol.*;
-import org.openCage.withResource.protocol.With;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -60,7 +71,6 @@ import static org.openCage.ui.Constants.*;
 public class FaustUI extends JFrame {
 
     private final Application             application;
-    private final With                    with;
     private final FileChooser             fileChooser;
     private final AboutSheet              about;
     private final OSXStandardEventHandler osxEventHandler;
@@ -79,14 +89,14 @@ public class FaustUI extends JFrame {
     private LabeledComponentGroup padGroup;
     private JLabel infoLabel;
     private MenuBuilder.MenuIM recent;
-    private MenuBuilder menuBuilder;
+    private final MenuBuilder menuBuilder;
     private static final String LOCK_OPEN_PNG = "resources/lock_open.png";
     private static final String LOCK_CLOSED_PNG = "resources/lock_closed.png";
     private final HUDWarning warning;
+    private JTextField textField;
 
     @Inject
     public FaustUI(Application application,
-                   With wth,
                    FileChooser chooser,
                    AboutSheet about,
                    OSXStandardEventHandler osxEventHandler,
@@ -103,7 +113,6 @@ public class FaustUI extends JFrame {
                    HUDWarning warning ) {
 
         this.application     = application;
-        this.with            = wth;
         this.fileChooser     = chooser;
         this.about           = about;
         this.osxEventHandler = osxEventHandler;
@@ -115,9 +124,7 @@ public class FaustUI extends JFrame {
         this.menuBuilder = menubuilder;
         this.warning = warning;
 
-        setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );        
-
-
+        // which file to open
         message = mru.get().getAll().iterator().next();
 
         try {
@@ -128,32 +135,19 @@ public class FaustUI extends JFrame {
             this.ui2file = new UI2File( textUI, executor, localize,  new File( newMessage ));
         }
 
-        final FaustUI that = this;
 
-        ui2file.addWriteProblemListener( new F1<Void, Boolean>() {
-            @Override
-            public Void call( Boolean goodp ) {
 
-                if ( goodp ) {
-                    showInfo( false );
-                } else {
-                    showInfo( true );
-                    that.warning.show("", that.localize.localize( "org.openCage.fausterize.fileWriteSurprise", message ));
-                }
-                return null;
-            }
-        });
 
-        final JFrame theFrame = this;
-        padButton.addActionListener( new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        setUI( prefFrame, codePref, localePrefBuilder );
+        addListeners();
 
-                toggleEncryption(theFrame);
-            }
 
-        });
+        setTextEnabled( false );
 
+
+    }
+
+    private void setUI( final PreferenceFrame prefFrame, PrefBuilder codePref, PrefBuilder localePrefBuilder ) {
         JScrollPane scroll =  new JScrollPane(textUI);
         scroll.setSize( 800, 600 );
         scroll.setMinimumSize( new Dimension(400,400));
@@ -176,11 +170,11 @@ public class FaustUI extends JFrame {
         toolBar.addComponentToLeft( padGroup.getComponent() );
 
         //padButton.putClientProperty("JButton.buttonType", "textured");
-        final JTextField textField = new JTextField(10);
+        textField = new JTextField(10);
         textField.putClientProperty("JTextField.variant", "search");
         toolBar.addComponentToRight( new LabeledComponentGroup( localize.localize( "org.openCage.localization.dict.search"),
                                                                 textField).getComponent());
-        
+
 
         getContentPane().add( toolBar.getComponent(), BorderLayout.NORTH );
 
@@ -194,25 +188,12 @@ public class FaustUI extends JFrame {
         setTitle( application.gettName());
         setSize( 800, 600 );
 
-        // TODO
-        textUI.setEditable(false);
-        textUI.setBackground( Color.LIGHT_GRAY);
-
-//        setTextEnabled( false );
-//        setInitial( message );
-        
-
-
-        textEditorBuilder.setTextArea( textUI );
-        textEditorBuilder.setFindField( textField );
-        //textEditorBuilder.setConfCaret();
-
         pack();
 
+        // menu
+        buildMenu( menuBuilder, prefFrame, textEditorBuilder );
 
-        buildMenu( menubuilder, prefFrame, textEditorBuilder );
-
-        // TODO
+        // preferences
         prefFrame.addRow( "woo" ).add( codePref).add( localePrefBuilder ).build();
 
         F0<Void> showPrefs = new F0<Void>() {
@@ -227,6 +208,43 @@ public class FaustUI extends JFrame {
 
 
 
+    }
+
+    private void addListeners() {
+        final FaustUI that = this;
+
+        // base window ui
+        setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+
+        ui2file.addWriteProblemListener( new F1<Void, Boolean>() {
+            @Override
+            public Void call( Boolean goodp ) {
+
+                if ( goodp ) {
+                    showInfo( false );
+                } else {
+                    showInfo( true );
+                    that.warning.show("", that.localize.localize( "org.openCage.fausterize.fileWriteSurprise", message ));
+                }
+                return null;
+            }
+        });
+
+        padButton.addActionListener( new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                toggleEncryption( that );
+            }
+
+        });
+
+        // bind find button
+        textEditorBuilder.setTextArea( textUI );
+        textEditorBuilder.setFindField( textField );
+        //textEditorBuilder.setConfCaret();
+
+        
     }
 
     private String newMessage() {
