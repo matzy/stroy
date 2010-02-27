@@ -34,8 +34,7 @@ import static org.openCage.gpad.Constants.FAUSTERIZE;
 
 public class ApplicationProvider implements Provider<Application > {
 
-	@Inject
-	private ApplicationFromConfig fromConfig;
+	@Inject private ApplicationFromConfig fromConfig;
     @Inject @Named(FAUSTERIZE) Localize localize;
 
 	@Override

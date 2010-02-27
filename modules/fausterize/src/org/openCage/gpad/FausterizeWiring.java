@@ -13,6 +13,7 @@ import org.openCage.gpad.providers.PropStoreProvider;
 import org.openCage.gpad.providers.TransPropStoreProvider;
 import org.openCage.lang.clazz.MRU;
 import org.openCage.lang.protocol.LangWiring;
+import org.openCage.lang.protocol.SingletonApp;
 import org.openCage.localization.protocol.Localize;
 import org.openCage.localization.wiring.LocalizeWiring;
 import org.openCage.property.protocol.PropStore;
@@ -74,6 +75,10 @@ public class FausterizeWiring implements Module {
                 //annotatedWith( Names.named( LocaleProperty.THE_LOCALE)).
                 toProvider( FaustMRUProperty.class ).
                 in( Singleton.class );
+
+        binder.bind(SingletonApp.class).
+                toProvider( FausterizeSingleton.class ).
+                in( Singleton.class ) ;
 
 
     }

@@ -1,7 +1,11 @@
 package org.openCage.gpad;
 
-import org.kohsuke.args4j.Argument;
-import org.kohsuke.args4j.Option;
+import com.google.inject.Inject;
+import com.google.inject.Provider;
+import org.openCage.application.protocol.Application;
+import org.openCage.fspath.clazz.FSPathBuilder;
+import org.openCage.lang.impl.FriendlySingletonApp;
+import org.openCage.lang.protocol.SingletonApp;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -25,19 +29,13 @@ import org.kohsuke.args4j.Option;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-/**
- * options for cli version of fausterize
- */
-public class CliOptions {
+public class FausterizeSingleton implements Provider<SingletonApp > {
 
+//    @Inject
+//    private Application app;
 
-    @Option( name="-a", usage="set the encoding algorithm")
-    private String algorithm;
-
-    @Argument
-    private String filepath;
-
-    public String getFilepath() {
-        return filepath;
+    @Override
+    public SingletonApp get() {
+        return new FriendlySingletonApp( FSPathBuilder.getPreferences().add( "fausterize"/*app.gettName()*/, "application.runs").toFile());
     }
 }

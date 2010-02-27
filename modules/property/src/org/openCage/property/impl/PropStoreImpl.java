@@ -6,6 +6,7 @@ import org.apache.commons.io.IOUtils;
 import org.jetbrains.annotations.NotNull;
 import org.openCage.lang.protocol.BackgroundExecutor;
 import org.openCage.lang.protocol.FE0;
+import org.openCage.lang.protocol.SingletonApp;
 import org.openCage.property.protocol.PropStore;
 import org.openCage.property.protocol.Property;
 
@@ -49,19 +50,20 @@ public class PropStoreImpl implements PropStore {
     // TODO
     private static final int BACKINGSIZE = 500000;
 
-    public PropStoreImpl( @NotNull BackgroundExecutor background, final File backing, Map<String, Class> aliases ) {
+    public PropStoreImpl( @NotNull BackgroundExecutor background, final File backing, Map<String, Class> aliases, SingletonApp singletonApp ) {
 
-        xs.alias( "Property", PropertyImpl.class );
 
-        if ( aliases != null ) {
-            for ( Map.Entry<String, Class> alias : aliases.entrySet() ) {
-                xs.alias( alias.getKey(), alias.getValue());
+        if ( backing != null && singletonApp.isMaster() ) {
+
+            xs.alias( "Property", PropertyImpl.class );
+
+            if ( aliases != null ) {
+                for ( Map.Entry<String, Class> alias : aliases.entrySet() ) {
+                    xs.alias( alias.getKey(), alias.getValue());
+                }
             }
-        }
 
-        final PropStoreImpl propStore = this;
-
-        if ( backing != null ) {
+            final PropStoreImpl propStore = this;
 
             background.addPeriodicAndExitTask( new FE0<Void>() {
                 @Override

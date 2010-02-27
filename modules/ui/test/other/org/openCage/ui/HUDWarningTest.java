@@ -26,7 +26,7 @@ public class HUDWarningTest {
 
         HUDWarning warning = injector.getInstance( HUDWarning.class );
 
-        warning.show( "foo", "message");
+        warning.show( "message");
     }
 
     @Test
@@ -35,7 +35,7 @@ public class HUDWarningTest {
 
         HUDWarning warning = injector.getInstance( HUDWarning.class );
 
-        warning.show( "foo", "<html>This is going to be a long message about<br>/Users/foo/this/is/a/deeply/nested/file.txt<br>nah?<html>");
+        warning.show( "<html>This is going to be a long message about<br>/Users/foo/this/is/a/deeply/nested/file.txt<br>nah?<html>");
     }
 
     @Test
@@ -44,6 +44,6 @@ public class HUDWarningTest {
 
         HUDWarning warning = injector.getInstance( HUDWarning.class );
 
-        warning.show( "foo", "<html>This is going to be a long message about<br>"+ Locale.JAPAN.getDisplayLanguage( Locale.JAPANESE )+"<br>nah?<html>");
+        warning.show( "<html>This is going to be a long message about<br>"+ Locale.JAPAN.getDisplayLanguage( Locale.JAPANESE )+"<br>nah?<html>");
     }
 }

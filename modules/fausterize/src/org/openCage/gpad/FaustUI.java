@@ -16,6 +16,7 @@ import org.openCage.lang.errors.Unchecked;
 import org.openCage.lang.protocol.BackgroundExecutor;
 import org.openCage.lang.protocol.F0;
 import org.openCage.lang.protocol.F1;
+import org.openCage.lang.protocol.SingletonApp;
 import org.openCage.localization.protocol.Localize;
 import org.openCage.property.protocol.Property;
 import org.openCage.ui.clazz.HUDWarning;
@@ -112,7 +113,8 @@ public class FaustUI extends JFrame {
                    MenuHelper menuHelper,
                    TextEditorBuilder textEditorBuilder,
                    Property<MRU<String>> mru,
-                   HUDWarning warning ) {
+                   HUDWarning warning,
+                   SingletonApp singletonApp ) {
 
         this.application     = application;
         this.fileChooser     = chooser;
@@ -126,6 +128,11 @@ public class FaustUI extends JFrame {
         this.menuBuilder = menubuilder;
         this.warning = warning;
 
+        if ( !singletonApp.isMaster() ) {
+            warning.show( localize.localize( "org.openCage.fausterize.singleWarning" ));
+            System.exit(1);
+        }
+
         // which file to open
         message = mru.get().getAll().iterator().next();
 
@@ -133,7 +140,7 @@ public class FaustUI extends JFrame {
             this.ui2file = new UI2File( textUI, executor, localize,  new File(message));
         } catch ( Unchecked exp ) {
             String newMessage  = newMessage();
-            warning.show("", localize.localize( "org.openCage.fausterize.fileReadWarningInitial", message, newMessage ));
+            warning.show( localize.localize( "org.openCage.fausterize.fileReadWarningInitial", message, newMessage ));
             this.ui2file = new UI2File( textUI, executor, localize,  new File( newMessage ));
         }
 
@@ -226,7 +233,7 @@ public class FaustUI extends JFrame {
                     showInfo( false );
                 } else {
                     showInfo( true );
-                    that.warning.show("", that.localize.localize( "org.openCage.fausterize.fileWriteSurprise", message ));
+                    that.warning.show( that.localize.localize( "org.openCage.fausterize.fileWriteSurprise", message ));
                 }
                 return null;
             }
@@ -287,12 +294,12 @@ public class FaustUI extends JFrame {
                     setTextEnabled( true );
                 } catch ( Unchecked exp ) {
                     if ( exp.getSource() instanceof IOException ) {
-                        warning.show( "Warning", localize.localize( "org.openCage.fausterize.fileReadWarning", path));
+                        warning.show( localize.localize( "org.openCage.fausterize.fileReadWarning", path));
                     } else {
-                        warning.show( "Not a valid Pad Error", localize.localize( "org.openCage.fausterize.padWarning", path, exp.getSource().getMessage()) );
+                        warning.show( localize.localize( "org.openCage.fausterize.padWarning", path, exp.getSource().getMessage()) );
                     }
                 } catch ( IllegalArgumentException exp ) {
-                    warning.show( "Warning", localize.localize( "org.openCage.fausterize.wrongPad", path));                    
+                    warning.show( localize.localize( "org.openCage.fausterize.wrongPad", path));
                 }
             }
         }
@@ -358,7 +365,7 @@ public class FaustUI extends JFrame {
                                     setTextEnabled( ui2file.isWritable() );
                                 }
                             } catch ( Unchecked exp ) {
-                                warning.show( "foo", localize.localize( "org.openCage.fausterize.fileWriteWarning", path ) );
+                                warning.show( localize.localize( "org.openCage.fausterize.fileWriteWarning", path ) );
                                 return null;
                             }
                             
@@ -413,7 +420,7 @@ public class FaustUI extends JFrame {
             try {
                 ui2file.setFile( new File(path));
             } catch ( Unchecked exp ) {
-                warning.show( "Warning", localize.localize( "org.openCage.fausterize.fileReadWarning", path  ));
+                warning.show( localize.localize( "org.openCage.fausterize.fileReadWarning", path  ));
                 return;
             }
             setTextEnabled(false);

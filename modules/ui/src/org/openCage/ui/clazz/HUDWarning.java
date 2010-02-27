@@ -29,7 +29,7 @@ public class HUDWarning {
     @Inject @Named(Constants.UI) Localize localize;
     @Inject GlobalKeyEventHandler keyEventHandler;
 
-    public void show( @NotNull String title, @NotNull String message ) {
+    public void show( @NotNull String message ) {
 
         final HudWindow hud = new HudWindow( localize.localize( "org.openCage.localization.dict.warning") );
         hud.getJDialog().setSize(500, 120 );
