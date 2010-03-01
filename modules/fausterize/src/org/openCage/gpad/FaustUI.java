@@ -8,6 +8,7 @@ import com.explodingpixels.macwidgets.MacWidgetFactory;
 import com.explodingpixels.macwidgets.UnifiedToolBar;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
+import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.openCage.application.protocol.Application;
 import org.openCage.fspath.clazz.FSPathBuilder;
 import org.openCage.lang.clazz.Count;
@@ -84,7 +85,7 @@ public class FaustUI extends JFrame {
     private UI2File ui2file;
 
     private String                  message;
-    private JTextArea               textUI = new JTextArea();
+    private JTextArea               textUI = new RSyntaxTextArea();
     private TextEncoderIdx<String,String>  textEncoder;
     final private JButton           padButton = new JButton( new ImageIcon( getClass().getResource(LOCK_CLOSED_PNG)));//"faust-small.png")));
     private LabeledComponentGroup padGroup;

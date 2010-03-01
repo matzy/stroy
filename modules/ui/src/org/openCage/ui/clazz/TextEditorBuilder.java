@@ -23,6 +23,9 @@ import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+/**
+ * A toolbox class to build texteditors or add editor features to textareas
+ */
 public class TextEditorBuilder {
     private JTextArea area;
     private JTextField find;
@@ -33,6 +36,10 @@ public class TextEditorBuilder {
         this.area = tarea;
     }
 
+    /**
+     * attach a 
+     * @param find
+     */
     public void setFindField( final JTextField find ) {
         this.find = find;
 
