@@ -1,5 +1,7 @@
 package org.openCage.lang.impl;
 
+import org.openCage.io.clazz.FileExistence;
+import org.openCage.lang.errors.Unchecked;
 import org.openCage.lang.protocol.SingletonApp;
 
 import java.io.File;
@@ -17,8 +19,8 @@ public class FriendlySingletonApp implements SingletonApp {
 
         if ( isMaster ) {
             try {
-                markerFile.createNewFile();
-            } catch (IOException e) {
+                FileExistence.createNewFile( markerFile );
+            } catch (Unchecked e) {
                 throw new IllegalStateException( "can't create singletonapp marker file " + markerFile.getAbsolutePath() );
             }
             markerFile.deleteOnExit();

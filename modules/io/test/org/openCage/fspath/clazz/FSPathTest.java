@@ -59,4 +59,11 @@ public class FSPathTest {
 
         assertEquals( "/foo", path.toString() );
     }
+
+    @Test
+    public void testXDG(){
+
+             System.out.println( System.getenv("$XDG_CONFIG"));
+        System.out.println( System.getenv("XDG_CONFIG"));
+    }
 }
