@@ -71,6 +71,7 @@ public class LinkCollection {
     private List<Ref> refs = new ArrayList<Ref>();
     private static final String SLF4_J = "SLF4J";
     private static final String MIME_UTIL = "mime-util";
+    private static final String RSYNTAX_TEXTAREA = "RSyntaxTextArea";
 
     public LinkCollection() {
         fill();
@@ -247,6 +248,12 @@ public class LinkCollection {
                     address( "http://www.javaexchange.com/", "javaexchange.com").
                     licence( "http://www.javaexchange.com/", "Open"  );
 
+        lib(RSYNTAX_TEXTAREA).
+                    description( "A textarea subclass enhanced by a lot of typical texteditor feature").
+                    address( "http://fifesoft.com/rsyntaxtextarea/", "fifesoft.org" ).
+                    lgpl().
+                    provides( "rsyntaxtextarea.jar" );
+
         lib(SLF4_J).
                     description( "The simple logging facade for java abstracts several java logging implementations").
                     address( "http://www.slf4j.org/", "slf4.org" ).
@@ -319,6 +326,7 @@ public class LinkCollection {
                     depends(DEPEND_UI).
                     depends(ARGS4J).
                     depends(MIME_UTIL).
+                    depends(RSYNTAX_TEXTAREA).
                     build_depends( MOTPE );
 
         module(DEPEND_LOCALIZATION ).

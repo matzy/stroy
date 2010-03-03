@@ -8,8 +8,8 @@
   <version>
   	<major>0</major>
   	<minor>8</minor>
-  	<patch>0</patch>
-  	<build>392</build>
+  	<patch>1</patch>
+  	<build>406</build>
   </version>
   <contributors>
     <Author>
@@ -20,6 +20,9 @@
       </Author>
       <Author>
         <name>Johann Wolfgang von Goethe (via Project Guttenberg)</name>
+      </Author>
+      <Author>
+        <name>Scott Schulz</name>
       </Author>
   </contributors>
   <email>
