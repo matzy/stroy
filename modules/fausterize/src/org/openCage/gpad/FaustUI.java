@@ -23,7 +23,7 @@ import org.openCage.property.protocol.Property;
 import org.openCage.ui.clazz.HUDWarning;
 import org.openCage.ui.clazz.MenuBuilder;
 import org.openCage.ui.clazz.MenuHelper;
-import org.openCage.ui.clazz.PreferenceFrame;
+import org.openCage.ui.clazz.preferences.PreferenceFrame;
 import org.openCage.ui.clazz.TextEditorBuilder;
 import org.openCage.ui.protocol.*;
 
@@ -109,6 +109,7 @@ public class FaustUI extends JFrame {
                    MenuBuilder menubuilder,
                    @Named(LOCALE) PrefBuilder localePrefBuilder,
                    @Named(FAUSTERIZE) PrefBuilder codePref,
+                   @Named(TEXTEDITOR) PrefBuilder textEditorPrefBuilder,
                    final PreferenceFrame prefFrame,
                    GlobalKeyEventHandler keyHandler,
                    MenuHelper menuHelper,
@@ -148,8 +149,8 @@ public class FaustUI extends JFrame {
 
 
 
-        setUI( prefFrame, codePref, localePrefBuilder );
-        addListeners();
+        setUI( prefFrame, codePref, localePrefBuilder, textEditorPrefBuilder );
+        addListenersAndBindings();
 
 
         setTextEnabled( false );
@@ -157,7 +158,7 @@ public class FaustUI extends JFrame {
 
     }
 
-    private void setUI( final PreferenceFrame prefFrame, PrefBuilder codePref, PrefBuilder localePrefBuilder ) {
+    private void setUI( final PreferenceFrame prefFrame, PrefBuilder codePref, PrefBuilder localePrefBuilder, PrefBuilder texteditorPrefBuilder ) {
         JScrollPane scroll =  new JScrollPane(textUI);
         scroll.setSize( 800, 600 );
         scroll.setMinimumSize( new Dimension(400,400));
@@ -204,7 +205,10 @@ public class FaustUI extends JFrame {
         buildMenu( menuBuilder, prefFrame, textEditorBuilder );
 
         // preferences
-        prefFrame.addRow( "woo" ).add( codePref).add( localePrefBuilder ).build();
+        prefFrame.addRow( "woo" ).
+                add( codePref).
+                add( localePrefBuilder ).
+                add( texteditorPrefBuilder ) .build();
 
         F0<Void> showPrefs = new F0<Void>() {
             @Override
@@ -220,7 +224,7 @@ public class FaustUI extends JFrame {
 
     }
 
-    private void addListeners() {
+    private void addListenersAndBindings() {
         final FaustUI that = this;
 
         // base window ui

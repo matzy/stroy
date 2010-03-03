@@ -1,4 +1,4 @@
-package org.openCage.ui.clazz;
+package org.openCage.ui.clazz.preferences;
 
 import com.bric.swing.PreferencePanel;
 import com.google.inject.Inject;

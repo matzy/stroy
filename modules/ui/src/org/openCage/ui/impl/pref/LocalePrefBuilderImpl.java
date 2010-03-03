@@ -41,6 +41,9 @@ import java.util.List;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
+/**
+ * The preference panel for language preferences
+ */
 public class LocalePrefBuilderImpl implements PrefBuilder {
 
     private final Localize localize;
@@ -49,9 +52,6 @@ public class LocalePrefBuilderImpl implements PrefBuilder {
     private class LocalePref extends JPanel {
 
         public LocalePref() {
-//            setLayout( new BorderLayout());
-//            add( new JButton( "locale" ), BorderLayout.CENTER  );
-
             List<String> countryList = localized.getLocalizedLocales();
             ValueModel countryModel = new PropertyAdapter(localized, "locale", false);
             ComboBoxAdapter adapter = new ComboBoxAdapter(countryList, countryModel);

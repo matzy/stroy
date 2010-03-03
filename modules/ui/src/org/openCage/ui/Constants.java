@@ -25,6 +25,7 @@ package org.openCage.ui;
 public class Constants {
     public static final String UI = "ui";
     public static final String LOCALE = "locale";
+    public static final String TEXTEDITOR = "Texteditor";
 
     private Constants(){}
 }

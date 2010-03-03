@@ -1,4 +1,4 @@
-package org.openCage.ui.clazz;
+package org.openCage.ui.clazz.preferences;
 
 import org.openCage.ui.protocol.PreferenceDialog;
 

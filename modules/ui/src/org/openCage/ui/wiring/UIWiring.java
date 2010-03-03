@@ -16,6 +16,7 @@ import org.openCage.ui.impl.UILocalizeProvider;
 import org.openCage.ui.impl.about.AboutSheetFromApplication;
 import org.openCage.ui.impl.help.HelpViewerOSX;
 import org.openCage.ui.impl.pref.LocalePrefBuilderImpl;
+import org.openCage.ui.impl.pref.TextEditorPref;
 import org.openCage.ui.protocol.AboutSheet;
 import org.openCage.ui.protocol.FileChooser;
 import org.openCage.ui.protocol.GlobalKeyEventHandler;
@@ -88,6 +89,7 @@ public class UIWiring implements Module {
         }
 
         binder.bind(PrefBuilder.class).annotatedWith(Names.named(LOCALE)).to(LocalePrefBuilderImpl.class);
+        binder.bind(PrefBuilder.class).annotatedWith(Names.named(TEXTEDITOR)).to( TextEditorPref.class);
 
     }
 
