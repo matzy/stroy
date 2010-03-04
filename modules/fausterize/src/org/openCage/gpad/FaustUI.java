@@ -9,6 +9,8 @@ import com.explodingpixels.macwidgets.UnifiedToolBar;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
+import org.fife.ui.rtextarea.ConfigurableCaret;
+import org.fife.ui.rtextarea.RTextArea;
 import org.openCage.application.protocol.Application;
 import org.openCage.fspath.clazz.FSPathBuilder;
 import org.openCage.lang.clazz.Count;
@@ -25,6 +27,7 @@ import org.openCage.ui.clazz.MenuBuilder;
 import org.openCage.ui.clazz.MenuHelper;
 import org.openCage.ui.clazz.preferences.PreferenceFrame;
 import org.openCage.ui.clazz.TextEditorBuilder;
+import org.openCage.ui.impl.pref.CaretStyleProvider;
 import org.openCage.ui.protocol.*;
 
 import javax.swing.ImageIcon;
@@ -98,6 +101,7 @@ public class FaustUI extends JFrame {
     private JTextField textField;
     private static final Color READONLY_COLOR = new Color( 220, 220, 255 );
     private static final Color WARNING_COLOR = new Color( 255, 220, 220 );
+    private Property<Integer> caretStyle;
 
     @Inject
     public FaustUI(Application application,
@@ -116,7 +120,8 @@ public class FaustUI extends JFrame {
                    TextEditorBuilder textEditorBuilder,
                    Property<MRU<String>> mru,
                    HUDWarning warning,
-                   SingletonApp singletonApp ) {
+                   SingletonApp singletonApp,
+                   @Named( CaretStyleProvider.KEY) Property<Integer> caretStyle ) {
 
         this.application     = application;
         this.fileChooser     = chooser;
@@ -129,6 +134,7 @@ public class FaustUI extends JFrame {
         this.mru = mru;
         this.menuBuilder = menubuilder;
         this.warning = warning;
+        this.caretStyle = caretStyle;
 
         if ( !singletonApp.isMaster() ) {
             warning.show( localize.localize( "org.openCage.fausterize.singleWarning" ));
@@ -257,6 +263,8 @@ public class FaustUI extends JFrame {
         textEditorBuilder.setTextArea( textUI );
         textEditorBuilder.setFindField( textField );
         //textEditorBuilder.setConfCaret();
+
+        ((RSyntaxTextArea)textUI).setCaretStyle(RTextArea.INSERT_MODE, caretStyle.get() );
 
         
     }

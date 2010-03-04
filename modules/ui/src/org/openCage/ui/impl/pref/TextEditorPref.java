@@ -1,8 +1,10 @@
 package org.openCage.ui.impl.pref;
 
+import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import net.java.dev.designgridlayout.DesignGridLayout;
 import org.openCage.localization.protocol.Localize;
+import org.openCage.property.protocol.Property;
 import org.openCage.ui.protocol.PrefBuilder;
 
 import javax.swing.*;
@@ -34,8 +36,8 @@ import javax.swing.*;
  */
 public class TextEditorPref implements PrefBuilder {
 
-    private @Named( "ui" ) Localize localize;
-    //private TextCursor textCursor;
+    @Inject @Named( "ui" )  private Localize localize;
+    @Inject @Named( CaretStyleProvider.KEY ) private Property<Integer> cursorStyle;
 
     @Override
     public JPanel getPrefPanel() {
