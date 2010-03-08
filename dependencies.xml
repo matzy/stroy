@@ -35,7 +35,7 @@
     </target>
     <!-- ================================================================== -->
     <target name= "depend.ui"
-            depends="depend.localization, depend.application, depend.io, designgridlayout, depend.lang, guice, javagraphics-preferencepanel, jgoodies-binding">
+            depends="depend.localization, depend.application, depend.io, designgridlayout, depend.lang, guice, javagraphics-preferencepanel, RSyntaxTextArea, jgoodies-binding">
         <ant dir="${dependencies.basedir}/modules/ui" inheritAll="false"/>
     </target>
 
@@ -89,6 +89,10 @@
         <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/jcip-annotations.jar"/>
     </target>
     <!-- ================================================================== -->
+    <target name= "jdep">
+        <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/jdep-0.7.jar"/>
+    </target>
+    <!-- ================================================================== -->
     <target name= "jdic">
         <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/jdic.dll"/>
         <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/jdic.jar"/>
@@ -100,6 +104,11 @@
     <!-- ================================================================== -->
     <target name= "jgoodies-forms">
         <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/forms-1.2.1.jar"/>
+    </target>
+    <!-- ================================================================== -->
+    <target name= "launch4j"
+            depends="xstream">
+        <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/external/production/launch4j.jar"/>
     </target>
     <!-- ================================================================== -->
     <target name= "mac-widgets"
