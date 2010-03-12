@@ -101,7 +101,7 @@ On OSX, unix, linux or windows set the //isApp// property as above.
 Result: build/deploy/foo/xlatform/foo/foo-version.zip.
 This file includes scripts for unix and windows to start the app.
 
-++ Make module //moo// dependend on //external// and module //duh//
+++ Make module //moo// dependent on //external// and module //duh//
 
 * change dependencies.xml for //moo//
 

@@ -2,6 +2,8 @@
 <project name="lang" default="default" basedir=".">
 
     <property name= "version"       value="0.0.3" />
+    <property  name = "company.name" value="openCage"/>
+    
 
     <import file="../../build-resources/build-common.xml"/>
 </project>

@@ -12,6 +12,8 @@
     <property name = "app.bundleid"    value="org.openCage.fausterize"/>
     <property name = "app.icon.osx"    value="org/openCage/gpad/resources/fausterize.icns"/>
     <property name = "app.helpbook"    value="HelpBook"/>
+    <property name = "company.name" value="openCage"/>
+
 
     <import file="../../build-resources/build-common.xml"/>
 </project>

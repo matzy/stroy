@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <project name="motpe" default="deploy">
 
-    <property name="version" value="0.2" />
+    <!-- build the demo project for elephants                       -->
+    <!-- i.e. the layout in the scm is not already the demo project -->
+    <!-- e.g. the build-resources are from the other projects       -->
+
+    <property name="version" value="0.3" />
 
     <property name="stroy"  value="${ant.file.motpe}/../../.." />
     <property name="deploy" value="${stroy}/build/deploy/motpe"/>

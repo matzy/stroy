@@ -2,12 +2,12 @@
 <project name="build-common" default="default">
     <import file="../dependencies.xml"/>
 
-    <!-- March of the Pink Elephants               -->
-    <!-- ant based full build system               -->         
-    <!-- version: 0.2                              -->
-    <!-- licence: MPL1.1                           -->
-    <!-- home: http://stroy.wikidot.com/motpe      -->
-    <!-- contact: openCage@gmail.com               -->
+    <!-- March of the Pink Elephants                      -->
+    <!-- ant based full build system for java projects    -->
+    <!-- version: 0.2                                     -->
+    <!-- licence: MPL1.1                                  -->
+    <!-- home: http://stroy.wikidot.com/motpe             -->
+    <!-- contact: openCage@gmail.com                      -->
 
     <target name="default" depends="goal"/>
 
@@ -22,6 +22,7 @@
     <property name="app.bundleid" value="elph"/>
     <property name="app.icon.osx" value=""/>
     <property name="app.helpbook" value=""/>
+    <property name="company.name" value="elephants"/>
 
 
     <!-- ====== properties ========== -->
@@ -74,7 +75,7 @@
     <!--</condition>-->
     <condition property="osx.icon" value="${src}/${app.icon.osx}" else="${dependencies.basedir}/build-resources/elephant.icns">
         <and>
-            <not><equals arg1="${app.icon.osx}" arg2="" /></not> 
+            <not><equals arg1="${app.icon.osx}" arg2="" /></not>
             <available file="${src}/${app.icon.osx}"/>
         </and>
     </condition>
@@ -99,6 +100,18 @@
              classpath="${dependencies.basedir}/external/build/jarbundler-2.0.0.jar"
              classname="net.sourceforge.jarbundler.JarBundler"/>
 
+
+    <!-- debian package builder -->
+    <taskdef name="deb"
+             classpath="${dependencies.basedir}/external/build/jdeb-0.7.jar"
+             classname="org.vafer.jdeb.ant.DebAntTask"/>
+
+    <!-- windows exe builder -->
+     <taskdef name="launch4j"
+              classname="net.sf.launch4j.ant.Launch4jTask"
+              classpath="${dependencies.basedir}/external/build/launch4j.jar" />
+    <!-- which xstream to pick -->
+    <!-- classpath="${dependencies.basedir}/external/build/launch4j.jar:${launch4j.dir}/lib/xstream.jar" /> -->
 
     <!-- ====== targets ========== -->
 
@@ -175,7 +188,7 @@
 
     <!-- construct the manifest                                                              -->
     <!-- classpath is everything already in libs, i.e. all libs the current build depends on -->
-    <!-- which is specified in dependencies.xml                                              -->
+    <!-- which are specified in dependencies.xml                                              -->
     <target name="create-manifest" depends="prepare">
         <pathconvert property="jars-var" pathsep=" " refid="jars">
             <map from="${libs}/" to=""/>
@@ -203,7 +216,7 @@
     <!--      jar      -->
     <target name="create-jar" depends="compile,create-manifest">
         <echo message="${ant.project.name} - build-common.dist"/>
-        <jar jarfile="${libs}/openCage-${ant.project.name}-${version}.jar"
+        <jar jarfile="${libs}/${company.name}-${ant.project.name}-${version}.jar"
              manifest="${resources}/manifest.mf">
             <fileset dir="${classes}" excludes="**/*test*"/>
         </jar>
@@ -336,13 +349,14 @@
                          basedir="${deploy}/osx/${app.name}"/>
             </then>
             <else>
-                <echo message="not all properties set to build and osx.app"/>
+                <echo message="not all properties set to build an osx.app"/>
             </else>
         </if>
     </target>
 
-    <!-- build a unix deliverable   -->
-    <!-- inspired by osx app layout -->
+    <!-- build a xplatform deliverable   -->
+    <!-- i.e. jar files started by os-specific shell scripts-->
+    <!-- layout inspired by osx app layout      -->
     <target name="xplatform-app"
             depends="dist,helpsetup">
         <if>
@@ -362,13 +376,13 @@
                     </then>
                 </if>
 
-                <!-- -unix shell command -->
-                <echo message="java -jar resources/java/openCage-${ant.project.name}-${version}.jar"
+                <!-- unix shell script (sh) -->
+                <echo message="java -jar resources/java/${company.name}-${ant.project.name}-${version}.jar"
                       file="${deploy}/xplatform/${app.name}/${app.name}.sh"/>
                 <chmod file="${deploy}/xplatform/${app.name}/${app.name}.sh" perm="ugo+x"/>
 
-                <!-- dos command -->
-                <echo message="java -jar resources/java/openCage-${ant.project.name}-${version}.jar"
+                <!-- windows command script -->
+                <echo message="java -jar resources/java/${company.name}-${ant.project.name}-${version}.jar"
                       file="${deploy}/xplatform/${app.name}/${app.name}.cmd"/>
 
                 <zip destfile="${deploy}/xplatform/${app.name}-${version}.zip" basedir="${deploy}/xplatform/${app.name}"/>
@@ -468,13 +482,38 @@
         </if>
     </target>
 
+    <!-- EXPERIMENTAL -->
+    <target name="debian-pgk" depends="create-jar">
+           <if>
+                <isset property="isApp"/>
+           <then>
+
+            <mkdir dir="${deploy}/linux/${app.name}/tmp/control"/>
+            <copy todir="${deploy}/linux/${app.name}/tmp/control">
+                <fileset dir="${src}/org/openCage/gpad"/>
+                <!--<fileset dir="src/main/resources/deb/control"/>-->
+                <filterset begintoken="[[" endtoken="]]">
+                <filter token="version" value="${version}"/>
+                <filter token="name" value="${app.name}"/>
+              </filterset>
+            </copy>
+
+            <!--<deb destfile="${deploy}/linux/${app.name}.deb" control="${deploy}/linux/${app.name}/tmp/control">-->
+              <!--<data refid="internalsSet" >-->
+              <!--</data>-->
+            <!--</deb>-->
+        </then>
+        </if>
+
+    </target>
+
     <target name="dist" depends="create-jar">
         <copy todir="${dist}">
             <fileset refid="internalsSet"/>
         </copy>
     </target>
 
-    <target name="goal" depends="xplatform-app, osx-app, dmg"/>
+    <target name="goal" depends="xplatform-app, osx-app, dmg, debian-pgk"/>
 
     <target name="dist.dependencies">
         <antcall target="depend.${ant.project.name}"/>
