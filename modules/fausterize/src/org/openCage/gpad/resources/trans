@@ -100,9 +100,15 @@
              classname="net.sourceforge.jarbundler.JarBundler"/>
 
 
+    <!-- debian package builder -->
     <taskdef name="deb"
              classpath="${dependencies.basedir}/external/build/jdeb-0.7.jar"
              classname="org.vafer.jdeb.ant.DebAntTask"/>
+
+    <!-- windows exe builder -->
+     <taskdef name="launch4j"
+              classname="net.sf.launch4j.ant.Launch4jTask"
+              classpath="${dependencies.basedir}/external/build//launch4j.jar:${launch4j.dir}/lib/xstream.jar" />
 
     <!-- ====== targets ========== -->
 
@@ -179,7 +185,7 @@
 
     <!-- construct the manifest                                                              -->
     <!-- classpath is everything already in libs, i.e. all libs the current build depends on -->
-    <!-- which is specified in dependencies.xml                                              -->
+    <!-- which are specified in dependencies.xml                                              -->
     <target name="create-manifest" depends="prepare">
         <pathconvert property="jars-var" pathsep=" " refid="jars">
             <map from="${libs}/" to=""/>
@@ -345,8 +351,9 @@
         </if>
     </target>
 
-    <!-- build a unix deliverable   -->
-    <!-- inspired by osx app layout -->
+    <!-- build a xplatform deliverable   -->
+    <!-- i.e. jar files started by os-specific shell scripts-->
+    <!-- layout inspired by osx app layout      -->
     <target name="xplatform-app"
             depends="dist,helpsetup">
         <if>
@@ -366,12 +373,12 @@
                     </then>
                 </if>
 
-                <!-- -unix shell command -->
+                <!-- unix shell script (sh) -->
                 <echo message="java -jar resources/java/openCage-${ant.project.name}-${version}.jar"
                       file="${deploy}/xplatform/${app.name}/${app.name}.sh"/>
                 <chmod file="${deploy}/xplatform/${app.name}/${app.name}.sh" perm="ugo+x"/>
 
-                <!-- dos command -->
+                <!-- windows command script -->
                 <echo message="java -jar resources/java/openCage-${ant.project.name}-${version}.jar"
                       file="${deploy}/xplatform/${app.name}/${app.name}.cmd"/>
 
@@ -474,7 +481,7 @@
 
     <target name="debian-pgk" depends="create-jar">
            <if>
-                <isset property="isApp"/>    a
+                <isset property="isApp"/>
            <then>
 
             <mkdir dir="${deploy}/linux/${app.name}/tmp/control"/>
