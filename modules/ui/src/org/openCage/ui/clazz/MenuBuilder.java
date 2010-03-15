@@ -59,7 +59,7 @@ public class MenuBuilder {
         }
     }
 
-    public class ItemIM {
+    public static class ItemIM {
         private JMenuItem item;
 
         public ItemIM(String title) {
@@ -86,7 +86,8 @@ public class MenuBuilder {
         }
     }
 
-    public class NullItem extends ItemIM {
+
+    public static class NullItem extends ItemIM {
 
         public NullItem() {
             super("null");
@@ -110,12 +111,11 @@ public class MenuBuilder {
 
     private MenuIM subMenu(String title) {
         JMenu menu = new JMenu( title );
-//        menu.setBackground( getBarBackground() );
         return new MenuIM( menu );
     }
 
     public MenuIM addFile() {
-        return add(  loca.localize( "org.openCage.ui.menu.file" ));
+        return add(  loca.localize( "org.openCage.localization.menu.file" ));
     }
 
     public MenuIM addEdit() {
@@ -154,6 +154,17 @@ public class MenuBuilder {
     public ItemIM itemCut() {
         return item( loca.localize("org.openCage.localization.dict.cut") ).
                 accelerator( KeyStroke.getKeyStroke(KeyEvent.VK_X, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+    }
+
+    public ItemIM itemUndo() {
+        return item( loca.localize("org.openCage.localization.dict.undo") ).
+                        accelerator( KeyStroke.getKeyStroke(KeyEvent.VK_Z, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+    }
+
+    public ItemIM itemRedo() {
+
+        return item( loca.localize("org.openCage.localization.dict.redo") ).
+            accelerator( KeyStroke.getKeyStroke(KeyEvent.VK_Z, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask() | ActionEvent.SHIFT_MASK)); 
     }
 
     public ItemIM itemPaste() {
@@ -234,5 +245,6 @@ public class MenuBuilder {
 
         return new Color(180, 180, 180);
     }
+
 
 }

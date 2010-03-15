@@ -3,6 +3,7 @@ package org.openCage.ui.clazz;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.muchsoft.util.Sys;
+import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.openCage.lang.protocol.F0;
 import org.openCage.localization.impl.LocalizeImpl;
 import org.openCage.localization.protocol.Localize;
@@ -229,11 +230,38 @@ public class TextEditorBuilder {
                 });
     }
 
-//    public void setConfCaret() {
-//        ConfigurableCaret caret = new ConfigurableCaret();
-//        caret.setStyle( ConfigurableCaret.BLOCK_STYLE );
-//        area.setCaret( caret );
-//    }
 
+    public MenuBuilder.ItemIM itemUndo(MenuBuilder mb) {
+//        if (!( area instanceof RSyntaxTextArea )) {       // TODO
+//            return new MenuBuilder.NullItem();
+//        }
 
+        return mb.itemUndo().
+                action( new F0<Void>() {
+                    @Override
+                    public Void call() {
+                        if ( area instanceof RSyntaxTextArea ) {
+                            ((RSyntaxTextArea)area).undoLastAction();
+                        }
+                        return null;
+                    }
+                });
+    }
+
+    public MenuBuilder.ItemIM itemRedo(MenuBuilder mb) {
+//        if (!( area instanceof RSyntaxTextArea )) {
+//            return new MenuBuilder.NullItem();
+//        }
+
+        return mb.itemRedo().
+                action( new F0<Void>() {
+                    @Override
+                    public Void call() {
+                        if ( area instanceof RSyntaxTextArea ) {
+                            ((RSyntaxTextArea)area).redoLastAction();
+                        }
+                        return null;
+                    }
+                });
+    }
 }

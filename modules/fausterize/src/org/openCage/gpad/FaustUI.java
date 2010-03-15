@@ -415,8 +415,12 @@ public class FaustUI extends JFrame {
                     }
                 })).
                 separator().
+                add( teBuilder.itemCut( mb )).
                 add( teBuilder.itemCopy( mb )).
-                add( teBuilder.itemPaste( mb ));
+                add( teBuilder.itemPaste( mb )).
+                separator().
+                add( teBuilder.itemUndo( mb )).
+                add( teBuilder.itemRedo( mb ));
 
         mb.addSearch().
                 add( teBuilder.itemFind( mb )).
