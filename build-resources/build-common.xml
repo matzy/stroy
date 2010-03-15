@@ -102,9 +102,23 @@
 
 
     <!-- debian package builder -->
+    <!--<taskdef name="deb"-->
+             <!--classpath="${dependencies.basedir}/external/build/jdeb-0.7.jar"-->
+             <!--classname="org.vafer.jdeb.ant.DebAntTask"/>-->
+
+    <!--
+desktopentry=com.googlecode.ant_deb_task.DesktopEntry
+deb=com.googlecode.ant_deb_task.Deb
+-->
+    <!-- ant-deb-task -->
     <taskdef name="deb"
-             classpath="${dependencies.basedir}/external/build/jdeb-0.7.jar"
-             classname="org.vafer.jdeb.ant.DebAntTask"/>
+             classpath="${dependencies.basedir}/external/build/ant-deb-0.0.1.jar"
+             classname="com.googlecode.ant_deb_task.Deb"/>
+    <taskdef name="desktopentry"
+             classpath="${dependencies.basedir}/external/build/ant-deb-0.0.1.jar"
+             classname="com.googlecode.ant_deb_task.DesktopEntry"/>
+
+
 
     <!-- windows exe builder -->
      <taskdef name="launch4j"
@@ -133,6 +147,7 @@
         <mkdir dir="${deploy}/xplatform"/>
         <mkdir dir="${deploy}/windows"/>
         <mkdir dir="${deploy}/osx"/>
+        <mkdir dir="${deploy}/debian"/>
 
     </target>
 
@@ -482,29 +497,88 @@
         </if>
     </target>
 
-    <!-- EXPERIMENTAL -->
-    <target name="debian-pgk" depends="create-jar">
-           <if>
-                <isset property="isApp"/>
-           <then>
+    <!--&lt;!&ndash; EXPERIMENTAL &ndash;&gt;-->
+    <!--<target name="debian-pgk" depends="create-jar">-->
+           <!--<if>-->
+                <!--<isset property="isApp"/>-->
+           <!--<then>-->
 
-            <mkdir dir="${deploy}/linux/${app.name}/tmp/control"/>
-            <copy todir="${deploy}/linux/${app.name}/tmp/control">
-                <fileset dir="${src}/org/openCage/gpad"/>
-                <!--<fileset dir="src/main/resources/deb/control"/>-->
-                <filterset begintoken="[[" endtoken="]]">
-                <filter token="version" value="${version}"/>
-                <filter token="name" value="${app.name}"/>
-              </filterset>
-            </copy>
+            <!--<mkdir dir="${deploy}/linux/${app.name}/tmp/control"/>-->
+            <!--<copy todir="${deploy}/linux/${app.name}/tmp/control">-->
+                <!--<fileset dir="${src}/org/openCage/gpad"/>-->
+                <!--&lt;!&ndash;<fileset dir="src/main/resources/deb/control"/>&ndash;&gt;-->
+                <!--<filterset begintoken="[[" endtoken="]]">-->
+                <!--<filter token="version" value="${version}"/>-->
+                <!--<filter token="name" value="${app.name}"/>-->
+              <!--</filterset>-->
+            <!--</copy>-->
 
-            <!--<deb destfile="${deploy}/linux/${app.name}.deb" control="${deploy}/linux/${app.name}/tmp/control">-->
-              <!--<data refid="internalsSet" >-->
-              <!--</data>-->
-            <!--</deb>-->
+            <!--&lt;!&ndash;<deb destfile="${deploy}/linux/${app.name}.deb" control="${deploy}/linux/${app.name}/tmp/control">&ndash;&gt;-->
+              <!--&lt;!&ndash;<data refid="internalsSet" >&ndash;&gt;-->
+              <!--&lt;!&ndash;</data>&ndash;&gt;-->
+            <!--&lt;!&ndash;</deb>&ndash;&gt;-->
+        <!--</then>-->
+        <!--</if>-->
+
+    <!--</target>-->
+
+    <target name="linux-dektop-description" depends="prepare">
+        <if>
+             <isset property="isApp"/>
+        <then>
+            <desktopentry
+                toFile="${deploy}/debian/${app.name}.desktop"
+                name="${app.name}"
+                comment="fooo comment"
+                exec="java -jar /usr/share/${app.name}/resources/java/${company.name}-${ant.project.name}-${version}.jar"
+                path="/usr/share/${app.name}/"
+                icon="/usr/share/${app.name}/logo_16x16.gif"
+                categories="Utility;Java"
+                />
         </then>
         </if>
+    </target>
 
+    <target name="debian-pkg" depends="linux-dektop-description,create-jar" >
+        <if>
+             <isset property="isApp"/>
+        <then>
+            <mkdir dir="${deploy}/debian/${app.name}/resources/java"/>
+            <copy todir="${deploy}/debian/${app.name}/resources/java">
+                <fileset refid="internalsSet"/>
+            </copy>
+
+            <if>
+                <available file="${resources}/helpbook"/>
+                <then>
+                    <copy todir="${deploy}/debian/${app.name}/resources">
+                        <fileset dir="${resources}/helpbook"/>
+                    </copy>
+                </then>
+            </if>
+
+            <deb
+                todir="${deploy}/debian"
+                package="${app.name}"
+                section="utils"
+                depends="sun-java6-jre"
+            >
+                <version upstream="${version}"/>
+                <maintainer email="openCage@gmail.com"/>
+                <description synopsis="Foo">
+                    foo is a foo.
+                </description>
+                <tarfileset dir="${deploy}/debian/${app.name}" prefix="usr/share/${app.name}">
+                    <include name="**.*"/>
+                </tarfileset>
+                <!--<tarfileset dir="${deploy}/debian/" prefix="usr/share/doc/${app.name}">-->
+                    <!--<exclude name="*.jar"/>-->
+                    <!--<exclude name="*.gif"/>-->
+                <!--</tarfileset>-->
+                <tarfileset file="${deploy}/debian/${app.name}.desktop" prefix="usr/share/applications"/>
+            </deb>
+        </then>
+        </if>
     </target>
 
     <target name="dist" depends="create-jar">
@@ -513,7 +587,7 @@
         </copy>
     </target>
 
-    <target name="goal" depends="xplatform-app, osx-app, dmg, debian-pgk"/>
+    <target name="goal" depends="xplatform-app, osx-app, dmg, debian-pkg"/>
 
     <target name="dist.dependencies">
         <antcall target="depend.${ant.project.name}"/>
