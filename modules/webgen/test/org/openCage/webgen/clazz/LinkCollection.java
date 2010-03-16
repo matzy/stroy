@@ -72,6 +72,10 @@ public class LinkCollection {
     private static final String SLF4_J = "SLF4J";
     private static final String MIME_UTIL = "mime-util";
     private static final String RSYNTAX_TEXTAREA = "RSyntaxTextArea";
+    private static final String JDEP = "jdep";
+    private static final String LAUNCH4J = "launch4j";
+    private static final String ANT_DEB_TASK = "ant-deb-task";
+    private static final String ANT_DMG = "AntDMG";
 
     public LinkCollection() {
         fill();
@@ -89,6 +93,13 @@ public class LinkCollection {
                     apache2().
                     provides( "ant-contrib-1.0b3" ).
                     version( "1.0b3" );
+
+        lib(ANT_DEB_TASK).
+                    description( "Ant task to build debian packages" ).
+                    address( "http://code.google.com/p/ant-deb-task/", CODE_GOOGLE ).
+                    apache2().
+                    provides( "ant-deb-0.0.1.jar" ).
+                    version( "0.0.1" );
 
         lib(ARGS4J ).
                     description( "Argument parsing as it should be done (via annotations)" ).
@@ -167,6 +178,13 @@ public class LinkCollection {
                     address( "http://www.javaconcurrencyinpractice.com/", "javaconcurrencyinpractice" ).
                     provides( "jcip-annotations.jar");
 
+        lib(JDEP).
+                    description( "debian packages for java via ant or maven" ).
+                    address( "http://vafer.org/projects/jdeb/", "vafer.org").
+                    apache2().
+                    version( "0.7").
+                    provides( "jdep-0.7.jar");
+
         lib(JDIC).
                     description( "jdesctop library for e.g. opening files with their OS associated program" ).
                     address( "https://jdic.dev.java.net/releases.html", DEV_JAVA).
@@ -205,6 +223,13 @@ public class LinkCollection {
 //                    address( "http://www.junit.org/", "junit.org").
 //                    cpl().
 //                    version( "4.4" );
+        lib(LAUNCH4J).
+                    description( "Cross-platform Java executable wrapper, i.e. windows exe builder from ant" ).
+                    address( "http://launch4j.sourceforge.net/", SOURCEFORGE).
+                    bsd().
+                    version("3.01").
+                    depends( XSTREAM ).
+                    provides("launch4j.jar");
 
         lib(MAC_WIDGETS).
                     description( "Library with OSX inspired swing components. e.g. a toolbar that blends in with the title bar, better buttons ..." ).
@@ -225,6 +250,7 @@ public class LinkCollection {
                     address( "http://www.medsea.eu/mime-util/", SOURCEFORGE ).
                     apache2().
                     depends( SLF4_J ).
+                    version( "2.1.3" ).
                     provides( "mime-util-2.1.3.jar" );
 
         lib(MUCHSOFT_SYS).
@@ -252,12 +278,14 @@ public class LinkCollection {
                     description( "A textarea subclass enhanced by a lot of typical texteditor feature").
                     address( "http://fifesoft.com/rsyntaxtextarea/", "fifesoft.org" ).
                     lgpl().
+                    version( "1.4.0" ).
                     provides( "rsyntaxtextarea.jar" );
 
         lib(SLF4_J).
                     description( "The simple logging facade for java abstracts several java logging implementations").
                     address( "http://www.slf4j.org/", "slf4.org" ).
                     mit().
+                    version("1.5.10").
                     provides( "slf4j-simple-1.5.10.jar" ). // and more
                     provides( "slf4j-api-1.5.10.jar" );
 
@@ -317,7 +345,7 @@ public class LinkCollection {
                     description( "encrypting texteditor" ).
                     address( "http://code.google.com/p/stroy", CODE_GOOGLE).
                     mpl().
-                    version("0.7.0").
+                    version("0.9.0").
                     depends(DEPEND_LANG).
                     depends(MAC_WIDGETS).
                     depends(DESIGNGRIDLAYOUT).
@@ -366,21 +394,26 @@ public class LinkCollection {
                     depends(DEPEND_LANG).
                     depends(GUICE).
                     depends(JAVAGRAPHICS_PREFERENCEPANEL).
+                    depends(RSYNTAX_TEXTAREA).
                     depends(JGOODIES_BINDING);
 
         other(MOTPE ).
                 description( "March of the Pink Elephants: ant based build system to build all" ).
                 address( "http://stroy.wikidot.com/motpe", "wikidot").
                 depends( JARBUNDLER ).
+                // depends( JDEP ).
+                depends( ANT_DEB_TASK ).
+                depends( LAUNCH4J ).
+                depends( ANT_CONTRIB ).
                 other_depends( PROJECT_DEPENDENCIES_USING_ANT ).
-                other_depends( "AntDMG" );
+                other_depends( ANT_DMG );
 
 
         other(PROJECT_DEPENDENCIES_USING_ANT ).
                 description( "Project Dependencies Using Ant" ).
                 address( "http://www.exubero.com/ant/dependencies.html", "exubero.com" );
 
-        other( "AntDMG" ).
+        other(ANT_DMG).
                 description( "Create osx DMGs from ant" ).
                 address( "http://www.rkuntz.org/pmwiki.php?n=Code.AntDiskImage", "rkuntz.org" );
 

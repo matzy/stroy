@@ -2,7 +2,7 @@
 <project name="io" default="default" basedir=".">
 
     <property  name = "version"       value="0.0.2" />
-    <property  name = "company.name" value="openCage"/>
+    <property  name = "groupId" value="openCage"/>
     
     
     <import file="../../build-resources/build-common.xml"/>

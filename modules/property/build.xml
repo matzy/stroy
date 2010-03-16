@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="property" default="default" basedir=".">
     <property  name = "version" value="0.0.1" />
-    <property  name = "company.name" value="openCage"/>
+    <property  name = "groupId" value="openCage"/>
     
 
     <import file="../../build-resources/build-common.xml"/>

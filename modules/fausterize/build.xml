@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="fausterize" default="default" basedir=".">
 
-    <property name = "version"  value="0.8.1" />
+    <property name = "version"  value="0.9.0" />
 
     <property name = "isApp" value="true"/>
 
-    <property name = "buildnumber"     value="406"/>
+    <property name = "buildnumber"     value="419"/>
     <property name = "app.main"        value="org.openCage.gpad.UIMain"/>
     <property name = "app.name"        value="fausterize"/>
     <property name = "app.signature"   value="faust"/>
     <property name = "app.bundleid"    value="org.openCage.fausterize"/>
     <property name = "app.icon.osx"    value="org/openCage/gpad/resources/fausterize.icns"/>
     <property name = "app.helpbook"    value="HelpBook"/>
-    <property name = "company.name" value="openCage"/>
+    <property name = "app.icon.small.png" value="org/openCage/gpad/resources/fausterize-small.png"/>
 
 
+    <import file="../../common.xml"/>
     <import file="../../build-resources/build-common.xml"/>
 </project>

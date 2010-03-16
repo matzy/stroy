@@ -2,7 +2,7 @@
 <project name="application" default="default" basedir=".">
     <property  name = "version"       value="0.0.1" />
     <property  name = "app.main"          value="org.openCage.application.demo.Demo"/>
-    <property  name = "company.name" value="openCage"/>
+    <property  name = "groupId" value="openCage"/>
     
     <import file="../../build-resources/build-common.xml"/>
 </project>

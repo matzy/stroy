@@ -4,7 +4,7 @@
 
     <!-- March of the Pink Elephants                      -->
     <!-- ant based full build system for java projects    -->
-    <!-- version: 0.2                                     -->
+    <!-- version: 0.3                                     -->
     <!-- licence: MPL1.1                                  -->
     <!-- home: http://stroy.wikidot.com/motpe             -->
     <!-- contact: openCage@gmail.com                      -->
@@ -21,8 +21,9 @@
     <property name="app.signature" value="${ant.project.name}"/>
     <property name="app.bundleid" value="elph"/>
     <property name="app.icon.osx" value=""/>
+    <property name="app.icon.small.png" value=""/>
     <property name="app.helpbook" value=""/>
-    <property name="company.name" value="elephants"/>
+    <property name="groupId" value="elephants"/>
 
 
     <!-- ====== properties ========== -->
@@ -231,7 +232,7 @@ deb=com.googlecode.ant_deb_task.Deb
     <!--      jar      -->
     <target name="create-jar" depends="compile,create-manifest">
         <echo message="${ant.project.name} - build-common.dist"/>
-        <jar jarfile="${libs}/${company.name}-${ant.project.name}-${version}.jar"
+        <jar jarfile="${libs}/${groupId}-${ant.project.name}-${version}.jar"
              manifest="${resources}/manifest.mf">
             <fileset dir="${classes}" excludes="**/*test*"/>
         </jar>
@@ -392,12 +393,12 @@ deb=com.googlecode.ant_deb_task.Deb
                 </if>
 
                 <!-- unix shell script (sh) -->
-                <echo message="java -jar resources/java/${company.name}-${ant.project.name}-${version}.jar"
+                <echo message="java -jar resources/java/${groupId}-${ant.project.name}-${version}.jar"
                       file="${deploy}/xplatform/${app.name}/${app.name}.sh"/>
                 <chmod file="${deploy}/xplatform/${app.name}/${app.name}.sh" perm="ugo+x"/>
 
                 <!-- windows command script -->
-                <echo message="java -jar resources/java/${company.name}-${ant.project.name}-${version}.jar"
+                <echo message="java -jar resources/java/${groupId}-${ant.project.name}-${version}.jar"
                       file="${deploy}/xplatform/${app.name}/${app.name}.cmd"/>
 
                 <zip destfile="${deploy}/xplatform/${app.name}-${version}.zip" basedir="${deploy}/xplatform/${app.name}"/>
@@ -530,7 +531,7 @@ deb=com.googlecode.ant_deb_task.Deb
                 toFile="${deploy}/debian/${app.name}.desktop"
                 name="${app.name}"
                 comment="fooo comment"
-                exec="java -jar /usr/share/${app.name}/resources/java/${company.name}-${ant.project.name}-${version}.jar"
+                exec="java -jar /usr/share/${app.name}/resources/java/${groupId}-${ant.project.name}-${version}.jar"
                 path="/usr/share/${app.name}/"
                 icon="/usr/share/${app.name}/logo_16x16.gif"
                 categories="Utility;Java"
@@ -547,6 +548,13 @@ deb=com.googlecode.ant_deb_task.Deb
             <copy todir="${deploy}/debian/${app.name}/resources/java">
                 <fileset refid="internalsSet"/>
             </copy>
+
+            <if>
+                <available file="${src}/${app.icon.small.png}"/>
+                <then>
+                    <copy todir= "${deploy}/debian/${app.name}" file="${src}/${app.icon.small.png}"/>
+                </then>
+            </if>
 
             <if>
                 <available file="${resources}/helpbook"/>
@@ -568,9 +576,8 @@ deb=com.googlecode.ant_deb_task.Deb
                 <description synopsis="Foo">
                     foo is a foo.
                 </description>
-                <tarfileset dir="${deploy}/debian/${app.name}" prefix="usr/share/${app.name}">
-                    <include name="**.*"/>
-                </tarfileset>
+
+                <tarfileset dir="${deploy}/debian/${app.name}" prefix="usr/share/${app.name}"/>
                 <!--<tarfileset dir="${deploy}/debian/" prefix="usr/share/doc/${app.name}">-->
                     <!--<exclude name="*.jar"/>-->
                     <!--<exclude name="*.gif"/>-->
