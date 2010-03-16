@@ -482,7 +482,7 @@
     <target name="debian-pgk" depends="create-jar">
            <if>
                 <isset property="isApp"/>
-           <then>
+           <then>                 a
 
             <mkdir dir="${deploy}/linux/${app.name}/tmp/control"/>
             <copy todir="${deploy}/linux/${app.name}/tmp/control">
