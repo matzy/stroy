@@ -24,6 +24,11 @@
     <property name="app.icon.small.png" value=""/>
     <property name="app.helpbook" value=""/>
     <property name="groupId" value="elephants"/>
+    <property name="java.version" value="6" />
+    <property name="app.description.short" value="" />
+    <property name="app.description.full" value="" />
+    <property name="author.name" value="anymous" />
+    <property name="author.contact" value="404" />
 
 
     <!-- ====== properties ========== -->
@@ -533,7 +538,7 @@ deb=com.googlecode.ant_deb_task.Deb
                 comment="fooo comment"
                 exec="java -jar /usr/share/${app.name}/resources/java/${groupId}-${ant.project.name}-${version}.jar"
                 path="/usr/share/${app.name}/"
-                icon="/usr/share/${app.name}/logo_16x16.gif"
+                icon="/usr/share/${app.name}/${app.name}.png"
                 categories="Utility;Java"
                 />
         </then>
@@ -552,7 +557,7 @@ deb=com.googlecode.ant_deb_task.Deb
             <if>
                 <available file="${src}/${app.icon.small.png}"/>
                 <then>
-                    <copy todir= "${deploy}/debian/${app.name}" file="${src}/${app.icon.small.png}"/>
+                    <copy tofile= "${deploy}/debian/${app.name}/${app.name}.png" file="${src}/${app.icon.small.png}" failonerror="true" overwrite="true"/>
                 </then>
             </if>
 
@@ -565,16 +570,25 @@ deb=com.googlecode.ant_deb_task.Deb
                 </then>
             </if>
 
+            <!-- unix shell script (sh) -->
+            <echo message="java -jar resources/java/${groupId}-${ant.project.name}-${version}.jar"
+                  file="${deploy}/debian/${app.name}/${app.name}.sh"/>
+            <chmod file="${deploy}/debian/${app.name}/${app.name}.sh" perm="ugo+x"/>
+
+            <condition property="deb.depends" value="openjdk-6-jre | sun-java6-jre" else="">
+                <equals arg1="${java.version}" arg2="6"/>
+            </condition>
+
             <deb
-                todir="${deploy}/debian"
+                todir  ="${deploy}/debian"
                 package="${app.name}"
                 section="utils"
-                depends="sun-java6-jre"
+                depends="openjdk-6-jre"
             >
                 <version upstream="${version}"/>
-                <maintainer email="openCage@gmail.com"/>
-                <description synopsis="Foo">
-                    foo is a foo.
+                <maintainer email="${author.contact}"/>
+                <description synopsis="${app.description.short}">
+                    ${app.description.full}
                 </description>
 
                 <tarfileset dir="${deploy}/debian/${app.name}" prefix="usr/share/${app.name}"/>
@@ -594,7 +608,7 @@ deb=com.googlecode.ant_deb_task.Deb
         </copy>
     </target>
 
-    <target name="goal" depends="xplatform-app, osx-app, dmg, debian-pkg"/>
+    <target name="goal" depends="xplatform-app, dmg, debian-pkg"/>
 
     <target name="dist.dependencies">
         <antcall target="depend.${ant.project.name}"/>

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <project name="common">
-    <property name="author" value="Stephan Pfab" />
-    <property name="licence" value="MPL1.1" />
     <property name="groupId" value="openCage" />
+    <property name="author.name" value="Stephan Pfab" />
+    <property name="author.contact" value="openCage@gmail.com" />
+    <property name="licence" value="MPL1.1" />
+    <property name="java.version" value="6" />
 </project>
