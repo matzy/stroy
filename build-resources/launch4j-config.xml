@@ -1,0 +1,55 @@
+<launch4jConfig>
+  <dontWrapJar>true</dontWrapJar>
+  <headerType>gui</headerType>
+<!--  <jar>resources\java\openCage-fausterize-0.8.1.jar</jar> -->
+  <jar>[mainjar]</jar>
+<!--   <outfile>C:\prs\stroy\build\deploy\fausterize\xplatform\fausterize\f.exe</outfile> -->
+  <outfile>[output]/outfile>
+  <errTitle></errTitle>
+  <cmdLine></cmdLine>
+  <chdir>.</chdir>
+  <priority>normal</priority>
+  <downloadUrl>http://java.com/download</downloadUrl>
+  <supportUrl></supportUrl>
+  <customProcName>false</customProcName>
+  <stayAlive>true</stayAlive>
+  <manifest></manifest>
+  <icon></icon>
+  <classPath>
+    <mainClass>[mainClass]</mainClass>
+    [jarList]
+<!--
+    <cp>PreferencePanel.jar</cp>
+    <cp>Sys.jar</cp>
+    <cp>annotations.jar</cp>
+    <cp>args4j-2.0.10.jar</cp>
+    <cp>binding-2.0.6.jar</cp>
+    <cp>commons-io-1.4.jar</cp>
+    <cp>commons-lang-2.4.jar</cp>
+    <cp>designgridlayout-0.9.jar</cp>
+    <cp>forms-1.2.1.jar</cp>
+    <cp>guice-2.0.jar</cp>
+    <cp>jcip-annotations.jar</cp>
+    <cp>mac_widgets-0.9.5.jar</cp>
+    <cp>mime-util-2.1.3.jar</cp>
+    <cp>openCage-application-0.0.1.jar</cp>
+    <cp>openCage-io-0.0.2.jar</cp>
+    <cp>openCage-lang-0.0.3.jar</cp>
+    <cp>openCage-localization-0.0.2.jar</cp>
+    <cp>openCage-property-0.0.1.jar</cp>
+    <cp>openCage-ui-0.0.3.jar</cp>
+    <cp>rsyntaxtextarea.jar</cp>
+    <cp>slf4j-api-1.5.10.jar</cp>
+    <cp>slf4j-simple-1.5.10.jar</cp>
+    <cp>swing-layout-1.0.2.jar</cp>
+    <cp>xstream-1.3.1.jar</cp>
+    -->
+  </classPath>
+  <jre>
+    <path></path>
+<!--    <minVersion>1.6.0</minVersion> -->
+    <minVersion>[java.version.min]</minVersion>
+    <maxVersion></maxVersion>
+    <jdkPreference>preferJre</jdkPreference>
+  </jre>
+</launch4jCon
