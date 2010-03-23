@@ -4,7 +4,7 @@
 <!--  <jar>resources\java\openCage-fausterize-0.8.1.jar</jar> -->
   <jar>[mainjar]</jar>
 <!--   <outfile>C:\prs\stroy\build\deploy\fausterize\xplatform\fausterize\f.exe</outfile> -->
-  <outfile>[output]/outfile>
+  <outfile>[output]</outfile>
   <errTitle></errTitle>
   <cmdLine></cmdLine>
   <chdir>.</chdir>
@@ -52,4 +52,4 @@
     <maxVersion></maxVersion>
     <jdkPreference>preferJre</jdkPreference>
   </jre>
-</launch4jCon
+</launch4jConfig>
