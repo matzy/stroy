@@ -43,7 +43,6 @@
     <property name="deploy" value="${dependencies.basedir}/build/deploy/${ant.project.name}"/>
     <property name="src" value="${module}/src"/>
     <property name="helpbooksrc" value="${module}/${app.helpbook}"/>
-    <!--<property name="jar-name"        value="openCage-${ant.project.name}-${version}.jar"/>-->
 
     <condition property="isOSX">
         <and>
@@ -69,16 +68,6 @@
             <os family="unix"/>
         </and>
     </condition>
-    <!--<condition property="isOSXApp">-->
-        <!--<and>-->
-            <!--<not>-->
-                <!--<equals arg1="${app.icon.osx}" arg2=""/>-->
-            <!--</not>-->
-            <!--<not>-->
-                <!--<equals arg1="${app.bundleid}" arg2=""/>-->
-            <!--</not>-->
-        <!--</and>-->
-    <!--</condition>-->
     <condition property="osx.icon" value="${src}/${app.icon.osx}" else="${dependencies.basedir}/build-resources/elephant.icns">
         <and>
             <not><equals arg1="${app.icon.osx}" arg2="" /></not>
@@ -107,15 +96,6 @@
              classname="net.sourceforge.jarbundler.JarBundler"/>
 
 
-    <!-- debian package builder -->
-    <!--<taskdef name="deb"-->
-             <!--classpath="${dependencies.basedir}/external/build/jdeb-0.7.jar"-->
-             <!--classname="org.vafer.jdeb.ant.DebAntTask"/>-->
-
-    <!--
-desktopentry=com.googlecode.ant_deb_task.DesktopEntry
-deb=com.googlecode.ant_deb_task.Deb
--->
     <!-- ant-deb-task -->
     <taskdef name="deb"
              classpath="${dependencies.basedir}/external/build/ant-deb-0.0.1.jar"
@@ -127,9 +107,9 @@ deb=com.googlecode.ant_deb_task.Deb
 
 
     <!-- windows exe builder -->
-     <taskdef name="launch4j"
-              classname="net.sf.launch4j.ant.Launch4jTask"
-              classpath="${dependencies.basedir}/external/build/launch4j.jar" />
+    <taskdef name="launch4j"
+             classname="net.sf.launch4j.ant.Launch4jTask"
+             classpath="${dependencies.basedir}/external/build/launch4j.jar:${dependencies.basedir}/external/production/xstream-1.3.1.jar" />
     <!-- which xstream to pick -->
     <!-- classpath="${dependencies.basedir}/external/build/launch4j.jar:${launch4j.dir}/lib/xstream.jar" /> -->
 
@@ -321,53 +301,53 @@ deb=com.googlecode.ant_deb_task.Deb
                 <isset property="isApp"/>
             </and>
             <then>
-                    <!-- location changed to help with zipping, ant copy does not work for osx-apps -->
-                    <mkdir dir="${deploy}/osx/${app.name}"/>
-                    <jarbundler dir="${deploy}/osx/${app.name}"
-                                verbose="true"
-                                name="${app.name}"
-                                shortname="${app.name}"
-                                stubfile="${app.name}"
-                                signature="${app.signature}"
-                                mainclass="${app.main}"
-                                jvmversion="1.6+"
-                                version="${version}"
-                                infostring="${app.name}, MPL1.1"
-                                build="${buildnumber}"
-                                bundleid="${app.bundleid}"
-                                icon="${osx.icon}"
-                                helpbookfolder="HelpBook"
-                                helpbookname="${app.name}"
-                            >
-                        <jarfileset refid="internalsSet"/>
+                <!-- location changed to help with zipping, ant copy does not work for osx-apps -->
+                <mkdir dir="${deploy}/osx/${app.name}"/>
+                <jarbundler dir="${deploy}/osx/${app.name}"
+                            verbose="true"
+                            name="${app.name}"
+                            shortname="${app.name}"
+                            stubfile="${app.name}"
+                            signature="${app.signature}"
+                            mainclass="${app.main}"
+                            jvmversion="1.6+"
+                            version="${version}"
+                            infostring="${app.name}, MPL1.1"
+                            build="${buildnumber}"
+                            bundleid="${app.bundleid}"
+                            icon="${osx.icon}"
+                            helpbookfolder="HelpBook"
+                            helpbookname="${app.name}"
+                        >
+                    <jarfileset refid="internalsSet"/>
 
-                        <!-- Copy the HelpBook JNI library  -->
-                        <!--<javafilelist dir="${objc-libs}" files="libHelpBookJNI.jnilib"/>-->
+                    <!-- Copy the HelpBook JNI library  -->
+                    <!--<javafilelist dir="${objc-libs}" files="libHelpBookJNI.jnilib"/>-->
 
-                        <javaproperty name="apple.laf.useScreenMenuBar" value="true"/>
-                        <javaproperty name="com.apple.macos.useScreenMenuBar" value="true"/>
+                    <javaproperty name="apple.laf.useScreenMenuBar" value="true"/>
+                    <javaproperty name="com.apple.macos.useScreenMenuBar" value="true"/>
 
-                        <HelpBook locale="English">
-                            <fileset dir="${resources}/helpbook/English.lproj/HelpBook"/>
-                        </HelpBook>
+                    <HelpBook locale="English">
+                        <fileset dir="${resources}/helpbook/English.lproj/HelpBook"/>
+                    </HelpBook>
 
-                        <HelpBook locale="German">
-                            <fileset dir="${resources}/helpbook/German.lproj/HelpBook"/>
-                        </HelpBook>
+                    <HelpBook locale="German">
+                        <fileset dir="${resources}/helpbook/German.lproj/HelpBook"/>
+                    </HelpBook>
 
-                        <HelpBook locale="Japanese">
-                            <fileset dir="${resources}/helpbook/Japanese.lproj/HelpBook"/>
-                        </HelpBook>
+                    <HelpBook locale="Japanese">
+                        <fileset dir="${resources}/helpbook/Japanese.lproj/HelpBook"/>
+                    </HelpBook>
 
-                    </jarbundler>
+                </jarbundler>
 
-                    <!--<copy todir="${deploy}/osx/${app.name}" >-->
-                    <!--<fileset dir="${deploy}/osx/" >-->
-                    <!--<exclude name="${app.name}"/>-->
-                    <!--</fileset>-->
-                    <!--</copy>-->
-                    <zip destfile="${deploy}/osx/${app.name}.app-${version}.zip"
-                         basedir="${deploy}/osx/${app.name}"/>
+                <!--<copy todir="${deploy}/osx/${app.name}" >-->
+                <!--<fileset dir="${deploy}/osx/" >-->
+                <!--<exclude name="${app.name}"/>-->
+                <!--</fileset>-->
+                <!--</copy>-->
+                <zip destfile="${deploy}/osx/${app.name}.app-${version}.zip"
+                     basedir="${deploy}/osx/${app.name}"/>
             </then>
             <else>
                 <echo message="not all properties set to build an osx.app"/>
@@ -422,185 +402,212 @@ deb=com.googlecode.ant_deb_task.Deb
             </and>
             <then>
 
-        <!-- Set this property value to your application name -->
-        <!--<property name="app.name"-->
-                  <!--value="MY_APPLICATION_NAME"/>-->
+                <!-- Set this property value to your application name -->
+                <!--<property name="app.name"-->
+                <!--value="MY_APPLICATION_NAME"/>-->
 
-        <!-- Set this property value to a directory where you can
- mount temporarily your images, for example /tmp -->
-        <property name="mountdir"
-                  value="/tmp"/>
+                <!-- Set this property value to a directory where you can
+         mount temporarily your images, for example /tmp -->
+                <property name="mountdir"
+                          value="/tmp"/>
 
-        <!-- Delete previously created DMG -->
-        <!--<delete file="${app.name}.dmg}"-->
+                <!-- Delete previously created DMG -->
+                <!--<delete file="${app.name}.dmg}"-->
                 <!--quiet="yes" failonerror="false"/>-->
 
-        <property name="tmpdmg" value="${deploy}/osx/${app.name}-tmp.dmg"/>
+                <property name="tmpdmg" value="${deploy}/osx/${app.name}-tmp.dmg"/>
 
-        <!-- Create a temporary Disk Image -->
-        <exec executable="/usr/bin/hdiutil" os="Mac OS X" failonerror="true">
-            <arg value="create"/>
-            <arg value="-srcfolder"/>
-            <arg value="${deploy}/osx/${app.name}/${app.name}.app"/>
-            <arg value="-volname"/>
-            <arg value="${app.name}"/>
-            <arg value="-ov"/>
-            <arg value="${tmpdmg}"/>
-            <arg value="-format"/>
-            <arg value="UDRW"/>
-        </exec>
+                <!-- Create a temporary Disk Image -->
+                <exec executable="/usr/bin/hdiutil" os="Mac OS X" failonerror="true">
+                    <arg value="create"/>
+                    <arg value="-srcfolder"/>
+                    <arg value="${deploy}/osx/${app.name}/${app.name}.app"/>
+                    <arg value="-volname"/>
+                    <arg value="${app.name}"/>
+                    <arg value="-ov"/>
+                    <arg value="${tmpdmg}"/>
+                    <arg value="-format"/>
+                    <arg value="UDRW"/>
+                </exec>
 
-        <!-- Attach the temporary image -->
-        <exec executable="/usr/bin/hdiutil" os="Mac OS X" failonerror="true">
-            <arg value="attach"/>
-            <arg value="${tmpdmg}"/>
-            <arg value="-mountroot"/>
-            <arg value="${mountdir}/"/>
-        </exec>
+                <!-- Attach the temporary image -->
+                <exec executable="/usr/bin/hdiutil" os="Mac OS X" failonerror="true">
+                    <arg value="attach"/>
+                    <arg value="${tmpdmg}"/>
+                    <arg value="-mountroot"/>
+                    <arg value="${mountdir}/"/>
+                </exec>
 
-        <!-- Copy the background, the volume icon and DS_Store files -->
-        <mkdir dir="${mountdir}/${app.name}/.background"/>
-        <copy file="${osx.background-png}"
-              tofile="${mountdir}/${app.name}/.background/background.png"
-              overwrite="true"/>
-        <copy file="${osx.icon}"
-              tofile="${mountdir}/${app.name}/.VolumeIcon.icns"
-              overwrite="true"/>
-        <!--<copy file="DS_Store"-->
-              <!--tofile="${mountdir}/${app.name}/.DS_Store"-->
-              <!--overwrite="true"/>-->
+                <!-- Copy the background, the volume icon and DS_Store files -->
+                <mkdir dir="${mountdir}/${app.name}/.background"/>
+                <copy file="${osx.background-png}"
+                      tofile="${mountdir}/${app.name}/.background/background.png"
+                      overwrite="true"/>
+                <copy file="${osx.icon}"
+                      tofile="${mountdir}/${app.name}/.VolumeIcon.icns"
+                      overwrite="true"/>
+                <!--<copy file="DS_Store"-->
+                <!--tofile="${mountdir}/${app.name}/.DS_Store"-->
+                <!--overwrite="true"/>-->
 
-        <!-- Indicate that we want a custom icon -->
-        <exec executable="/Developer/Tools/SetFile" os="Mac OS X">
-            <arg value="-a"/>
-            <arg value="C"/>
-            <arg value="${mountdir}/${app.name}"/>
-        </exec>
+                <!-- Indicate that we want a custom icon -->
+                <exec executable="/Developer/Tools/SetFile" os="Mac OS X">
+                    <arg value="-a"/>
+                    <arg value="C"/>
+                    <arg value="${mountdir}/${app.name}"/>
+                </exec>
 
-        <!-- Add a symbolic link to the Applications directory -->
-        <symlink link="${mountdir}/${app.name}" resource="/Applications"/>
+                <!-- Add a symbolic link to the Applications directory -->
+                <symlink link="${mountdir}/${app.name}" resource="/Applications"/>
 
-        <!-- Detach the temporary image -->
-        <exec executable="/usr/bin/hdiutil" os="Mac OS X" failonerror="true">
-            <arg value="detach"/>
-            <arg value="${mountdir}/${app.name}"/>
-        </exec>
+                <!-- Detach the temporary image -->
+                <exec executable="/usr/bin/hdiutil" os="Mac OS X" failonerror="true">
+                    <arg value="detach"/>
+                    <arg value="${mountdir}/${app.name}"/>
+                </exec>
 
-        <!-- Compress it to a new image -->
-        <exec executable="/usr/bin/hdiutil" os="Mac OS X" failonerror="true">
-            <arg value="convert"/>
-            <arg value="${tmpdmg}"/>
-            <arg value="-format"/>
-            <arg value="UDZO"/>
-            <arg value="-o"/>
-            <arg value="${deploy}/osx/${app.name}.dmg"/>
-        </exec>
+                <!-- Compress it to a new image -->
+                <exec executable="/usr/bin/hdiutil" os="Mac OS X" failonerror="true">
+                    <arg value="convert"/>
+                    <arg value="${tmpdmg}"/>
+                    <arg value="-format"/>
+                    <arg value="UDZO"/>
+                    <arg value="-o"/>
+                    <arg value="${deploy}/osx/${app.name}.dmg"/>
+                </exec>
 
-        <!-- Delete the temporary image -->
-        <delete file="${app.name}-tmp.dmg"
-                quiet="yes" failonerror="false"/>
-        </then>
+                <!-- Delete the temporary image -->
+                <delete file="${app.name}-tmp.dmg"
+                        quiet="yes" failonerror="false"/>
+            </then>
         </if>
     </target>
 
     <!--&lt;!&ndash; EXPERIMENTAL &ndash;&gt;-->
     <!--<target name="debian-pgk" depends="create-jar">-->
-           <!--<if>-->
-                <!--<isset property="isApp"/>-->
-           <!--<then>-->
+    <!--<if>-->
+    <!--<isset property="isApp"/>-->
+    <!--<then>-->
 
-            <!--<mkdir dir="${deploy}/linux/${app.name}/tmp/control"/>-->
-            <!--<copy todir="${deploy}/linux/${app.name}/tmp/control">-->
-                <!--<fileset dir="${src}/org/openCage/gpad"/>-->
-                <!--&lt;!&ndash;<fileset dir="src/main/resources/deb/control"/>&ndash;&gt;-->
-                <!--<filterset begintoken="[[" endtoken="]]">-->
-                <!--<filter token="version" value="${version}"/>-->
-                <!--<filter token="name" value="${app.name}"/>-->
-              <!--</filterset>-->
-            <!--</copy>-->
+    <!--<mkdir dir="${deploy}/linux/${app.name}/tmp/control"/>-->
+    <!--<copy todir="${deploy}/linux/${app.name}/tmp/control">-->
+    <!--<fileset dir="${src}/org/openCage/gpad"/>-->
+    <!--&lt;!&ndash;<fileset dir="src/main/resources/deb/control"/>&ndash;&gt;-->
+    <!--<filterset begintoken="[[" endtoken="]]">-->
+    <!--<filter token="version" value="${version}"/>-->
+    <!--<filter token="name" value="${app.name}"/>-->
+    <!--</filterset>-->
+    <!--</copy>-->
 
-            <!--&lt;!&ndash;<deb destfile="${deploy}/linux/${app.name}.deb" control="${deploy}/linux/${app.name}/tmp/control">&ndash;&gt;-->
-              <!--&lt;!&ndash;<data refid="internalsSet" >&ndash;&gt;-->
-              <!--&lt;!&ndash;</data>&ndash;&gt;-->
-            <!--&lt;!&ndash;</deb>&ndash;&gt;-->
-        <!--</then>-->
-        <!--</if>-->
+    <!--&lt;!&ndash;<deb destfile="${deploy}/linux/${app.name}.deb" control="${deploy}/linux/${app.name}/tmp/control">&ndash;&gt;-->
+    <!--&lt;!&ndash;<data refid="internalsSet" >&ndash;&gt;-->
+    <!--&lt;!&ndash;</data>&ndash;&gt;-->
+    <!--&lt;!&ndash;</deb>&ndash;&gt;-->
+    <!--</then>-->
+    <!--</if>-->
 
     <!--</target>-->
 
     <target name="linux-dektop-description" depends="prepare">
         <if>
-             <isset property="isApp"/>
-        <then>
-            <desktopentry
-                toFile="${deploy}/debian/${app.name}.desktop"
-                name="${app.name}"
-                comment="fooo comment"
-                exec="java -jar /usr/share/${app.name}/resources/java/${groupId}-${ant.project.name}-${version}.jar"
-                path="/usr/share/${app.name}/"
-                icon="/usr/share/${app.name}/${app.name}.png"
-                categories="Utility;Java"
-                />
-        </then>
+            <isset property="isApp"/>
+            <then>
+                <desktopentry
+                        toFile="${deploy}/debian/${app.name}.desktop"
+                        name="${app.name}"
+                        comment="fooo comment"
+                        exec="java -jar /usr/share/${app.name}/resources/java/${groupId}-${ant.project.name}-${version}.jar"
+                        path="/usr/share/${app.name}/"
+                        icon="/usr/share/${app.name}/${app.name}.png"
+                        categories="Utility;Java"
+                        />
+            </then>
         </if>
     </target>
 
     <target name="debian-pkg" depends="linux-dektop-description,create-jar" >
         <if>
-             <isset property="isApp"/>
-        <then>
-            <mkdir dir="${deploy}/debian/${app.name}/resources/java"/>
-            <copy todir="${deploy}/debian/${app.name}/resources/java">
-                <fileset refid="internalsSet"/>
-            </copy>
+            <isset property="isApp"/>
+            <then>
+                <mkdir dir="${deploy}/debian/${app.name}/resources/java"/>
+                <copy todir="${deploy}/debian/${app.name}/resources/java">
+                    <fileset refid="internalsSet"/>
+                </copy>
 
-            <if>
-                <available file="${src}/${app.icon.small.png}"/>
-                <then>
-                    <copy tofile= "${deploy}/debian/${app.name}/${app.name}.png" file="${src}/${app.icon.small.png}" failonerror="true" overwrite="true"/>
-                </then>
-            </if>
+                <if>
+                    <available file="${src}/${app.icon.small.png}"/>
+                    <then>
+                        <copy tofile= "${deploy}/debian/${app.name}/${app.name}.png" file="${src}/${app.icon.small.png}" failonerror="true" overwrite="true"/>
+                    </then>
+                </if>
 
-            <if>
-                <available file="${resources}/helpbook"/>
-                <then>
-                    <copy todir="${deploy}/debian/${app.name}/resources">
-                        <fileset dir="${resources}/helpbook"/>
-                    </copy>
-                </then>
-            </if>
+                <if>
+                    <available file="${resources}/helpbook"/>
+                    <then>
+                        <copy todir="${deploy}/debian/${app.name}/resources">
+                            <fileset dir="${resources}/helpbook"/>
+                        </copy>
+                    </then>
+                </if>
 
-            <!-- unix shell script (sh) -->
-            <echo message="java -jar resources/java/${groupId}-${ant.project.name}-${version}.jar"
-                  file="${deploy}/debian/${app.name}/${app.name}.sh"/>
-            <chmod file="${deploy}/debian/${app.name}/${app.name}.sh" perm="ugo+x"/>
+                <!-- unix shell script (sh) -->
+                <echo message="java -jar resources/java/${groupId}-${ant.project.name}-${version}.jar"
+                      file="${deploy}/debian/${app.name}/${app.name}.sh"/>
+                <chmod file="${deploy}/debian/${app.name}/${app.name}.sh" perm="ugo+x"/>
 
-            <condition property="deb.depends" value="openjdk-6-jre | sun-java6-jre" else="">
-                <equals arg1="${java.version}" arg2="6"/>
-            </condition>
+                <condition property="deb.depends" value="openjdk-6-jre | sun-java6-jre" else="">
+                    <equals arg1="${java.version}" arg2="6"/>
+                </condition>
 
-            <deb
-                todir  ="${deploy}/debian"
-                package="${app.name}"
-                section="utils"
-                depends="openjdk-6-jre"
-            >
-                <version upstream="${version}"/>
-                <maintainer email="${author.contact}"/>
-                <description synopsis="${app.description.short}">
-                    ${app.description.full}
-                </description>
+                <deb
+                        todir  ="${deploy}/debian"
+                        package="${app.name}"
+                        section="utils"
+                        depends="openjdk-6-jre"
+                        >
+                    <version upstream="${version}"/>
+                    <maintainer email="${author.contact}"/>
+                    <description synopsis="${app.description.short}">
+                        ${app.description.full}
+                    </description>
 
-                <tarfileset dir="${deploy}/debian/${app.name}" prefix="usr/share/${app.name}"/>
-                <!--<tarfileset dir="${deploy}/debian/" prefix="usr/share/doc/${app.name}">-->
+                    <tarfileset dir="${deploy}/debian/${app.name}" prefix="usr/share/${app.name}"/>
+                    <!--<tarfileset dir="${deploy}/debian/" prefix="usr/share/doc/${app.name}">-->
                     <!--<exclude name="*.jar"/>-->
                     <!--<exclude name="*.gif"/>-->
-                <!--</tarfileset>-->
-                <tarfileset file="${deploy}/debian/${app.name}.desktop" prefix="usr/share/applications"/>
-            </deb>
-        </then>
+                    <!--</tarfileset>-->
+                    <tarfileset file="${deploy}/debian/${app.name}.desktop" prefix="usr/share/applications"/>
+                </deb>
+            </then>
         </if>
     </target>
+
+    <target name="exe" depends="dist">
+
+        <if>
+            <isset property="isApp"/>
+            <then>
+                <pathconvert property="l4j.1" pathsep="&lt;/cp&gt;&lt;cp&gt;" refid="jars">
+                    <map from="${libs}/" to=""/>
+                </pathconvert>
+
+                <property name="l4j.3" value="&lt;cp&gt;${l4j.1}&lt;/cp&gt;" />
+
+                <echo  message="${l4j.3}" />
+
+                <copy file="${dependencies.basedir}/build-resources/launch4j-config.xml" todir="${deploy}/windows" />
+
+                <replace  file="${deploy}/windows/launch4j-config.xml" token="[jarList]" value="${l4j.3}" />
+                <replace  file="${deploy}/windows/launch4j-config.xml" token="[mainjar]" value="resources\java\${groupId}-${ant.project.name}-${version}.jar" />
+                <replace  file="${deploy}/windows/launch4j-config.xml" token="[output]" value="${deploy}/windows/${ant.project.name}.exe" />
+                <replace  file="${deploy}/windows/launch4j-config.xml" token="[mainClass]" value="${app.main}" />
+                <replace  file="${deploy}/windows/launch4j-config.xml" token="[java.version.min]" value="1.6" />
+
+                <launch4j configfile="${deploy}/windows/launch4j-config.xml" outfile="${deploy}/windows/${ant.project.name}-2.exe" />
+            </then>
+        </if>
+    </target>
+
 
     <target name="dist" depends="create-jar">
         <copy todir="${dist}">
@@ -608,7 +615,7 @@ deb=com.googlecode.ant_deb_task.Deb
         </copy>
     </target>
 
-    <target name="goal" depends="xplatform-app, dmg, debian-pkg"/>
+    <target name="goal" depends="xplatform-app, dmg, debian-pkg, exe"/>
 
     <target name="dist.dependencies">
         <antcall target="depend.${ant.project.name}"/>
