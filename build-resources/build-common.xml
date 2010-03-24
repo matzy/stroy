@@ -587,19 +587,41 @@
         <if>
             <isset property="isApp"/>
             <then>
+                <mkdir dir="${deploy}/windows/${app.name}/resources/java"/>
+                <copy todir="${deploy}/windows/${app.name}/resources/java">
+                    <fileset refid="internalsSet"/>
+                </copy>
+
+                <if>
+                    <available file="${src}/${app.icon.small.png}"/>
+                    <then>
+                        <copy tofile= "${deploy}/windows/${app.name}/${app.name}.png" file="${src}/${app.icon.small.png}" failonerror="true" overwrite="true"/>
+                    </then>
+                </if>
+
+                <if>
+                    <available file="${resources}/helpbook"/>
+                    <then>
+                        <copy todir="${deploy}/windows/${app.name}/resources">
+                            <fileset dir="${resources}/helpbook"/>
+                        </copy>
+                    </then>
+                </if>
+
+                <!-- fill the launch4j config template  -->
+
+                <!--     create a path in the form <cp>jar1</cp><cp>jar2</cp>   -->
                 <pathconvert property="l4j.1" pathsep="&lt;/cp&gt;&lt;cp&gt;" refid="jars">
                     <map from="${libs}/" to=""/>
                 </pathconvert>
-
                 <property name="l4j.3" value="&lt;cp&gt;${l4j.1}&lt;/cp&gt;" />
-
-                <echo  message="${l4j.3}" />
 
                 <copy file="${dependencies.basedir}/build-resources/launch4j-config.xml" todir="${deploy}/windows" />
 
                 <replace  file="${deploy}/windows/launch4j-config.xml" token="[jarList]" value="${l4j.3}" />
-                <replace  file="${deploy}/windows/launch4j-config.xml" token="[mainjar]" value="resources\java\${groupId}-${ant.project.name}-${version}.jar" />
-                <replace  file="${deploy}/windows/launch4j-config.xml" token="[output]" value="${deploy}/windows/${ant.project.name}.exe" />
+                <!--<replace  file="${deploy}/windows/launch4j-config.xml" token="[mainjar]" value="resources\java\${groupId}-${ant.project.name}-${version}.jar" />-->
+                <replace  file="${deploy}/windows/launch4j-config.xml" token="[mainjar]" value="${groupId}-${ant.project.name}-${version}.jar" />
+                <replace  file="${deploy}/windows/launch4j-config.xml" token="[output]" value="${deploy}/windows/resources/java/${ant.project.name}.exe" />
                 <replace  file="${deploy}/windows/launch4j-config.xml" token="[mainClass]" value="${app.main}" />
                 <replace  file="${deploy}/windows/launch4j-config.xml" token="[java.version.min]" value="1.6" />
 
