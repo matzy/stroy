@@ -22,7 +22,7 @@
     <property name="app.bundleid" value="elph"/>
     <property name="app.icon.osx" value=""/>
     <property name="app.icon.small.png" value=""/>
-    <property name="app.icon.small.ico" value=""/>
+    <property name="app.icon.small.ico" value="-"/>
     <property name="app.helpbook" value=""/>
     <property name="groupId" value="elephants"/>
     <property name="java.version" value="6" />
@@ -328,17 +328,17 @@
                     <javaproperty name="apple.laf.useScreenMenuBar" value="true"/>
                     <javaproperty name="com.apple.macos.useScreenMenuBar" value="true"/>
 
-                    <HelpBook locale="English">
+                    <helpbook  locale="English">
                         <fileset dir="${resources}/helpbook/English.lproj/HelpBook"/>
-                    </HelpBook>
+                    </helpbook>
 
-                    <HelpBook locale="German">
+                    <helpbook locale="German">
                         <fileset dir="${resources}/helpbook/German.lproj/HelpBook"/>
-                    </HelpBook>
+                    </helpbook>
 
-                    <HelpBook locale="Japanese">
+                    <helpbook locale="Japanese">
                         <fileset dir="${resources}/helpbook/Japanese.lproj/HelpBook"/>
-                    </HelpBook>
+                    </helpbook>
 
                 </jarbundler>
 
@@ -484,31 +484,6 @@
         </if>
     </target>
 
-    <!--&lt;!&ndash; EXPERIMENTAL &ndash;&gt;-->
-    <!--<target name="debian-pgk" depends="create-jar">-->
-    <!--<if>-->
-    <!--<isset property="isApp"/>-->
-    <!--<then>-->
-
-    <!--<mkdir dir="${deploy}/linux/${app.name}/tmp/control"/>-->
-    <!--<copy todir="${deploy}/linux/${app.name}/tmp/control">-->
-    <!--<fileset dir="${src}/org/openCage/gpad"/>-->
-    <!--&lt;!&ndash;<fileset dir="src/main/resources/deb/control"/>&ndash;&gt;-->
-    <!--<filterset begintoken="[[" endtoken="]]">-->
-    <!--<filter token="version" value="${version}"/>-->
-    <!--<filter token="name" value="${app.name}"/>-->
-    <!--</filterset>-->
-    <!--</copy>-->
-
-    <!--&lt;!&ndash;<deb destfile="${deploy}/linux/${app.name}.deb" control="${deploy}/linux/${app.name}/tmp/control">&ndash;&gt;-->
-    <!--&lt;!&ndash;<data refid="internalsSet" >&ndash;&gt;-->
-    <!--&lt;!&ndash;</data>&ndash;&gt;-->
-    <!--&lt;!&ndash;</deb>&ndash;&gt;-->
-    <!--</then>-->
-    <!--</if>-->
-
-    <!--</target>-->
-
     <target name="linux-dektop-description" depends="prepare">
         <if>
             <isset property="isApp"/>
@@ -626,11 +601,14 @@
                 <replace  file="${deploy}/windows/launch4j-config.xml" token="[java.version.min]" value="1.6.0" /> <!-- TODO generate -->
 
                 <if>
-                    <available file="${app.icon.small.ico}"/>
+                    <available file="${src}/${app.icon.small.ico}"/>
                     <then>
                         <copy tofile= "${deploy}/windows/${app.name}/resources/java/${app.name}.ico" file="${src}/${app.icon.small.ico}" failonerror="true" overwrite="true"/>
-                        <replace  file="${deploy}/windows/launch4j-config.xml" token="[icon]" value="${app.name}.ico" />
+                        <replace  file="${deploy}/windows/launch4j-config.xml" token="[icon]" value="${deploy}/windows/${app.name}/resources/java/${app.name}.ico" />
                     </then>
+                    <else>
+                        <replace  file="${deploy}/windows/launch4j-config.xml" token="[icon]" value="" />
+                    </else>
                 </if>
 
                 <launch4j configfile="${deploy}/windows/launch4j-config.xml" />
