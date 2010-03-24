@@ -22,6 +22,7 @@
     <property name="app.bundleid" value="elph"/>
     <property name="app.icon.osx" value=""/>
     <property name="app.icon.small.png" value=""/>
+    <property name="app.icon.small.ico" value=""/>
     <property name="app.helpbook" value=""/>
     <property name="groupId" value="elephants"/>
     <property name="java.version" value="6" />
@@ -619,13 +620,20 @@
                 <copy file="${dependencies.basedir}/build-resources/launch4j-config.xml" todir="${deploy}/windows" />
 
                 <replace  file="${deploy}/windows/launch4j-config.xml" token="[jarList]" value="${l4j.3}" />
-                <!--<replace  file="${deploy}/windows/launch4j-config.xml" token="[mainjar]" value="resources\java\${groupId}-${ant.project.name}-${version}.jar" />-->
                 <replace  file="${deploy}/windows/launch4j-config.xml" token="[mainjar]" value="${groupId}-${ant.project.name}-${version}.jar" />
-                <replace  file="${deploy}/windows/launch4j-config.xml" token="[output]" value="${deploy}/windows/resources/java/${ant.project.name}.exe" />
+                <replace  file="${deploy}/windows/launch4j-config.xml" token="[output]" value="${deploy}/windows/${app.name}/resources/java/${ant.project.name}.exe" />
                 <replace  file="${deploy}/windows/launch4j-config.xml" token="[mainClass]" value="${app.main}" />
-                <replace  file="${deploy}/windows/launch4j-config.xml" token="[java.version.min]" value="1.6" />
+                <replace  file="${deploy}/windows/launch4j-config.xml" token="[java.version.min]" value="1.6.0" /> <!-- TODO generate -->
 
-                <launch4j configfile="${deploy}/windows/launch4j-config.xml" outfile="${deploy}/windows/${ant.project.name}-2.exe" />
+                <if>
+                    <available file="${app.icon.small.ico}"/>
+                    <then>
+                        <copy tofile= "${deploy}/windows/${app.name}/resources/java/${app.name}.ico" file="${src}/${app.icon.small.ico}" failonerror="true" overwrite="true"/>
+                        <replace  file="${deploy}/windows/launch4j-config.xml" token="[icon]" value="${app.name}.ico" />
+                    </then>
+                </if>
+
+                <launch4j configfile="${deploy}/windows/launch4j-config.xml" />
             </then>
         </if>
     </target>
