@@ -595,10 +595,13 @@
                 <copy file="${dependencies.basedir}/build-resources/launch4j-config.xml" todir="${deploy}/windows" />
 
                 <replace  file="${deploy}/windows/launch4j-config.xml" token="[jarList]" value="${l4j.3}" />
-                <replace  file="${deploy}/windows/launch4j-config.xml" token="[mainjar]" value="${groupId}-${ant.project.name}-${version}.jar" />
-                <replace  file="${deploy}/windows/launch4j-config.xml" token="[output]" value="${deploy}/windows/${app.name}/resources/java/${ant.project.name}.exe" />
+                <replace  file="${deploy}/windows/launch4j-config.xml" token="[mainjar]" value="resources/java/${groupId}-${ant.project.name}-${version}.jar" />
+                <replace  file="${deploy}/windows/launch4j-config.xml" token="[output]" value="${deploy}/windows/${app.name}/${ant.project.name}.exe" />
                 <replace  file="${deploy}/windows/launch4j-config.xml" token="[mainClass]" value="${app.main}" />
-                <replace  file="${deploy}/windows/launch4j-config.xml" token="[java.version.min]" value="1.6.0" /> <!-- TODO generate -->
+                <condition property="l4j.java.min" value="1.6.0" else="">
+                    <equals arg1="${java.version}" arg2="6"/>
+                </condition>
+                <replace  file="${deploy}/windows/launch4j-config.xml" token="[java.version.min]" value="${l4j.java.min}" /> 
 
                 <if>
                     <available file="${src}/${app.icon.small.ico}"/>
