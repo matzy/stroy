@@ -7,6 +7,7 @@ import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+import org.openCage.lang.protocol.F1;
 import org.openCage.localization.protocol.Localize;
 import org.openCage.property.protocol.Property;
 
@@ -97,8 +98,12 @@ public class LocalizeImpl implements Localize {
     }
 
     @Override
-    public void setLocale(Locale locale) {
-        theLocale.set( locale );
+    public void setLocale( final Locale newLocale) {
+        theLocale.modify( new F1<Locale, Locale>() {
+            @Override public Locale call(Locale locale) {
+                return newLocale;
+            }
+        });
     }
 
 

@@ -17,12 +17,12 @@ public class MRU<T> {
     private List<T> used = new ArrayList<T>();
 
     public synchronized Collection<T> getAll() {
-        return Collections.<T>unmodifiableCollection(used);
+        return Collections.unmodifiableCollection(used);
     }
 
     public synchronized void use( T t ) {
         used.remove( t );
-        List<T> newUsed = new ArrayList();
+        List<T> newUsed = new ArrayList<T>();
         newUsed.add( t );
         newUsed.addAll( used );
         while( used.size() > maxSize ) {

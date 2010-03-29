@@ -27,6 +27,7 @@ import java.net.URI;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
+// TODO remove me
 public class BrowseTmp {
 
     public void browse( URI txt ) {

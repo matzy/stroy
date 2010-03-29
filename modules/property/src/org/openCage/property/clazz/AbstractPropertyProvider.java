@@ -45,7 +45,7 @@ public abstract class AbstractPropertyProvider<T> implements Provider<Property<T
 
         // this should only get a property with a different T
         // if the xstream does not match this implementation        
-        PropertyImpl<T> prop = (PropertyImpl<T>)store.get(key);
+        @SuppressWarnings({"unchecked"}) PropertyImpl<T> prop = (PropertyImpl<T>)store.get(key);
 
         if ( prop != null ) {
             prop.setStore( store );

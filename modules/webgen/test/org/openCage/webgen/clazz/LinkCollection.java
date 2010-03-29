@@ -278,7 +278,6 @@ public class LinkCollection {
                     description( "A textarea subclass enhanced by a lot of typical texteditor feature").
                     address( "http://fifesoft.com/rsyntaxtextarea/", "fifesoft.org" ).
                     lgpl().
-                    version( "1.4.0" ).
                     provides( "rsyntaxtextarea.jar" );
 
         lib(SLF4_J).
@@ -417,9 +416,26 @@ public class LinkCollection {
                 description( "Create osx DMGs from ant" ).
                 address( "http://www.rkuntz.org/pmwiki.php?n=Code.AntDiskImage", "rkuntz.org" );
 
+        dev( "intellij idea").depends( "java 6");
+        dev( "omni graffle").depends("osx");
+        dev( "java 6");
+        dev( "osx");
+        dev( "ubuntu");
+        dev( "winxp");
+        dev( "subversion");
+        dev( "wikidot");
+        dev( "code google");
+        dev( "versions").depends( "subversion" ).depends("osx");
 
 
 
+
+    }
+
+    private DevEnv dev(String app ) {
+        DevEnv ref = new DevEnv( app );
+        refs.add( ref );
+        return ref;
     }
 
     private Lib lib( String app ) {

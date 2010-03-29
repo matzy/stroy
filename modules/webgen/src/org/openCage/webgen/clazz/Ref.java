@@ -245,4 +245,30 @@ public class Ref {
     public int hashCode() {
         return name != null ? name.hashCode() : 0;
     }
+
+    public void html() {
+        System.out.println(HtmlGen.link( address, name ) + " " + version + " " + descr );
+//        System.out.print( "Link: " + WikiDotGen.externalLink( address, shortAddress ) + ", ");
+//        if ( licence != null ) {
+//            System.out.println( "Licence: " + WikiDotGen.externalLink( licence, licenceShort ));
+//        }
+//        if ( version != null ) {
+//            System.out.print("Version: " + version + ", ");
+//        }
+//        System.out.println( descr );
+
+    }
+
+    public void htmlShort() {
+        System.out.println(HtmlGen.link( address, name ));
+//        System.out.print( "Link: " + WikiDotGen.externalLink( address, shortAddress ) + ", ");
+//        if ( licence != null ) {
+//            System.out.println( "Licence: " + WikiDotGen.externalLink( licence, licenceShort ));
+//        }
+//        if ( version != null ) {
+//            System.out.print("Version: " + version + ", ");
+//        }
+//        System.out.println( descr );
+
+    }
 }

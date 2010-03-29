@@ -1,4 +1,4 @@
-package org.openCage.demo;
+package org.openCage.property.impl;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -11,7 +11,7 @@ import java.io.File;
 /**
  * propstore without a backing file, i.e. non persistet
  */
-public class PropStoreProvider implements Provider<PropStore> {
+public class NonPersistingPropStoreProvider implements Provider<PropStore> {
 
     @Inject
     private BackgroundExecutor executor;

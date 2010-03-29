@@ -17,10 +17,6 @@ public class FooProperty implements Property<String> {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    @Override
-    public void set(String s) {
-        //To change body of implemented methods use File | Settings | File Templates.
-    }
 
 
     @Override
@@ -29,8 +25,9 @@ public class FooProperty implements Property<String> {
     }
 
     @Override
-    public void modify(F1<Void, String> modi) {
+    public void modify(F1<String, String> modi) {
         //To change body of implemented methods use File | Settings | File Templates.
     }
+
 
 }

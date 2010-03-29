@@ -3,11 +3,7 @@ package org.openCage.webgen.clazz;
 import java.util.*;
 
 /**
- * Created by IntelliJ IDEA.
- * User: stephan
- * Date: Jan 19, 2010
- * Time: 9:48:31 AM
- * To change this template use File | Settings | File Templates.
+ * build the list of used depenencies (transitive closure)
  */
 public class UsingUsed {
 
@@ -16,6 +12,12 @@ public class UsingUsed {
     }
 
 
+    /**
+     * build the list of transitive used references
+     * @param all all possible references
+     * @param app the starting point
+     * @return
+     */
     public Collection<Ref> transitiveClosure( List<Ref> all, Ref app ) {
 
         Set<Ref> deps = new HashSet<Ref>();

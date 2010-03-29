@@ -47,14 +47,14 @@ public class PropertyImpl<T> implements Property<T> {
         return obj;
     }
 
-    @Override
-    public synchronized void set(T t) {
-        obj = t;
-        if ( store != null ) {
-            store.setDirty();
-        }
-    }
-
+//    @Override
+//    public synchronized void set(T t) {
+//        obj = t;
+//        if ( store != null ) {
+//            store.setDirty();
+//        }
+//    }
+//
     private void setDirty() {
         if ( store != null ) {
             store.setDirty();
@@ -63,15 +63,16 @@ public class PropertyImpl<T> implements Property<T> {
 
     @Override
     public synchronized void setDefault() {
-        set( dflt );
+        obj = dflt;
+        setDirty();
     }
 
     @Override
-    public synchronized void modify(F1<Void, T> modi) {
+    public synchronized void modify(F1<T, T> modi) {
         // try to modify the object
         // if it fails return to the only object we know, i.e. the default
         try {
-            modi.call( obj );
+            obj = modi.call( obj );
         } catch ( Exception exp ) {
             setDefault();
             throw Unchecked.wrap( exp );

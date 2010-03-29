@@ -383,11 +383,10 @@ public class FaustUI extends JFrame {
                             }
                             
                             infoLabel.setText( path );
-                            mru.modify( new F1<Void, MRU<String>>() {
-                                @Override
-                                public Void call(MRU<String> mru) {
+                            mru.modify( new F1<MRU<String>, MRU<String>>() {
+                                @Override public MRU<String> call(MRU<String> mru) {
                                     mru.use( path );
-                                    return null;
+                                    return mru;
                                 }
                             });
                             buildOpenRecentMenu();
@@ -442,11 +441,10 @@ public class FaustUI extends JFrame {
             }
             setTextEnabled(false);
             infoLabel.setText( path );
-            mru.modify( new F1<Void, MRU<String>>() {
-                @Override
-                public Void call(MRU<String> mru) {
+            mru.modify( new F1<MRU<String>, MRU<String>>() {
+                @Override public MRU<String> call(MRU<String> mru) {
                     mru.use( path );
-                    return null;
+                    return mru;
                 }
             });
             buildOpenRecentMenu();

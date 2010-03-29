@@ -4,6 +4,7 @@ import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.name.Named;
+import org.openCage.lang.protocol.F1;
 import org.openCage.property.protocol.Property;
 
 /**
@@ -31,7 +32,12 @@ public class PropertDemo {
 
         System.out.println( demo.prop.get() );
         System.out.println( demo.prop2.get() );
-        demo.prop2.set( 77 );
+        demo.prop2.modify( new F1<Integer, Integer>() {
+            @Override
+            public Integer call(Integer integer) {
+                return 77;
+            }
+        });
         System.out.println( demo.prop2.get() );
         demo.prop2.setDefault();
         System.out.println( demo.prop2.get() );

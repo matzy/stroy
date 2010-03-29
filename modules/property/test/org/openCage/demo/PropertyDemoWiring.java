@@ -6,7 +6,7 @@ import com.google.inject.Singleton;
 import com.google.inject.TypeLiteral;
 import com.google.inject.name.Names;
 import org.openCage.lang.protocol.LangWiring;
-import org.openCage.property.impl.PropStoreImpl;
+import org.openCage.property.impl.NonPersistingPropStoreProvider;
 import org.openCage.property.protocol.PropStore;
 import org.openCage.property.protocol.Property;
 
@@ -24,10 +24,10 @@ public class PropertyDemoWiring implements Module {
 
         binder.bind( PropStore.class ).
                 annotatedWith( Names.named( "std" )).
-                toProvider( PropStoreProvider.class );
+                toProvider( NonPersistingPropStoreProvider.class );
         binder.bind( PropStore.class ).
                 annotatedWith( Names.named( "trans" )).
-                toProvider( PropStoreProvider.class );
+                toProvider( NonPersistingPropStoreProvider.class );
 
         binder.bind( new TypeLiteral<Property<String>>() {} ).
                 annotatedWith( Names.named("demo")).

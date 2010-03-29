@@ -37,13 +37,13 @@ public class PropTesting {
     public void testThrowDuringModify() {
         Property<String> prop = new PropertyImpl<String>( null, "default");
 
-        prop.set( "foo");
-        assertEquals( "foo", prop.get());
+//        prop.set( "foo");
+//        assertEquals( "foo", prop.get());
 
         try {
-            prop.modify( new F1<Void, String>() {
+            prop.modify( new F1<String, String>() {
                 @Override
-                public Void call(String s) {
+                public String call(String s) {
                     throw new IllegalStateException( "i am not here" ); 
                 }
             });
