@@ -14,26 +14,22 @@ import org.openCage.property.protocol.Property;
  */
 public class Joe {
 
-    @Inject
-    @Named( "Work")
-    private Property<String> work;
+    @Inject @Named( RestaurantProp.Key) private Property<String> dinner;
 
     public Joe() {
     }
 
     public void status() {
-        System.out.println("joe works at: " + work.get());
+        System.out.println("Joe has dinner at: " + dinner.get());
     }
 
-    public void newJob( final String job ) {
-        work.modify( new F1<String, String>() {
+    public void suggestNewRestaurant( final String place ) {
+        dinner.modify( new F1<String, String>() {
             @Override public String call(String s) {
-                return job;
+                return place;
             }
         });
     }
-
-
 
 
 }

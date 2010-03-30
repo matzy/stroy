@@ -2,7 +2,7 @@ package org.openCage.demo;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
-import org.openCage.property.clazz.AbstractPropertyProvider;
+import org.openCage.property.protocol.AbstractPropertyProvider;
 import org.openCage.property.protocol.PropStore;
 
 public class OtherStoreProp extends AbstractPropertyProvider<String> {
@@ -11,6 +11,6 @@ public class OtherStoreProp extends AbstractPropertyProvider<String> {
 
     @Inject
     public OtherStoreProp( @Named( "trans" ) PropStore store ) {
-        super( store, KEY, "totally different");
+        super( store, KEY, "totally different", "other");
     }
 }

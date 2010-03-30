@@ -35,7 +35,7 @@ public class Huffman {
         combine( pq );
 
         DynamicBitArray[] codes = new DynamicBitArray[257];
-        computeCodes( pq.pop(), new DynamicBitArray(), codes );
+        computeCodes( pq.pop(), new DynamicBitArrayDirect(), codes );
 
         DynamicBitArray result = encode( array, codes );
 
@@ -45,7 +45,7 @@ public class Huffman {
 
     private DynamicBitArray encode(byte[] array, DynamicBitArray[] codes) {
 
-        DynamicBitArray res = new DynamicBitArray();
+        DynamicBitArray res = new DynamicBitArrayDirect();
 
         for ( byte by : array ) {
             res.append( codes[by - Byte.MIN_VALUE ]);
@@ -96,33 +96,35 @@ public class Huffman {
         computeCodes( node.right, prefix.clone().append( true  ), codes );
     }
 
-    private DynamicBitArray encodeCodes( DynamicBitArray[] codes ) {
 
-        List<Integer> indeces = new ArrayList<Integer>();
-        for ( int i = 0; i < 256; ++i ) {
-            indeces.add( i );
-        }
-
-        Collections.shuffle( indeces );
-        indeces.add( 256 );
-
-        DynamicBitArray res = new DynamicBitArray();
-        for ( Integer i : indeces ) {
-            if ( codes[i] != null ) {
-//                System.out.println("" + i + " " + codes[i].toString8());
-//                System.out.println(DynamicBitArray.toDba( i, 9).toString8());
-                res.append( DynamicBitArray.toDba( i, 9));
-                res.append( DynamicBitArray.toDba( codes[i].getBitSize(), 5));
-                res.append( codes[i] );
-            }
-        }
-
-        return res;
-    }
-
-    private void decodeCodes( DynamicBitArray dba ) {
-        int idx = dba.toInt( 9 );
-        int len = dba.toInt( 10, 5 );
-        DynamicBitArray code = dba.getSlice( 15, len ); 
-    }
+    // halfhated attempt to extend the huffman code class to encrypt/decrypt
+//    private DynamicBitArray encodeCodes( DynamicBitArray[] codes ) {
+//
+//        List<Integer> indeces = new ArrayList<Integer>();
+//        for ( int i = 0; i < 256; ++i ) {
+//            indeces.add( i );
+//        }
+//
+//        Collections.shuffle( indeces );
+//        indeces.add( 256 );
+//
+//        DynamicBitArray res = new DynamicBitArrayDirect();
+//        for ( Integer i : indeces ) {
+//            if ( codes[i] != null ) {
+////                System.out.println("" + i + " " + codes[i].toString8());
+////                System.out.println(DynamicBitArray.toDba( i, 9).toString8());
+//                res.append( DynamicBitArrayDirect.toDba( i, 9));
+//                res.append( DynamicBitArrayDirect.toDba( codes[i].getBitSize(), 5));
+//                res.append( codes[i] );
+//            }
+//        }
+//
+//        return res;
+//    }
+//
+//    private void decodeCodes( DynamicBitArray dba ) {
+//        int idx = dba.toInt( 9 );
+//        int len = dba.toInt( 10, 5 );
+//        DynamicBitArray code = dba.getSlice( 15, len );
+//    }
 }

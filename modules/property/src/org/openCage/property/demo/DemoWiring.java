@@ -7,9 +7,9 @@ import com.google.inject.TypeLiteral;
 import com.google.inject.name.Names;
 import org.openCage.lang.protocol.LangWiring;
 import org.openCage.property.clazz.DummyPropStore;
-import org.openCage.property.impl.NonPersistingPropStoreProvider;
 import org.openCage.property.protocol.PropStore;
 import org.openCage.property.protocol.Property;
+import org.openCage.property.protocol.PropertyWiring;
 
 /**
  * Created by IntelliJ IDEA.
@@ -22,30 +22,25 @@ public class DemoWiring implements Module {
     
     @Override
     public void configure(Binder binder) {
-        binder.install( new LangWiring());
+        binder.install( new PropertyWiring());
+
+        binder.bind( PropStore.class ).
+                annotatedWith( Names.named( "trans" )).
+                toProvider( AliasedPropStoreProvider.class );
 
         binder.bind( PropStore.class ).
                 annotatedWith( Names.named( "std" )).
                 to( DummyPropStore.class );
 
-//        binder.bind( PropStore.class ).
-//                annotatedWith( Names.named( "std" )).
-//                toProvider( NonPersistingPropStoreProvider.class );
-
         binder.bind( new TypeLiteral<Property<String>>() {} ).
-                annotatedWith( Names.named("Work")).
-                toProvider( WorkProp.class ).
+                annotatedWith( Names.named( RestaurantProp.Key )).
+                toProvider( RestaurantProp.class ).
                 in( Singleton.class );
-//
-//        binder.bind( new TypeLiteral<Property<Integer>>() {} ).
-//                annotatedWith( Names.named( DuhProp.HICKER )).
-//                toProvider( DuhProp.class ).
-//                in( Singleton.class );
-//
-//        binder.bind( new TypeLiteral<Property<String>>() {} ).
-//                annotatedWith( Names.named( OtherStoreProp.KEY )).
-//                toProvider( OtherStoreProp.class ).
-//                in( Singleton.class );
+
+        binder.bind( new TypeLiteral<Property<Meal>>() {} ).
+                annotatedWith( Names.named( MealProp.Key )).
+                toProvider( MealProp.class ).
+                in( Singleton.class );
     }
 
 }

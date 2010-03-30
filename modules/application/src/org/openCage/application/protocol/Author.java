@@ -1,5 +1,7 @@
 package org.openCage.application.protocol;
 
+import net.jcip.annotations.Immutable;
+
 /***** BEGIN LICENSE BLOCK *****
  * Version: MPL 1.1
  *
@@ -25,4 +27,7 @@ package org.openCage.application.protocol;
 public interface Author {
 	public String         gettName();
 	public EmailAddress   getEmail();
+
+    public String getFirstName();
+    public String getLastName();
 }

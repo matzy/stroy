@@ -1,9 +1,11 @@
 package org.openCage.gpad.providers;
 
+import com.google.inject.Inject;
 import org.openCage.fspath.clazz.FSPathBuilder;
 import org.openCage.gpad.Constants;
 import org.openCage.lang.clazz.MRU;
-import org.openCage.property.clazz.AbstractPropStoreProvider;
+import org.openCage.lang.protocol.SingletonApp;
+import org.openCage.property.protocol.AbstractPropStoreProvider;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,8 +19,9 @@ import java.util.Map;
  */
 public class TransPropStoreProvider  extends AbstractPropStoreProvider {
 
-    public TransPropStoreProvider() {
-        super( FSPathBuilder.getPreferences().add( Constants.FAUSTERIZE, "prefs-trans.xml").toFile(), getAliases());
+    @Inject
+    public TransPropStoreProvider( SingletonApp singletonApp ) {
+        super( FSPathBuilder.getPreferences().add( Constants.FAUSTERIZE, "prefs-trans.xml").toFile(), singletonApp, getAliases());
     }
 
     private static Map<String,Class> getAliases() {

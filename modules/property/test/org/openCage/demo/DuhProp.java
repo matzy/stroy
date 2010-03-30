@@ -2,7 +2,7 @@ package org.openCage.demo;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
-import org.openCage.property.clazz.AbstractPropertyProvider;
+import org.openCage.property.protocol.AbstractPropertyProvider;
 import org.openCage.property.protocol.PropStore;
 
 public class DuhProp extends AbstractPropertyProvider<Integer>{
@@ -11,6 +11,6 @@ public class DuhProp extends AbstractPropertyProvider<Integer>{
 
     @Inject
     public DuhProp( @Named( "std" ) PropStore store) {
-        super( store, HICKER, 42 );
+        super( store, HICKER, 42, "duh" );
     }
 }

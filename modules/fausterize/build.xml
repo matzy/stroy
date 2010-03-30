@@ -5,7 +5,7 @@
 
     <property name = "isApp" value="true"/>
 
-    <property name = "buildnumber"     value="419"/>
+    <property name = "buildnumber"     value="435"/>
     <property name = "app.main"        value="org.openCage.gpad.UIMain"/>
     <property name = "app.name"        value="fausterize"/>
     <property name = "app.signature"   value="faust"/>
@@ -15,6 +15,7 @@
     <property name = "app.icon.small.png" value="org/openCage/gpad/resources/faust-small.png"/>
     <property name="app.description.short" value="fausterize a small encrypting text editor" />
     <property name="app.description.full" value="fausterize a small encrypting text editor" />
+    <property name="readme" value="org/openCage/gpad/resources/README.txt"/>
     
 
 

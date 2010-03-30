@@ -52,6 +52,18 @@ public class AuthorImpl implements Author {
 	}
 
     @Override
+    public String getFirstName() {
+        int pos = name.lastIndexOf(' ');
+        return name.substring(0, pos );
+    }
+
+    @Override
+    public String getLastName() {
+        int pos = name.lastIndexOf(' ');
+        return name.substring( pos ); 
+    }
+
+    @Override
     public String toString() {
         return "<Author: " + name + ">";
     }

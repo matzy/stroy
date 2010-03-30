@@ -1,8 +1,10 @@
 package org.openCage.gpad.providers;
 
+import com.google.inject.Inject;
 import org.openCage.fspath.clazz.FSPathBuilder;
 import org.openCage.gpad.Constants;
-import org.openCage.property.clazz.AbstractPropStoreProvider;
+import org.openCage.lang.protocol.SingletonApp;
+import org.openCage.property.protocol.AbstractPropStoreProvider;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -26,9 +28,12 @@ import org.openCage.property.clazz.AbstractPropStoreProvider;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public class PropStoreProvider extends AbstractPropStoreProvider{
+public class PropStoreProvider extends AbstractPropStoreProvider {
 
-    public PropStoreProvider() {
-        super( FSPathBuilder.getPreferences().add( Constants.FAUSTERIZE, "prefs.xml").toFile());
+    @Inject
+    public PropStoreProvider( SingletonApp singleApp ) {
+        super( FSPathBuilder.getPreferences().add( Constants.FAUSTERIZE, "prefs.xml").toFile(),
+               singleApp,
+               null);
     }
 }

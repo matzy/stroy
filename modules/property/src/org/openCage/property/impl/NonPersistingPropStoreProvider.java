@@ -9,7 +9,7 @@ import org.openCage.property.protocol.PropStore;
 import java.io.File;
 
 /**
- * propstore without a backing file, i.e. non persistet
+ * propstore without a backing file, i.e. non persisted
  */
 public class NonPersistingPropStoreProvider implements Provider<PropStore> {
 

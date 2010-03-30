@@ -4,7 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import org.openCage.fspath.clazz.FSPathBuilder;
 import org.openCage.lang.clazz.MRU;
-import org.openCage.property.clazz.AbstractPropertyProvider;
+import org.openCage.property.protocol.AbstractPropertyProvider;
 import org.openCage.property.protocol.PropStore;
 
 import java.io.File;
@@ -42,7 +42,7 @@ public class FaustMRUProperty extends AbstractPropertyProvider<MRU<String>> {
 
     @Inject
     public FaustMRUProperty( @Named("trans") PropStore store ) {
-        super( store, KEY, getDefault() );
+        super( store, KEY, getDefault(), "Most recently used files" );
 
     }
 

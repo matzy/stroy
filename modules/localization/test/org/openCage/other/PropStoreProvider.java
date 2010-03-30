@@ -1,6 +1,6 @@
 package org.openCage.other;
 
-import org.openCage.property.clazz.AbstractPropStoreProvider;
+import org.openCage.property.protocol.AbstractPropStoreProvider;
 
 /**
  * Created by IntelliJ IDEA.
@@ -12,6 +12,6 @@ import org.openCage.property.clazz.AbstractPropStoreProvider;
 public class PropStoreProvider extends AbstractPropStoreProvider {
 
     public PropStoreProvider() {
-        super( null );
+        super( null, null, null );
     }
 }

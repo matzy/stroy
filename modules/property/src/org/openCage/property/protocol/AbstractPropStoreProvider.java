@@ -1,4 +1,4 @@
-package org.openCage.property.clazz;
+package org.openCage.property.protocol;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -35,18 +35,14 @@ import java.util.Map;
 public abstract class AbstractPropStoreProvider implements Provider<PropStore> {
 
     @Inject private BackgroundExecutor executor;
-    @Inject private SingletonApp       singletonApp;
-    private final File backing;
-    private final Map<String, Class> aliases;
+    private SingletonApp               singletonApp;
+    private final File                 backing;
+    private final Map<String, Class>   aliases;
 
-    public AbstractPropStoreProvider( File backing, Map<String, Class> aliases ) {
+    public AbstractPropStoreProvider( File backing, SingletonApp singletonApp, Map<String, Class> aliases ) {
         this.backing = backing;
         this.aliases = aliases;
-    }
-
-    public AbstractPropStoreProvider( File backing ) {
-        this.backing = backing;
-        this.aliases = null;
+        this.singletonApp = singletonApp;
     }
 
     @Override

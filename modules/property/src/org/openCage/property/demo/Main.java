@@ -15,16 +15,24 @@ public class Main {
     public static void main(String[] args) {
         Injector injector = Guice.createInjector( new DemoWiring() );
 
-
         Joe joe = injector.getInstance( Joe.class );
         Bob bob = injector.getInstance( Bob.class );
+        injector.getInstance( Sue.class );
 
         joe.status();
         bob.status();
 
-        joe.newJob( "google.com" );
+        joe.suggestNewRestaurant( "El Fuego" );
 
         joe.status();
         bob.status();
+
+        bob.chooseMeal( "coffee", "bagel" );
+        bob.status();
+
+        Bob otherBob = injector.getInstance( Bob.class );
+        otherBob.status();
+
+
     }
 }

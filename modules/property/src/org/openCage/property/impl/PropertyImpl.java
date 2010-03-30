@@ -2,10 +2,12 @@ package org.openCage.property.impl;
 
 import net.jcip.annotations.ThreadSafe;
 import org.openCage.lang.errors.Unchecked;
-import org.openCage.lang.protocol.F0;
 import org.openCage.lang.protocol.F1;
 import org.openCage.property.protocol.PropStore;
 import org.openCage.property.protocol.Property;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -35,10 +37,13 @@ public class PropertyImpl<T> implements Property<T> {
     private T                          obj;
     private final transient T          dflt;
     private transient PropStore        store;
+    private List<F1<Void, T>>          listeners = new ArrayList<F1<Void, T>>();
+    private final String               description;
 
-    public PropertyImpl( PropStore store, T deflt ) {
+    public PropertyImpl( PropStore store, T deflt, String description ) {
         this.store = store;
         dflt = deflt;
+        this.description = description;
         setDefault();
     }
 
@@ -47,17 +52,13 @@ public class PropertyImpl<T> implements Property<T> {
         return obj;
     }
 
-//    @Override
-//    public synchronized void set(T t) {
-//        obj = t;
-//        if ( store != null ) {
-//            store.setDirty();
-//        }
-//    }
-//
     private void setDirty() {
         if ( store != null ) {
             store.setDirty();
+        }
+
+        for (F1<Void,T> listener : listeners ) {
+            listener.call( obj );
         }
     }
 
@@ -83,6 +84,12 @@ public class PropertyImpl<T> implements Property<T> {
             setDirty();
         }
     }
+
+    @Override
+    public void addPropertyChangeListener(F1<Void, T> listener) {
+        listeners.add( listener );
+    }
+
 
 
     @Override

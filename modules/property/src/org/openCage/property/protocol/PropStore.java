@@ -25,6 +25,10 @@ import org.jetbrains.annotations.NotNull;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
+/**
+ * a place to store properties
+ * i.e. 
+ */
 public interface PropStore  {
 
     public Property get( @NotNull String key );

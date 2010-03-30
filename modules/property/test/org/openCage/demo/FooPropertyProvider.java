@@ -29,7 +29,7 @@ public class FooPropertyProvider implements Provider<Property<String>> {
             return prop;
         }
 
-        prop = new PropertyImpl<String>( store, "yahooo" );
+        prop = new PropertyImpl<String>( store, "yahooo", "foo" );
         store.setProperty( DEMO_FOO, prop );
         return prop;
     }

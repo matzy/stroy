@@ -28,7 +28,6 @@ import org.openCage.lang.protocol.F1;
  * A property in the sense of a per application singleton
  * possible persisted
  * The intended use is for small objects
- * TODO: tie in property updates messages
  * @param <T>
  */
 public interface Property<T> {
@@ -51,4 +50,10 @@ public interface Property<T> {
      * @param modi the modification method
      */
     public void modify( F1<T,T> modi );
+
+    /**
+     * a listener for property changes
+     * @param listener A PropertyChangeListener 
+     */
+    public void addPropertyChangeListener( F1<Void,T> listener );
 }

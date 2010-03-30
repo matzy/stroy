@@ -35,7 +35,7 @@ public class PropTesting {
 
     @Test
     public void testThrowDuringModify() {
-        Property<String> prop = new PropertyImpl<String>( null, "default");
+        Property<String> prop = new PropertyImpl<String>( null, "default", "");
 
 //        prop.set( "foo");
 //        assertEquals( "foo", prop.get());
