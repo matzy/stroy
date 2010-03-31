@@ -2,8 +2,11 @@ package org.openCage.fspath.impl;
 
 import org.apache.commons.lang.StringUtils;
 import org.openCage.fspath.protocol.FSPath;
+import org.openCage.lang.errors.Unchecked;
 
 import java.io.File;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -45,7 +48,7 @@ public class FSPathUNC implements FSPath {
 
     @Override
     public File toFile() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return new File( toString() );
     }
 
     @Override
@@ -58,11 +61,20 @@ public class FSPathUNC implements FSPath {
 
     @Override
     public Iterator<String> iterator() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        throw new Error( "TODO" );
     }
 
     @Override
     public int size() {
-        return 0;  //To change body of implemented methods use File | Settings | File Templates.
+        throw new Error( "TODO" );
+    }
+
+    @Override
+    public URI toURI() {
+        try {
+            return new URI( "file://" + toString().replace( '\\', '/') );
+        } catch (URISyntaxException e) {
+            throw Unchecked.wrap(e);
+        }
     }
 }

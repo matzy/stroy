@@ -2,12 +2,15 @@ package org.openCage.ui.impl.help;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
+import com.muchsoft.util.Sys;
 import org.openCage.fspath.clazz.FSPathBuilder;
+import org.openCage.fspath.protocol.FSPath;
 import org.openCage.io.clazz.Location;
 import org.openCage.localization.protocol.Localize;
 import org.openCage.ui.impl.BrowseTmp;
 import org.openCage.ui.protocol.HelpViewer;
 
+import javax.swing.*;
 import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -47,26 +50,30 @@ public class HelpViewerOSX implements HelpViewer {
 
         String jarPath = Location.getJarLocation( HelpViewerOSX.class );
 
-        String helpBookIndex = getHelpbookInApp( jarPath );
+        FSPath helpBookIndex = getHelpbookInApp( jarPath );
 
-        if ( !new File(helpBookIndex).exists()) {
+        if ( !helpBookIndex.toFile().exists()) {
             LOG.info( "not an app, no: " + helpBookIndex );
             // TODO else ?
+
+            System.out.println( "helpfile location:  " + helpBookIndex );
+            JOptionPane.showMessageDialog(null, "no exists: " + helpBookIndex, "Error", JOptionPane.ERROR_MESSAGE);
+
             return;
         }
 
-        try {
-            new BrowseTmp().browse( new URI( "file:" + helpBookIndex ));
-        } catch (URISyntaxException e) {
-            LOG.warning( "helpbook exists but can't be shown: " + helpBookIndex );
-        }
+            new BrowseTmp().browse( helpBookIndex.toURI());
+//        } catch (URISyntaxException e) {
+//            LOG.warning( "helpbook exists but can't be shown: " + helpBookIndex );
+//            JOptionPane.showMessageDialog(null, "throw " + helpBookIndex, "Error", JOptionPane.ERROR_MESSAGE);
+//        }
     }
 
-    private String getHelpbookInApp( String jarpath ) {
-//        String resourcepath = new File( jarpath ).getParentFile().getParentFile().getAbsolutePath();
+    private FSPath getHelpbookInApp( String jarpath ) {
         return FSPathBuilder.getPath( new File( jarpath ).getParentFile().getParentFile() ).
                   add( localize.getLocale().getDisplayLanguage( Locale.US ) + ".lproj" ).
                   add( "HelpBook" ).
-                  add( "index.html").toString();
+                  add( "index.html");
     }
+
 }

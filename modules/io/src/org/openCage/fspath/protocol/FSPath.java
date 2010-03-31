@@ -1,6 +1,7 @@
 package org.openCage.fspath.protocol;
 
 import java.io.File;
+import java.net.URI;
 import java.util.Iterator;
 
 /***** BEGIN LICENSE BLOCK *****
@@ -35,4 +36,6 @@ public interface FSPath extends Iterable<String> {
     Iterator<String> iterator();
 
     int size();
+
+    URI toURI();
 }

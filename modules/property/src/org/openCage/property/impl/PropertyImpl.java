@@ -6,6 +6,7 @@ import org.openCage.lang.protocol.F1;
 import org.openCage.property.protocol.PropStore;
 import org.openCage.property.protocol.Property;
 
+import java.io.ObjectStreamException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +40,7 @@ public class PropertyImpl<T> implements Property<T> {
     private final String               description;
 
     private transient PropStore          store;
-    private transient List<F1<Void, T>>  listeners;
+    private transient List<F1<Void, T>>  listeners = new ArrayList<F1<Void, T>>();
 
 
     public PropertyImpl( PropStore store, T deflt, String description ) {
@@ -87,12 +88,13 @@ public class PropertyImpl<T> implements Property<T> {
         }
     }
 
+    private Object readResolve() throws ObjectStreamException {
+        listeners = new ArrayList<F1<Void, T>>();
+        return this;
+    }
+
     @Override
     public void addPropertyChangeListener(F1<Void, T> listener) {
-        // initialize here because transient means it might not be initialized after deserialization
-        if ( listeners == null ) {
-             listeners = new ArrayList<F1<Void, T>>();
-        }
         listeners.add( listener  );
     }
 

@@ -3,8 +3,11 @@ package org.openCage.fspath.impl;
 
 import org.apache.commons.lang.StringUtils;
 import org.openCage.fspath.protocol.FSPath;
+import org.openCage.lang.errors.Unchecked;
 
 import java.io.File;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -80,6 +83,15 @@ public class FSPathUnix implements FSPath {
 
     public int size() {
         return elements.size();
+    }
+
+    @Override
+    public URI toURI() {
+        try {
+            return new URI("file:" + toString());
+        } catch (URISyntaxException e) {
+            throw Unchecked.wrap(e);
+        }
     }
 
 
