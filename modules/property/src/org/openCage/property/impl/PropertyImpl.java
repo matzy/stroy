@@ -36,9 +36,11 @@ public class PropertyImpl<T> implements Property<T> {
 
     private T                          obj;
     private final transient T          dflt;
-    private transient PropStore        store;
-    private List<F1<Void, T>>          listeners = new ArrayList<F1<Void, T>>();
     private final String               description;
+
+    private transient PropStore          store;
+    private transient List<F1<Void, T>>  listeners;
+
 
     public PropertyImpl( PropStore store, T deflt, String description ) {
         this.store = store;
@@ -87,7 +89,11 @@ public class PropertyImpl<T> implements Property<T> {
 
     @Override
     public void addPropertyChangeListener(F1<Void, T> listener) {
-        listeners.add( listener );
+        // initialize here because transient means it might not be initialized after deserialization
+        if ( listeners == null ) {
+             listeners = new ArrayList<F1<Void, T>>();
+        }
+        listeners.add( listener  );
     }
 
 

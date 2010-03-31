@@ -1,12 +1,10 @@
-package other.org.openCage.ui;
+package org.openCage.property.protocol;
 
-import com.google.inject.Binder;
-import com.google.inject.Module;
-import com.google.inject.name.Names;
-import org.openCage.application.protocol.Application;
-import org.openCage.property.protocol.NonPersistingPropStore;
+import org.jetbrains.annotations.NotNull;
 import org.openCage.property.protocol.PropStore;
-import org.openCage.ui.wiring.UIWiring;
+import org.openCage.property.protocol.Property;
+
+import java.util.Map;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -29,22 +27,25 @@ import org.openCage.ui.wiring.UIWiring;
 *
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
-public class TestWiring implements Module {
-    public void configure(Binder binder) {
-        binder.install( new UIWiring());
 
-        binder.bind( Application.class ).toProvider( ApplicationProvider.class );        
-        binder.bind( PropStore.class ).annotatedWith(Names.named("std")).to( NonPersistingPropStore.class );
+/**
+ * A propstore implementation ignoring all
+ * Props still work but are not persisted
+ */
+public class NonPersistingPropStore implements PropStore {
+
+    public static final String NAME = "NonPersistingPropStore";
+
+    @Override
+    public Property get(@NotNull String key) {
+        return null;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        return obj != null && obj instanceof TestWiring;
+    public void setProperty(@NotNull String key, @NotNull Property prop) {
     }
 
     @Override
-    public int hashCode() {
-        return getClass().hashCode();
+    public void setDirty() {
     }
-
 }

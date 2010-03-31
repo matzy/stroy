@@ -7,7 +7,6 @@ import com.google.inject.TypeLiteral;
 import com.google.inject.name.Names;
 import com.muchsoft.util.Sys;
 import org.openCage.application.wiring.ApplicationWiring;
-import org.openCage.lang.clazz.MRU;
 import org.openCage.localization.protocol.Localize;
 import org.openCage.localization.wiring.LocalizeWiring;
 import org.openCage.property.protocol.Property;
@@ -19,7 +18,7 @@ import org.openCage.ui.impl.OSXStandardEventHandlerImpl;
 import org.openCage.ui.impl.UILocalizeProvider;
 import org.openCage.ui.impl.about.AboutSheetFromApplication;
 import org.openCage.ui.impl.help.HelpViewerOSX;
-import org.openCage.ui.impl.pref.CaretStyleProvider;
+import org.openCage.ui.impl.pref.CaretStyleProperty;
 import org.openCage.ui.impl.pref.LocalePrefBuilderImpl;
 import org.openCage.ui.impl.pref.TextEditorPref;
 import org.openCage.ui.protocol.AboutSheet;
@@ -97,8 +96,8 @@ public class UIWiring implements Module {
         binder.bind(PrefBuilder.class).annotatedWith(Names.named(TEXTEDITOR)).to( TextEditorPref.class);
 
         binder.bind( new TypeLiteral<Property<Integer>>() {} ).
-                annotatedWith( Names.named( CaretStyleProvider.KEY )).
-                toProvider( CaretStyleProvider.class ).
+                annotatedWith( Names.named( CaretStyleProperty.KEY )).
+                toProvider( CaretStyleProperty.class ).
                 in( Singleton.class );
 
 

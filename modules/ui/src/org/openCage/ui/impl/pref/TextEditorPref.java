@@ -2,12 +2,21 @@ package org.openCage.ui.impl.pref;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
+import com.jgoodies.binding.adapter.ComboBoxAdapter;
+import com.jgoodies.binding.beans.PropertyAdapter;
+import com.jgoodies.binding.value.ValueModel;
 import net.java.dev.designgridlayout.DesignGridLayout;
+import org.fife.ui.rtextarea.ConfigurableCaret;
+import org.openCage.lang.clazz.BiMap;
+import org.openCage.lang.protocol.F1;
 import org.openCage.localization.protocol.Localize;
 import org.openCage.property.protocol.Property;
 import org.openCage.ui.protocol.PrefBuilder;
 
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -37,11 +46,11 @@ import javax.swing.*;
 public class TextEditorPref implements PrefBuilder {
 
     @Inject @Named( "ui" )  private Localize localize;
-    @Inject @Named( CaretStyleProvider.KEY ) private Property<Integer> cursorStyle;
+    @Inject @Named( CaretStyleProperty.KEY ) private Property<Integer> cursorStyle;
 
     @Override
     public JPanel getPrefPanel() {
-        return new TextEditorPrefPane();
+        return new TextEditorPrefPane( cursorStyle );
     }
 
     @Override
@@ -55,14 +64,46 @@ public class TextEditorPref implements PrefBuilder {
         return button;
     }
 
-    private class TextEditorPrefPane extends JPanel {
+    public class TextEditorPrefPane extends JPanel {
 
-        public TextEditorPrefPane() {
+        private BiMap<Integer, String> caretStyleList = new BiMap<Integer,String>() {{
+                put( ConfigurableCaret.VERTICAL_LINE_STYLE , localize.localize("org.openCage.ui.line") );
+                put( ConfigurableCaret.THICK_VERTICAL_LINE_STYLE , localize.localize("org.openCage.ui.thickLine"));
+                put( ConfigurableCaret.BLOCK_STYLE , localize.localize("org.openCage.ui.block")); }};
+
+        private Property<Integer> cursorStyle;
+
+        public TextEditorPrefPane( Property<Integer> cursorStyle ) {
+
+            this.cursorStyle = cursorStyle;
+
+            ValueModel caretStyleModel = new PropertyAdapter( this, "style", false);
+            ComboBoxAdapter adapter    = new ComboBoxAdapter( new ArrayList<String>(caretStyleList.vals()), caretStyleModel);
+            JComboBox caretBox       = new JComboBox(adapter);
+
+
+
             DesignGridLayout layout = new DesignGridLayout( this );
             setLayout( layout );
 
-            layout.row().label( new JLabel( "caret type" )).add( new JLabel( "block" ));
+            layout.row().label( new JLabel( localize.localize("org.openCage.ui.caretType") )).add( caretBox );
         }
+
+
+        public void setStyle( final String style ) {
+            cursorStyle.modify( new F1<Integer, Integer>() {
+                @Override
+                public Integer call(Integer integer) {
+                    return caretStyleList.getReverse( style );
+                }
+            });
+        }
+
+        public String getStyle() {
+            return caretStyleList.get( cursorStyle.get() );
+        }
+
+
 
     }
 }

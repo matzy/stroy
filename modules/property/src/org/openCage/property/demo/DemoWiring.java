@@ -5,8 +5,6 @@ import com.google.inject.Module;
 import com.google.inject.Singleton;
 import com.google.inject.TypeLiteral;
 import com.google.inject.name.Names;
-import org.openCage.lang.protocol.LangWiring;
-import org.openCage.property.clazz.DummyPropStore;
 import org.openCage.property.protocol.PropStore;
 import org.openCage.property.protocol.Property;
 import org.openCage.property.protocol.PropertyWiring;
@@ -27,10 +25,6 @@ public class DemoWiring implements Module {
         binder.bind( PropStore.class ).
                 annotatedWith( Names.named( "trans" )).
                 toProvider( AliasedPropStoreProvider.class );
-
-        binder.bind( PropStore.class ).
-                annotatedWith( Names.named( "std" )).
-                to( DummyPropStore.class );
 
         binder.bind( new TypeLiteral<Property<String>>() {} ).
                 annotatedWith( Names.named( RestaurantProp.Key )).
