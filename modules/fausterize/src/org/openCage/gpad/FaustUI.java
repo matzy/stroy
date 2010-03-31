@@ -9,7 +9,6 @@ import com.explodingpixels.macwidgets.UnifiedToolBar;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
-import org.fife.ui.rtextarea.ConfigurableCaret;
 import org.fife.ui.rtextarea.RTextArea;
 import org.openCage.application.protocol.Application;
 import org.openCage.fspath.clazz.FSPathBuilder;
@@ -27,7 +26,7 @@ import org.openCage.ui.clazz.MenuBuilder;
 import org.openCage.ui.clazz.MenuHelper;
 import org.openCage.ui.clazz.preferences.PreferenceFrame;
 import org.openCage.ui.clazz.TextEditorBuilder;
-import org.openCage.ui.impl.pref.CaretStyleProvider;
+import org.openCage.ui.impl.pref.CaretStyleProperty;
 import org.openCage.ui.protocol.*;
 
 import javax.swing.ImageIcon;
@@ -121,7 +120,7 @@ public class FaustUI extends JFrame {
                    Property<MRU<String>> mru,
                    HUDWarning warning,
                    SingletonApp singletonApp,
-                   @Named( CaretStyleProvider.KEY) Property<Integer> caretStyle ) {
+                   @Named( CaretStyleProperty.KEY) Property<Integer> caretStyle ) {
 
         this.application     = application;
         this.fileChooser     = chooser;
@@ -265,6 +264,13 @@ public class FaustUI extends JFrame {
         //textEditorBuilder.setConfCaret();
 
         ((RSyntaxTextArea)textUI).setCaretStyle(RTextArea.INSERT_MODE, caretStyle.get() );
+        caretStyle.addPropertyChangeListener( new F1<Void, Integer>() {
+            @Override
+            public Void call(Integer style) {
+                ((RSyntaxTextArea)textUI).setCaretStyle(RTextArea.INSERT_MODE, style );
+                return null;
+            }
+        });
 
         
     }
