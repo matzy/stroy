@@ -9,7 +9,7 @@
     <!-- home: http://stroy.wikidot.com/motpe             -->
     <!-- contact: openCage@gmail.com                      -->
 
-    <target name="default" depends="local.goal"/>
+    <target name="default" depends="everything"/>
 
     <!-- ====== properties ========== -->
     <!-- ====== properties ========== -->
@@ -127,6 +127,24 @@
     <!-- clean all artifacts created in a build -->
     <target name="clean">
         <delete dir="${dependencies.basedir}/build"/>
+    </target>
+
+    <target  name="help">
+        <echo message="March o the Elephants build file for ${app.name}" />
+        <echo message="ant                        :  builds ${app.name} with all dependencies" />
+        <echo message="ant everything             :  (default) builds ${app.name} with all dependencies" />
+        <echo message="ant clean                  :  removed all build artifacts" />
+        <echo message="ant help                   :  print this help" />
+        <echo message="ant local.xxx              :  build task for the local project only, i.e. depended projects are assumed to be build already" />
+        <echo message="ant local.compile          :  compile all classes" />
+        <echo message="ant local.create-manifest  :  creates a manifest with classpath to all dependent jars" />
+        <echo message="ant local.create-jar       :  creates a jar file with manifest" />
+        <echo message="ant local.osx-appp         :  builds a osx application (on OSX only)" />
+        <echo message="ant local.xplatform-app    :  builds a application based on shell/bat script to be used on OSX/win/linux" />
+        <echo message="ant local.dmg              :  builds dmg file for OSX (on OSX only)" />
+        <echo message="ant local.debian-pkg       :  builds debian package" />
+        <echo message="ant local.exe              :  builds a exe for windows (on windows only)" />
+
     </target>
 
     <!-- internal: prepare directories          -->
@@ -657,7 +675,7 @@
     <!-- build all local goals -->
     <target name="local.goal" depends="local.xplatform-app, local.dmg, local.debian-pkg, local.exe"/>
 
-    <!-- build everythig with all dependent modules -->
+    <!-- build everything with all dependent modules -->
     <target name="everything">
         <antcall target="depend.${ant.project.name}"/>
     </target>

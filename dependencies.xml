@@ -6,37 +6,37 @@
     <!-- ================================================================== -->
     <target name= "depend.application"
             depends="depend.lang, depend.localization, depend.io, xstream, jcip-annotations, idea-annotations, commons-io">
-        <ant dir="${dependencies.basedir}/modules/application" inheritAll="false"/>
+        <ant dir="${dependencies.basedir}/modules/application" target="local.goal" inheritAll="false"/>
     </target>
     <!-- ================================================================== -->
     <target name= "depend.io"
             depends="depend.lang, commons-lang, muchsoft-sys">
-        <ant dir="${dependencies.basedir}/modules/io" inheritAll="false"/>
+        <ant dir="${dependencies.basedir}/modules/io" target="local.goal" inheritAll="false"/>
     </target>
     <!-- ================================================================== -->
     <target name= "depend.fausterize"
             depends="depend.lang, mac-widgets, designgridlayout, depend.application, commons-io, depend.ui, args4j, mime-util, RSyntaxTextArea">
-        <ant dir="${dependencies.basedir}/modules/fausterize" inheritAll="false"/>
+        <ant dir="${dependencies.basedir}/modules/fausterize" target="local.goal" inheritAll="false"/>
     </target>
     <!-- ================================================================== -->
     <target name= "depend.localization"
             depends="depend.property">
-        <ant dir="${dependencies.basedir}/modules/localization" inheritAll="false"/>
+        <ant dir="${dependencies.basedir}/modules/localization" target="local.goal" inheritAll="false"/>
     </target>
     <!-- ================================================================== -->
     <target name= "depend.lang"
             depends="jcip-annotations, guice">
-        <ant dir="${dependencies.basedir}/modules/lang" inheritAll="false"/>
+        <ant dir="${dependencies.basedir}/modules/lang" target="local.goal" inheritAll="false"/>
     </target>
     <!-- ================================================================== -->
     <target name= "depend.property"
             depends="commons-io, idea-annotations, xstream, depend.lang">
-        <ant dir="${dependencies.basedir}/modules/property" inheritAll="false"/>
+        <ant dir="${dependencies.basedir}/modules/property" target="local.goal" inheritAll="false"/>
     </target>
     <!-- ================================================================== -->
     <target name= "depend.ui"
             depends="depend.localization, depend.application, depend.io, designgridlayout, depend.lang, guice, javagraphics-preferencepanel, RSyntaxTextArea, jgoodies-binding">
-        <ant dir="${dependencies.basedir}/modules/ui" inheritAll="false"/>
+        <ant dir="${dependencies.basedir}/modules/ui" target="local.goal" inheritAll="false"/>
     </target>
 
     <!-- ================================================================== -->
