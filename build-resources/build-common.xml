@@ -36,6 +36,8 @@
     <property name="author.name" value="anymous" />
     <property name="author.contact" value="404" />
     <property name="readme" value="-" />
+    <property name="elephants.licence" value = "MPL 1.1" />
+    <property name="elephants.x" value="----" />
 
 
     <!-- ====== local properties ========== -->
@@ -347,7 +349,7 @@
                             mainclass="${app.main}"
                             jvmversion="1.6+"
                             version="${version}"
-                            infostring="${app.name}, MPL1.1"
+                            infostring="${app.name}, ${elephants.licence}"
                             build="${buildnumber}"
                             bundleid="${app.bundleid}"
                             icon="${osx.icon}"
@@ -391,6 +393,59 @@
     </target>
 
     <target  name="local.xplatform.prepare" depends="local.collect.jars,local.helpsetup">
+        <if>
+            <isset property="isApp"/>
+            <then>
+                <property name="lxp.to" value="${deploy}/${elephants.x}/${app.name}" />
+                <mkdir dir="${lxp.to}/resources/java"/>
+                <copy todir="${lxp.to}/resources/java">
+                    <fileset refid="internalsSet"/>
+                </copy>
+
+                <!-- help files / osx layout  -->
+                <if>
+                    <available file="${resources}/helpbook"/>
+                    <then>
+                        <copy todir="${lxp.to}/resources">
+                            <fileset dir="${resources}/helpbook"/>
+                        </copy>
+                    </then>
+                </if>
+
+                <!-- readme.txt  -->
+                <if>
+                    <available file="${src}/${readme}"/>
+                    <then>
+                        <copy todir="${lxp.to}" file="${src}/${readme}"/>
+                    </then>
+                </if>
+
+                <!-- pad file -->
+                <copy file="${dependencies.basedir}/build-resources/pad_file.xml" todir="${lxp.to}" />
+                <replace  file="${lxp.to}/pad_file.xml" token="[groupId]" value="${groupId}" />
+                <replace  file="${lxp.to}/pad_file.xml" token="[webpage]" value="http://stroy.wikidot.com" />
+                <replace  file="${lxp.to}/pad_file.xml" token="[author.first]" value="Stephan" />
+                <replace  file="${lxp.to}/pad_file.xml" token="[author.last]" value="Pfab" />
+                <replace  file="${lxp.to}/pad_file.xml" token="[author.contact]" value="openCage@gmail.com" />
+                <replace  file="${lxp.to}/pad_file.xml" token="[app.name]" value="${app.name}" />
+                <replace  file="${lxp.to}/pad_file.xml" token="[version]" value="${version}" />
+                <replace  file="${lxp.to}/pad_file.xml" token="[screenshot.url]" value="http://stroy.wikidot.com/local--files/screenshots/fausterize-0.6.png" />
+                <replace  file="${lxp.to}/pad_file.xml" token="[icon.url]" value="http://stroy.wikidot.com/local--files/screenshots/faust-small.png" />
+
+
+
+                <!-- unix shell script (sh) -->
+                <echo message="java -jar resources/java/${groupId}-${ant.project.name}-${version}.jar"
+                      file="${lxp.to}/${app.name}.sh"/>
+                <chmod file="${lxp.to}/${app.name}.sh" perm="ugo+x"/>
+
+                <!-- windows command script -->
+                <echo message="java -jar resources/java/${groupId}-${ant.project.name}-${version}.jar"
+                      file="${lxp.to}/${app.name}.cmd"/>
+
+            </then>
+        </if>
+
     </target>
 
     <!-- build a xplatform deliverable   -->
@@ -400,39 +455,18 @@
             depends="local.collect.jars,local.helpsetup">
         <if>
             <isset property="isApp"/>
-            <then>
-                <mkdir dir="${deploy}/xplatform/${app.name}/resources/java"/>
-                <copy todir="${deploy}/xplatform/${app.name}/resources/java">
-                    <fileset refid="internalsSet"/>
-                </copy>
+        <then>
+            <antcall target="local.xplatform.prepare" >
+                <param name="elephants.x" value="xplatform"/>
+            </antcall>
 
-                <if>
-                    <available file="${resources}/helpbook"/>
-                    <then>
-                        <copy todir="${deploy}/xplatform/${app.name}/resources">
-                            <fileset dir="${resources}/helpbook"/>
-                        </copy>
-                    </then>
-                </if>
+            <!-- finalize pad file -->
+            <replace  file="${deploy}/xplatform/${app.name}/pad_file.xml" token="[pad.url]" value="http://stroy.wikidot.com/local--files/download/${app.name}-xplatform-pad.xml" />
+            <replace  file="${deploy}/xplatform/${app.name}/pad_file.xml" token="[download.url]" value="http://stroy.wikidot.com/local--files/download/${app.name}-${version}.zip" />
+            <copy file="${deploy}/xplatform/${app.name}/pad_file.xml" tofile="${deploy}/xplatform/${app.name}-xplatform-pad_file.xml"/>
 
-                <if>
-                    <available file="${src}/${readme}"/>
-                    <then>
-                        <copy todir="${deploy}/xplatform/${app.name}" file="${src}/${readme}"/>
-                    </then>
-                </if>
-
-                <!-- unix shell script (sh) -->
-                <echo message="java -jar resources/java/${groupId}-${ant.project.name}-${version}.jar"
-                      file="${deploy}/xplatform/${app.name}/${app.name}.sh"/>
-                <chmod file="${deploy}/xplatform/${app.name}/${app.name}.sh" perm="ugo+x"/>
-
-                <!-- windows command script -->
-                <echo message="java -jar resources/java/${groupId}-${ant.project.name}-${version}.jar"
-                      file="${deploy}/xplatform/${app.name}/${app.name}.cmd"/>
-
-                <zip destfile="${deploy}/xplatform/${app.name}-${version}.zip" basedir="${deploy}/xplatform/${app.name}"/>
-            </then>
+            <zip destfile="${deploy}/xplatform/${app.name}-${version}.zip" basedir="${deploy}/xplatform/${app.name}"/>
+        </then>
         </if>
     </target>
 
@@ -551,10 +585,10 @@
         <if>
             <isset property="isApp"/>
             <then>
-                <mkdir dir="${deploy}/debian/${app.name}/resources/java"/>
-                <copy todir="${deploy}/debian/${app.name}/resources/java">
-                    <fileset refid="internalsSet"/>
-                </copy>
+
+                <antcall target="local.xplatform.prepare" >
+                    <param name="elephants.x" value="debian"/>
+                </antcall>
 
                 <if>
                     <available file="${src}/${app.icon.small.png}"/>
@@ -563,19 +597,10 @@
                     </then>
                 </if>
 
-                <if>
-                    <available file="${resources}/helpbook"/>
-                    <then>
-                        <copy todir="${deploy}/debian/${app.name}/resources">
-                            <fileset dir="${resources}/helpbook"/>
-                        </copy>
-                    </then>
-                </if>
-
-                <!-- unix shell script (sh) -->
-                <echo message="java -jar resources/java/${groupId}-${ant.project.name}-${version}.jar"
-                      file="${deploy}/debian/${app.name}/${app.name}.sh"/>
-                <chmod file="${deploy}/debian/${app.name}/${app.name}.sh" perm="ugo+x"/>
+                <!-- finalize pad file -->
+                <replace  file="${deploy}/debian/${app.name}/pad_file.xml" token="[pad.url]" value="http://stroy.wikidot.com/local--files/download/${app.name}-debian-pad.xml" />
+                <replace  file="${deploy}/debian/${app.name}/pad_file.xml" token="[download.url]" value="http://stroy.wikidot.com/local--files/download/${app.name}-${version}.deb" />
+                <copy file="${deploy}/debian/${app.name}/pad_file.xml" tofile="${deploy}/debian/${app.name}-debian-pad_file.xml"/>
 
                 <condition property="deb.depends" value="openjdk-6-jre | sun-java6-jre" else="">
                     <equals arg1="${elph.java.version}" arg2="6"/>
@@ -594,10 +619,6 @@
                     </description>
 
                     <tarfileset dir="${deploy}/debian/${app.name}" prefix="usr/share/${app.name}"/>
-                    <!--<tarfileset dir="${deploy}/debian/" prefix="usr/share/doc/${app.name}">-->
-                    <!--<exclude name="*.jar"/>-->
-                    <!--<exclude name="*.gif"/>-->
-                    <!--</tarfileset>-->
                     <tarfileset file="${deploy}/debian/${app.name}.desktop" prefix="usr/share/applications"/>
                 </deb>
             </then>
@@ -612,10 +633,9 @@
                 <isset property="isWindows"/>
             </and>
             <then>
-                <mkdir dir="${deploy}/windows/${app.name}/resources/java"/>
-                <copy todir="${deploy}/windows/${app.name}/resources/java">
-                    <fileset refid="internalsSet"/>
-                </copy>
+                <antcall target="local.xplatform.prepare" >
+                    <param name="elephants.x" value="windows"/>
+                </antcall>
 
                 <if>
                     <available file="${src}/${app.icon.small.png}"/>
@@ -624,14 +644,6 @@
                     </then>
                 </if>
 
-                <if>
-                    <available file="${resources}/helpbook"/>
-                    <then>
-                        <copy todir="${deploy}/windows/${app.name}/resources">
-                            <fileset dir="${resources}/helpbook"/>
-                        </copy>
-                    </then>
-                </if>
 
                 <!-- fill the launch4j config template  -->
 
@@ -652,8 +664,6 @@
                     <equals arg1="${elph.java.version}" arg2="6"/>
                 </condition>
                 <replace  file="${deploy}/windows/launch4j-config.xml" token="[java.version.min]" value="${l4j.java.min}" />
-
-                <echo  message="+++ ${java.version} : ${elph.java.version} : ${l4j.java.min}" />
 
                 <if>
                     <available file="${src}/${app.icon.small.ico}"/>
