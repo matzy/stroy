@@ -1,10 +1,8 @@
 package org.openCage.webgen.clazz;
 
-import com.sun.tools.javac.main.JavaCompiler;
-import org.openCage.lang.clazz.Count;
+import org.openCage.lang.count.Count;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /***** BEGIN LICENSE BLOCK *****
