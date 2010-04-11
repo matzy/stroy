@@ -1,6 +1,6 @@
 package org.openCage.huffman;
 
-import org.openCage.lang.clazz.Count;
+import org.openCage.lang.count.Count;
 
 import java.util.ArrayList;
 import java.util.List;
