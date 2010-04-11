@@ -19,7 +19,7 @@ import org.openCage.application.protocol.Application;
 import org.openCage.application.protocol.Author;
 import org.openCage.application.protocol.EmailAddress;
 import org.openCage.application.protocol.Webpage;
-import org.openCage.lang.clazz.Count;
+import org.openCage.lang.count.Count;
 import org.openCage.localization.protocol.Localize;
 
 import com.google.inject.Inject;

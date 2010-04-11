@@ -12,7 +12,7 @@ import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rtextarea.RTextArea;
 import org.openCage.application.protocol.Application;
 import org.openCage.fspath.clazz.FSPathBuilder;
-import org.openCage.lang.clazz.Count;
+import org.openCage.lang.count.Count;
 import org.openCage.lang.clazz.MRU;
 import org.openCage.lang.errors.Unchecked;
 import org.openCage.lang.protocol.BackgroundExecutor;

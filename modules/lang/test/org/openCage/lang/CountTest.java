@@ -1,8 +1,8 @@
 package org.openCage.lang;
 
 import org.junit.Test;
-import org.openCage.lang.clazz.ArrayCount;
-import org.openCage.lang.clazz.Count;
+import org.openCage.lang.count.ArrayCount;
+import org.openCage.lang.count.Count;
 
 import java.util.Arrays;
 import java.util.List;

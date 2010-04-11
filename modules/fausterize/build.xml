@@ -16,6 +16,8 @@
     <property name="app.description.short" value="fausterize a small encrypting text editor" />
     <property name="app.description.full" value="fausterize a small encrypting text editor" />
     <property name="readme" value="org/openCage/gpad/resources/README.txt"/>
+
+    <property name="el.localization" value="English,German" />
     
 
 

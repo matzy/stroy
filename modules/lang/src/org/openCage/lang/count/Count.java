@@ -1,4 +1,4 @@
-package org.openCage.lang.clazz;
+package org.openCage.lang.count;
 
 import java.util.Iterator;
 
