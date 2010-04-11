@@ -641,7 +641,7 @@
                         todir  ="${deploy}/debian"
                         package="${app.name}"
                         section="utils"
-                        depends="${elph.java.version}"
+                        depends="${deb.depends}"
                         >
                     <version upstream="${version}"/>
                     <maintainer email="${author.contact}"/>
