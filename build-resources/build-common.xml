@@ -26,8 +26,8 @@
     <property name="app.signature" value="${ant.project.name}"/>
     <property name="app.bundleid" value="elph"/>
     <property name="app.icon.osx" value=""/>
-    <property name="app.icon.small.png" value=""/>
-    <property name="app.icon.small.ico" value="-"/>
+    <property name="app.icon.small.png" value="---"/>
+    <property name="app.icon.small.ico" value="---"/>
     <property name="app.helpbook" value=""/>
     <property name="groupId" value="elephants"/>
     <property name="elph.java.version" value="6" />
@@ -37,7 +37,9 @@
     <property name="author.contact" value="404" />
     <property name="readme" value="-" />
     <property name="elephants.licence" value = "MPL 1.1" />
-    <property name="elephants.x" value="----" />
+    <property name="el.download"  value="http://stroy.wikidot.com/local--files/download" />
+    <property name="el.localization"  value="English" />
+
 
 
     <!-- ====== local properties ========== -->
@@ -52,6 +54,13 @@
     <property name="deploy"          value="${dependencies.basedir}/build/deploy/${ant.project.name}"/>
     <property name="src"             value="${module}/src"/>
     <property name="helpbooksrc"     value="${module}/${app.helpbook}"/>
+
+    <!-- ====== parameter properties ========== -->
+    <property name="param.target.os" value="----" />
+    <property name="param.target.os.details" value="----" />
+    <property name="param.target.os.extension"  value="---" />
+    <property name="param.target.install.support"  value="No Install support" />
+
 
     <condition property="isOSX">
         <and>
@@ -177,7 +186,7 @@
 
     <!-- compile sources and copy pictures and xmsl -->
     <target name="local.compile" depends="local.prepare">
-        <javac srcdir="${src}" destdir="${classes}">
+        <javac srcdir="${src}" destdir="${classes}" debug="on" source="1.6">     <!-- TODO -->
             <classpath refid="jars"/>
         </javac>
 
@@ -195,22 +204,22 @@
             </and>
             <then>
                 <!-- Create a JNI library for launching the Help Viewer -->
-                <exec executable="cc">
-                    <arg line="-c"/>
-                    <arg line="-I/System/Library/Frameworks/JavaVM.framework/Headers"/>
-                    <arg line="-o ${objc-classes}/HelpBookJNI.o"/>
-                    <arg value="${module}/objc-src/HelpBookJNI.m"/>
-                </exec>
+                <!--<exec executable="cc">-->
+                    <!--<arg line="-c"/>-->
+                    <!--<arg line="-I/System/Library/Frameworks/JavaVM.framework/Headers"/>-->
+                    <!--<arg line="-o ${objc-classes}/HelpBookJNI.o"/>-->
+                    <!--<arg value="${module}/objc-src/HelpBookJNI.m"/>-->
+                <!--</exec>-->
 
-                <exec executable="cc">
-                    <arg line="-dynamiclib"/>
-                    <arg line="-framework JavaVM"/>
-                    <arg line="-framework Cocoa"/>
-                    <arg line="-o ${objc-libs}/libHelpBookJNI.jnilib"/>
-                    <arg value="${objc-classes}/HelpBookJNI.o"/>
-                </exec>
+                <!--<exec executable="cc">-->
+                    <!--<arg line="-dynamiclib"/>-->
+                    <!--<arg line="-framework JavaVM"/>-->
+                    <!--<arg line="-framework Cocoa"/>-->
+                    <!--<arg line="-o ${objc-libs}/libHelpBookJNI.jnilib"/>-->
+                    <!--<arg value="${objc-classes}/HelpBookJNI.o"/>-->
+                <!--</exec>-->
+                <!--<delete file="${objc-classes}/HelpBookJNI.o" quiet="true"/>-->
 
-                <delete file="${objc-classes}/HelpBookJNI.o" quiet="true"/>
             </then>
         </if>
 
@@ -392,12 +401,41 @@
         </if>
     </target>
 
-    <target  name="local.xplatform.prepare" depends="local.collect.jars,local.helpsetup">
+    <target  name="local.padfile" depends="local.prepare">
+        <if>
+        <isset property="isApp"/>
+        <then>
+            <property name="lxp.to" value="${deploy}/${param.target.os}/${app.name}" />
+            <mkdir dir="${lxp.to}/resources/java"/>
+
+            <!-- pad file -->
+            <copy file="${dependencies.basedir}/build-resources/pad_file.xml" todir="${lxp.to}" />
+            <replace  file="${lxp.to}/pad_file.xml" token="[groupId]" value="${groupId}" />
+            <replace  file="${lxp.to}/pad_file.xml" token="[webpage]" value="http://stroy.wikidot.com" /> <!-- TODO -->
+            <replace  file="${lxp.to}/pad_file.xml" token="[author.first]" value="Stephan" /> <!-- TODO -->
+            <replace  file="${lxp.to}/pad_file.xml" token="[author.last]" value="Pfab" /> <!-- TODO -->
+            <replace  file="${lxp.to}/pad_file.xml" token="[author.contact]" value="openCage@gmail.com" /> <!-- TODO -->
+            <replace  file="${lxp.to}/pad_file.xml" token="[version]" value="${version}" />
+            <replace  file="${lxp.to}/pad_file.xml" token="[screenshot.url]" value="http://stroy.wikidot.com/local--files/screenshots/fausterize-0.6.png" /> <!-- TODO -->
+            <replace  file="${lxp.to}/pad_file.xml" token="[icon.url]" value="http://stroy.wikidot.com/local--files/screenshots/faust-small.png" /> <!-- TODO -->
+            <replace  file="${lxp.to}/pad_file.xml" token="[pad.url]" value="${el.download}/${app.name}-${param.target.os}-pad_file.xml" />
+            <replace  file="${lxp.to}/pad_file.xml" token="[app.name]" value="${app.name} ${param.target.os}" />
+            <replace  file="${lxp.to}/pad_file.xml" token="[OS]" value="${param.target.os.details}" />
+            <replace  file="${lxp.to}/pad_file.xml" token="[install.support]" value="${local.install.support}" />
+            <replace  file="${lxp.to}/pad_file.xml" token="[language]" value="${el.localization}" />
+            <replace  file="${lxp.to}/pad_file.xml" token="[download.url]" value="${el.download}/${app.name}-${param.target.os}-${version}.${param.target.extension}" />
+
+            <copy file="${lxp.to}/pad_file.xml" tofile="${deploy}/${param.target.os}/${app.name}-${param.target.os}-pad_file.xml"/>
+        </then>
+        </if>
+    </target>
+
+    <target  name="local.xplatform.prepare" depends="local.collect.jars,local.helpsetup,local.padfile">
         <if>
             <isset property="isApp"/>
             <then>
-                <property name="lxp.to" value="${deploy}/${elephants.x}/${app.name}" />
-                <mkdir dir="${lxp.to}/resources/java"/>
+                <property name="lxp.to" value="${deploy}/${param.target.os}/${app.name}" />
+
                 <copy todir="${lxp.to}/resources/java">
                     <fileset refid="internalsSet"/>
                 </copy>
@@ -419,19 +457,6 @@
                         <copy todir="${lxp.to}" file="${src}/${readme}"/>
                     </then>
                 </if>
-
-                <!-- pad file -->
-                <copy file="${dependencies.basedir}/build-resources/pad_file.xml" todir="${lxp.to}" />
-                <replace  file="${lxp.to}/pad_file.xml" token="[groupId]" value="${groupId}" />
-                <replace  file="${lxp.to}/pad_file.xml" token="[webpage]" value="http://stroy.wikidot.com" />
-                <replace  file="${lxp.to}/pad_file.xml" token="[author.first]" value="Stephan" />
-                <replace  file="${lxp.to}/pad_file.xml" token="[author.last]" value="Pfab" />
-                <replace  file="${lxp.to}/pad_file.xml" token="[author.contact]" value="openCage@gmail.com" />
-                <replace  file="${lxp.to}/pad_file.xml" token="[app.name]" value="${app.name}" />
-                <replace  file="${lxp.to}/pad_file.xml" token="[version]" value="${version}" />
-                <replace  file="${lxp.to}/pad_file.xml" token="[screenshot.url]" value="http://stroy.wikidot.com/local--files/screenshots/fausterize-0.6.png" />
-                <replace  file="${lxp.to}/pad_file.xml" token="[icon.url]" value="http://stroy.wikidot.com/local--files/screenshots/faust-small.png" />
-
 
 
                 <!-- unix shell script (sh) -->
@@ -457,12 +482,13 @@
             <isset property="isApp"/>
         <then>
             <antcall target="local.xplatform.prepare" >
-                <param name="elephants.x" value="xplatform"/>
+                <param name="param.target.os" value="xplatform"/>
+                <param name="param.target.os.details" value="Java,Linux,Mac OS X,Unix,Win7 x32,Win7 x64,WinVista,WinVista x64,WinXP"/>
+                <param name="param.target.extension" value="zip"/>
             </antcall>
 
             <!-- finalize pad file -->
-            <replace  file="${deploy}/xplatform/${app.name}/pad_file.xml" token="[pad.url]" value="http://stroy.wikidot.com/local--files/download/${app.name}-xplatform-pad.xml" />
-            <replace  file="${deploy}/xplatform/${app.name}/pad_file.xml" token="[download.url]" value="http://stroy.wikidot.com/local--files/download/${app.name}-${version}.zip" />
+            <replace  file="${deploy}/xplatform/${app.name}/pad_file.xml" token="[install.support]" value="No Install Support" />
             <copy file="${deploy}/xplatform/${app.name}/pad_file.xml" tofile="${deploy}/xplatform/${app.name}-xplatform-pad_file.xml"/>
 
             <zip destfile="${deploy}/xplatform/${app.name}-${version}.zip" basedir="${deploy}/xplatform/${app.name}"/>
@@ -480,6 +506,12 @@
                 <isset property="isOSX"/>
             </and>
             <then>
+                <antcall target="local.xplatform.prepare" >
+                    <param name="param.target.os" value="osx"/>
+                    <param name="param.target.os.details" value="Mac OS X"/>
+                    <param name="param.target.extension" value="dmg"/>
+                    <param name="param.target.install.support" value="Install Support" />
+                </antcall>
 
                 <!-- Set this property value to your application name    -->
                 <!--<property name="app.name"-->
@@ -587,7 +619,10 @@
             <then>
 
                 <antcall target="local.xplatform.prepare" >
-                    <param name="elephants.x" value="debian"/>
+                    <param name="param.target.os" value="debian"/>
+                    <param name="param.target.os.details" value="Linux"/>
+                    <param name="local.install.support" value="Install Support"/>
+                    <param name="param.target.extension" value="deb"/>
                 </antcall>
 
                 <if>
@@ -597,10 +632,6 @@
                     </then>
                 </if>
 
-                <!-- finalize pad file -->
-                <replace  file="${deploy}/debian/${app.name}/pad_file.xml" token="[pad.url]" value="http://stroy.wikidot.com/local--files/download/${app.name}-debian-pad.xml" />
-                <replace  file="${deploy}/debian/${app.name}/pad_file.xml" token="[download.url]" value="http://stroy.wikidot.com/local--files/download/${app.name}-${version}.deb" />
-                <copy file="${deploy}/debian/${app.name}/pad_file.xml" tofile="${deploy}/debian/${app.name}-debian-pad_file.xml"/>
 
                 <condition property="deb.depends" value="openjdk-6-jre | sun-java6-jre" else="">
                     <equals arg1="${elph.java.version}" arg2="6"/>
@@ -627,24 +658,26 @@
 
     <target name="local.exe" depends="local.collect.jars">
 
+                <antcall target="local.xplatform.prepare" >
+                    <param name="param.target.os" value="windows"/>
+                    <param name="param.target.extension" value="zip"/>
+                </antcall>
+
+                <if>
+                    <available file="${src}/${app.icon.small.png}"/>
+                    <then>
+                        <echo message="copy tofile= ${deploy}/windows/${app.name}/${app.name}.png file=${src}/${app.icon.small.png} failonerror=true overwrite=true"/>
+                        <copy tofile= "${deploy}/windows/${app.name}/${app.name}.png" file="${src}/${app.icon.small.png}" failonerror="true" overwrite="true"/>
+                    </then>
+                </if>
+
+
         <if>
             <and>
                 <isset property="isApp"/>
                 <isset property="isWindows"/>
             </and>
             <then>
-                <antcall target="local.xplatform.prepare" >
-                    <param name="elephants.x" value="windows"/>
-                </antcall>
-
-                <if>
-                    <available file="${src}/${app.icon.small.png}"/>
-                    <then>
-                        <copy tofile= "${deploy}/windows/${app.name}/${app.name}.png" file="${src}/${app.icon.small.png}" failonerror="true" overwrite="true"/>
-                    </then>
-                </if>
-
-
                 <!-- fill the launch4j config template  -->
 
                 <!--     create a path in the form <cp>jar1</cp><cp>jar2</cp>   -->
