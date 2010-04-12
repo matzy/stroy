@@ -7,7 +7,7 @@ import com.jgoodies.binding.beans.PropertyAdapter;
 import com.jgoodies.binding.value.ValueModel;
 import net.java.dev.designgridlayout.DesignGridLayout;
 import org.fife.ui.rtextarea.ConfigurableCaret;
-import org.openCage.lang.clazz.BiMap;
+import org.openCage.lang.BiMap;
 import org.openCage.lang.protocol.F1;
 import org.openCage.localization.protocol.Localize;
 import org.openCage.property.protocol.Property;
@@ -15,8 +15,6 @@ import org.openCage.ui.protocol.PrefBuilder;
 
 import javax.swing.*;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1

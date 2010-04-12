@@ -2,7 +2,7 @@ package org.openCage.lang;
 
 //package org.openCage.util.lang;
 //
-//import org.openCage.lang.clazz.Lazy;
+//import org.openCage.lang.Lazy;
 //import junit.framework.TestCase;
 //import org.openCage.utils.func.F0;
 //import org.openCage.utils.lang.Ref;

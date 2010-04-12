@@ -1,4 +1,4 @@
-package org.openCage.lang.clazz;
+package org.openCage.lang;
 
 import net.jcip.annotations.ThreadSafe;
 import org.openCage.lang.annotations.HiddenCall;

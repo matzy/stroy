@@ -1,6 +1,6 @@
 package org.openCage.stroy.algo.tree.zip;
 
-import org.openCage.lang.clazz.Lazy;
+import org.openCage.lang.Lazy;
 import org.openCage.stroy.algo.tree.Fiel;
 import org.openCage.lang.protocol.HasDistance;
 import org.openCage.util.string.Strings;

@@ -1,4 +1,4 @@
-package org.openCage.lang.clazz;
+package org.openCage.lang;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1

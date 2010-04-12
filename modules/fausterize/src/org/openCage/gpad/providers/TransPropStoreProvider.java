@@ -3,7 +3,7 @@ package org.openCage.gpad.providers;
 import com.google.inject.Inject;
 import org.openCage.fspath.clazz.FSPathBuilder;
 import org.openCage.gpad.Constants;
-import org.openCage.lang.clazz.MRU;
+import org.openCage.lang.MRU;
 import org.openCage.lang.protocol.SingletonApp;
 import org.openCage.property.protocol.AbstractPropStoreProvider;
 

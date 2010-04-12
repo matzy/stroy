@@ -11,7 +11,7 @@ import org.openCage.gpad.providers.ApplicationProvider;
 import org.openCage.gpad.providers.LocalizeProvider;
 import org.openCage.gpad.providers.PropStoreProvider;
 import org.openCage.gpad.providers.TransPropStoreProvider;
-import org.openCage.lang.clazz.MRU;
+import org.openCage.lang.MRU;
 import org.openCage.lang.protocol.LangWiring;
 import org.openCage.lang.protocol.SingletonApp;
 import org.openCage.localization.protocol.Localize;

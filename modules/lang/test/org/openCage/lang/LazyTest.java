@@ -8,7 +8,7 @@ package org.openCage.lang;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.Test;
-import org.openCage.lang.clazz.Lazy;
+import org.openCage.lang.Lazy;
 import org.openCage.lang.errors.Unchecked;
 import org.openCage.lang.protocol.FE0;
 

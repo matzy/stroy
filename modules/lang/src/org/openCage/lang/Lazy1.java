@@ -1,9 +1,10 @@
-package org.openCage.lang.clazz;
+package org.openCage.lang;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
+import org.openCage.lang.Lazy;
+import org.openCage.lang.protocol.FE1;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -26,29 +27,26 @@ import java.util.HashMap;
 *
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
-public class BiMap<A,B> {
+public class Lazy1<T,A> {
+    private T              obj;
+    private boolean        evaluated = false;
+    private final FE1<T,A> func;
 
-    private Map<A, B> forward = new HashMap<A,B>();
-    private Map<B, A> backward = new HashMap<B,A>();
-
-    public void put( A a, B b ) {
-        forward.put(a,b);
-        backward.put(b,a);
+    public Lazy1( FE1<T,A> func ) {
+        this.func = func;
     }
 
-    public B get( A a ) {
-        return forward.get(a);
-    }
+    // TODO exceptions
+    public T get( A a) {
+        if ( !evaluated ) {
+            try {
+                obj = func.call( a );
+            } catch (Exception ex) {
+                Logger.getLogger(Lazy.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            evaluated = true;
+        }
 
-    public A getReverse( B b ) {
-        return backward.get(b);
-    }
-
-    public Collection<A> keys() {
-        return forward.keySet();
-    }
-
-    public Collection<B> vals() {
-        return forward.values();
+        return obj;
     }
 }

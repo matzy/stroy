@@ -1,7 +1,7 @@
 package org.openCage.stroy.dir;
 
-import org.openCage.lang.clazz.Lazy1;
-import org.openCage.lang.clazz.Lazy;
+import org.openCage.lang.Lazy1;
+import org.openCage.lang.Lazy;
 import org.openCage.util.io.FileUtils;
 import org.openCage.vfs.protocol.Content;
 import org.openCage.lang.protocol.HasDistance;

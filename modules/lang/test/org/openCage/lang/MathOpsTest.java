@@ -3,7 +3,7 @@ package org.openCage.lang;
 import org.junit.Test;
 
 import static junit.framework.Assert.assertEquals;
-import static org.openCage.lang.clazz.MathOps.xor;
+import static org.openCage.lang.MathOps.xor;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1

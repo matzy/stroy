@@ -1,9 +1,8 @@
-package org.openCage.lang.clazz;
+package org.openCage.lang;
 
-import org.openCage.lang.protocol.FE1;
+import org.openCage.lang.errors.Unchecked;
+import org.openCage.lang.protocol.FE0;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -26,26 +25,45 @@ import java.util.logging.Logger;
 *
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
-public class Lazy1<T,A> {
-    private T              obj;
-    private boolean        evaluated = false;
-    private final FE1<T,A> func;
 
-    public Lazy1( FE1<T,A> func ) {
+/**
+ * lazy evaluate a function with no arguments
+ * i.e. a memoization method
+ * no protection against trows
+ * this is similar to FutureTask
+ * @param <T> Any type
+ */
+public class Lazy<T> {
+    private T              obj;
+    private Boolean        evaluated = false;
+    private Error          exp       = null;
+    private final FE0<T>   func;
+
+    public Lazy( FE0<T> func ) {
         this.func = func;
     }
 
-    // TODO exceptions
-    public T get( A a) {
-        if ( !evaluated ) {
+    public T get() {
+
+        eval();
+
+        if ( exp != null ) {
+            throw exp;            
+        }
+        
+        return obj;
+    }
+
+    private synchronized void eval() {
+        if (!evaluated) {
             try {
-                obj = func.call( a );
+                obj = func.call();
             } catch (Exception ex) {
-                Logger.getLogger(Lazy.class.getName()).log(Level.SEVERE, null, ex);
+                exp = new Unchecked(ex);
+            } catch (Error ex) {
+                exp = ex;
             }
             evaluated = true;
         }
-
-        return obj;
     }
 }

@@ -1,6 +1,6 @@
 package org.openCage.stroy.algo.tree.filesystem;
 
-import org.openCage.lang.clazz.Lazy;
+import org.openCage.lang.Lazy;
 import org.openCage.stroy.algo.tree.Fiel;
 import org.openCage.stroy.algo.tree.IOStateImpl;
 import org.openCage.stroy.algo.tree.IOState;

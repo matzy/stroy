@@ -1,6 +1,5 @@
 package org.openCage.gpad;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.jetbrains.annotations.NotNull;
 import org.openCage.huffman.DynamicBitArray;
@@ -23,7 +22,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Logger;
 
-import static org.openCage.lang.clazz.MathOps.xor;
+import static org.openCage.lang.MathOps.xor;
 
 
 /***** BEGIN LICENSE BLOCK *****

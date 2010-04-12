@@ -1,6 +1,6 @@
 package org.openCage.stroy.algo.tree.contentType;
 
-import org.openCage.lang.clazz.Lazy;
+import org.openCage.lang.Lazy;
 import org.openCage.util.io.FileUtils;
 
 import java.io.InputStream;
