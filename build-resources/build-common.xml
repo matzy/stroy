@@ -2,12 +2,14 @@
 <project name="build-common" default="default">
     <import file="../dependencies.xml"/>
 
-    <!-- March of the Pink Elephants                      -->
+
+    <!-- ======  March of the Pink Elephants  =========== -->
     <!-- ant based full build system for java projects    -->
     <!-- version: 0.3                                     -->
     <!-- licence: MPL1.1                                  -->
     <!-- home: http://stroy.wikidot.com/motpe             -->
     <!-- contact: openCage@gmail.com                      -->
+    <!-- ================================================ -->
 
     <target name="default" depends="everything"/>
 
@@ -39,6 +41,7 @@
     <property name="elephants.licence" value = "MPL 1.1" />
     <property name="el.download"  value="http://stroy.wikidot.com/local--files/download" />
     <property name="el.localization"  value="English" />
+    <property name="el.src"  value="src" />
 
 
 
@@ -52,7 +55,7 @@
     <property name="module"          value="${dependencies.basedir}/modules/${ant.project.name}"/>
     <property name="resources"       value="${dependencies.basedir}/build/resources/${ant.project.name}"/>
     <property name="deploy"          value="${dependencies.basedir}/build/deploy/${ant.project.name}"/>
-    <property name="src"             value="${module}/src"/>
+    <property name="src"             value="${module}/${el.src}"/>
     <property name="helpbooksrc"     value="${module}/${app.helpbook}"/>
 
     <!-- ====== parameter properties ========== -->
@@ -186,6 +189,7 @@
 
     <!-- compile sources and copy pictures and xmsl -->
     <target name="local.compile" depends="local.prepare">
+        <echo  message="${src}" />
         <javac srcdir="${src}" destdir="${classes}" debug="on" source="1.6">     <!-- TODO -->
             <classpath refid="jars"/>
         </javac>
