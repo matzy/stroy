@@ -4,8 +4,9 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import org.apache.commons.io.IOUtils;
 import org.jetbrains.annotations.NotNull;
+import org.openCage.lang.errors.Unchecked;
 import org.openCage.lang.protocol.BackgroundExecutor;
-import org.openCage.lang.protocol.FE0;
+import org.openCage.lang.protocol.F0;
 import org.openCage.lang.protocol.SingletonApp;
 import org.openCage.property.protocol.PropStore;
 import org.openCage.property.protocol.Property;
@@ -65,9 +66,9 @@ public class PropStoreImpl implements PropStore {
 
             final PropStoreImpl propStore = this;
 
-            background.addPeriodicAndExitTask( new FE0<Void>() {
+            background.addPeriodicAndExitTask( new F0<Void>() {
                 @Override
-                public Void call() throws Exception {
+                public Void call() {
                     if ( isDirty ) {
                         synchronized ( propStore ) {
                             FileWriter writer = null;
@@ -76,6 +77,8 @@ public class PropStoreImpl implements PropStore {
                                 backing.getParentFile().mkdirs();
                                 writer = new FileWriter( backing );
                                 xs.toXML( store, writer );
+                            } catch (IOException e) {
+                                throw Unchecked.wrap( e );
                             } finally {
                                 IOUtils.closeQuietly( writer );
                             }

@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import org.junit.Test;
 import org.openCage.lang.errors.Unchecked;
-import org.openCage.lang.protocol.FE1;
+import org.openCage.lang.protocol.F1;
 import org.openCage.withResource.protocol.With;
 import org.openCage.withResource.wiring.IoWiring;
 
@@ -26,9 +26,9 @@ public class WithTest {
         Injector injector = Guice.createInjector(new IoWiring());
         With with = injector.getInstance(With.class);
 
-        with.withInputStream( new File( "idontexist" ), new FE1<Void, InputStream>() {
+        with.withInputStream( new File( "idontexist" ), new F1<Void, InputStream>() {
 
-            public Void call(InputStream a) throws Exception {
+            public Void call(InputStream a) {
                 return null;
             }
         } );
@@ -40,7 +40,7 @@ public class WithTest {
         With with = injector.getInstance(With.class);
 
 
-        with.withInputStream( new File( getClass().getResource("WithTest.class").getPath() ), new FE1<Void, InputStream>() {
+        with.withInputStream( new File( getClass().getResource("WithTest.class").getPath() ), new F1<Void, InputStream>() {
 
             public Void call(InputStream a) {
                 throw new IllegalArgumentException();
@@ -53,7 +53,7 @@ public class WithTest {
         Injector injector = Guice.createInjector(new IoWiring());
         With with = injector.getInstance(With.class);
 
-        with.withInputStream( new File( getClass().getResource("WithTest.class").getPath() ), new FE1<Void, InputStream>() {
+        with.withInputStream( new File( getClass().getResource("WithTest.class").getPath() ), new F1<Void, InputStream>() {
 
             public Void call(InputStream a) {
                 throw Unchecked.wrap( new IOException());
@@ -66,10 +66,14 @@ public class WithTest {
         Injector injector = Guice.createInjector(new IoWiring());
         With with = injector.getInstance(With.class);
 
-        with.withInputStream( new File( getClass().getResource("WithTest.class").getPath() ), new FE1<Void, InputStream>() {
+        with.withInputStream( new File( getClass().getResource("WithTest.class").getPath() ), new F1<Void, InputStream>() {
 
-            public Void call(InputStream a) throws IOException {
-                a.read();
+            public Void call(InputStream a) {
+                try {
+                    a.read();
+                } catch (IOException e) {
+                    throw Unchecked.wrap(e);
+                }
                 return null;
             }
         } );
@@ -80,10 +84,14 @@ public class WithTest {
         Injector injector = Guice.createInjector(new IoWiring());
         With with = injector.getInstance(With.class);
 
-        with.withInputStream( new File( getClass().getResource("WithTest.class").getPath() ), new FE1<Void, InputStream>() {
+        with.withInputStream( new File( getClass().getResource("WithTest.class").getPath() ), new F1<Void, InputStream>() {
 
-            public Void call(InputStream a) throws IOException {
-                a.close();
+            public Void call(InputStream a) {
+                try {
+                    a.close();
+                } catch (IOException e) {
+                    throw Unchecked.wrap(e);
+                }
                 return null;
             }
         } );

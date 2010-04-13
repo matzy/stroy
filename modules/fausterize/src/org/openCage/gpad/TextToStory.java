@@ -1,7 +1,8 @@
 package org.openCage.gpad;
 
 import org.jetbrains.annotations.NotNull;
-import org.openCage.lang.protocol.FE1;
+import org.openCage.lang.errors.Unchecked;
+import org.openCage.lang.protocol.F1;
 import org.openCage.withResource.impl.WithImpl;
 import org.openCage.withResource.protocol.Iterators;
 
@@ -51,9 +52,13 @@ public class TextToStory implements TextEncoder<String>{
 
 
         final byte[] uncompressedPad = new byte[10000];
-        new WithImpl().withInputStream( path, new FE1<Integer, InputStream>() {
-            public Integer call(InputStream inputStream) throws Exception {
-                return inputStream.read( uncompressedPad );
+        new WithImpl().withInputStream( path, new F1<Integer, InputStream>() {
+            public Integer call(InputStream inputStream)  {
+                try {
+                    return inputStream.read( uncompressedPad );
+                } catch (IOException e) {
+                    throw Unchecked.wrap(e);
+                }
             }
         });
 

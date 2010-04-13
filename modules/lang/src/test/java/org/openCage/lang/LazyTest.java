@@ -5,7 +5,7 @@ import java.util.logging.Logger;
 import org.junit.Test;
 import org.openCage.lang.Lazy;
 import org.openCage.lang.errors.Unchecked;
-import org.openCage.lang.protocol.FE0;
+import org.openCage.lang.protocol.F0;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -33,8 +33,8 @@ public class LazyTest {
 
     @Test( expected=Unchecked.class)
     public void testExecption() {
-        Lazy<String> lazy = new Lazy<String>( new FE0<String>() {
-            public String call() throws Exception {
+        Lazy<String> lazy = new Lazy<String>( new F0<String>() {
+            public String call()  {
                 throw new UnsupportedOperationException("Not supported yet.");
             }
         } );
@@ -44,8 +44,8 @@ public class LazyTest {
 
     @Test( expected=Unchecked.class)
     public void testGetTwiceExecption() {
-        Lazy<String> lazy = new Lazy<String>( new FE0<String>() {
-            public String call() throws Exception {
+        Lazy<String> lazy = new Lazy<String>( new F0<String>() {
+            public String call() {
                 throw new UnsupportedOperationException("Not supported yet.");
             }
         } );
@@ -60,9 +60,13 @@ public class LazyTest {
 
     @Test
     public void testMultithreading() {
-        final Lazy<String> lazy = new Lazy<String>( new FE0<String>() {
-            public String call() throws Exception {
-                Thread.sleep(1000);
+        final Lazy<String> lazy = new Lazy<String>( new F0<String>() {
+            public String call() {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    throw Unchecked.wrap(e);
+                }
                 System.out.println("evaluating");
                 return "a big a slow result";
             }

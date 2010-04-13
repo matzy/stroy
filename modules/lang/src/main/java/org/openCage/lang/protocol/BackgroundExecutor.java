@@ -1,7 +1,5 @@
 package org.openCage.lang.protocol;
 
-import org.openCage.lang.protocol.FE0;
-
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
 *
@@ -30,20 +28,20 @@ public interface BackgroundExecutor {
      * the task will run periodically and also at the end of the program
      * @param task
      */
-    public void addPeriodicAndExitTask( FE0<Void> task );
+    public void addPeriodicAndExitTask( F0<Void> task );
 
     /**
      * the task will be run every 10 seconds
      * te task should run fairly quick
      * @param task
      */
-    public void addPeriodicTask( FE0<Void> task );
+    public void addPeriodicTask( F0<Void> task );
 
     /**
      * the task will be executed at the end of the program
      * independent of how the program ends
      * @param task
      */
-    public void addExitTask( FE0<Void> task );
+    public void addExitTask( F0<Void> task );
 
 }

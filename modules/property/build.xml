@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="property" default="default" basedir=".">
-    <property  name = "version" value="0.2.0" />
-    <property  name = "groupId" value="openCage"/>
-    
+    <property name = "version" value="0.2.0" />
+    <property name = "groupId" value="openCage"/>
+    <property name = "el.src"        value="src/main/java" />
+
 
     <import file="../../build-resources/build-common.xml"/>
 </project>

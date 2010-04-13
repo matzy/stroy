@@ -4,9 +4,9 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import org.apache.commons.lang.mutable.MutableLong; 
 import org.junit.Test;
+import org.openCage.lang.impl.BackgroundExecutorImpl;
 import org.openCage.lang.protocol.BackgroundExecutor;
-import org.openCage.lang.protocol.FE0;
-import org.openCage.lang.protocol.LangWiring;
+import org.openCage.lang.protocol.F0;
 
 import static junit.framework.Assert.assertTrue;
 
@@ -37,13 +37,12 @@ public class BackgroundExecutorTest {
 
     @Test
     public void testPeriodic() throws InterruptedException {
-        Injector injector = Guice.createInjector( new LangWiring() );
-        BackgroundExecutor bg = injector.getInstance( BackgroundExecutor.class );
+        BackgroundExecutor bg = new BackgroundExecutorImpl();
 
         final MutableLong count = new MutableLong(0);
 
-        bg.addPeriodicTask( new FE0<Void>() {
-            public Void call() throws Exception {
+        bg.addPeriodicTask( new F0<Void>() {
+            public Void call() {
                 count.increment();
                 return null;
             }

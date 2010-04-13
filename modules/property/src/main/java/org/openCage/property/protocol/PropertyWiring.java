@@ -3,14 +3,16 @@ package org.openCage.property.protocol;
 import com.google.inject.Binder;
 import com.google.inject.Module;
 import com.google.inject.name.Names;
-import org.openCage.lang.protocol.LangWiring;
-import org.openCage.property.protocol.NonPersistingPropStore;
+import org.openCage.lang.impl.BackgroundExecutorImpl;
+import org.openCage.lang.protocol.BackgroundExecutor;
 
 public class PropertyWiring implements Module {
 
     @Override public void configure(Binder binder) {
-        binder.install( new LangWiring());
 
+        binder.bind(BackgroundExecutor.class ).
+                to(BackgroundExecutorImpl.class );
+        
         binder.bind( PropStore.class ).
                 annotatedWith( Names.named( NonPersistingPropStore.NAME )).
                 to( NonPersistingPropStore.class );

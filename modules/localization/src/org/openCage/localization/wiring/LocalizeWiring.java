@@ -1,7 +1,6 @@
 package org.openCage.localization.wiring;
 
 import com.google.inject.TypeLiteral;
-import org.openCage.lang.protocol.LangWiring;
 import org.openCage.localization.impl.BundleCheckImpl;
 import org.openCage.localization.impl.LocaleProperty;
 import org.openCage.localization.impl.LocalizeBuilderImpl;
@@ -49,7 +48,6 @@ public class LocalizeWiring implements Module {
         }
         once = true;
 
-        binder.install( new LangWiring());
 
 //		binder.bind( Localize.class ).
 //			annotatedWith( Names.named("basic")).toProvider( LocalizeBuilderImpl.class );

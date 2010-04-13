@@ -4,8 +4,8 @@ import org.apache.commons.io.FileUtils;
 import org.jetbrains.annotations.NotNull;
 import org.openCage.lang.errors.Unchecked;
 import org.openCage.lang.protocol.BackgroundExecutor;
+import org.openCage.lang.protocol.F0;
 import org.openCage.lang.protocol.F1;
-import org.openCage.lang.protocol.FE0;
 import org.openCage.localization.protocol.Localize;
 
 import javax.swing.JTextArea;
@@ -68,9 +68,9 @@ public class UI2File {
         this.file     = file;
 
 
-        executor.addPeriodicAndExitTask( new FE0<Void>() {
+        executor.addPeriodicAndExitTask( new F0<Void>() {
             @Override
-            public Void call() throws Exception {
+            public Void call() {
 
                 write();
                 return null;

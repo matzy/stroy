@@ -4,7 +4,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.openCage.lang.protocol.BackgroundExecutor;
-import org.openCage.lang.protocol.FE0;
+import org.openCage.lang.protocol.F0;
 
 /***** BEGIN LICENSE BLOCK *****
  * Version: MPL 1.1
@@ -36,12 +36,12 @@ public class BackgroundExecutorImpl implements BackgroundExecutor {
     private static final int WAITING = 10000; // 10s
     private static final Logger LOG = Logger.getLogger(BackgroundExecutorImpl.class.getName());
 
-    public void addPeriodicAndExitTask( final FE0<Void> task) {
+    public void addPeriodicAndExitTask( final F0<Void> task) {
         addExitTask( task );
         addPeriodicTask( task );
     }
 
-    public void addPeriodicTask( final FE0<Void> task) {
+    public void addPeriodicTask( final F0<Void> task) {
         new Thread() {
 
             @SuppressWarnings({"OverlyBroadCatchBlock"})
@@ -59,7 +59,7 @@ public class BackgroundExecutorImpl implements BackgroundExecutor {
         }.start();
     }
 
-    public void addExitTask( final FE0<Void> task ) {
+    public void addExitTask( final F0<Void> task ) {
         Runtime.getRuntime().addShutdownHook(
             new Thread(new Runnable() {
 
@@ -68,6 +68,8 @@ public class BackgroundExecutorImpl implements BackgroundExecutor {
                     task.call();
                 } catch (Exception ex) {
                     LOG.log(Level.SEVERE, null, ex);
+                } catch ( Error err ) {
+                    LOG.log(Level.SEVERE, null, err);                    
                 }
             }
         }));

@@ -12,7 +12,8 @@ import org.openCage.gpad.providers.LocalizeProvider;
 import org.openCage.gpad.providers.PropStoreProvider;
 import org.openCage.gpad.providers.TransPropStoreProvider;
 import org.openCage.lang.MRU;
-import org.openCage.lang.protocol.LangWiring;
+import org.openCage.lang.impl.BackgroundExecutorImpl;
+import org.openCage.lang.protocol.BackgroundExecutor;
 import org.openCage.lang.protocol.SingletonApp;
 import org.openCage.localization.protocol.Localize;
 import org.openCage.localization.wiring.LocalizeWiring;
@@ -55,8 +56,10 @@ public class FausterizeWiring implements Module {
         binder.install( new ApplicationWiring());
         binder.install( new IoWiring());
         binder.install( new UIWiring());
-        binder.install( new LangWiring());
         binder.install( new LocalizeWiring());
+
+        binder.bind(BackgroundExecutor.class ).
+                to(BackgroundExecutorImpl.class );
 
         binder.bind( Application.class ).toProvider( ApplicationProvider.class );
         binder.bind( PropStore.class ).

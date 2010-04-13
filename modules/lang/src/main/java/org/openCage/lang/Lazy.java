@@ -1,7 +1,7 @@
 package org.openCage.lang;
 
 import org.openCage.lang.errors.Unchecked;
-import org.openCage.lang.protocol.FE0;
+import org.openCage.lang.protocol.F0;
 
 
 /***** BEGIN LICENSE BLOCK *****
@@ -37,9 +37,9 @@ public class Lazy<T> {
     private T              obj;
     private Boolean        evaluated = false;
     private Error          exp       = null;
-    private final FE0<T>   func;
+    private final F0<T> func;
 
-    public Lazy( FE0<T> func ) {
+    public Lazy( F0<T> func ) {
         this.func = func;
     }
 

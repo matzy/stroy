@@ -1,7 +1,6 @@
 package org.openCage.lang;
 
-import org.openCage.lang.Lazy;
-import org.openCage.lang.protocol.FE1;
+import org.openCage.lang.protocol.F1;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,9 +29,9 @@ import java.util.logging.Logger;
 public class Lazy1<T,A> {
     private T              obj;
     private boolean        evaluated = false;
-    private final FE1<T,A> func;
+    private final F1<T,A> func;
 
-    public Lazy1( FE1<T,A> func ) {
+    public Lazy1( F1<T,A> func ) {
         this.func = func;
     }
 

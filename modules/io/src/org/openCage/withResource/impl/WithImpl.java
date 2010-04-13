@@ -15,13 +15,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.openCage.lang.protocol.F1;
 import org.openCage.lang.errors.Unchecked;
-import org.openCage.lang.protocol.FE1;
 import org.openCage.withResource.protocol.FileLineIterable;
 import org.openCage.withResource.protocol.With;
 
 public class WithImpl implements With {
 
-    public <T> T withInputStream(File file, FE1<T, InputStream> reader) {
+    public <T> T withInputStream(File file, F1<T, InputStream> reader) {
         InputStream is = null;
         try {
             is = new FileInputStream(file);
@@ -39,7 +38,7 @@ public class WithImpl implements With {
         }
     }
 
-    public <T> T withInputStream( URI file, FE1<T, InputStream> reader) {
+    public <T> T withInputStream( URI file, F1<T, InputStream> reader) {
         InputStream is = null;
         try {
 
@@ -58,7 +57,7 @@ public class WithImpl implements With {
         }
     }
 
-    public <T> T withReader(File file, FE1<T, Reader> reader) {
+    public <T> T withReader(File file, F1<T, Reader> reader) {
         Reader is = null;
         try {
             is = new FileReader( file );
@@ -76,7 +75,7 @@ public class WithImpl implements With {
         }
     }
 
-    public <T> T withWriter(File file, FE1<T, Writer> writer) {
+    public <T> T withWriter(File file, F1<T, Writer> writer) {
         Writer is = null;
         try {
             is = new FileWriter( file );

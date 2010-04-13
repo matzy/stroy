@@ -27,6 +27,7 @@ package org.openCage.lang.protocol;
  * this replaces a complex constructor + init process
  * @author stephan
  * @param <T>
+ * TODO does this interface provide anything?
  */
 public interface Builder<T> {
 	public T build();
