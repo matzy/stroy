@@ -1,8 +1,6 @@
 package org.openCage.lang;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import org.apache.commons.lang.mutable.MutableLong; 
+import org.apache.commons.lang.mutable.MutableLong;
 import org.junit.Test;
 import org.openCage.lang.impl.BackgroundExecutorImpl;
 import org.openCage.lang.protocol.BackgroundExecutor;

@@ -47,10 +47,10 @@ public class MRU<T> {
         List<T> newUsed = new ArrayList<T>();
         newUsed.add( t );
         newUsed.addAll( used );
+        used = newUsed;
         while( used.size() > maxSize ) {
             used.remove( maxSize );
         }
-        used = newUsed;
     }
 
     public synchronized void setMaxSize( int size ) {

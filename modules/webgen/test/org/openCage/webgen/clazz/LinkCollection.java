@@ -176,6 +176,8 @@ public class LinkCollection {
         lib(JCIP_ANNOTATIONS).
                     description( "Concurrency Annotations. Compile time comments about concurrency intentions which Intellij understands." ).
                     address( "http://www.javaconcurrencyinpractice.com/", "javaconcurrencyinpractice" ).
+                    location( "net/jcip/jcip-annotations/1.0" ).
+                    version( "1.0").
                     provides( "jcip-annotations.jar");
 
         lib(JDEP).
