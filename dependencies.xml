@@ -30,7 +30,7 @@
     </target>
     <!-- ================================================================== -->
     <target name= "depend.property"
-            depends="commons-io, idea-annotations, xstream, depend.lang">
+            depends="commons-io, idea-annotations, xstream, depend.lang, guice">
         <ant dir="${dependencies.basedir}/modules/property" target="local.goal" inheritAll="false"/>
     </target>
     <!-- ================================================================== -->
