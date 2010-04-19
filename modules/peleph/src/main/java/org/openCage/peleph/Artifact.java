@@ -1,5 +1,6 @@
 package org.openCage.peleph;
 
+import com.sun.jndi.dns.DnsName;
 import org.jetbrains.annotations.NotNull;
 import org.openCage.lang.Once;
 
@@ -21,6 +22,11 @@ public class Artifact {
     private List<Artifact> compileDeps = new ArrayList<Artifact>();
     private List<Artifact> testDeps = new ArrayList<Artifact>();
     private List<Artifact> knowhowDeps = new ArrayList<Artifact>();
+
+    private final List<Author> contributors = new ArrayList<Author>();
+    private final List<Author> authors = new ArrayList<Author>();
+    private Once<EmailAddress> email = new Once<EmailAddress>( new EmailAddress( "mailto:anonymous" ));
+    private Once<WebPage> webpage = new Once<WebPage>( new WebPage( "http://404" ));
 
     Artifact( @NotNull String groupId, @NotNull String name ) {
         this.name = name;
@@ -117,7 +123,22 @@ public class Artifact {
     }
 
     public Artifact address( String page, String shrt ) {
-        System.out.println("todo");
+        webpage.set( new WebPage( page ).shrt(shrt) );
+        return this;
+    }
+
+    public Artifact author(Author author) {
+        authors.add( author );
+        return this;
+    }
+
+    public Artifact contributer(Author contr) {
+        contributors.add( contr ) ;
+        return this;
+    }
+
+    public Artifact email(String addr) {
+        email.set( new EmailAddress( addr ));
         return this;
     }
 }

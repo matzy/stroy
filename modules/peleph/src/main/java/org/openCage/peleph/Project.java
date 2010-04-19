@@ -27,6 +27,10 @@ public class Project {
         return ext;
     }
 
+    public Author author( @NotNull String name ) {
+        return new Author( name );
+    }
+
     public List<Artifact> getModules() {
         return modules;
     }

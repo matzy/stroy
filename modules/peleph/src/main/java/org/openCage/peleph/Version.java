@@ -31,6 +31,7 @@ public class Version {
     private final int minor;
     private final int patch;
     private final int build;
+    private String originalString;
 
     public Version(int major, int minor, int patch, int build) {
         this.major = major;
@@ -115,17 +116,22 @@ public class Version {
     public static Version parse(String str) {
         String[] parts = str.split( "\\." );
 
-        if ( parts.length == 3 ) {
-            return new Version( Integer.parseInt( parts[0] ), Integer.parseInt( parts[1] ), 0, Integer.parseInt( parts[2] ) );
+        Version ver;
+        switch( parts.length ) {
+            case 2: ver = new Version( Integer.parseInt( parts[0] ), Integer.parseInt( parts[1] ), 0, 0 ); break;
+            case 3: ver = new Version( Integer.parseInt( parts[0] ), Integer.parseInt( parts[1] ), Integer.parseInt( parts[2] ), 0 ); break;
+            case 4: ver = new Version( Integer.parseInt( parts[0] ), Integer.parseInt( parts[1] ), Integer.parseInt( parts[2] ), Integer.parseInt( parts[3] )); break;
+            default: throw new IllegalArgumentException( "not a version" );
         }
 
-        if ( parts.length == 4 ) {
-            return new Version( Integer.parseInt( parts[0] ), Integer.parseInt( parts[1] ), Integer.parseInt( parts[2] ), Integer.parseInt( parts[3] ));
-        }
+        ver.originalString = str;
 
-        throw new IllegalArgumentException( "not a version" );
+        return ver;
+
     }
 
 
-
+    public String getOriginal() {
+        return originalString;
+    }
 }

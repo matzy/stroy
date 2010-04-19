@@ -1,6 +1,7 @@
 package org.openCage.peleph.demo;
 
 import org.openCage.peleph.Artifact;
+import org.openCage.peleph.Author;
 import org.openCage.peleph.PElephGen;
 import org.openCage.peleph.Project;
 
@@ -14,10 +15,17 @@ public class Demo {
 //        <artifactId>annotations</artifactId>
 //        <version>7.0.3</version>
 
+        Author stephan = proj.author( "Stephan Pfab" ).email( "mailto:openCag@gmail.com" );
+        Author misa    = proj.author( "Misa Inabe" );
+        Author miguel    = proj.author( "Miguel Cuadron Marion" );
+
+
         Artifact idea_anno = proj.external("com.intellij", "annotations" ).
                     descriptionShort( "Nullable annotations (bundled with Idea CE)" ).
                     address( "http://www.jetbrains.com/index.html", "jetbrains").
-                    apache2();
+                    apache2().
+                    version( "7.0.3");
+
 //                    provides( "annotations.jar");
 
 
@@ -29,12 +37,22 @@ public class Demo {
         Artifact lang = proj.module( "openCage", "lang").
                 mpl11().
                 java6p().
+                version( "0.1.0").
+                descriptionShort( "a library with small java language level additions" );
+
+        Artifact barti = proj.module( "openCage", "barti").
+                mpl11().
+                java6p().
+                version( "0.0.1").
                 descriptionShort( "a library with small java language level additions" );
 
         Artifact fausterize = proj.module( "openCage", "fausterize").
                 mpl11().
                 java6p().
                 descriptionShort( "fausterize a small encrypting text editor" ).
+                author( stephan ).
+                contributer( misa ).
+                email( "mailto:openCag@gmail.com" ).
                 depends( lang ).
                 depends( guice );
 
@@ -42,5 +60,6 @@ public class Demo {
         PElephGen gen1 = new PElephGen( proj );
 
         System.out.println(gen1.deps());
+        System.out.println(gen1.buildxml( lang ));
     }
 }
