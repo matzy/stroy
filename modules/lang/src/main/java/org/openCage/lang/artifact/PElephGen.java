@@ -1,4 +1,4 @@
-package org.openCage.peleph;
+package org.openCage.lang.artifact;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -15,6 +15,10 @@ public class PElephGen {
 
     public PElephGen( @NotNull Project project ) { //}, FSPath baseDir  ) {
         this.project = project;
+    }
+
+    public PElephGen( ) { //}, FSPath baseDir  ) {
+        this.project = null;
     }
 
     public void writeDependencies() {

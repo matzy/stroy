@@ -1,4 +1,4 @@
-package org.openCage.peleph;
+package org.openCage.lang.artifact;
 
 /**
  * Created by IntelliJ IDEA.

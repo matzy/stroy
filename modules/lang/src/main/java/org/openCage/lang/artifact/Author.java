@@ -1,4 +1,4 @@
-package org.openCage.peleph;
+package org.openCage.lang.artifact;
 
 import org.jetbrains.annotations.NotNull;
 import org.openCage.lang.Once;

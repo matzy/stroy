@@ -1,4 +1,4 @@
-package org.openCage.peleph;
+package org.openCage.lang.artifact;
 
 import net.jcip.annotations.Immutable;
 
@@ -55,5 +55,13 @@ public class Licence {
 
     public static Licence mpl11() {
         return new Licence( "MPL1.1" );
+    }
+
+    public static Licence lgpl() {
+        return new Licence( "LGPL" );
+    }
+
+    public static Licence bsd() {
+        return new Licence( "BSD" );
     }
 }

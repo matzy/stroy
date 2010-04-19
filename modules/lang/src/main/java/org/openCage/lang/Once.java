@@ -43,4 +43,8 @@ public class Once<T> {
         set = true;
         val = t;
     }
+
+    public boolean isSet() {
+        return set;
+    }
 }

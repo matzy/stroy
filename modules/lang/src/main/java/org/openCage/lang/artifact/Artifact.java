@@ -1,6 +1,6 @@
-package org.openCage.peleph;
+package org.openCage.lang.artifact;
 
-import com.sun.jndi.dns.DnsName;
+import com.sun.tools.javac.main.JavaCompiler;
 import org.jetbrains.annotations.NotNull;
 import org.openCage.lang.Once;
 
@@ -29,6 +29,9 @@ public class Artifact {
     private Once<WebPage> webpage = new Once<WebPage>( new WebPage( "http://404" ));
 
     Artifact( @NotNull String groupId, @NotNull String name ) {
+        if ( groupId.isEmpty() ) {
+            throw new IllegalArgumentException( "groupId can not be empty" );
+        }
         this.name = name;
         this.groupId = groupId;
     }
@@ -42,6 +45,17 @@ public class Artifact {
         licence.set( Licence.apache2() );
         return this;
     }
+
+    public Artifact lgpl() {
+        licence.set( Licence.lgpl() );
+        return this;
+    }
+
+    public Artifact bsd() {
+        licence.set( Licence.bsd() );
+        return this;
+    }
+
 
     public Artifact withAuthor( String name ) {
         return this;
@@ -140,5 +154,62 @@ public class Artifact {
     public Artifact email(String addr) {
         email.set( new EmailAddress( addr ));
         return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Artifact)) return false;
+
+        Artifact artifact = (Artifact) o;
+
+        if (groupId != null ? !groupId.equals(artifact.groupId) : artifact.groupId != null) return false;
+        if (name != null ? !name.equals(artifact.name) : artifact.name != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (groupId != null ? groupId.hashCode() : 0);
+        return result;
+    }
+
+    public void validate() {
+        if ( !version.isSet()) {
+            throw new IllegalStateException( "no version on " + this );
+        }
+
+        if ( !webpage.isSet()) {
+            throw new IllegalStateException( "no webpage on " + this );
+        }
+
+        if ( !licence.isSet()) {
+            throw new IllegalStateException( "no licence on " + this );
+        }
+
+
+    }
+
+    @Override
+    public String toString() {
+        return "Artifact{" +
+                "name='" + name + '\'' +
+                ", groupId='" + groupId + '\'' +
+                ", licence=" + licence +
+                ", version=" + version +
+                ", javaVersion=" + javaVersion +
+                ", descriptionShort=" + descriptionShort +
+                ", descriptionFull=" + descriptionFull +
+                ", iconResourceOSX=" + iconResourceOSX +
+                ", compileDeps=" + compileDeps +
+                ", testDeps=" + testDeps +
+                ", knowhowDeps=" + knowhowDeps +
+                ", contributors=" + contributors +
+                ", authors=" + authors +
+                ", email=" + email +
+                ", webpage=" + webpage +
+                '}';
     }
 }

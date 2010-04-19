@@ -1,9 +1,10 @@
 package org.openCage.peleph.demo;
 
-import org.openCage.peleph.Artifact;
-import org.openCage.peleph.Author;
-import org.openCage.peleph.PElephGen;
-import org.openCage.peleph.Project;
+import org.openCage.lang.artifact.Artifact;
+import org.openCage.lang.artifact.Author;
+import org.openCage.lang.artifact.PElephGen;
+import org.openCage.lang.artifact.Project;
+import org.openCage.ui.UIArtifact;
 
 public class Demo {
 
@@ -57,9 +58,20 @@ public class Demo {
                 depends( guice );
 
 
-        PElephGen gen1 = new PElephGen( proj );
+//        PElephGen gen1 = new PElephGen( proj );
+//
+//        System.out.println(gen1.deps());
+//        System.out.println(gen1.buildxml( lang ));
+//
+//        PElephGen genL = new PElephGen();
+//
+//        genL.buildxml( new LangArtifact().getArtifact() );
 
-        System.out.println(gen1.deps());
-        System.out.println(gen1.buildxml( lang ));
+        PElephGen genP = new PElephGen( new UIArtifact().getProject() );
+
+        System.out.println( genP.deps());
+
+        new UIArtifact().getProject().validate();
+
     }
 }

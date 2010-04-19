@@ -1,4 +1,4 @@
-package org.openCage.peleph;
+package org.openCage.lang.artifact;
 
 import com.sun.istack.internal.NotNull;
 
@@ -41,5 +41,33 @@ public class Project {
 
     public List<Artifact> getExternals() {
         return externals;
+    }
+
+    public Artifact get(String group, String name) {
+        Artifact arti = new Artifact( group, name );
+
+        for ( Artifact module : modules ) {
+            if ( module.equals( arti )) {
+                return module;
+            }
+        }
+
+        for ( Artifact ext : externals ) {
+            if ( ext.equals( arti )) {
+                return ext;
+            }
+        }
+
+        throw new IllegalStateException( "artifact not found " + group + " " + name ); 
+    }
+
+    public void validate() {
+        for ( Artifact mod : modules ) {
+            mod.validate();
+        }
+
+        for ( Artifact ext : externals ) {
+            ext.validate();
+        }
     }
 }
