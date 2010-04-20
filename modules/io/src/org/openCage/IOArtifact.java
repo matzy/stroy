@@ -12,11 +12,11 @@ import org.openCage.lang.artifact.Project;
  * Time: 5:17:04 PM
  * To change this template use File | Settings | File Templates.
  */
-public class Arti implements ArtifactProvider{
+public class IOArtifact implements ArtifactProvider{
     private final Project proj;
     private final Artifact io;
 
-    public Arti() {
+    public IOArtifact() {
         proj = new LangArtifact().getProject();
 
         io = proj.module( "openCage", "io").

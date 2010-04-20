@@ -28,7 +28,18 @@ public class LangArtifact implements ArtifactProvider {
                         apache2().
                         version( "7.0.3")).
                 depends( proj.external("net.jcip", "jcip-annotations" ).
-                        version( "1.0" ));
+                        address( "http://www.javaconcurrencyinpractice.com/", "javaconcurrencyinpractice" ).
+                        creativeCommosns().
+                        version( "1.0" )).
+                testDepends( proj.external("junit", "junit" ).
+                        address( "http://www.junit.org/", "junit.org" ).
+                        cpl().
+                        version( "4.4" )).
+                testDepends( proj.external("commons-lang", "commons-lang" ).
+                        descriptionShort( "Apache java language level tools. Random number helpers, system property tools, string tools." ).
+                        address( "http://commons.apache.org/lang/", "apache.org").
+                        apache2().
+                        version( "2.4" ));
 
 
 

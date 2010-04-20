@@ -1,5 +1,6 @@
 package org.openCage.lang.artifact;
 
+import com.sun.jdi.VirtualMachine;
 import com.sun.tools.javac.main.JavaCompiler;
 import org.jetbrains.annotations.NotNull;
 import org.openCage.lang.Once;
@@ -56,10 +57,16 @@ public class Artifact {
         return this;
     }
 
-
-    public Artifact withAuthor( String name ) {
+    public Artifact creativeCommosns() {
+        licence.set( Licence.creativeCommons() );
         return this;
     }
+
+    public Artifact cpl() {
+        licence.set( Licence.cpl());
+        return this;
+    }
+
 
     public Artifact version( String ver) {
         version.set( Version.parse( ver ));
@@ -212,4 +219,13 @@ public class Artifact {
                 ", webpage=" + webpage +
                 '}';
     }
+
+    public JavaVersion getJavaVersion() {
+        return javaVersion.get();
+    }
+
+    public List<Artifact> getTestDependencies() {
+        return testDeps;
+    }
+
 }

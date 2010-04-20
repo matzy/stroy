@@ -9,20 +9,29 @@ package org.openCage.lang.artifact;
  */
 public class JavaVersion {
 
-    private final String version;
 
-    private JavaVersion( String version ) {
-        this.version = version;
+    private int verNum;
+    private boolean plus;
+
+    private JavaVersion( int num, boolean plus ) {
+        verNum = num;
+        this.plus = plus;
     }
 
-    public static JavaVersion v5     = new JavaVersion("5");
-    public static JavaVersion v5plus = new JavaVersion("5+");
-    public static JavaVersion v6     = new JavaVersion("6");
-    public static JavaVersion v6plus = new JavaVersion("6+");
-    public static JavaVersion v7     = new JavaVersion("7");
-    public static JavaVersion v7plus = new JavaVersion("7+");
+    public static JavaVersion v5     = new JavaVersion( 5, false );
+    public static JavaVersion v5plus = new JavaVersion( 5, true );
+    public static JavaVersion v6     = new JavaVersion( 6, false );
+    public static JavaVersion v6plus = new JavaVersion( 6, true);
+    public static JavaVersion v7     = new JavaVersion( 7, false);
+    public static JavaVersion v7plus = new JavaVersion( 7, true );
 
     public String jvmVersion() {
-        return "1." + version;
+        return "1." + verNum;
     }
+
+    /** TODO ugh */
+    public boolean is6() {
+        return verNum == 6;
+    }
+
 }

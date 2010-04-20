@@ -64,4 +64,12 @@ public class Licence {
     public static Licence bsd() {
         return new Licence( "BSD" );
     }
+
+    public static Licence creativeCommons() {
+        return new Licence( "Creative Commons" );
+    }
+
+    public static Licence cpl() {
+        return new Licence( "CPL" );
+    }
 }
