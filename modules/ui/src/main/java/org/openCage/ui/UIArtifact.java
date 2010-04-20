@@ -4,6 +4,7 @@ import org.openCage.IOArtifact;
 import org.openCage.lang.artifact.Artifact;
 import org.openCage.lang.artifact.ArtifactProvider;
 import org.openCage.lang.artifact.Project;
+import org.openCage.localization.LocalizationArtifact;
 import org.openCage.property.PropertyArtifact;
 
 /**
@@ -26,7 +27,7 @@ public class UIArtifact implements ArtifactProvider {
                 address( "http://stroy.wikidot.com", "stroy.wikidot.com").
                 mpl11().
                 depends( proj.get("openCage", "property")).
-                depends( new org.openCage.localization.Arti().getArtifact()).
+                depends( new LocalizationArtifact().getArtifact()).
                 depends( new IOArtifact().getArtifact()).
                 depends( proj.get("openCage", "lang")).
                 depends( proj.external( "net.java.dev.designgridlayout  ", "designgridlayout" ).

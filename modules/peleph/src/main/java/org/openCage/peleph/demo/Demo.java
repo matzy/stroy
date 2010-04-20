@@ -3,6 +3,7 @@ package org.openCage.peleph.demo;
 import org.openCage.IOArtifact;
 import org.openCage.lang.LangArtifact;
 import org.openCage.lang.artifact.*;
+import org.openCage.localization.LocalizationArtifact;
 import org.openCage.property.PropertyArtifact;
 import org.openCage.ui.UIArtifact;
 
@@ -80,7 +81,8 @@ public class Demo {
 //        System.out.println( mg.getModulePom( new LangArtifact().getArtifact() ));
 //
 //        System.out.println( mg.getModulePom( new PropertyArtifact().getArtifact() ));
-        System.out.println( mg.getModulePom( new IOArtifact().getArtifact() ));
+//        System.out.println( mg.getModulePom( new IOArtifact().getArtifact() ));
+        System.out.println( mg.getModulePom( new LocalizationArtifact().getArtifact() ));
 
 
     }

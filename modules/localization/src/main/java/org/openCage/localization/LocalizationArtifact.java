@@ -12,24 +12,17 @@ import org.openCage.property.PropertyArtifact;
  * Time: 5:24:39 PM
  * To change this template use File | Settings | File Templates.
  */
-public class Arti implements ArtifactProvider {
+public class LocalizationArtifact implements ArtifactProvider {
 
     private final Project proj;
     private final Artifact localization;
 
-    public Arti() {
+    public LocalizationArtifact() {
         proj = new PropertyArtifact().getProject();
 
         localization = proj.module( "openCage", "localization" ).
-                depends( proj.get("openCage", "property"));
-//                depends( proj.external( "com.google.inject", "guice" ).
-//                        apache2().
-//                        java6p().
-//                        version( "2.0" )).
-//                depends( proj.external("commons-io", "commons-io").
-//                        apache2().
-//                        version( "1.4" )
-//                );
+                depends( proj.get("openCage", "property")).
+                testDepends( proj.get( "junit", "junit"));
     }
 
     @Override
