@@ -53,7 +53,7 @@ public class LocalizeBuilderImpl implements LocalizeBuilder, Provider<Localize> 
 	}
 
 	public Localize get() {
-		return new LocalizeImpl( "org.openCage.localization.impl.text", Collections.<Localize>emptyList(), theLocale );
+		return new LocalizeImpl( "org.openCage.localization.text", Collections.<Localize>emptyList(), theLocale );
 	}
 
 }

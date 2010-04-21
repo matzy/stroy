@@ -80,9 +80,9 @@ public class Demo {
 //
 //        System.out.println( mg.getModulePom( new LangArtifact().getArtifact() ));
 //
-//        System.out.println( mg.getModulePom( new PropertyArtifact().getArtifact() ));
+        System.out.println( mg.getModulePom( new PropertyArtifact().getArtifact() ));
 //        System.out.println( mg.getModulePom( new IOArtifact().getArtifact() ));
-        System.out.println( mg.getModulePom( new LocalizationArtifact().getArtifact() ));
+        //System.out.println( mg.getModulePom( new LocalizationArtifact().getArtifact() ));
 
 
     }

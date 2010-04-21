@@ -11,19 +11,19 @@ public class BundleCheckImplTest {
 	public void testNoFallback() {
 		BundleCheckImpl check = new BundleCheckImpl();
 		
-		check.checkBundle( "org.openCage.localization.impl.nofallback"  );
+		check.checkBundle( "org.openCage.localization.nofallback"  );
 	}
 	
 	@Test 
 	public void testFallbackMisses_hasFallback() {
 		BundleCheckImpl check = new BundleCheckImpl();		
-		check.checkBundle( "org.openCage.localization.impl.missingKeys"  );
+		check.checkBundle( "org.openCage.localization.missingKeys"  );
 	}
 
 	@Test(expected=MissingResourceException.class) 
 	public void testFallbackMissesKeys() {
 		BundleCheckImpl check = new BundleCheckImpl();		
-		check.checkBundle( "org.openCage.localization.impl.missingKeys", Locale.GERMAN  );
+		check.checkBundle( "org.openCage.localization.missingKeys", Locale.GERMAN  );
 	}
 	
 }

@@ -35,8 +35,13 @@ public class PropertyArtifact implements ArtifactProvider{
                         apache2().
                         descriptionShort( "Apache IO tools. e.g. tools to cleanly close resources." ).
                         address( "http://commons.apache.org/io", "apache").
-                        version( "1.4" )
-                );
+                        version( "1.4" )).
+                depends( proj.external( "com.thoughtworks.xstream", "xstream" ).
+                        version( "1.3.1" ).
+                        descriptionShort( "The java to XML serialization library." ).
+                        address( "http://xstream.codehaus.org/", "codehaus.org" ).
+                        bsd());
+
     }
 
     @Override
