@@ -40,7 +40,8 @@ public class PropertyArtifact implements ArtifactProvider{
                         version( "1.3.1" ).
                         descriptionShort( "The java to XML serialization library." ).
                         address( "http://xstream.codehaus.org/", "codehaus.org" ).
-                        bsd());
+                        bsd()).
+                testDepends( proj.get( "junit", "junit" ));
 
     }
 

@@ -48,11 +48,11 @@ public class MavenGen {
 
         pom += "   <dependencies>\n";
         for ( Artifact dep : arti.getCompileDependencies() ) {
-            pom += dependency( dep );
+            pom += dependency( dep, Scope.COMPILE );
         }
 
         for ( Artifact dep : arti.getTestDependencies() ) {
-            pom += dependency( dep );
+            pom += dependency( dep, Scope.TEST );
         }
 
 
@@ -64,11 +64,19 @@ public class MavenGen {
         return pom;
     }
 
-    private String dependency(Artifact arti ) {
+    private String dependency(Artifact arti, Scope scope  ) {
         String dep = "      <dependency>\n";
         dep += "         " + leaf( "groupId", arti.getGroupId()  ) + "\n";
         dep += "         " + leaf( "artifactId", arti.gettName()  ) + "\n";
         dep += "         " + leaf( "version", arti.getVersion().getOriginal()  ) + "\n";
+
+        switch ( scope ) {
+            case TEST: dep += "         " + leaf( "scope", "test"  ) + "\n"; break;
+            case COMPILE: dep += "         " + leaf( "scope", "compile"  ) + "\n"; break;
+            default:
+                throw new IllegalStateException( "(yet) unsupported scope " + scope );
+        }
+
         dep += "      </dependency>\n";
         return dep;
     }
