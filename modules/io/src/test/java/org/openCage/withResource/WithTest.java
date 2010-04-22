@@ -9,6 +9,9 @@ import com.google.inject.Injector;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openCage.lang.errors.Unchecked;
 import org.openCage.lang.protocol.F1;
@@ -21,11 +24,19 @@ import org.openCage.withResource.wiring.IoWiring;
  */
 public class WithTest {
 
+    //private Injector injector = ;
+
+    
+
+    private With with = Guice.createInjector(new IoWiring()).getInstance( With.class );
+
+//    @Before
+//    public void setUp() {
+//        with = injector.getInstance(With.class);
+//    }
+
     @Test( expected=Unchecked.class)
     public void testNonExisitngFile() {
-        Injector injector = Guice.createInjector(new IoWiring());
-        With with = injector.getInstance(With.class);
-
         with.withInputStream( new File( "idontexist" ), new F1<Void, InputStream>() {
 
             public Void call(InputStream a) {
@@ -36,9 +47,6 @@ public class WithTest {
 
     @Test( expected=Unchecked.class )
     public void testExeptionWhileReading() {
-        Injector injector = Guice.createInjector(new IoWiring());
-        With with = injector.getInstance(With.class);
-
 
         with.withInputStream( new File( getClass().getResource("WithTest.class").getPath() ), new F1<Void, InputStream>() {
 

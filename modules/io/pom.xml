@@ -1,3 +1,4 @@
+
 <project>
    <modelVersion>4.0.0</modelVersion>
    <groupId>openCage</groupId>
@@ -31,11 +32,32 @@
          <groupId>openCage</groupId>
          <artifactId>lang</artifactId>
          <version>0.1.0</version>
+         <scope>compile</scope>
+      </dependency>
+      <dependency>
+         <groupId>commons-lang</groupId>
+         <artifactId>commons-lang</artifactId>
+         <version>2.4</version>
+         <scope>compile</scope>
+      </dependency>
+      <dependency>
+         <groupId>com.google.inject</groupId>
+         <artifactId>guice</artifactId>
+         <version>2.0</version>
+         <scope>compile</scope>
       </dependency>
       <dependency>
          <groupId>munchsoft</groupId>
          <artifactId>sys</artifactId>
          <version>1.0</version>
+         <scope>compile</scope>
+      </dependency>
+      <dependency>
+         <groupId>junit</groupId>
+         <artifactId>junit</artifactId>
+         <version>4.4</version>
+         <scope>test</scope>
       </dependency>
    </dependencies>
 </project>
+

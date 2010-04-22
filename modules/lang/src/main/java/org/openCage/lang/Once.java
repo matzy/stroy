@@ -37,6 +37,10 @@ public class Once<T> {
 
     public synchronized void set( T t ) {
         if ( set ) {
+            if ( val.equals( t )) {
+                return;
+            }
+            
             throw new IllegalStateException("can't set Once twice");
         }
 

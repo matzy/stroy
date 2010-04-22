@@ -1,5 +1,6 @@
 package org.openCage.fspath.clazz;
 
+import com.muchsoft.util.Sys;
 import org.junit.Test;
 import org.openCage.fspath.protocol.FSPath;
 
@@ -20,6 +21,9 @@ public class FSPathWindowssTest {
 
     @Test
     public void testSimple() {
+
+        if ( !Sys.isWindows() ) { return; }
+
         FSPath path = FSPathBuilder.getPath("C:");
 
         assertEquals( 0, path.size());
@@ -28,6 +32,7 @@ public class FSPathWindowssTest {
 
     @Test
     public void testSimpleLetter() {
+        if ( !Sys.isWindows() ) { return; }
         FSPath path = FSPathBuilder.getPath("G:");
 
         assertEquals( 0, path.size());
@@ -36,6 +41,7 @@ public class FSPathWindowssTest {
 
     @Test
     public void testAdd() {
+        if ( !Sys.isWindows() ) { return; }
         FSPath path = FSPathBuilder.getPath("X:").add("foo", "bar");
 
         assertEquals( 2, path.size());
@@ -44,11 +50,13 @@ public class FSPathWindowssTest {
 
     @Test( expected = IllegalArgumentException.class )
     public void testEmptyPath() {
+        if ( !Sys.isWindows() ) { throw new IllegalArgumentException("wtf"); }
         FSPathBuilder.getPath( "" );
     }
 
     @Test
     public void testAbsolute() {
+        if ( !Sys.isWindows() ) { return; }
         FSPath path = FSPathBuilder.getPath( "D:\\foo" );
         assertEquals( 1, path.size());
 
@@ -58,6 +66,7 @@ public class FSPathWindowssTest {
 
     @Test
     public void testEnv() {
+        if ( !Sys.isWindows() ) { return; }
         System.out.println( System.getProperty("%APPDATA%"));
 
         Properties prop = System.getProperties();
