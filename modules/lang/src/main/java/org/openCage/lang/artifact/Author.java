@@ -14,6 +14,7 @@ public class Author {
 
     private final String name;
     private final Once<EmailAddress> email = new Once<EmailAddress>( new EmailAddress( "mailto:404" ));
+    private String tName;
 
     public Author( String name ) {
         this.name = name;
@@ -32,4 +33,5 @@ public class Author {
     public static Author c( String name ) {
         return new Author( name );
     }
+
 }

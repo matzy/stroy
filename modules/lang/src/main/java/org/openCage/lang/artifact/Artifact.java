@@ -5,6 +5,8 @@ import com.sun.tools.javac.main.JavaCompiler;
 import org.jetbrains.annotations.NotNull;
 import org.openCage.lang.Once;
 
+import javax.xml.stream.events.EntityDeclaration;
+import java.security.AlgorithmParameters;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -228,4 +230,31 @@ public class Artifact {
         return testDeps;
     }
 
+    public String getDescriptionShort() {
+        return descriptionShort.get();
+    }
+
+    public WebPage getWebpage() {
+        return webpage.get();
+    }
+
+    public Version gettVersion() {
+        return version.get();
+    }
+
+    public Licence getLicence() {
+        return licence.get();
+    }
+
+    public List<Author> getAuthors() {
+        return authors;
+    }
+
+    public List<Author> getContributors() {
+        return contributors;
+    }
+
+    public EmailAddress getEmail() {
+        return email.get();
+    }
 }

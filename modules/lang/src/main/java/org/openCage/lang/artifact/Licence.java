@@ -72,4 +72,8 @@ public class Licence {
     public static Licence cpl() {
         return new Licence( "CPL" );
     }
+
+    public String getName() {
+        return name;
+    }
 }

@@ -1,0 +1,86 @@
+
+<project>
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>openCage</groupId>
+   <artifactId>ui</artifactId>
+   <version>0.1.0</version>
+
+    <repositories>
+        <repository>
+            <id>openCage-repo</id>
+            <name>openCage-repo</name>
+            <url>file://${basedir}/../../repo</url>
+        </repository>
+    </repositories>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.2</version>
+               <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+           </plugin>
+
+        </plugins>
+    </build>
+   <dependencies>
+      <dependency>
+         <groupId>openCage</groupId>
+         <artifactId>property</artifactId>
+         <version>0.1.0</version>
+         <scope>compile</scope>
+      </dependency>
+      <dependency>
+         <groupId>openCage</groupId>
+         <artifactId>localization</artifactId>
+         <version>0.0.1</version>
+         <scope>compile</scope>
+      </dependency>
+      <dependency>
+         <groupId>openCage</groupId>
+         <artifactId>io</artifactId>
+         <version>0.0.3</version>
+         <scope>compile</scope>
+      </dependency>
+      <dependency>
+         <groupId>openCage</groupId>
+         <artifactId>lang</artifactId>
+         <version>0.1.0</version>
+         <scope>compile</scope>
+      </dependency>
+      <dependency>
+         <groupId>net.java.dev.designgridlayout  </groupId>
+         <artifactId>designgridlayout</artifactId>
+         <version>0.9</version>
+         <scope>compile</scope>
+      </dependency>
+      <dependency>
+         <groupId>fifesoft</groupId>
+         <artifactId>RSyntaxTextArea</artifactId>
+         <version>1.4.1</version>
+         <scope>compile</scope>
+      </dependency>
+      <dependency>
+         <groupId>com.jgoodies</groupId>
+         <artifactId>binding</artifactId>
+         <version>2.0.6</version>
+         <scope>compile</scope>
+      </dependency>
+      <dependency>
+         <groupId>javagraphics</groupId>
+         <artifactId>preferencepanel</artifactId>
+         <version>1.0</version>
+         <scope>compile</scope>
+      </dependency>
+      <dependency>
+         <groupId>macwidgets</groupId>
+         <artifactId>macwidgets</artifactId>
+         <version>0.9.5</version>
+         <scope>compile</scope>
+      </dependency>
+   </dependencies>
+</project>

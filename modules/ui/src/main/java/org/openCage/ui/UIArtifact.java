@@ -44,17 +44,26 @@ public class UIArtifact implements ArtifactProvider {
                         address( "http://fifesoft.com/rsyntaxtextarea/", "fifesoft.org" ).
                         lgpl().
                         version( "1.4.1" )).
-                depends( proj.external( "com.jgoodies", "jgoodies-binding" ).
+                depends( proj.external( "com.jgoodies", "binding" ).
                         descriptionShort( "Twoway binding of domain objects and ui objects. Changes to the domain object are displayed by the ui object, changes to the ui object modify the domain object." ).
                         address( "http://www.jgoodies.com/downloads/libraries.html", "jgoodies").
                         bsd().
                         version( "2.0.6" )).
-                depends( proj.external("javagraphics", "javagraphics-preferencepanel").
+                depends( proj.external("javagraphics", "preferencepanel").
                         descriptionShort( "A OSX style preference panel." ).
                         address( "https://javagraphics.dev.java.net/", "dev.java").
                         bsd().
-                        version( "1.0" )
-                );
+                        version( "1.0" )).
+                depends( proj.external( "macwidgets", "macwidgets" ).
+                        descriptionShort( "Library with OSX inspired swing components. e.g. a toolbar that blends in with the title bar, better buttons ..." ).
+                        address( "http://code.google.com/p/macwidgets/", "code.google.com").
+                        lgpl().
+                        version( "0.9.5" ).
+                            depends( proj.external( "com.jgoodies", "forms" ).
+                                descriptionShort( "JGoodies Forms library," ).
+                                address( "http://www.jgoodies.com/downloads/libraries.html", "jgoodies").
+                                bsd().
+                                version( "1.2.1" )));
     }
 
     @Override

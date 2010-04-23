@@ -15,10 +15,10 @@ import net.java.dev.designgridlayout.DesignGridLayout;
 
 
 import org.apache.commons.lang.StringUtils;
-import org.openCage.application.protocol.Application;
-import org.openCage.application.protocol.Author;
-import org.openCage.application.protocol.EmailAddress;
-import org.openCage.application.protocol.Webpage;
+import org.openCage.lang.artifact.Artifact;
+import org.openCage.lang.artifact.Author;
+import org.openCage.lang.artifact.EmailAddress;
+import org.openCage.lang.artifact.WebPage;
 import org.openCage.lang.count.Count;
 import org.openCage.localization.protocol.Localize;
 
@@ -55,11 +55,11 @@ public class AboutSheetFromApplication extends JDialog implements AboutSheet {
 	private static final long serialVersionUID = -1275151496727359312L;
     private static final Color textColor = new Color( 25, 10, 100);
 
-	private final Application app;
+	private final Artifact app;
 	private final Localize    localize;
 
     @Inject
-	public AboutSheetFromApplication( final Application app, @Named( "ui" ) final Localize localize, GlobalKeyEventHandler keyEventHandler ) {
+	public AboutSheetFromApplication( final Artifact app, @Named( "ui" ) final Localize localize, GlobalKeyEventHandler keyEventHandler ) {
 		this.app = app;		
 		this.localize = localize;
 		build();
@@ -76,17 +76,17 @@ public class AboutSheetFromApplication extends JDialog implements AboutSheet {
         DesignGridLayout layout = new DesignGridLayout( top );
         top.setLayout( layout );
 
-        JLabel pic = new JLabel();
-        pic.setIcon( app.getIcon());
-        layout.row().add( pic );
+//        JLabel pic = new JLabel();
+//        pic.setIcon( app.getIcon());
+//        layout.row().add( pic );
         layout.row().label( new JLabel("    ")).add( new JLabel("  "));
         
         layout.row().add( newLabel( app.gettName() ));
         layout.row().label( newIntro( localize.localize("org.openCage.localization.dict.version"))).add( newLabel( app.gettVersion().toString() ));
 //        layout.row().label( new JLabel( localize.localize( "About.copyright" ))).add( new JLabel( app.getCopyright() ), 3 );
 
-        if ( app.getDescription() != null ) {
-            layout.row().label( newIntro( localize.localize( "application.about.short" ))).add( newLabel( app.getDescription()), 6 );
+        if ( app.getDescriptionShort() != null ) {
+            layout.row().label( newIntro( localize.localize( "application.about.short" ))).add( newLabel( app.getDescriptionShort()), 6 );
         }
 
         layout.row().label( newIntro( localize.localize("org.openCage.localization.dict.licence"))).add( newLabel( app.getLicence().getName()), 6 );
@@ -96,7 +96,7 @@ public class AboutSheetFromApplication extends JDialog implements AboutSheet {
 
         String str = "";
         for ( Count<? extends Author> author : Count.count(app.getAuthors()) ) {
-            str += author.obj().gettName();
+            str += author.obj().getName();
 
             if ( !author.isLast() ) {
                 str += "; ";
@@ -109,7 +109,7 @@ public class AboutSheetFromApplication extends JDialog implements AboutSheet {
         
         str = "";
         for ( Count<? extends Author> author : Count.count(app.getContributors()) ) {
-            str += author.obj().gettName();
+            str += author.obj().getName();
 
             if ( !author.isLast() ) {
                 str += "; ";
@@ -126,7 +126,7 @@ public class AboutSheetFromApplication extends JDialog implements AboutSheet {
 //        JButton help = new JButton( ".." );
 //        layout.row().label( newIntro( localize.localize("org.openCage.localization.dict.help"))).add( newLabel( "stroy.wikidot.com" ), 5 ).add( help );
 
-        final EmailAddress email = app.getSupportEmail();
+        final EmailAddress email = app.getEmail();
         JButton emailButton = new JButton( ".." );
         if ( email != null ) {
             layout.row().label( newIntro( localize.localize( "About.contact" ))).add( newLabel( email.gettEmail().toString()), 5 ).add( emailButton );
@@ -143,7 +143,7 @@ public class AboutSheetFromApplication extends JDialog implements AboutSheet {
                 }
             });
 
-        final Webpage page = app.getWebpage();
+        final WebPage page = app.getWebpage();
         JButton web = new JButton( ".." );
         if ( page != null ) {
             layout.row().label( newIntro( localize.localize("org.openCage.localization.dict.web"))).add( newLabel( page.gettPage().toString() ), 5 ).add( web);

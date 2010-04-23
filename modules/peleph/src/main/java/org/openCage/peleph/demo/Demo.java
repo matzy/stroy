@@ -76,12 +76,12 @@ public class Demo {
 
         MavenGen mg = new MavenGen( new UIArtifact().getProject());
 
-//        System.out.println( mg.getModulePom( new UIArtifact().getArtifact() ));
+        System.out.println( mg.getModulePom( new UIArtifact().getArtifact() ));
 //
 //        System.out.println( mg.getModulePom( new LangArtifact().getArtifact() ));
 //
 //        System.out.println( mg.getModulePom( new PropertyArtifact().getArtifact() ));
-        System.out.println( mg.getModulePom( new IOArtifact().getArtifact() ));
+//        System.out.println( mg.getModulePom( new IOArtifact().getArtifact() ));
 //        System.out.println( mg.getModulePom( new LocalizationArtifact().getArtifact() ));
 
 
