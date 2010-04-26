@@ -1,7 +1,6 @@
 package org.openCage.vfs.protocol;
 
 import java.io.File;
-import org.openCage.lang.protocol.HasDistance;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -38,7 +37,7 @@ public interface Content {
 
     // TODO whats that here
     /**
-     * Get the File if there is one 
+     * Get the File if there is one
      * @return the underlaying file if there is one
      */
     public File      getFile();

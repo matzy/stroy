@@ -4,6 +4,7 @@ import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.name.Named;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openCage.localization.protocol.Localize;
 import org.openCage.ui.Constants;
@@ -18,6 +19,7 @@ import java.util.Locale;
  * Time: 19:58:12
  * To change this template use File | Settings | File Templates.
  */
+@Ignore
 public class HUDWarningTest {
 
     @Test

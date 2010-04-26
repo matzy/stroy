@@ -21,6 +21,9 @@ public class LocalizationArtifact implements ArtifactProvider {
         proj = new PropertyArtifact().getProject();
 
         localization = proj.module( "openCage", "localization" ).
+                address( "http://stroy.wikidot.com", "stroy.wikidot.com" ).
+                version( "0.0.3").
+                mpl11().                
                 depends( proj.get("openCage", "property")).
                 testDepends( proj.get( "junit", "junit"));
     }

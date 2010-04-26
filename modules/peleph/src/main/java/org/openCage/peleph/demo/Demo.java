@@ -1,10 +1,11 @@
 package org.openCage.peleph.demo;
 
-import org.openCage.IOArtifact;
-import org.openCage.lang.LangArtifact;
-import org.openCage.lang.artifact.*;
+import org.openCage.lang.artifact.Artifact;
+import org.openCage.lang.artifact.Author;
+import org.openCage.lang.artifact.MavenGen;
+import org.openCage.lang.artifact.PElephGen;
+import org.openCage.lang.artifact.Project;
 import org.openCage.localization.LocalizationArtifact;
-import org.openCage.property.PropertyArtifact;
 import org.openCage.ui.UIArtifact;
 
 public class Demo {
@@ -82,7 +83,8 @@ public class Demo {
 //
 //        System.out.println( mg.getModulePom( new PropertyArtifact().getArtifact() ));
 //        System.out.println( mg.getModulePom( new IOArtifact().getArtifact() ));
-//        System.out.println( mg.getModulePom( new LocalizationArtifact().getArtifact() ));
+        System.out.println( mg.getModulePom( new LocalizationArtifact().getArtifact() ));
+//        System.out.println( mg.getModulePom( new org.openCage.gpad.FausterizeArtifact().getArtifact()));
 
 
     }

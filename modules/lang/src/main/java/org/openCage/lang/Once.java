@@ -51,4 +51,39 @@ public class Once<T> {
     public boolean isSet() {
         return set;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Once)) return false;
+
+        Once once = (Once) o;
+
+        if (val != null ? !val.equals(once.val) : once.val != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return val != null ? val.hashCode() : 0;
+    }
+
+    public synchronized void setIf( Once<T> t ) {
+
+        if ( !t.isSet() ) {
+            return;
+        }
+
+        if ( set ) {
+            if ( val.equals( t.val )) {
+                return;
+            }
+            throw new IllegalStateException("can't set Once twice");
+        }
+
+        set = true;
+        val = t.val;
+    }
+
 }

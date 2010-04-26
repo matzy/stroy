@@ -3,7 +3,7 @@ package org.openCage.ui.clazz;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.muchsoft.util.Sys;
-import org.openCage.application.protocol.Application;
+import org.openCage.lang.artifact.Artifact;
 import org.openCage.lang.protocol.F0;
 import org.openCage.localization.protocol.Localize;
 import org.openCage.ui.protocol.AboutSheet;
@@ -19,7 +19,7 @@ public class MenuBuilder {
 
 
     @Inject @Named( "ui" ) private Localize loca;
-    @Inject private Application app;
+    @Inject private Artifact app;
     @Inject private AboutSheet aboutSheet;
     @Inject private HelpViewer helpViewer;
 

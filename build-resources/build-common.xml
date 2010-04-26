@@ -62,7 +62,7 @@
     <property name="param.target.os" value="----" />
     <property name="param.target.os.details" value="----" />
     <property name="param.target.os.extension"  value="---" />
-    <property name="param.target.install.support"  value="No Install support" />
+    <property name="param.target.install.support"  value="No Install Support" />
 
 
     <condition property="isOSX">
@@ -425,7 +425,7 @@
             <replace  file="${lxp.to}/pad_file.xml" token="[pad.url]" value="${el.download}/${app.name}-${param.target.os}-pad_file.xml" />
             <replace  file="${lxp.to}/pad_file.xml" token="[app.name]" value="${app.name} ${param.target.os}" />
             <replace  file="${lxp.to}/pad_file.xml" token="[OS]" value="${param.target.os.details}" />
-            <replace  file="${lxp.to}/pad_file.xml" token="[install.support]" value="${local.install.support}" />
+            <replace  file="${lxp.to}/pad_file.xml" token="[install.support]" value="${param.target.install.support}" />
             <replace  file="${lxp.to}/pad_file.xml" token="[language]" value="${el.localization}" />
             <replace  file="${lxp.to}/pad_file.xml" token="[download.url]" value="${el.download}/${app.name}-${param.target.os}-${version}.${param.target.extension}" />
 
@@ -491,10 +491,6 @@
                 <param name="param.target.extension" value="zip"/>
             </antcall>
 
-            <!-- finalize pad file -->
-            <replace  file="${deploy}/xplatform/${app.name}/pad_file.xml" token="[install.support]" value="No Install Support" />
-            <copy file="${deploy}/xplatform/${app.name}/pad_file.xml" tofile="${deploy}/xplatform/${app.name}-xplatform-pad_file.xml"/>
-
             <zip destfile="${deploy}/xplatform/${app.name}-${version}.zip" basedir="${deploy}/xplatform/${app.name}"/>
         </then>
         </if>
@@ -514,7 +510,7 @@
                     <param name="param.target.os" value="osx"/>
                     <param name="param.target.os.details" value="Mac OS X"/>
                     <param name="param.target.extension" value="dmg"/>
-                    <param name="param.target.install.support" value="Install Support" />
+                    <param name="param.target.install.support" value="Install Only" />
                 </antcall>
 
                 <!-- Set this property value to your application name    -->
@@ -625,8 +621,8 @@
                 <antcall target="local.xplatform.prepare" >
                     <param name="param.target.os" value="debian"/>
                     <param name="param.target.os.details" value="Linux"/>
-                    <param name="local.install.support" value="Install Support"/>
-                    <param name="param.target.extension" value="deb"/>
+                    <param name="param.install.support" value="Install Only"/>
+                    <param name="param.target.extension" value="deb.zip"/>
                 </antcall>
 
                 <if>
@@ -656,6 +652,8 @@
                     <tarfileset dir="${deploy}/debian/${app.name}" prefix="usr/share/${app.name}"/>
                     <tarfileset file="${deploy}/debian/${app.name}.desktop" prefix="usr/share/applications"/>
                 </deb>
+
+
             </then>
         </if>
     </target>
@@ -664,7 +662,9 @@
 
                 <antcall target="local.xplatform.prepare" >
                     <param name="param.target.os" value="windows"/>
+                    <param name="param.target.os.details" value="Win7 x32,Win7 x64,WinVista,WinVista x64,WinXP"/>
                     <param name="param.target.extension" value="zip"/>
+                    <param name="param.install.support" value="Install Only"/>
                 </antcall>
 
                 <if>

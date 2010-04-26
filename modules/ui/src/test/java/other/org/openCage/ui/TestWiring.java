@@ -3,7 +3,7 @@ package other.org.openCage.ui;
 import com.google.inject.Binder;
 import com.google.inject.Module;
 import com.google.inject.name.Names;
-import org.openCage.application.protocol.Application;
+import org.openCage.lang.artifact.Artifact;
 import org.openCage.property.protocol.NonPersistingPropStore;
 import org.openCage.property.protocol.PropStore;
 import org.openCage.ui.wiring.UIWiring;
@@ -33,7 +33,7 @@ public class TestWiring implements Module {
     public void configure(Binder binder) {
         binder.install( new UIWiring());
 
-        binder.bind( Application.class ).toProvider( ApplicationProvider.class );        
+        binder.bind( Artifact.class ).toProvider( TestArtiProvider.class );
         binder.bind( PropStore.class ).annotatedWith(Names.named("std")).to( NonPersistingPropStore.class );
     }
 

@@ -5,9 +5,9 @@
 
 package org.openCage.vfs.impl;
 
+import org.openCage.vfs.protocol.HasDistance;
 import org.openCage.vfs.protocol.VNode;
 import java.io.File;
-import org.openCage.lang.protocol.HasDistance;
 import org.openCage.vfs.protocol.Content;
 
 /**

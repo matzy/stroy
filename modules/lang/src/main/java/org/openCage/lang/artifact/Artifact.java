@@ -69,6 +69,12 @@ public class Artifact {
         return this;
     }
 
+    public Artifact openIfUnchanged() {
+        licence.set( Licence.openIf() );
+        return this;
+    }
+
+
 
     public Artifact version( String ver) {
         version.set( Version.parse( ver ));
@@ -256,5 +262,19 @@ public class Artifact {
 
     public EmailAddress getEmail() {
         return email.get();
+    }
+
+    public void merge( Artifact other ) {
+        if ( !equals( other )) {
+            throw new IllegalArgumentException( "can't merge complete different Artifact: " + this + " with " + other );
+        }
+
+        licence.setIf( other.licence );
+        version.setIf( other.version );
+        javaVersion.setIf( other.javaVersion );
+        descriptionShort.setIf( other.descriptionShort );
+        descriptionFull.setIf( other.descriptionFull );
+
+        // ...
     }
 }

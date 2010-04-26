@@ -2,8 +2,8 @@
 <project>
    <modelVersion>4.0.0</modelVersion>
    <groupId>openCage</groupId>
-   <artifactId>localization</artifactId>
-   <version>0.0.3</version>
+   <artifactId>fausterize</artifactId>
+   <version>0.10.0</version>
 
     <repositories>
         <repository>
@@ -35,8 +35,26 @@
          <scope>compile</scope>
       </dependency>
       <dependency>
+         <groupId>openCage</groupId>
+         <artifactId>localization</artifactId>
+         <version>0.0.3</version>
+         <scope>compile</scope>
+      </dependency>
+      <dependency>
+         <groupId>openCage</groupId>
+         <artifactId>io</artifactId>
+         <version>0.0.3</version>
+         <scope>compile</scope>
+      </dependency>
+      <dependency>
+         <groupId>openCage</groupId>
+         <artifactId>lang</artifactId>
+         <version>0.1.0</version>
+         <scope>compile</scope>
+      </dependency>
+      <dependency>
          <groupId>junit</groupId>
-         <artifactId>junit</artifactId>                                                             
+         <artifactId>junit</artifactId>
          <version>4.4</version>
          <scope>test</scope>
       </dependency>

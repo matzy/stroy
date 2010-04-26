@@ -20,7 +20,9 @@ public class IOArtifact implements ArtifactProvider{
         proj = new LangArtifact().getProject();
 
         io = proj.module( "openCage", "io").
+                address( "http://stroy.wikidot.com", "stroy.wikidot.com" ).
                 version( "0.0.3").
+                mpl11().
                 depends( proj.get("openCage", "lang")).
                 depends( proj.get("commons-lang", "commons-lang" ) ).
                 depends( proj.external( "com.google.inject", "guice" ).
@@ -32,8 +34,8 @@ public class IOArtifact implements ArtifactProvider{
                 depends( proj.external( "munchsoft", "sys" ).
                         version("1.0").
                         descriptionShort( "Tool to help make java apps behave and look like native osx apps. e.g. Menus in menu bar, Preferences open on command-, ... " ).
-                        address( "http://www.muchsoft.com/", "munchsoft.com" )
-                        //licence( "http://www.muchsoft.com/java/docs/index.html", "Open, if unchanged" )).
+                        address( "http://www.muchsoft.com/", "munchsoft.com" ).
+                        openIfUnchanged()
                         ).
                 testDepends( proj.get( "junit", "junit"));
     }

@@ -21,14 +21,16 @@ public class UIArtifact implements ArtifactProvider {
 
     public UIArtifact() {
         proj = new PropertyArtifact().getProject();
+        proj.include( new IOArtifact().getProject());
+        proj.include( new LocalizationArtifact().getProject());
 
         ui = proj.module( "openCage", "ui" ).
                 version( "0.1.0" ).
                 address( "http://stroy.wikidot.com", "stroy.wikidot.com").
                 mpl11().
                 depends( proj.get("openCage", "property")).
-                depends( new LocalizationArtifact().getArtifact()).
-                depends( new IOArtifact().getArtifact()).
+                depends( proj.get("openCage", "localization")).
+                depends( proj.get("openCage", "io")).
                 depends( proj.get("openCage", "lang")).
                 depends( proj.external( "net.java.dev.designgridlayout  ", "designgridlayout" ).
                         depends( proj.external( "net.java.dev.swing-layout", "swing-layout" ).
@@ -63,7 +65,8 @@ public class UIArtifact implements ArtifactProvider {
                                 descriptionShort( "JGoodies Forms library," ).
                                 address( "http://www.jgoodies.com/downloads/libraries.html", "jgoodies").
                                 bsd().
-                                version( "1.2.1" )));
+                                version( "1.2.1" ))).
+                testDepends( proj.get( "junit", "junit" ));
     }
 
     @Override

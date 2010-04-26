@@ -20,10 +20,10 @@ import org.openCage.lang.artifact.Author;
 import org.openCage.lang.artifact.EmailAddress;
 import org.openCage.lang.artifact.WebPage;
 import org.openCage.lang.count.Count;
-import org.openCage.localization.protocol.Localize;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
+import org.openCage.localization.protocol.Localize;
 import org.openCage.ui.impl.BrowseTmp;
 import org.openCage.ui.protocol.AboutSheet;
 import org.openCage.ui.protocol.GlobalKeyEventHandler;
@@ -56,7 +56,7 @@ public class AboutSheetFromApplication extends JDialog implements AboutSheet {
     private static final Color textColor = new Color( 25, 10, 100);
 
 	private final Artifact app;
-	private final Localize    localize;
+	private final Localize localize;
 
     @Inject
 	public AboutSheetFromApplication( final Artifact app, @Named( "ui" ) final Localize localize, GlobalKeyEventHandler keyEventHandler ) {

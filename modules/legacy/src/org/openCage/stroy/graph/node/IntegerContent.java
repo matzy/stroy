@@ -29,7 +29,7 @@ public class IntegerContent implements Content{
         return "" + inti;
     }
 
-    public HasDistance getFuzzyHash() {
+    public org.openCage.vfs.protocol.HasDistance getFuzzyHash() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

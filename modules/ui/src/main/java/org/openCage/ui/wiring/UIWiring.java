@@ -6,7 +6,6 @@ import com.google.inject.Singleton;
 import com.google.inject.TypeLiteral;
 import com.google.inject.name.Names;
 import com.muchsoft.util.Sys;
-import org.openCage.application.wiring.ApplicationWiring;
 import org.openCage.localization.protocol.Localize;
 import org.openCage.localization.wiring.LocalizeWiring;
 import org.openCage.property.protocol.Property;
@@ -61,7 +60,6 @@ public class UIWiring implements Module {
     public void configure(Binder binder) {
 
         binder.install(new LocalizeWiring());
-        binder.install(new ApplicationWiring());
 
         binder.bind(Localize.class).
                 annotatedWith(Names.named(UI)).toProvider(UILocalizeProvider.class);
@@ -81,16 +79,16 @@ public class UIWiring implements Module {
 
         binder.bind(GlobalKeyEventHandler.class).to(GlobalKeyEventHandlerImpl.class);
 
-        if (Sys.isMacOSX()) {
-//            System.out.println("mac");
-            binder.bind(HelpViewer.class).to(HelpViewerOSX.class);
-        } else if (Sys.isLinux()) {
-//            System.out.println("linu");
-            binder.bind(HelpViewer.class).to(HelpViewerOSX.class); // TODO
-        } else {
-//            System.out.println("else");
-            binder.bind(HelpViewer.class).to(HelpViewerOSX.class); // TODO
-        }
+        binder.bind(HelpViewer.class).to(HelpViewerOSX.class);
+//        if (Sys.isMacOSX()) {
+////            System.out.println("mac");
+//        } else if (Sys.isLinux()) {
+////            System.out.println("linu");
+//            binder.bind(HelpViewer.class).to(HelpViewerOSX.class); // TODO
+//        } else {
+////            System.out.println("else");
+//            binder.bind(HelpViewer.class).to(HelpViewerOSX.class); // TODO
+//        }
 
         binder.bind(PrefBuilder.class).annotatedWith(Names.named(LOCALE)).to(LocalePrefBuilderImpl.class);
         binder.bind(PrefBuilder.class).annotatedWith(Names.named(TEXTEDITOR)).to( TextEditorPref.class);
