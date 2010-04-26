@@ -43,10 +43,10 @@ public class LocalizeWiring implements Module {
 
     public void configure(Binder binder) {
 
-        if ( once ) {
-            return;
-        }
-        once = true;
+//        if ( once ) {
+//            return;
+//        }
+//        once = true;
 
 
 //		binder.bind( Localize.class ).

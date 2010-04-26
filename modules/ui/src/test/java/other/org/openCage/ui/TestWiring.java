@@ -3,6 +3,7 @@ package other.org.openCage.ui;
 import com.google.inject.Binder;
 import com.google.inject.Module;
 import com.google.inject.name.Names;
+import org.junit.Ignore;
 import org.openCage.lang.artifact.Artifact;
 import org.openCage.property.protocol.NonPersistingPropStore;
 import org.openCage.property.protocol.PropStore;
@@ -29,6 +30,7 @@ import org.openCage.ui.wiring.UIWiring;
 *
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
+@Ignore
 public class TestWiring implements Module {
     public void configure(Binder binder) {
         binder.install( new UIWiring());

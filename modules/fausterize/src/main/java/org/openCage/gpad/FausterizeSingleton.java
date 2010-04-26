@@ -1,8 +1,6 @@
 package org.openCage.gpad;
 
-import com.google.inject.Inject;
 import com.google.inject.Provider;
-import org.openCage.application.protocol.Application;
 import org.openCage.fspath.clazz.FSPathBuilder;
 import org.openCage.lang.impl.FriendlySingletonApp;
 import org.openCage.lang.protocol.SingletonApp;

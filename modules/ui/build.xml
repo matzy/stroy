@@ -5,5 +5,8 @@
 
     <property name="objective-c-helpviewer" value="yes" /> 
 
+    <property name = "el.src"        value="src/main/java" />
+    <property name = "el.srcres"     value="src/main/resources" />
+
     <import file="../../build-resources/build-common.xml"/>
 </project>

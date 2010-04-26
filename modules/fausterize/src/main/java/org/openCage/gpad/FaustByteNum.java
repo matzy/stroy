@@ -93,7 +93,7 @@ public class FaustByteNum implements TextEncoderIdx<Byte,String> {
 
         BufferedReader reader = null;
         try {
-            reader = new BufferedReader( new InputStreamReader( getClass().getResource( "resources/faust.txt" ).openStream()) );
+            reader = new BufferedReader( new InputStreamReader( getClass().getResource( "faust.txt" ).openStream()) );
 
             int idx = 0;
             for ( String str : Iterators.lines( reader ) ) {

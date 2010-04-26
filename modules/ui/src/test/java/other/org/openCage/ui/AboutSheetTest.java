@@ -1,5 +1,6 @@
 package other.org.openCage.ui;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.google.inject.Guice;
@@ -31,7 +32,8 @@ import org.openCage.ui.protocol.AboutSheet;
 
 public class AboutSheetTest {
 
-	@Test
+	@Ignore
+    @Test
 	public void AboutTest() {
         Injector injector = Guice.createInjector( new TestWiring() );
 

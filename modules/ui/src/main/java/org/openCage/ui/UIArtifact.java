@@ -32,7 +32,7 @@ public class UIArtifact implements ArtifactProvider {
                 depends( proj.get("openCage", "localization")).
                 depends( proj.get("openCage", "io")).
                 depends( proj.get("openCage", "lang")).
-                depends( proj.external( "net.java.dev.designgridlayout  ", "designgridlayout" ).
+                depends( proj.external( "net.java.dev.designgridlayout", "designgridlayout" ).
                         depends( proj.external( "net.java.dev.swing-layout", "swing-layout" ).
                                 address( "https://swing-layout.dev.java.net/", "dev.java").
                                 lgpl().

@@ -5,13 +5,11 @@ import com.google.inject.Module;
 import com.google.inject.Singleton;
 import com.google.inject.TypeLiteral;
 import com.google.inject.name.Names;
-import org.openCage.application.protocol.Application;
-import org.openCage.application.wiring.ApplicationWiring;
-import org.openCage.gpad.providers.ApplicationProvider;
 import org.openCage.gpad.providers.LocalizeProvider;
 import org.openCage.gpad.providers.PropStoreProvider;
 import org.openCage.gpad.providers.TransPropStoreProvider;
 import org.openCage.lang.MRU;
+import org.openCage.lang.artifact.Artifact;
 import org.openCage.lang.impl.BackgroundExecutorImpl;
 import org.openCage.lang.protocol.BackgroundExecutor;
 import org.openCage.lang.protocol.SingletonApp;
@@ -53,7 +51,6 @@ import static org.openCage.gpad.Constants.FAUSTERIZE;
  */
 public class FausterizeWiring implements Module {
     public void configure(Binder binder) {
-        binder.install( new ApplicationWiring());
         binder.install( new IoWiring());
         binder.install( new UIWiring());
         binder.install( new LocalizeWiring());
@@ -61,7 +58,7 @@ public class FausterizeWiring implements Module {
         binder.bind(BackgroundExecutor.class ).
                 to(BackgroundExecutorImpl.class );
 
-        binder.bind( Application.class ).toProvider( ApplicationProvider.class );
+        binder.bind( Artifact.class ).toProvider( FausterizeArtifact.class );
         binder.bind( PropStore.class ).
                 annotatedWith( Names.named("std")).
                 toProvider( PropStoreProvider.class );

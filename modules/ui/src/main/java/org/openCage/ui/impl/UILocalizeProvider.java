@@ -17,7 +17,7 @@ import org.openCage.localization.protocol.LocalizeBuilder;
 * Software distributed under the License is distributed on an "AS IS" basis,
 * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
 * for the specific language governing rights and limitations under the
-* License.
+* License.        
 *
 * The Original Code is stroy code.
 *
@@ -34,6 +34,7 @@ public class UILocalizeProvider implements Provider<Localize>{
     private LocalizeBuilder builder;
 
     public Localize get() {
-        return builder.build("org.openCage.ui.impl.uitexts", Arrays.asList(builder.get()));
+        System.out.println("---- org.openCage.ui.uitexts ---- ");
+        return builder.build( "org.openCage.ui.uitexts", Arrays.asList(builder.get()));
     }
 }

@@ -59,7 +59,7 @@ public class UIWiring implements Module {
     @Override
     public void configure(Binder binder) {
 
-        binder.install(new LocalizeWiring());
+        binder.install( new LocalizeWiring());
 
         binder.bind(Localize.class).
                 annotatedWith(Names.named(UI)).toProvider(UILocalizeProvider.class);

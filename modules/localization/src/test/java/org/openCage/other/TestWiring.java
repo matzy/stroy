@@ -17,11 +17,11 @@ public class TestWiring implements Module {
     private static boolean once;
 
     public void configure(Binder binder) {
-
-        if ( once ) {
-            return;
-        }
-        once = true;
+//
+//        if ( once ) {
+//            return;
+//        }
+//        once = true;
 
         binder.install( new LocalizeWiring());
 

@@ -10,9 +10,9 @@ import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rtextarea.RTextArea;
-import org.openCage.application.protocol.Application;
 import org.openCage.fspath.clazz.FSPathBuilder;
 import org.openCage.lang.MRU;
+import org.openCage.lang.artifact.Artifact;
 import org.openCage.lang.count.Count;
 import org.openCage.lang.errors.Unchecked;
 import org.openCage.lang.protocol.BackgroundExecutor;
@@ -74,7 +74,7 @@ import static org.openCage.ui.Constants.*;
  */
 public class FaustUI extends JFrame {
 
-    private final Application             application;
+//    private final Application             application;
     private final FileChooser             fileChooser;
     private final AboutSheet              about;
     private final OSXStandardEventHandler osxEventHandler;
@@ -94,16 +94,17 @@ public class FaustUI extends JFrame {
     private JLabel infoLabel;
     private MenuBuilder.MenuIM recent;
     private final MenuBuilder menuBuilder;
-    private static final String LOCK_OPEN_PNG = "resources/lock_open.png";
-    private static final String LOCK_CLOSED_PNG = "resources/lock_closed.png";
+    private static final String LOCK_OPEN_PNG = "lock_open.png";
+    private static final String LOCK_CLOSED_PNG = "lock_closed.png";
     private final HUDWarning warning;
     private JTextField textField;
     private static final Color READONLY_COLOR = new Color( 220, 220, 255 );
     private static final Color WARNING_COLOR = new Color( 255, 220, 220 );
     private Property<Integer> caretStyle;
+    private final Artifact artifact;
 
     @Inject
-    public FaustUI(Application application,
+    public FaustUI(Artifact artifact,
                    FileChooser chooser,
                    AboutSheet about,
                    OSXStandardEventHandler osxEventHandler,
@@ -122,7 +123,7 @@ public class FaustUI extends JFrame {
                    SingletonApp singletonApp,
                    @Named( CaretStyleProperty.KEY) Property<Integer> caretStyle ) {
 
-        this.application     = application;
+        this.artifact     = artifact;
         this.fileChooser     = chooser;
         this.about           = about;
         this.osxEventHandler = osxEventHandler;
@@ -201,7 +202,7 @@ public class FaustUI extends JFrame {
         bottomBar.addComponentToCenter( infoLabel );
         getContentPane().add( bottomBar.getComponent(), BorderLayout.SOUTH );
 
-        setTitle( application.gettName());
+        setTitle( artifact.gettName());
         setSize( 800, 600 );
 
         pack();
@@ -287,7 +288,7 @@ public class FaustUI extends JFrame {
         File file = null;
 
         do {
-            file = FSPathBuilder.getDocuments().add( application.gettName(), "" + i + ".fst1").toFile();
+            file = FSPathBuilder.getDocuments().add( artifact.gettName(), "" + i + ".fst1").toFile();
             i++;
         } while ( file.exists());
 

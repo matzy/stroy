@@ -77,6 +77,10 @@ public class Licence {
         return new Licence( "Open if unchanged" );
     }
 
+    public static Licence mit() {
+        return new Licence( "MIT" );
+    }
+
     public String getName() {
         return name;
     }

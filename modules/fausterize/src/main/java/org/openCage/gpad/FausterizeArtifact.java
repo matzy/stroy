@@ -1,12 +1,9 @@
 package org.openCage.gpad;
 
 import com.google.inject.Provider;
-import org.openCage.IOArtifact;
 import org.openCage.lang.artifact.Artifact;
 import org.openCage.lang.artifact.ArtifactProvider;
 import org.openCage.lang.artifact.Project;
-import org.openCage.localization.LocalizationArtifact;
-import org.openCage.property.PropertyArtifact;
 import org.openCage.ui.UIArtifact;
 
 public class FausterizeArtifact implements ArtifactProvider, Provider<Artifact> {
@@ -21,10 +18,46 @@ public class FausterizeArtifact implements ArtifactProvider, Provider<Artifact> 
                 version( "0.10.0" ).
                 address( "http://stroy.wikidot.com/fausterize", "stroy.wikidot.com").
                 mpl11().
+                author( proj.author( "Stephan Pfab" ) ).
+                email( "mailto:openCage@gmail.com" ).
                 depends( proj.get("openCage", "property")).
                 depends( proj.get("openCage", "localization")).
                 depends( proj.get("openCage", "io")).
                 depends( proj.get("openCage", "lang")).
+                depends( proj.get("openCage", "ui")).
+                depends( proj.get("net.java.dev.designgridlayout", "designgridlayout")).
+                depends( proj.external( "args4j", "args4j" ).
+                    version("2.0.12").
+                    descriptionShort( "Argument parsing as it should be done (via annotations)" ).
+                    address( "https://args4j.dev.java.net/", "dev.java.net").
+                    mit()).
+                depends( proj.external("eu.medsea.mimeutil", "mime-util").
+                        descriptionShort( "mime type detection utility, works via extension and/or content").
+                        address( "http://www.medsea.eu/mime-util/", "medsea.eu" ).
+                        apache2().
+                        version( "2.1.3" ).
+                        depends( proj.external( "org.slf4j", "slf4j-api" ).
+                            descriptionShort( "The simple logging facade for java abstracts several java logging implementations").
+                            address( "http://www.slf4j.org/", "slf4.org" ).
+                            mit().
+                            version("1.5.10")).
+                        depends( proj.external( "org.slf4j", "slf4j-log4j12" ). // runtime
+                            descriptionShort( "The simple logging facade for java abstracts several java logging implementations").
+                            address( "http://www.slf4j.org/", "slf4.org" ).
+                            mit().
+                            version("1.5.10"))
+                ).
+//                <groupId>org.slf4j</groupId>
+//			<artifactId>slf4j-api</artifactId>
+//			<version>1.5.6</version>
+//		</dependency>
+//		<dependency>
+//			<groupId>org.slf4j</groupId>
+//			<artifactId>slf4j-log4j12</artifactId>
+//			<version>1.5.6</version>
+//			<scope>runtime</scope>
+//		</dependency>
+
 //                depends( proj.external( "net.java.dev.designgridlayout  ", "designgridlayout" ).
 //                        depends( proj.external( "net.java.dev.swing-layout", "swing-layout" ).
 //                                address( "https://swing-layout.dev.java.net/", "dev.java").

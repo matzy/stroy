@@ -18,6 +18,10 @@
     <property name="readme" value="org/openCage/gpad/resources/README.txt"/>
 
     <property name="el.localization" value="English,German" />
+
+    <property name = "el.src"        value="src/main/java" />
+    <property name = "el.srcres"     value="src/main/resources" />
+
     
 
 

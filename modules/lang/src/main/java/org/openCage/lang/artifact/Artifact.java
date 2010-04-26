@@ -74,6 +74,10 @@ public class Artifact {
         return this;
     }
 
+    public Artifact mit() {
+        licence.set( Licence.mit() );
+        return this;
+    }
 
 
     public Artifact version( String ver) {
@@ -277,4 +281,5 @@ public class Artifact {
 
         // ...
     }
+
 }
