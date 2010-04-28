@@ -27,7 +27,7 @@
     <property name="app.main" value=""/>
     <property name="app.signature" value="${ant.project.name}"/>
     <property name="app.bundleid" value="elph"/>
-    <property name="app.icon.osx" value=""/>
+    <property name="app.icon.osx" value="src/build/icons/${app.name}.icns"/>
     <property name="app.icon.small.png" value="---"/>
     <property name="app.icon.small.ico" value="---"/>
     <property name="app.helpbook" value=""/>
@@ -42,11 +42,13 @@
     <property name="el.download"  value="http://stroy.wikidot.com/local--files/download" />
     <property name="el.localization"  value="English" />
     <property name="el.src"  value="src" />
+    <property name="el.srcres"  value="src" />
 
 
 
     <!-- ====== local properties ========== -->
 
+    <property name="l.module"       value="${dependencies.basedir}/modules/${ant.project.name}"/>
     <property name="classes"         value="${dependencies.basedir}/build/classes/${ant.project.name}"/>
     <property name="objc-classes"    value="${dependencies.basedir}/build/objc-classes/${ant.project.name}"/>
     <property name="libs"            value="${dependencies.basedir}/build/libs"/>
@@ -56,6 +58,7 @@
     <property name="resources"       value="${dependencies.basedir}/build/resources/${ant.project.name}"/>
     <property name="deploy"          value="${dependencies.basedir}/build/deploy/${ant.project.name}"/>
     <property name="src"             value="${module}/${el.src}"/>
+    <property name="srcres"          value="${module}/${el.srcres}"/>
     <property name="helpbooksrc"     value="${module}/${app.helpbook}"/>
 
     <!-- ====== parameter properties ========== -->
@@ -89,10 +92,10 @@
             <os family="unix"/>
         </and>
     </condition>
-    <condition property="osx.icon" value="${src}/${app.icon.osx}" else="${dependencies.basedir}/build-resources/elephant.icns">
+    <condition property="osx.icon" value="${l.module}/${app.icon.osx}" else="${dependencies.basedir}/build-resources/elephant.icns">
         <and>
             <not><equals arg1="${app.icon.osx}" arg2="" /></not>
-            <available file="${src}/${app.icon.osx}"/>
+            <available file="${l.module}/${app.icon.osx}"/>
         </and>
     </condition>
     
@@ -177,6 +180,9 @@
         <mkdir dir="${deploy}/windows"/>
         <mkdir dir="${deploy}/osx"/>
         <mkdir dir="${deploy}/debian"/>
+
+        <echoproperties />
+                
     </target>
 
 
@@ -195,10 +201,10 @@
         </javac>
 
         <copy todir="${classes}" flatten="no">
-            <fileset dir="${src}" includes="**/*.xml"/>
-            <fileset dir="${src}" includes="**/*.properties"/>
-            <fileset dir="${src}" includes="**/*.png"/>
-            <fileset dir="${src}" includes="**/*.txt"/>
+            <fileset dir="${srcres}" includes="**/*.xml"/>
+            <fileset dir="${srcres}" includes="**/*.properties"/>
+            <fileset dir="${srcres}" includes="**/*.png"/>
+            <fileset dir="${srcres}" includes="**/*.txt"/>
         </copy>
 
         <if>

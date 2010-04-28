@@ -10,7 +10,7 @@
     <property name = "app.name"        value="fausterize"/>
     <property name = "app.signature"   value="faust"/>
     <property name = "app.bundleid"    value="org.openCage.fausterize"/>
-    <property name = "app.icon.osx"    value="org/openCage/gpad/resources/fausterize.icns"/>
+    <!--<property name = "app.icon.osx"    value="fausterize.icns"/>-->
     <property name = "app.helpbook"    value="HelpBook"/>
     <property name = "app.icon.small.png" value="org/openCage/gpad/resources/faust-small.png"/>
     <property name="app.description.short" value="fausterize a small encrypting text editor" />
