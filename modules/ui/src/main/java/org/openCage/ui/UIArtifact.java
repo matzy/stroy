@@ -24,7 +24,7 @@ public class UIArtifact implements ArtifactProvider {
         proj.include( new IOArtifact().getProject());
         proj.include( new LocalizationArtifact().getProject());
 
-        ui = proj.module( "openCage", "ui" ).
+        ui = proj.module( getClass(), "openCage", "ui" ).
                 version( "0.1.0" ).
                 address( "http://stroy.wikidot.com", "stroy.wikidot.com").
                 mpl11().

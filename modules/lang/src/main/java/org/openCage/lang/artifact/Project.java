@@ -18,9 +18,10 @@ public class Project {
         this.name = name;
     }
 
-    public Artifact module( @NotNull String groupid, @NotNull String name ) {
+    public Artifact module( @NotNull Class resourceBase, @NotNull String groupid, @NotNull String name ) {
 
         Artifact mod = all.getAdd( new Artifact(groupid, name ));
+        mod.base( resourceBase );
         modules.add( mod );
         return mod;
     }

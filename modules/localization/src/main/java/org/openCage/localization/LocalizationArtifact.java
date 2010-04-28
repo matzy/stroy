@@ -20,7 +20,7 @@ public class LocalizationArtifact implements ArtifactProvider {
     public LocalizationArtifact() {
         proj = new PropertyArtifact().getProject();
 
-        localization = proj.module( "openCage", "localization" ).
+        localization = proj.module( getClass(), "openCage", "localization" ).
                 address( "http://stroy.wikidot.com", "stroy.wikidot.com" ).
                 version( "0.0.3").
                 mpl11().                

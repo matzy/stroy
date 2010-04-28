@@ -20,7 +20,7 @@ public class PropertyArtifact implements ArtifactProvider{
     public PropertyArtifact() {
         proj = new LangArtifact().getProject();
 
-        property = proj.module( "openCage", "property" ).
+        property = proj.module( getClass(), "openCage", "property" ).
                 version( "0.1.0" ).
                 address( "http://stroy.wikidot.org", "stroy.wikidot.org" ).
                 mpl11().

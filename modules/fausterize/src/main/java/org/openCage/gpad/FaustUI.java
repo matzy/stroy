@@ -21,12 +21,12 @@ import org.openCage.lang.protocol.F1;
 import org.openCage.lang.protocol.SingletonApp;
 import org.openCage.localization.protocol.Localize;
 import org.openCage.property.protocol.Property;
-import org.openCage.ui.clazz.HUDWarning;
+import org.openCage.ui.warning.HUDWarning;
 import org.openCage.ui.clazz.MenuBuilder;
 import org.openCage.ui.clazz.MenuHelper;
 import org.openCage.ui.clazz.preferences.PreferenceFrame;
 import org.openCage.ui.clazz.TextEditorBuilder;
-import org.openCage.ui.impl.pref.CaretStyleProperty;
+import org.openCage.ui.pref.CaretStyleProperty;
 import org.openCage.ui.protocol.*;
 
 import javax.swing.ImageIcon;

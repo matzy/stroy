@@ -19,7 +19,7 @@ public class IOArtifact implements ArtifactProvider{
     public IOArtifact() {
         proj = new LangArtifact().getProject();
 
-        io = proj.module( "openCage", "io").
+        io = proj.module( getClass(), "openCage", "io").
                 address( "http://stroy.wikidot.com", "stroy.wikidot.com" ).
                 version( "0.0.3").
                 mpl11().

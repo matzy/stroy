@@ -5,6 +5,7 @@ import com.sun.tools.javac.main.JavaCompiler;
 import org.jetbrains.annotations.NotNull;
 import org.openCage.lang.Once;
 
+import javax.swing.*;
 import javax.xml.stream.events.EntityDeclaration;
 import java.security.AlgorithmParameters;
 import java.util.ArrayList;
@@ -30,6 +31,12 @@ public class Artifact {
     private final List<Author> authors = new ArrayList<Author>();
     private Once<EmailAddress> email = new Once<EmailAddress>( new EmailAddress( "mailto:anonymous" ));
     private Once<WebPage> webpage = new Once<WebPage>( new WebPage( "http://404" ));
+
+
+    private final Once<String> iconResourcePath = new Once<String>( "" );
+
+    private final Once<Class> base = new Once<Class>( null );
+
 
     Artifact( @NotNull String groupId, @NotNull String name ) {
         if ( groupId.isEmpty() ) {
@@ -282,4 +289,21 @@ public class Artifact {
         // ...
     }
 
+    public Artifact iconResourcePath( String str ) {
+        iconResourcePath.set( str );
+
+        return this;
+    }
+
+    public Icon getIcon() {
+        if ( !base.isSet() || !iconResourcePath.isSet() ) {
+            throw new IllegalStateException( "icon resource not set" );
+        }
+        return new ImageIcon( base.get().getResource( iconResourcePath.get() ));
+    }
+
+    public Artifact base( @NotNull Class resourceBase) {
+        base.set( resourceBase );
+        return this;
+    }
 }

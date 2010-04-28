@@ -1,4 +1,4 @@
-package org.openCage.ui.clazz;
+package org.openCage.ui.warning;
 
 import com.explodingpixels.macwidgets.HudWidgetFactory;
 import com.explodingpixels.macwidgets.HudWindow;

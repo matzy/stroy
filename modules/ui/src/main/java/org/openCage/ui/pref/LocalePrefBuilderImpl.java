@@ -1,4 +1,4 @@
-package org.openCage.ui.impl.pref;
+package org.openCage.ui.pref;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
@@ -6,6 +6,7 @@ import com.jgoodies.binding.adapter.ComboBoxAdapter;
 import com.jgoodies.binding.beans.PropertyAdapter;
 import com.jgoodies.binding.value.ValueModel;
 import net.java.dev.designgridlayout.DesignGridLayout;
+import org.openCage.lang.errors.Unchecked;
 import org.openCage.localization.impl.TheLocaleLocalized;
 import org.openCage.localization.protocol.Localize;
 import org.openCage.ui.protocol.PrefBuilder;
@@ -16,6 +17,8 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import java.io.File;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 
@@ -82,7 +85,18 @@ public class LocalePrefBuilderImpl implements PrefBuilder {
     @Override
     public JButton getPrefButton() {
         JButton button = new JButton( localize.localize( "org.openCage.localization.dict.language" ));
-        button.setIcon( new ImageIcon( getClass().getResource( "locale.png" )));
+
+        URL base = getClass().getResource( "." );
+        URL base2 = getClass().getResource( "LocalePrefBuilderImpl.class" );
+        URL imageResource = getClass().getResource( "../../pref/locale.png" );
+
+        try {
+            button.setIcon( new ImageIcon( getClass().getResource( "locale.png" )));
+        } catch ( Error e ) {
+            throw new Unchecked( new IllegalArgumentException( "can not find " + base  + "  " + base2) );
+        } catch ( Exception e ) {
+            throw new Unchecked( new IllegalArgumentException( "can not find " + base  + "  " + base2) );
+        }
 
         button.setVerticalTextPosition(AbstractButton.BOTTOM);
         button.setHorizontalTextPosition( AbstractButton.CENTER);

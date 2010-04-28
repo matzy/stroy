@@ -76,9 +76,9 @@ public class AboutSheetFromApplication extends JDialog implements AboutSheet {
         DesignGridLayout layout = new DesignGridLayout( top );
         top.setLayout( layout );
 
-//        JLabel pic = new JLabel();
-//        pic.setIcon( app.getIcon());
-//        layout.row().add( pic );
+        JLabel pic = new JLabel();
+        pic.setIcon( app.getIcon());
+        layout.row().add( pic );
         layout.row().label( new JLabel("    ")).add( new JLabel("  "));
         
         layout.row().add( newLabel( app.gettName() ));

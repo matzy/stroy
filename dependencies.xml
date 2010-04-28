@@ -4,10 +4,10 @@
     <dirname property="dependencies.basedir" file="${ant.file.dependencies}"/>
 
     <!-- ================================================================== -->
-    <target name= "depend.application"
-            depends="depend.lang, depend.localization, depend.io, xstream, jcip-annotations, idea-annotations, commons-io">
-        <ant dir="${dependencies.basedir}/modules/application" target="local.goal" inheritAll="false"/>
-    </target>
+    <!--<target name= "depend.application"-->
+            <!--depends="depend.lang, depend.localization, depend.io, xstream, jcip-annotations, idea-annotations, commons-io">-->
+        <!--<ant dir="${dependencies.basedir}/modules/application" target="local.goal" inheritAll="false"/>-->
+    <!--</target>-->
     <!-- ================================================================== -->
     <target name= "depend.io"
             depends="depend.lang, commons-lang, muchsoft-sys">
@@ -15,7 +15,7 @@
     </target>
     <!-- ================================================================== -->
     <target name= "depend.fausterize"
-            depends="depend.lang, mac-widgets, designgridlayout, depend.application, commons-io, depend.ui, args4j, mime-util, RSyntaxTextArea">
+            depends="depend.lang, mac-widgets, designgridlayout, commons-io, depend.ui, args4j, mime-util, RSyntaxTextArea">
         <ant dir="${dependencies.basedir}/modules/fausterize" target="local.goal" inheritAll="false"/>
     </target>
     <!-- ================================================================== -->
@@ -35,7 +35,7 @@
     </target>
     <!-- ================================================================== -->
     <target name= "depend.ui"
-            depends="depend.localization, depend.application, depend.io, designgridlayout, depend.lang, guice, javagraphics-preferencepanel, RSyntaxTextArea, jgoodies-binding">
+            depends="depend.localization, depend.io, designgridlayout, depend.lang, guice, javagraphics-preferencepanel, RSyntaxTextArea, jgoodies-binding">
         <ant dir="${dependencies.basedir}/modules/ui" target="local.goal" inheritAll="false"/>
     </target>
 

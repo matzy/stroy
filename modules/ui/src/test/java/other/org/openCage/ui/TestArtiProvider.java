@@ -17,6 +17,14 @@ public class TestArtiProvider implements Provider<Artifact> {
     @Override
     public Artifact get() {
         Project proj = new Project( "testing" );
-        return proj.module( "openCage", "ui-testing" );
+
+        System.out.println( TestArtiProvider.class.getResource( ".").toString());
+
+        return proj.module( getClass(), "openCage", "ui-testing" ).
+                version("0.7.3").
+                author( proj.author( "Jeng Duh" )).
+                descriptionShort("all about testing").
+                contributer( proj.author( "i wish smith" )).
+                iconResourcePath( "bogen1.jpg" );
     }
 }

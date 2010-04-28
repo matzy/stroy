@@ -37,19 +37,19 @@ public class Demo {
                 java6p().
                 version( "2.0" );
 
-        Artifact lang = proj.module( "openCage", "lang").
+        Artifact lang = proj.module( Demo.class, "openCage", "lang").
                 mpl11().
                 java6p().
                 version( "0.1.0").
                 descriptionShort( "a library with small java language level additions" );
 
-        Artifact barti = proj.module( "openCage", "barti").
+        Artifact barti = proj.module( Demo.class, "openCage", "barti").
                 mpl11().
                 java6p().
                 version( "0.0.1").
                 descriptionShort( "a library with small java language level additions" );
 
-        Artifact fausterize = proj.module( "openCage", "fausterize").
+        Artifact fausterize = proj.module( Demo.class, "openCage", "fausterize").
                 mpl11().
                 java6p().
                 descriptionShort( "fausterize a small encrypting text editor" ).

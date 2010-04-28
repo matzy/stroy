@@ -1,4 +1,4 @@
-package org.openCage.ui.impl.pref;
+package org.openCage.ui.pref;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;

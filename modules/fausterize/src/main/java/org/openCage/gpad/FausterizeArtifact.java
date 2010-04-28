@@ -14,12 +14,17 @@ public class FausterizeArtifact implements ArtifactProvider, Provider<Artifact> 
     public FausterizeArtifact() {
         proj = new UIArtifact().getProject();
 
-        fausterize = proj.module( "openCage", "fausterize" ).
+        fausterize = proj.module( getClass(), "openCage", "fausterize" ).
                 version( "0.10.0" ).
                 address( "http://stroy.wikidot.com/fausterize", "stroy.wikidot.com").
                 mpl11().
                 author( proj.author( "Stephan Pfab" ) ).
+                contributer( proj.author( "Misa Inabe")).
+                contributer( proj.author( "Miguel Cuadron Marion")).
+                contributer( proj.author( "Johann Wolfgang von Goethe (via Project Guttenberg)")).
+                contributer( proj.author( "Scott Schulz")).
                 email( "mailto:openCage@gmail.com" ).
+                iconResourcePath( "faust.png" ).
                 depends( proj.get("openCage", "property")).
                 depends( proj.get("openCage", "localization")).
                 depends( proj.get("openCage", "io")).

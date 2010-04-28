@@ -34,7 +34,6 @@ public class UILocalizeProvider implements Provider<Localize>{
     private LocalizeBuilder builder;
 
     public Localize get() {
-        System.out.println("---- org.openCage.ui.uitexts ---- ");
         return builder.build( "org.openCage.ui.uitexts", Arrays.asList(builder.get()));
     }
 }

@@ -1,14 +1,10 @@
 package other.org.openCage.ui;
 
 import com.google.inject.Guice;
-import com.google.inject.Inject;
 import com.google.inject.Injector;
-import com.google.inject.name.Named;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.openCage.localization.protocol.Localize;
-import org.openCage.ui.Constants;
-import org.openCage.ui.clazz.HUDWarning;
+import org.openCage.ui.warning.HUDWarning;
 
 import java.util.Locale;
 

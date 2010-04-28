@@ -18,8 +18,8 @@ public class ArtifactTest {
     public void testEquals() {
         Project proj1 = new Project("1");
         Project proj2 = new Project("2");
-        assertEquals( proj1.module( "a", "b" ), proj1.module( "a", "b" ));
-        assertEquals( proj1.module( "a", "b" ), proj2.module( "a", "b" ));
-        assertEquals( proj1.module( "a", "b" ), proj2.external( "a", "b" ));
+        assertEquals( proj1.module( getClass(), "a", "b" ), proj1.module( getClass(), "a", "b" ));
+        assertEquals( proj1.module( getClass(), "a", "b" ), proj2.module( getClass(), "a", "b" ));
+        //assertEquals( proj1.module( "a", "b" ), proj2.external( "a", "b" ));
     }
 }

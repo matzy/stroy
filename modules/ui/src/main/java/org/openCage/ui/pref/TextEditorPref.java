@@ -1,4 +1,4 @@
-package org.openCage.ui.impl.pref;
+package org.openCage.ui.pref;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
@@ -11,6 +11,7 @@ import org.openCage.lang.BiMap;
 import org.openCage.lang.protocol.F1;
 import org.openCage.localization.protocol.Localize;
 import org.openCage.property.protocol.Property;
+import org.openCage.ui.pref.CaretStyleProperty;
 import org.openCage.ui.protocol.PrefBuilder;
 
 import javax.swing.*;
