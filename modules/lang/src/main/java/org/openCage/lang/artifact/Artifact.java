@@ -7,6 +7,7 @@ import org.openCage.lang.Once;
 
 import javax.swing.*;
 import javax.xml.stream.events.EntityDeclaration;
+import java.net.URL;
 import java.security.AlgorithmParameters;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +37,8 @@ public class Artifact {
     private final Once<String> iconResourcePath = new Once<String>( "" );
 
     private final Once<Class> base = new Once<Class>( null );
+    private Once<Boolean> isApp = new Once<Boolean>( false );
+    private Once<String> mainClass = new Once<String>( "" );
 
 
     Artifact( @NotNull String groupId, @NotNull String name ) {
@@ -305,5 +308,23 @@ public class Artifact {
     public Artifact base( @NotNull Class resourceBase) {
         base.set( resourceBase );
         return this;
+    }
+
+    public Artifact deployApp() {
+        isApp.set( true );
+        return this;
+    }
+
+    public boolean isApp() {
+        return isApp.get();
+    }
+
+    public Artifact mainClass(String fullyQualifiedName) {
+        mainClass.set( fullyQualifiedName );
+        return this;
+    }
+
+    public String getMainClass() {
+        return mainClass.get();
     }
 }

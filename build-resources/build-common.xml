@@ -20,25 +20,24 @@
 
     <!-- ====== overrideable properties ========== -->
 
-    <property name="version" value="0.0.1"/>
-    <property name="creator" value="Stephan Pfab"/>
+    <property name="el.author" value="anonymous"/>
+    <property name="el.description.short" value="" />
+    <property name="el.groupId" value="elephants"/>
+    <property name="el.main.class" value=""/>
+    <property name="el.version" value="0.0.1"/>
     <property name="buildnumber" value="42"/>
     <property name="app.name" value="${ant.project.name}"/>
-    <property name="app.main" value=""/>
     <property name="app.signature" value="${ant.project.name}"/>
     <property name="app.bundleid" value="elph"/>
     <property name="app.icon.osx" value="src/build/icons/${app.name}.icns"/>
     <property name="app.icon.small.png" value="---"/>
     <property name="app.icon.small.ico" value="---"/>
     <property name="app.helpbook" value=""/>
-    <property name="groupId" value="elephants"/>
     <property name="elph.java.version" value="6" />
-    <property name="app.description.short" value="" />
     <property name="app.description.full" value="" />
-    <property name="author.name" value="anymous" />
     <property name="author.contact" value="404" />
     <property name="readme" value="-" />
-    <property name="elephants.licence" value = "MPL 1.1" />
+    <property name="el.licence" value = "MPL 1.1" />
     <property name="el.download"  value="http://stroy.wikidot.com/local--files/download" />
     <property name="el.localization"  value="English" />
     <property name="el.src"  value="src" />
@@ -48,7 +47,8 @@
 
     <!-- ====== local properties ========== -->
 
-    <property name="l.module"       value="${dependencies.basedir}/modules/${ant.project.name}"/>
+    <property name="l.module"        value="${dependencies.basedir}/modules/${ant.project.name}"/>
+    <property name="l.helpbook"      value="${l.module}/src/build/helpbook"/>    
     <property name="classes"         value="${dependencies.basedir}/build/classes/${ant.project.name}"/>
     <property name="objc-classes"    value="${dependencies.basedir}/build/objc-classes/${ant.project.name}"/>
     <property name="libs"            value="${dependencies.basedir}/build/libs"/>
@@ -59,7 +59,7 @@
     <property name="deploy"          value="${dependencies.basedir}/build/deploy/${ant.project.name}"/>
     <property name="src"             value="${module}/${el.src}"/>
     <property name="srcres"          value="${module}/${el.srcres}"/>
-    <property name="helpbooksrc"     value="${module}/${app.helpbook}"/>
+    <!--<property name="l.helpbook"     value="${module}/${app.helpbook}"/>-->
 
     <!-- ====== parameter properties ========== -->
     <property name="param.target.os" value="----" />
@@ -249,14 +249,14 @@
 
         <manifest file="${resources}/manifest.mf" mode="replace">
             <attribute name="Built-By" value="${user.name}"/>
-            <attribute name="Created-By" value="${creator}"/>
+            <attribute name="Created-By" value="${el.author}"/>
             <attribute name="Class-Path" value="${jars-var}"/>
         </manifest>
         <if>
-            <isset property="isApp"/>
+            <isset property="el.isApp"/>
             <then>
                 <manifest file="${resources}/manifest.mf" mode="update">
-                    <attribute name="Main-Class" value="${app.main}"/>
+                    <attribute name="Main-Class" value="${el.main.class}"/>
                 </manifest>
             </then>
         </if>
@@ -266,7 +266,7 @@
     <!--      jar      -->
     <target name="local.create-jar" depends="local.compile,local.create-manifest">
         <echo message="${ant.project.name} - build-common.collect-jars"/>
-        <jar jarfile="${libs}/${groupId}-${ant.project.name}-${version}.jar"
+        <jar jarfile="${libs}/${el.groupId}-${ant.project.name}-${el.version}.jar"
              manifest="${resources}/manifest.mf">
             <fileset dir="${classes}" excludes="**/*test*"/>
         </jar>
@@ -286,13 +286,13 @@
     <target name="local.helpsetup">
         <if>
             <and>
-                <!--<isset property="isApp"/>-->
-                <available file="${helpbooksrc}/English"/>
+                <!--<isset property="el.isApp"/>-->
+                <available file="${l.helpbook}/English"/>
             </and>
             <then>
                 <copy todir="${resources}/helpbook/English.lproj/HelpBook">
-                    <fileset dir="${helpbooksrc}/English"/>
-                    <fileset dir="${helpbooksrc}/common"/>
+                    <fileset dir="${l.helpbook}/English"/>
+                    <fileset dir="${l.helpbook}/common"/>
                 </copy>
             </then>
             <else>
@@ -303,11 +303,11 @@
             </else>
         </if>
         <if>
-            <available file="${helpbooksrc}/Japanese"/>
+            <available file="${l.helpbook}/Japanese"/>
             <then>
                 <copy todir="${resources}/helpbook/Japanese.lproj/HelpBook">
-                    <fileset dir="${helpbooksrc}/Japanese"/>
-                    <fileset dir="${helpbooksrc}/common"/>
+                    <fileset dir="${l.helpbook}/Japanese"/>
+                    <fileset dir="${l.helpbook}/common"/>
                 </copy>
             </then>
             <else>
@@ -318,11 +318,11 @@
             </else>
         </if>
         <if>
-            <available file="${helpbooksrc}/German"/>
+            <available file="${l.helpbook}/German"/>
             <then>
                 <copy todir="${resources}/helpbook/German.lproj/HelpBook">
-                    <fileset dir="${helpbooksrc}/German"/>
-                    <fileset dir="${helpbooksrc}/common"/>
+                    <fileset dir="${l.helpbook}/German"/>
+                    <fileset dir="${l.helpbook}/common"/>
                 </copy>
             </then>
             <else>
@@ -333,11 +333,11 @@
             </else>
         </if>
         <if>
-            <available file="${helpbooksrc}/Spanish"/>
+            <available file="${l.helpbook}/Spanish"/>
             <then>
                 <copy todir="${resources}/helpbook/Spanish.lproj/HelpBook">
-                    <fileset dir="${helpbooksrc}/German"/>
-                    <fileset dir="${helpbooksrc}/common"/>
+                    <fileset dir="${l.helpbook}/German"/>
+                    <fileset dir="${l.helpbook}/common"/>
                 </copy>
             </then>
             <else>
@@ -354,7 +354,7 @@
         <if>
             <and>
                 <isset property="isOSX"/>
-                <isset property="isApp"/>
+                <isset property="el.isApp"/>
             </and>
             <then>
                 <!-- location changed to help with zipping, ant copy does not work for local.osx-apps -->
@@ -365,10 +365,10 @@
                             shortname="${app.name}"
                             stubfile="${app.name}"
                             signature="${app.signature}"
-                            mainclass="${app.main}"
+                            mainclass="${el.main.class}"
                             jvmversion="1.6+"
-                            version="${version}"
-                            infostring="${app.name}, ${elephants.licence}"
+                            version="${el.version}"
+                            infostring="${app.name}, ${el.licence}"
                             build="${buildnumber}"
                             bundleid="${app.bundleid}"
                             icon="${osx.icon}"
@@ -402,7 +402,7 @@
                 <!--<exclude name="${app.name}"/>-->
                 <!--</fileset>-->
                 <!--</copy>-->
-                <zip destfile="${deploy}/osx/${app.name}.app-${version}.zip"
+                <zip destfile="${deploy}/osx/${app.name}.app-${el.version}.zip"
                      basedir="${deploy}/osx/${app.name}"/>
             </then>
             <else>
@@ -413,19 +413,19 @@
 
     <target  name="local.padfile" depends="local.prepare">
         <if>
-        <isset property="isApp"/>
+        <isset property="el.isApp"/>
         <then>
             <property name="lxp.to" value="${deploy}/${param.target.os}/${app.name}" />
             <mkdir dir="${lxp.to}/resources/java"/>
 
             <!-- pad file -->
             <copy file="${dependencies.basedir}/build-resources/pad_file.xml" todir="${lxp.to}" />
-            <replace  file="${lxp.to}/pad_file.xml" token="[groupId]" value="${groupId}" />
+            <replace  file="${lxp.to}/pad_file.xml" token="[groupId]" value="${el.groupId}" />
             <replace  file="${lxp.to}/pad_file.xml" token="[webpage]" value="http://stroy.wikidot.com" /> <!-- TODO -->
             <replace  file="${lxp.to}/pad_file.xml" token="[author.first]" value="Stephan" /> <!-- TODO -->
             <replace  file="${lxp.to}/pad_file.xml" token="[author.last]" value="Pfab" /> <!-- TODO -->
             <replace  file="${lxp.to}/pad_file.xml" token="[author.contact]" value="openCage@gmail.com" /> <!-- TODO -->
-            <replace  file="${lxp.to}/pad_file.xml" token="[version]" value="${version}" />
+            <replace  file="${lxp.to}/pad_file.xml" token="[version]" value="${el.version}" />
             <replace  file="${lxp.to}/pad_file.xml" token="[screenshot.url]" value="http://stroy.wikidot.com/local--files/screenshots/fausterize-0.6.png" /> <!-- TODO -->
             <replace  file="${lxp.to}/pad_file.xml" token="[icon.url]" value="http://stroy.wikidot.com/local--files/screenshots/faust-small.png" /> <!-- TODO -->
             <replace  file="${lxp.to}/pad_file.xml" token="[pad.url]" value="${el.download}/${app.name}-${param.target.os}-pad_file.xml" />
@@ -433,7 +433,7 @@
             <replace  file="${lxp.to}/pad_file.xml" token="[OS]" value="${param.target.os.details}" />
             <replace  file="${lxp.to}/pad_file.xml" token="[install.support]" value="${param.target.install.support}" />
             <replace  file="${lxp.to}/pad_file.xml" token="[language]" value="${el.localization}" />
-            <replace  file="${lxp.to}/pad_file.xml" token="[download.url]" value="${el.download}/${app.name}-${param.target.os}-${version}.${param.target.extension}" />
+            <replace  file="${lxp.to}/pad_file.xml" token="[download.url]" value="${el.download}/${app.name}-${param.target.os}-${el.version}.${param.target.extension}" />
 
             <copy file="${lxp.to}/pad_file.xml" tofile="${deploy}/${param.target.os}/${app.name}-${param.target.os}-pad_file.xml"/>
         </then>
@@ -442,7 +442,7 @@
 
     <target  name="local.xplatform.prepare" depends="local.collect.jars,local.helpsetup,local.padfile">
         <if>
-            <isset property="isApp"/>
+            <isset property="el.isApp"/>
             <then>
                 <property name="lxp.to" value="${deploy}/${param.target.os}/${app.name}" />
 
@@ -470,12 +470,12 @@
 
 
                 <!-- unix shell script (sh) -->
-                <echo message="java -jar resources/java/${groupId}-${ant.project.name}-${version}.jar"
+                <echo message="java -jar resources/java/${el.groupId}-${ant.project.name}-${el.version}.jar"
                       file="${lxp.to}/${app.name}.sh"/>
                 <chmod file="${lxp.to}/${app.name}.sh" perm="ugo+x"/>
 
                 <!-- windows command script -->
-                <echo message="java -jar resources/java/${groupId}-${ant.project.name}-${version}.jar"
+                <echo message="java -jar resources/java/${el.groupId}-${ant.project.name}-${el.version}.jar"
                       file="${lxp.to}/${app.name}.cmd"/>
 
             </then>
@@ -489,7 +489,7 @@
     <target name="local.xplatform-app"
             depends="local.collect.jars,local.helpsetup">
         <if>
-            <isset property="isApp"/>
+            <isset property="el.isApp"/>
         <then>
             <antcall target="local.xplatform.prepare" >
                 <param name="param.target.os" value="xplatform"/>
@@ -497,7 +497,7 @@
                 <param name="param.target.extension" value="zip"/>
             </antcall>
 
-            <zip destfile="${deploy}/xplatform/${app.name}-${version}.zip" basedir="${deploy}/xplatform/${app.name}"/>
+            <zip destfile="${deploy}/xplatform/${app.name}-${el.version}.zip" basedir="${deploy}/xplatform/${app.name}"/>
         </then>
         </if>
     </target>
@@ -508,7 +508,7 @@
 
         <if>
             <and>
-                <isset property="isApp"/>
+                <isset property="el.isApp"/>
                 <isset property="isOSX"/>
             </and>
             <then>
@@ -603,13 +603,13 @@
     <!-- build a linux desctop description file -->
     <target name="local.linux-dektop-description" depends="local.prepare">
         <if>
-            <isset property="isApp"/>
+            <isset property="el.isApp"/>
             <then>
                 <desktopentry
                         toFile="${deploy}/debian/${app.name}.desktop"
                         name="${app.name}"
                         comment="fooo comment"
-                        exec="java -jar /usr/share/${app.name}/resources/java/${groupId}-${ant.project.name}-${version}.jar"
+                        exec="java -jar /usr/share/${app.name}/resources/java/${el.groupId}-${ant.project.name}-${el.version}.jar"
                         path="/usr/share/${app.name}/"
                         icon="/usr/share/${app.name}/${app.name}.png"
                         categories="Utility;Java"
@@ -621,7 +621,7 @@
     <!-- build a linux debian package -->
     <target name="local.debian-pkg" depends="local.linux-dektop-description,local.create-jar" >
         <if>
-            <isset property="isApp"/>
+            <isset property="el.isApp"/>
             <then>
 
                 <antcall target="local.xplatform.prepare" >
@@ -649,9 +649,9 @@
                         section="utils"
                         depends="${deb.depends}"
                         >
-                    <version upstream="${version}"/>
+                    <version upstream="${el.version}"/>
                     <maintainer email="${author.contact}"/>
-                    <description synopsis="${app.description.short}">
+                    <description synopsis="${el.description.short}">
                         ${app.description.full}
                     </description>
 
@@ -684,7 +684,7 @@
 
         <if>
             <and>
-                <isset property="isApp"/>
+                <isset property="el.isApp"/>
                 <isset property="isWindows"/>
             </and>
             <then>
@@ -699,9 +699,9 @@
                 <copy file="${dependencies.basedir}/build-resources/launch4j-config.xml" todir="${deploy}/windows" />
 
                 <replace  file="${deploy}/windows/launch4j-config.xml" token="[jarList]" value="${l4j.3}" />
-                <replace  file="${deploy}/windows/launch4j-config.xml" token="[mainjar]" value="resources/java/${groupId}-${ant.project.name}-${version}.jar" />
+                <replace  file="${deploy}/windows/launch4j-config.xml" token="[mainjar]" value="resources/java/${el.groupId}-${ant.project.name}-${el.version}.jar" />
                 <replace  file="${deploy}/windows/launch4j-config.xml" token="[output]" value="${deploy}/windows/${app.name}/${ant.project.name}.exe" />
-                <replace  file="${deploy}/windows/launch4j-config.xml" token="[mainClass]" value="${app.main}" />
+                <replace  file="${deploy}/windows/launch4j-config.xml" token="[mainClass]" value="${el.main.class}" />
 
                 <condition property="l4j.java.min" value="1.6.0" else="">
                     <equals arg1="${elph.java.version}" arg2="6"/>
