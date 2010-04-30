@@ -45,7 +45,7 @@ public class StroyDemo {
 //    <property name = "app.signature"   value="faust"/>
 //    <property name = "app.bundleid"    value="org.openCage.fausterize"/>
 //    <property name = "app.helpbook"    value="HelpBook"/>
-//    <property name = "app.icon.small.png" value="org/openCage/gpad/resources/faust-small.png"/>
+//    <property name = "app.icon.small.png" value="org/openCage/gpad/resources/fausterize-small.png"/>
 //    <property name="app.description.short" value="fausterize a small encrypting text editor" />
 //    <property name="app.description.full" value="fausterize a small encrypting text editor" />
 //    <property name="readme" value="org/openCage/gpad/resources/README.txt"/>

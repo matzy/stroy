@@ -1,5 +1,6 @@
 package org.openCage.io.clazz;
 
+import org.openCage.fspath.protocol.FSPath;
 import org.openCage.lang.errors.Unchecked;
 
 import java.io.File;
@@ -28,6 +29,11 @@ import java.io.IOException;
  ***** END LICENSE BLOCK *****/
 
 public class FileExistence {
+
+    public static void ensurePath( FSPath path ) {
+        path.toFile().getParentFile().mkdirs();
+    }
+    
 
     public static void ensurePath( File file ) {
         file.getParentFile().mkdirs();

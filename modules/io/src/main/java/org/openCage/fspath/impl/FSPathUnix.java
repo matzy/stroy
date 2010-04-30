@@ -60,7 +60,9 @@ public class FSPathUnix implements FSPath {
     public FSPathUnix( File file ) {
         this( file.getAbsolutePath());
     }
-    
+
+    private FSPathUnix() {}
+
     public String toString() {
         return "/" + StringUtils.join( elements, '/');
     }
@@ -92,6 +94,19 @@ public class FSPathUnix implements FSPath {
         } catch (URISyntaxException e) {
             throw Unchecked.wrap(e);
         }
+    }
+
+    @Override
+    public FSPath parent(int i) {
+        if ( i > elements.size() ) {
+            throw new IllegalArgumentException( "to manny .." );
+        }
+
+        FSPathUnix ret = new FSPathUnix();
+        ret.elements.addAll( elements.subList( 0, elements.size() - i ));
+
+        return ret;
+
     }
 
 

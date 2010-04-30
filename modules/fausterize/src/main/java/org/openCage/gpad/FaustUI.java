@@ -89,7 +89,7 @@ public class FaustUI extends JFrame {
     private String                  message;
     private JTextArea               textUI = new RSyntaxTextArea();
     private TextEncoderIdx<String,String>  textEncoder;
-    final private JButton           padButton = new JButton( new ImageIcon( getClass().getResource(LOCK_CLOSED_PNG)));//"faust-small.png")));
+    final private JButton           padButton = new JButton( new ImageIcon( getClass().getResource(LOCK_CLOSED_PNG)));//"fausterize-small.png")));
     private LabeledComponentGroup padGroup;
     private JLabel infoLabel;
     private MenuBuilder.MenuIM recent;

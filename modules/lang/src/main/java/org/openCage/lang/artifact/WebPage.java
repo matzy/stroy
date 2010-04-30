@@ -57,8 +57,6 @@ public class WebPage {
 
     @Override
     public String toString() {
-        return "Webpage{" +
-                "page='" + page + '\'' +
-                '}';
+        return page;
     }
 }

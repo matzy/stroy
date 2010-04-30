@@ -38,4 +38,6 @@ public interface FSPath extends Iterable<String> {
     int size();
 
     URI toURI();
+
+    FSPath parent(int i);
 }

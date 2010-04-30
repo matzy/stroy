@@ -34,4 +34,8 @@ public class JavaVersion {
         return verNum == 6;
     }
 
+    @Override
+    public String toString() {
+        return "" + verNum + ((plus) ? "+" : "");
+    }
 }

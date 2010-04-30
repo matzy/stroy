@@ -23,6 +23,7 @@ public class FSPathUNC implements FSPath {
 
     private final List<String> elements = new ArrayList<String>();
 
+    private FSPathUNC() {}
 
     public FSPathUNC(String absolutePath ) {
         if ( StringUtils.isEmpty( absolutePath )) {
@@ -76,5 +77,18 @@ public class FSPathUNC implements FSPath {
         } catch (URISyntaxException e) {
             throw Unchecked.wrap(e);
         }
+    }
+
+    @Override
+    public FSPath parent(int i) {
+
+        if ( i > elements.size() ) {
+            throw new IllegalArgumentException( "to manny .." );
+        }
+
+        FSPathUNC ret = new FSPathUNC();
+        ret.elements.addAll( elements.subList( 0, elements.size() - i ));
+
+        return ret;
     }
 }

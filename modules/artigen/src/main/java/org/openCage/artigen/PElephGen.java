@@ -1,15 +1,20 @@
 package org.openCage.artigen;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.openCage.fspath.protocol.FSPath;
 import org.openCage.io.clazz.FileExistence;
 import org.openCage.lang.artifact.Artifact;
+import org.openCage.lang.artifact.Author;
 import org.openCage.lang.artifact.Project;
 import org.openCage.lang.errors.Unchecked;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -71,8 +76,10 @@ public class PElephGen {
 
 
         ret += antProperty( "el.version", arti.getVersion().getOriginal()) + "\n";
+        ret += antProperty( "el.buildnumber", "" + arti.getVersion().getBuildnumber()) + "\n";
         ret += antProperty( "el.groupId", arti.getGroupId()) + "\n";
-        ret += antProperty( "el.src", "src/main/java") + "\n";
+        ret += antProperty( "el.src.java", "src/main/java") + "\n";
+        ret += antProperty( "el.src.resources", "src/main/resources") + "\n";
 
         if ( arti.isApp() ) {
             ret += antProperty( "el.isApp", "true") + "\n";
@@ -81,6 +88,33 @@ public class PElephGen {
 
         ret += antProperty( "el.description.short", arti.getDescriptionShort()) + "\n";
         ret += antProperty( "el.licence", arti.getLicence().getName()) + "\n";
+        ret += antProperty( "el.localization", StringUtils.join( arti.getLocalizations(), ", ")) + "\n";
+        ret += antProperty( "el.webpage", arti.getWebpage().toString()) + "\n";
+        ret += antProperty( "el.email", arti.getEmail().toString()) + "\n";
+        ret += antProperty( "el.java.version", arti.getJavaVersion().toString()) + "\n";
+
+        List<String> names = new ArrayList<String>();
+        for ( Author author : arti.getAuthors() ) {
+            names.add( author.getName());
+        }
+        ret += antProperty( "el.author", StringUtils.join( names, ", ")) + "\n";
+        if ( names.size() > 0 ) {
+            String firstAuthor = names.get(0);
+
+            ret += antProperty( "el.author.first", firstAuthor.substring(0, firstAuthor.lastIndexOf(' '))) + "\n";
+            ret += antProperty( "el.author.last", firstAuthor.substring( firstAuthor.lastIndexOf(' ') + 1)) + "\n";
+        }
+
+        if ( arti.getScreenshotUrl().isSet() ) {
+            ret += antProperty( "el.url.screenshot", arti.getScreenshotUrl().get() ) + "\n";
+        }
+        if ( arti.getIconUrl().isSet() ) {
+            ret += antProperty( "el.url.icon", arti.getIconUrl().get() ) + "\n";
+        }
+        if ( arti.getDownloadUrl().isSet() ) {
+            ret += antProperty( "el.url.download", arti.getDownloadUrl().get() ) + "\n";             
+        }
+
 
         ret += "\n   <import file=\"../../build-resources/build-common.xml\"/>\n" +
                 "</project>";

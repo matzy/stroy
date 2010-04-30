@@ -1,16 +1,15 @@
 package org.openCage.lang.artifact;
 
-import com.sun.jdi.VirtualMachine;
-import com.sun.tools.javac.main.JavaCompiler;
 import org.jetbrains.annotations.NotNull;
 import org.openCage.lang.Once;
 
-import javax.swing.*;
-import javax.xml.stream.events.EntityDeclaration;
-import java.net.URL;
-import java.security.AlgorithmParameters;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Artifact {
 
@@ -39,6 +38,10 @@ public class Artifact {
     private final Once<Class> base = new Once<Class>( null );
     private Once<Boolean> isApp = new Once<Boolean>( false );
     private Once<String> mainClass = new Once<String>( "" );
+    private Set<String> languages = new HashSet<String>();
+    private Once<String> screenshortUrl = new Once<String>("");
+    private Once<String> iconUrl = new Once<String>("");
+    private Once<String> downloadUrl = new Once<String>("");
 
 
     Artifact( @NotNull String groupId, @NotNull String name ) {
@@ -111,6 +114,11 @@ public class Artifact {
 
     public Artifact java6p() {
         javaVersion.set( JavaVersion.v6plus);
+        return this;
+    }
+
+    public Artifact java6() {
+        javaVersion.set( JavaVersion.v6);
         return this;
     }
 
@@ -326,5 +334,41 @@ public class Artifact {
 
     public String getMainClass() {
         return mainClass.get();
+    }
+
+    public Collection<String> getLocalizations() {
+        return languages;
+    }
+
+    public Artifact language(String lang) {
+        languages.add( lang );
+        return this;
+    }
+
+    public Artifact screenshotUrl(String url) {
+        screenshortUrl.set( url );
+        return this;
+    }
+
+    public Once<String> getScreenshotUrl() {
+        return screenshortUrl;
+    }
+
+    public Artifact iconUrl(String url) {
+        iconUrl.set( url );
+        return this;
+    }
+
+    public Once<String> getIconUrl() {
+        return iconUrl;
+    }
+
+    public Artifact downloadUrl(String url) {
+        downloadUrl.set( url );
+        return this;
+    }
+
+    public Once<String> getDownloadUrl() {
+        return downloadUrl;
     }
 }

@@ -15,7 +15,7 @@ public class FausterizeArtifact implements ArtifactProvider, Provider<Artifact> 
         proj = new UIArtifact().getProject();
 
         fausterize = proj.module( getClass(), "openCage", "fausterize" ).
-                version( "0.10.0" ).
+                version( "0.10.0.527" ).                
                 address( "http://stroy.wikidot.com/fausterize", "stroy.wikidot.com").
                 mpl11().
                 author( proj.author( "Stephan Pfab" ) ).
@@ -25,6 +25,15 @@ public class FausterizeArtifact implements ArtifactProvider, Provider<Artifact> 
                 contributer( proj.author( "Scott Schulz")).
                 email( "mailto:openCage@gmail.com" ).
                 iconResourcePath( "faust.png" ).
+                deployApp().
+                mainClass( "org.openCage.gpad.UIMain" ).
+                descriptionShort( "a small encrypting cute texteditor, based on one-time pads" ).
+                language( "English" ).
+                language( "German" ).
+                java6().
+                screenshotUrl( "http://stroy.wikidot.com/local--files/screenshots/fausterize-0.6.png").
+                iconUrl( "http://stroy.wikidot.com/local--files/screenshots/faust-small.png").
+                downloadUrl( "http://stroy.wikidot.com/local--files/download" ).                
                 depends( proj.get("openCage", "property")).
                 depends( proj.get("openCage", "localization")).
                 depends( proj.get("openCage", "io")).
@@ -45,12 +54,12 @@ public class FausterizeArtifact implements ArtifactProvider, Provider<Artifact> 
                             descriptionShort( "The simple logging facade for java abstracts several java logging implementations").
                             address( "http://www.slf4j.org/", "slf4.org" ).
                             mit().
-                            version("1.5.10")).
+                            version("1.5.6")).
                         depends( proj.external( "org.slf4j", "slf4j-log4j12" ). // runtime
                             descriptionShort( "The simple logging facade for java abstracts several java logging implementations").
                             address( "http://www.slf4j.org/", "slf4.org" ).
                             mit().
-                            version("1.5.10"))
+                            version("1.5.6"))
                 ).
 //                <groupId>org.slf4j</groupId>
 //			<artifactId>slf4j-api</artifactId>

@@ -9,6 +9,7 @@ import org.openCage.fspath.protocol.FSPath;
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
 import java.io.File;
+import java.net.URL;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -52,6 +53,17 @@ public class FSPathBuilder {
         }
 
         throw new UnsupportedOperationException("impl me");
+    }
+
+
+    public static FSPath getPath( URL url ) {
+        String file = url.getFile();
+
+        if ( file.isEmpty() ) {
+            throw new IllegalArgumentException( "not a file: " + url.toString() );
+        }
+
+        return getPath( file );
     }
 
 

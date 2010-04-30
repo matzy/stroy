@@ -50,6 +50,8 @@ public class FSPathWindows implements FSPath {
 
     }
 
+    private FSPathWindows() {}
+
     public String toString() {
         return drive + ":\\" + StringUtils.join( elements, '\\');
     }
@@ -84,5 +86,17 @@ public class FSPathWindows implements FSPath {
         } catch (URISyntaxException e) {
             throw Unchecked.wrap(e);
         }
+    }
+
+    @Override
+    public FSPath parent(int i) {
+        if ( i > elements.size() ) {
+            throw new IllegalArgumentException( "to manny .." );
+        }
+
+        FSPathWindows ret = new FSPathWindows();
+        ret.elements.addAll( elements.subList( 0, elements.size() - i ));
+
+        return ret;
     }
 }
