@@ -169,6 +169,18 @@ public class Artifact {
         return compileDeps;
     }
 
+    public Collection<Artifact> getCompileDependencyClosure() {
+        Set<Artifact> closure = new HashSet<Artifact>();
+
+        for ( Artifact dep : compileDeps ) {
+            closure.addAll( dep.getCompileDependencyClosure() );
+        }
+
+        closure.addAll( compileDeps );
+
+        return closure;
+    }
+
     public Version getVersion() {
         return version.get();
     }

@@ -1,15 +1,14 @@
 package org.openCage.ui.impl.about;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.*;
+import java.util.List;
 
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import net.java.dev.designgridlayout.DesignGridLayout;
 
@@ -171,6 +170,35 @@ public class AboutSheetFromApplication extends JDialog implements AboutSheet {
 
         getContentPane().setLayout( new BorderLayout());
         getContentPane().add( top, BorderLayout.CENTER  );
+
+        List<Artifact> refs = new ArrayList<Artifact>();
+        refs.addAll( app.getCompileDependencyClosure());
+
+        Collections.sort( refs, new Comparator<Artifact>() {
+            @Override
+            public int compare(Artifact o1, Artifact o2) {
+                return o1.gettName().compareToIgnoreCase( o2.gettName() );
+            }
+        });
+
+        String[] lic = new String[refs.size()];
+        for ( Count<Artifact> dep : Count.count( refs )) {
+            lic[dep.idx()] =  dep.obj().gettName() + "  " + dep.obj().getLicence().getName();
+        }
+
+        JList licences = new JList( lic );
+        licences.setMinimumSize( new Dimension( 100,100 ));
+
+        licences.addListSelectionListener( new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                System.out.println( e );
+            }
+        });
+
+        JScrollPane scrollLice = new JScrollPane( licences );
+
+        getContentPane().add( scrollLice, BorderLayout.SOUTH  );
 
         pack();
 
