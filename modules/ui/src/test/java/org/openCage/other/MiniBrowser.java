@@ -115,7 +115,8 @@ public class MiniBrowser extends JFrame
             @Override
             public void mouseClicked(MouseEvent mouseEvent) {
                 System.out.println( "clicked" + mouseEvent.getSource());
-                if ( mouseEvent.isMetaDown() ) {
+
+                if ( SwingUtilities.isRightMouseButton( mouseEvent)) {//mouseEvent.isMetaDown() ) {
                     mouseEvent.consume();
                     System.out.println("right");
                     Object obj = mouseEvent.getSource();
@@ -260,7 +261,7 @@ the page list if specified. */
 
             // TODO relative URL
 
-            if ( pageUrl.toString().endsWith( ".png") || pageUrl.toString().endsWith( ".jpg") ) {
+            if ( pageUrl.toString().endsWith( ".png") || pageUrl.toString().endsWith( ".jpg") || pageUrl.toString().endsWith( ".gif")) {
 
 //                URL pageUrlabs = new URL( currentUrl, pageUrl.toString() );
 //                System.out.println(pageUrlabs.toString());
