@@ -136,7 +136,7 @@ public class MiniBrowser extends JFrame
                             Object srcsrc = el.getAttributes().getAttribute( key );
                             int j =0;
                             try {
-                                showPage( new URL((String)srcsrc), true);
+                                showPage( new URL(displayEditorPane.getPage(), (String)srcsrc), true);
                             } catch (MalformedURLException e) {
                                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                             }
@@ -176,7 +176,7 @@ public class MiniBrowser extends JFrame
 
 
         try {
-            showPage( new URL("http://www.xkcd.org"), true );
+            showPage( new URL("http://www.well-of-souls.com/outsider"), true );
         } catch (MalformedURLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
@@ -261,6 +261,10 @@ the page list if specified. */
             // TODO relative URL
 
             if ( pageUrl.toString().endsWith( ".png") || pageUrl.toString().endsWith( ".jpg") ) {
+
+//                URL pageUrlabs = new URL( currentUrl, pageUrl.toString() );
+//                System.out.println(pageUrlabs.toString());
+
                 String newPage = "<html><body><img src=\"" +
                         pageUrl.toString() + "\"/>" +
                         "</body></html>";
