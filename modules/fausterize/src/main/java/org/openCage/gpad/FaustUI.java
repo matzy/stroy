@@ -11,7 +11,7 @@ import com.google.inject.name.Named;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rtextarea.RTextArea;
 import org.openCage.fspath.clazz.FSPathBuilder;
-import org.openCage.lang.MRU;
+import org.openCage.lang.structure.MRU;
 import org.openCage.lang.artifact.Artifact;
 import org.openCage.lang.count.Count;
 import org.openCage.lang.errors.Unchecked;

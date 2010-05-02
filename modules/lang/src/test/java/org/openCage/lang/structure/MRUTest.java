@@ -1,7 +1,7 @@
-package org.openCage.lang;
+package org.openCage.lang.structure;
 
 import org.junit.Test;
-import org.openCage.lang.MRU;
+import org.openCage.lang.structure.MRU;
 
 import static junit.framework.Assert.assertEquals;
 

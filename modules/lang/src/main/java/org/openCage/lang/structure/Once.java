@@ -1,4 +1,4 @@
-package org.openCage.lang;
+package org.openCage.lang.structure;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1

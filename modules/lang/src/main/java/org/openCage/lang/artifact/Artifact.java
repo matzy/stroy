@@ -1,8 +1,7 @@
 package org.openCage.lang.artifact;
 
-import org.apache.commons.lang.text.StrTokenizer;
 import org.jetbrains.annotations.NotNull;
-import org.openCage.lang.Once;
+import org.openCage.lang.structure.Once;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;

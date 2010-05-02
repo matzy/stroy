@@ -1,5 +1,7 @@
 package org.openCage.other;
 
+import org.openCage.lang.structure.BFStack;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.net.*;
@@ -8,7 +10,6 @@ import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.Element;
-import javax.swing.text.JTextComponent;
 import javax.swing.text.html.*;
 
 //from:
@@ -30,6 +31,8 @@ public class MiniBrowser extends JFrame
     // Browser's list of pages that have been visited.
     private ArrayList pageList = new ArrayList();
     private boolean doGetImage = false;
+
+    private BFStack<URL> bfstack = new BFStack<URL>();
 
     // Constructor for Mini Web Browser.
     public MiniBrowser() {
@@ -114,12 +117,10 @@ public class MiniBrowser extends JFrame
         displayEditorPane.addMouseListener( new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent mouseEvent) {
-                System.out.println( "clicked" + mouseEvent.getSource());
 
                 if ( SwingUtilities.isRightMouseButton( mouseEvent)) {//mouseEvent.isMetaDown() ) {
                     mouseEvent.consume();
-                    System.out.println("right");
-                    Object obj = mouseEvent.getSource();
+
                     int pos = displayEditorPane.viewToModel( mouseEvent.getPoint());
                     Element el = ( (HTMLDocument)displayEditorPane.getDocument()).getCharacterElement( pos );
                     int i = 0;
@@ -194,22 +195,27 @@ public class MiniBrowser extends JFrame
 
     // Go back to the page viewed before the current page.
     private void actionBack() {
-        URL currentUrl = displayEditorPane.getPage();
-        int pageIndex = pageList.indexOf(currentUrl.toString());
-        try {
-            showPage(
-                    new URL((String) pageList.get(pageIndex - 1)), false);
-        } catch (Exception e) {}
+        if ( bfstack.hasBackward() )
+            showPage( bfstack.backward(), false );
+//        URL currentUrl = displayEditorPane.getPage();
+//        int pageIndex = pageList.indexOf(currentUrl.toString());
+//        try {
+//            showPage(
+//                    new URL((String) pageList.get(pageIndex - 1)), false);
+//        } catch (Exception e) {}
     }
 
     // Go forward to the page viewed after the current page.
     private void actionForward() {
-        URL currentUrl = displayEditorPane.getPage();
-        int pageIndex = pageList.indexOf(currentUrl.toString());
-        try {
-            showPage(
-                    new URL((String) pageList.get(pageIndex + 1)), false);
-        } catch (Exception e) {}
+//        URL currentUrl = displayEditorPane.getPage();
+//        int pageIndex = pageList.indexOf(currentUrl.toString());
+//        try {
+//            showPage(
+//                    new URL((String) pageList.get(pageIndex + 1)), false);
+//        } catch (Exception e) {}
+        if ( bfstack.hasForward() ) {
+            showPage( bfstack.forward(), false );
+        }
     }
 
     // Load and show the page specified in the location text field.
@@ -259,8 +265,6 @@ the page list if specified. */
 
             URL newUrl = pageUrl;
 
-            // TODO relative URL
-
             if ( pageUrl.toString().endsWith( ".png") || pageUrl.toString().endsWith( ".jpg") || pageUrl.toString().endsWith( ".gif")) {
 
 //                URL pageUrlabs = new URL( currentUrl, pageUrl.toString() );
@@ -276,20 +280,23 @@ the page list if specified. */
                 displayEditorPane.getPage();
             }
 
-            // Add page to list if specified.
-            if (addToList) {
-                int listSize = pageList.size();
-                if (listSize > 0) {
-                    int pageIndex =
-                            pageList.indexOf(currentUrl.toString());
-                    if (pageIndex < listSize - 1) {
-                        for (int i = listSize - 1; i > pageIndex; i--) {
-                            pageList.remove(i);
-                        }
-                    }
-                }
-                pageList.add(newUrl.toString());
+            if ( addToList ) {
+                bfstack.push( newUrl );
             }
+//            // Add page to list if specified.
+//            if (addToList) {
+//                int listSize = pageList.size();
+//                if (listSize > 0) {
+//                    int pageIndex =
+//                            pageList.indexOf(currentUrl.toString());
+//                    if (pageIndex < listSize - 1) {
+//                        for (int i = listSize - 1; i > pageIndex; i--) {
+//                            pageList.remove(i);
+//                        }
+//                    }
+//                }
+//                pageList.add(newUrl.toString());
+//            }
 
             // Update location text field with URL of current page.
             locationTextField.setText(newUrl.toString());
@@ -308,49 +315,15 @@ the page list if specified. */
     /* Update back and forward buttons based on
 the page being displayed. */
     private void updateButtons() {
-        if (pageList.size() < 2) {
-            backButton.setEnabled(false);
-            forwardButton.setEnabled(false);
-        } else {
-            URL currentUrl = displayEditorPane.getPage();
-            int pageIndex = pageList.indexOf(currentUrl.toString());
-            backButton.setEnabled(pageIndex > 0);
-            forwardButton.setEnabled(
-                    pageIndex < (pageList.size() - 1));
-        }
+
+        backButton.setEnabled( bfstack.hasBackward());
+        forwardButton.setEnabled( bfstack.hasForward());
     }
 
     // Handle hyperlink's being clicked.
     public void hyperlinkUpdate(HyperlinkEvent event) {
         HyperlinkEvent.EventType eventType = event.getEventType();
         if (eventType == HyperlinkEvent.EventType.ACTIVATED) {
-
-            if ( doGetImage ) {
-                Element src = event.getSourceElement();
-                AttributeSet attis = src.getAttributes();
-
-                Enumeration en = attis.getAttributeNames();
-
-                Object key = null;
-                //HTML.Tag.
-                while ( en.hasMoreElements() ) {
-                    Object n = en.nextElement();
-                    if ( n.toString().equals( "src" ) ) {
-                        key = n;
-                        Object srcsrc = src.getAttributes().getAttribute( key );
-                        int j =0;
-                        try {
-                            showPage( new URL((String)srcsrc), true);
-                        } catch (MalformedURLException e) {
-                            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-                        }
-                        return;
-                    }
-                    int i = 0;
-                }
-            }
-
-
 
             event.getSourceElement();
             if (event instanceof HTMLFrameHyperlinkEvent) {

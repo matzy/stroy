@@ -1,7 +1,7 @@
 package org.openCage.lang.artifact;
 
 import org.jetbrains.annotations.NotNull;
-import org.openCage.lang.Once;
+import org.openCage.lang.structure.Once;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1

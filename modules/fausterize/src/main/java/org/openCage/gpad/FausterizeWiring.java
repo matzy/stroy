@@ -8,7 +8,7 @@ import com.google.inject.name.Names;
 import org.openCage.gpad.providers.LocalizeProvider;
 import org.openCage.gpad.providers.PropStoreProvider;
 import org.openCage.gpad.providers.TransPropStoreProvider;
-import org.openCage.lang.MRU;
+import org.openCage.lang.structure.MRU;
 import org.openCage.lang.artifact.Artifact;
 import org.openCage.lang.impl.BackgroundExecutorImpl;
 import org.openCage.lang.protocol.BackgroundExecutor;
