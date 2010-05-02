@@ -22,7 +22,7 @@ public class PropertyArtifact implements ArtifactProvider{
 
         property = proj.module( getClass(), "openCage", "property" ).
                 version( "0.1.0" ).
-                address( "http://stroy.wikidot.org", "stroy.wikidot.org" ).
+                address( "http://stroy.wikidot.com", "stroy.wikidot.com" ).
                 mpl11().
                 depends( proj.get("openCage", "lang")).
                 depends( proj.external( "com.google.inject", "guice" ).

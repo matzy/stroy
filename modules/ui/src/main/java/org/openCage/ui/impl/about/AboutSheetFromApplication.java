@@ -3,6 +3,10 @@ package org.openCage.ui.impl.about;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.io.IOException;
 import java.util.*;
 import java.util.List;
 
@@ -28,45 +32,45 @@ import org.openCage.ui.protocol.AboutSheet;
 import org.openCage.ui.protocol.GlobalKeyEventHandler;
 
 /***** BEGIN LICENSE BLOCK *****
-* Version: MPL 1.1
-*
-* The contents of this file are subject to the Mozilla Public License Version
-* 1.1 (the "License"); you may not use this file except in compliance with
-* the License. You may obtain a copy of the License at
-* http://www.mozilla.org/MPL/
-*
-* Software distributed under the License is distributed on an "AS IS" basis,
-* WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
-* for the specific language governing rights and limitations under the
-* License.
-*
-* The Original Code is stroy code.
-*
-* The Initial Developer of the Original Code is Stephan Pfab <openCage@gmail.com>.
-* Portions created by Stephan Pfab are Copyright (C) 2006 - 2010.
-* All Rights Reserved.
-*
-* Contributor(s):
-***** END LICENSE BLOCK *****/
+ * Version: MPL 1.1
+ *
+ * The contents of this file are subject to the Mozilla Public License Version
+ * 1.1 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ * http://www.mozilla.org/MPL/
+ *
+ * Software distributed under the License is distributed on an "AS IS" basis,
+ * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+ * for the specific language governing rights and limitations under the
+ * License.
+ *
+ * The Original Code is stroy code.
+ *
+ * The Initial Developer of the Original Code is Stephan Pfab <openCage@gmail.com>.
+ * Portions created by Stephan Pfab are Copyright (C) 2006 - 2010.
+ * All Rights Reserved.
+ *
+ * Contributor(s):
+ ***** END LICENSE BLOCK *****/
 
 public class AboutSheetFromApplication extends JDialog implements AboutSheet {
 
-	private static final long serialVersionUID = -1275151496727359312L;
+    private static final long serialVersionUID = -1275151496727359312L;
     private static final Color textColor = new Color( 25, 10, 100);
 
-	private final Artifact app;
-	private final Localize localize;
+    private final Artifact app;
+    private final Localize localize;
 
     @Inject
-	public AboutSheetFromApplication( final Artifact app, @Named( "ui" ) final Localize localize, GlobalKeyEventHandler keyEventHandler ) {
-		this.app = app;		
-		this.localize = localize;
-		build();
+    public AboutSheetFromApplication( final Artifact app, @Named( "ui" ) final Localize localize, GlobalKeyEventHandler keyEventHandler ) {
+        this.app = app;
+        this.localize = localize;
+        build();
 
         keyEventHandler.addCloseWindow( this );
-	}
-	
-	private void build() {
+    }
+
+    private void build() {
         setTitle( app.gettName() );
         setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
         setBounds( 20, 20,400, 200 );
@@ -79,7 +83,7 @@ public class AboutSheetFromApplication extends JDialog implements AboutSheet {
         pic.setIcon( app.getIcon());
         layout.row().add( pic );
         layout.row().label( new JLabel("    ")).add( new JLabel("  "));
-        
+
         layout.row().add( newLabel( app.gettName() ));
         layout.row().label( newIntro( localize.localize("org.openCage.localization.dict.version"))).add( newLabel( app.gettVersion().toString() ));
 //        layout.row().label( new JLabel( localize.localize( "About.copyright" ))).add( new JLabel( app.getCopyright() ), 3 );
@@ -105,7 +109,7 @@ public class AboutSheetFromApplication extends JDialog implements AboutSheet {
             layout.row().label( newIntro( localize.localize("org.openCage.localization.dict.author"))).add( newLabel( str ) );
         }
 
-        
+
         str = "";
         for ( Count<? extends Author> author : Count.count(app.getContributors()) ) {
             str += author.obj().getName();
@@ -130,17 +134,17 @@ public class AboutSheetFromApplication extends JDialog implements AboutSheet {
         if ( email != null ) {
             layout.row().label( newIntro( localize.localize( "About.contact" ))).add( newLabel( email.gettEmail().toString()), 5 ).add( emailButton );
         }
-        
 
-            emailButton.addActionListener( new ActionListener() {
-                public void actionPerformed(ActionEvent actionEvent) {
-                    try {
-                        new BrowseTmp().browse( email.gettEmail() );
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+
+        emailButton.addActionListener( new ActionListener() {
+            public void actionPerformed(ActionEvent actionEvent) {
+                try {
+                    new BrowseTmp().browse( email.gettEmail() );
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-            });
+            }
+        });
 
         final WebPage page = app.getWebpage();
         JButton web = new JButton( ".." );
@@ -148,6 +152,8 @@ public class AboutSheetFromApplication extends JDialog implements AboutSheet {
             layout.row().label( newIntro( localize.localize("org.openCage.localization.dict.web"))).add( newLabel( page.gettPage().toString() ), 5 ).add( web);
         }
 
+        layout.row().label( new JLabel("    ")).add( new JLabel("  "));
+        layout.row().label( newIntro( "used software and their licences" )).add( newLabel(""));
 
 
 
@@ -171,39 +177,62 @@ public class AboutSheetFromApplication extends JDialog implements AboutSheet {
         getContentPane().setLayout( new BorderLayout());
         getContentPane().add( top, BorderLayout.CENTER  );
 
-        List<Artifact> refs = new ArrayList<Artifact>();
-        refs.addAll( app.getCompileDependencyClosure());
-
-        Collections.sort( refs, new Comparator<Artifact>() {
-            @Override
-            public int compare(Artifact o1, Artifact o2) {
-                return o1.gettName().compareToIgnoreCase( o2.gettName() );
-            }
-        });
-
-        String[] lic = new String[refs.size()];
-        for ( Count<Artifact> dep : Count.count( refs )) {
-            lic[dep.idx()] =  dep.obj().gettName() + "  " + dep.obj().getLicence().getName();
-        }
-
-        JList licences = new JList( lic );
-        licences.setMinimumSize( new Dimension( 100,100 ));
-
-        licences.addListSelectionListener( new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                System.out.println( e );
-            }
-        });
-
-        JScrollPane scrollLice = new JScrollPane( licences );
+        JScrollPane scrollLice = new JScrollPane( getLicenceComponent() );
 
         getContentPane().add( scrollLice, BorderLayout.SOUTH  );
 
         pack();
 
 
-	}
+    }
+
+
+    JComponent getLicenceComponent() {
+        final List<Artifact> refs = new ArrayList<Artifact>();
+        refs.addAll( app.getCompileDependencyClosure());
+
+        Collections.sort( refs, new Comparator<Artifact>() {
+            @Override
+            public int compare(Artifact o1, Artifact o2) {
+                return o1.getFullName().compareToIgnoreCase( o2.getFullName() );
+            }
+        });
+        String[] lic = new String[refs.size()];
+        for ( Count<Artifact> dep : Count.count( refs )) {
+            String name = dep.obj().getFullName();
+            lic[dep.idx()] =  name + "         " + dep.obj().getLicence().getName();
+        }
+
+        final JList licences = new JList( lic );
+        licences.setMinimumSize( new Dimension( 100,100 ));
+
+        licences.addMouseListener( new MouseAdapter() {
+            public void mouseClicked(MouseEvent e){
+
+                if(e.getClickCount() == 2){
+                    System.out.println( e );
+                    int index = licences.locationToIndex(e.getPoint());
+                    ListModel dlm = licences.getModel();
+                    Object item = dlm.getElementAt(index);;
+                    licences.ensureIndexIsVisible(index);
+
+                    Artifact selected = refs.get( index);
+
+
+                    try {
+                        Desktop.getDesktop().browse( selected.getWebpage().gettPage() );
+                    } catch (IOException e1) {
+                        e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                    }
+                }
+            }
+
+        } );
+
+
+        return licences;
+
+    }
 
     private JLabel newLabel( String txt ) {
         JLabel label = new JLabel( txt );
@@ -211,7 +240,7 @@ public class AboutSheetFromApplication extends JDialog implements AboutSheet {
 
         return label;
     }
-    
+
     private JLabel newIntro( String txt ) {
         return new JLabel( txt + ": ");
     }

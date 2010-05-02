@@ -21,6 +21,7 @@ package org.openCage.lang;
 *
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
+
 public class Once<T> {
 
     private T val;

@@ -11,7 +11,7 @@
    <property name = "el.description.short"       value="a library with small java language level additions" />
    <property name = "el.licence"       value="MPL1.1" />
    <property name = "el.localization"       value="" />
-   <property name = "el.webpage"       value="http://stroy.wikidot.org" />
+   <property name = "el.webpage"       value="http://stroy.wikidot.com" />
    <property name = "el.email"       value="mailto:openCag@gmail.com" />
    <property name = "el.java.version"       value="6+" />
    <property name = "el.author"       value="Stephan Pfab" />

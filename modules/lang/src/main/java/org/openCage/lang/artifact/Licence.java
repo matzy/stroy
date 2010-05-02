@@ -57,6 +57,10 @@ public class Licence {
         return new Licence( "MPL1.1" );
     }
 
+    public static Licence gpl() {
+        return new Licence( "GPL" );
+    }
+
     public static Licence lgpl() {
         return new Licence( "LGPL" );
     }
@@ -81,6 +85,11 @@ public class Licence {
         return new Licence( "MIT" );
     }
 
+    public static Licence json() {
+        // http://www.json.org/license.html
+        return new Licence( "JSON" );
+    }
+
     public String getName() {
         return name;
     }
@@ -100,6 +109,16 @@ public class Licence {
     @Override
     public int hashCode() {
         return name != null ? name.hashCode() : 0;
+    }
+
+    public boolean canUse( Licence dep ) {
+        if ( dep.equals( gpl() )) {
+            if ( !equals( gpl() )) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
 }

@@ -61,11 +61,15 @@ public class UIArtifact implements ArtifactProvider {
                         address( "http://code.google.com/p/macwidgets/", "code.google.com").
                         lgpl().
                         version( "0.9.5" ).
-                            depends( proj.external( "com.jgoodies", "forms" ).
-                                descriptionShort( "JGoodies Forms library," ).
-                                address( "http://www.jgoodies.com/downloads/libraries.html", "jgoodies").
-                                bsd().
-                                version( "1.2.1" ))).
+                        depends( proj.external( "com.jgoodies", "forms" ).
+                        descriptionShort( "JGoodies Forms library," ).
+                        address( "http://www.jgoodies.com/downloads/libraries.html", "jgoodies").
+                        bsd().
+                        version( "1.2.1" ))).
+                depends( proj.external( "org.json", "json" ).
+                        version("20090211").
+                        address( "http://www.json.org/java/index.html", "json.org").
+                        jsonlicence()).
                 testDepends( proj.get( "junit", "junit" ));
     }
 

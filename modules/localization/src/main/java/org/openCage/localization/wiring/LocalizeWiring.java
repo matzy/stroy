@@ -1,5 +1,6 @@
 package org.openCage.localization.wiring;
 
+import com.google.inject.AbstractModule;
 import com.google.inject.TypeLiteral;
 import org.openCage.localization.impl.BundleCheckImpl;
 import org.openCage.localization.impl.LocaleProperty;
@@ -38,27 +39,29 @@ import java.util.Locale;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public class LocalizeWiring implements Module {
+public class LocalizeWiring implements  Module {
     private static boolean once;
 
     public void configure(Binder binder) {
 
-//        if ( once ) {
-//            return;
-//        }
-//        once = true;
+        if ( once ) {
+            return;
+        }
+        once = true;
 
 
 //		binder.bind( Localize.class ).
 //			annotatedWith( Names.named("basic")).toProvider( LocalizeBuilderImpl.class );
-		binder.bind( LocalizeBuilder.class ).to( LocalizeBuilderImpl.class );
+//	}
+
+        binder.bind( LocalizeBuilder.class ).to( LocalizeBuilderImpl.class );
         binder.bind( new TypeLiteral<Property<Locale>>() {} ).
                 annotatedWith( Names.named( LocaleProperty.THE_LOCALE)).
                 toProvider( LocaleProperty.class ).
                 in( Singleton.class );
 
-		binder.bind( BundleCheck.class).to( BundleCheckImpl.class );
-	}
+        binder.bind( BundleCheck.class).to( BundleCheckImpl.class );
+    }
 
     @Override
     public boolean equals(Object obj) {
@@ -69,5 +72,6 @@ public class LocalizeWiring implements Module {
     public int hashCode() {
         return getClass().hashCode();
     }
+
 }
 

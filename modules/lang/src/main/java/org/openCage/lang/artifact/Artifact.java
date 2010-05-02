@@ -1,5 +1,6 @@
 package org.openCage.lang.artifact;
 
+import org.apache.commons.lang.text.StrTokenizer;
 import org.jetbrains.annotations.NotNull;
 import org.openCage.lang.Once;
 
@@ -10,6 +11,28 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+/***** BEGIN LICENSE BLOCK *****
+* Version: MPL 1.1
+*
+* The contents of this file are subject to the Mozilla Public License Version
+* 1.1 (the "License"); you may not use this file except in compliance with
+* the License. You may obtain a copy of the License at
+* http://www.mozilla.org/MPL/
+*
+* Software distributed under the License is distributed on an "AS IS" basis,
+* WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+* for the specific language governing rights and limitations under the
+* License.
+*
+* The Original Code is stroy code.
+*
+* The Initial Developer of the Original Code is Stephan Pfab <openCage@gmail.com>.
+* Portions created by Stephan Pfab are Copyright (C) 2006 - 2010.
+* All Rights Reserved.
+*
+* Contributor(s):
+***** END LICENSE BLOCK *****/
 
 public class Artifact {
 
@@ -42,14 +65,23 @@ public class Artifact {
     private Once<String> screenshortUrl = new Once<String>("");
     private Once<String> iconUrl = new Once<String>("");
     private Once<String> downloadUrl = new Once<String>("");
+    private Once<String> fullName = new Once<String>("");
 
 
     Artifact( @NotNull String groupId, @NotNull String name ) {
         if ( groupId.isEmpty() ) {
             throw new IllegalArgumentException( "groupId can not be empty" );
         }
+        if ( name.isEmpty() ) {
+            throw new IllegalArgumentException( "name can not be empty" );
+        }
         this.name = name;
         this.groupId = groupId;
+    }
+
+    public Artifact fullName( String full ) {
+        fullName.set( full );
+        return this;
     }
 
     public Artifact mpl11() {
@@ -92,6 +124,10 @@ public class Artifact {
         return this;
     }
 
+    public Artifact jsonlicence() {
+        licence.set( Licence.json() );
+        return this;
+    }
 
     public Artifact version( String ver) {
         version.set( Version.parse( ver ));
@@ -132,9 +168,9 @@ public class Artifact {
         return this;
     }
 
-    public Artifact depends( Artifact artifact, Scope scope ) {
-        return this;
-    }
+//    public Artifact depends( Artifact artifact, Scope scope ) {
+//        return this;
+//    }
 
 
     public String gettName() {
@@ -151,6 +187,14 @@ public class Artifact {
     }
 
     public Artifact depends( Artifact artifact ) {
+        if ( licence.isSet() && artifact.licence.isSet() ) {
+            if ( !licence.get().canUse( artifact.licence.get() )) {
+                throw new IllegalArgumentException( "licences are not compatible: " +
+                        licence.get().getName() +
+                        " can not use " +
+                        artifact.licence.get().getName()  );
+            }
+        }
         compileDeps.add( artifact );
         return this;
     }
@@ -383,4 +427,13 @@ public class Artifact {
     public Once<String> getDownloadUrl() {
         return downloadUrl;
     }
+
+    public String getFullName() {
+        if ( fullName.isSet() ) {
+            return fullName.get();
+        }
+
+        return name;
+    }
+
 }

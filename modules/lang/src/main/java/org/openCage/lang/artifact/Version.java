@@ -121,7 +121,7 @@ public class Version {
             case 2: ver = new Version( Integer.parseInt( parts[0] ), Integer.parseInt( parts[1] ), 0, 0 ); break;
             case 3: ver = new Version( Integer.parseInt( parts[0] ), Integer.parseInt( parts[1] ), Integer.parseInt( parts[2] ), 0 ); break;
             case 4: ver = new Version( Integer.parseInt( parts[0] ), Integer.parseInt( parts[1] ), Integer.parseInt( parts[2] ), Integer.parseInt( parts[3] )); break;
-            default: throw new IllegalArgumentException( "not a version" );
+            default: ver = new Version( 1, 0, 0, 0);
         }
 
         ver.originalString = str;

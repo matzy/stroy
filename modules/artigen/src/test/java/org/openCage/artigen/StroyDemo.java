@@ -20,13 +20,13 @@ public class StroyDemo {
                 FSPathBuilder.getPath( StroyDemo.class.getResource(".") ).parent(6);
         System.out.println( stroyRoot );
 
-//        MavenGen gen = new MavenGen( new FausterizeArtifact().getProject() );
-//        gen.generate( stroyRoot );
+        MavenGen gen = new MavenGen( new FausterizeArtifact().getProject() );
+        gen.generate( stroyRoot );
 
 
-        PElephGen pgen = new PElephGen( new FausterizeArtifact().getProject() );
-
-        pgen.generate( stroyRoot );
+//        PElephGen pgen = new PElephGen( new FausterizeArtifact().getProject() );
+//
+//        pgen.generate( stroyRoot );
 
 
     }

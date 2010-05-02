@@ -2,7 +2,7 @@
    <modelVersion>4.0.0</modelVersion>
    <groupId>openCage</groupId>
    <artifactId>fausterize</artifactId>
-   <version>0.10.0</version>
+   <version>0.10.0.527</version>
 
     <repositories>
         <repository>

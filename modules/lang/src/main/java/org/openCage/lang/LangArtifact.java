@@ -20,7 +20,7 @@ public class LangArtifact implements ArtifactProvider {
                 version( "0.1.0").
                 author( proj.author( "Stephan Pfab" ).email( "mailto:openCag@gmail.com" )).
                 email( "mailto:openCag@gmail.com" ).
-                address( "http://stroy.wikidot.org", "wikidot.com").
+                address( "http://stroy.wikidot.com", "wikidot.com").
                 descriptionShort( "a library with small java language level additions" ).
                 depends( proj.external("com.intellij", "annotations" ).
                         descriptionShort( "Nullable annotations (bundled with Idea CE)" ).
