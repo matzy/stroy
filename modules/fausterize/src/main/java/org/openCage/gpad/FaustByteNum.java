@@ -13,7 +13,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -63,6 +66,14 @@ public class FaustByteNum implements TextEncoderIdx<Byte,String> {
 
     public void setPad( @NotNull URI path ) {
 
+        try {
+            path =  new URL("http://www.miglayout.com/QuickStart.pdf").toURI();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (URISyntaxException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+
         final byte[] uncompressedPad = new byte[PAD_SIZE];
         new WithImpl().withInputStream( path, new F1<Integer, InputStream>() {
             public Integer call(InputStream inputStream) {
@@ -73,6 +84,8 @@ public class FaustByteNum implements TextEncoderIdx<Byte,String> {
                 }
             }
         });
+
+        int size = uncompressedPad.length;
 
         pad = new Huffman().encode( uncompressedPad );
     }

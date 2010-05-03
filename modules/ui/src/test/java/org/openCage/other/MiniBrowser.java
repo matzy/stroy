@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.net.*;
 import java.util.*;
+import java.util.regex.Pattern;
 import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.text.AttributeSet;
@@ -33,6 +34,9 @@ public class MiniBrowser extends JFrame
     private boolean doGetImage = false;
 
     private BFStack<URL> bfstack = new BFStack<URL>();
+
+    private Pattern pics = Pattern.compile( ".*\\.(gif|jpg|jpeg|png)" );
+    private Pattern docs = Pattern.compile( ".*\\.(pdf|avi|mpeg3|mp3|doc)" );
 
     // Constructor for Mini Web Browser.
     public MiniBrowser() {
@@ -99,7 +103,7 @@ public class MiniBrowser extends JFrame
         });
         buttonPanel.add(goButton);
 
-        JButton getImageButton = new JButton( "get Image" );
+        JButton getImageButton = new JButton( "take" );
         buttonPanel.add( getImageButton );
         getImageButton.addActionListener( new ActionListener() {
             @Override
@@ -178,7 +182,7 @@ public class MiniBrowser extends JFrame
 
 
         try {
-            showPage( new URL("http://www.well-of-souls.com/outsider"), true );
+            showPage( new URL("http://www.miglayout.com"), true );
         } catch (MalformedURLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
@@ -197,22 +201,10 @@ public class MiniBrowser extends JFrame
     private void actionBack() {
         if ( bfstack.hasBackward() )
             showPage( bfstack.backward(), false );
-//        URL currentUrl = displayEditorPane.getPage();
-//        int pageIndex = pageList.indexOf(currentUrl.toString());
-//        try {
-//            showPage(
-//                    new URL((String) pageList.get(pageIndex - 1)), false);
-//        } catch (Exception e) {}
     }
 
     // Go forward to the page viewed after the current page.
     private void actionForward() {
-//        URL currentUrl = displayEditorPane.getPage();
-//        int pageIndex = pageList.indexOf(currentUrl.toString());
-//        try {
-//            showPage(
-//                    new URL((String) pageList.get(pageIndex + 1)), false);
-//        } catch (Exception e) {}
         if ( bfstack.hasForward() ) {
             showPage( bfstack.forward(), false );
         }
@@ -265,15 +257,22 @@ the page list if specified. */
 
             URL newUrl = pageUrl;
 
-            if ( pageUrl.toString().endsWith( ".png") || pageUrl.toString().endsWith( ".jpg") || pageUrl.toString().endsWith( ".gif")) {
+            if ( pics.matcher( pageUrl.toString()).matches() ) {// pageUrl.toString().endsWith( ".png") || pageUrl.toString().endsWith( ".jpg") || pageUrl.toString().endsWith( ".gif")) {
 
-//                URL pageUrlabs = new URL( currentUrl, pageUrl.toString() );
-//                System.out.println(pageUrlabs.toString());
 
                 String newPage = "<html><body><img src=\"" +
                         pageUrl.toString() + "\"/>" +
                         "</body></html>";
                 displayEditorPane.setText( newPage );
+
+            } if ( docs.matcher( pageUrl.toString()).matches()){ //pageUrl.toString().endsWith( ".pdf") ) {
+
+                String newPage = "<html><body><a href=\"" +
+                        pageUrl.toString() + "\"/>" + pageUrl.toString() + "</a>" +
+                        "</body></html>";
+                displayEditorPane.setText( newPage );
+                
+
             } else {
                 displayEditorPane.setPage(pageUrl);
                 // Get URL of new page being displayed.
@@ -283,20 +282,6 @@ the page list if specified. */
             if ( addToList ) {
                 bfstack.push( newUrl );
             }
-//            // Add page to list if specified.
-//            if (addToList) {
-//                int listSize = pageList.size();
-//                if (listSize > 0) {
-//                    int pageIndex =
-//                            pageList.indexOf(currentUrl.toString());
-//                    if (pageIndex < listSize - 1) {
-//                        for (int i = listSize - 1; i > pageIndex; i--) {
-//                            pageList.remove(i);
-//                        }
-//                    }
-//                }
-//                pageList.add(newUrl.toString());
-//            }
 
             // Update location text field with URL of current page.
             locationTextField.setText(newUrl.toString());
