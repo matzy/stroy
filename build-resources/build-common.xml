@@ -21,44 +21,49 @@
     <!-- ====== overrideable properties ========== -->
 
     <property name="el.author" value="anonymous"/>
+    <property name="el.author.first" value="Fritz"/>
+    <property name="el.author.last" value="anonymous"/>
+    <property name="el.build.icon.osx" value="src/build/icons/${app.name}.icns"/>
+    <property name="el.build.icon.small.ico" value="src/build/icons/${app.name}-small.ico"/>
+    <property name="el.build.icon.small.png" value="src/build/icons/${app.name}-small.png"/>
+    <property name="el.buildnumber" value="42"/>
     <property name="el.description.short" value="" />
+    <property name="el.email" value="mailto:anonymous" />
     <property name="el.groupId" value="elephants"/>
+    <property name="el.java.version" value="6" />
+    <property name="el.licence" value = "MPL 1.1" />
+    <property name="el.localization"  value="English" />
     <property name="el.main.class" value=""/>
+    <property name="el.src.java"  value="src/main/java" />
+    <property name="el.src.resources"  value="src/main/resources" />
+    <!-- <property name="el.url.download" /> -->
+    <!-- <property name="el.url.icon" /> -->
+    <!-- <property name="el.url.screenshot" /> -->
     <property name="el.version" value="0.0.1"/>
-    <property name="buildnumber" value="42"/>
+    <property name="el.webpage" value="http://404" />
+
     <property name="app.name" value="${ant.project.name}"/>
     <property name="app.signature" value="${ant.project.name}"/>
     <property name="app.bundleid" value="elph"/>
-    <property name="app.icon.osx" value="src/build/icons/${app.name}.icns"/>
-    <property name="app.icon.small.png" value="---"/>
-    <property name="app.icon.small.ico" value="---"/>
     <property name="app.helpbook" value=""/>
-    <property name="elph.java.version" value="6" />
     <property name="app.description.full" value="" />
-    <property name="author.contact" value="404" />
     <property name="readme" value="-" />
-    <property name="el.licence" value = "MPL 1.1" />
-    <property name="el.download"  value="http://stroy.wikidot.com/local--files/download" />
-    <property name="el.localization"  value="English" />
-    <property name="el.src"  value="src" />
-    <property name="el.srcres"  value="src" />
 
 
 
     <!-- ====== local properties ========== -->
 
+    <property name="l.helpbook"      value="${l.module}/src/build/helpbook"/>
     <property name="l.module"        value="${dependencies.basedir}/modules/${ant.project.name}"/>
-    <property name="l.helpbook"      value="${l.module}/src/build/helpbook"/>    
     <property name="classes"         value="${dependencies.basedir}/build/classes/${ant.project.name}"/>
     <property name="objc-classes"    value="${dependencies.basedir}/build/objc-classes/${ant.project.name}"/>
     <property name="libs"            value="${dependencies.basedir}/build/libs"/>
     <property name="objc-libs"       value="${dependencies.basedir}/build/objc-libs"/>
     <property name="collect-jars"    value="${dependencies.basedir}/build/collect-jars/${ant.project.name}"/>
-    <property name="module"          value="${dependencies.basedir}/modules/${ant.project.name}"/>
     <property name="resources"       value="${dependencies.basedir}/build/resources/${ant.project.name}"/>
     <property name="deploy"          value="${dependencies.basedir}/build/deploy/${ant.project.name}"/>
-    <property name="src"             value="${module}/${el.src}"/>
-    <property name="srcres"          value="${module}/${el.srcres}"/>
+    <property name="l.src.java"             value="${l.module}/${el.src.java}"/>
+    <property name="srcres"          value="${l.module}/${el.src.resources}"/>
     <!--<property name="l.helpbook"     value="${module}/${app.helpbook}"/>-->
 
     <!-- ====== parameter properties ========== -->
@@ -92,13 +97,26 @@
             <os family="unix"/>
         </and>
     </condition>
-    <condition property="osx.icon" value="${l.module}/${app.icon.osx}" else="${dependencies.basedir}/build-resources/elephant.icns">
+
+    <!-- icons -->
+    <condition property="l.build.icon.osx" value="${l.module}/${el.build.icon.osx}" else="${dependencies.basedir}/build-resources/elephant.icns">
         <and>
-            <not><equals arg1="${app.icon.osx}" arg2="" /></not>
-            <available file="${l.module}/${app.icon.osx}"/>
+            <not><equals arg1="${el.build.icon.osx}" arg2="" /></not>
+            <available file="${l.module}/${el.build.icon.osx}"/>
         </and>
     </condition>
-    
+    <condition property="l.build.icon.small.png" value="${l.module}/${el.build.icon.small.png}" else="${dependencies.basedir}/build-resources/elephant.png">
+        <and>
+            <available file="${l.module}/${el.build.icon.small.png}"/>
+        </and>
+    </condition>
+    <condition property="l.build.icon.small.ico" value="${l.module}/${el.build.icon.small.ico}" else="${dependencies.basedir}/build-resources/elephant.ico">
+        <and>
+            <available file="${l.module}/${el.build.icon.small.ico}"/>
+        </and>
+    </condition>
+
+    <!--TODO-->
     <condition property="osx.background-png" value="fooo" else="${dependencies.basedir}/build-resources/elephant.png">
         <available file="foooo"/>
     </condition>
@@ -124,10 +142,10 @@
 
     <!-- debian package builder task -->
     <taskdef name="deb"
-             classpath="${dependencies.basedir}/external/build/ant-deb-0.0.1.jar"
+             classpath="${dependencies.basedir}/external/build/ant-deb-0.0.2.jar"
              classname="com.googlecode.ant_deb_task.Deb"/>
     <taskdef name="desktopentry"
-             classpath="${dependencies.basedir}/external/build/ant-deb-0.0.1.jar"
+             classpath="${dependencies.basedir}/external/build/ant-deb-0.0.2.jar"
              classname="com.googlecode.ant_deb_task.DesktopEntry"/>
 
 
@@ -193,19 +211,24 @@
         <fileset refid="internalsSet"/>
     </path>
 
-    <!-- compile sources and copy pictures and xmsl -->
+    <!-- compile sources and copy pictures and xmls -->
     <target name="local.compile" depends="local.prepare">
-        <echo  message="${src}" />
-        <javac srcdir="${src}" destdir="${classes}" debug="on" source="1.6">     <!-- TODO -->
+        <echo  message="${l.src.java}" />
+        <javac srcdir="${l.src.java}" destdir="${classes}" debug="on" source="1.6">     <!-- TODO -->
             <classpath refid="jars"/>
         </javac>
 
-        <copy todir="${classes}" flatten="no">
-            <fileset dir="${srcres}" includes="**/*.xml"/>
-            <fileset dir="${srcres}" includes="**/*.properties"/>
-            <fileset dir="${srcres}" includes="**/*.png"/>
-            <fileset dir="${srcres}" includes="**/*.txt"/>
-        </copy>
+        <if>
+            <available file="${srcres}" />
+            <then>
+                <copy todir="${classes}" flatten="no">
+                    <fileset dir="${srcres}" includes="**/*.xml"/>
+                    <fileset dir="${srcres}" includes="**/*.properties"/>
+                    <fileset dir="${srcres}" includes="**/*.png"/>
+                    <fileset dir="${srcres}" includes="**/*.txt"/>
+                </copy>
+            </then>
+        </if>
 
         <if>
             <and>
@@ -358,6 +381,7 @@
             </and>
             <then>
                 <!-- location changed to help with zipping, ant copy does not work for local.osx-apps -->
+                <!-- todo jvm version-->
                 <mkdir dir="${deploy}/osx/${app.name}"/>
                 <jarbundler dir="${deploy}/osx/${app.name}"
                             verbose="true"
@@ -369,9 +393,9 @@
                             jvmversion="1.6+"
                             version="${el.version}"
                             infostring="${app.name}, ${el.licence}"
-                            build="${buildnumber}"
+                            build="${el.buildnumber}"
                             bundleid="${app.bundleid}"
-                            icon="${osx.icon}"
+                            icon="${l.build.icon.osx}"
                             helpbookfolder="HelpBook"
                             helpbookname="${app.name}"
                         >
@@ -413,7 +437,12 @@
 
     <target  name="local.padfile" depends="local.prepare">
         <if>
-        <isset property="el.isApp"/>
+            <and>
+                <isset property="el.isApp"/>
+                <isset property="el.url.screenshot" />
+                <isset property="el.url.icon" />
+                <isset property="el.url.download" />
+            </and>
         <then>
             <property name="lxp.to" value="${deploy}/${param.target.os}/${app.name}" />
             <mkdir dir="${lxp.to}/resources/java"/>
@@ -421,19 +450,19 @@
             <!-- pad file -->
             <copy file="${dependencies.basedir}/build-resources/pad_file.xml" todir="${lxp.to}" />
             <replace  file="${lxp.to}/pad_file.xml" token="[groupId]" value="${el.groupId}" />
-            <replace  file="${lxp.to}/pad_file.xml" token="[webpage]" value="http://stroy.wikidot.com" /> <!-- TODO -->
-            <replace  file="${lxp.to}/pad_file.xml" token="[author.first]" value="Stephan" /> <!-- TODO -->
-            <replace  file="${lxp.to}/pad_file.xml" token="[author.last]" value="Pfab" /> <!-- TODO -->
-            <replace  file="${lxp.to}/pad_file.xml" token="[author.contact]" value="openCage@gmail.com" /> <!-- TODO -->
+            <replace  file="${lxp.to}/pad_file.xml" token="[webpage]" value="${el.webpage}" />
+            <replace  file="${lxp.to}/pad_file.xml" token="[author.first]" value="${el.author.first}" />
+            <replace  file="${lxp.to}/pad_file.xml" token="[author.last]" value="${el.author.last}" /> 
+            <replace  file="${lxp.to}/pad_file.xml" token="[author.contact]" value="${el.email}" />
             <replace  file="${lxp.to}/pad_file.xml" token="[version]" value="${el.version}" />
-            <replace  file="${lxp.to}/pad_file.xml" token="[screenshot.url]" value="http://stroy.wikidot.com/local--files/screenshots/fausterize-0.6.png" /> <!-- TODO -->
-            <replace  file="${lxp.to}/pad_file.xml" token="[icon.url]" value="http://stroy.wikidot.com/local--files/screenshots/faust-small.png" /> <!-- TODO -->
-            <replace  file="${lxp.to}/pad_file.xml" token="[pad.url]" value="${el.download}/${app.name}-${param.target.os}-pad_file.xml" />
+            <replace  file="${lxp.to}/pad_file.xml" token="[screenshot.url]" value="${el.url.screenshot}" /> 
+            <replace  file="${lxp.to}/pad_file.xml" token="[icon.url]" value="${el.url.icon}" />
+            <replace  file="${lxp.to}/pad_file.xml" token="[pad.url]" value="${el.url.download}/${app.name}-${param.target.os}-pad_file.xml" />
             <replace  file="${lxp.to}/pad_file.xml" token="[app.name]" value="${app.name} ${param.target.os}" />
             <replace  file="${lxp.to}/pad_file.xml" token="[OS]" value="${param.target.os.details}" />
             <replace  file="${lxp.to}/pad_file.xml" token="[install.support]" value="${param.target.install.support}" />
             <replace  file="${lxp.to}/pad_file.xml" token="[language]" value="${el.localization}" />
-            <replace  file="${lxp.to}/pad_file.xml" token="[download.url]" value="${el.download}/${app.name}-${param.target.os}-${el.version}.${param.target.extension}" />
+            <replace  file="${lxp.to}/pad_file.xml" token="[download.url]" value="${el.url.download}/${app.name}-${param.target.os}-${el.version}.${param.target.extension}" />
 
             <copy file="${lxp.to}/pad_file.xml" tofile="${deploy}/${param.target.os}/${app.name}-${param.target.os}-pad_file.xml"/>
         </then>
@@ -444,6 +473,9 @@
         <if>
             <isset property="el.isApp"/>
             <then>
+
+                <echo message="prepare for ${param.target.os}" />
+
                 <property name="lxp.to" value="${deploy}/${param.target.os}/${app.name}" />
 
                 <copy todir="${lxp.to}/resources/java">
@@ -462,9 +494,9 @@
 
                 <!-- readme.txt  -->
                 <if>
-                    <available file="${src}/${readme}"/>
+                    <available file="${l.src.java}/${readme}"/>
                     <then>
-                        <copy todir="${lxp.to}" file="${src}/${readme}"/>
+                        <copy todir="${lxp.to}" file="${l.src.java}/${readme}"/> <!-- todo -->
                     </then>
                 </if>
 
@@ -560,7 +592,7 @@
                 <copy file="${osx.background-png}"
                       tofile="${mountdir}/${app.name}/.background/background.png"
                       overwrite="true"/>
-                <copy file="${osx.icon}"
+                <copy file="${l.build.icon.osx}"
                       tofile="${mountdir}/${app.name}/.VolumeIcon.icns"
                       overwrite="true"/>
                 <!--<copy file="DS_Store"-->
@@ -608,7 +640,7 @@
                 <desktopentry
                         toFile="${deploy}/debian/${app.name}.desktop"
                         name="${app.name}"
-                        comment="fooo comment"
+                        comment="${el.description.short}"
                         exec="java -jar /usr/share/${app.name}/resources/java/${el.groupId}-${ant.project.name}-${el.version}.jar"
                         path="/usr/share/${app.name}/"
                         icon="/usr/share/${app.name}/${app.name}.png"
@@ -631,17 +663,13 @@
                     <param name="param.target.extension" value="deb.zip"/>
                 </antcall>
 
-                <if>
-                    <available file="${src}/${app.icon.small.png}"/>
-                    <then>
-                        <copy tofile= "${deploy}/debian/${app.name}/${app.name}.png" file="${src}/${app.icon.small.png}" failonerror="true" overwrite="true"/>
-                    </then>
-                </if>
-
+                <copy tofile= "${deploy}/debian/${app.name}/${app.name}.png" file="${l.build.icon.small.png}" failonerror="true" overwrite="true"/>
 
                 <condition property="deb.depends" value="openjdk-6-jre | sun-java6-jre" else="">
-                    <equals arg1="${elph.java.version}" arg2="6"/>
+                    <equals arg1="${el.java.version}" arg2="6"/>
                 </condition>
+
+                <echo message="===== ${deb.depends}" />
 
                 <deb
                         todir  ="${deploy}/debian"
@@ -650,7 +678,7 @@
                         depends="${deb.depends}"
                         >
                     <version upstream="${el.version}"/>
-                    <maintainer email="${author.contact}"/>
+                    <maintainer email="${el.email}"/>
                     <description synopsis="${el.description.short}">
                         ${app.description.full}
                     </description>
@@ -666,20 +694,15 @@
 
     <target name="local.exe" depends="local.collect.jars">
 
-                <antcall target="local.xplatform.prepare" >
-                    <param name="param.target.os" value="windows"/>
-                    <param name="param.target.os.details" value="Win7 x32,Win7 x64,WinVista,WinVista x64,WinXP"/>
-                    <param name="param.target.extension" value="zip"/>
-                    <param name="param.install.support" value="Install Only"/>
-                </antcall>
+        <antcall target="local.xplatform.prepare" >
+            <param name="param.target.os" value="windows"/>
+            <param name="param.target.os.details" value="Win7 x32,Win7 x64,WinVista,WinVista x64,WinXP"/>
+            <param name="param.target.extension" value="zip"/>
+            <param name="param.install.support" value="Install Only"/>
+        </antcall>
 
-                <if>
-                    <available file="${src}/${app.icon.small.png}"/>
-                    <then>
-                        <echo message="copy tofile= ${deploy}/windows/${app.name}/${app.name}.png file=${src}/${app.icon.small.png} failonerror=true overwrite=true"/>
-                        <copy tofile= "${deploy}/windows/${app.name}/${app.name}.png" file="${src}/${app.icon.small.png}" failonerror="true" overwrite="true"/>
-                    </then>
-                </if>
+        <echo message="copy tofile= ${deploy}/windows/${app.name}/${app.name}.png file=${l.build.icon.small.png} failonerror=true overwrite=true"/>
+        <copy tofile= "${deploy}/windows/${app.name}/${app.name}.png" file="${l.build.icon.small.png}" failonerror="true" overwrite="true"/>
 
 
         <if>
@@ -704,20 +727,12 @@
                 <replace  file="${deploy}/windows/launch4j-config.xml" token="[mainClass]" value="${el.main.class}" />
 
                 <condition property="l4j.java.min" value="1.6.0" else="">
-                    <equals arg1="${elph.java.version}" arg2="6"/>
+                    <equals arg1="${el.java.version}" arg2="6"/>
                 </condition>
                 <replace  file="${deploy}/windows/launch4j-config.xml" token="[java.version.min]" value="${l4j.java.min}" />
 
-                <if>
-                    <available file="${src}/${app.icon.small.ico}"/>
-                    <then>
-                        <copy tofile= "${deploy}/windows/${app.name}/resources/java/${app.name}.ico" file="${src}/${app.icon.small.ico}" failonerror="true" overwrite="true"/>
-                        <replace  file="${deploy}/windows/launch4j-config.xml" token="[icon]" value="${deploy}/windows/${app.name}/resources/java/${app.name}.ico" />
-                    </then>
-                    <else>
-                        <replace  file="${deploy}/windows/launch4j-config.xml" token="[icon]" value="" />
-                    </else>
-                </if>
+                <copy tofile= "${deploy}/windows/${app.name}/resources/java/${app.name}.ico" file="${l.build.icon.small.ico}" failonerror="true" overwrite="true"/>
+                <replace  file="${deploy}/windows/launch4j-config.xml" token="[icon]" value="${deploy}/windows/${app.name}/resources/java/${app.name}.ico" />
 
                 <launch4j configfile="${deploy}/windows/launch4j-config.xml" />
             </then>
