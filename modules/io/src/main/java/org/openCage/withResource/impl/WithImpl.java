@@ -1,15 +1,7 @@
 package org.openCage.withResource.impl;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 
-import java.io.Reader;
-import java.io.Writer;
 import java.net.URI;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,7 +34,7 @@ public class WithImpl implements With {
         InputStream is = null;
         try {
 
-            is = file.toURL().openStream();
+            is = new BufferedInputStream( file.toURL().openStream());
             return reader.call(is);
         } catch (Exception e) {
             throw new Unchecked(e);

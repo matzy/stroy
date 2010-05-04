@@ -58,4 +58,13 @@ public class BFStack<T> {
     public int size() {
         return list.size();
     }
+    
+    public void clear() {
+        pos = -1;
+        list.clear();
+    }
+
+    public boolean isEmpty() {
+        return list.isEmpty();
+    }
 }

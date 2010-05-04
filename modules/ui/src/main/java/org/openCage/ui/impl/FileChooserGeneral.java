@@ -2,8 +2,8 @@ package org.openCage.ui.impl;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
-import java.awt.FileDialog;
-import java.awt.Frame;
+
+import java.awt.*;
 import java.io.File;
 import javax.swing.JFileChooser;
 import org.openCage.localization.protocol.Localize;
@@ -51,6 +51,17 @@ public class FileChooserGeneral implements FileChooser {
         }
     }
 
+    @Override
+    public String getDir(Dialog fr, String path) {
+        JFileChooser chooser = new JFileChooser(path);
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        if (0 == chooser.showOpenDialog(fr)) {
+            return chooser.getSelectedFile().getAbsolutePath();
+        } else {
+            return null;
+        }
+    }
+
     public String open(Frame fr, String path) {
         FileDialog fd = new FileDialog(fr, localize.localize( "org.openCage.ui.chooseAFile"), FileDialog.LOAD);
         fd.setDirectory(path);
@@ -66,7 +77,37 @@ public class FileChooserGeneral implements FileChooser {
         return dir + name;
     }
 
+    @Override
+    public String open(Dialog fr, String path) {
+        FileDialog fd = new FileDialog(fr, localize.localize( "org.openCage.ui.chooseAFile"), FileDialog.LOAD);
+        fd.setDirectory(path);
+        fd.setVisible(true);
+
+        String dir = fd.getDirectory();
+        String name = fd.getFile();
+
+        if (name == null) {
+            return null;
+        }
+
+        return dir + name;
+    }
+
     public String saveas(Frame fr, String path) {
+        FileDialog fd = new FileDialog(fr, "org.openCage.localization.dict.saveAs", FileDialog.SAVE);
+        fd.setDirectory(path);
+        fd.setVisible(true);
+
+        String dir = fd.getDirectory();
+        String name = fd.getFile();
+        if (name == null) {
+            return null;
+        }
+        return dir + File.pathSeparator + name;
+    }
+
+    @Override
+    public String saveas(Dialog fr, String path) {
         FileDialog fd = new FileDialog(fr, "org.openCage.localization.dict.saveAs", FileDialog.SAVE);
         fd.setDirectory(path);
         fd.setVisible(true);

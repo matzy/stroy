@@ -43,6 +43,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import static org.openCage.gpad.Constants.*;
 import static org.openCage.ui.Constants.*;
@@ -102,6 +104,7 @@ public class FaustUI extends JFrame {
     private static final Color WARNING_COLOR = new Color( 255, 220, 220 );
     private Property<Integer> caretStyle;
     private final Artifact artifact;
+    private URLSelector urlselector;
 
     @Inject
     public FaustUI(Artifact artifact,
@@ -121,7 +124,8 @@ public class FaustUI extends JFrame {
                    Property<MRU<String>> mru,
                    HUDWarning warning,
                    SingletonApp singletonApp,
-                   @Named( CaretStyleProperty.KEY) Property<Integer> caretStyle ) {
+                   @Named( CaretStyleProperty.KEY) Property<Integer> caretStyle,
+                   URLSelector urlSelector ) {
 
         this.artifact     = artifact;
         this.fileChooser     = chooser;
@@ -135,6 +139,7 @@ public class FaustUI extends JFrame {
         this.menuBuilder = menubuilder;
         this.warning = warning;
         this.caretStyle = caretStyle;
+        this.urlselector = urlSelector;
 
         if ( !singletonApp.isMaster() ) {
             warning.show( localize.localize( "org.openCage.fausterize.singleWarning" ));
@@ -303,7 +308,10 @@ public class FaustUI extends JFrame {
             setTextEnabled( false );
         } else {
 
-            String path = fileChooser.open( theFrame, FSPathBuilder.getARoot().toString());
+            URLSelector.Dialog diag = urlselector.get( this );
+            diag.setVisible(true);
+            URI path = diag.getURI();
+
             if ( path != null ) {
 
                 try {

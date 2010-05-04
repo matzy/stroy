@@ -2,10 +2,12 @@ package org.openCage.ui.impl;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
-import java.awt.FileDialog;
-import java.awt.Frame;
+
+import java.awt.*;
 import java.io.File;
 import javax.swing.JFileChooser;
+
+import org.openCage.lang.structure.T2;
 import org.openCage.localization.protocol.Localize;
 import org.openCage.ui.protocol.FileChooser;
 
@@ -50,9 +52,32 @@ public class FileChooserWindows implements FileChooser {
         }
     }
 
-    public String open(Frame fr, String path) {
+    @Override
+    public String getDir(Dialog fr, String path) {
+        // Windows does not have a filter for directories lets  use the Java one
 
-        FileDialog fd = new FileDialog(fr, localize.localize( "org.openCage.ui.chooseAFile"), FileDialog.LOAD);
+        JFileChooser chooser = new JFileChooser(path);
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        if (0 == chooser.showOpenDialog(fr)) {
+            return chooser.getSelectedFile().getAbsolutePath();
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public String open(Frame fr, String path) {
+        return openInternal( fr, path );
+    }
+
+    @Override
+    public String open(Dialog fr, String path) {
+        return openInternal( fr, path );
+    }
+
+    private String openInternal( Object fr, String path) {
+
+        FileDialog fd = fileDialog(fr, localize.localize( "org.openCage.ui.chooseAFile"), FileDialog.LOAD);
         fd.setDirectory(path);
         fd.setVisible(true);
 
@@ -67,8 +92,16 @@ public class FileChooserWindows implements FileChooser {
     }
 
     public String saveas(Frame fr, String path) {
+        return saveasInternal( fr, path );
+    }
 
-        FileDialog fd = new FileDialog(fr, localize.localize( "org.openCage.localization.dict.saveAs"), FileDialog.SAVE);
+    @Override
+    public String saveas(Dialog fr, String path) {
+        return saveasInternal( fr, path );
+    }
+
+    public String saveasInternal( Object fr, String path) {
+        FileDialog fd = fileDialog(fr, localize.localize( "org.openCage.localization.dict.saveAs"), FileDialog.SAVE);
         fd.setDirectory(path);
         fd.setVisible(true);
 
@@ -79,4 +112,18 @@ public class FileChooserWindows implements FileChooser {
         }
         return dir + File.pathSeparator + name;
     }
+
+    private FileDialog fileDialog( Object parent, String txt, int kind ) {
+        if ( parent instanceof Frame) {
+            return new FileDialog( (Frame)parent, txt, kind );
+        }
+
+        if ( parent instanceof Dialog ) {
+            return new FileDialog( (Dialog)parent, txt, kind );
+        }
+
+        throw new IllegalArgumentException( "parent needs to be a Frame or a Dialog" );
+    }
+
+
 }

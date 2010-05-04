@@ -29,26 +29,26 @@ import static org.openCage.lang.MathOps.xor;
 
 
 /***** BEGIN LICENSE BLOCK *****
-* Version: MPL 1.1
-*
-* The contents of this file are subject to the Mozilla Public License Version
-* 1.1 (the "License"); you may not use this file except in compliance with
-* the License. You may obtain a copy of the License at
-* http://www.mozilla.org/MPL/
-*
-* Software distributed under the License is distributed on an "AS IS" basis,
-* WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
-* for the specific language governing rights and limitations under the
-* License.
-*
-* The Original Code is stroy code.
-*
-* The Initial Developer of the Original Code is Stephan Pfab <openCage@gmail.com>.
-* Portions created by Stephan Pfab are Copyright (C) 2006 - 2010.
-* All Rights Reserved.
-*
-* Contributor(s):
-***** END LICENSE BLOCK *****/
+ * Version: MPL 1.1
+ *
+ * The contents of this file are subject to the Mozilla Public License Version
+ * 1.1 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ * http://www.mozilla.org/MPL/
+ *
+ * Software distributed under the License is distributed on an "AS IS" basis,
+ * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+ * for the specific language governing rights and limitations under the
+ * License.
+ *
+ * The Original Code is stroy code.
+ *
+ * The Initial Developer of the Original Code is Stephan Pfab <openCage@gmail.com>.
+ * Portions created by Stephan Pfab are Copyright (C) 2006 - 2010.
+ * All Rights Reserved.
+ *
+ * Contributor(s):
+ ***** END LICENSE BLOCK *****/
 
 /**
  * Encode bytes into lines of the poem faust
@@ -66,19 +66,22 @@ public class FaustByteNum implements TextEncoderIdx<Byte,String> {
 
     public void setPad( @NotNull URI path ) {
 
-        try {
-            path =  new URL("http://www.miglayout.com/QuickStart.pdf").toURI();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        } catch (URISyntaxException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
-
         final byte[] uncompressedPad = new byte[PAD_SIZE];
         new WithImpl().withInputStream( path, new F1<Integer, InputStream>() {
-            public Integer call(InputStream inputStream) {
+            public Integer call(InputStream in) {
                 try {
-                    return inputStream.read( uncompressedPad );
+                    int bytesRead = 0;
+                    int offset = 0;
+                    while (offset < PAD_SIZE) {
+                        bytesRead = in.read(uncompressedPad, offset, uncompressedPad.length - offset);
+                        if (bytesRead == -1)
+                            break;
+                        offset += bytesRead;
+                    }
+
+                    return offset;
+
+
                 } catch (IOException e) {
                     throw Unchecked.wrap(e);
                 }

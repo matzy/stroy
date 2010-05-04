@@ -1,6 +1,6 @@
 package org.openCage.ui.protocol;
 
-import java.awt.Frame;
+import java.awt.*;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -33,6 +33,7 @@ public interface FileChooser {
      * @return A valid directory or null
      */
     public String getDir( Frame fr, String path );
+    public String getDir( Dialog fr, String path );
 
     /**
      * return a path to a file via the os native dialog.
@@ -41,6 +42,7 @@ public interface FileChooser {
      * @return A valid filepath or null
      */
     public String open( Frame fr, String path );
+    public String open( Dialog fr, String path );
 
     /**
      * return a path to a file via the os native dialog. (saveas title)
@@ -49,6 +51,7 @@ public interface FileChooser {
      * @return A valid filepath or null
      */
     public String saveas( Frame fr, String path );
+    public String saveas( Dialog fr, String path );
 
 
 
