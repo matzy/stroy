@@ -29,11 +29,8 @@ public class MiniBrowserDialog extends JDialog implements HyperlinkListener {
     // Editor pane for displaying pages.
     private JEditorPane displayEditorPane;
 
-    // Browser's list of pages that have been visited.
-    private ArrayList pageList = new ArrayList();
-    private boolean doGetImage = false;
-
-    private BFStack<URL> bfstack = new BFStack<URL>();
+//    private BFStack<URL> bfstack = new BFStack<URL>();
+    private BFStack<String> pages = new BFStack<String>();
 
     private Pattern pics = Pattern.compile( ".*\\.(gif|jpg|jpeg|png)" );
     private Pattern docs = Pattern.compile( ".*\\.(pdf|avi|mpeg3|mp3|doc)" );
@@ -48,7 +45,7 @@ public class MiniBrowserDialog extends JDialog implements HyperlinkListener {
         // Handle closing events.
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
-                bfstack.clear();
+                pages.clear();
                 setVisible( false );
             }
         });
@@ -94,12 +91,7 @@ public class MiniBrowserDialog extends JDialog implements HyperlinkListener {
                 int key = e.getKeyCode();
                 if (key == KeyEvent.VK_ENTER) {
                     Toolkit.getDefaultToolkit().beep();
-                    try {
-                        showPage( new URL(locationTextField.getText()), true );
-                    } catch (MalformedURLException e1) {
-                        String newPage = new GoogleQuery().makeQueryToString( locationTextField.getText() );
-                        displayEditorPane.setText( newPage );
-                    }
+                    showPage( locationTextField.getText(), true );
                 }
             }
         });
@@ -149,7 +141,7 @@ public class MiniBrowserDialog extends JDialog implements HyperlinkListener {
                             key = n;
                             Object srcsrc = el.getAttributes().getAttribute( key );
                             try {
-                                showPage( new URL(displayEditorPane.getPage(), (String)srcsrc), true);
+                                showPage( new URL(displayEditorPane.getPage(), (String)srcsrc).toString(), true);
                             } catch (MalformedURLException e) {
                                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                             }
@@ -173,11 +165,7 @@ public class MiniBrowserDialog extends JDialog implements HyperlinkListener {
                 BorderLayout.CENTER);
 
 
-        try {
-            showPage( new URL("http://en.wikipedia.org/wiki/Main_Page"), true ); // http://stroy.wikidot.com/fausterize
-        } catch (MalformedURLException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
+        showPage( "http://en.wikipedia.org/wiki/Main_Page", true ); // http://stroy.wikidot.com/fausterize
     }
 
     private void actionOK() {
@@ -187,14 +175,15 @@ public class MiniBrowserDialog extends JDialog implements HyperlinkListener {
 
     // Go back to the page viewed before the current page.
     private void actionBack() {
-        if ( bfstack.hasBackward() )
-            showPage( bfstack.backward(), false );
+        if ( pages.hasBackward() )  {
+            showPage( pages.backward(), false );
+        }
     }
 
     // Go forward to the page viewed after the current page.
     private void actionForward() {
-        if ( bfstack.hasForward() ) {
-            showPage( bfstack.forward(), false );
+        if ( pages.hasForward() ) {
+            showPage( pages.forward(), false );
         }
     }
 
@@ -231,32 +220,84 @@ public class MiniBrowserDialog extends JDialog implements HyperlinkListener {
         return verifiedUrl;
     }
 
-    /* Show the specified page and add it to
-the page list if specified. */
-    private void showPage(URL pageUrl, boolean addToList) {
+//    /* Show the specified page and add it to
+//the page list if specified. */
+//    private void showPage(URL pageUrl, boolean addToList) {
+//        // Show hour glass cursor while crawling is under way.
+//        setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+//
+//        try {
+//            // Get URL of page currently being displayed.
+//            URL currentUrl = displayEditorPane.getPage();
+//
+//            // Load and display specified page.
+//
+//            URL newUrl = pageUrl;
+//
+//            if ( pics.matcher( pageUrl.toString()).matches() ) {
+//
+//
+//                String newPage = "<html><body><img src=\"" +
+//                        pageUrl.toString() + "\"/>" +
+//                        "</body></html>";
+//                displayEditorPane.setText( newPage );
+//
+//            } else if ( docs.matcher( pageUrl.toString()).matches()){
+//
+//                String newPage = "<html><body><a href=\"" +
+//                        pageUrl.toString() + "\"/>" + pageUrl.toString() + "</a>" +
+//                        "</body></html>";
+//                displayEditorPane.setText( newPage );
+//
+//
+//            } else {
+//                displayEditorPane.setPage(pageUrl);
+//                // Get URL of new page being displayed.
+//                displayEditorPane.getPage();
+//            }
+//
+//            if ( addToList ) {
+//                bfstack.push( newUrl );
+//            }
+//
+//            // Update location text field with URL of current page.
+//            locationTextField.setText(newUrl.toString());
+//
+//            // Update buttons based on the page being displayed.
+//            updateButtons();
+//        } catch (Exception e) {
+//            // Show error messsage.
+//            showError("Unable to load page");
+//        } finally {
+//            // Return to default cursor.
+//            setCursor(Cursor.getDefaultCursor());
+//        }
+//    }
+
+
+    private void showPage( String pageUrl, boolean addToList) {
+
         // Show hour glass cursor while crawling is under way.
         setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 
         try {
-            // Get URL of page currently being displayed.
-            URL currentUrl = displayEditorPane.getPage();
 
-            // Load and display specified page.
+            if ( !pageUrl.startsWith("http")) {
 
-            URL newUrl = pageUrl;
+                String newPage = new GoogleQuery().makeQueryToString( pageUrl );
+                displayEditorPane.setText( newPage );
 
-            if ( pics.matcher( pageUrl.toString()).matches() ) {
-
+            } else if ( pics.matcher( pageUrl ).matches() ) {
 
                 String newPage = "<html><body><img src=\"" +
-                        pageUrl.toString() + "\"/>" +
+                        pageUrl + "\"/>" +
                         "</body></html>";
                 displayEditorPane.setText( newPage );
 
-            } else if ( docs.matcher( pageUrl.toString()).matches()){
+            } else if ( docs.matcher( pageUrl).matches()){
 
                 String newPage = "<html><body><a href=\"" +
-                        pageUrl.toString() + "\"/>" + pageUrl.toString() + "</a>" +
+                        pageUrl + "\"/>" + pageUrl+ "</a>" +
                         "</body></html>";
                 displayEditorPane.setText( newPage );
 
@@ -268,11 +309,13 @@ the page list if specified. */
             }
 
             if ( addToList ) {
-                bfstack.push( newUrl );
+                pages.push( pageUrl );
             }
 
+            System.out.println("pages: " + pages);
+
             // Update location text field with URL of current page.
-            locationTextField.setText(newUrl.toString());
+            locationTextField.setText(pageUrl);
 
             // Update buttons based on the page being displayed.
             updateButtons();
@@ -285,12 +328,13 @@ the page list if specified. */
         }
     }
 
+
     /* Update back and forward buttons based on
 the page being displayed. */
     private void updateButtons() {
 
-        backButton.setEnabled( bfstack.hasBackward());
-        forwardButton.setEnabled( bfstack.hasForward());
+        backButton.setEnabled( pages.hasBackward());
+        forwardButton.setEnabled( pages.hasForward());
     }
 
     // Handle hyperlink's being clicked.
@@ -307,18 +351,22 @@ the page being displayed. */
                 document.processHTMLFrameHyperlinkEvent(linkEvent);
 
             } else {
-                showPage(event.getURL(), true);
+                showPage(event.getURL().toString(), true);
             }
         }
     }
 
     public URL getUrl() {
 
-        if ( bfstack.isEmpty() ) {
+        if ( pages.isEmpty() ) {
             return null;
         }
 
-        return bfstack.getCurrent();
+        try {
+            return new URL( pages.getCurrent());
+        } catch (MalformedURLException e) {
+            return null;
+        }
     }
 
 }
