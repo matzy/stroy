@@ -1,5 +1,7 @@
 package org.openCage.lang.structure;
 
+import org.openCage.lang.count.Count;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +39,7 @@ public class BFStack<T> {
             throw new IllegalStateException( "no more backward" );
         }
         pos--;
-        return list.get(0);
+        return list.get(pos);
     }
 
     public void push( T elem ) {
@@ -66,5 +68,20 @@ public class BFStack<T> {
 
     public boolean isEmpty() {
         return list.isEmpty();
+    }
+
+    @Override
+    public String toString() {
+
+        String ret = "";
+
+        for ( Count<T> t : Count.count(list )) {
+            if ( t.idx() == pos ) {
+                ret += ">>> ";
+            }
+            ret += t.obj().toString() + "\n";
+        }
+
+        return ret;
     }
 }
