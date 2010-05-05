@@ -88,8 +88,6 @@ public class FaustByteNum implements TextEncoderIdx<Byte,String> {
             }
         });
 
-        int size = uncompressedPad.length;
-
         pad = new Huffman().encode( uncompressedPad );
     }
 

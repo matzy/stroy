@@ -32,12 +32,12 @@ public class JavaVersion {
         this.plus = plus;
     }
 
-    public static JavaVersion v5     = new JavaVersion( 5, false );
-    public static JavaVersion v5plus = new JavaVersion( 5, true );
-    public static JavaVersion v6     = new JavaVersion( 6, false );
-    public static JavaVersion v6plus = new JavaVersion( 6, true);
-    public static JavaVersion v7     = new JavaVersion( 7, false);
-    public static JavaVersion v7plus = new JavaVersion( 7, true );
+    public final static JavaVersion v5     = new JavaVersion( 5, false );
+    public final static JavaVersion v5plus = new JavaVersion( 5, true );
+    public final static JavaVersion v6     = new JavaVersion( 6, false );
+    public final static JavaVersion v6plus = new JavaVersion( 6, true);
+    public final static JavaVersion v7     = new JavaVersion( 7, false);
+    public final static JavaVersion v7plus = new JavaVersion( 7, true );
 
     public String jvmVersion() {
         return "1." + verNum;

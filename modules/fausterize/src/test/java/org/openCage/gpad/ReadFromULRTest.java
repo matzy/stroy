@@ -117,7 +117,7 @@ public class ReadFromULRTest {
 
         while( (count = in.read(data,0,1024)) != -1 ) {
 
-            System.out.println( "--- " + count);
+//            System.out.println( "--- " + count);
 
             for ( int i = 0; i < count; i++, top++ ) {
                 buf[top] = data[i];

@@ -312,8 +312,6 @@ public class MiniBrowserDialog extends JDialog implements HyperlinkListener {
                 pages.push( pageUrl );
             }
 
-            System.out.println("pages: " + pages);
-
             // Update location text field with URL of current page.
             locationTextField.setText(pageUrl);
 

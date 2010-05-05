@@ -37,15 +37,11 @@ public class MenuHelper {
     }
 
     public JMenu getHelpMenu() {
-        JMenu menu  = new JMenu( loca.localize( "org.openCage.localization.dict.help" ) );
-        setBackground( menu );
-
-        return menu;
+        return setBackground( new JMenu( loca.localize( "org.openCage.localization.dict.help" ) ));
     }
 
     public JMenu getEditMenu() {
-        JMenu menu  = setBackground( new JMenu( loca.localize( "org.openCage.localization.dict.edit" ) ));
-        return menu;
+        return setBackground( new JMenu( loca.localize( "org.openCage.localization.dict.edit" ) ));
     }
 
     public void addCopy( JMenu menu, final F0<Void> action  ) {

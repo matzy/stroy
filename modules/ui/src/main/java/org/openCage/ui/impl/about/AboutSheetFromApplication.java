@@ -213,7 +213,6 @@ public class AboutSheetFromApplication extends JDialog implements AboutSheet {
                     System.out.println( e );
                     int index = licences.locationToIndex(e.getPoint());
                     ListModel dlm = licences.getModel();
-                    Object item = dlm.getElementAt(index);;
                     licences.ensureIndexIsVisible(index);
 
                     Artifact selected = refs.get( index);
