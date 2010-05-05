@@ -8,7 +8,7 @@
   <version>0.9</version>
    <dependencies>
       <dependency>
-         <groupId>net.java.dev.swing-layout/groupId>
+         <groupId>net.java.dev.swing-layout</groupId>
          <artifactId>swing-layout</artifactId>
          <version>1.0.2</version>
          <scope>compile</scope>
