@@ -31,7 +31,7 @@ public class Once<T> {
         val = deflt;
     }
 
-    public synchronized T get() {
+    public final synchronized T get() {
         set = true;
         return val;
     }
@@ -55,12 +55,12 @@ public class Once<T> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Once)) return false;
+        if (this == o) { return true; }
+        if (!(o instanceof Once)) { return false; }
 
         Once once = (Once) o;
 
-        if (val != null ? !val.equals(once.val) : once.val != null) return false;
+        if (val != null ? !val.equals(once.val) : once.val != null) { return false; }
 
         return true;
     }
@@ -76,15 +76,7 @@ public class Once<T> {
             return;
         }
 
-        if ( set ) {
-            if ( val.equals( t.val )) {
-                return;
-            }
-            throw new IllegalStateException("can't set Once twice");
-        }
-
-        set = true;
-        val = t.val;
+        set( t.get() );
     }
 
 }

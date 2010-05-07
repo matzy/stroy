@@ -25,7 +25,7 @@ package org.openCage.lang;
 /**
  * Utility class for math operations
  */
-public class MathOps {
+public final class MathOps {
 
     /**
      * do not instantiate

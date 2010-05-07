@@ -39,8 +39,8 @@ public class Artifact {
     private final String  groupId;
 
     private final Once<Licence> licence = new Once<Licence>( Licence.apache2() );
-    private final Once<Version>  version = new Once<Version>( Version.parse("0.0.1") );
-    private final Once<JavaVersion> javaVersion = new Once<JavaVersion>( JavaVersion.v6plus );
+    private final Once<Version>  version = new Once<Version>( MMPVersion.parse("0.0.1") );
+    private final Once<JavaVersion> javaVersion = new Once<JavaVersion>( JavaVersion.V6P);
     private final Once<String> descriptionShort = new Once<String>( "a program doing foo" );
     private final Once<String> descriptionFull = new Once<String>( "a lengthier description of the prog" );
     private final Once<String> iconResourceOSX = new Once<String>( "" );
@@ -129,7 +129,7 @@ public class Artifact {
     }
 
     public Artifact version( String ver) {
-        version.set( Version.parse( ver ));
+        version.set( Version.valueOf( ver ));
 
         return this;
     }
@@ -148,12 +148,12 @@ public class Artifact {
     }
 
     public Artifact java6p() {
-        javaVersion.set( JavaVersion.v6plus);
+        javaVersion.set( JavaVersion.V6P);
         return this;
     }
 
     public Artifact java6() {
-        javaVersion.set( JavaVersion.v6);
+        javaVersion.set( JavaVersion.V6);
         return this;
     }
 
@@ -228,7 +228,7 @@ public class Artifact {
         return version.get();
     }
 
-    public Artifact address( String page, String shrt ) {
+    public final Artifact address( String page, String shrt ) {
         webpage.set( new WebPage( page ).shrt(shrt) );
         return this;
     }
@@ -248,21 +248,19 @@ public class Artifact {
         return this;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Artifact)) return false;
+    @Override public boolean equals(Object o) {
+        if (this == o) { return true; }
+        if (!(o instanceof Artifact)) { return false; }
 
         Artifact artifact = (Artifact) o;
 
-        if (groupId != null ? !groupId.equals(artifact.groupId) : artifact.groupId != null) return false;
-        if (name != null ? !name.equals(artifact.name) : artifact.name != null) return false;
+        if (groupId != null ? !groupId.equals(artifact.groupId) : artifact.groupId != null) { return false; }
+        if (name != null ? !name.equals(artifact.name) : artifact.name != null) { return false; }
 
         return true;
     }
 
-    @Override
-    public int hashCode() {
+    @Override public int hashCode() {
         int result = name != null ? name.hashCode() : 0;
         result = 31 * result + (groupId != null ? groupId.hashCode() : 0);
         return result;
@@ -284,8 +282,7 @@ public class Artifact {
 
     }
 
-    @Override
-    public String toString() {
+    @Override public String toString() {
         return "Artifact{" +
                 "name='" + name + '\'' +
                 ", groupId='" + groupId + '\'' +

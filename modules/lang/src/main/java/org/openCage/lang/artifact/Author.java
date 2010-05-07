@@ -24,28 +24,35 @@ import org.openCage.lang.structure.Once;
 *
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
+
+/**
+ * A Author, i.e. name and email of a person
+ */
 public class Author {
 
     private final String name;
     private final Once<EmailAddress> email = new Once<EmailAddress>( new EmailAddress( "mailto:404" ));
-    private String tName;
 
-    public Author( String name ) {
+    Author( String name ) {
         this.name = name;
     }
 
-    public Author email( @NotNull String addr ) {
+    public final Author email( @NotNull String addr ) {
         email.set( new EmailAddress( addr ));
         return this;
     }
 
 
-    public String getName() {
+    public final String getName() {
         return name;
     }
 
     public static Author c( String name ) {
         return new Author( name );
+    }
+
+    public EmailAddress getEmailAddress() {
+        return email.get();
     }
 
 }

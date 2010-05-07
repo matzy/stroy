@@ -35,11 +35,4 @@ public class T2<A,B> {
         return new T2<A,B>(a,b);
     }
 
-    public static <A,B> T2<A,B> l( A a, Class<B> clazz ) {
-        return new T2<A,B>(a,null);
-    }
-
-    public static <A,B> T2<A,B> r( Class<A> clazz, B b ) {
-        return new T2<A,B>( null, b);
-    }
 }

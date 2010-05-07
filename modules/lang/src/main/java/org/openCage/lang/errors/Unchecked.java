@@ -40,7 +40,7 @@ public class Unchecked extends Error {
         this.source = source;
     }
 
-    public String toString() {
+    @Override public String toString() {
         return "Unchecked Exception, Caused by: " + source;
     }
 

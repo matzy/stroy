@@ -34,13 +34,11 @@ public class BiMap<A,B> implements Map<A,B>{
     private Map<A, B> forward  = new HashMap<A,B>();
     private Map<B, A> backward = new HashMap<B,A>();
 
-    @Override
-    public int size() {
+    @Override public int size() {
         return forward.size();
     }
 
-    @Override
-    public boolean isEmpty() {
+    @Override public boolean isEmpty() {
         return forward.isEmpty();
     }
 

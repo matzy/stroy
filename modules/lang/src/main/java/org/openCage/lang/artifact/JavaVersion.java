@@ -21,7 +21,7 @@ package org.openCage.lang.artifact;
 *
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
-public class JavaVersion {
+public class JavaVersion implements Comparable<JavaVersion>{
 
 
     private int verNum;
@@ -32,24 +32,22 @@ public class JavaVersion {
         this.plus = plus;
     }
 
-    public final static JavaVersion v5     = new JavaVersion( 5, false );
-    public final static JavaVersion v5plus = new JavaVersion( 5, true );
-    public final static JavaVersion v6     = new JavaVersion( 6, false );
-    public final static JavaVersion v6plus = new JavaVersion( 6, true);
-    public final static JavaVersion v7     = new JavaVersion( 7, false);
-    public final static JavaVersion v7plus = new JavaVersion( 7, true );
+    public static final JavaVersion V5 = new JavaVersion( 5, false );
+    public final static JavaVersion V5P = new JavaVersion( 5, true );
+    public final static JavaVersion V6 = new JavaVersion( 6, false );
+    public final static JavaVersion V6P = new JavaVersion( 6, true);
+    public final static JavaVersion V7 = new JavaVersion( 7, false);
+    public final static JavaVersion V7P = new JavaVersion( 7, true );
 
     public String jvmVersion() {
         return "1." + verNum;
     }
 
-    /** TODO ugh */
-    public boolean is6() {
-        return verNum == 6;
+    @Override public String toString() {
+        return "" + verNum + ((plus) ? "+" : "");
     }
 
-    @Override
-    public String toString() {
-        return "" + verNum + ((plus) ? "+" : "");
+    @Override public int compareTo(JavaVersion o) {
+        return  (2 * verNum ) + (plus ? 1 : 0) - (2 * o.verNum ) - (o.plus ? 1 : 0);
     }
 }
