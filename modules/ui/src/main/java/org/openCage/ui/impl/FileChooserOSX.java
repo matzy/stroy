@@ -48,15 +48,15 @@ public class FileChooserOSX implements FileChooser {
      */
     @Override
     public String getDir( Frame fr, String path ) {
-        return getDir( T2.c( (Dialog)null, fr ), path);
+        return getDirInternal( fr, path);
     }
 
     @Override
     public String getDir(Dialog fr, String path) {
-        return getDir( T2.c( fr, (Frame)null ), path);
+        return getDirInternal( fr, path);
     }
 
-    private String getDir( T2<Dialog,Frame> fr, String path) {
+    private String getDirInternal( Object fr, String path) {
         // OSX has filters for directories: use native osx finder
         System.setProperty( "apple.awt.fileDialogForDirectories", "true" );
 
@@ -77,15 +77,15 @@ public class FileChooserOSX implements FileChooser {
 
     @Override
     public String open( Frame fr, String path ) {
-        return open( T2.r( Dialog.class, fr ), path);
+        return openInternal( fr, path);
     }
 
     @Override
     public String open(Dialog fr, String path) {
-        return open( new T2<Dialog,Frame>( fr, null ), path);
+        return openInternal( fr, path);
     }
 
-    private String open( T2<Dialog,Frame> df, String path) {
+    private String openInternal( Object df, String path) {
         FileDialog fd = fileDialog( df, localize.localize( "org.openCage.ui.chooseAFile"), FileDialog.LOAD );
         fd.setDirectory( path );
         fd.setVisible( true );
@@ -101,26 +101,15 @@ public class FileChooserOSX implements FileChooser {
 
     }
 
-    public String saveas( Frame fr, String path ) {
-        FileDialog fd = new FileDialog( fr, localize.localize( "org.openCage.localization.dict.saveAs"), FileDialog.SAVE );
-        fd.setDirectory( path );
-        fd.setVisible( true );
-
-        String dir = fd.getDirectory();
-        String name = fd.getFile();
-        if ( name == null ) {
-            return null;
-        }
-
-        return FSPathBuilder.getPath( dir ).add( name ).toString();
+    @Override public String saveas( Frame fr, String path ) {
+        return saveasInternal( fr, path );
     }
 
-    @Override
-    public String saveas(Dialog fr, String path) {
-        return saveas( T2.l( fr, Frame.class ), path );
+    @Override public String saveas(Dialog fr, String path) {
+        return saveasInternal( fr, path );
     }
 
-    private String saveas( T2<Dialog,Frame> fr, String path) {
+    private String saveasInternal( Object fr, String path) {
         FileDialog fd = fileDialog( fr, localize.localize( "org.openCage.localization.dict.saveAs"), FileDialog.SAVE );
         fd.setDirectory( path );
         fd.setVisible( true );
@@ -134,12 +123,15 @@ public class FileChooserOSX implements FileChooser {
         return FSPathBuilder.getPath( dir ).add( name ).toString();
     }
 
-    private FileDialog fileDialog( T2<Dialog, Frame> parent, String txt, int kind ) {
-        if ( parent.i0 != null ) {
-            return new FileDialog( parent.i0, txt, kind );
+    private FileDialog fileDialog( Object parent, String txt, int kind ) {
+        if ( parent instanceof Frame) {
+            return new FileDialog( (Frame)parent, txt, kind );
         }
 
-        return new FileDialog( parent.i1, txt, kind );
-    }
+        if ( parent instanceof Dialog ) {
+            return new FileDialog( (Dialog)parent, txt, kind );
+        }
 
+        throw new IllegalArgumentException( "parent needs to be a Frame or a Dialog" );
+    }
 }

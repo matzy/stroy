@@ -2,7 +2,6 @@ package org.openCage.ui.impl.help;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
-import com.muchsoft.util.Sys;
 import org.openCage.fspath.clazz.FSPathBuilder;
 import org.openCage.fspath.protocol.FSPath;
 import org.openCage.io.clazz.Location;
@@ -12,8 +11,6 @@ import org.openCage.ui.protocol.HelpViewer;
 
 import javax.swing.*;
 import java.io.File;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.Locale;
 import java.util.logging.Logger;
 
