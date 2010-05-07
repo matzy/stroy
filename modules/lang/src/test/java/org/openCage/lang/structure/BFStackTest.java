@@ -19,6 +19,20 @@ public class BFStackTest {
         assertFalse( stack.isEmpty() );
     }
 
+    @Test
+    public void testClear() {
+        BFStack<String> stack = new BFStack<String>();
+        stack.push( "foo");
+        stack.push( "foo");
+        stack.push( "foo");
+        assertFalse( stack.isEmpty() );
+
+        stack.clear();
+        assertTrue( stack.isEmpty() );
+        assertFalse( stack.hasBackward() );
+        assertFalse( stack.hasForward() );        
+    }
+
     @Test( expected = IllegalStateException.class )
     public void testEmptyGetCurrent() {
         new BFStack<String>().getCurrent();
@@ -43,6 +57,16 @@ public class BFStackTest {
 
         assertFalse( stack.hasBackward());
         stack.backward(); // throws
+    }
+
+    @Test( expected = IllegalStateException.class )
+    public void testNotHasForwardForward() {
+
+        BFStack<String> stack = new BFStack<String>();
+        stack.push( "foo");
+
+        assertFalse( stack.hasForward());
+        stack.forward(); // throws
     }
 
     @Test

@@ -37,5 +37,14 @@ public class MRUTest {
         mru.use( "444" );
         assertEquals( "444", mru.getAll().iterator().next() );
         assertEquals( 2, mru.getAll().size());
+
+        mru.clear();
+        assertEquals( 0, mru.getAll().size() );
+    }
+
+
+    @Test( expected = IllegalArgumentException.class )
+    public void setMaxSize() {
+        new MRU<String>().setMaxSize(0);
     }
 }

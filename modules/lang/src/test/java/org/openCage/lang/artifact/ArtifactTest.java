@@ -1,4 +1,4 @@
-package org.openCage.lang;
+package org.openCage.lang.artifact;
 
 import org.junit.Test;
 import org.openCage.lang.artifact.Project;

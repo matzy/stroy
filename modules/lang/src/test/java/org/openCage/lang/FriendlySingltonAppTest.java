@@ -1,5 +1,7 @@
 package org.openCage.lang;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.openCage.lang.impl.FriendlySingletonApp;
 import org.openCage.lang.protocol.SingletonApp;
@@ -34,10 +36,38 @@ import static org.junit.Assert.assertTrue;
 
 public class FriendlySingltonAppTest {
 
+    private static File getTmpFile() {
+        String dir = System.getProperty("java.io.tmpdir");
+        if ( !dir.endsWith( File.pathSeparator )) {
+            dir += File.pathSeparator;
+        }
+
+        dir += "FriendlySingltonAppTest-tmp1.tmp";
+
+        return new File( dir );
+    }
+
+    @Before
+    public void setup() {
+        File tmp = getTmpFile();
+
+        if ( tmp.exists()) {
+            tmp.delete();
+        }
+    }
+
+    @After
+    public void tearDown() {
+        File tmp = getTmpFile();
+
+        if ( tmp.exists()) {
+            tmp.delete();
+        }        
+    }
+
     @Test
     public void testCreateFile() {
-        // TODO get real tmp file, connection to class move
-        File tmpFile = new File("~/tmp/testdir/fstapp2.test");
+        File tmpFile = getTmpFile();
         
         assertNotNull( tmpFile.getParentFile());
         assertFalse( tmpFile.exists());
