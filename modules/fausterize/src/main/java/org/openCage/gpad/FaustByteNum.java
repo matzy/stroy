@@ -59,11 +59,12 @@ public class FaustByteNum implements TextEncoderIdx<Byte,String> {
     private static final int UNSIGNED_BYTE_MAX = 256;
     private static final Logger LOG = Logger.getLogger( FaustByteNum.class.getName());
 
-    List<String>[]          num2line;
-    Set<String>             knownLines = new HashSet<String>();
-    Map<String,Integer>     line2num = new HashMap<String,Integer>();
+    private List<String>[]          num2line;
+    private Set<String>             knownLines = new HashSet<String>();
+    private Map<String,Integer>     line2num = new HashMap<String,Integer>();
     private DynamicBitArray pad;
 
+    @Override
     public void setPad( @NotNull URI path ) {
 
         final byte[] uncompressedPad = new byte[PAD_SIZE];
@@ -74,8 +75,9 @@ public class FaustByteNum implements TextEncoderIdx<Byte,String> {
                     int offset = 0;
                     while (offset < PAD_SIZE) {
                         bytesRead = in.read(uncompressedPad, offset, uncompressedPad.length - offset);
-                        if (bytesRead == -1)
+                        if (bytesRead == -1) {
                             break;
+                        }
                         offset += bytesRead;
                     }
 
@@ -91,7 +93,7 @@ public class FaustByteNum implements TextEncoderIdx<Byte,String> {
         pad = new Huffman().encode( uncompressedPad );
     }
 
-    public boolean isSet() {
+    @Override public boolean isSet() {
         return pad != null;
     }
 
@@ -134,7 +136,7 @@ public class FaustByteNum implements TextEncoderIdx<Byte,String> {
         }
     }
 
-    public String encode( Byte ch, int idx ) {
+    @Override public String encode( Byte ch, int idx ) {
         if ( pad == null ) {
             throw new IllegalStateException("no pad yet");
         }
@@ -143,7 +145,7 @@ public class FaustByteNum implements TextEncoderIdx<Byte,String> {
         return posi.get(((int)(Math.random() * posi.size())));
     }
 
-    public Byte decode( String line, int idx ) {
+    @Override public Byte decode( String line, int idx ) {
         if ( pad == null ) {
             throw new IllegalStateException("no pad yet");
         }

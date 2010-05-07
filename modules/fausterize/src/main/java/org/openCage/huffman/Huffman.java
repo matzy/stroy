@@ -1,9 +1,5 @@
 package org.openCage.huffman;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
 *

@@ -44,7 +44,6 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
-import java.net.URISyntaxException;
 
 import static org.openCage.gpad.Constants.*;
 import static org.openCage.ui.Constants.*;
@@ -78,11 +77,8 @@ public class FaustUI extends JFrame {
 
 //    private final Application             application;
     private final FileChooser             fileChooser;
-    private final AboutSheet              about;
     private final OSXStandardEventHandler osxEventHandler;
     private final Localize                localize;
-    private final BackgroundExecutor      executor;
-    private final MenuHelper              menuHelper;
     private final TextEditorBuilder       textEditorBuilder;
     private final Property<MRU<String>> mru;
 
@@ -90,8 +86,7 @@ public class FaustUI extends JFrame {
 
     private String                  message;
     private JTextArea               textUI = new RSyntaxTextArea();
-    private TextEncoderIdx<String,String>  textEncoder;
-    final private JButton           padButton = new JButton( new ImageIcon( getClass().getResource(LOCK_CLOSED_PNG)));//"fausterize-small.png")));
+    private final JButton           padButton = new JButton( new ImageIcon( getClass().getResource(LOCK_CLOSED_PNG)));//"fausterize-small.png")));
     private LabeledComponentGroup padGroup;
     private JLabel infoLabel;
     private MenuBuilder.MenuIM recent;
@@ -129,11 +124,8 @@ public class FaustUI extends JFrame {
 
         this.artifact     = artifact;
         this.fileChooser     = chooser;
-        this.about           = about;
         this.osxEventHandler = osxEventHandler;
-        this.executor        = executor;
         this.localize        = localize;
-        this.menuHelper = menuHelper;
         this.textEditorBuilder = textEditorBuilder;
         this.mru = mru;
         this.menuBuilder = menubuilder;
@@ -411,8 +403,7 @@ public class FaustUI extends JFrame {
                 }) ).
                 separator().
                 add( mb.itemPrefs().action( new F0<Void>() {
-                    @Override
-                    public Void call() {
+                    @Override public Void call() {
                         prefFrame.setVisible( true );
                         return null;
                     }
@@ -422,8 +413,7 @@ public class FaustUI extends JFrame {
         mb.addEdit().
                 add( mb.item( localize.localize( "org.openCage.fausterize.toggleCode")).
                         action( new F0<Void>() {
-                    @Override
-                    public Void call() {
+                    @Override public Void call() {
                         toggleEncryption( that );
                         return null;
                     }

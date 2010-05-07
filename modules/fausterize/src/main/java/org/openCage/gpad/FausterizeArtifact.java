@@ -61,51 +61,6 @@ public class FausterizeArtifact implements ArtifactProvider, Provider<Artifact> 
                             mit().
                             version("1.5.6"))
                 ).
-//                <groupId>org.slf4j</groupId>
-//			<artifactId>slf4j-api</artifactId>
-//			<version>1.5.6</version>
-//		</dependency>
-//		<dependency>
-//			<groupId>org.slf4j</groupId>
-//			<artifactId>slf4j-log4j12</artifactId>
-//			<version>1.5.6</version>
-//			<scope>runtime</scope>
-//		</dependency>
-
-//                depends( proj.external( "net.java.dev.designgridlayout  ", "designgridlayout" ).
-//                        depends( proj.external( "net.java.dev.swing-layout", "swing-layout" ).
-//                                address( "https://swing-layout.dev.java.net/", "dev.java").
-//                                lgpl().
-//                                version("1.0.2")).
-//                        descriptionShort( "Swing layout manager based on the use of canonical grids for user interface design." ).
-//                        address( "https://designgridlayout.dev.java.net/", "dev.java").
-//                        lgpl().
-//                        version( "0.9" )).
-//                depends( proj.external( "fifesoft", "RSyntaxTextArea" ).
-//                        descriptionShort( "A textarea subclass enhanced by a lot of typical texteditor feature").
-//                        address( "http://fifesoft.com/rsyntaxtextarea/", "fifesoft.org" ).
-//                        lgpl().
-//                        version( "1.4.1" )).
-//                depends( proj.external( "com.jgoodies", "binding" ).
-//                        descriptionShort( "Twoway binding of domain objects and ui objects. Changes to the domain object are displayed by the ui object, changes to the ui object modify the domain object." ).
-//                        address( "http://www.jgoodies.com/downloads/libraries.html", "jgoodies").
-//                        bsd().
-//                        version( "2.0.6" )).
-//                depends( proj.external("javagraphics", "preferencepanel").
-//                        descriptionShort( "A OSX style preference panel." ).
-//                        address( "https://javagraphics.dev.java.net/", "dev.java").
-//                        bsd().
-//                        version( "1.0" )).
-//                depends( proj.external( "macwidgets", "macwidgets" ).
-//                        descriptionShort( "Library with OSX inspired swing components. e.g. a toolbar that blends in with the title bar, better buttons ..." ).
-//                        address( "http://code.google.com/p/macwidgets/", "code.google.com").
-//                        lgpl().
-//                        version( "0.9.5" ).
-//                            depends( proj.external( "com.jgoodies", "forms" ).
-//                                descriptionShort( "JGoodies Forms library," ).
-//                                address( "http://www.jgoodies.com/downloads/libraries.html", "jgoodies").
-//                                bsd().
-//                                version( "1.2.1" ))).
                 testDepends( proj.get( "junit", "junit" ));
     }
 
