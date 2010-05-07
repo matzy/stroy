@@ -18,10 +18,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.2</version>
-               <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
-                </configuration>
            </plugin>
 
         </plugins>
@@ -54,7 +50,7 @@
       <dependency>
          <groupId>net.java.dev.designgridlayout</groupId>
          <artifactId>designgridlayout</artifactId>
-         <version>0.9</version>
+         <version>0.9.0</version>
          <scope>compile</scope>
       </dependency>
       <dependency>
@@ -72,7 +68,7 @@
       <dependency>
          <groupId>javagraphics</groupId>
          <artifactId>preferencepanel</artifactId>
-         <version>1.0</version>
+         <version>1.0.0</version>
          <scope>compile</scope>
       </dependency>
       <dependency>
@@ -90,7 +86,7 @@
       <dependency>
          <groupId>junit</groupId>
          <artifactId>junit</artifactId>
-         <version>4.4</version>
+         <version>4.4.0</version>
          <scope>test</scope>
       </dependency>
    </dependencies>
