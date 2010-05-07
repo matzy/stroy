@@ -36,7 +36,7 @@ import org.openCage.withResource.protocol.FileLineIterable;
 
 public class IterableFile implements FileLineIterable {
 
-    private static Logger LOG = Logger.getLogger(IterableFile.class.getName());
+    private static final Logger LOG = Logger.getLogger(IterableFile.class.getName());
 
     private BufferedReader reader;
 
@@ -61,6 +61,7 @@ public class IterableFile implements FileLineIterable {
         return new LineReaderIterator( reader );
     }
 
+    @Override
     public void close() {
         if ( reader != null ) {
             try {
