@@ -1,10 +1,11 @@
-package org.openCage.artigen;
+package org.openCage.artig;
 
 import org.apache.commons.io.IOUtils;
 import org.jetbrains.annotations.NotNull;
 import org.openCage.fspath.protocol.FSPath;
 import org.openCage.io.clazz.FileExistence;
 import org.openCage.lang.artifact.Artifact;
+import org.openCage.lang.artifact.JavaVersion;
 import org.openCage.lang.artifact.Project;
 import org.openCage.lang.artifact.Scope;
 import org.openCage.lang.errors.Unchecked;
@@ -63,7 +64,7 @@ public class MavenGen {
                 "   <modelVersion>4.0.0</modelVersion>\n";
         pom += "   " + leaf( "groupId", arti.getGroupId()) + "\n";
         pom += "   " + leaf( "artifactId", arti.gettName()) + "\n";
-        pom += "   " + leaf( "version", arti.getVersion().getOriginal()) + "\n\n";
+        pom += "   " + leaf( "version", arti.getVersion().getShort()) + "\n\n";
 
         pom += "    <repositories>\n" +
                 "        <repository>\n" +
@@ -80,7 +81,8 @@ public class MavenGen {
                 "                <artifactId>maven-compiler-plugin</artifactId>\n" +
                 "                <version>2.2</version>\n";
 
-        if ( arti.getJavaVersion().is6() ) {
+        // TODO
+        if ( arti.getJavaVersion().equals(JavaVersion.V6) ) {
             pom += "               <configuration>\n" +
                     "                    <source>1.6</source>\n" +
                     "                    <target>1.6</target>\n" +
@@ -116,7 +118,8 @@ public class MavenGen {
         String dep = "      <dependency>\n";
         dep += "         " + leaf( "groupId", arti.getGroupId()  ) + "\n";
         dep += "         " + leaf( "artifactId", arti.gettName()  ) + "\n";
-        dep += "         " + leaf( "version", arti.getVersion().getOriginal()  ) + "\n";
+        System.out.println( arti );
+        dep += "         " + leaf( "version", arti.getVersion().getShort()  ) + "\n";
 
         switch ( scope ) {
             case TEST: dep += "         " + leaf( "scope", "test"  ) + "\n"; break;

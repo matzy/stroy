@@ -1,4 +1,4 @@
-package org.openCage.artigen;
+package org.openCage.artig;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
@@ -75,7 +75,7 @@ public class PElephGen {
 
 
 
-        ret += antProperty( "el.version", arti.getVersion().getOriginal()) + "\n";
+        ret += antProperty( "el.version", arti.getVersion().getShort()) + "\n";
         ret += antProperty( "el.buildnumber", "" + arti.getVersion().getBuildnumber()) + "\n";
         ret += antProperty( "el.groupId", arti.getGroupId()) + "\n";
         ret += antProperty( "el.src.java", "src/main/java") + "\n";
@@ -184,7 +184,7 @@ public class PElephGen {
     }
 
     private String getLibraryLocation(Artifact arti) {
-        return arti.getGroupId().replace('.', '/')  + "/" + arti.gettName() + "/" + arti.getVersion().getOriginal() + "/" + arti.gettName() + "-" + arti.getVersion().getOriginal() + ".jar" ;
+        return arti.getGroupId().replace('.', '/')  + "/" + arti.gettName() + "/" + arti.getVersion().getShort() + "/" + arti.gettName() + "-" + arti.getVersion().getShort() + ".jar" ;
     }
 
     //    <!-- ================================================================== -->
