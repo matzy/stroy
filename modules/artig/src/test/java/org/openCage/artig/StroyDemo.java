@@ -1,5 +1,6 @@
-package org.openCage.artigen;
+package org.openCage.artig;
 
+import org.openCage.artig.MavenGen;
 import org.openCage.fspath.clazz.FSPathBuilder;
 import org.openCage.fspath.protocol.FSPath;
 import org.openCage.gpad.FausterizeArtifact;
@@ -20,7 +21,8 @@ public class StroyDemo {
                 FSPathBuilder.getPath( StroyDemo.class.getResource(".") ).parent(6);
         System.out.println( stroyRoot );
 
-        MavenGen gen = new MavenGen( new FausterizeArtifact().getProject() );
+        MavenGen gen = new MavenGen( new ArtigArtifact().getProject() );
+        //System.out.println( gen.getModulePom( new ArtigArtifact().getArtifact()) );
         gen.generate( stroyRoot );
 
 
