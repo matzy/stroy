@@ -60,7 +60,7 @@
       <dependency>
          <groupId>net.java.dev.designgridlayout</groupId>
          <artifactId>designgridlayout</artifactId>
-         <version>0.9.0</version>
+         <version>0.9</version>
          <scope>compile</scope>
       </dependency>
       <dependency>
@@ -78,7 +78,7 @@
       <dependency>
          <groupId>junit</groupId>
          <artifactId>junit</artifactId>
-         <version>4.4.0</version>
+         <version>4.4</version>
          <scope>test</scope>
       </dependency>
    </dependencies>

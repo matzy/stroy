@@ -1,4 +1,4 @@
-package org.openCage.lang.artifact;
+package org.openCage.lang.structure;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -27,14 +27,33 @@ import java.util.Set;
 *
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
+
+/**
+ * A set with a get method
+ * Sets use equals to determine uniqueness.
+ * But if you want to retreive a specific object from a set you can not call get with an equal object
+ * thus ESet
+ * @param <T>
+ */
 public class ESet<T> implements Set<T> {
 
     private Map<T,T> map = new HashMap<T,T>();
 
+    /**
+     * Get a object equal to the input
+     * i.e. not the same object
+     * @param t the key
+     * @return an object equal to the key or null
+     */
     public T get( T t ) {
         return map.get(t);
     }
 
+    /**
+     * Get an object equal to the key or store the key in the eset
+     * @param t
+     * @return
+     */
     public T getAdd( T t ) {
         if ( map.containsKey( t )) {
             return map.get(t);

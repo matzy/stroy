@@ -25,6 +25,11 @@ public class JavaVersionTest {
         assertTrue( JavaVersion.V6P.compareTo( JavaVersion.V7P) <= 0 );
 
         assertEquals( "6+", JavaVersion.V6P.toString() );
+
+        assertEquals( JavaVersion.V7, JavaVersion.V7 );
+
+
+        assertEquals( "JavaVersion.V6P", JavaVersion.V6P.quine());
     }
 
 

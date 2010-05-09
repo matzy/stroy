@@ -1,25 +1,93 @@
 package org.openCage.lang.artifact;
 
-public abstract class Version implements Comparable<Version>{
+import org.openCage.lang.structure.Once;
 
-    public abstract String getShort();
-    public abstract String getFull();
-
-    public static Version valueOf( String str  ) {
-
-        try {
-            Version version = MMPVersion.parse( str );
-
-            if ( version != null ) {
-                return version;
-            }
-        } catch ( Exception exp ) {
-            return new OtherVersion( str );
-        }
+public class Version { //implements Comparable<Version>{
 
 
-        return new OtherVersion( str );
+    private final String version;
+
+    private Once<Integer> buildNumber = new Once<Integer>( 0 );
+    private Once<String> tag = new Once<String>( "" );
+
+
+    public Version( String ver ) {
+        version = ver;
     }
 
-    public abstract int getBuildnumber();
+    public static Version valueOf( String str  ) {
+        return new Version( str );
+    }
+
+    public Version build( int num ) {
+        buildNumber.set( num );
+        return this;
+    }
+
+    public int getBuildNumber()  {
+        return buildNumber.get();
+    }
+
+    public String getTag() {
+        return tag.get();
+    }
+
+    public Version tag( String str ) {
+        tag.set( str );
+        return this;
+    }
+
+    public Version beta() {
+        return tag( "beta" );
+    }
+
+    public Version alpha() {
+        return tag( "alpha" );
+    }
+
+    public String getShort() {
+        return version;
+    }
+
+
+    @Override
+    public String toString() {
+        String ret = "Version: " + version;
+        if ( buildNumber.isSet()) {
+            ret += buildNumber.get();
+        }
+
+        if ( tag.isSet()) {
+            ret += " " + tag.get();
+        }
+
+        return ret;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Version)) return false;
+
+        Version version1 = (Version) o;
+
+        if (buildNumber != null ? !buildNumber.equals(version1.buildNumber) : version1.buildNumber != null)
+            return false;
+        if (version != null ? !version.equals(version1.version) : version1.version != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = version != null ? version.hashCode() : 0;
+        result = 31 * result + (buildNumber != null ? buildNumber.hashCode() : 0);
+        return result;
+    }
+
+    public String self() {
+        String ret = "Version.valueOf( \"" + version + "\" )";
+
+        return ret;
+    }
 }

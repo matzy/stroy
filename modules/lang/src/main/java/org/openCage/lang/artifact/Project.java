@@ -1,11 +1,10 @@
 package org.openCage.lang.artifact;
 
 import com.sun.istack.internal.NotNull;
+import org.openCage.lang.structure.ESet;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1

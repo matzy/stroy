@@ -13,16 +13,8 @@ import org.openCage.lang.errors.Unchecked;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
-/**
- * Created by IntelliJ IDEA.
- * User: stephan
- * Date: Apr 16, 2010
- * Time: 10:59:26 AM
- * To change this template use File | Settings | File Templates.
- */
 public class PElephGen {
 
     private final Project project;
@@ -76,7 +68,7 @@ public class PElephGen {
 
 
         ret += antProperty( "el.version", arti.getVersion().getShort()) + "\n";
-        ret += antProperty( "el.buildnumber", "" + arti.getVersion().getBuildnumber()) + "\n";
+        ret += antProperty( "el.buildnumber", "" + arti.getVersion().getBuildNumber()) + "\n";
         ret += antProperty( "el.groupId", arti.getGroupId()) + "\n";
         ret += antProperty( "el.src.java", "src/main/java") + "\n";
         ret += antProperty( "el.src.resources", "src/main/resources") + "\n";

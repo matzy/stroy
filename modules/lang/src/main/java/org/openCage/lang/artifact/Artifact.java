@@ -39,8 +39,8 @@ public class Artifact {
     private final String  groupId;
 
     private final Once<Licence> licence = new Once<Licence>( Licence.apache2() );
-    private final Once<Version>  version = new Once<Version>( MMPVersion.parse("0.0.1") );
-    private final Once<JavaVersion> javaVersion = new Once<JavaVersion>( JavaVersion.V6P);
+    private final Once<Version>  version = new Once<Version>( Version.valueOf("0.0.1") );
+    private final Once<JavaVersion> javaVersion = new Once<JavaVersion>( JavaVersion.V6);
     private final Once<String> descriptionShort = new Once<String>( "a program doing foo" );
     private final Once<String> descriptionFull = new Once<String>( "a lengthier description of the prog" );
     private final Once<String> iconResourceOSX = new Once<String>( "" );
@@ -430,6 +430,28 @@ public class Artifact {
         }
 
         return name;
+    }
+
+
+    public String quine() {
+        String ret = "import org.openCage.lang.artifact.Artifact;\n" +
+                "import org.openCage.lang.artifact.ArtifactProvider;\n" +
+                "import org.openCage.lang.artifact.Project;\n" +
+                "\n" +
+                "@Immutable\n" +
+                "public class " + quineName() + "Artifact implements ArtifactProvider {\n" +
+                "\n" +
+                "    private final Artifact lang;\n" +
+                "    private final Project  proj;\n" +
+                "\n" +
+                "    public " + quineName() + "Artifact() {\n" +
+                "        proj = new Project(";
+
+        return ret;
+    }
+
+    private String quineName() {
+        return name.substring(0,1).toUpperCase() + name.substring(1);
     }
 
 }

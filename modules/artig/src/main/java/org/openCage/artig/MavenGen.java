@@ -56,7 +56,7 @@ public class MavenGen {
                 IOUtils.closeQuietly( writer );
             }
 
-        }
+        }                    
     }
 
     public String getModulePom( Artifact arti ) {
@@ -82,6 +82,7 @@ public class MavenGen {
                 "                <version>2.2</version>\n";
 
         // TODO
+        System.out.println("TODO" + arti.getJavaVersion() );
         if ( arti.getJavaVersion().equals(JavaVersion.V6) ) {
             pom += "               <configuration>\n" +
                     "                    <source>1.6</source>\n" +

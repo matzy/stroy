@@ -16,7 +16,7 @@ public class LangArtifact implements ArtifactProvider {
 
         lang = proj.module( getClass(), "openCage", "lang" ).
                 mpl11().
-                java6p().
+                java6().
                 version( "0.1.0").
                 author( proj.author( "Stephan Pfab" ).email( "mailto:openCag@gmail.com" )).
                 email( "mailto:openCag@gmail.com" ).

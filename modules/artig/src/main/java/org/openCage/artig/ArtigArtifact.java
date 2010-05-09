@@ -18,7 +18,7 @@ public class ArtigArtifact implements ArtifactProvider {
 
         lang = proj.module( getClass(), "openCage", "artig" ).
                 mpl11().
-                java6p().
+                java6().
                 version( "0.0.1").
                 author( proj.author( "Stephan Pfab" ).email( "mailto:openCag@gmail.com" )).
                 email( "mailto:openCag@gmail.com" ).

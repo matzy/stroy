@@ -15,7 +15,7 @@ public class FausterizeArtifact implements ArtifactProvider, Provider<Artifact> 
         proj = new UIArtifact().getProject();
 
         fausterize = proj.module( getClass(), "openCage", "fausterize" ).
-                version( "0.10.0.527" ).                
+                version( "0.10.0" ).                
                 address( "http://stroy.wikidot.com/fausterize", "stroy.wikidot.com").
                 mpl11().
                 author( proj.author( "Stephan Pfab" ) ).
