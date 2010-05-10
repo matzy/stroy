@@ -47,7 +47,7 @@ public class Author {
         return name;
     }
 
-    public static Author c( String name ) {
+    public static Author valueOf( String name ) {
         return new Author( name );
     }
 

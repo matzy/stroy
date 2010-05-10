@@ -50,6 +50,10 @@ public class WebPage {
         return this;
     }
 
+    public String getShort() {
+        return shrt;
+    }
+
     public URI gettPage() {
         return getWithValidation();
     }

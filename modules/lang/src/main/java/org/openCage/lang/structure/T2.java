@@ -31,7 +31,7 @@
 //        this.i1 = b;
 //    }
 //
-//    public static <A,B> T2<A,B> c( A a, B b ) {
+//    public static <A,B> T2<A,B> valueOf( A a, B b ) {
 //        return new T2<A,B>(a,b);
 //    }
 //

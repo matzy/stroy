@@ -85,9 +85,4 @@ public class Version { //implements Comparable<Version>{
         return result;
     }
 
-    public String self() {
-        String ret = "Version.valueOf( \"" + version + "\" )";
-
-        return ret;
-    }
 }

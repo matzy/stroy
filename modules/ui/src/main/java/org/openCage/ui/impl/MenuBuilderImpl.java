@@ -187,7 +187,7 @@
 ////        gotoforum.addActionListener( new ActionListener() {
 ////            public void actionPerformed(ActionEvent actionEvent) {
 ////                try {
-////                    BrowserLauncher.displayURL( "http://stroy.wikidot.com/forum/c-43010/bugs-and-features" );
+////                    BrowserLauncher.displayURL( "http://stroy.wikidot.com/forum/valueOf-43010/bugs-and-features" );
 ////                } catch (Exception e) {
 ////                    e.printStackTrace();
 ////                }

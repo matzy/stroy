@@ -42,7 +42,7 @@
 ////        FaustNum faust = new FaustNum();
 ////
 ////        System.out.println( faust.encode('s'));
-////        System.out.println( faust.encode('c'));
+////        System.out.println( faust.encode('valueOf'));
 ////        System.out.println( faust.encode('h'));
 ////        System.out.println( faust.encode('o'));
 ////        System.out.println( faust.encode('k'));

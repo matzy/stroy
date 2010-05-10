@@ -21,15 +21,24 @@ package org.openCage.lang.artifact;
 *
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
+
 public final class JavaVersion implements Comparable<JavaVersion>{
 
 
     private int verNum;
     private boolean plus;
 
+
     private JavaVersion( int num, boolean plus ) {
         verNum = num;
         this.plus = plus;
+    }
+
+    public static JavaVersion valueOf( String str ) {
+        boolean plus = str.endsWith( "P" ) || str.endsWith( "+" );
+        String num = (plus ? str.substring( 0, str.length() - 1 ) : str);
+
+        return new JavaVersion( Integer.valueOf(num), plus );
     }
 
     public static final JavaVersion V5 = new JavaVersion( 5, false );
@@ -71,7 +80,7 @@ public final class JavaVersion implements Comparable<JavaVersion>{
         return result;
     }
 
-    public String quine() {
-        return "JavaVersion.V" + verNum + (plus ? "P" : "");
-    }
+//    public String quine() {
+//        return "JavaVersion.V" + verNum + (plus ? "P" : "");
+//    }
 }

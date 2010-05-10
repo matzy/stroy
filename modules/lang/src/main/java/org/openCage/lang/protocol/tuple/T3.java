@@ -31,10 +31,10 @@
 //    public final B i1;
 //    public final C i2;
 //
-//    public T3( final A a, final B b, final C c ) {
+//    public T3( final A a, final B b, final C valueOf ) {
 //        this.i0 = a;
 //        this.i1 = b;
-//        this.i2 = c;
+//        this.i2 = valueOf;
 //    }
 //
 //}

@@ -2,6 +2,9 @@ package org.openCage.lang.artifact;
 
 import net.jcip.annotations.Immutable;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
 *
@@ -27,17 +30,27 @@ import net.jcip.annotations.Immutable;
 @Immutable
 public class Licence {
 
-	private final String name;
+    private final String name;
+    private final String shortName;
+    private final String address;
+    private final Version version;
 
-	public Licence( String name ) {
-		this.name = name;
+    private static Map<String,Licence> all = new HashMap<String, Licence>();
+
+	public Licence( String name, String shortName, String address, String version  ) {
+        this.name = name;
+        this.shortName = shortName;
+        this.address = address;
+        this.version = Version.valueOf( version );
+
+        all.put( name, this );
 	}
-
 
     public String gettName() {
         return name;
     }
 
+    // TODO
     public boolean isOpenSource() {
 		return true;
 	}
@@ -49,46 +62,17 @@ public class Licence {
                 '}';
     }
 
-    public static Licence apache2() {
-        return new Licence( "Apache2" );
+    public static Licence valueOf( String str ) {
+        Licence ret = all.get( str );
+        if ( ret == null ) {
+            throw new IllegalArgumentException("no such licence " + str );
+        }
+
+        return ret;
     }
 
-    public static Licence mpl11() {
-        return new Licence( "MPL1.1" );
-    }
 
-    public static Licence gpl() {
-        return new Licence( "GPL" );
-    }
-
-    public static Licence lgpl() {
-        return new Licence( "LGPL" );
-    }
-
-    public static Licence bsd() {
-        return new Licence( "BSD" );
-    }
-
-    public static Licence creativeCommons() {
-        return new Licence( "Creative Commons" );
-    }
-
-    public static Licence cpl() {
-        return new Licence( "CPL" );
-    }
-
-    public static Licence openIf() {
-        return new Licence( "Open if unchanged" );
-    }
-
-    public static Licence mit() {
-        return new Licence( "MIT" );
-    }
-
-    public static Licence json() {
-        // http://www.json.org/license.html
-        return new Licence( "JSON" );
-    }
+//
 
     public String getName() {
         return name;
@@ -112,13 +96,37 @@ public class Licence {
     }
 
     public boolean canUse( Licence dep ) {
-        if ( dep.equals( gpl() )) {
-            if ( !equals( gpl() )) {
+        if ( dep.equals( gpl2 )) {
+            if ( !equals( gpl2 )) {
                 return false;
             }
         }
 
         return true;
     }
+
+
+    public final static Licence apache2 = new Licence( "Apache2", "Apache", "http://www.apache.org/licenses/LICENSE-2.0.html", "2.0" );
+    public final static Licence mpl11 = new Licence( "MPL1.1", "Mozilla", "http://www.mozilla.org/MPL/MPL-1.1.html", "1.1" );
+    public final static Licence gpl2 = new Licence( "GPL2", "GPL", "http://www.gnu.de/documents/gpl-2.0.de.html", "2.0" );
+    public final static Licence gpl3 = new Licence( "GPL2", "GPL", "http://www.gnu.de/documents/gpl-2.0.de.html", "3.0" ); // TODO
+    public final static Licence lgpl2 = new Licence( "LGPL2", "LGPL", "http://www.gnu.de/documents/lgpl-2.1.de.html", "2.1" );
+    public final static Licence lgpl3 = new Licence( "LGPL3", "LGPL", "http://www.gnu.org/licenses/lgpl.html", "3.0" );
+    public final static Licence bsd = new Licence( "BSD", "BSD", "http://www.opensource.org/licenses/bsd-license.php", "1989" );  // TODO details
+    public final static Licence json = new Licence( "JSON", "JSON", "http://www.json.org/license.html", "2002" );
+    public final static Licence creativeCommons = new Licence( "creativeCommons", "Creative Commons", "http://creativecommons.org/licenses/publicdomain/", "pre 3.0" );
+    public final static Licence cpl = new Licence( "CPL", "CPL", "http://www.eclipse.org/legal/cpl-v10.html", "1.0" );
+    public final static Licence mit = new Licence( "MIT", "MIT", "http://www.opensource.org/licenses/mit-license.php", "1.0" );
+    public final static Licence muchsoft = new Licence( "MuchSoft", "Muchsoft", "http://www.muchsoft.com/java/docs/com/muchsoft/util/Sys.html", "2004" );
+
+
+
+//    public static Licence json() {
+//        //
+//        return new Licence( "JSON" );
+//    }
+
+
+
 
 }

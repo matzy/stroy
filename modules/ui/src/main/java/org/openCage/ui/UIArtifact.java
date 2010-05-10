@@ -35,16 +35,16 @@ public class UIArtifact implements ArtifactProvider {
                 depends( proj.external( "net.java.dev.designgridlayout", "designgridlayout" ).
                         depends( proj.external( "net.java.dev.swing-layout", "swing-layout" ).
                                 address( "https://swing-layout.dev.java.net/", "dev.java").
-                                lgpl().
+                                lgpl3().
                                 version("1.0.2")).
                         descriptionShort( "Swing layout manager based on the use of canonical grids for user interface design." ).
                         address( "https://designgridlayout.dev.java.net/", "dev.java").
-                        lgpl().
+                        apache2().
                         version( "0.9" )).
                 depends( proj.external( "fifesoft", "RSyntaxTextArea" ).
                         descriptionShort( "A textarea subclass enhanced by a lot of typical texteditor feature").
                         address( "http://fifesoft.com/rsyntaxtextarea/", "fifesoft.org" ).
-                        lgpl().
+                        lgpl3().
                         version( "1.4.1" )).
                 depends( proj.external( "com.jgoodies", "binding" ).
                         descriptionShort( "Twoway binding of domain objects and ui objects. Changes to the domain object are displayed by the ui object, changes to the ui object modify the domain object." ).
@@ -59,7 +59,7 @@ public class UIArtifact implements ArtifactProvider {
                 depends( proj.external( "macwidgets", "macwidgets" ).
                         descriptionShort( "Library with OSX inspired swing components. e.g. a toolbar that blends in with the title bar, better buttons ..." ).
                         address( "http://code.google.com/p/macwidgets/", "code.google.com").
-                        lgpl().
+                        lgpl3().
                         version( "0.9.5" ).
                         depends( proj.external( "com.jgoodies", "forms" ).
                         descriptionShort( "JGoodies Forms library," ).

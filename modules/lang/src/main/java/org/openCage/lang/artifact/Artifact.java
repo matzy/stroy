@@ -38,7 +38,7 @@ public class Artifact {
     private final String name;
     private final String  groupId;
 
-    private final Once<Licence> licence = new Once<Licence>( Licence.apache2() );
+    private final Once<Licence> licence = new Once<Licence>( Licence.apache2 );
     private final Once<Version>  version = new Once<Version>( Version.valueOf("0.0.1") );
     private final Once<JavaVersion> javaVersion = new Once<JavaVersion>( JavaVersion.V6);
     private final Once<String> descriptionShort = new Once<String>( "a program doing foo" );
@@ -83,48 +83,54 @@ public class Artifact {
         return this;
     }
 
+    public Artifact licence( String name ) {
+        licence.set( Licence.valueOf( name ) );
+        return this;
+    }
+
     public Artifact mpl11() {
-        licence.set( Licence.mpl11() );
+        licence.set( Licence.mpl11 );
         return this;
     }
 
     public Artifact apache2() {
-        licence.set( Licence.apache2() );
+        licence.set( Licence.apache2 );
         return this;
     }
 
-    public Artifact lgpl() {
-        licence.set( Licence.lgpl() );
+    public Artifact lgpl2() {
+        licence.set( Licence.lgpl2 );
+        return this;
+    }
+
+    public Artifact lgpl3() {
+        licence.set( Licence.lgpl3 );
         return this;
     }
 
     public Artifact bsd() {
-        licence.set( Licence.bsd() );
+        licence.set( Licence.bsd );
         return this;
     }
 
-    public Artifact creativeCommosns() {
-        licence.set( Licence.creativeCommons() );
+    public Artifact creativeCommons() {
+        licence.set( Licence.creativeCommons );
         return this;
     }
 
     public Artifact cpl() {
-        licence.set( Licence.cpl());
+        licence.set( Licence.cpl);
         return this;
     }
 
-    public Artifact openIfUnchanged() {
-        licence.set( Licence.openIf() );
-        return this;
-    }
 
     public Artifact mit() {
-        licence.set( Licence.mit() );
+        licence.set( Licence.mit );
         return this;
     }
 
     public Artifact jsonlicence() {
-        licence.set( Licence.json() );
+        licence.set( Licence.json );
         return this;
     }
 
@@ -432,26 +438,5 @@ public class Artifact {
         return name;
     }
 
-
-    public String quine() {
-        String ret = "import org.openCage.lang.artifact.Artifact;\n" +
-                "import org.openCage.lang.artifact.ArtifactProvider;\n" +
-                "import org.openCage.lang.artifact.Project;\n" +
-                "\n" +
-                "@Immutable\n" +
-                "public class " + quineName() + "Artifact implements ArtifactProvider {\n" +
-                "\n" +
-                "    private final Artifact lang;\n" +
-                "    private final Project  proj;\n" +
-                "\n" +
-                "    public " + quineName() + "Artifact() {\n" +
-                "        proj = new Project(";
-
-        return ret;
-    }
-
-    private String quineName() {
-        return name.substring(0,1).toUpperCase() + name.substring(1);
-    }
 
 }

@@ -5,13 +5,6 @@ import org.junit.Test;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 
-/**
- * Created by IntelliJ IDEA.
- * User: stephan
- * Date: May 6, 2010
- * Time: 4:00:21 PM
- * To change this template use File | Settings | File Templates.
- */
 public class JavaVersionTest {
 
     @Test
@@ -29,7 +22,7 @@ public class JavaVersionTest {
         assertEquals( JavaVersion.V7, JavaVersion.V7 );
 
 
-        assertEquals( "JavaVersion.V6P", JavaVersion.V6P.quine());
+        assertEquals( "6+", JavaVersion.valueOf( "6P" ).toString());
     }
 
 

@@ -35,7 +35,7 @@ public class IOArtifact implements ArtifactProvider{
                         version("1.0").
                         descriptionShort( "Tool to help make java apps behave and look like native osx apps. e.g. Menus in menu bar, Preferences open on command-, ... " ).
                         address( "http://www.muchsoft.com/", "munchsoft.com" ).
-                        openIfUnchanged()
+                        licence( "MuchSoft" )
                         ).
                 testDepends( proj.get( "junit", "junit"));
     }

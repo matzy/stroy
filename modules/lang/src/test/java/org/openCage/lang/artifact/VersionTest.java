@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.openCage.lang.artifact.Version;
 
 import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 
 public class VersionTest {
@@ -31,11 +32,18 @@ public class VersionTest {
     @Test
     public void test2() {
         assertEquals( "1.0", Version.valueOf( "1.0" ).getShort());
+
+        assertEquals( "Version: 1.0", Version.valueOf("1.0").toString());
+
+        assertEquals( Version.valueOf("1.2.3"), Version.valueOf("1.2.3"));
+
+        assertNotSame( Version.valueOf("1.2.3").hashCode(), Version.valueOf("4.5.6").hashCode());
+
+        assertNotSame( Version.valueOf("1.2.3"), Version.valueOf("4.5.6"));
+        assertNotSame( Version.valueOf("1.2.3"), 1);
     }
 
 
-    @Test
-    public void testSelf() {
-        assertEquals( "Version.valueOf( \"1.0.2\" )", Version.valueOf( "1.0.2" ).self());
-    }
+
+
 }

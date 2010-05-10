@@ -29,7 +29,7 @@ public class LangArtifact implements ArtifactProvider {
                         version( "7.0.3")).
                 depends( proj.external("net.jcip", "jcip-annotations" ).
                         address( "http://www.javaconcurrencyinpractice.com/", "javaconcurrencyinpractice" ).
-                        creativeCommosns().
+                        creativeCommons().
                         version( "1.0" )).
                 testDepends( proj.external("junit", "junit" ).
                         address( "http://www.junit.org/", "junit.org" ).
