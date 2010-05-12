@@ -4,6 +4,7 @@ import net.jcip.annotations.Immutable;
 import org.openCage.lang.artifact.Artifact;
 import org.openCage.lang.artifact.ArtifactProvider;
 import org.openCage.lang.artifact.Project;
+import org.openCage.lang.artifact.Version;
 
 @Immutable
 public class LangArtifact implements ArtifactProvider {
@@ -17,7 +18,7 @@ public class LangArtifact implements ArtifactProvider {
         lang = proj.module( getClass(), "openCage", "lang" ).
                 mpl11().
                 java6().
-                version( "0.1.0").
+                add( Version.valueOf( "0.1.0" ).build( 572 )).
                 author( proj.author( "Stephan Pfab" ).email( "mailto:openCag@gmail.com" )).
                 email( "mailto:openCag@gmail.com" ).
                 address( "http://stroy.wikidot.com", "wikidot.com").

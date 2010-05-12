@@ -140,6 +140,11 @@ public class Artifact {
         return this;
     }
 
+    public Artifact add( Version ver ) {
+        version.set( ver );
+        return this;
+    }
+
     public Artifact iconResourceOSX( String path ) {
         if ( !path.endsWith(".icns")) {
             throw new IllegalArgumentException( "osx icon ends must end with .icns" );
