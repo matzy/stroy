@@ -3,8 +3,9 @@ package org.openCage.lang;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.openCage.lang.BackgroundExecutor;
+import org.openCage.lang.functions.CatchAll;
 import org.openCage.lang.functions.F0;
+import org.openCage.lang.functions.FV;
 
 /***** BEGIN LICENSE BLOCK *****
  * Version: MPL 1.1
@@ -36,43 +37,38 @@ public class BackgroundExecutorImpl implements BackgroundExecutor {
     private static final int WAITING = 10000; // 10s
     private static final Logger LOG = Logger.getLogger(BackgroundExecutorImpl.class.getName());
 
-    public void addPeriodicAndExitTask( final F0<Void> task) {
+    public void addPeriodicAndExitTask( final FV task) {
         addExitTask( task );
         addPeriodicTask( task );
     }
 
-    public void addPeriodicTask( final F0<Void> task) {
+    @Override public void addPeriodicTask( final FV task) {
         new Thread() {
 
             @SuppressWarnings({"OverlyBroadCatchBlock"})
             public void run() {
                 //noinspection InfiniteLoopStatement
                 while (true) {
+
                     try {
-                        Thread.sleep(WAITING);
-                        task.call();
-                    } catch (Exception exp) {
-                        LOG.warning("BackgroundExecutor caught " + exp);
+                        Thread.sleep( WAITING );
+                    } catch (InterruptedException e) {
+                        // TODO ??
                     }
+
+                    CatchAll.call( task );
                 }
             }
         }.start();
     }
 
-    public void addExitTask( final F0<Void> task ) {
+    @Override public void addExitTask( final FV task ) {
         Runtime.getRuntime().addShutdownHook(
-            new Thread(new Runnable() {
-
-            public void run() {
-                try {
-                    task.call();
-                } catch (Exception ex) {
-                    LOG.log(Level.SEVERE, null, ex);
-                } catch ( Error err ) {
-                    LOG.log(Level.SEVERE, null, err);                    
-                }
-            }
-        }));
+                new Thread( new Runnable() {
+                    @Override public void run() {
+                        CatchAll.call( task );
+                    }
+                }));
 
     }
 }

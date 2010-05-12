@@ -8,6 +8,7 @@ import org.openCage.lang.BackgroundExecutor;
 import org.openCage.lang.SingletonApp;
 import org.openCage.lang.errors.Unchecked;
 import org.openCage.lang.functions.F0;
+import org.openCage.lang.functions.FV;
 import org.openCage.property.protocol.PropStore;
 import org.openCage.property.protocol.Property;
 
@@ -66,9 +67,9 @@ public class PropStoreImpl implements PropStore {
 
             final PropStoreImpl propStore = this;
 
-            background.addPeriodicAndExitTask( new F0<Void>() {
+            background.addPeriodicAndExitTask( new FV() {
                 @Override
-                public Void call() {
+                public void call() {
                     if ( isDirty ) {
                         synchronized ( propStore ) {
                             FileWriter writer = null;
@@ -85,7 +86,6 @@ public class PropStoreImpl implements PropStore {
                             isDirty = false;
                         }
                     }
-                    return null;
                 }
             });
 

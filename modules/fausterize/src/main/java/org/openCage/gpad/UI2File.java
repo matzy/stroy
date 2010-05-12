@@ -6,6 +6,7 @@ import org.openCage.lang.BackgroundExecutor;
 import org.openCage.lang.errors.Unchecked;
 import org.openCage.lang.functions.F1;
 import org.openCage.lang.functions.F0;
+import org.openCage.lang.functions.FV;
 import org.openCage.localization.protocol.Localize;
 
 import javax.swing.JTextArea;
@@ -68,18 +69,14 @@ public class UI2File {
         this.file     = file;
 
 
-        executor.addPeriodicAndExitTask( new F0<Void>() {
-            @Override
-            public Void call() {
-
+        executor.addPeriodicAndExitTask( new FV() {
+            @Override public void call() {
                 write();
-                return null;
             }
         });
 
         textArea.addKeyListener( new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) {
+            @Override public void keyTyped(KeyEvent e) {
                 if ( textArea.isEditable() && !changed ) {
                     changed = true;
                 }

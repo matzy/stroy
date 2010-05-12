@@ -1,10 +1,4 @@
-package org.openCage.lang;
-
-import org.apache.commons.lang.mutable.MutableLong;
-import org.junit.Test;
-import org.openCage.lang.functions.FV;
-
-import static junit.framework.Assert.assertTrue;
+package org.openCage.lang.functions;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -28,27 +22,10 @@ import static junit.framework.Assert.assertTrue;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-
-public class BackgroundExecutorTest {
-
-    @Test
-    public void testPeriodic() throws InterruptedException {
-        BackgroundExecutor bg = new BackgroundExecutorImpl();
-
-        final MutableLong count = new MutableLong(0);
-
-        bg.addPeriodicTask( new FV() {
-            public void call() {
-                count.increment();
-            }
-        });
-
-        Thread.sleep( 25000 );
-
-        synchronized ( count ) {
-            System.out.println( count.intValue());
-            assertTrue( count.intValue() > 1 );
-        }
-
-    }
+/**
+ * A generic first class function with no arguments
+ * use Void to create functions with no return
+ */
+public interface FV {
+    public void call();
 }

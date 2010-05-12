@@ -26,9 +26,12 @@ import java.util.Iterator;
 
 /**
  * Adds and index and isFirst and isLast to any Iteratable
- * <pre>{@code for(Count<String> str : Count.count( stringlist)) }
- *                 System.out.println("idx " + str.dx() + " = " + str.obj() );
- *                }
+ * <pre>
+ *      {@code
+ *           List<String> stringlist = Arrays.asList( "A", "B", "C" );
+ *           for(Count<String> str : Count.count( stringlist)) {
+ *               System.out.println("idx " + str.idx() + " = " + str.obj() );
+ *            }
  *      }
  * </pre>
  * @param <T> Any Type
