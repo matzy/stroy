@@ -1,7 +1,7 @@
 package org.openCage.lang;
 
 import org.openCage.lang.errors.Unchecked;
-import org.openCage.lang.protocol.F0;
+import org.openCage.lang.functions.F0;
 
 
 /***** BEGIN LICENSE BLOCK *****

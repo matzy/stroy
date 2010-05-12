@@ -1,4 +1,6 @@
-package org.openCage.lang.protocol;
+package org.openCage.lang;
+
+import org.openCage.lang.functions.F0;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -21,14 +23,27 @@ package org.openCage.lang.protocol;
 *
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
-/**
- * Builder Pattern
- * add data to a builder and at last call build to create a new object
- * this replaces a complex constructor + init process
- * @author stephan
- * @param <T>
- * TODO does this interface provide anything?
- */
-public interface Builder<T> {
-	public T build();
+
+public interface BackgroundExecutor {
+
+    /**
+     * the task will run periodically and also at the end of the program
+     * @param task
+     */
+    public void addPeriodicAndExitTask( F0<Void> task );
+
+    /**
+     * the task will be run every 10 seconds
+     * te task should run fairly quick
+     * @param task
+     */
+    public void addPeriodicTask( F0<Void> task );
+
+    /**
+     * the task will be executed at the end of the program
+     * independent of how the program ends
+     * @param task
+     */
+    public void addExitTask( F0<Void> task );
+
 }

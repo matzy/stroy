@@ -1,6 +1,6 @@
 //package org.openCage.lang;
 //
-//import org.openCage.lang.protocol.F1;
+//import org.openCage.lang.functions.F1;
 //
 //import java.util.logging.Level;
 //import java.util.logging.Logger;

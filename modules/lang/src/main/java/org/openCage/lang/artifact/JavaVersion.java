@@ -1,5 +1,7 @@
 package org.openCage.lang.artifact;
 
+import org.openCage.lang.Constants;
+
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
 *
@@ -42,11 +44,11 @@ public final class JavaVersion implements Comparable<JavaVersion>{
     }
 
     public static final JavaVersion V5 = new JavaVersion( 5, false );
-    public final static JavaVersion V5P = new JavaVersion( 5, true );
-    public final static JavaVersion V6 = new JavaVersion( 6, false );
-    public final static JavaVersion V6P = new JavaVersion( 6, true);
-    public final static JavaVersion V7 = new JavaVersion( 7, false);
-    public final static JavaVersion V7P = new JavaVersion( 7, true );
+    public static final JavaVersion V5P = new JavaVersion( 5, true );
+    public static final JavaVersion V6 = new JavaVersion( 6, false );
+    public static final JavaVersion V6P = new JavaVersion( 6, true);
+    public static final JavaVersion V7 = new JavaVersion( 7, false);
+    public static final JavaVersion V7P = new JavaVersion( 7, true );
 
     public String jvmVersion() {
         return "1." + verNum;
@@ -60,27 +62,22 @@ public final class JavaVersion implements Comparable<JavaVersion>{
         return  (2 * verNum ) + (plus ? 1 : 0) - (2 * o.verNum ) - (o.plus ? 1 : 0);
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof JavaVersion)) return false;
+    @Override public boolean equals(Object o) {
+        if (this == o) { return true; }
+        if (!(o instanceof JavaVersion)) { return false; }
 
         JavaVersion that = (JavaVersion) o;
 
-        if (plus != that.plus) return false;
-        if (verNum != that.verNum) return false;
+        if (plus != that.plus) { return false; }
+        if (verNum != that.verNum) { return false; }
 
         return true;
     }
 
-    @Override
-    public int hashCode() {
+    @Override public int hashCode() {
         int result = verNum;
-        result = 31 * result + (plus ? 1 : 0);
+        result = Constants.HASHFACTOR * result + (plus ? 1 : 0);
         return result;
     }
 
-//    public String quine() {
-//        return "JavaVersion.V" + verNum + (plus ? "P" : "");
-//    }
 }

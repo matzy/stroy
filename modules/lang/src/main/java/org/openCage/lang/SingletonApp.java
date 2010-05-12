@@ -1,4 +1,4 @@
-package org.openCage.lang.protocol;
+package org.openCage.lang;
 
 public interface SingletonApp {
 

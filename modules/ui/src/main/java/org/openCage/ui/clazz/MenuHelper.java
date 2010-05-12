@@ -4,7 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.muchsoft.util.Sys;
 import org.openCage.lang.artifact.Artifact;
-import org.openCage.lang.protocol.F0;
+import org.openCage.lang.functions.F0;
 import org.openCage.localization.protocol.Localize;
 import org.openCage.ui.protocol.AboutSheet;
 

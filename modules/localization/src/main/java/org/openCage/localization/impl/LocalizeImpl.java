@@ -7,7 +7,7 @@ import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-import org.openCage.lang.protocol.F1;
+import org.openCage.lang.functions.F1;
 import org.openCage.localization.protocol.Localize;
 import org.openCage.property.protocol.Property;
 

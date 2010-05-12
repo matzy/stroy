@@ -1,6 +1,6 @@
 package org.openCage.withResource.protocol;
 
-import org.openCage.lang.protocol.F1;
+import org.openCage.lang.functions.F1;
 
 import java.io.File;
 import java.io.InputStream;

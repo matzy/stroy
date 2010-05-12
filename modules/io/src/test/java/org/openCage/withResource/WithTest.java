@@ -10,11 +10,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openCage.lang.errors.Unchecked;
-import org.openCage.lang.protocol.F1;
+import org.openCage.lang.functions.F1;
 import org.openCage.withResource.protocol.With;
 import org.openCage.withResource.wiring.IoWiring;
 

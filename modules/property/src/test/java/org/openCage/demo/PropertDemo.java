@@ -4,7 +4,7 @@
 //import com.google.inject.Inject;
 //import com.google.inject.Injector;
 //import com.google.inject.name.Named;
-//import org.openCage.lang.protocol.F1;
+//import org.openCage.lang.functions.F1;
 //import org.openCage.property.protocol.Property;
 //
 ///**

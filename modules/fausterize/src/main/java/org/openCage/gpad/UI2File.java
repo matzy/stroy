@@ -2,10 +2,10 @@ package org.openCage.gpad;
 
 import org.apache.commons.io.FileUtils;
 import org.jetbrains.annotations.NotNull;
+import org.openCage.lang.BackgroundExecutor;
 import org.openCage.lang.errors.Unchecked;
-import org.openCage.lang.protocol.BackgroundExecutor;
-import org.openCage.lang.protocol.F0;
-import org.openCage.lang.protocol.F1;
+import org.openCage.lang.functions.F1;
+import org.openCage.lang.functions.F0;
 import org.openCage.localization.protocol.Localize;
 
 import javax.swing.JTextArea;

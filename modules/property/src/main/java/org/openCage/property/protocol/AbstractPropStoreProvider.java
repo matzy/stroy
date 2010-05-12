@@ -2,8 +2,8 @@ package org.openCage.property.protocol;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
-import org.openCage.lang.protocol.BackgroundExecutor;
-import org.openCage.lang.protocol.SingletonApp;
+import org.openCage.lang.BackgroundExecutor;
+import org.openCage.lang.SingletonApp;
 import org.openCage.property.impl.PropStoreImpl;
 import org.openCage.property.protocol.PropStore;
 

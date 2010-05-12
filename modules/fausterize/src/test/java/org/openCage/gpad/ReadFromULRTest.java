@@ -1,12 +1,8 @@
 package org.openCage.gpad;
 
 import org.junit.Test;
-import org.openCage.lang.errors.Unchecked;
-import org.openCage.lang.protocol.F1;
-import org.openCage.withResource.impl.WithImpl;
 
 import java.io.*;
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;

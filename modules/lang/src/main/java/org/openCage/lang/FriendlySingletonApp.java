@@ -1,6 +1,6 @@
-package org.openCage.lang.impl;
+package org.openCage.lang;
 
-import org.openCage.lang.protocol.SingletonApp;
+import org.openCage.lang.SingletonApp;
 
 import java.io.File;
 import java.io.IOException;

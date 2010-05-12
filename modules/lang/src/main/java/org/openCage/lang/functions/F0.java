@@ -1,4 +1,4 @@
-package org.openCage.lang.protocol;
+package org.openCage.lang.functions;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -22,26 +22,10 @@ package org.openCage.lang.protocol;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public interface BackgroundExecutor {
-
-    /**
-     * the task will run periodically and also at the end of the program
-     * @param task
-     */
-    public void addPeriodicAndExitTask( F0<Void> task );
-
-    /**
-     * the task will be run every 10 seconds
-     * te task should run fairly quick
-     * @param task
-     */
-    public void addPeriodicTask( F0<Void> task );
-
-    /**
-     * the task will be executed at the end of the program
-     * independent of how the program ends
-     * @param task
-     */
-    public void addExitTask( F0<Void> task );
-
+/**
+ * A generic first class function with no arguments
+ * use Void to create functions with no return
+ */
+public interface F0<R> {
+    public R call();
 }

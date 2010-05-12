@@ -3,8 +3,8 @@ package org.openCage.lang;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.openCage.lang.impl.FriendlySingletonApp;
-import org.openCage.lang.protocol.SingletonApp;
+import org.openCage.lang.FriendlySingletonApp;
+import org.openCage.lang.SingletonApp;
 
 import java.io.File;
 

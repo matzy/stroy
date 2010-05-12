@@ -2,7 +2,7 @@ package org.openCage.property;
 
 import org.junit.Test;
 import org.openCage.lang.errors.Unchecked;
-import org.openCage.lang.protocol.F1;
+import org.openCage.lang.functions.F1;
 import org.openCage.property.impl.PropertyImpl;
 import org.openCage.property.protocol.Property;
 

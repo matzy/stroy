@@ -2,7 +2,7 @@
 //
 //import org.jetbrains.annotations.NotNull;
 //import org.openCage.lang.errors.Unchecked;
-//import org.openCage.lang.protocol.F1;
+//import org.openCage.lang.functions.F1;
 //import org.openCage.withResource.impl.WithImpl;
 //import org.openCage.withResource.protocol.Iterators;
 //

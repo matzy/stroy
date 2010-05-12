@@ -3,7 +3,7 @@ package org.openCage.ui.impl;
 import com.google.inject.Inject;
 import com.muchsoft.util.mac.Java14Adapter;
 import com.muchsoft.util.mac.Java14Handler;
-import org.openCage.lang.protocol.F0;
+import org.openCage.lang.functions.F0;
 import org.openCage.ui.protocol.AboutSheet;
 import org.openCage.ui.protocol.OSXStandardEventHandler;
 

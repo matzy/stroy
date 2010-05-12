@@ -5,7 +5,7 @@ import java.util.logging.Logger;
 import org.junit.Test;
 import org.openCage.lang.Lazy;
 import org.openCage.lang.errors.Unchecked;
-import org.openCage.lang.protocol.F0;
+import org.openCage.lang.functions.F0;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1

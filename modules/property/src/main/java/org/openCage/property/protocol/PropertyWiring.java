@@ -3,8 +3,8 @@ package org.openCage.property.protocol;
 import com.google.inject.Binder;
 import com.google.inject.Module;
 import com.google.inject.name.Names;
-import org.openCage.lang.impl.BackgroundExecutorImpl;
-import org.openCage.lang.protocol.BackgroundExecutor;
+import org.openCage.lang.BackgroundExecutorImpl;
+import org.openCage.lang.BackgroundExecutor;
 
 public class PropertyWiring implements Module {
 

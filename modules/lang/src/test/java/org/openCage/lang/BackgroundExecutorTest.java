@@ -2,9 +2,9 @@ package org.openCage.lang;
 
 import org.apache.commons.lang.mutable.MutableLong;
 import org.junit.Test;
-import org.openCage.lang.impl.BackgroundExecutorImpl;
-import org.openCage.lang.protocol.BackgroundExecutor;
-import org.openCage.lang.protocol.F0;
+import org.openCage.lang.BackgroundExecutorImpl;
+import org.openCage.lang.BackgroundExecutor;
+import org.openCage.lang.functions.F0;
 
 import static junit.framework.Assert.assertTrue;
 

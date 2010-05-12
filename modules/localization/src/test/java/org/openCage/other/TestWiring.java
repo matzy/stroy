@@ -2,8 +2,8 @@ package org.openCage.other;
 
 import com.google.inject.name.Names;
 import org.junit.Ignore;
-import org.openCage.lang.impl.BackgroundExecutorImpl;
-import org.openCage.lang.protocol.BackgroundExecutor;
+import org.openCage.lang.BackgroundExecutorImpl;
+import org.openCage.lang.BackgroundExecutor;
 import org.openCage.localization.protocol.Localize;
 import org.openCage.localization.wiring.LocalizeWiring;
 

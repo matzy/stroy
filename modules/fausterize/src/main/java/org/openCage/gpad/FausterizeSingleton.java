@@ -2,8 +2,8 @@ package org.openCage.gpad;
 
 import com.google.inject.Provider;
 import org.openCage.fspath.clazz.FSPathBuilder;
-import org.openCage.lang.impl.FriendlySingletonApp;
-import org.openCage.lang.protocol.SingletonApp;
+import org.openCage.lang.FriendlySingletonApp;
+import org.openCage.lang.SingletonApp;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1

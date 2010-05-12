@@ -4,10 +4,10 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import org.apache.commons.io.IOUtils;
 import org.jetbrains.annotations.NotNull;
+import org.openCage.lang.BackgroundExecutor;
+import org.openCage.lang.SingletonApp;
 import org.openCage.lang.errors.Unchecked;
-import org.openCage.lang.protocol.BackgroundExecutor;
-import org.openCage.lang.protocol.F0;
-import org.openCage.lang.protocol.SingletonApp;
+import org.openCage.lang.functions.F0;
 import org.openCage.property.protocol.PropStore;
 import org.openCage.property.protocol.Property;
 

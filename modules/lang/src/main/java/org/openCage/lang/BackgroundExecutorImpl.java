@@ -1,10 +1,10 @@
-package org.openCage.lang.impl;
+package org.openCage.lang;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.openCage.lang.protocol.BackgroundExecutor;
-import org.openCage.lang.protocol.F0;
+import org.openCage.lang.BackgroundExecutor;
+import org.openCage.lang.functions.F0;
 
 /***** BEGIN LICENSE BLOCK *****
  * Version: MPL 1.1

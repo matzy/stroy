@@ -2,7 +2,7 @@ package org.openCage.property.impl;
 
 import net.jcip.annotations.ThreadSafe;
 import org.openCage.lang.errors.Unchecked;
-import org.openCage.lang.protocol.F1;
+import org.openCage.lang.functions.F1;
 import org.openCage.property.protocol.PropStore;
 import org.openCage.property.protocol.Property;
 

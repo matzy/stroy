@@ -1,6 +1,6 @@
 package org.openCage.property.protocol;
 
-import org.openCage.lang.protocol.F1;
+import org.openCage.lang.functions.F1;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1

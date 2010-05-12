@@ -1,6 +1,6 @@
 package org.openCage.demo;
 
-import org.openCage.lang.protocol.F1;
+import org.openCage.lang.functions.F1;
 import org.openCage.property.protocol.Property;
 
 /**

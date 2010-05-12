@@ -1,5 +1,6 @@
 package org.openCage.lang.artifact;
 
+import org.openCage.lang.Constants;
 import org.openCage.lang.structure.Once;
 
 public class Version { //implements Comparable<Version>{
@@ -50,8 +51,7 @@ public class Version { //implements Comparable<Version>{
     }
 
 
-    @Override
-    public String toString() {
+    @Override public String toString() {
         String ret = "Version: " + version;
         if ( buildNumber.isSet()) {
             ret += buildNumber.get();
@@ -64,24 +64,21 @@ public class Version { //implements Comparable<Version>{
         return ret;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Version)) return false;
+    @Override public boolean equals(Object o) {
+        if (this == o) { return true; }
+        if (!(o instanceof Version)) { return false; }
 
         Version version1 = (Version) o;
 
-        if (buildNumber != null ? !buildNumber.equals(version1.buildNumber) : version1.buildNumber != null)
-            return false;
-        if (version != null ? !version.equals(version1.version) : version1.version != null) return false;
+        if (buildNumber != null ? !buildNumber.equals(version1.buildNumber) : version1.buildNumber != null) { return false; }
+        if (version != null ? !version.equals(version1.version) : version1.version != null) { return false; }
 
         return true;
     }
 
-    @Override
-    public int hashCode() {
+    @Override public int hashCode() {
         int result = version != null ? version.hashCode() : 0;
-        result = 31 * result + (buildNumber != null ? buildNumber.hashCode() : 0);
+        result = Constants.HASHFACTOR * result + (buildNumber != null ? buildNumber.hashCode() : 0);
         return result;
     }
 

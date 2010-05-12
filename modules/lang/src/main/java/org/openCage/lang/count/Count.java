@@ -26,9 +26,11 @@ import java.util.Iterator;
 
 /**
  * Adds and index and isFirst and isLast to any Iteratable
- * <pre>{@code for(Count<String> str : Count.count( stringlist)) \}
+ * <pre>{@code for(Count<String> str : Count.count( stringlist)) }
  *                 System.out.println("idx " + str.dx() + " = " + str.obj() );
- *                }</pre>
+ *                }
+ *      }
+ * </pre>
  * @param <T> Any Type
  * @throws UnsupportedOperationException on remove
  */

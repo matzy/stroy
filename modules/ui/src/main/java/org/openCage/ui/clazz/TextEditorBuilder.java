@@ -4,8 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.muchsoft.util.Sys;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
-import org.openCage.lang.protocol.F0;
-import org.openCage.localization.impl.LocalizeImpl;
+import org.openCage.lang.functions.F0;
 import org.openCage.localization.protocol.Localize;
 
 import javax.swing.AbstractAction;

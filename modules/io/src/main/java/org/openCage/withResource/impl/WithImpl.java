@@ -5,7 +5,7 @@ import java.io.*;
 import java.net.URI;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.openCage.lang.protocol.F1;
+import org.openCage.lang.functions.F1;
 import org.openCage.lang.errors.Unchecked;
 import org.openCage.withResource.protocol.FileLineIterable;
 import org.openCage.withResource.protocol.With;

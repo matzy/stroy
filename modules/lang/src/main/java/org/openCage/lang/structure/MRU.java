@@ -31,6 +31,10 @@ import java.util.List;
  * Contributor(s):
  ***** END LICENSE BLOCK *****/
 
+/**
+ * A Most Recently Used Collection ordered by last use
+ * @param <T>
+ */
 @ThreadSafe
 public class MRU<T> {
     private static final int INIT_SIZE = 10;

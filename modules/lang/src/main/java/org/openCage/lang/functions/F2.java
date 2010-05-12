@@ -1,4 +1,10 @@
-package org.openCage.lang.protocol;
+
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package org.openCage.lang.functions;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -23,10 +29,11 @@ package org.openCage.lang.protocol;
 ***** END LICENSE BLOCK *****/
 
 /**
- * A generic function with one argument
- * @param <R> Any type
- * @param <A> Any type
+ * A Generic Function with 2 arguments
+ * @param <R>
+ * @param <A>
+ * @param <B>
  */
-public interface F1<R,A> {
-	public R call( A a);
+public interface F2<R,A,B> {
+	public R call( A a, B b);
 }

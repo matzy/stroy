@@ -55,10 +55,12 @@ public class Licence {
 		return true;
 	}
 
-    @Override
-    public String toString() {
+    @Override public String toString() {
         return "Licence{" +
                 "name='" + name + '\'' +
+                ", shortName='" + shortName + '\'' +
+                ", address='" + address + '\'' +
+                ", version=" + version +
                 '}';
     }
 
@@ -71,8 +73,6 @@ public class Licence {
         return ret;
     }
 
-
-//
 
     public String getName() {
         return name;
@@ -118,15 +118,5 @@ public class Licence {
     public final static Licence cpl = new Licence( "CPL", "CPL", "http://www.eclipse.org/legal/cpl-v10.html", "1.0" );
     public final static Licence mit = new Licence( "MIT", "MIT", "http://www.opensource.org/licenses/mit-license.php", "1.0" );
     public final static Licence muchsoft = new Licence( "MuchSoft", "Muchsoft", "http://www.muchsoft.com/java/docs/com/muchsoft/util/Sys.html", "2004" );
-
-
-
-//    public static Licence json() {
-//        //
-//        return new Licence( "JSON" );
-//    }
-
-
-
 
 }
