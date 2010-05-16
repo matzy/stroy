@@ -271,7 +271,7 @@
         <echo message="jars-vars = ${jars-var}"/>
 
         <manifest file="${resources}/manifest.mf" mode="replace">
-            <attribute name="Built-By" value="${user.name}"/>
+            <attribute name="Built-By" value="${el.author}"/>
             <attribute name="Created-By" value="${el.author}"/>
             <attribute name="Class-Path" value="${jars-var}"/>
         </manifest>
