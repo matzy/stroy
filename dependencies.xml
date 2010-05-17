@@ -31,7 +31,7 @@
 
    <!-- ================================================================== -->
    <target name="depend.ui"
-           depends="depend.property, depend.localization, depend.io, depend.lang, designgridlayout, RSyntaxTextArea, binding, preferencepanel, macwidgets">
+           depends="depend.property, depend.localization, depend.io, depend.lang, designgridlayout, RSyntaxTextArea, binding, preferencepanel, macwidgets, json">
       <ant dir="${dependencies.basedir}/modules/ui" target="local.goal" inheritAll="false"/>
    </target>
 
@@ -121,6 +121,11 @@
    <!-- ================================================================== -->
    <target name="forms">
       <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/repo/com/jgoodies/forms/1.2.1/forms-1.2.1.jar" />
+   </target>
+
+   <!-- ================================================================== -->
+   <target name="json">
+      <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/repo/org/json/json/20090211/json-20090211.jar" />
    </target>
 
    <!-- ================================================================== -->

@@ -1,7 +1,7 @@
 <project>
    <modelVersion>4.0.0</modelVersion>
    <groupId>openCage</groupId>
-   <artifactId>property</artifactId>
+   <artifactId>openCage-property</artifactId>
    <version>0.1.0</version>
 
     <repositories>
@@ -29,7 +29,7 @@
    <dependencies>
       <dependency>
          <groupId>openCage</groupId>
-         <artifactId>lang</artifactId>
+         <artifactId>openCage-lang</artifactId>
          <version>0.1.0</version>
          <scope>compile</scope>
       </dependency>

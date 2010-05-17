@@ -44,7 +44,6 @@ public class Project {
         Artifact mod = all.getAdd( new Artifact(groupid, name ));
         mod.base( resourceBase );
         modules.add( mod );
-        mod.fullName( groupid + "-" + name );
         return mod;
     }
 

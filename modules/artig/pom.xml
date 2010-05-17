@@ -1,7 +1,7 @@
 <project>
    <modelVersion>4.0.0</modelVersion>
    <groupId>openCage</groupId>
-   <artifactId>artig</artifactId>
+   <artifactId>openCage-artig</artifactId>
    <version>0.0.1</version>
 
     <repositories>
@@ -29,7 +29,7 @@
    <dependencies>
       <dependency>
          <groupId>openCage</groupId>
-         <artifactId>fausterize</artifactId>
+         <artifactId>openCage-fausterize</artifactId>
          <version>0.10.0</version>
          <scope>compile</scope>
       </dependency>

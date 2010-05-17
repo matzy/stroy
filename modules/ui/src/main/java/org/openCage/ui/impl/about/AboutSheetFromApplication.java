@@ -194,12 +194,12 @@ public class AboutSheetFromApplication extends JDialog implements AboutSheet {
         Collections.sort( refs, new Comparator<Artifact>() {
             @Override
             public int compare(Artifact o1, Artifact o2) {
-                return o1.getFullName().compareToIgnoreCase( o2.getFullName() );
+                return o1.gettName().compareToIgnoreCase( o2.gettName() );
             }
         });
         String[] lic = new String[refs.size()];
         for ( Count<Artifact> dep : Count.count( refs )) {
-            String name = dep.obj().getFullName();
+            String name = dep.obj().gettName();
             lic[dep.idx()] =  name + "         " + dep.obj().getLicence().getName();
         }
 

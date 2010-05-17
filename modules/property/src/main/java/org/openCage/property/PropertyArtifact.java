@@ -5,13 +5,6 @@ import org.openCage.lang.artifact.Artifact;
 import org.openCage.lang.artifact.ArtifactProvider;
 import org.openCage.lang.artifact.Project;
 
-/**
- * Created by IntelliJ IDEA.
- * User: stephan
- * Date: Apr 19, 2010
- * Time: 11:01:44 AM
- * To change this template use File | Settings | File Templates.
- */
 public class PropertyArtifact implements ArtifactProvider{
 
     private final Project proj;
@@ -20,11 +13,11 @@ public class PropertyArtifact implements ArtifactProvider{
     public PropertyArtifact() {
         proj = new LangArtifact().getProject();
 
-        property = proj.module( getClass(), "openCage", "property" ).
+        property = proj.module( getClass(), "openCage", "openCage-property" ).
                 version( "0.1.0" ).
                 address( "http://stroy.wikidot.com", "stroy.wikidot.com" ).
                 mpl11().
-                depends( proj.get("openCage", "lang")).
+                depends( proj.get("openCage", "openCage-lang")).
                 depends( proj.external( "com.google.inject", "guice" ).
                         apache2().
                         java6p().

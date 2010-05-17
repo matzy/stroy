@@ -15,7 +15,7 @@ public class LangArtifact implements ArtifactProvider {
     public LangArtifact() {
         proj = new Project( "stroy" );
 
-        lang = proj.module( getClass(), "openCage", "lang" ).
+        lang = proj.module( getClass(), "openCage", "openCage-lang" ).
                 mpl11().
                 java6().
                 add( Version.valueOf( "0.1.0" ).build( 572 )).

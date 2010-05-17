@@ -79,4 +79,8 @@ public class Once<T> {
         set( t.get() );
     }
 
+    @Override
+    public String toString() {
+        return "Once{" + (set ? " " : "* ") + val + "}";
+    }
 }

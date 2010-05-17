@@ -64,7 +64,6 @@ public class Artifact {
     private Once<String> screenshortUrl = new Once<String>("");
     private Once<String> iconUrl = new Once<String>("");
     private Once<String> downloadUrl = new Once<String>("");
-    private Once<String> fullName = new Once<String>("");
 
 
     Artifact( @NotNull String groupId, @NotNull String name ) {
@@ -76,11 +75,6 @@ public class Artifact {
         }
         this.name = name;
         this.groupId = groupId;
-    }
-
-    public Artifact fullName( String full ) {
-        fullName.set( full );
-        return this;
     }
 
     public Artifact licence( String name ) {
@@ -435,13 +429,12 @@ public class Artifact {
         return downloadUrl;
     }
 
-    public String getFullName() {
-        if ( fullName.isSet() ) {
-            return fullName.get();
+
+    public String getModuleName() {
+        if ( name.startsWith( groupId + "-" ) ) {
+            return name.substring( groupId.length() + 1 );
         }
 
         return name;
     }
-
-
 }

@@ -14,7 +14,7 @@ public class FausterizeArtifact implements ArtifactProvider, Provider<Artifact> 
     public FausterizeArtifact() {
         proj = new UIArtifact().getProject();
 
-        fausterize = proj.module( getClass(), "openCage", "fausterize" ).
+        fausterize = proj.module( getClass(), "openCage", "openCage-fausterize" ).
                 version( "0.10.0" ).                
                 address( "http://stroy.wikidot.com/fausterize", "stroy.wikidot.com").
                 mpl11().
@@ -34,11 +34,11 @@ public class FausterizeArtifact implements ArtifactProvider, Provider<Artifact> 
                 screenshotUrl( "http://stroy.wikidot.com/local--files/screenshots/fausterize-0.6.png").
                 iconUrl( "http://stroy.wikidot.com/local--files/screenshots/faust-small.png").
                 downloadUrl( "http://stroy.wikidot.com/local--files/download" ).                
-                depends( proj.get("openCage", "property")).
-                depends( proj.get("openCage", "localization")).
-                depends( proj.get("openCage", "io")).
-                depends( proj.get("openCage", "lang")).
-                depends( proj.get("openCage", "ui")).
+                depends( proj.get("openCage", "openCage-property")).
+                depends( proj.get("openCage", "openCage-localization")).
+                depends( proj.get("openCage", "openCage-io")).
+                depends( proj.get("openCage", "openCage-lang")).
+                depends( proj.get("openCage", "openCage-ui")).
                 depends( proj.get("net.java.dev.designgridlayout", "designgridlayout")).
                 depends( proj.external( "args4j", "args4j" ).
                     version("2.0.12").

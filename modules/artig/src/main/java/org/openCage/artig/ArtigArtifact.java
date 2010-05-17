@@ -16,7 +16,7 @@ public class ArtigArtifact implements ArtifactProvider {
         proj = new Project( "stroy" );
         proj.include( new FausterizeArtifact().getProject());
 
-        lang = proj.module( getClass(), "openCage", "artig" ).
+        lang = proj.module( getClass(), "openCage", "openCage-artig" ).
                 mpl11().
                 java6().
                 version( "0.0.1").
@@ -24,7 +24,7 @@ public class ArtigArtifact implements ArtifactProvider {
                 email( "mailto:openCag@gmail.com" ).
                 address( "http://stroy.wikidot.com", "wikidot.com").
                 descriptionShort( "a library with small java language level additions" ).
-                depends( proj.get( "openCage", "fausterize" ));
+                depends( proj.get( "openCage", "openCage-fausterize" ));
 
 
 

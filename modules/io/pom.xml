@@ -1,7 +1,7 @@
 <project>
    <modelVersion>4.0.0</modelVersion>
    <groupId>openCage</groupId>
-   <artifactId>io</artifactId>
+   <artifactId>openCage-io</artifactId>
    <version>0.0.3</version>
 
     <repositories>
@@ -29,7 +29,7 @@
    <dependencies>
       <dependency>
          <groupId>openCage</groupId>
-         <artifactId>lang</artifactId>
+         <artifactId>openCage-lang</artifactId>
          <version>0.1.0</version>
          <scope>compile</scope>
       </dependency>
@@ -57,10 +57,5 @@
          <version>4.4</version>
          <scope>test</scope>
       </dependency>
-       <dependency>
-           <groupId>commons-lang</groupId>
-           <artifactId>commons-lang</artifactId>
-           <version>2.3</version>
-       </dependency>
    </dependencies>
 </project>

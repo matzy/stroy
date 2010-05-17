@@ -19,11 +19,11 @@ public class IOArtifact implements ArtifactProvider{
     public IOArtifact() {
         proj = new LangArtifact().getProject();
 
-        io = proj.module( getClass(), "openCage", "io").
+        io = proj.module( getClass(), "openCage", "openCage-io").
                 address( "http://stroy.wikidot.com", "stroy.wikidot.com" ).
                 version( "0.0.3").
                 mpl11().
-                depends( proj.get("openCage", "lang")).
+                depends( proj.get("openCage", "openCage-lang")).
                 depends( proj.get("commons-lang", "commons-lang" ) ).
                 depends( proj.external( "com.google.inject", "guice" ).
                         apache2().

@@ -19,7 +19,7 @@ public class StroyDemo {
 
         FSPath stroyRoot =
                 //FSPathBuilder.getPath( "/Users/stephan/tmp/dd" );
-                FSPathBuilder.getPath( StroyDemo.class.getResource(".") ).parent(6);
+                FSPathBuilder.getPath( StroyDemo.class.getResource(".") ).parent(7);
         System.out.println( stroyRoot );
 
 //        MavenGen gen = new MavenGen( new ArtigArtifact().getProject() );
@@ -27,14 +27,14 @@ public class StroyDemo {
 //        gen.generate( stroyRoot );
 
 
-//        PElephGen pgen = new PElephGen( new FausterizeArtifact().getProject() );
-//
-//        pgen.generate( stroyRoot );
+        PElephGen pgen = new PElephGen( new FausterizeArtifact().getProject() );
+
+        pgen.generate( stroyRoot );
 
         
-        QuineGen qgen = new QuineGen( new LangArtifact().getProject());
-
-        System.out.println( qgen.gen( new LangArtifact()));
+//        QuineGen qgen = new QuineGen( new LangArtifact().getProject());
+//
+//        System.out.println( qgen.gen( new LangArtifact()));
 
 
     }

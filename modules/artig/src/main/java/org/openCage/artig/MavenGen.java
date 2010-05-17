@@ -42,7 +42,7 @@ public class MavenGen {
         }
 
         for ( Artifact mod : project.getModules() ) {
-            FSPath modPom = projectRoot.add( "modules", mod.gettName(), "pom.xml" );
+            FSPath modPom = projectRoot.add( "modules", mod.getModuleName(), "pom.xml" );
             FileExistence.ensurePath( modPom );
 
             try {
@@ -63,7 +63,7 @@ public class MavenGen {
         String pom = "<project>\n" +
                 "   <modelVersion>4.0.0</modelVersion>\n";
         pom += "   " + leaf( "groupId", arti.getGroupId()) + "\n";
-        pom += "   " + leaf( "artifactId", getModuleName( arti )) + "\n";
+        pom += "   " + leaf( "artifactId", arti.gettName()) + "\n";
         pom += "   " + leaf( "version", arti.getVersion().getShort()) + "\n\n";
 
         pom += "    <repositories>\n" +
@@ -118,7 +118,7 @@ public class MavenGen {
     private String dependency(Artifact arti, Scope scope  ) {
         String dep = "      <dependency>\n";
         dep += "         " + leaf( "groupId", arti.getGroupId()  ) + "\n";
-        dep += "         " + leaf( "artifactId", getModuleName( arti  )) + "\n";
+        dep += "         " + leaf( "artifactId", arti.gettName()) + "\n";
         System.out.println( arti );
         dep += "         " + leaf( "version", arti.getVersion().getShort()  ) + "\n";
 
@@ -156,7 +156,7 @@ public class MavenGen {
         pom += "    <modules>\n";
 
         for ( Artifact arti : project.getModules() ) {
-            pom += "      " + leaf( "module", "modules/" + arti.gettName())  + "\n";
+            pom += "      " + leaf( "module", "modules/" + arti.getModuleName())  + "\n";
         }
 
         pom += "    </modules>\n";

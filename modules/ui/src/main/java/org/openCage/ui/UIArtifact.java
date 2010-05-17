@@ -7,13 +7,6 @@ import org.openCage.lang.artifact.Project;
 import org.openCage.localization.LocalizationArtifact;
 import org.openCage.property.PropertyArtifact;
 
-/**
- * Created by IntelliJ IDEA.
- * User: stephan
- * Date: Apr 19, 2010
- * Time: 5:26:15 PM
- * To change this template use File | Settings | File Templates.
- */
 public class UIArtifact implements ArtifactProvider {
 
     private final Project proj;
@@ -24,14 +17,14 @@ public class UIArtifact implements ArtifactProvider {
         proj.include( new IOArtifact().getProject());
         proj.include( new LocalizationArtifact().getProject());
 
-        ui = proj.module( getClass(), "openCage", "ui" ).
+        ui = proj.module( getClass(), "openCage", "openCage-ui" ).
                 version( "0.1.0" ).
                 address( "http://stroy.wikidot.com", "stroy.wikidot.com").
                 mpl11().
-                depends( proj.get("openCage", "property")).
-                depends( proj.get("openCage", "localization")).
-                depends( proj.get("openCage", "io")).
-                depends( proj.get("openCage", "lang")).
+                depends( proj.get("openCage", "openCage-property")).
+                depends( proj.get("openCage", "openCage-localization")).
+                depends( proj.get("openCage", "openCage-io")).
+                depends( proj.get("openCage", "openCage-lang")).
                 depends( proj.external( "net.java.dev.designgridlayout", "designgridlayout" ).
                         depends( proj.external( "net.java.dev.swing-layout", "swing-layout" ).
                                 address( "https://swing-layout.dev.java.net/", "dev.java").
