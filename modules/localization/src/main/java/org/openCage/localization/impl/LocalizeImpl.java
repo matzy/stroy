@@ -9,7 +9,7 @@ import java.util.ResourceBundle;
 
 import org.openCage.lang.functions.F1;
 import org.openCage.localization.protocol.Localize;
-import org.openCage.property.protocol.Property;
+import org.openCage.property.Property;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1

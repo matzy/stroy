@@ -3,6 +3,7 @@ package org.openCage.lang;
 import org.junit.Test;
 import org.openCage.lang.artifact.Scope;
 
+import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
 
@@ -16,5 +17,7 @@ public class SimpleTest {
 
         assertNotSame( Scope.COMPILE, Scope.TEST );
         assertNotSame( Scope.COMPILE, Scope.KNOWHOW );
+
+        assertEquals( 31, Constants.HASHFACTOR );
     }
 }

@@ -6,8 +6,8 @@
 //import com.google.inject.TypeLiteral;
 //import com.google.inject.name.Names;
 //import org.openCage.lang.protocol.LangWiring;
-//import org.openCage.property.protocol.PropStore;
-//import org.openCage.property.protocol.Property;
+//import org.openCage.property.PropStore;
+//import org.openCage.property.Property;
 //
 ///**
 // * Created by IntelliJ IDEA.

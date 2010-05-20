@@ -10,7 +10,7 @@ import org.fife.ui.rtextarea.ConfigurableCaret;
 import org.openCage.lang.functions.F1;
 import org.openCage.lang.structure.BiMap;
 import org.openCage.localization.protocol.Localize;
-import org.openCage.property.protocol.Property;
+import org.openCage.property.Property;
 import org.openCage.ui.pref.CaretStyleProperty;
 import org.openCage.ui.protocol.PrefBuilder;
 

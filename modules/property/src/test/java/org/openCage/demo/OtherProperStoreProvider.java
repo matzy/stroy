@@ -3,8 +3,8 @@ package org.openCage.demo;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import org.openCage.lang.BackgroundExecutor;
-import org.openCage.property.impl.PropStoreImpl;
-import org.openCage.property.protocol.PropStore;
+import org.openCage.property.PropStore;
+import org.openCage.property.PropStoreImpl;
 
 public class OtherProperStoreProvider  implements Provider<PropStore> {
 

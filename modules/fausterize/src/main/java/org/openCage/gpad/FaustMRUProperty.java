@@ -5,7 +5,7 @@ import com.google.inject.name.Named;
 import org.openCage.fspath.clazz.FSPathBuilder;
 import org.openCage.lang.structure.MRU;
 import org.openCage.property.protocol.AbstractPropertyProvider;
-import org.openCage.property.protocol.PropStore;
+import org.openCage.property.PropStore;
 
 import java.io.File;
 

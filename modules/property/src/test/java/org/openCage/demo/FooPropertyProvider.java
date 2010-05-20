@@ -3,9 +3,9 @@ package org.openCage.demo;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.name.Named;
-import org.openCage.property.impl.PropertyImpl;
-import org.openCage.property.protocol.PropStore;
-import org.openCage.property.protocol.Property;
+import org.openCage.property.PropStore;
+import org.openCage.property.Property;
+import org.openCage.property.PropertyImpl;
 
 /**
  * Created by IntelliJ IDEA.

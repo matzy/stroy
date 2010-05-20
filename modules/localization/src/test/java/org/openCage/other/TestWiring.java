@@ -9,7 +9,7 @@ import org.openCage.localization.wiring.LocalizeWiring;
 
 import com.google.inject.Binder;
 import com.google.inject.Module;
-import org.openCage.property.protocol.PropStore;
+import org.openCage.property.PropStore;
 
 @Ignore
 public class TestWiring implements Module {

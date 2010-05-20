@@ -4,7 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import org.openCage.property.protocol.NonPersistingPropStore;
 import org.openCage.property.protocol.AbstractPropertyProvider;
-import org.openCage.property.protocol.PropStore;
+import org.openCage.property.PropStore;
 
 /**
  * A restaurant property / preference

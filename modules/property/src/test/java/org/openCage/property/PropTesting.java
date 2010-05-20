@@ -3,8 +3,8 @@ package org.openCage.property;
 import org.junit.Test;
 import org.openCage.lang.errors.Unchecked;
 import org.openCage.lang.functions.F1;
-import org.openCage.property.impl.PropertyImpl;
-import org.openCage.property.protocol.Property;
+import org.openCage.property.PropertyImpl;
+import org.openCage.property.Property;
 
 import static junit.framework.Assert.assertEquals;
 

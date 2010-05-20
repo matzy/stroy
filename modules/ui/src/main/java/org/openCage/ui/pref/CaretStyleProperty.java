@@ -5,7 +5,7 @@ import com.google.inject.name.Named;
 import org.fife.ui.rtextarea.ConfigurableCaret;
 import org.jetbrains.annotations.NotNull;
 import org.openCage.property.protocol.AbstractPropertyProvider;
-import org.openCage.property.protocol.PropStore;
+import org.openCage.property.PropStore;
 
 public class CaretStyleProperty extends AbstractPropertyProvider<Integer> {
 

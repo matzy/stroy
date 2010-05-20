@@ -20,7 +20,7 @@ import org.openCage.lang.artifact.Artifact;
 import org.openCage.lang.count.Count;
 import org.openCage.lang.errors.Unchecked;
 import org.openCage.localization.protocol.Localize;
-import org.openCage.property.protocol.Property;
+import org.openCage.property.Property;
 import org.openCage.ui.warning.HUDWarning;
 import org.openCage.ui.clazz.MenuBuilder;
 import org.openCage.ui.clazz.MenuHelper;

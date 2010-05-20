@@ -1,4 +1,4 @@
-package org.openCage.property.protocol;
+package org.openCage.property;
 
 import org.openCage.lang.functions.F1;
 

@@ -3,7 +3,7 @@ package org.openCage.demo;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import org.openCage.property.protocol.AbstractPropertyProvider;
-import org.openCage.property.protocol.PropStore;
+import org.openCage.property.PropStore;
 
 public class DuhProp extends AbstractPropertyProvider<Integer>{
 

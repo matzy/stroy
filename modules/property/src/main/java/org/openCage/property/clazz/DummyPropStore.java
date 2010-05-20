@@ -1,10 +1,8 @@
 package org.openCage.property.clazz;
 
 import org.jetbrains.annotations.NotNull;
-import org.openCage.property.protocol.PropStore;
-import org.openCage.property.protocol.Property;
-
-import java.util.Map;
+import org.openCage.property.PropStore;
+import org.openCage.property.Property;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1

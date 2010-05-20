@@ -1,19 +1,17 @@
 package org.openCage.localization.wiring;
 
-import com.google.inject.AbstractModule;
 import com.google.inject.TypeLiteral;
 import org.openCage.localization.impl.BundleCheckImpl;
 import org.openCage.localization.impl.LocaleProperty;
 import org.openCage.localization.impl.LocalizeBuilderImpl;
 import org.openCage.localization.protocol.BundleCheck;
-import org.openCage.localization.protocol.Localize;
 import org.openCage.localization.protocol.LocalizeBuilder;
 
 import com.google.inject.Binder;
 import com.google.inject.Module;
 import com.google.inject.Singleton;
 import com.google.inject.name.Names;
-import org.openCage.property.protocol.Property;
+import org.openCage.property.Property;
 
 import java.util.Locale;
 

@@ -8,7 +8,7 @@ import com.google.inject.name.Names;
 import com.muchsoft.util.Sys;
 import org.openCage.localization.protocol.Localize;
 import org.openCage.localization.wiring.LocalizeWiring;
-import org.openCage.property.protocol.Property;
+import org.openCage.property.Property;
 import org.openCage.ui.impl.FileChooserGeneral;
 import org.openCage.ui.impl.FileChooserOSX;
 import org.openCage.ui.impl.FileChooserWindows;

@@ -3,7 +3,7 @@ package org.openCage.property.demo;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import org.openCage.lang.functions.F1;
-import org.openCage.property.protocol.Property;
+import org.openCage.property.Property;
 
 /**
  * Created by IntelliJ IDEA.

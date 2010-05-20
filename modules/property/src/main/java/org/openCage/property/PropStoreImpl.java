@@ -1,4 +1,4 @@
-package org.openCage.property.impl;
+package org.openCage.property;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
@@ -7,10 +7,7 @@ import org.jetbrains.annotations.NotNull;
 import org.openCage.lang.BackgroundExecutor;
 import org.openCage.lang.SingletonApp;
 import org.openCage.lang.errors.Unchecked;
-import org.openCage.lang.functions.F0;
 import org.openCage.lang.functions.FV;
-import org.openCage.property.protocol.PropStore;
-import org.openCage.property.protocol.Property;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -55,7 +52,7 @@ public class PropStoreImpl implements PropStore {
     public PropStoreImpl( @NotNull BackgroundExecutor background, final File backing, Map<String, Class> aliases, SingletonApp singletonApp ) {
 
 
-        if ( backing != null && singletonApp.isMaster() ) {
+        if ( backing != null && (singletonApp == null || singletonApp.isMaster()) ) {
 
             xs.alias( "Property", PropertyImpl.class );
 
@@ -113,7 +110,7 @@ public class PropStoreImpl implements PropStore {
     }
 
 
-    private static Map<String,Property> read( final File path, XStream xs ) {
+    private static Map<String, Property> read( final File path, XStream xs ) {
       Reader reader = null;
       try
       {

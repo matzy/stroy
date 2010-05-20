@@ -1,10 +1,10 @@
-package org.openCage.property.impl;
+package org.openCage.property;
 
 import net.jcip.annotations.ThreadSafe;
 import org.openCage.lang.errors.Unchecked;
 import org.openCage.lang.functions.F1;
-import org.openCage.property.protocol.PropStore;
-import org.openCage.property.protocol.Property;
+import org.openCage.property.PropStore;
+import org.openCage.property.Property;
 
 import java.io.ObjectStreamException;
 import java.util.ArrayList;
@@ -50,8 +50,7 @@ public class PropertyImpl<T> implements Property<T> {
         setDefault();
     }
 
-    @Override
-    public synchronized T get() {
+    @Override public final synchronized T get() {
         return obj;
     }
 
@@ -65,14 +64,12 @@ public class PropertyImpl<T> implements Property<T> {
         }
     }
 
-    @Override
-    public synchronized void setDefault() {
+    @Override public final synchronized void setDefault() {
         obj = dflt;
         setDirty();
     }
 
-    @Override
-    public synchronized void modify(F1<T, T> modi) {
+    @Override public final synchronized void modify(F1<T, T> modi) {
         // try to modify the object
         // if it fails return to the only object we know, i.e. the default
         try {
@@ -93,8 +90,7 @@ public class PropertyImpl<T> implements Property<T> {
         return this;
     }
 
-    @Override
-    public void addPropertyChangeListener(F1<Void, T> listener) {
+    @Override public void addPropertyChangeListener(F1<Void, T> listener) {
         listeners.add( listener  );
     }
 
@@ -110,5 +106,9 @@ public class PropertyImpl<T> implements Property<T> {
 
     public synchronized void setStore(PropStore store) {
         this.store = store;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }

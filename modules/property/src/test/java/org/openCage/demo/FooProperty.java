@@ -1,7 +1,7 @@
 package org.openCage.demo;
 
 import org.openCage.lang.functions.F1;
-import org.openCage.property.protocol.Property;
+import org.openCage.property.Property;
 
 /**
  * Created by IntelliJ IDEA.

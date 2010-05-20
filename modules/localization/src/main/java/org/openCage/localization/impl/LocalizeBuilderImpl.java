@@ -11,7 +11,7 @@ import org.openCage.localization.protocol.LocalizeBuilder;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
-import org.openCage.property.protocol.Property;
+import org.openCage.property.Property;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1

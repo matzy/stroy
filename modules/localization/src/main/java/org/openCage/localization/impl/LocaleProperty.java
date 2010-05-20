@@ -2,8 +2,8 @@ package org.openCage.localization.impl;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
+import org.openCage.property.PropStore;
 import org.openCage.property.protocol.AbstractPropertyProvider;
-import org.openCage.property.protocol.PropStore;
 
 import java.util.Locale;
 

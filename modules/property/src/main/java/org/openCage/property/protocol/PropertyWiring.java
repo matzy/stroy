@@ -5,6 +5,7 @@ import com.google.inject.Module;
 import com.google.inject.name.Names;
 import org.openCage.lang.BackgroundExecutorImpl;
 import org.openCage.lang.BackgroundExecutor;
+import org.openCage.property.PropStore;
 
 public class PropertyWiring implements Module {
 

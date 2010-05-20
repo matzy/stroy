@@ -4,8 +4,8 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import org.openCage.lang.BackgroundExecutor;
 import org.openCage.lang.SingletonApp;
-import org.openCage.property.impl.PropStoreImpl;
-import org.openCage.property.protocol.PropStore;
+import org.openCage.property.PropStore;
+import org.openCage.property.PropStoreImpl;
 
 import java.io.File;
 import java.util.Map;
