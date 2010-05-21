@@ -7,10 +7,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.openCage.lang.functions.F1;
 import org.openCage.lang.errors.Unchecked;
-import org.openCage.withResource.protocol.FileLineIterable;
-import org.openCage.withResource.protocol.With;
 
-public class WithImpl implements With {
+public class WithImpl { //implements With {
 
     public <T> T withInputStream(File file, F1<T, InputStream> reader) {
         InputStream is = null;
@@ -85,9 +83,9 @@ public class WithImpl implements With {
         }
     }
 
-    public FileLineIterable getLineIteratorCloseInFinal(File file) {
-        return new IterableFile( file );
-    }
+//    public FileLineIterable getLineIteratorCloseInFinal(File file) {
+//        return new IterableFile( file );
+//    }
 
     public void close( InputStream is ) {
         if ( is != null ) {

@@ -4,7 +4,7 @@
 //import org.openCage.lang.errors.Unchecked;
 //import org.openCage.lang.functions.F1;
 //import org.openCage.withResource.impl.WithImpl;
-//import org.openCage.withResource.protocol.Iterators;
+//import org.openCage.lang.iterators.Iterators;
 //
 //import java.io.ByteArrayOutputStream;
 //import java.io.IOException;

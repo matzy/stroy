@@ -2,7 +2,7 @@ package org.openCage.gpad;
 
 import com.google.inject.Inject;
 import net.java.dev.designgridlayout.DesignGridLayout;
-import org.openCage.fspath.clazz.FSPathBuilder;
+import org.openCage.io.fspath.FSPathBuilder;
 import org.openCage.ui.protocol.FileChooser;
 
 import javax.swing.*;

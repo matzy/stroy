@@ -1,10 +1,8 @@
 package org.openCage.artig;
 
-import org.openCage.artig.MavenGen;
-import org.openCage.fspath.clazz.FSPathBuilder;
-import org.openCage.fspath.protocol.FSPath;
+import org.openCage.io.fspath.FSPath;
 import org.openCage.gpad.FausterizeArtifact;
-import org.openCage.lang.LangArtifact;
+import org.openCage.io.fspath.FSPathBuilder;
 
 /**
  * Created by IntelliJ IDEA.

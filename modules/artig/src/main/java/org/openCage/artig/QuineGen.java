@@ -1,7 +1,7 @@
 package org.openCage.artig;
 
 import org.jetbrains.annotations.NotNull;
-import org.openCage.fspath.protocol.FSPath;
+import org.openCage.io.fspath.FSPath;
 import org.openCage.lang.artifact.*;
 
 public class QuineGen {
