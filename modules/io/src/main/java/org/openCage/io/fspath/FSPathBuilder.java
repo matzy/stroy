@@ -1,13 +1,11 @@
-package org.openCage.fspath.clazz;
+package org.openCage.io.fspath;
 
 import org.apache.commons.lang.SystemUtils;
-import org.openCage.fspath.impl.FSPathUNC;
-import org.openCage.fspath.impl.FSPathUnix;
-import org.openCage.fspath.impl.FSPathWindows;
-import org.openCage.fspath.protocol.FSPath;
+import org.openCage.io.fspath.FSPathUNC;
+import org.openCage.io.fspath.FSPathUnix;
+import org.openCage.io.fspath.FSPathWindows;
 
 import javax.swing.*;
-import javax.swing.filechooser.FileSystemView;
 import java.io.File;
 import java.net.URL;
 

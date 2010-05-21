@@ -1,28 +1,28 @@
-package org.openCage.fspath.clazz;
+package org.openCage.io.fspath;
 
 import com.muchsoft.util.Sys;
+import org.junit.Before;
 import org.junit.Test;
-import org.openCage.fspath.protocol.FSPath;
+import org.openCage.io.fspath.FSPath;
+import org.openCage.io.fspath.FSPathBuilder;
 
 import java.util.Properties;
 import java.util.prefs.Preferences;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
 
-/**
- * Created by IntelliJ IDEA.
- * User: spfab
- * Date: Jan 20, 2010
- * Time: 9:05:45 AM                  
- * To change this template use File | Settings | File Templates.
- */
-public class FSPathWindowssTest {
+public class FSPathWindowsTest {
+
+    @Before
+    public void beforeMethod() {
+        org.junit.Assume.assumeTrue( Sys.isWindows() );
+    }
+
 
 
     @Test
     public void testSimple() {
-
-        if ( !Sys.isWindows() ) { return; }
 
         FSPath path = FSPathBuilder.getPath("C:");
 
@@ -32,7 +32,6 @@ public class FSPathWindowssTest {
 
     @Test
     public void testSimpleLetter() {
-        if ( !Sys.isWindows() ) { return; }
         FSPath path = FSPathBuilder.getPath("G:");
 
         assertEquals( 0, path.size());
@@ -41,7 +40,6 @@ public class FSPathWindowssTest {
 
     @Test
     public void testAdd() {
-        if ( !Sys.isWindows() ) { return; }
         FSPath path = FSPathBuilder.getPath("X:").add("foo", "bar");
 
         assertEquals( 2, path.size());
@@ -56,7 +54,6 @@ public class FSPathWindowssTest {
 
     @Test
     public void testAbsolute() {
-        if ( !Sys.isWindows() ) { return; }
         FSPath path = FSPathBuilder.getPath( "D:\\foo" );
         assertEquals( 1, path.size());
 
@@ -66,7 +63,6 @@ public class FSPathWindowssTest {
 
     @Test
     public void testEnv() {
-        if ( !Sys.isWindows() ) { return; }
         System.out.println( System.getProperty("%APPDATA%"));
 
         Properties prop = System.getProperties();
@@ -78,10 +74,18 @@ public class FSPathWindowssTest {
         System.out.println( System.getenv("APPDATA"));
 
         javax.swing.JFileChooser fr = new javax.swing.JFileChooser();
-           javax.swing.filechooser.FileSystemView fw=fr.getFileSystemView();
-           System.out.println(fw.getDefaultDirectory());
+        javax.swing.filechooser.FileSystemView fw=fr.getFileSystemView();
+        System.out.println(fw.getDefaultDirectory());
 
-        
+
 
     }
+
+    // TODO
+    @Test
+    public void testPreferences() {
+        assertTrue( FSPathBuilder.getPreferences().toString().endsWith("/Library/Preferences"));
+    }
+
+
 }

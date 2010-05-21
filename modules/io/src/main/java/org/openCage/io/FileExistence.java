@@ -1,6 +1,6 @@
-package org.openCage.io.clazz;
+package org.openCage.io;
 
-import org.openCage.fspath.protocol.FSPath;
+import org.openCage.io.fspath.FSPath;
 import org.openCage.lang.errors.Unchecked;
 
 import java.io.File;

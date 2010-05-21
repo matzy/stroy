@@ -10,7 +10,7 @@ import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rtextarea.RTextArea;
-import org.openCage.fspath.clazz.FSPathBuilder;
+import org.openCage.io.fspath.FSPathBuilder;
 import org.openCage.lang.BackgroundExecutor;
 import org.openCage.lang.SingletonApp;
 import org.openCage.lang.functions.F0;

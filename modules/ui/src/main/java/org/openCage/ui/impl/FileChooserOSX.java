@@ -6,7 +6,7 @@ import com.google.inject.name.Named;
 import java.awt.*;
 import java.io.File;
 
-import org.openCage.fspath.clazz.FSPathBuilder;
+import org.openCage.io.fspath.FSPathBuilder;
 import org.openCage.localization.protocol.Localize;
 import org.openCage.ui.protocol.FileChooser;
 

@@ -1,10 +1,13 @@
-package org.openCage.fspath.clazz;
+package org.openCage.io.fspath;
 
+import com.muchsoft.util.Sys;
+import org.junit.Before;
 import org.junit.Test;
-import org.openCage.fspath.impl.FSPathUnix;
-import org.openCage.fspath.protocol.FSPath;
+import org.openCage.io.fspath.FSPath;
+import org.openCage.io.fspath.FSPathBuilder;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -28,8 +31,13 @@ import static junit.framework.Assert.assertEquals;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-// TODO make xplatform save, UNIX only right now
-public class FSPathTest {
+public class FSPathUnixTest {
+
+    @Before
+    public void beforeMethod() {
+        org.junit.Assume.assumeTrue( !Sys.isWindows() );
+    }
+
 
     @Test
     public void testSimple() {
@@ -66,4 +74,5 @@ public class FSPathTest {
              System.out.println( System.getenv("$XDG_CONFIG"));
         System.out.println( System.getenv("XDG_CONFIG"));
     }
+
 }

@@ -1,7 +1,7 @@
-package org.openCage.fspath.impl;
+package org.openCage.io.fspath;
 
 import org.apache.commons.lang.StringUtils;
-import org.openCage.fspath.protocol.FSPath;
+import org.openCage.io.fspath.FSPath;
 import org.openCage.lang.errors.Unchecked;
 
 import java.io.File;

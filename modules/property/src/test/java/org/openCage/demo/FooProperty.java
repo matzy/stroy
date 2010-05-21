@@ -33,5 +33,10 @@ public class FooProperty implements Property<String> {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
+    @Override
+    public void set(String val) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
 
 }

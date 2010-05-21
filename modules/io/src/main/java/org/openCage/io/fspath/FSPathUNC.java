@@ -1,7 +1,7 @@
-package org.openCage.fspath.impl;
+package org.openCage.io.fspath;
 
 import org.apache.commons.lang.StringUtils;
-import org.openCage.fspath.protocol.FSPath;
+import org.openCage.io.fspath.FSPath;
 import org.openCage.lang.errors.Unchecked;
 
 import java.io.File;
@@ -12,13 +12,6 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-/**
- * Created by IntelliJ IDEA.
- * User: spfab
- * Date: Jan 13, 2010
- * Time: 1:15:45 PM
- * To change this template use File | Settings | File Templates.
- */
 public class FSPathUNC implements FSPath {
 
     private final List<String> elements = new ArrayList<String>();

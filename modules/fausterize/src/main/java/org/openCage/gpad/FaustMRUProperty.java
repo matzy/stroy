@@ -2,7 +2,7 @@ package org.openCage.gpad;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
-import org.openCage.fspath.clazz.FSPathBuilder;
+import org.openCage.io.fspath.FSPathBuilder;
 import org.openCage.lang.structure.MRU;
 import org.openCage.property.protocol.AbstractPropertyProvider;
 import org.openCage.property.PropStore;

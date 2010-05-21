@@ -1,4 +1,6 @@
-package org.openCage.fspath.protocol;
+package org.openCage.io.fspath;
+
+import net.jcip.annotations.Immutable;
 
 import java.io.File;
 import java.net.URI;
@@ -26,18 +28,41 @@ import java.util.Iterator;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
+/**
+ * A file path util, platform independent
+ */
+@Immutable
 public interface FSPath extends Iterable<String> {
+
     String toString();
 
     File toFile();
 
+    /**
+     * create a new fspath relative to this one
+     * @param elements path elements.
+     * @return A new FSPath
+     */
     FSPath add( String ... elements );
 
+    /**
+     * Iterate over the elements of this path
+     * @return
+     */
     Iterator<String> iterator();
 
+    /**
+     * the number of elements
+     * @return
+     */
     int size();
 
     URI toURI();
 
+    /**
+     * A new FSPath i steps up
+     * @param i number of parents to move up
+     * @return a new dspath
+     */
     FSPath parent(int i);
 }
