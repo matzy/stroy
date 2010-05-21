@@ -1,7 +1,7 @@
-package org.openCage.withResource.protocol;
+package org.openCage.lang.iterators;
 
-import org.openCage.withResource.impl.LineReaderIterator;
-import org.openCage.withResource.impl.StringIterator;
+import org.openCage.lang.iterators.LineReaderIterator;
+import org.openCage.lang.iterators.StringIterator;
 
 import java.io.BufferedReader;
 

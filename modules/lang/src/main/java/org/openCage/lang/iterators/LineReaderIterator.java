@@ -1,4 +1,4 @@
-package org.openCage.withResource.impl;
+package org.openCage.lang.iterators;
 
 import java.io.BufferedReader;
 import java.io.IOException;

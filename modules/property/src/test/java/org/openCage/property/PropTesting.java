@@ -37,8 +37,8 @@ public class PropTesting {
     public void testThrowDuringModify() {
         Property<String> prop = new PropertyImpl<String>( null, "default", "");
 
-//        prop.set( "foo");
-//        assertEquals( "foo", prop.get());
+        prop.set( "foo");
+        assertEquals( "foo", prop.get());
 
         try {
             prop.modify( new F1<String, String>() {

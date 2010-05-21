@@ -1,8 +1,8 @@
 package org.openCage.gpad.providers;
 
 import com.google.inject.Inject;
-import org.openCage.fspath.clazz.FSPathBuilder;
 import org.openCage.gpad.Constants;
+import org.openCage.io.fspath.FSPathBuilder;
 import org.openCage.lang.SingletonApp;
 import org.openCage.property.protocol.AbstractPropStoreProvider;
 

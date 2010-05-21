@@ -2,13 +2,6 @@ package org.openCage.property;
 
 import org.jetbrains.annotations.NotNull;
 
-/**
- * Created by IntelliJ IDEA.
- * User: stephan
- * Date: May 20, 2010
- * Time: 3:16:52 PM
- * To change this template use File | Settings | File Templates.
- */
 public abstract class PropertyFactory<T> {
     private final T val;
     private final String key;

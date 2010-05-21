@@ -56,4 +56,10 @@ public interface Property<T> {
      * @param listener A PropertyChangeListener 
      */
     public void addPropertyChangeListener( F1<Void,T> listener );
+
+    /**
+     * set a new value
+     * @param val
+     */
+    void set(T val);
 }

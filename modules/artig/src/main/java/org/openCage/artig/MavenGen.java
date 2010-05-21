@@ -2,8 +2,8 @@ package org.openCage.artig;
 
 import org.apache.commons.io.IOUtils;
 import org.jetbrains.annotations.NotNull;
-import org.openCage.fspath.protocol.FSPath;
-import org.openCage.io.clazz.FileExistence;
+import org.openCage.io.FileExistence;
+import org.openCage.io.fspath.FSPath;
 import org.openCage.lang.artifact.Artifact;
 import org.openCage.lang.artifact.JavaVersion;
 import org.openCage.lang.artifact.Project;

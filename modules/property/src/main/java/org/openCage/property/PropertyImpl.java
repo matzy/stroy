@@ -94,6 +94,10 @@ public class PropertyImpl<T> implements Property<T> {
         listeners.add( listener  );
     }
 
+    @Override public void set(T val) {
+        obj = val;
+        setDirty();
+    }
 
 
     @Override
