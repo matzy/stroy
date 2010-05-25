@@ -14,7 +14,7 @@
 //import org.openCage.application.Constants;
 //import org.openCage.application.protocol.Application;
 //import org.openCage.application.protocol.Version;
-//import org.openCage.localization.protocol.Localize;
+//import org.openCage.localization.Localize;
 //
 //import com.google.inject.Inject;
 //import com.google.inject.name.Named;
