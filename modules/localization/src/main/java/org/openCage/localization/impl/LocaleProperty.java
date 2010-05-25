@@ -1,9 +1,11 @@
 package org.openCage.localization.impl;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.google.inject.name.Named;
 import org.openCage.property.PropStore;
-import org.openCage.property.protocol.AbstractPropertyProvider;
+import org.openCage.property.Property;
+import org.openCage.property.PropertyProvider;
 
 import java.util.Locale;
 
@@ -32,7 +34,7 @@ import java.util.Locale;
 /**
  * The locale used throughout the application, stored in a property
  */
-public class LocaleProperty extends AbstractPropertyProvider<Locale>{
+public class LocaleProperty extends PropertyProvider<Locale> implements Provider<Property<Locale>> {
     public static final String THE_LOCALE = "org.openCage.localization.locale";
 
     @Inject

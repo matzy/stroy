@@ -1,10 +1,10 @@
 package org.openCage.localization.impl;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
 import com.google.inject.name.Named;
+import org.openCage.localization.CombinedLocalize;
 import org.openCage.localization.protocol.BundleCheck;
 import org.openCage.localization.Localize;
 import org.openCage.localization.protocol.LocalizeBuilder;
@@ -49,11 +49,11 @@ public class LocalizeBuilderImpl implements LocalizeBuilder, Provider<Localize> 
 	
 	public Localize build(String fullyqualifiedName, List<Localize> parents) {
 		check.checkBundle( fullyqualifiedName );
-		return new LocalizeImpl( fullyqualifiedName, parents, theLocale ); 
+		return new CombinedLocalize( fullyqualifiedName, theLocale, parents );
 	}
 
 	public Localize get() {
-		return new LocalizeImpl( "org.openCage.localization.text", Collections.<Localize>emptyList(), theLocale );
+		return new CombinedLocalize( "org.openCage.localization.text", theLocale );
 	}
 
 }

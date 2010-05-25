@@ -3,7 +3,6 @@ package org.openCage.io.fspath;
 import com.muchsoft.util.Sys;
 import org.junit.Before;
 import org.junit.Test;
-import org.openCage.io.fspath.FSPathBuilder;
 
 import static junit.framework.Assert.assertTrue;
 

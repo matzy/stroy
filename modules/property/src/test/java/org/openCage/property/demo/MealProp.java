@@ -1,18 +1,14 @@
 package org.openCage.property.demo;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.google.inject.name.Named;
 import org.openCage.property.PropStore;
-import org.openCage.property.protocol.AbstractPropertyProvider;
+import org.openCage.property.Property;
+import org.openCage.property.PropertyProvider;
 
-/**
- * Created by IntelliJ IDEA.
- * User: stephan
- * Date: Mar 30, 2010
- * Time: 9:33:51 AM
- * To change this template use File | Settings | File Templates.
- */
-public class MealProp extends AbstractPropertyProvider<Meal> {
+
+public class MealProp extends PropertyProvider<Meal> implements Provider<Property<Meal>> {
 
     public static final String Key = "Meal";
 

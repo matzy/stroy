@@ -1,17 +1,7 @@
 package org.openCage.lang.iterators;
 
-import org.openCage.lang.iterators.LineReaderIterator;
-import org.openCage.lang.iterators.StringIterator;
-
 import java.io.BufferedReader;
 
-/**
- * Created by IntelliJ IDEA.
- * User: stephan
- * Date: Oct 17, 2009
- * Time: 12:25:04 PM
- * To change this template use File | Settings | File Templates.
- */
 public class Iterators {
 
     public static String[] words( String str ) {

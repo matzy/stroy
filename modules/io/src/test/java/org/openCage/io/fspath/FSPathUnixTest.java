@@ -3,11 +3,8 @@ package org.openCage.io.fspath;
 import com.muchsoft.util.Sys;
 import org.junit.Before;
 import org.junit.Test;
-import org.openCage.io.fspath.FSPath;
-import org.openCage.io.fspath.FSPathBuilder;
 
 import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
