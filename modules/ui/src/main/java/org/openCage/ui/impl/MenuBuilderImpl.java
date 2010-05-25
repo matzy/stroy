@@ -5,7 +5,7 @@
 //import com.muchsoft.util.Sys;
 //import org.openCage.application.protocol.Application;
 //import org.openCage.lang.functions.F0;
-//import org.openCage.localization.protocol.Localize;
+//import org.openCage.localization.Localize;
 //import org.openCage.ui.protocol.AboutSheet;
 //import org.openCage.ui.protocol.HelpViewer;
 //import org.openCage.ui.protocol.MenuBuilder;
