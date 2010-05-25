@@ -13,13 +13,12 @@ import org.openCage.lang.artifact.Artifact;
 import org.openCage.lang.BackgroundExecutorImpl;
 import org.openCage.lang.BackgroundExecutor;
 import org.openCage.lang.SingletonApp;
-import org.openCage.localization.protocol.Localize;
+import org.openCage.localization.Localize;
 import org.openCage.localization.wiring.LocalizeWiring;
 import org.openCage.property.PropStore;
 import org.openCage.property.Property;
 import org.openCage.ui.protocol.PrefBuilder;
 import org.openCage.ui.wiring.UIWiring;
-import org.openCage.withResource.wiring.IoWiring;
 
 
 import static org.openCage.gpad.Constants.FAUSTERIZE;
@@ -51,7 +50,7 @@ import static org.openCage.gpad.Constants.FAUSTERIZE;
  */
 public class FausterizeWiring implements Module {
     public void configure(Binder binder) {
-        binder.install( new IoWiring());
+//        binder.install( new IoWiring());
         binder.install( new UIWiring());
         binder.install( new LocalizeWiring());
 

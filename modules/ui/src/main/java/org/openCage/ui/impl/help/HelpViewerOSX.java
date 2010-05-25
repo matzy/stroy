@@ -5,7 +5,7 @@ import com.google.inject.name.Named;
 import org.openCage.io.Location;
 import org.openCage.io.fspath.FSPath;
 import org.openCage.io.fspath.FSPathBuilder;
-import org.openCage.localization.protocol.Localize;
+import org.openCage.localization.Localize;
 import org.openCage.ui.impl.BrowseTmp;
 import org.openCage.ui.protocol.HelpViewer;
 

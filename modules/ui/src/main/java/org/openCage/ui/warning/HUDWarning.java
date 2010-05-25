@@ -5,7 +5,7 @@ import com.explodingpixels.macwidgets.HudWindow;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import org.jetbrains.annotations.NotNull;
-import org.openCage.localization.protocol.Localize;
+import org.openCage.localization.Localize;
 import org.openCage.ui.Constants;
 import org.openCage.ui.protocol.GlobalKeyEventHandler;
 
@@ -26,7 +26,8 @@ import java.awt.event.ActionListener;
  */
 public class HUDWarning {
 
-    @Inject @Named(Constants.UI) Localize localize;
+    @Inject @Named(Constants.UI)
+    Localize localize;
     @Inject GlobalKeyEventHandler keyEventHandler;
 
     public void show( @NotNull String message ) {

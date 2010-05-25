@@ -2,18 +2,15 @@ package org.openCage.gpad;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
-import net.java.dev.designgridlayout.DesignGridLayout;
-import org.openCage.localization.protocol.Localize;
+import org.openCage.localization.Localize;
 import org.openCage.ui.protocol.PrefBuilder;
 
 import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
-import java.util.List;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1

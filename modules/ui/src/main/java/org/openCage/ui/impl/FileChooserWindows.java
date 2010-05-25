@@ -7,7 +7,7 @@ import java.awt.*;
 import java.io.File;
 import javax.swing.JFileChooser;
 
-import org.openCage.localization.protocol.Localize;
+import org.openCage.localization.Localize;
 import org.openCage.ui.protocol.FileChooser;
 
 /***** BEGIN LICENSE BLOCK *****
