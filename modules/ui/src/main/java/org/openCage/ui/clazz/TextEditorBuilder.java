@@ -5,7 +5,7 @@ import com.google.inject.name.Named;
 import com.muchsoft.util.Sys;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.openCage.lang.functions.F0;
-import org.openCage.localization.protocol.Localize;
+import org.openCage.localization.Localize;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;

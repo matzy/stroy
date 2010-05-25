@@ -4,7 +4,7 @@ import com.google.inject.name.Names;
 import org.junit.Ignore;
 import org.openCage.lang.BackgroundExecutorImpl;
 import org.openCage.lang.BackgroundExecutor;
-import org.openCage.localization.protocol.Localize;
+import org.openCage.localization.Localize;
 import org.openCage.localization.wiring.LocalizeWiring;
 
 import com.google.inject.Binder;

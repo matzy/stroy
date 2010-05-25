@@ -6,7 +6,7 @@ import com.google.inject.Singleton;
 import com.google.inject.TypeLiteral;
 import com.google.inject.name.Names;
 import com.muchsoft.util.Sys;
-import org.openCage.localization.protocol.Localize;
+import org.openCage.localization.Localize;
 import org.openCage.localization.wiring.LocalizeWiring;
 import org.openCage.property.Property;
 import org.openCage.ui.impl.FileChooserGeneral;

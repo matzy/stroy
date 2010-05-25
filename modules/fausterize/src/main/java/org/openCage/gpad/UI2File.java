@@ -5,9 +5,8 @@ import org.jetbrains.annotations.NotNull;
 import org.openCage.lang.BackgroundExecutor;
 import org.openCage.lang.errors.Unchecked;
 import org.openCage.lang.functions.F1;
-import org.openCage.lang.functions.F0;
 import org.openCage.lang.functions.FV;
-import org.openCage.localization.protocol.Localize;
+import org.openCage.localization.Localize;
 
 import javax.swing.JTextArea;
 import java.awt.event.KeyAdapter;
@@ -49,7 +48,7 @@ public class UI2File {
 
     private final JTextArea               textArea;
     private final TextEncoderIdx<String,String>  textEncoder  = new FaustString();
-    private final Localize                localize;
+    private final Localize localize;
 
     private File                     file;
     private URI                      pad;

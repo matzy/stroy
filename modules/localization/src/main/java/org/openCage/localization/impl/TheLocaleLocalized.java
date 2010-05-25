@@ -1,7 +1,7 @@
 package org.openCage.localization.impl;
 
 import com.google.inject.Inject;
-import org.openCage.localization.protocol.Localize;
+import org.openCage.localization.Localize;
 import org.openCage.localization.protocol.LocalizeBuilder;
 
 import java.util.ArrayList;
