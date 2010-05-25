@@ -6,7 +6,7 @@
 //import com.google.inject.name.Named;
 //import org.openCage.application.protocol.Application;
 //import org.openCage.application.protocol.ApplicationFromConfig;
-//import org.openCage.localization.protocol.Localize;
+//import org.openCage.localization.Localize;
 //
 //import static org.openCage.gpad.Constants.FAUSTERIZE;
 //

@@ -5,14 +5,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.util.*;
 import java.util.List;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 import net.java.dev.designgridlayout.DesignGridLayout;
 
@@ -26,7 +23,7 @@ import org.openCage.lang.count.Count;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
-import org.openCage.localization.protocol.Localize;
+import org.openCage.localization.Localize;
 import org.openCage.ui.impl.BrowseTmp;
 import org.openCage.ui.protocol.AboutSheet;
 import org.openCage.ui.protocol.GlobalKeyEventHandler;
