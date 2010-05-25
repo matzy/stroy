@@ -1,10 +1,12 @@
 package org.openCage.gpad;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.google.inject.name.Named;
 import org.openCage.io.fspath.FSPathBuilder;
 import org.openCage.lang.structure.MRU;
-import org.openCage.property.protocol.AbstractPropertyProvider;
+import org.openCage.property.Property;
+import org.openCage.property.PropertyProvider;
 import org.openCage.property.PropStore;
 
 import java.io.File;
@@ -36,7 +38,7 @@ import static org.openCage.gpad.Constants.PROJECT_DIR;
 /**
  * A persisted MRU for opened files for fausterize
  */
-public class FaustMRUProperty extends AbstractPropertyProvider<MRU<String>> {
+public class FaustMRUProperty extends PropertyProvider<MRU<String>> implements Provider<Property<MRU<String>>> {
 
     public static final String KEY = "FaustMRU";
 

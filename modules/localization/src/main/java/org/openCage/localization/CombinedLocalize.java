@@ -1,11 +1,7 @@
-package org.openCage.localization.impl;
+package org.openCage.localization;
 
 import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import org.openCage.lang.functions.F1;
 import org.openCage.localization.Localize;
@@ -33,26 +29,34 @@ import org.openCage.property.Property;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public class LocalizeImpl implements Localize {
+public class CombinedLocalize implements Localize {
 
 	private final String           bundleName;
 	private final List<Localize>   parents    = new ArrayList<Localize>();
 	private final Property<Locale> theLocale;
 	
 	
-	public LocalizeImpl( String name, List<Localize> parents, Property<Locale> theLocale ) {
-		this.parents.addAll( parents );
-		this.bundleName = name;
-		this.theLocale = theLocale;
-	}
-	
-	@Override
-    public String localize(String key) {
-		return localize( theLocale.get(), key );
+    public CombinedLocalize( String fullyQualifiedName, Property<Locale> theLocale, Localize ... parents ) {
+        this.parents.addAll( Arrays.asList( parents ));
+        this.bundleName = fullyQualifiedName;
+        this.theLocale = theLocale;
+    }
+
+    public CombinedLocalize( String fullyQualifiedName, Property<Locale> theLocale, List<Localize> parents ) {
+        this.parents.addAll( parents );
+        this.bundleName = fullyQualifiedName;
+        this.theLocale = theLocale;
+    }
+
+    @Override public String localize(String key) {
+        if ( theLocale != null ) {
+            return localize( theLocale.get(), key );
+        }
+
+        return localize( Locale.getDefault(), key );
 	}
 
-	@Override
-    public String localize(Locale locale, String key) {
+	@Override public String localize(Locale locale, String key) {
 		ResourceBundle bundle = ResourceBundle.getBundle( bundleName, locale );
 		try {
 			return bundle.getString(key);
@@ -99,11 +103,13 @@ public class LocalizeImpl implements Localize {
 
     @Override
     public void setLocale( final Locale newLocale) {
-        theLocale.modify( new F1<Locale, Locale>() {
-            @Override public Locale call(Locale locale) {
-                return newLocale;
-            }
-        });
+
+        if ( theLocale != null ) {
+            theLocale.set( newLocale );
+            return;
+        }
+
+        Locale.setDefault( newLocale );
     }
 
 
