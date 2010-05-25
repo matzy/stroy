@@ -7,8 +7,8 @@ import com.jgoodies.binding.beans.PropertyAdapter;
 import com.jgoodies.binding.value.ValueModel;
 import net.java.dev.designgridlayout.DesignGridLayout;
 import org.openCage.lang.errors.Unchecked;
+import org.openCage.localization.Localize;
 import org.openCage.localization.impl.TheLocaleLocalized;
-import org.openCage.localization.protocol.Localize;
 import org.openCage.ui.protocol.PrefBuilder;
 
 import javax.swing.AbstractButton;
@@ -17,9 +17,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import java.io.File;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.List;
 
 /***** BEGIN LICENSE BLOCK *****

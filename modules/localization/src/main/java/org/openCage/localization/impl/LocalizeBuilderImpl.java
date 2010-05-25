@@ -6,7 +6,7 @@ import java.util.Locale;
 
 import com.google.inject.name.Named;
 import org.openCage.localization.protocol.BundleCheck;
-import org.openCage.localization.protocol.Localize;
+import org.openCage.localization.Localize;
 import org.openCage.localization.protocol.LocalizeBuilder;
 
 import com.google.inject.Inject;

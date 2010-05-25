@@ -2,7 +2,7 @@ package org.openCage.gpad.providers;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
-import org.openCage.localization.protocol.Localize;
+import org.openCage.localization.Localize;
 import org.openCage.localization.protocol.LocalizeBuilder;
 
 import java.util.Arrays;

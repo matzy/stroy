@@ -1,6 +1,7 @@
 package org.openCage.localization.protocol;
 
 import org.jetbrains.annotations.NonNls;
+import org.openCage.localization.Localize;
 
 import java.util.List;
 

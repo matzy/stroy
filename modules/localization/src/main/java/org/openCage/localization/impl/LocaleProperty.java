@@ -30,7 +30,7 @@ import java.util.Locale;
 ***** END LICENSE BLOCK *****/
 
 /**
- * The locale used throught the application, stored in a property
+ * The locale used throughout the application, stored in a property
  */
 public class LocaleProperty extends AbstractPropertyProvider<Locale>{
     public static final String THE_LOCALE = "org.openCage.localization.locale";

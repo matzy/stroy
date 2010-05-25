@@ -5,9 +5,8 @@ import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.name.Named;
 import org.junit.Test;
-import org.openCage.localization.protocol.Localize;
+import org.openCage.localization.Localize;
 import org.openCage.ui.Constants;
-import org.openCage.ui.protocol.AboutSheet;
 
 import java.util.Locale;
 

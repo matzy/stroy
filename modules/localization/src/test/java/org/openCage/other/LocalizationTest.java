@@ -9,9 +9,8 @@ import java.util.Locale;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import org.openCage.localization.protocol.Localize;
+import org.openCage.localization.Localize;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -20,7 +19,8 @@ public class LocalizationTest {
 
     public static class Tmp {
 
-        public @Inject @Named( "testing" ) Localize locl;
+        public @Inject @Named( "testing" )
+        Localize locl;
     }
 
     private Localize loc;
@@ -33,10 +33,11 @@ public class LocalizationTest {
 
 
 
+    // this test depends on the default locale
 	@Test
 	public void testStd() {
 
-        assertEquals( "Author", loc.localize("org.openCage.localization.dict.author"));
+        assertEquals( "Author", loc.localize(new Locale( "en"), "org.openCage.localization.dict.author"));
         assertEquals( "Autor", loc.localize( new Locale( "de", "DE" ), "org.openCage.localization.dict.author"));
 	}
 

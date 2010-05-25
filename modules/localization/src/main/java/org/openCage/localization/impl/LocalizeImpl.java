@@ -8,7 +8,7 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import org.openCage.lang.functions.F1;
-import org.openCage.localization.protocol.Localize;
+import org.openCage.localization.Localize;
 import org.openCage.property.Property;
 
 /***** BEGIN LICENSE BLOCK *****
@@ -59,7 +59,7 @@ public class LocalizeImpl implements Localize {
 		} catch ( MissingResourceException exp ) {
 			for ( Localize parent : parents ) {
 				try {
-					return parent.localize( locale, key);
+					return parent.localize( locale, key);           
 				} catch ( MissingResourceException ignored) {					
 				}
 			}

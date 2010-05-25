@@ -1,6 +1,6 @@
 package org.openCage.other;
 
-import org.openCage.localization.protocol.Localize;
+import org.openCage.localization.Localize;
 import org.openCage.localization.protocol.LocalizeBuilder;
 
 import com.google.inject.Inject;

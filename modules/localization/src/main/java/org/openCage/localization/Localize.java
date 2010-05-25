@@ -1,4 +1,4 @@
-package org.openCage.localization.protocol;
+package org.openCage.localization;
 
 import java.util.Locale;
 
