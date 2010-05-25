@@ -2,13 +2,13 @@ package org.openCage.property;
 
 import org.jetbrains.annotations.NotNull;
 
-public abstract class PropertyFactory<T> {
+public abstract class PropertyProvider<T> {
     private final T val;
     private final String key;
     private final PropStore store;
     private final String description;
 
-    public PropertyFactory( @NotNull PropStore store, @NotNull String key, T val, String description ) {
+    public PropertyProvider( @NotNull PropStore store, @NotNull String key, T val, String description ) {
         this.key = key;
         this.val = val;
         this.store = store;

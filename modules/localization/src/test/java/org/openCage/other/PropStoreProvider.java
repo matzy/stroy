@@ -1,6 +1,9 @@
 package org.openCage.other;
 
-import org.openCage.property.protocol.AbstractPropStoreProvider;
+import com.google.inject.Provider;
+import org.openCage.property.PropStore;
+import org.openCage.property.PropStoreImpl;
+
 
 /**
  * Created by IntelliJ IDEA.
@@ -9,9 +12,10 @@ import org.openCage.property.protocol.AbstractPropStoreProvider;
  * Time: 10:13:26 PM
  * To change this template use File | Settings | File Templates.
  */
-public class PropStoreProvider extends AbstractPropStoreProvider {
+public class PropStoreProvider implements Provider<PropStore> {
 
-    public PropStoreProvider() {
-        super( null, null, null );
+    @Override
+    public PropStore get(){
+        return new PropStoreImpl( null, null, null, null );
     }
 }

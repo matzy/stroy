@@ -18,12 +18,12 @@ public class PropertyArtifact implements ArtifactProvider{
                 address( "http://stroy.wikidot.com", "stroy.wikidot.com" ).
                 mpl11().
                 depends( proj.get("openCage", "openCage-lang")).
-                depends( proj.external( "com.google.inject", "guice" ).
-                        apache2().
-                        java6p().
-                        descriptionShort( "Google dependency injection lib in pure java.").
-                        address( "http://code.google.com/p/google-guice/", "code.google" ).
-                        version( "2.0" )).
+//                depends( proj.external( "com.google.inject", "guice" ).
+//                        apache2().
+//                        java6p().
+//                        descriptionShort( "Google dependency injection lib in pure java.").
+//                        address( "http://code.google.com/p/google-guice/", "code.google" ).
+//                        version( "2.0" )).
                 depends( proj.external("commons-io", "commons-io").
                         apache2().
                         descriptionShort( "Apache IO tools. e.g. tools to cleanly close resources." ).

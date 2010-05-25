@@ -1,32 +1,41 @@
 package org.openCage.gpad.providers;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import org.openCage.gpad.Constants;
 import org.openCage.io.fspath.FSPathBuilder;
+import org.openCage.lang.BackgroundExecutor;
 import org.openCage.lang.SingletonApp;
 import org.openCage.lang.structure.MRU;
-import org.openCage.property.protocol.AbstractPropStoreProvider;
+import org.openCage.property.PropStore;
+import org.openCage.property.PropStoreImpl;
 
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by IntelliJ IDEA.
- * User: stephan
- * Date: Feb 1, 2010
- * Time: 7:04:53 PM
- * To change this template use File | Settings | File Templates.
- */
-public class TransPropStoreProvider  extends AbstractPropStoreProvider {
+public class TransPropStoreProvider implements Provider<PropStore> {
+    private SingletonApp singleApp;
+    private BackgroundExecutor executor;
 
     @Inject
-    public TransPropStoreProvider( SingletonApp singletonApp ) {
-        super( FSPathBuilder.getPreferences().add( Constants.FAUSTERIZE, "prefs-trans.xml").toFile(), singletonApp, getAliases());
+    public TransPropStoreProvider( SingletonApp singleApp, BackgroundExecutor executor ) {
+        this.singleApp = singleApp;
+        this.executor = executor;
     }
+
 
     private static Map<String,Class> getAliases() {
         Map<String,Class> aliases = new HashMap<String, Class>();
         aliases.put( "MRU", MRU.class );
         return aliases;
+    }
+
+    @Override
+    public PropStore get() {
+        return new PropStoreImpl(
+                executor,
+                FSPathBuilder.getPreferences().add( Constants.FAUSTERIZE, "prefs-trans.xml").toFile(),
+                null,
+                singleApp );
     }
 }
