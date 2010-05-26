@@ -4,7 +4,9 @@ import com.muchsoft.util.Sys;
 import org.junit.Before;
 import org.junit.Test;
 
+import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertNotSame;
 
 public class FSPathOSXTest {
 
@@ -24,4 +26,10 @@ public class FSPathOSXTest {
     }
 
 
+    @Test
+    public void testTmp() {
+        assertNotSame( FSPathBuilder.getTmpFile("xml"), FSPathBuilder.getTmpFile("xml"));
+
+        assertFalse( FSPathBuilder.getTmpFile("xml").toFile().exists() );
+    }
 }

@@ -1,8 +1,6 @@
-package org.openCage.property.clazz;
+package org.openCage.localization;
 
-import org.jetbrains.annotations.NotNull;
-import org.openCage.property.PropStore;
-import org.openCage.property.Property;
+import java.util.Locale;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -26,22 +24,7 @@ import org.openCage.property.Property;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-/**
- * A propstore implementation ignoring all
- * Props still work but are not persisted
- */
-public class DummyPropStore implements PropStore {
-
-    @Override
-    public Property get(@NotNull String key) {
-        return null;
-    }
-
-    @Override
-    public void setProperty(@NotNull String key, @NotNull Property prop) {
-    }
-
-    @Override
-    public void setDirty() {
-    }
+public interface BundleCheck {
+	
+	public void checkBundle( String bundleLocation, Locale ... locales  );
 }

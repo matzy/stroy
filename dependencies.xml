@@ -12,15 +12,15 @@
    </target>
 
    <!-- ================================================================== -->
-   <target name="depend.property"
-           depends="depend.lang, guice, commons-io, xstream">
-      <ant dir="${dependencies.basedir}/modules/property" target="local.goal" inheritAll="false"/>
+   <target name="depend.io"
+           depends="depend.lang, commons-lang, sys">
+      <ant dir="${dependencies.basedir}/modules/io" target="local.goal" inheritAll="false"/>
    </target>
 
    <!-- ================================================================== -->
-   <target name="depend.io"
-           depends="depend.lang, commons-lang, guice, sys">
-      <ant dir="${dependencies.basedir}/modules/io" target="local.goal" inheritAll="false"/>
+   <target name="depend.property"
+           depends="depend.lang, commons-io, xstream">
+      <ant dir="${dependencies.basedir}/modules/property" target="local.goal" inheritAll="false"/>
    </target>
 
    <!-- ================================================================== -->
@@ -67,8 +67,8 @@
    </target>
 
    <!-- ================================================================== -->
-   <target name="guice">
-      <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/repo/com/google/inject/guice/2.0/guice-2.0.jar" />
+   <target name="sys">
+      <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/repo/munchsoft/sys/1.0/sys-1.0.jar" />
    </target>
 
    <!-- ================================================================== -->
@@ -82,8 +82,14 @@
    </target>
 
    <!-- ================================================================== -->
-   <target name="sys">
-      <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/repo/munchsoft/sys/1.0/sys-1.0.jar" />
+   <target name="guice"
+           depends="aopalliance">
+      <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/repo/com/google/inject/guice/2.0/guice-2.0.jar" />
+   </target>
+
+   <!-- ================================================================== -->
+   <target name="aopalliance">
+      <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/repo/aopalliance/aopalliance/1.0/aopalliance-1.0.jar" />
    </target>
 
    <!-- ================================================================== -->

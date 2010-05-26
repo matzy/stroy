@@ -5,7 +5,7 @@
 //import org.openCage.lang.BackgroundExecutor;
 //import org.openCage.lang.SingletonApp;
 //import org.openCage.property.PropStore;
-//import org.openCage.property.PropStoreImpl;
+//import org.openCage.property.PersistingPropStore;
 //
 //import java.io.File;
 //import java.util.Map;
@@ -47,6 +47,6 @@
 //
 //    @Override
 //    public PropStore get() {
-//        return new PropStoreImpl( executor, backing, aliases, singletonApp );
+//        return new PersistingPropStore( executor, backing, aliases, singletonApp );
 //    }
 //}

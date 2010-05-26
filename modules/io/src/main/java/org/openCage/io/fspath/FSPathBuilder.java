@@ -8,6 +8,8 @@ import org.openCage.io.fspath.FSPathWindows;
 import javax.swing.*;
 import java.io.File;
 import java.net.URL;
+import java.util.Date;
+import java.util.UUID;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -127,4 +129,11 @@ public class FSPathBuilder {
 
         throw new Error( "unknown os" );
     }
+
+    public static FSPath getTmpFile( String extension ) {
+
+        return getPath( System.getProperty("java.io.tmpdir")).add(
+                "" + new Date().getTime() + "-" + UUID.randomUUID().toString() + "." + extension );
+    }
+
 }

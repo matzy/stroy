@@ -117,6 +117,10 @@ public class Artifact {
         return this;
     }
 
+    public Artifact publicDomain() {
+        licence.set( Licence.publicDomain );
+        return this;
+    }
 
     public Artifact mit() {
         licence.set( Licence.mit );
@@ -437,4 +441,5 @@ public class Artifact {
 
         return name;
     }
+
 }

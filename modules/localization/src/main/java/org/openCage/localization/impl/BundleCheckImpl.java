@@ -4,7 +4,7 @@ import java.util.Enumeration;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import org.openCage.localization.protocol.BundleCheck;
+import org.openCage.localization.BundleCheck;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1

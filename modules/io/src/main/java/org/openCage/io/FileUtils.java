@@ -5,6 +5,7 @@ import org.openCage.lang.errors.Unchecked;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.UUID;
 
 /***** BEGIN LICENSE BLOCK *****
  * Version: MPL 1.1
@@ -28,7 +29,7 @@ import java.io.IOException;
  * Contributor(s):
  ***** END LICENSE BLOCK *****/
 
-public class FileExistence {
+public class FileUtils {
 
     public static void ensurePath( FSPath path ) {
         path.toFile().getParentFile().mkdirs();
@@ -48,4 +49,5 @@ public class FileExistence {
         }
 
     }
+
 }
