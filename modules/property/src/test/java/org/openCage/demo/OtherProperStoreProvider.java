@@ -4,7 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import org.openCage.lang.BackgroundExecutor;
 import org.openCage.property.PropStore;
-import org.openCage.property.PropStoreImpl;
+import org.openCage.property.PersistingPropStore;
 
 public class OtherProperStoreProvider  implements Provider<PropStore> {
 
@@ -13,6 +13,6 @@ public class OtherProperStoreProvider  implements Provider<PropStore> {
 
     @Override
     public PropStore get() {
-        return new PropStoreImpl( executor, null, null, null );
+        return new PersistingPropStore( executor, null, null, null );
     }
 }

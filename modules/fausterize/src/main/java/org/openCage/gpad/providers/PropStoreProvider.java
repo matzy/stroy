@@ -6,8 +6,8 @@ import org.openCage.gpad.Constants;
 import org.openCage.io.fspath.FSPathBuilder;
 import org.openCage.lang.BackgroundExecutor;
 import org.openCage.lang.SingletonApp;
+import org.openCage.property.PersistingPropStore;
 import org.openCage.property.PropStore;
-import org.openCage.property.PropStoreImpl;
 
 /***** BEGIN LICENSE BLOCK *****
  * Version: MPL 1.1
@@ -43,7 +43,7 @@ public class PropStoreProvider implements Provider<PropStore> {
 
     @Override
     public PropStore get(){
-        return new PropStoreImpl(
+        return new PersistingPropStore(
                 executor,
                 FSPathBuilder.getPreferences().add( Constants.FAUSTERIZE, "prefs.xml").toFile(),
                 null,

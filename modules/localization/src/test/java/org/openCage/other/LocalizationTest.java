@@ -19,8 +19,7 @@ public class LocalizationTest {
 
     public static class Tmp {
 
-        public @Inject @Named( "testing" )
-        Localize locl;
+        @Inject @Named( "testing" ) public Localize locl;
     }
 
     private Localize loc;

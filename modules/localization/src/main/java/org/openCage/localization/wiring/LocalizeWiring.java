@@ -3,8 +3,8 @@ package org.openCage.localization.wiring;
 import com.google.inject.TypeLiteral;
 import org.openCage.localization.impl.BundleCheckImpl;
 import org.openCage.localization.impl.LocaleProperty;
-import org.openCage.localization.impl.LocalizeBuilderImpl;
-import org.openCage.localization.protocol.BundleCheck;
+import org.openCage.localization.impl.LocalizeProvider;
+import org.openCage.localization.BundleCheck;
 import org.openCage.localization.protocol.LocalizeBuilder;
 
 import com.google.inject.Binder;
@@ -49,10 +49,10 @@ public class LocalizeWiring implements  Module {
 
 
 //		binder.bind( Localize.class ).
-//			annotatedWith( Names.named("basic")).toProvider( LocalizeBuilderImpl.class );
+//			annotatedWith( Names.named("basic")).toProvider( LocalizeProvider.class );
 //	}
 
-        binder.bind( LocalizeBuilder.class ).to( LocalizeBuilderImpl.class );
+//        binder.bind( LocalizeBuilder.class ).to( LocalizeProvider.class );
         binder.bind( new TypeLiteral<Property<Locale>>() {} ).
                 annotatedWith( Names.named( LocaleProperty.THE_LOCALE)).
                 toProvider( LocaleProperty.class ).

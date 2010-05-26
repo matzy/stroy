@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Locale;
 
 import com.google.inject.name.Named;
+import org.openCage.localization.BundleCheck;
 import org.openCage.localization.CombinedLocalize;
-import org.openCage.localization.protocol.BundleCheck;
 import org.openCage.localization.Localize;
 import org.openCage.localization.protocol.LocalizeBuilder;
 
@@ -35,19 +35,24 @@ import org.openCage.property.Property;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public class LocalizeBuilderImpl implements LocalizeBuilder, Provider<Localize> {
+public class LocalizeProvider implements Provider<Localize> {
 
 	private BundleCheck check;
 	private Property<Locale> theLocale;
 
     @Inject
-    public LocalizeBuilderImpl( BundleCheck check, @Named( LocaleProperty.THE_LOCALE) Property<Locale> theLocale ) {
+    public LocalizeProvider( BundleCheck check, @Named( LocaleProperty.THE_LOCALE) Property<Locale> theLocale ) {
         this.check = check;
         this.theLocale = theLocale;
 
     }
-	
-	public Localize build(String fullyqualifiedName, List<Localize> parents) {
+
+    public Localize build(String fullyqualifiedName, List<Localize> parents) {
+		check.checkBundle( fullyqualifiedName );
+		return new CombinedLocalize( fullyqualifiedName, theLocale, parents );
+	}
+
+    public Localize build(String fullyqualifiedName, Localize ... parents) {
 		check.checkBundle( fullyqualifiedName );
 		return new CombinedLocalize( fullyqualifiedName, theLocale, parents );
 	}

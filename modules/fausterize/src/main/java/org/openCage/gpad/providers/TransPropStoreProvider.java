@@ -8,7 +8,7 @@ import org.openCage.lang.BackgroundExecutor;
 import org.openCage.lang.SingletonApp;
 import org.openCage.lang.structure.MRU;
 import org.openCage.property.PropStore;
-import org.openCage.property.PropStoreImpl;
+import org.openCage.property.PersistingPropStore;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,7 +32,7 @@ public class TransPropStoreProvider implements Provider<PropStore> {
 
     @Override
     public PropStore get() {
-        return new PropStoreImpl(
+        return new PersistingPropStore(
                 executor,
                 FSPathBuilder.getPreferences().add( Constants.FAUSTERIZE, "prefs-trans.xml").toFile(),
                 null,

@@ -40,7 +40,7 @@ import java.util.Map;
  * Contributor(s):
  ***** END LICENSE BLOCK *****/
 
-public class PropStoreImpl implements PropStore {
+public class PersistingPropStore implements PropStore {
 
     private final Map<String,Property> store;
     private final XStream              xs      = new XStream( new DomDriver());
@@ -49,14 +49,24 @@ public class PropStoreImpl implements PropStore {
     // TODO
     private static final int BACKINGSIZE = 500000;
 
-    public PropStoreImpl( @NotNull BackgroundExecutor background, final File backing ) {
+    private static Map<File, PersistingPropStore> instances = new HashMap<File, PersistingPropStore>();
+
+    public PersistingPropStore( @NotNull BackgroundExecutor background, @NotNull final File backing ) {
         this( background, backing, null, null );
     }
 
-    public PropStoreImpl( @NotNull BackgroundExecutor background, final File backing, Map<String, Class> aliases, SingletonApp singletonApp ) {
+    public PersistingPropStore( @NotNull BackgroundExecutor background, @NotNull final File backing, Map<String, Class> aliases, SingletonApp singletonApp ) {
+
+        if ( instances.containsKey( backing )) {
+            throw new IllegalStateException( "only one PersistentPropstore per file" );
+        }
 
 
         if ( backing != null && (singletonApp == null || singletonApp.isMaster()) ) {
+
+            if ( background == null ) {
+                throw new IllegalArgumentException( "background executor must be set when persisting" );
+            }
 
             xs.alias( "Property", PropertyImpl.class );
 
@@ -66,7 +76,7 @@ public class PropStoreImpl implements PropStore {
                 }
             }
 
-            final PropStoreImpl propStore = this;
+            final PersistingPropStore propStore = this;
 
             background.addPeriodicAndExitTask( new FV() {
                 @Override

@@ -2,7 +2,7 @@ package org.openCage.artig;
 
 import org.apache.commons.io.IOUtils;
 import org.jetbrains.annotations.NotNull;
-import org.openCage.io.FileExistence;
+import org.openCage.io.FileUtils;
 import org.openCage.io.fspath.FSPath;
 import org.openCage.lang.artifact.Artifact;
 import org.openCage.lang.artifact.JavaVersion;
@@ -27,7 +27,7 @@ public class MavenGen {
     public void generate( FSPath projectRoot ) {
 
         FSPath rootPom = projectRoot.add( "pom.xml" );
-        FileExistence.ensurePath( rootPom );
+        FileUtils.ensurePath( rootPom );
 
         FileWriter writer = null;
         try {
@@ -43,7 +43,7 @@ public class MavenGen {
 
         for ( Artifact mod : project.getModules() ) {
             FSPath modPom = projectRoot.add( "modules", mod.getModuleName(), "pom.xml" );
-            FileExistence.ensurePath( modPom );
+            FileUtils.ensurePath( modPom );
 
             try {
                 writer = new FileWriter( modPom.toFile() );

@@ -37,7 +37,7 @@ public class Licence {
 
     private static Map<String,Licence> all = new HashMap<String, Licence>();
 
-	public Licence( String name, String shortName, String address, String version  ) {
+    public Licence( String name, String shortName, String address, String version  ) {
         this.name = name;
         this.shortName = shortName;
         this.address = address;
@@ -118,5 +118,6 @@ public class Licence {
     public final static Licence cpl = new Licence( "CPL", "CPL", "http://www.eclipse.org/legal/cpl-v10.html", "1.0" );
     public final static Licence mit = new Licence( "MIT", "MIT", "http://www.opensource.org/licenses/mit-license.php", "1.0" );
     public final static Licence muchsoft = new Licence( "MuchSoft", "Muchsoft", "http://www.muchsoft.com/java/docs/com/muchsoft/util/Sys.html", "2004" );
+    public final static Licence publicDomain = new Licence( "Public Domian", "Public Domian", "http://en.wikipedia.org/wiki/Public_domain", "1.0"  ); // TODO
 
 }

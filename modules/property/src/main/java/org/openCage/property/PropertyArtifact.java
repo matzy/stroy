@@ -1,5 +1,6 @@
 package org.openCage.property;
 
+import org.openCage.IOArtifact;
 import org.openCage.lang.LangArtifact;
 import org.openCage.lang.artifact.Artifact;
 import org.openCage.lang.artifact.ArtifactProvider;
@@ -12,6 +13,7 @@ public class PropertyArtifact implements ArtifactProvider{
 
     public PropertyArtifact() {
         proj = new LangArtifact().getProject();
+        proj.include( new IOArtifact().getProject());
 
         property = proj.module( getClass(), "openCage", "openCage-property" ).
                 version( "0.1.0" ).
@@ -34,6 +36,7 @@ public class PropertyArtifact implements ArtifactProvider{
                         descriptionShort( "The java to XML serialization library." ).
                         address( "http://xstream.codehaus.org/", "codehaus.org" ).
                         bsd()).
+                testDepends( proj.get( "openCage", "openCage-io" )).
                 testDepends( proj.get( "junit", "junit" ));
 
     }

@@ -3,7 +3,7 @@ package org.openCage.artig;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.jetbrains.annotations.NotNull;
-import org.openCage.io.FileExistence;
+import org.openCage.io.FileUtils;
 import org.openCage.io.fspath.FSPath;
 import org.openCage.lang.artifact.Artifact;
 import org.openCage.lang.artifact.Author;
@@ -26,7 +26,7 @@ public class PElephGen {
     public void generate( FSPath projectRoot ) {
 
         FSPath rootPom = projectRoot.add( "dependencies.xml" );
-        FileExistence.ensurePath( rootPom );
+        FileUtils.ensurePath( rootPom );
 
         FileWriter writer = null;
         try {
@@ -42,7 +42,7 @@ public class PElephGen {
 
         for ( Artifact mod : project.getModules() ) {
             FSPath modPom = projectRoot.add( "modules", mod.getModuleName(), "build.xml" );
-            FileExistence.ensurePath( modPom );
+            FileUtils.ensurePath( modPom );
 
             try {
                 writer = new FileWriter( modPom.toFile() );

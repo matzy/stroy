@@ -5,7 +5,7 @@ import com.google.inject.Module;
 import com.google.inject.name.Names;
 import org.junit.Ignore;
 import org.openCage.lang.artifact.Artifact;
-import org.openCage.property.protocol.NonPersistingPropStore;
+import org.openCage.property.NonPersistingPropStore;
 import org.openCage.property.PropStore;
 import org.openCage.ui.wiring.UIWiring;
 
