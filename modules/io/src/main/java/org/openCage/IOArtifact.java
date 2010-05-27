@@ -18,18 +18,11 @@ public class IOArtifact implements ArtifactProvider{
                 mpl11().
                 depends( proj.get("openCage", "openCage-lang")).
                 depends( proj.get("commons-lang", "commons-lang" ) ).
-//                depends( proj.external( "com.google.inject", "guice" ).
-//                        apache2().
-//                        java6p().
-//                        descriptionShort( "Google dependency injection lib in pure java.").
-//                        address( "http://code.google.com/p/google-guice/", "code.google" ).
-//                        version( "2.0" )).
                 depends( proj.external( "munchsoft", "sys" ).
                         version("1.0").
                         descriptionShort( "Tool to help make java apps behave and look like native osx apps. e.g. Menus in menu bar, Preferences open on command-, ... " ).
                         address( "http://www.muchsoft.com/", "munchsoft.com" ).
-                        licence( "MuchSoft" )
-                        ).
+                        licence( "MuchSoft" )).
                 testDepends( proj.get( "junit", "junit"));
     }
 

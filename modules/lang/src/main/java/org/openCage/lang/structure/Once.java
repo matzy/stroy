@@ -42,7 +42,7 @@ public class Once<T> {
                 return;
             }
             
-            throw new IllegalStateException("can't set Once twice");
+            throw new IllegalStateException("can't set Once twice (old: " + val + " new: " + t + ")");
         }
 
         set = true;

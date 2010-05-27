@@ -1,6 +1,7 @@
 package org.openCage.lang.artifact;
 
 import net.jcip.annotations.Immutable;
+import org.openCage.lang.Constants;
 import org.openCage.lang.annotations.HiddenCall;
 import org.openCage.lang.errors.Unchecked;
 
@@ -84,5 +85,25 @@ public class WebPage {
     @Override
     public String toString() {
         return page;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) { return true; }
+        if (!(o instanceof WebPage)) { return false; }
+
+        WebPage webPage = (WebPage) o;
+
+        if (page != null ? !page.equals(webPage.page) : webPage.page != null) { return false; }
+        if (shrt != null ? !shrt.equals(webPage.shrt) : webPage.shrt != null) { return false; }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = page != null ? page.hashCode() : 0;
+        result = Constants.HASHFACTOR * result + (shrt != null ? shrt.hashCode() : 0);
+        return result;
     }
 }

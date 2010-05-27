@@ -1,6 +1,7 @@
 package org.openCage.gpad;
 
 import com.google.inject.Provider;
+import org.openCage.IOArtifact;
 import org.openCage.lang.artifact.Artifact;
 import org.openCage.lang.artifact.ArtifactProvider;
 import org.openCage.lang.artifact.Project;
@@ -13,6 +14,7 @@ public class FausterizeArtifact implements ArtifactProvider, Provider<Artifact> 
 
     public FausterizeArtifact() {
         proj = new UIArtifact().getProject();
+        proj.include( new IOArtifact().getProject());
 
         fausterize = proj.module( getClass(), "openCage", "openCage-fausterize" ).
                 version( "0.10.0" ).                

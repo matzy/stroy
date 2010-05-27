@@ -43,6 +43,8 @@ public class Lazy<T> {
         this.func = func;
     }
 
+
+
     public T get() {
 
         eval();

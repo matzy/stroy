@@ -358,7 +358,17 @@ public class Artifact {
         descriptionShort.setIf( other.descriptionShort );
         descriptionFull.setIf( other.descriptionFull );
 
-        // ...
+        for ( Artifact arti : other.getCompileDependencies() ) {
+            if ( !compileDeps.contains( arti ) ) {
+                depends( arti );
+            }
+        }
+
+        for ( Artifact arti : other.getTestDependencies() ) {
+            if ( !testDeps.contains( arti )) {
+                testDepends( arti );
+            }
+        }
     }
 
     public Artifact iconResourcePath( String str ) {

@@ -3,6 +3,8 @@ package org.openCage.artig;
 import org.openCage.io.fspath.FSPath;
 import org.openCage.gpad.FausterizeArtifact;
 import org.openCage.io.fspath.FSPathBuilder;
+import org.openCage.lang.LangArtifact;
+import org.openCage.localization.LocalizationArtifact;
 
 /**
  * Created by IntelliJ IDEA.
@@ -23,16 +25,16 @@ public class StroyDemo {
         MavenGen gen = new MavenGen( new ArtigArtifact().getProject() );
         //System.out.println( gen.getModulePom( new ArtigArtifact().getArtifact()) );
         gen.generate( stroyRoot );
-
-
-        PElephGen pgen = new PElephGen( new FausterizeArtifact().getProject() );
-
-        pgen.generate( stroyRoot );
+//
+//
+//        PElephGen pgen = new PElephGen( new FausterizeArtifact().getProject() );
+//
+//        pgen.generate( stroyRoot );
 
         
-//        QuineGen qgen = new QuineGen( new LangArtifact().getProject());
-//
-//        System.out.println( qgen.gen( new LangArtifact()));
+        QuineGen qgen = new QuineGen( new LocalizationArtifact().getProject());
+
+        System.out.println( qgen.gen( new LocalizationArtifact()));
 
 
     }

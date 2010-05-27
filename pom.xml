@@ -13,8 +13,8 @@
    <name>stroy</name>
     <modules>
       <module>modules/lang</module>
-      <module>modules/io</module>
       <module>modules/property</module>
+      <module>modules/io</module>
       <module>modules/localization</module>
       <module>modules/ui</module>
       <module>modules/fausterize</module>

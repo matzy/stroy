@@ -25,6 +25,16 @@ public class UIArtifact implements ArtifactProvider {
                 depends( proj.get("openCage", "openCage-localization")).
                 depends( proj.get("openCage", "openCage-io")).
                 depends( proj.get("openCage", "openCage-lang")).
+                depends( proj.external( "com.google.inject", "guice" ).
+                        apache2().
+                        java6p().
+                        descriptionShort( "Google dependency injection lib in pure java.").
+                        address( "http://code.google.com/p/google-guice/", "code.google" ).
+                        version( "2.0" ).
+                        depends( proj.external( "aopalliance", "aopalliance" ).
+                            version( "1.0" ).
+                            address( "http://aopalliance.sourceforge.net/", "sourceforge.net" ).
+                            publicDomain())).
                 depends( proj.external( "net.java.dev.designgridlayout", "designgridlayout" ).
                         depends( proj.external( "net.java.dev.swing-layout", "swing-layout" ).
                                 address( "https://swing-layout.dev.java.net/", "dev.java").
