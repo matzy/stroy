@@ -68,7 +68,8 @@ public class PersistingPropStore implements PropStore {
                 throw new IllegalArgumentException( "background executor must be set when persisting" );
             }
 
-            xs.alias( "Property", PropertyImpl.class );
+            // TODO UGHLY
+            xs.alias( "Property", PersistentProp.class );
 
             if ( aliases != null ) {
                 for ( Map.Entry<String, Class> alias : aliases.entrySet() ) {

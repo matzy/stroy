@@ -52,19 +52,18 @@ public class PersistentPropTicTest {
             }
         });
 
-        Tic.bindSingleton( Property.class, "A", new Lazy<Property>( new F0<Property>() {
+        Tic.bindSingleton( Property.class, "A", new F0<Property>() {
             @Override
             public Property<String> call() {
-                return PropertyConnector.get( Tic.get( PropStore.class ), "key", "BBB", "hah");
+                return PersistentProp.get( Tic.get( PropStore.class ), "key", "BBB", "hah");
             }
-        }));
+        });
 
-        Tic.bindSingleton( PropStore.class, new Lazy<PropStore>( new F0<PropStore>() {
+        Tic.bindSingleton( PropStore.class, new F0<PropStore>() {
             @Override
             public PropStore call() {
                 return new PersistingPropStore( Tic.get( BackgroundExecutor.class ), backing );
-            }})
-        );
+            }});
 
         Tic.bind( BackgroundExecutor.class, new F0<BackgroundExecutor>() {
             @Override

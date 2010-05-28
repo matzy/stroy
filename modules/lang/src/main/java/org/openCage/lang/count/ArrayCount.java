@@ -29,8 +29,9 @@ public class ArrayCount<T> implements Iterable<ArrayCount<T>>, Iterator<ArrayCou
     private int idx = -1;
     private final T[] array;
 
-    public ArrayCount( T[] array ) {
-        this.array = array;
+    public ArrayCount( T[] array ) { // NOSONAR
+        this.array = array; // NOSONAR
+        // ArrayCount is just a wrapper over the array so it is intential to copy it and not to clone ir
     }
 
     @Override

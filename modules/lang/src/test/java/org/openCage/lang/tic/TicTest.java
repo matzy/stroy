@@ -39,12 +39,12 @@ public class TicTest {
             }
         });
 
-        Tic.bindSingleton( Singl.class, new Lazy<Singl>( new F0<Singl>() {
+        Tic.bindSingleton( Singl.class, new F0<Singl>() {
             @Override
             public Singl call() {
                 return new Singleton();
             }
-        }){});
+        });
     }
 
     @Test

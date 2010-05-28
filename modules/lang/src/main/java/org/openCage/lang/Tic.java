@@ -46,8 +46,8 @@ public class Tic {
         throw new IllegalStateException( "no object for class " + c.getName() + " with tag " + tag);
     }
 
-    public static <T> void bindSingleton(Class<T> c, Lazy<T> ll ) {
-        singleton.put( c, ll );
+    public static <T> void bindSingleton(Class<T> c, F0<T> f ) {
+        singleton.put( c, new Lazy<T>( f ) );
     }
 
     public static <T> void bind(Class<T> c, F0<T> f ) {
@@ -58,8 +58,8 @@ public class Tic {
         multiTag.put( Tu.c( (Class)c, tag ), f );
     }
 
-    public static <T> void bindSingleton(Class<T> c, String tag, Lazy<T> ll ) {
-        singletonTag.put( Tu.c( (Class)c, tag ), ll );
+    public static <T> void bindSingleton(Class<T> c, String tag, F0<T> f ) {
+        singletonTag.put( Tu.c( (Class)c, tag ), new Lazy<T>(f) );
     }
     public static void clear() {
         multi.clear();

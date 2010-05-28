@@ -10,9 +10,6 @@ import org.openCage.localization.Localize;
 import org.openCage.localization.impl.BundleCheckImpl;
 import org.openCage.localization.impl.LocaleProperty;
 import org.openCage.localization.impl.LocalizeProvider;
-import org.openCage.localization.wiring.LocalizeWiring;
-
-import org.openCage.property.NonPersiPropstoreTest;
 import org.openCage.property.NonPersistingPropStore;
 import org.openCage.property.PropStore;
 import org.openCage.property.Property;

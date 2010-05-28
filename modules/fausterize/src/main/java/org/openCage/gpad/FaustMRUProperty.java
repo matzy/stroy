@@ -5,8 +5,9 @@ import com.google.inject.Provider;
 import com.google.inject.name.Named;
 import org.openCage.io.fspath.FSPathBuilder;
 import org.openCage.lang.structure.MRU;
+import org.openCage.property.PersistentProp;
+import org.openCage.property.PersistingPropStore;
 import org.openCage.property.Property;
-import org.openCage.property.PropertyProvider;
 import org.openCage.property.PropStore;
 
 import java.io.File;
@@ -38,14 +39,14 @@ import static org.openCage.gpad.Constants.PROJECT_DIR;
 /**
  * A persisted MRU for opened files for fausterize
  */
-public class FaustMRUProperty extends PropertyProvider<MRU<String>> implements Provider<Property<MRU<String>>> {
+public class FaustMRUProperty implements Provider<Property<MRU<String>>> {
 
     public static final String KEY = "FaustMRU";
+    private PropStore store;
 
     @Inject
     public FaustMRUProperty( @Named("trans") PropStore store ) {
-        super( store, KEY, getDefault(), "Most recently used files" );
-
+        this.store = store;
     }
 
     private static MRU<String> getDefault() {
@@ -62,5 +63,10 @@ public class FaustMRUProperty extends PropertyProvider<MRU<String>> implements P
         }
 
         return mru;
+    }
+
+    @Override
+    public Property<MRU<String>> get() {
+        return PersistentProp.get( store, KEY, getDefault(), "Most recently used files" );
     }
 }

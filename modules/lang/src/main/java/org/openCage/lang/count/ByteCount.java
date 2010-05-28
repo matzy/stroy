@@ -28,11 +28,12 @@ public class ByteCount implements Iterable<ByteCount>, Iterator<ByteCount> {
     private int idx = -1;
     private final byte[] array;
 
-    public ByteCount( byte[] array ) {
+    public ByteCount( byte[] array ) { //NOSONAR
         this.array = array;
+        // ByteCount is just a wrapper over the array so it is intential to copy it and not to clone ir        
     }
 
-    @Override
+    @Override                                                                      
     public boolean hasNext() {
         return idx < array.length - 1;
     }

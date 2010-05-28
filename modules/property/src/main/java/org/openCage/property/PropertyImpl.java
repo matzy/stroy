@@ -33,7 +33,7 @@ import java.util.List;
 ***** END LICENSE BLOCK *****/
 
 @ThreadSafe
-public class PropertyImpl<T> implements Property<T> {
+public abstract class PropertyImpl<T> implements Property<T> {
 
     private T                          obj;
     private final transient T          dflt;
@@ -43,7 +43,7 @@ public class PropertyImpl<T> implements Property<T> {
     private transient List<F1<Void, T>>  listeners = new ArrayList<F1<Void, T>>();
 
 
-    public PropertyImpl( PropStore store, T deflt, String description ) {
+    PropertyImpl( PropStore store, T deflt, String description ) {
         this.store = store;
         dflt = deflt;
         this.description = description;

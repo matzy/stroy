@@ -3,6 +3,7 @@ package org.openCage.demo;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.name.Named;
+import org.openCage.property.PersistentProp;
 import org.openCage.property.PropStore;
 import org.openCage.property.Property;
 import org.openCage.property.PropertyImpl;
@@ -29,7 +30,7 @@ public class FooPropertyProvider implements Provider<Property<String>> {
             return prop;
         }
 
-        prop = new PropertyImpl<String>( store, "yahooo", "foo" );
+        prop = null; //new PersistentProp<String>( store, "yahooo", "foo" );
         store.setProperty( DEMO_FOO, prop );
         return prop;
     }

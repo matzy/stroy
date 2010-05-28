@@ -24,12 +24,10 @@ public class PersistentPropStoreTest {
 
     private static File backing = FSPathBuilder.getTmpFile("xml").toFile();
 
-    public static class SingletonPropertyProvider extends PropertyProvider<String> {
+    public static class SingletonPropertyProvider {
 
-        public static SingletonPropertyProvider the = new SingletonPropertyProvider();
-
-        private SingletonPropertyProvider() {
-            super( new PersistingPropStore( new BackgroundExecutorImpl(), backing ), "key", "dflt", "description");
+        public static Property<String> get() {
+            return PersistentProp.get( new PersistingPropStore( new BackgroundExecutorImpl(), backing ), "key", "dflt", "description");
         }
     }
 
@@ -67,7 +65,7 @@ public class PersistentPropStoreTest {
 
     @Test
     public void testA() {
-        Property<String> a = SingletonPropertyProvider.the.get();
+        Property<String> a = SingletonPropertyProvider.get();
 
 //        assertEquals( "dflt", a.get() );
 

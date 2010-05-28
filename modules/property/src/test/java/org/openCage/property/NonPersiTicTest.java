@@ -12,19 +12,19 @@ public class NonPersiTicTest {
 
     @BeforeClass
     public static void setup() {
-        Tic.bindSingleton( Property.class, "aaa", new Lazy<Property>( new F0<Property>() {
+        Tic.bindSingleton( Property.class, "aaa", new F0<Property>() {
             @Override
             public Property<String> call() {
-                return new PropertyImpl( Tic.get( PropStore.class ), "dflt", "descr" );
+                return new SimpleProp("dflt");
             }
-        }));
+        });
 
-        Tic.bindSingleton( PropStore.class, new Lazy<PropStore>( new F0<PropStore>() {
-            @Override
-            public PropStore call() {
-                return new NonPersistingPropStore();
-            }
-        }));
+//        Tic.bindSingleton( PropStore.class, new F0<PropStore>() {
+//            @Override
+//            public PropStore call() {
+//                return new NonPersistingPropStore();
+//            }
+//        });
     }
 
     @Test

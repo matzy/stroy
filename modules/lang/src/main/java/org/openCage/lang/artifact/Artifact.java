@@ -385,7 +385,9 @@ public class Artifact {
     }
 
     public Artifact base( @NotNull Class resourceBase) {
-        base.set( resourceBase );
+        if ( !base.isSet() ) {
+            base.set( resourceBase );
+        }
         return this;
     }
 
