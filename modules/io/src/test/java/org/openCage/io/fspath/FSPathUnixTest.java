@@ -38,66 +38,12 @@ public class FSPathUnixTest {
 
 
     @Test
-    public void testSimple() {
-        FSPath path = FSPathBuilder.getPath("/");
-
-        assertEquals( 1, path.size());
-        assertEquals( "/", path.toString());
-    }
-
-    @Test
-    public void testAdd() {
-        FSPath path = FSPathBuilder.getPath("/").add("foo", "bar");
-
-        assertEquals( 2, path.size());
-        assertEquals( "/foo/bar", path.toString());
-    }
-
-    @Test( expected = IllegalArgumentException.class )
-    public void testEmptyPath() {
-        FSPathBuilder.getPath( "" );
-    }
-
-    @Test
-    public void testAbsolute() {
-        FSPath path = FSPathBuilder.getPath( "/foo" );
-        assertEquals( 1, path.size());
-
-        assertEquals( "/foo", path.toString() );
-    }
-
-    @Test
     public void testXDG(){
 
         // TODO
 
         System.out.println( System.getenv("$XDG_CONFIG"));
         System.out.println( System.getenv("XDG_CONFIG"));
-    }
-
-    @Test
-    public void testFromFile() {
-
-        FSPath path = FSPathBuilder.getPath( "/foo/woo/duuuuuu/test.txt" );
-        assertEquals( path, new FSPathUnix( path.toFile()));
-    }
-
-    @Test
-    public void testRoot() {
-        assertEquals( 1, new FSPathUnix("/").size() );
-    }
-
-
-    @Test
-    public void testIterator() {
-        for ( Count<String> elem : Count.count(new FSPathUnix("/a/b/c"))) {
-            if ( elem.idx() == 0 ) {
-                assertEquals( "/", elem.obj());
-            }
-            if ( elem.idx() == 1 ) {
-                assertEquals( "a", elem.obj());
-            }
-        }
     }
 
 }

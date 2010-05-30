@@ -14,6 +14,8 @@ import java.util.List;
 
 public class FSPathUNC implements FSPath {
 
+    private static final String PREFIX = "\\\\";
+
     private final List<String> elements = new ArrayList<String>();
 
     private FSPathUNC() {}
@@ -27,7 +29,7 @@ public class FSPathUNC implements FSPath {
             throw new IllegalArgumentException("no UNC path");
         }
 
-        String[] els = absolutePath.substring(2).split("\\\\");
+        String[] els = absolutePath.substring(2).split(PREFIX);
 
         for ( String element : els ) {
             if ( !element.trim().isEmpty() ) {
@@ -37,7 +39,7 @@ public class FSPathUNC implements FSPath {
     }
 
     public String toString() {
-        return "\\\\" + StringUtils.join( elements, '\\');
+        return PREFIX + StringUtils.join( elements, '\\');
     }
 
     @Override
@@ -47,7 +49,7 @@ public class FSPathUNC implements FSPath {
 
     @Override
     public FSPath add(String... els) {
-        FSPathUNC ret = new FSPathUNC("\\\\");
+        FSPathUNC ret = new FSPathUNC(PREFIX);
         ret.elements.addAll( elements );
         ret.elements.addAll( Arrays.asList( els ));
         return ret;
