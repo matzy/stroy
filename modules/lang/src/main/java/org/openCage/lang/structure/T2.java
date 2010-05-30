@@ -1,5 +1,7 @@
 package org.openCage.lang.structure;
 
+import org.openCage.lang.Constants;
+
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
 *
@@ -37,13 +39,13 @@ public class T2<A,B> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof T2)) return false;
+        if (this == o) { return true; }
+        if (!(o instanceof T2)) { return false; }
 
         T2 t2 = (T2) o;
 
-        if (i0 != null ? !i0.equals(t2.i0) : t2.i0 != null) return false;
-        if (i1 != null ? !i1.equals(t2.i1) : t2.i1 != null) return false;
+        if (i0 != null ? !i0.equals(t2.i0) : t2.i0 != null) { return false; }
+        if (i1 != null ? !i1.equals(t2.i1) : t2.i1 != null) { return false; }
 
         return true;
     }
@@ -51,7 +53,7 @@ public class T2<A,B> {
     @Override
     public int hashCode() {
         int result = i0 != null ? i0.hashCode() : 0;
-        result = 31 * result + (i1 != null ? i1.hashCode() : 0);
+        result = Constants.HASHFACTOR * result + (i1 != null ? i1.hashCode() : 0);
         return result;
     }
 }

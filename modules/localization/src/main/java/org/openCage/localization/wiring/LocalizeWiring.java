@@ -3,9 +3,7 @@ package org.openCage.localization.wiring;
 import com.google.inject.TypeLiteral;
 import org.openCage.localization.impl.BundleCheckImpl;
 import org.openCage.localization.impl.LocaleProperty;
-import org.openCage.localization.impl.LocalizeProvider;
 import org.openCage.localization.BundleCheck;
-import org.openCage.localization.protocol.LocalizeBuilder;
 
 import com.google.inject.Binder;
 import com.google.inject.Module;

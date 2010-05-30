@@ -2,7 +2,9 @@ package org.openCage.lang.iterators;
 
 import java.io.BufferedReader;
 
-public class Iterators {
+public final class Iterators {
+
+    private Iterators() {};
 
     public static String[] words( String str ) {
         return str.split(" ");

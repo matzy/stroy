@@ -3,9 +3,15 @@ package org.openCage.ui.impl;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import java.util.Arrays;
+import java.util.Locale;
 
+import com.google.inject.name.Named;
+import org.openCage.localization.CombinedLocalize;
+import org.openCage.localization.DictLocalize;
 import org.openCage.localization.Localize;
+import org.openCage.localization.impl.LocaleProperty;
 import org.openCage.localization.protocol.LocalizeBuilder;
+import org.openCage.property.Property;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -29,12 +35,11 @@ import org.openCage.localization.protocol.LocalizeBuilder;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public class UILocalizeProvider implements Provider<Localize>{
+public class UILocalizeProvider extends CombinedLocalize {
+
 
     @Inject
-    private LocalizeBuilder builder;
-
-    public Localize get() {
-        return builder.build( "org.openCage.ui.uitexts", Arrays.asList(builder.get()));
+    public UILocalizeProvider( @Named(LocaleProperty.THE_LOCALE) Property<Locale> theLocale) {
+        super("org.openCage.ui.uitexts", theLocale, new DictLocalize( theLocale ));
     }
 }

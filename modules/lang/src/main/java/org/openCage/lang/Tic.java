@@ -7,7 +7,9 @@ import org.openCage.lang.structure.Tu;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Tic {
+public final class Tic {
+
+    private Tic() {};
 
     private static Map<Class, F0>   multi = new HashMap<Class, F0>();
     private static Map<Class, Lazy> singleton = new HashMap<Class, Lazy>();

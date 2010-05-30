@@ -2,7 +2,7 @@ package org.openCage.ui.impl.help;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
-import org.openCage.io.Location;
+import org.openCage.io.FileUtils;
 import org.openCage.io.fspath.FSPath;
 import org.openCage.io.fspath.FSPathBuilder;
 import org.openCage.localization.Localize;
@@ -45,7 +45,7 @@ public class HelpViewerOSX implements HelpViewer {
     @Override
     public void viewHelp() {
 
-        String jarPath = Location.getJarLocation( HelpViewerOSX.class );
+        String jarPath = FileUtils.getJarLocation( HelpViewerOSX.class );
 
         FSPath helpBookIndex = getHelpbookInApp( jarPath );
 

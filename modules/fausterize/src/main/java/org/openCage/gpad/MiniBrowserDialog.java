@@ -206,8 +206,9 @@ public class MiniBrowserDialog extends JDialog implements HyperlinkListener {
     // Verify URL format.
     private URL verifyUrl(String url) {
         // Only allow HTTP URLs.
-        if (!url.toLowerCase().startsWith("http://"))
+        if (!url.toLowerCase().startsWith("http://")) {
             return null;
+        }
 
         // Verify format of URL.
         URL verifiedUrl = null;

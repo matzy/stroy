@@ -33,7 +33,9 @@ import java.util.UUID;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public class FSPathBuilder {
+public final class FSPathBuilder {
+
+    private FSPathBuilder() {};
 
     private static JFileChooser fileChooser = new JFileChooser();
 
@@ -134,6 +136,12 @@ public class FSPathBuilder {
 
         return getPath( System.getProperty("java.io.tmpdir")).add(
                 "" + new Date().getTime() + "-" + UUID.randomUUID().toString() + "." + extension );
+    }
+
+    public static FSPath getTmpDir() {
+
+        return getPath( System.getProperty("java.io.tmpdir")).add(
+                "" + new Date().getTime() + "-" + UUID.randomUUID().toString());
     }
 
 }

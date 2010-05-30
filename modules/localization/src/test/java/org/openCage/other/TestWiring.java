@@ -9,7 +9,6 @@ import org.openCage.localization.BundleCheck;
 import org.openCage.localization.Localize;
 import org.openCage.localization.impl.BundleCheckImpl;
 import org.openCage.localization.impl.LocaleProperty;
-import org.openCage.localization.impl.LocalizeProvider;
 import org.openCage.property.NonPersistingPropStore;
 import org.openCage.property.PropStore;
 import org.openCage.property.Property;
@@ -35,7 +34,8 @@ public class TestWiring implements Module {
 
         binder.bind( Localize.class ).
                 annotatedWith( Names.named("testing")).
-                toProvider( LocalizeProvider.class );
+                to( TestLocalize.class );
+//                toProvider( LocalizeProvider.class );
 
         binder.bind(BackgroundExecutor.class ).
                 to(BackgroundExecutorImpl.class );

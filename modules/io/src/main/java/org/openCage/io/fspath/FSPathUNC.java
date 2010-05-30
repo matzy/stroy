@@ -84,4 +84,9 @@ public class FSPathUNC implements FSPath {
 
         return ret;
     }
+
+    @Override
+    public FSPath parent() {
+        return parent(1);
+    }
 }

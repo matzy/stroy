@@ -65,4 +65,6 @@ public interface FSPath extends Iterable<String> {
      * @return a new dspath
      */
     FSPath parent(int i);
+
+    FSPath parent();
 }

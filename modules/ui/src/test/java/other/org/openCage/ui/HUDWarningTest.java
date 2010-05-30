@@ -8,13 +8,7 @@ import org.openCage.ui.warning.HUDWarning;
 
 import java.util.Locale;
 
-/**
- * Created by IntelliJ IDEA.
- * User: stephan
- * Date: 19.02.2010
- * Time: 19:58:12
- * To change this template use File | Settings | File Templates.
- */
+@Ignore
 public class HUDWarningTest {
 
     @Test

@@ -29,7 +29,9 @@ import java.util.UUID;
  * Contributor(s):
  ***** END LICENSE BLOCK *****/
 
-public class FileUtils {
+public final class FileUtils {
+
+    private FileUtils() {};
 
     public static void ensurePath( FSPath path ) {
         path.toFile().getParentFile().mkdirs();
@@ -49,5 +51,10 @@ public class FileUtils {
         }
 
     }
+
+    public static String getJarLocation( Class classFromJar ) {
+        return classFromJar.getProtectionDomain().getCodeSource().getLocation().getFile();
+    }
+    
 
 }

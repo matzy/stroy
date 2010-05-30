@@ -71,12 +71,15 @@ public class FSPathWindows implements FSPath {
 
     @Override
     public Iterator<String> iterator() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        List<String> ret = new ArrayList<String>();
+        ret.add( drive + ":");
+        ret.addAll( elements );
+        return ret.iterator();
     }
 
     @Override
     public int size() {
-        return elements.size();
+        return elements.size() + 1;
     }
 
     @Override
@@ -98,5 +101,10 @@ public class FSPathWindows implements FSPath {
         ret.elements.addAll( elements.subList( 0, elements.size() - i ));
 
         return ret;
+    }
+
+    @Override
+    public FSPath parent() {
+        return parent(1);        
     }
 }

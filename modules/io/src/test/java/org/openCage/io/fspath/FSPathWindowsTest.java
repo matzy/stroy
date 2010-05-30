@@ -19,44 +19,6 @@ public class FSPathWindowsTest {
 
 
 
-    @Test
-    public void testSimple() {
-
-        FSPath path = FSPathBuilder.getPath("C:");
-
-        assertEquals( 0, path.size());
-        assertEquals( "C:\\", path.toString());
-    }
-
-    @Test
-    public void testSimpleLetter() {
-        FSPath path = FSPathBuilder.getPath("G:");
-
-        assertEquals( 0, path.size());
-        assertEquals( "G:\\", path.toString());
-    }
-
-    @Test
-    public void testAdd() {
-        FSPath path = FSPathBuilder.getPath("X:").add("foo", "bar");
-
-        assertEquals( 2, path.size());
-        assertEquals( "X:\\foo\\bar", path.toString());
-    }
-
-    @Test( expected = IllegalArgumentException.class )
-    public void testEmptyPath() {
-        if ( !Sys.isWindows() ) { throw new IllegalArgumentException("wtf"); }
-        FSPathBuilder.getPath( "" );
-    }
-
-    @Test
-    public void testAbsolute() {
-        FSPath path = FSPathBuilder.getPath( "D:\\foo" );
-        assertEquals( 1, path.size());
-
-        assertEquals( "D:\\foo", path.toString() );
-    }
 
 
     @Test
