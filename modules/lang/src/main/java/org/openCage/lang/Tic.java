@@ -1,6 +1,7 @@
 package org.openCage.lang;
 
 import org.openCage.lang.functions.F0;
+import org.openCage.lang.structure.Lazy;
 import org.openCage.lang.structure.T2;
 import org.openCage.lang.structure.Tu;
 

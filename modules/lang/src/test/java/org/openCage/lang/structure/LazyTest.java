@@ -1,9 +1,9 @@
-package org.openCage.lang;
+package org.openCage.lang.structure;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.Test;
-import org.openCage.lang.Lazy;
+import org.openCage.lang.structure.Lazy;
 import org.openCage.lang.errors.Unchecked;
 import org.openCage.lang.functions.F0;
 

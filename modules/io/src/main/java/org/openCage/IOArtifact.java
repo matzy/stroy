@@ -14,7 +14,7 @@ public class IOArtifact implements ArtifactProvider{
 
         io = proj.module( getClass(), "openCage", "openCage-io").
                 address( "http://stroy.wikidot.com", "stroy.wikidot.com" ).
-                version( "0.0.3").
+                version( "0.1.0").
                 mpl11().
                 depends( proj.get("openCage", "openCage-lang")).
                 depends( proj.get("commons-lang", "commons-lang" ) ).

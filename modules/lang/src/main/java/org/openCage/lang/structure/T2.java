@@ -25,8 +25,8 @@ import org.openCage.lang.Constants;
 ***** END LICENSE BLOCK *****/
 public class T2<A,B> {
 
-    public final A i0;
-    public final B i1;
+    public final A i0; // NOSONAR
+    public final B i1; // NOSONAR
 
     public T2( final A a, final B b ) {
         this.i0 = a;

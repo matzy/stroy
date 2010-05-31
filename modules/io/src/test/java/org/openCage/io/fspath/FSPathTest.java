@@ -1,18 +1,20 @@
 package org.openCage.io.fspath;
 
 import org.junit.Test;
-import org.openCage.lang.count.Count;
+import org.openCage.lang.iterators.Count;
 
 import static junit.framework.Assert.assertEquals;
 
 public class FSPathTest {
+
+    // simple -----
 
     @Test
     public void testSimpleUnixRoot() {
         FSPath path = new FSPathUnix( "/");
 
         assertEquals( 1, path.size());
-       assertEquals( "/", path.toString());
+        assertEquals( "/", path.toString());
     }
 
     @Test
@@ -25,12 +27,16 @@ public class FSPathTest {
     }
 
     @Test
-    public void testAddUnix() {
-        FSPath path = new FSPathUnix( "/").add("foo", "bar");
+    public void testSimplUNC() {
 
-        assertEquals( 3, path.size());
-        assertEquals( "/foo/bar", path.toString());
+        FSPath path = new FSPathUNC( "\\\\huh");
+
+        assertEquals( 1, path.size());
+        assertEquals( "\\\\huh", path.toString());
     }
+
+
+    // empty ----
 
     @Test( expected = IllegalArgumentException.class )
     public void testEmptyPathUnix() {
@@ -42,6 +48,62 @@ public class FSPathTest {
         new FSPathWindows( "" );
     }
 
+    @Test( expected = IllegalArgumentException.class )
+    public void testEmptyUNC() {
+
+        new FSPathUNC( "");
+    }
+
+    @Test( expected = IllegalArgumentException.class )
+    public void testNoRootUNC() {
+
+        new FSPathUNC( "\\\\");
+    }
+    // add -----
+
+    @Test
+    public void testAddUnix() {
+        FSPath path = new FSPathUnix( "/").add("foo", "bar");
+
+        assertEquals( 3, path.size());
+        assertEquals( "/foo/bar", path.toString());
+    }
+
+    @Test( expected = IllegalArgumentException.class )
+    public void testAddUnixIllegal() {
+        new FSPathUnix( "/").add("foo", "/bar");
+    }
+
+    @Test
+    public void testAddUNC() {
+        FSPath path = new FSPathUNC( "\\\\aaa").add("foo", "bar");
+
+        assertEquals( 3, path.size());
+        assertEquals( "\\\\aaa\\foo\\bar", path.toString());
+    }
+
+    @Test( expected = IllegalArgumentException.class )
+    public void testAddUNCIllegal() {
+        new FSPathUNC( "\\\\aaa").add("foo", "\\bar");
+    }
+
+    @Test
+    public void testAddWindows() {
+        FSPath path = new FSPathWindows( "X:").add("foo", "bar");
+
+        assertEquals( 3, path.size());
+        assertEquals( "X:\\foo\\bar", path.toString());
+    }
+
+    @Test( expected = IllegalArgumentException.class )
+    public void testAddWindowsIllegal() {
+        new FSPathWindows( "X:").add("foo", "\\bar");
+    }
+
+
+
+    // ---
+
     @Test
     public void testAbsoluteUnix() {
         FSPath path = new FSPathUnix( "/foo" );
@@ -49,6 +111,9 @@ public class FSPathTest {
 
         assertEquals( "/foo", path.toString() );
     }
+
+
+
 
     @Test
     public void testXDG(){
@@ -75,21 +140,21 @@ public class FSPathTest {
     @Test
     public void testIteratorUnix() {
         int tested = 0;
-        for ( Count<String> elem : Count.count(new FSPathUnix("/a/b/c"))) {
+        for ( Count<FSPath> elem : Count.count(new FSPathUnix("/a/b/c"))) {
             if ( elem.idx() == 0 ) {
-                assertEquals( "/", elem.obj());
+                assertEquals( new FSPathUnix("/"), elem.obj());
                 tested++;
             }
             if ( elem.idx() == 1 ) {
-                assertEquals( "a", elem.obj());
+                assertEquals( new FSPathUnix("/a"), elem.obj());
                 tested++;
             }
             if ( elem.idx() == 2 ) {
-                assertEquals( "b", elem.obj());
+                assertEquals( new FSPathUnix("/a/b"), elem.obj());
                 tested++;
             }
             if ( elem.idx() == 3 ) {
-                assertEquals( "c", elem.obj());
+                assertEquals( new FSPathUnix("/a/b/c"), elem.obj());
                 tested++;
             }
         }
@@ -100,21 +165,21 @@ public class FSPathTest {
     @Test
     public void testIteratorWindows() {
         int tested = 0;
-        for ( Count<String> elem : Count.count(new FSPathWindows("C:\\a\\b\\c"))) {
+        for ( Count<FSPath> elem : Count.count(new FSPathWindows("C:\\a\\b\\c"))) {
             if ( elem.idx() == 0 ) {
-                assertEquals( "C:", elem.obj());
+                assertEquals( new FSPathWindows("C:"), elem.obj());
                 tested++;
             }
             if ( elem.idx() == 1 ) {
-                assertEquals( "a", elem.obj());
+                assertEquals( new FSPathWindows("C:\\a"), elem.obj());
                 tested++;
             }
             if ( elem.idx() == 2 ) {
-                assertEquals( "b", elem.obj());
+                assertEquals( new FSPathWindows("C:\\a\\b"), elem.obj());
                 tested++;
             }
             if ( elem.idx() == 3 ) {
-                assertEquals( "c", elem.obj());
+                assertEquals( new FSPathWindows("C:\\a\\b\\c"), elem.obj());
                 tested++;
             }
         }
@@ -122,22 +187,28 @@ public class FSPathTest {
         assertEquals(4, tested );
     }
 
-
     @Test
-    public void testSimpleLetterWin() {
-        FSPath path = new FSPathWindows("G:");
+    public void testIteratorUNC() {
+        int tested = 0;
+        for ( Count<FSPath> elem : Count.count(new FSPathUNC("\\\\a\\b\\c"))) {
+            if ( elem.idx() == 0 ) {
+                assertEquals( new FSPathUNC("\\\\a"), elem.obj());
+                tested++;
+            }
+            if ( elem.idx() == 1 ) {
+                assertEquals( new FSPathUNC("\\\\a\\b"), elem.obj());
+                tested++;
+            }
+            if ( elem.idx() == 2 ) {
+                assertEquals( new FSPathUNC("\\\\a\\b\\c"), elem.obj());
+                tested++;
+            }
+        }
 
-        assertEquals( 1, path.size());
-        assertEquals( "G:\\", path.toString());
+        assertEquals(3, tested );
     }
 
-    @Test
-    public void testAddWindows() {
-        FSPath path = new FSPathWindows( "X:").add("foo", "bar");
 
-        assertEquals( 3, path.size());
-        assertEquals( "X:\\foo\\bar", path.toString());
-    }
 
 
     @Test

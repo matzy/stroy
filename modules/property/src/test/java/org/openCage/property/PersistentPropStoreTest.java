@@ -1,11 +1,10 @@
 package org.openCage.property;
 
 import org.junit.*;
-import org.openCage.io.fspath.FSPath;
 import org.openCage.io.fspath.FSPathBuilder;
 import org.openCage.lang.BackgroundExecutorImpl;
 import org.openCage.lang.functions.F1;
-import org.openCage.withResource.impl.WithImpl;
+import org.openCage.io.With;
 
 import java.io.File;
 import java.io.IOException;
@@ -42,7 +41,7 @@ public class PersistentPropStoreTest {
         System.out.println("up");
         backing.delete();
 
-        new WithImpl().withWriter( backing, new F1<Void, Writer>() {
+        new With().withWriter( backing, new F1<Void, Writer>() {
             @Override
             public Void call(Writer writer) {
                 try {

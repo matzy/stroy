@@ -9,6 +9,7 @@ import org.openCage.lang.artifact.Artifact;
 import org.openCage.lang.artifact.Author;
 import org.openCage.lang.artifact.Project;
 import org.openCage.lang.errors.Unchecked;
+import org.openCage.lang.iterators.Count;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -158,7 +159,7 @@ public class PElephGen {
         if ( arti.getCompileDependencies().size() > 0 ) {
             ret += "\n           depends=\"";
 
-            for ( org.openCage.lang.count.Count<Artifact> dep : org.openCage.lang.count.Count.count(arti.getCompileDependencies()) ) {
+            for ( Count<Artifact> dep : Count.count(arti.getCompileDependencies()) ) {
                 ret += dep.obj().gettName();
                 if ( !dep.isLast()) {
                     ret += ", ";
@@ -191,7 +192,7 @@ public class PElephGen {
         if ( arti.getCompileDependencies().size() > 0 ) {
             ret += "\n           depends=\"";
 
-            for ( org.openCage.lang.count.Count<Artifact> dep : org.openCage.lang.count.Count.count(arti.getCompileDependencies()) ) {
+            for ( Count<Artifact> dep : Count.count(arti.getCompileDependencies()) ) {
                 ret += getModuleName( dep.obj() );
                 if ( !dep.isLast()) {
                     ret += ", ";

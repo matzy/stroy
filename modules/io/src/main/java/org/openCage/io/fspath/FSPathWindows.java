@@ -2,6 +2,7 @@ package org.openCage.io.fspath;
 
 import org.apache.commons.lang.StringUtils;
 import org.openCage.io.fspath.FSPath;
+import org.openCage.lang.Constants;
 import org.openCage.lang.errors.Unchecked;
 
 import java.io.File;
@@ -13,20 +14,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Pattern;
 
-/**
- * Created by IntelliJ IDEA.
- * User: spfab
- * Date: Jan 13, 2010
- * Time: 1:02:10 PM
- * To change this template use File | Settings | File Templates.
- */
 public class FSPathWindows implements FSPath {
 
-    private String drive;
+    private final String drive;
     private List<String> elements = new ArrayList<String>();
     private Pattern driveLetter = Pattern.compile( "[a-zA-Z]\\:" );
 
-    public FSPathWindows(String absolutePath) {
+    public FSPathWindows( String absolutePath ) {
         if ( StringUtils.isEmpty( absolutePath )) {
             throw new IllegalArgumentException("an absolute path can't be empty");
         }
@@ -36,21 +30,22 @@ public class FSPathWindows implements FSPath {
             throw new IllegalArgumentException("no drive letter: " + absolutePath);
         }
 
-        drive = absolutePath.substring( 0, 1 );
+        drive = absolutePath.substring( 0, 1 ).toUpperCase();
 
         String[] els = absolutePath.substring(2).split("\\\\");
+        ElementRules.check( els );
 
         for ( String element : els ) {
             if ( !element.trim().isEmpty() ) {
                 elements.add( element );
             }
         }
-
-
-
     }
 
-    private FSPathWindows() {}
+    private FSPathWindows() {
+        drive = "Z";
+        throw new IllegalStateException( "need a path" );
+    }
 
     public String toString() {
         return drive + ":\\" + StringUtils.join( elements, '\\');
@@ -63,6 +58,7 @@ public class FSPathWindows implements FSPath {
 
     @Override
     public FSPath add(String... elements) {
+        ElementRules.check( elements );        
         // clone
         FSPathWindows ret = new FSPathWindows( toString() );
         ret.elements.addAll( Arrays.asList( elements ));
@@ -70,10 +66,14 @@ public class FSPathWindows implements FSPath {
     }
 
     @Override
-    public Iterator<String> iterator() {
-        List<String> ret = new ArrayList<String>();
-        ret.add( drive + ":");
-        ret.addAll( elements );
+    public Iterator<FSPath> iterator() {
+        List<FSPath> ret = new ArrayList<FSPath>();
+        FSPath path = new FSPathWindows( drive + ":");
+        ret.add( path );
+        for ( String el : elements ) {
+            path = path.add( el );
+            ret.add( path );
+        }
         return ret.iterator();
     }
 
@@ -106,5 +106,25 @@ public class FSPathWindows implements FSPath {
     @Override
     public FSPath parent() {
         return parent(1);        
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) { return true; }
+        if (!(o instanceof FSPathWindows)) { return false; }
+
+        FSPathWindows that = (FSPathWindows) o;
+
+        if (drive != null ? !drive.equals(that.drive) : that.drive != null) { return false; }
+        if (elements != null ? !elements.equals(that.elements) : that.elements != null) { return false; }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = drive != null ? drive.hashCode() : 0;
+        result = Constants.HASHFACTOR * result + (elements != null ? elements.hashCode() : 0);
+        return result;
     }
 }

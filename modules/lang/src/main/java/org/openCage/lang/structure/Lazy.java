@@ -1,4 +1,4 @@
-package org.openCage.lang;
+package org.openCage.lang.structure;
 
 import org.openCage.lang.errors.Unchecked;
 import org.openCage.lang.functions.F0;

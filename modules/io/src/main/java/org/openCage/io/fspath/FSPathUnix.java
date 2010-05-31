@@ -48,8 +48,8 @@ public class FSPathUnix implements FSPath {
         }
 
         String[] els = absolutePath.split("/");
+        ElementRules.check( els );
 
-        elements.add( "/" );
         for ( String element : els ) {
             if ( !element.trim().isEmpty() ) {
                 elements.add( element );
@@ -65,11 +65,7 @@ public class FSPathUnix implements FSPath {
     private FSPathUnix() {}
 
     public String toString() {
-        if ( elements.size() == 1 ) {
-            return "/";
-        }
-        
-        return StringUtils.join( elements, '/').substring(1);
+        return "/" + StringUtils.join( elements, '/');
     }
 
     public File toFile() {
@@ -78,19 +74,26 @@ public class FSPathUnix implements FSPath {
 
     @Override
     public FSPath add( String ... els ) {
-        FSPathUnix ret = new FSPathUnix("/");
-        ret.elements.clear();
-        ret.elements.addAll( elements );
+        ElementRules.check( els );
+
+        FSPathUnix ret = new FSPathUnix( toString() );
         ret.elements.addAll( Arrays.asList( els ));
         return ret;
     }
 
-    public Iterator<String> iterator() {
-        return elements.iterator();
+    public Iterator<FSPath> iterator() {
+        List<FSPath> ret = new ArrayList<FSPath>();
+        FSPath path = new FSPathUnix( "/");
+        ret.add( path );
+        for ( String el : elements ) {
+            path = path.add( el );
+            ret.add( path );
+        }
+        return ret.iterator();
     }
 
     public int size() {
-        return elements.size();
+        return elements.size() + 1;
     }
 
     @Override

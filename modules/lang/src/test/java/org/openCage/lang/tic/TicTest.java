@@ -2,7 +2,6 @@ package org.openCage.lang.tic;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.openCage.lang.Lazy;
 import org.openCage.lang.Tic;
 import org.openCage.lang.functions.F0;
 

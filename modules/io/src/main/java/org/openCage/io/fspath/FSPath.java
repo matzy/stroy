@@ -32,7 +32,7 @@ import java.util.Iterator;
  * A file path util, platform independent
  */
 @Immutable
-public interface FSPath extends Iterable<String> {
+public interface FSPath extends Iterable<FSPath> {
 
     String toString();
 
@@ -49,7 +49,7 @@ public interface FSPath extends Iterable<String> {
      * Iterate over the elements of this path
      * @return
      */
-    Iterator<String> iterator();
+    Iterator<FSPath> iterator();
 
     /**
      * the number of elements

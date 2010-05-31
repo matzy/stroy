@@ -1,6 +1,6 @@
 //package org.openCage.gpad;
 //
-//import org.openCage.withResource.impl.WithImpl;
+//import org.openCage.io.With;
 //import org.openCage.withResource.protocol.FileLineIterable;
 //
 //import java.io.File;

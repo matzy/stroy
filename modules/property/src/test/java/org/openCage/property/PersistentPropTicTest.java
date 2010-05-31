@@ -6,11 +6,10 @@ import org.junit.Test;
 import org.openCage.io.fspath.FSPathBuilder;
 import org.openCage.lang.BackgroundExecutor;
 import org.openCage.lang.BackgroundExecutorImpl;
-import org.openCage.lang.Lazy;
 import org.openCage.lang.Tic;
 import org.openCage.lang.functions.F0;
 import org.openCage.lang.functions.F1;
-import org.openCage.withResource.impl.WithImpl;
+import org.openCage.io.With;
 
 import java.io.File;
 import java.io.IOException;
@@ -32,7 +31,7 @@ public class PersistentPropTicTest {
         System.out.println("up");
         backing.delete();
 
-        new WithImpl().withWriter( backing, new F1<Void, Writer>() {
+        new With().withWriter( backing, new F1<Void, Writer>() {
             @Override
             public Void call(Writer writer) {
                 try {

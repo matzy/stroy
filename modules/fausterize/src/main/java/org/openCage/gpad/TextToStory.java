@@ -3,7 +3,7 @@
 //import org.jetbrains.annotations.NotNull;
 //import org.openCage.lang.errors.Unchecked;
 //import org.openCage.lang.functions.F1;
-//import org.openCage.withResource.impl.WithImpl;
+//import org.openCage.io.With;
 //import org.openCage.lang.iterators.Iterators;
 //
 //import java.io.ByteArrayOutputStream;
@@ -52,7 +52,7 @@
 //
 //
 //        final byte[] uncompressedPad = new byte[10000];
-//        new WithImpl().withInputStream( path, new F1<Integer, InputStream>() {
+//        new With().withInputStream( path, new F1<Integer, InputStream>() {
 //            public Integer call(InputStream inputStream)  {
 //                try {
 //                    return inputStream.read( uncompressedPad );

@@ -1,7 +1,6 @@
 package org.openCage.io.fspath;
 
 import org.apache.commons.lang.StringUtils;
-import org.openCage.io.fspath.FSPath;
 import org.openCage.lang.errors.Unchecked;
 
 import java.io.File;
@@ -30,11 +29,16 @@ public class FSPathUNC implements FSPath {
         }
 
         String[] els = absolutePath.substring(2).split(PREFIX);
+        ElementRules.check( els );
 
         for ( String element : els ) {
             if ( !element.trim().isEmpty() ) {
                 elements.add( element );
             }
+        }
+
+        if ( elements.size() == 0 ) {
+            throw new IllegalArgumentException( "UNC paths have no root" );
         }
     }
 
@@ -49,20 +53,31 @@ public class FSPathUNC implements FSPath {
 
     @Override
     public FSPath add(String... els) {
-        FSPathUNC ret = new FSPathUNC(PREFIX);
-        ret.elements.addAll( elements );
+        ElementRules.check( els );
+
+        FSPathUNC ret = new FSPathUNC( toString() );
         ret.elements.addAll( Arrays.asList( els ));
         return ret;
     }
 
     @Override
-    public Iterator<String> iterator() {
-        throw new Error( "TODO" );
+    public Iterator<FSPath> iterator() {
+        List<FSPath> ret = new ArrayList<FSPath>();
+        FSPath path =  null;
+        for ( String el : elements ) {
+            if ( path == null ) {
+                path = new FSPathUNC( "\\\\" + el );
+            } else {
+                path = path.add( el );
+            }
+            ret.add( path );
+        }
+        return ret.iterator();
     }
 
     @Override
     public int size() {
-        throw new Error( "TODO" );
+        return elements.size();
     }
 
     @Override
@@ -90,5 +105,22 @@ public class FSPathUNC implements FSPath {
     @Override
     public FSPath parent() {
         return parent(1);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) { return true; }
+        if (!(o instanceof FSPathUNC)) { return false; }
+
+        FSPathUNC fsPathUNC = (FSPathUNC) o;
+
+        if (elements != null ? !elements.equals(fsPathUNC.elements) : fsPathUNC.elements != null) { return false; }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return elements != null ? elements.hashCode() : 0;
     }
 }
