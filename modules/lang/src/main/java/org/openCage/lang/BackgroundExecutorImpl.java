@@ -53,7 +53,8 @@ public class BackgroundExecutorImpl implements BackgroundExecutor {
                     try {
                         Thread.sleep( WAITING );
                     } catch (InterruptedException e) {
-                        // TODO ??
+                        // sleep interrupted => next call early
+                        LOG.info( "sleep interrupted: " + e );                        
                     }
 
                     CatchAll.call( task );

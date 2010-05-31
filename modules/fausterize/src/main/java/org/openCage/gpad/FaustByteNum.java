@@ -7,7 +7,7 @@ import org.openCage.huffman.Huffman;
 import org.openCage.lang.errors.Unchecked;
 import org.openCage.lang.functions.F1;
 import org.openCage.lang.iterators.Iterators;
-import org.openCage.withResource.impl.WithImpl;
+import org.openCage.io.With;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -65,7 +65,7 @@ public class FaustByteNum implements TextEncoderIdx<Byte,String> {
     public void setPad( @NotNull URI path ) {
 
         final byte[] uncompressedPad = new byte[PAD_SIZE];
-        new WithImpl().withInputStream( path, new F1<Integer, InputStream>() {
+        new With().withInputStream( path, new F1<Integer, InputStream>() {
             public Integer call(InputStream in) {
                 try {
                     int bytesRead = 0;

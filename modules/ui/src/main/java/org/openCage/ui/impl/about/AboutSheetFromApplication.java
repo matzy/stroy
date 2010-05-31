@@ -19,7 +19,7 @@ import org.openCage.lang.artifact.Artifact;
 import org.openCage.lang.artifact.Author;
 import org.openCage.lang.artifact.EmailAddress;
 import org.openCage.lang.artifact.WebPage;
-import org.openCage.lang.count.Count;
+import org.openCage.lang.iterators.Count;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;

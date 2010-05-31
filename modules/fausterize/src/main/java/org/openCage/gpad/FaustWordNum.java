@@ -1,6 +1,6 @@
 //package org.openCage.gpad;
 //
-//import org.openCage.withResource.impl.WithImpl;
+//import org.openCage.io.With;
 //import org.openCage.withResource.protocol.FileLineIterable;
 //
 //import java.io.File;
@@ -46,7 +46,7 @@
 //        File ff = new File( getClass().getResource( "faust.txt" ).getPath());
 //
 //        int idx = 0;
-//        FileLineIterable it = new WithImpl().getLineIteratorCloseInFinal( ff );
+//        FileLineIterable it = new With().getLineIteratorCloseInFinal( ff );
 //        try {
 //            for ( String str : it ) {
 //                String[] words = str.split(" ");

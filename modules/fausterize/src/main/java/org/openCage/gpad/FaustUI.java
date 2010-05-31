@@ -17,7 +17,7 @@ import org.openCage.lang.functions.F0;
 import org.openCage.lang.functions.F1;
 import org.openCage.lang.structure.MRU;
 import org.openCage.lang.artifact.Artifact;
-import org.openCage.lang.count.Count;
+import org.openCage.lang.iterators.Count;
 import org.openCage.lang.errors.Unchecked;
 import org.openCage.localization.Localize;
 import org.openCage.property.Property;

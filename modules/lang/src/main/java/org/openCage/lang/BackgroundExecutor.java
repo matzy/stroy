@@ -31,20 +31,20 @@ public interface BackgroundExecutor {
      * the task will run periodically and also at the end of the program
      * @param task
      */
-    public void addPeriodicAndExitTask( FV task );
+    void addPeriodicAndExitTask( FV task );
 
     /**
      * the task will be run every 10 seconds
      * te task should run fairly quick
      * @param task
      */
-    public void addPeriodicTask( FV task );
+    void addPeriodicTask( FV task );
 
     /**
      * the task will be executed at the end of the program
      * independent of how the program ends
      * @param task
      */
-    public void addExitTask( FV task );
+    void addExitTask( FV task );
 
 }

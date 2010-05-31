@@ -1,8 +1,8 @@
 package org.openCage.gpad;
 
 import eu.medsea.util.EncodingGuesser;
-import org.openCage.lang.count.ArrayCount;
-import org.openCage.lang.count.ByteCount;
+import org.openCage.lang.iterators.ArrayCount;
+import org.openCage.lang.iterators.ByteCount;
 import org.openCage.lang.errors.Unchecked;
 
 import java.io.UnsupportedEncodingException;

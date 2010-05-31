@@ -5,7 +5,6 @@ import org.openCage.lang.errors.Unchecked;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.UUID;
 
 /***** BEGIN LICENSE BLOCK *****
  * Version: MPL 1.1
@@ -34,7 +33,7 @@ public final class FileUtils {
     private FileUtils() {};
 
     public static void ensurePath( FSPath path ) {
-        path.toFile().getParentFile().mkdirs();
+        ensurePath( path.toFile() );
     }
     
 

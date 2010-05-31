@@ -1,9 +1,9 @@
-package org.openCage.lang;
+package org.openCage.lang.iterators;
 
 import org.junit.Test;
-import org.openCage.lang.count.ArrayCount;
-import org.openCage.lang.count.ByteCount;
-import org.openCage.lang.count.Count;
+import org.openCage.lang.iterators.ArrayCount;
+import org.openCage.lang.iterators.ByteCount;
+import org.openCage.lang.iterators.Count;
 
 import java.util.Arrays;
 import java.util.List;
