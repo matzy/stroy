@@ -6,26 +6,26 @@ import java.util.HashMap;
 import java.util.Map;
 
 /***** BEGIN LICENSE BLOCK *****
-* Version: MPL 1.1
-*
-* The contents of this file are subject to the Mozilla Public License Version
-* 1.1 (the "License"); you may not use this file except in compliance with
-* the License. You may obtain a copy of the License at
-* http://www.mozilla.org/MPL/
-*
-* Software distributed under the License is distributed on an "AS IS" basis,
-* WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
-* for the specific language governing rights and limitations under the
-* License.
-*
-* The Original Code is stroy code.
-*
-* The Initial Developer of the Original Code is Stephan Pfab <openCage@gmail.com>.
-* Portions created by Stephan Pfab are Copyright (C) 2006 - 2010.
-* All Rights Reserved.
-*
-* Contributor(s):
-***** END LICENSE BLOCK *****/
+ * Version: MPL 1.1
+ *
+ * The contents of this file are subject to the Mozilla Public License Version
+ * 1.1 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ * http://www.mozilla.org/MPL/
+ *
+ * Software distributed under the License is distributed on an "AS IS" basis,
+ * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+ * for the specific language governing rights and limitations under the
+ * License.
+ *
+ * The Original Code is stroy code.
+ *
+ * The Initial Developer of the Original Code is Stephan Pfab <openCage@gmail.com>.
+ * Portions created by Stephan Pfab are Copyright (C) 2006 - 2010.
+ * All Rights Reserved.
+ *
+ * Contributor(s):
+ ***** END LICENSE BLOCK *****/
 
 @Immutable
 public class Licence {
@@ -44,7 +44,7 @@ public class Licence {
         this.version = Version.valueOf( version );
 
         all.put( name, this );
-	}
+    }
 
     public String gettName() {
         return name;
@@ -52,8 +52,8 @@ public class Licence {
 
     // TODO
     public boolean isOpenSource() {
-		return true;
-	}
+        return true;
+    }
 
     @Override public String toString() {
         return "Licence{" +
@@ -96,8 +96,21 @@ public class Licence {
     }
 
     public boolean canUse( Licence dep ) {
+
+        // can I use gpl
         if ( dep.equals( gpl2 )) {
             if ( !equals( gpl2 )) {
+                return false;
+            }
+        }
+
+        // if i am apache2, what can I use
+        // http://www.apache.org/legal/3party.html#transition
+        if ( equals( apache2 )) {
+            if ( dep.equals( gpl2 ) ||
+                    dep.equals( gpl3 ) ||
+                    dep.equals( lgpl2 ) ||
+                    dep.equals( lgpl3 )) {
                 return false;
             }
         }
@@ -109,7 +122,7 @@ public class Licence {
     public static final Licence apache2 = new Licence( "Apache2", "Apache", "http://www.apache.org/licenses/LICENSE-2.0.html", "2.0" );
     public static final Licence mpl11 = new Licence( "MPL1.1", "Mozilla", "http://www.mozilla.org/MPL/MPL-1.1.html", "1.1" );
     public static final Licence gpl2 = new Licence( "GPL2", "GPL", "http://www.gnu.de/documents/gpl-2.0.de.html", "2.0" );
-    public static final Licence gpl3 = new Licence( "GPL2", "GPL", "http://www.gnu.de/documents/gpl-2.0.de.html", "3.0" ); // TODO
+    public static final Licence gpl3 = new Licence( "GPL3", "GPL", "http://www.gnu.de/documents/gpl-2.0.de.html", "3.0" ); // TODO
     public static final Licence lgpl2 = new Licence( "LGPL2", "LGPL", "http://www.gnu.de/documents/lgpl-2.1.de.html", "2.1" );
     public static final Licence lgpl3 = new Licence( "LGPL3", "LGPL", "http://www.gnu.org/licenses/lgpl.html", "3.0" );
     public static final Licence bsd = new Licence( "BSD", "BSD", "http://www.opensource.org/licenses/bsd-license.php", "1989" );  // TODO details
