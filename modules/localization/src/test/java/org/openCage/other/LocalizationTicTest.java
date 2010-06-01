@@ -32,12 +32,28 @@ public class LocalizationTicTest {
                         return new SimpleProp<Locale>( Locale.US );
                     }
                 });
+
+        Tic.bind( DictLocalize.class, new F0<DictLocalize>() {
+            @Override
+            public DictLocalize call() {
+                return new DictLocalize( Tic.get(Property.class, "loca" ));
+            }
+        });
+
     }
 
 
     @Test
     public void testSimple() {
         Localize loc = Tic.get( Localize.class);
+
+        assertEquals( "Author", loc.localize( "org.openCage.localization.dict.author" ));
+
+    }
+
+    @Test
+    public void testSimple2() {
+        Localize loc = Tic.get( DictLocalize.class);
 
         assertEquals( "Author", loc.localize( "org.openCage.localization.dict.author" ));
 
