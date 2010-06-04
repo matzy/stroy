@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.openCage.io.fspath.FSPathBuilder;
 import org.openCage.lang.BackgroundExecutor;
 import org.openCage.lang.BackgroundExecutorImpl;
-import org.openCage.lang.Tic;
+import org.openCage.lang.Sisl;
 import org.openCage.lang.functions.F0;
 import org.openCage.lang.functions.F1;
 import org.openCage.io.With;
@@ -51,20 +51,20 @@ public class PersistentPropTicTest {
             }
         });
 
-        Tic.bindSingleton( Property.class, "A", new F0<Property>() {
+        Sisl.bindSingleton( Property.class, "A", new F0<Property>() {
             @Override
             public Property<String> call() {
-                return PersistentProp.get( Tic.get( PropStore.class ), "key", "BBB", "hah");
+                return PersistentProp.get( Sisl.get( PropStore.class ), "key", "BBB", "hah");
             }
         });
 
-        Tic.bindSingleton( PropStore.class, new F0<PropStore>() {
+        Sisl.bindSingleton( PropStore.class, new F0<PropStore>() {
             @Override
             public PropStore call() {
-                return new PersistingPropStore( Tic.get( BackgroundExecutor.class ), backing );
+                return new PersistingPropStore( Sisl.get( BackgroundExecutor.class ), backing );
             }});
 
-        Tic.bind( BackgroundExecutor.class, new F0<BackgroundExecutor>() {
+        Sisl.bind( BackgroundExecutor.class, new F0<BackgroundExecutor>() {
             @Override
             public BackgroundExecutor call() {
                 return new BackgroundExecutorImpl();
@@ -81,7 +81,7 @@ public class PersistentPropTicTest {
 
     @Test
     public void testA() {
-        Property<String> a = Tic.get( Property.class, "A");
+        Property<String> a = Sisl.get( Property.class, "A");
         a.set( "AAA");
     }
 

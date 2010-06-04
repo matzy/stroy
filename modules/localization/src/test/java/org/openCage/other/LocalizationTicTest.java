@@ -2,7 +2,7 @@ package org.openCage.other;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.openCage.lang.Tic;
+import org.openCage.lang.Sisl;
 import org.openCage.lang.functions.F0;
 import org.openCage.localization.DictLocalize;
 import org.openCage.localization.Localize;
@@ -18,14 +18,14 @@ public class LocalizationTicTest {
 
     @Before
     public void before() {
-        Tic.bind( Localize.class, new F0<Localize>() {
+        Sisl.bind( Localize.class, new F0<Localize>() {
             @Override
             public Localize call() {
-                return new DictLocalize( Tic.get(Property.class, LocaleProperty.THE_LOCALE ));
+                return new DictLocalize( Sisl.get(Property.class, LocaleProperty.THE_LOCALE ));
             }
         });
 
-        Tic.bindSingleton( Property.class, LocaleProperty.THE_LOCALE,
+        Sisl.bindSingleton( Property.class, LocaleProperty.THE_LOCALE,
                 new F0<Property>() {
                     @Override
                     public Property call() {
@@ -33,10 +33,10 @@ public class LocalizationTicTest {
                     }
                 });
 
-        Tic.bind( DictLocalize.class, new F0<DictLocalize>() {
+        Sisl.bind( DictLocalize.class, new F0<DictLocalize>() {
             @Override
             public DictLocalize call() {
-                return new DictLocalize( Tic.get(Property.class, "loca" ));
+                return new DictLocalize( Sisl.get(Property.class, "loca" ));
             }
         });
 
@@ -45,7 +45,7 @@ public class LocalizationTicTest {
 
     @Test
     public void testSimple() {
-        Localize loc = Tic.get( Localize.class);
+        Localize loc = Sisl.get( Localize.class);
 
         assertEquals( "Author", loc.localize( "org.openCage.localization.dict.author" ));
 
@@ -53,7 +53,7 @@ public class LocalizationTicTest {
 
     @Test
     public void testSimple2() {
-        Localize loc = Tic.get( DictLocalize.class);
+        Localize loc = Sisl.get( DictLocalize.class);
 
         assertEquals( "Author", loc.localize( "org.openCage.localization.dict.author" ));
 

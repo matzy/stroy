@@ -8,9 +8,9 @@ import org.openCage.lang.structure.Tu;
 import java.util.HashMap;
 import java.util.Map;
 
-public final class Tic {
+public final class Sisl {
 
-    private Tic() {};
+    private Sisl() {};
 
     private static Map<Class, F0>   multi = new HashMap<Class, F0>();
     private static Map<Class, Lazy> singleton = new HashMap<Class, Lazy>();

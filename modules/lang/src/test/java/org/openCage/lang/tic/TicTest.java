@@ -2,7 +2,7 @@ package org.openCage.lang.tic;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.openCage.lang.Tic;
+import org.openCage.lang.Sisl;
 import org.openCage.lang.functions.F0;
 
 import static junit.framework.Assert.assertEquals;
@@ -19,9 +19,9 @@ public class TicTest {
     @BeforeClass
     public static void before() {
 
-        Tic.clear();
+        Sisl.clear();
 
-        Tic.bind( Mess.class, new F0<Mess>() {
+        Sisl.bind( Mess.class, new F0<Mess>() {
             @Override public Mess call() {
                 return new Mess() {
                     @Override
@@ -32,13 +32,13 @@ public class TicTest {
             }
         });
 
-        Tic.bind( Multi.class, new F0<Multi>() {
+        Sisl.bind( Multi.class, new F0<Multi>() {
             @Override public Multi call() {
                 return new HelloWorldM();
             }
         });
 
-        Tic.bindSingleton( Singl.class, new F0<Singl>() {
+        Sisl.bindSingleton( Singl.class, new F0<Singl>() {
             @Override
             public Singl call() {
                 return new Singleton();
@@ -48,7 +48,7 @@ public class TicTest {
 
     @Test
     public void testTic() {
-        Mess mess = Tic.get( Mess.class );
+        Mess mess = Sisl.get( Mess.class );
 
         assertEquals( "Hello World", mess.out() );
     }
@@ -56,16 +56,16 @@ public class TicTest {
 
     @Test
     public void testSingle() {
-        Singl s1 = Tic.get( Singl.class );
-        Singl s2 = Tic.get( Singl.class );
+        Singl s1 = Sisl.get( Singl.class );
+        Singl s2 = Sisl.get( Singl.class );
 
         assertEquals(1, countSingl );
     }
 
     @Test
     public void testMulti() {
-        Multi s1 = Tic.get( Multi.class );
-        Multi s2 = Tic.get( Multi.class );
+        Multi s1 = Sisl.get( Multi.class );
+        Multi s2 = Sisl.get( Multi.class );
 
         assertEquals(2, helloWorldCount );
     }

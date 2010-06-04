@@ -1,9 +1,5 @@
 package org.openCage.property;
 
-import org.openCage.lang.BackgroundExecutorImpl;
-import org.openCage.lang.Tic;
-import org.openCage.lang.functions.F0;
-
 /**
  * Created by IntelliJ IDEA.
  * User: stephan
@@ -14,7 +10,7 @@ import org.openCage.lang.functions.F0;
 public class TicProperty {
 
     public static void bind() {
-//        Tic.bindSingleton( PropStore.class, new F0<PropStore>() {
+//        Sisl.bindSingleton( PropStore.class, new F0<PropStore>() {
 //            @Override
 //            public PropStore call() {
 ////                return new PersistingPropStore( new BackgroundExecutorImpl(), )
