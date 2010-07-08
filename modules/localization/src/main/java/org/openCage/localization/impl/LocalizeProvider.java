@@ -41,7 +41,7 @@
 //	private Property<Locale> theLocale;
 //
 //    @Inject
-//    public LocalizeProvider( BundleCheck check, @Named( LocaleProperty.THE_LOCALE) Property<Locale> theLocale ) {
+//    public LocalizeProvider( BundleCheck check, @Named( LocalePropertyProvider.THE_LOCALE) Property<Locale> theLocale ) {
 //        this.check = check;
 //        this.theLocale = theLocale;
 //

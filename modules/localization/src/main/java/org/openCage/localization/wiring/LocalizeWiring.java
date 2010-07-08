@@ -1,8 +1,14 @@
 package org.openCage.localization.wiring;
 
+import com.google.inject.Provider;
 import com.google.inject.TypeLiteral;
+import com.google.inject.name.Named;
+import org.openCage.localization.DictLocalize;
+import org.openCage.localization.Localization;
+import org.openCage.localization.Localize;
+import org.openCage.localization.LocalizeFactory;
 import org.openCage.localization.impl.BundleCheckImpl;
-import org.openCage.localization.impl.LocaleProperty;
+import org.openCage.localization.impl.LocalePropertyProvider;
 import org.openCage.localization.BundleCheck;
 
 import com.google.inject.Binder;
@@ -10,6 +16,7 @@ import com.google.inject.Module;
 import com.google.inject.Singleton;
 import com.google.inject.name.Names;
 import org.openCage.property.Property;
+import org.openCage.property.StandardPropertyWiring;
 
 import java.util.Locale;
 
@@ -36,27 +43,22 @@ import java.util.Locale;
 ***** END LICENSE BLOCK *****/
 
 public class LocalizeWiring implements  Module {
-    private static boolean once;
 
     public void configure(Binder binder) {
 
-        if ( once ) {
-            return;
-        }
-        once = true;
+        binder.install( new StandardPropertyWiring());
 
 
-//		binder.bind( Localize.class ).
-//			annotatedWith( Names.named("basic")).toProvider( LocalizeProvider.class );
-//	}
-
-//        binder.bind( LocalizeBuilder.class ).to( LocalizeProvider.class );
         binder.bind( new TypeLiteral<Property<Locale>>() {} ).
-                annotatedWith( Names.named( LocaleProperty.THE_LOCALE)).
-                toProvider( LocaleProperty.class ).
+                annotatedWith( Names.named( LocalePropertyProvider.THE_LOCALE)).
+                toProvider( LocalePropertyProvider.class ).
                 in( Singleton.class );
 
         binder.bind( BundleCheck.class).to( BundleCheckImpl.class );
+
+        binder.bind( Localize.class ).annotatedWith( Names.named( Localization.DICT )).toProvider( DictLocalize.class );
+
+        //binder.bind(LocalizeFactory.class ).to( LocalizeFactory.class );
     }
 
     @Override

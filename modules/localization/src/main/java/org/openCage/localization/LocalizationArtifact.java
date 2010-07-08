@@ -18,18 +18,17 @@ public class LocalizationArtifact implements ArtifactProvider {
                 version( "0.0.3").
                 mpl11().
                 depends( proj.get("openCage", "openCage-property")).
-                testDepends( proj.module( getClass(), "openCage", "openCage-io").
-                    address( "http://stroy.wikidot.com", "stroy.wikidot.com" ).
-                    version( "0.0.3").
-                    mpl11().
-                    depends( proj.get("openCage", "openCage-lang")).
-                    depends( proj.get("commons-lang", "commons-lang" ) ).
-                    depends( proj.external( "munchsoft", "sys" ).
-                            version("1.0").
-                            descriptionShort( "Tool to help make java apps behave and look like native osx apps. e.g. Menus in menu bar, Preferences open on command-, ... " ).
-                            address( "http://www.muchsoft.com/", "munchsoft.com" ).
-                            licence( "MuchSoft" ))).
-                testDepends( proj.get( "junit", "junit")).
+//                testDepends( proj.module( getClass(), "openCage", "openCage-io").
+//                    address( "http://stroy.wikidot.com", "stroy.wikidot.com" ).
+//                    version( "0.1.0").
+//                    mpl11().
+//                    depends( proj.get("openCage", "openCage-lang")).
+//                    depends( proj.get("commons-lang", "commons-lang" ) ).
+//                    depends( proj.external( "munchsoft", "sys" ).
+//                            version("1.0").
+//                            descriptionShort( "Tool to help make java apps behave and look like native osx apps. e.g. Menus in menu bar, Preferences open on command-, ... " ).
+//                            address( "http://www.muchsoft.com/", "munchsoft.com" ).
+//                            licence( "MuchSoft" ))).
                 depends( proj.external( "com.google.inject", "guice" ).
                         apache2().
                         java6p().
@@ -39,7 +38,8 @@ public class LocalizationArtifact implements ArtifactProvider {
                         depends( proj.external( "aopalliance", "aopalliance" ).
                             version( "1.0" ).
                             address( "http://aopalliance.sourceforge.net/", "sourceforge.net" ).
-                            publicDomain()));
+                            publicDomain())).
+                testDepends( proj.get( "junit", "junit" ));
 
     }
 
