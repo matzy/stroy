@@ -7,6 +7,7 @@ import org.openCage.lang.artifact.Artifact;
 import org.openCage.lang.functions.F0;
 import org.openCage.localization.Localize;
 import org.openCage.ui.protocol.AboutSheet;
+import org.openCage.ui.protocol.HelpViewer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,9 +19,18 @@ public class MenuHelper {
 
     public static Color BAR_BACKGROUND = new Color(30, 30, 30);
 
-    @Inject @Named( "ui" ) private Localize loca;
-    @Inject private Artifact app;
-    @Inject private AboutSheet aboutSheet;
+    private final Localize loca;
+    private final Artifact app;
+    private final AboutSheet aboutSheet;
+
+    @Inject public MenuHelper(  @Named( "ui" ) Localize loca,
+                                 Artifact app,
+                                 AboutSheet aboutSheet ) {
+        this.loca = loca;
+        this.aboutSheet = aboutSheet;
+        this.app = app;
+    }
+
 
     public JMenuBar getMenuBar() {
         JMenuBar mbar = new JMenuBar();

@@ -18,11 +18,20 @@ import java.awt.event.KeyEvent;
 public class MenuBuilder {
 
 
-    @Inject @Named( "ui" ) private Localize loca;
-    @Inject private Artifact app;
-    @Inject private AboutSheet aboutSheet;
-    @Inject private HelpViewer helpViewer;
+    private final Localize loca;
+    private final Artifact app;
+    private final AboutSheet aboutSheet;
+    private final HelpViewer helpViewer;
 
+    @Inject public MenuBuilder(  @Named( "ui" ) Localize loca,
+                                 Artifact app,
+                                 AboutSheet aboutSheet,
+                                 HelpViewer helpViewer ) {
+        this.loca = loca;
+        this.aboutSheet = aboutSheet;
+        this.helpViewer = helpViewer;
+        this.app = app;
+    }
 
 
     private JMenuBar mbar = new JMenuBar();

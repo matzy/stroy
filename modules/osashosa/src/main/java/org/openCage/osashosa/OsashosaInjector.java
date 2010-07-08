@@ -1,47 +1,61 @@
-package org.openCage.sip;
+package org.openCage.osashosa;
 
 import com.google.inject.BindingBuilder;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Module;
 import com.google.inject.Provider;
-import com.google.inject.Singleton;
 import com.google.inject.name.Named;
 import com.google.inject.name.Names;
 import org.openCage.lang.errors.Unchecked;
+import org.openCage.lang.structure.ESet;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Type;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
 
-public class ModuleInjector implements Injector {
+/***** BEGIN LICENSE BLOCK *****
+ * Version: MPL 1.1
+ *
+ * The contents of this file are subject to the Mozilla Public License Version
+ * 1.1 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ * http://www.mozilla.org/MPL/
+ *
+ * Software distributed under the License is distributed on an "AS IS" basis,
+ * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+ * for the specific language governing rights and limitations under the
+ * License.
+ *
+ * The Original Code is stroy code.
+ *
+ * The Initial Developer of the Original Code is Stephan Pfab <openCage@gmail.com>.
+ * Portions created by Stephan Pfab are Copyright (C) 2006 - 2010.
+ * All Rights Reserved.
+ *
+ * Contributor(s):
+ ***** END LICENSE BLOCK *****/
 
+public class OsashosaInjector implements Injector {
 
-    private Map<BindingBuilder<?>,BindingBuilder<?>> bindings = new HashMap<BindingBuilder<?>, BindingBuilder<?>>();
-    private Set<Module> knownMods = new HashSet<Module>();
+    private ESet<BindingBuilder<?>> bindings = new ESet<BindingBuilder<?>>();
 
-    public ModuleInjector( Module ... modules ) {
-        SipBinder binder = new SipBinder();
+    public OsashosaInjector( Module ... modules ) {
+        OsashosaBinder binder = new OsashosaBinder();
         for ( Module module : modules ) {
-//            if ( !knownMods.contains( module )) {
-                knownMods.add( module );   // TODO test
-                binder.setCurrentModuleName( module.getClass().getName() );
-                module.configure( binder );
-  //          }
+            binder.setCurrentModuleName( module.getClass().getName() );
+            module.configure( binder );
         }
 
         for (BindingBuilder builder : binder.getBuilders() ) {
 
-            if ( bindings.containsKey( builder )) {
+            if ( bindings.contains( builder )) {
                 throw new IllegalStateException( "binding exits already (old new) " + bindings.get( builder) + " " + builder );
             }
 
-            bindings.put( builder, builder );
+            bindings.add( builder );
         }
 
     }
@@ -123,6 +137,23 @@ public class ModuleInjector implements Injector {
         }
 
         if ( cnstrs.length == 1 ) { // TODO check argument length as GUICE does
+            // find other @Injects
+
+            Field[] fields = clazz.getFields();
+            for ( Field field : fields) {
+
+                if ( field.getAnnotation( Inject.class ) != null ) {
+                        throw new UnsupportedOperationException( "no method or field @Inject supported, class: " + clazz.getName() );
+                }
+//                Annotation[] declared = field.getDeclaredAnnotations();
+//
+//                for ( Annotation anno : clazz.getDeclaredAnnotations() ) {
+//                    if ( anno.annotationType().equals( Inject.class )) {
+//                        throw new UnsupportedOperationException( "no method or field @Inject supported" );
+//                    }
+//                }
+            }
+
             return cnstrs[0];
         }
 
