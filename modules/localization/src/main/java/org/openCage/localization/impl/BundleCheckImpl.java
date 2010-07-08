@@ -30,14 +30,18 @@ import org.openCage.localization.BundleCheck;
 
 public class BundleCheckImpl implements BundleCheck {
 	
-	private static final Locale unknownLocale = new Locale("xx", "URGH");
+	private static final Locale unknownLocale = new Locale(""); //"xx", "URGH");
 	
 	public void checkBundle( String bundleLocation, Locale ... locales  ) {
 		
 		// check fallback
 		ResourceBundle fallback = ResourceBundle.getBundle( bundleLocation, unknownLocale );
-		
-		// check that all keys in all language files have a value in the fallback 
+
+        if ( !fallback.getLocale().equals( unknownLocale )) {
+            throw new IllegalArgumentException( "resource bundles without empty fallback (platform dependent)" );
+        }
+
+		// check that all keys in all language files have a value in the fallback
 		for ( Locale locale : locales ) {
 			ResourceBundle bundle = ResourceBundle.getBundle( bundleLocation, locale );
 			
@@ -45,8 +49,7 @@ public class BundleCheckImpl implements BundleCheck {
 			while ( keys.hasMoreElements() ) {
 				String key = keys.nextElement();
 				
-				fallback.getObject( key );
-				
+				fallback.getObject( key );				
 			}
 		}
 

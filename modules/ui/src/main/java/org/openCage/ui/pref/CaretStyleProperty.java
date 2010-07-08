@@ -8,6 +8,7 @@ import org.jetbrains.annotations.NotNull;
 import org.openCage.property.PersistentProp;
 import org.openCage.property.Property;
 import org.openCage.property.PropStore;
+import org.openCage.property.PropertyConstants;
 
 public class CaretStyleProperty implements Provider<Property<Integer>> {
 
@@ -15,7 +16,7 @@ public class CaretStyleProperty implements Provider<Property<Integer>> {
     private PropStore store;
 
     @Inject 
-    public CaretStyleProperty(@NotNull @Named( "std") PropStore store) {
+    public CaretStyleProperty(@NotNull @Named( PropertyConstants.STANDARD_PROPSTORE) PropStore store) {
         this.store = store;
     }
 

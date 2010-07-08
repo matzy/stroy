@@ -7,11 +7,11 @@ import org.junit.Test;
 
 public class BundleCheckImplTest {
 
-	@Test(expected=MissingResourceException.class) 
+	@Test(expected=IllegalArgumentException.class)
 	public void testNoFallback() {
 		BundleCheckImpl check = new BundleCheckImpl();
 		
-		check.checkBundle( "org.openCage.localization.nofallback"  );
+		check.checkBundle( "org.openCage.localization.nofallback" );
 	}
 	
 	@Test 
@@ -25,5 +25,12 @@ public class BundleCheckImplTest {
 		BundleCheckImpl check = new BundleCheckImpl();		
 		check.checkBundle( "org.openCage.localization.missingKeys", Locale.GERMAN  );
 	}
+
+    @Test
+    public void testFallbackEmpty() {
+        BundleCheckImpl check = new BundleCheckImpl();
+        check.checkBundle( "org.openCage.localization.stdfallback"  );
+
+    }
 	
 }

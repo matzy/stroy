@@ -1,10 +1,8 @@
 package org.openCage.lang;
 
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.openCage.lang.functions.CatchAll;
-import org.openCage.lang.functions.F0;
 import org.openCage.lang.functions.FV;
 
 /***** BEGIN LICENSE BLOCK *****
