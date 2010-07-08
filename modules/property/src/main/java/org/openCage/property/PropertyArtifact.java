@@ -1,5 +1,6 @@
 package org.openCage.property;
 
+import org.openCage.appstd.AppStdArtifact;
 import org.openCage.lang.LangArtifact;
 import org.openCage.lang.artifact.Artifact;
 import org.openCage.lang.artifact.ArtifactProvider;
@@ -12,6 +13,7 @@ public class PropertyArtifact implements ArtifactProvider{
 
     public PropertyArtifact() {
         proj = new LangArtifact().getProject();
+        proj.include( new AppStdArtifact().getProject());
 
         property = proj.module( getClass(), "openCage", "openCage-property" ).
                 version( "0.1.0" ).
@@ -28,9 +30,9 @@ public class PropertyArtifact implements ArtifactProvider{
                             descriptionShort( "The java to XML serialization library." ).
                             address( "http://xstream.codehaus.org/", "codehaus.org" ).
                             bsd()).
-                testDepends( proj.module( getClass(), "openCage", "openCage-io").
+                depends( proj.module( getClass(), "openCage", "openCage-io").
                         address( "http://stroy.wikidot.com", "stroy.wikidot.com" ).
-                        version( "0.0.3").
+                        version( "0.1.0").
                         mpl11().
                         depends( proj.get("openCage", "openCage-lang")).
                         depends( proj.get("commons-lang", "commons-lang" ) ).
@@ -40,7 +42,8 @@ public class PropertyArtifact implements ArtifactProvider{
                             address( "http://www.muchsoft.com/", "munchsoft.com" ).
                             licence( "MuchSoft" ))).
                 testDepends( proj.get( "junit", "junit" )).
-                testDepends( proj.external( "com.google.inject", "guice" ).
+                depends( proj.get( "openCage", "openCage-appstd" )).
+                depends( proj.external( "com.google.inject", "guice" ).
                         apache2().
                         java6p().
                         descriptionShort( "Google dependency injection lib in pure java.").
