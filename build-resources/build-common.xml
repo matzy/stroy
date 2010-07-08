@@ -199,7 +199,7 @@
         <mkdir dir="${deploy}/osx"/>
         <mkdir dir="${deploy}/debian"/>
 
-        <echoproperties />
+        <!--<echoproperties />-->
                 
     </target>
 
