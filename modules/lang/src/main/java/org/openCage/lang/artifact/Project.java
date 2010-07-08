@@ -4,7 +4,13 @@ import com.sun.istack.internal.NotNull;
 import org.openCage.lang.structure.ESet;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /***** BEGIN LICENSE BLOCK *****
 * Version: MPL 1.1
@@ -31,12 +37,27 @@ import java.util.List;
 public class Project {
 
     private final String name;
-    private List<Artifact> modules = new ArrayList<Artifact>();
-    private List<Artifact> externals = new ArrayList<Artifact>();
+    private Set<Artifact> modules = new HashSet<Artifact>();
+    private Set<Artifact> externals = new HashSet<Artifact>();
     private ESet<Artifact> all = new ESet<Artifact>();
+    private Map<String,List<Artifact>> alternatives = new HashMap<String, List<Artifact>>();
 
-    public Project( @NotNull String name ) {
+    private static Map<String,Project> projects = new HashMap<String, Project>();
+
+    private Project( @NotNull String name ) {
         this.name = name;
+    }
+
+    public static Project get( String name ) {
+        Project proj = projects.get( name );
+        if ( proj != null ) {
+            return proj;
+        }
+
+        proj = new Project( name );
+        projects.put( name, proj );
+
+        return proj;
     }
 
     public Artifact module( @NotNull Class resourceBase, @NotNull String groupid, @NotNull String name ) {
@@ -53,24 +74,63 @@ public class Project {
         return ext;
     }
 
+    public Artifact alternative( String id, String groupId, String name ) {
+        List<Artifact> alts = alternatives.get( id );
+        if ( alts == null ) {
+            alts = new ArrayList<Artifact>();
+            alternatives.put( id, alts );
+        }
+
+        Artifact arti = new Artifact(groupId, name );
+        alts.add( arti );
+
+        return arti;
+    }
+
+
+    public void set( String id, String groupId, String name ) {
+        List<Artifact> alts = alternatives.get( id );
+        if ( alts == null ) {
+            throw new IllegalArgumentException( "no alternatives for " + id );
+        }
+
+        int idx = alts.indexOf( new Artifact( groupId, name ));
+
+        if ( idx < 0 ) {
+            throw new IllegalArgumentException( groupId + "-" + name + " not an alternative for " + id );
+        }
+
+        Artifact alt = alts.get(idx);
+
+
+    }
+
 
     public Author author( @NotNull String name ) {
         return new Author( name );
     }
 
-    public List<Artifact> getModules() {
+    public Collection<Artifact> getModules() {
         return modules;
+    }
+
+    public Collection<Artifact> getAll() {
+        return all;
     }
 
     public boolean isModule( Artifact arti ) {
         return modules.contains( arti );
     }
 
-    public List<Artifact> getExternals() {
+    public Collection<Artifact> getExternals() {
         return externals;
     }
 
     public Artifact get(String group, String name) {
+
+        if ( group == null || group.isEmpty() ) {
+            throw new IllegalStateException( "artifact not found " + group + " " + name + " did you mean " + didYouMean(name));            
+        }
 
         Artifact arti = all.get( new Artifact( group, name ));
 
@@ -78,7 +138,18 @@ public class Project {
             return arti;
         }
 
-        throw new IllegalStateException( "artifact not found " + group + " " + name );
+        throw new IllegalStateException( "artifact not found " + group + " " + name + " did you mean " + didYouMean(name));
+    }
+
+    private String didYouMean( String name ) {
+        String ret = "";
+        for ( Artifact arti : all ) {
+            if ( arti.gettName().equals( name ) ) {
+                ret += arti.toString() + " ";
+            }
+        }
+
+        return ret;
     }
 
     public void validate() {
@@ -121,5 +192,22 @@ public class Project {
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String toString() {
+        return "Project{" +
+                "name='" + name + '\'' +
+                ", all=" + all +
+                '}';
+    }
+
+    public void showDeps() {
+        List<Artifact> sorted = new ArrayList<Artifact>( all );
+        Collections.sort( sorted );
+
+        for ( Artifact arti : sorted ) {
+            arti.showDeps(0);
+        }
     }
 }

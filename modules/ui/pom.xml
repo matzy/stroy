@@ -28,8 +28,56 @@
     </build>
    <dependencies>
       <dependency>
+         <groupId>com.jgoodies</groupId>
+         <artifactId>binding</artifactId>
+         <version>2.0.6</version>
+         <scope>compile</scope>
+      </dependency>
+      <dependency>
+         <groupId>com.intellij</groupId>
+         <artifactId>annotations</artifactId>
+         <version>7.0.3</version>
+         <scope>compile</scope>
+      </dependency>
+      <dependency>
+         <groupId>net.java.dev.designgridlayout</groupId>
+         <artifactId>designgridlayout</artifactId>
+         <version>0.9</version>
+         <scope>compile</scope>
+      </dependency>
+      <dependency>
+         <groupId>openCage</groupId>
+         <artifactId>openCage-io</artifactId>
+         <version>0.1.0</version>
+         <scope>compile</scope>
+      </dependency>
+      <dependency>
+         <groupId>javagraphics</groupId>
+         <artifactId>preferencepanel</artifactId>
+         <version>1.0</version>
+         <scope>compile</scope>
+      </dependency>
+      <dependency>
          <groupId>openCage</groupId>
          <artifactId>openCage-property</artifactId>
+         <version>0.1.0</version>
+         <scope>compile</scope>
+      </dependency>
+      <dependency>
+         <groupId>openCage</groupId>
+         <artifactId>openCage-lang</artifactId>
+         <version>0.2.0</version>
+         <scope>compile</scope>
+      </dependency>
+      <dependency>
+         <groupId>org.json</groupId>
+         <artifactId>json</artifactId>
+         <version>20090211</version>
+         <scope>compile</scope>
+      </dependency>
+      <dependency>
+         <groupId>openCage</groupId>
+         <artifactId>openCage-osashosa</artifactId>
          <version>0.1.0</version>
          <scope>compile</scope>
       </dependency>
@@ -40,57 +88,15 @@
          <scope>compile</scope>
       </dependency>
       <dependency>
-         <groupId>openCage</groupId>
-         <artifactId>openCage-io</artifactId>
-         <version>0.0.3</version>
-         <scope>compile</scope>
-      </dependency>
-      <dependency>
-         <groupId>openCage</groupId>
-         <artifactId>openCage-lang</artifactId>
-         <version>0.2.0</version>
-         <scope>compile</scope>
-      </dependency>
-      <dependency>
-         <groupId>com.google.inject</groupId>
-         <artifactId>guice</artifactId>
-         <version>2.0</version>
-         <scope>compile</scope>
-      </dependency>
-      <dependency>
-         <groupId>net.java.dev.designgridlayout</groupId>
-         <artifactId>designgridlayout</artifactId>
-         <version>0.9</version>
-         <scope>compile</scope>
-      </dependency>
-      <dependency>
          <groupId>fifesoft</groupId>
          <artifactId>RSyntaxTextArea</artifactId>
          <version>1.4.1</version>
          <scope>compile</scope>
       </dependency>
       <dependency>
-         <groupId>com.jgoodies</groupId>
-         <artifactId>binding</artifactId>
-         <version>2.0.6</version>
-         <scope>compile</scope>
-      </dependency>
-      <dependency>
-         <groupId>javagraphics</groupId>
-         <artifactId>preferencepanel</artifactId>
-         <version>1.0</version>
-         <scope>compile</scope>
-      </dependency>
-      <dependency>
          <groupId>macwidgets</groupId>
          <artifactId>macwidgets</artifactId>
          <version>0.9.5</version>
-         <scope>compile</scope>
-      </dependency>
-      <dependency>
-         <groupId>org.json</groupId>
-         <artifactId>json</artifactId>
-         <version>20090211</version>
          <scope>compile</scope>
       </dependency>
       <dependency>

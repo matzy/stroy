@@ -29,14 +29,26 @@
    <dependencies>
       <dependency>
          <groupId>openCage</groupId>
-         <artifactId>openCage-lang</artifactId>
-         <version>0.2.0</version>
+         <artifactId>openCage-io</artifactId>
+         <version>0.1.0</version>
          <scope>compile</scope>
       </dependency>
       <dependency>
          <groupId>commons-io</groupId>
          <artifactId>commons-io</artifactId>
          <version>1.4</version>
+         <scope>compile</scope>
+      </dependency>
+      <dependency>
+         <groupId>openCage</groupId>
+         <artifactId>openCage-lang</artifactId>
+         <version>0.2.0</version>
+         <scope>compile</scope>
+      </dependency>
+      <dependency>
+         <groupId>openCage</groupId>
+         <artifactId>openCage-osashosa</artifactId>
+         <version>0.1.0</version>
          <scope>compile</scope>
       </dependency>
       <dependency>
@@ -47,20 +59,14 @@
       </dependency>
       <dependency>
          <groupId>openCage</groupId>
-         <artifactId>openCage-io</artifactId>
-         <version>0.0.3</version>
-         <scope>test</scope>
+         <artifactId>openCage-appstd</artifactId>
+         <version>0.0.1</version>
+         <scope>compile</scope>
       </dependency>
       <dependency>
          <groupId>junit</groupId>
          <artifactId>junit</artifactId>
          <version>4.4</version>
-         <scope>test</scope>
-      </dependency>
-      <dependency>
-         <groupId>com.google.inject</groupId>
-         <artifactId>guice</artifactId>
-         <version>2.0</version>
          <scope>test</scope>
       </dependency>
    </dependencies>
