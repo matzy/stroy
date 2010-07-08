@@ -30,7 +30,12 @@ public class TextEditorBuilder {
     private JTextArea area;
     private JTextField find;
     private int        positionBeforeFind = 0;
-    @Inject @Named( "ui" )  private Localize loca;
+    private final Localize loca;
+
+    @Inject
+    public TextEditorBuilder( @Named( "ui" ) Localize loca ) {
+        this.loca = loca;
+    }
 
     public void setTextArea( JTextArea tarea ) {
         this.area = tarea;

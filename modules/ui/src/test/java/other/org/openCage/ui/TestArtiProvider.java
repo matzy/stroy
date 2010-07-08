@@ -16,7 +16,7 @@ import org.openCage.lang.artifact.Project;
 public class TestArtiProvider implements Provider<Artifact> {
     @Override
     public Artifact get() {
-        Project proj = new Project( "testing" );
+        Project proj = Project.get( "testing" );
 
         System.out.println( TestArtiProvider.class.getResource( ".").toString());
 

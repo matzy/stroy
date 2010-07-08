@@ -44,8 +44,16 @@ import java.util.ArrayList;
  */
 public class TextEditorPref implements PrefBuilder {
 
-    @Inject @Named( "ui" )  private Localize localize;
-    @Inject @Named( CaretStyleProperty.KEY ) private Property<Integer> cursorStyle;
+    private Localize localize;
+    private Property<Integer> cursorStyle;
+
+    @Inject
+    public TextEditorPref( @Named( "ui" ) Localize localize,
+                           @Named( CaretStyleProperty.KEY ) Property<Integer> cursorStyle ) {
+        this.localize = localize;
+        this.cursorStyle = cursorStyle;
+    }
+
 
     @Override
     public JPanel getPrefPanel() {

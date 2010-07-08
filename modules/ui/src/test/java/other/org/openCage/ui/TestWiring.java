@@ -1,12 +1,15 @@
 package other.org.openCage.ui;
 
 import com.google.inject.Binder;
+import com.google.inject.Guice;
 import com.google.inject.Module;
 import com.google.inject.name.Names;
+import com.google.inject.util.Modules;
 import org.junit.Ignore;
 import org.openCage.lang.artifact.Artifact;
 import org.openCage.property.NonPersistingPropStore;
 import org.openCage.property.PropStore;
+import org.openCage.property.PropertyConstants;
 import org.openCage.ui.wiring.UIWiring;
 
 /***** BEGIN LICENSE BLOCK *****
@@ -32,11 +35,22 @@ import org.openCage.ui.wiring.UIWiring;
 ***** END LICENSE BLOCK *****/
 @Ignore
 public class TestWiring implements Module {
-    public void configure(Binder binder) {
-        binder.install( new UIWiring());
 
+    public static class NonPersi implements Module {
+
+        @Override
+        public void configure(Binder binder) {
+            binder.bind( PropStore.class ).
+                    annotatedWith(Names.named(PropertyConstants.STANDARD_PROPSTORE)).
+                    to( NonPersistingPropStore.class );
+        }
+
+
+    }
+
+    public void configure(Binder binder) {
+        binder.install( Modules.override( new UIWiring()).with( new NonPersi() ));
         binder.bind( Artifact.class ).toProvider( TestArtiProvider.class );
-        binder.bind( PropStore.class ).annotatedWith(Names.named("std")).to( NonPersistingPropStore.class );
     }
 
     @Override

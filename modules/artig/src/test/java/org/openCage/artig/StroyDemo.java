@@ -1,10 +1,8 @@
 package org.openCage.artig;
 
 import org.openCage.io.fspath.FSPath;
-import org.openCage.gpad.FausterizeArtifact;
 import org.openCage.io.fspath.FSPathBuilder;
-import org.openCage.lang.LangArtifact;
-import org.openCage.localization.LocalizationArtifact;
+import org.openCage.lang.artifact.ArtifactProvider;
 
 /**
  * Created by IntelliJ IDEA.
@@ -17,14 +15,16 @@ public class StroyDemo {
 
     public static void main(String[] args) {
 
+        System.out.println(FSPathBuilder.getPath( StroyDemo.class.getResource(".")));
         FSPath stroyRoot =
                 //FSPathBuilder.getPath( "/Users/stephan/tmp/dd" );
-                FSPathBuilder.getPath( StroyDemo.class.getResource(".") ).parent(7);
+                FSPathBuilder.getPath( StroyDemo.class.getResource(".") ).parent(6);        // TODO check modules ... 
         System.out.println( stroyRoot );
 
-        MavenGen gen = new MavenGen( new ArtigArtifact().getProject() );
-        //System.out.println( gen.getModulePom( new ArtigArtifact().getArtifact()) );
-        gen.generate( stroyRoot );
+////        MavenGen gen = new MavenGen( new ArtigArtifact().getProject() );
+//        MavenGen gen = new MavenGen( new SipArtifact().getProject() );
+//        //System.out.println( gen.getModulePom( new ArtigArtifact().getArtifact()) );
+//        gen.generate( stroyRoot );
 //
 //
 //        PElephGen pgen = new PElephGen( new FausterizeArtifact().getProject() );
@@ -32,9 +32,28 @@ public class StroyDemo {
 //        pgen.generate( stroyRoot );
 
         
-        QuineGen qgen = new QuineGen( new LocalizationArtifact().getProject());
+//        QuineGen qgen = new QuineGen( new SipArtifact().getProject());
+//
+//        System.out.println( qgen.gen( new SipArtifact()));
 
-        System.out.println( qgen.gen( new LocalizationArtifact()));
+
+//        ArtigArtifact artig = new ArtigArtifact();
+//        artig.getProject().get( "com.google.inject", "guice" ).setSubstitute( artig.getProject().get( "openCage", "openCage-sip") );
+//        MavenGen gen = new MavenGen( artig.getProject() );
+//        gen.generate( stroyRoot );
+
+        ArtifactProvider stroy = new StroyArtifact();
+
+//        stroy.getProject().showDeps();
+//        System.exit(0);
+
+        stroy.getProject().get( "com.google.inject", "guice" ).
+                setSubstitute( stroy.getProject().get( "openCage", "openCage-osashosa") );
+        MavenGen gen = new MavenGen( stroy.getProject() );
+        gen.generate( stroyRoot );
+
+        PElephGen pgen = new PElephGen( stroy.getProject() );
+        pgen.generate( stroyRoot );
 
 
     }
