@@ -99,11 +99,11 @@ public class MavenGen {
 
         pom += "   <dependencies>\n";
         for ( Artifact dep : arti.getCompileDependencies() ) {
-            pom += dependency( dep, COMPILE );
+            pom += dependency( dep.getChoice(), COMPILE );
         }
 
         for ( Artifact dep : arti.getTestDependencies() ) {
-            pom += dependency( dep, TEST );
+            pom += dependency( dep.getChoice(), TEST );
         }
 
 
