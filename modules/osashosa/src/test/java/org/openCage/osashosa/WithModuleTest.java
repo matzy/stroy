@@ -1,4 +1,4 @@
-package org.openCage.sip;
+package org.openCage.osashosa;
 
 import com.google.inject.Binder;
 import com.google.inject.Guice;

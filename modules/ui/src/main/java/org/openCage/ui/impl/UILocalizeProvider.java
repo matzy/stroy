@@ -1,16 +1,16 @@
 package org.openCage.ui.impl;
 
 import com.google.inject.Inject;
-import com.google.inject.Provider;
-import java.util.Arrays;
+
 import java.util.Locale;
 
+import com.google.inject.Provider;
 import com.google.inject.name.Named;
 import org.openCage.localization.CombinedLocalize;
 import org.openCage.localization.DictLocalize;
 import org.openCage.localization.Localize;
-import org.openCage.localization.impl.LocaleProperty;
-import org.openCage.localization.protocol.LocalizeBuilder;
+import org.openCage.localization.LocalizeFactory;
+import org.openCage.localization.impl.LocalePropertyProvider;
 import org.openCage.property.Property;
 
 /***** BEGIN LICENSE BLOCK *****
@@ -35,11 +35,20 @@ import org.openCage.property.Property;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public class UILocalizeProvider extends CombinedLocalize {
+public class UILocalizeProvider implements Provider<Localize> {
 
+    private LocalizeFactory factory;
+    private DictLocalize dict;
 
     @Inject
-    public UILocalizeProvider( @Named(LocaleProperty.THE_LOCALE) Property<Locale> theLocale) {
-        super("org.openCage.ui.uitexts", theLocale, new DictLocalize( theLocale ));
+    public UILocalizeProvider( LocalizeFactory factory, DictLocalize dict  ) {
+        this.factory = factory;
+        this.dict = dict;
+    }
+
+
+    @Override
+    public Localize get() {
+        return factory.get( "org.openCage.ui.uitexts", dict.get() );
     }
 }

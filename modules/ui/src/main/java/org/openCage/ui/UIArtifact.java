@@ -73,6 +73,7 @@ public class UIArtifact implements ArtifactProvider {
                         version("20090211").
                         address( "http://www.json.org/java/index.html", "json.org").
                         jsonlicence()).
+                depends( proj.get( "com.intellij", "annotations" )).
                 testDepends( proj.get( "junit", "junit" ));
     }
 

@@ -19,8 +19,11 @@ import java.util.logging.Logger;
 public class URLSelector {
     private static final Logger LOG = Logger.getLogger( URLSelector.class.getName());
 
-    @Inject
-    private FileChooser fileChooser;
+    private final FileChooser fileChooser;
+
+    @Inject public URLSelector( FileChooser fileChooser ) {
+        this.fileChooser = fileChooser;
+    }
 
     public Dialog get( JFrame parent ) {
         return new Dialog( parent );

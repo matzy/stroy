@@ -37,6 +37,7 @@ public class UIMain {
 
 
     public static void main(String[] args) {
+        //Stage.
         Injector injector = Guice.createInjector(new FausterizeWiring());
 
         CliOptions bean = new CliOptions();

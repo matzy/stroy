@@ -1,7 +1,9 @@
 package org.openCage.localization.impl;
 
 import com.google.inject.Inject;
+import com.google.inject.name.Named;
 import org.openCage.localization.DictLocalize;
+import org.openCage.localization.Localization;
 import org.openCage.localization.Localize;
 
 import java.util.ArrayList;
@@ -34,14 +36,14 @@ import java.util.Map;
 
 public class TheLocaleLocalized {
 
-    private final Localize loca = new DictLocalize( null );
+    private final Localize loca;
     private String locale;
 
     private final Map<String, Locale> strToLocale = new HashMap<String, Locale>();
 
     @Inject
-    public TheLocaleLocalized() {
-        //this.loca = builder.get();
+    public TheLocaleLocalized( @Named(Localization.DICT) Localize loca ) {
+        this.loca = loca;
 
         Map<Locale,String> locale2Str = new HashMap<Locale, String>();
 

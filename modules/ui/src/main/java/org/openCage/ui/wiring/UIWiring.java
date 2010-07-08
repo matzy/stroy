@@ -62,7 +62,7 @@ public class UIWiring implements Module {
         binder.install( new LocalizeWiring());
 
         binder.bind(Localize.class).
-                annotatedWith(Names.named(UI)).to(UILocalizeProvider.class);
+                annotatedWith(Names.named(UI)).toProvider(UILocalizeProvider.class);
 
         if (Sys.isMacOSX()) {
             binder.bind(FileChooser.class).to(FileChooserOSX.class);
@@ -104,7 +104,6 @@ public class UIWiring implements Module {
 
     @Override
     public boolean equals(Object obj) {
-        System.out.println("---- ui --- ");
         return obj != null && obj instanceof UIWiring;
     }
 
