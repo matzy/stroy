@@ -126,9 +126,13 @@ public class PElephGen {
                 "   <dirname property=\"dependencies.basedir\" file=\"${ant.file.dependencies}\"/>\n\n";
 
 
-        for ( Artifact arti : project.getModules() ) {
-            ret += writeModule(arti);
+        for ( Artifact arti : project.getAll() ) {
+            Artifact ch = arti; //.getChoice();
+            if ( project.isModule( ch )) {
+                ret += writeModule(ch);
+            }
         }
+
 
         ret += "\n" +
                 "   <!-- ================================================================== -->\n" +
@@ -136,8 +140,11 @@ public class PElephGen {
                 "   <!-- ================================================================== -->    \n" +
                 "\n";
 
-        for ( Artifact arti : project.getExternals()) {
-            ret += writeExternal(arti);
+        for ( Artifact arti : project.getAll() ) {
+            Artifact ch = arti; //.getChoice();
+            if ( !project.isModule( ch )) {
+                ret += writeExternal(ch);
+            }
         }
 
         ret += "\n\n</project>\n";
@@ -160,7 +167,7 @@ public class PElephGen {
             ret += "\n           depends=\"";
 
             for ( Count<Artifact> dep : Count.count(arti.getCompileDependencies()) ) {
-                ret += dep.obj().gettName();
+                ret += dep.obj().getChoice().gettName();
                 if ( !dep.isLast()) {
                     ret += ", ";
                 }
@@ -193,7 +200,7 @@ public class PElephGen {
             ret += "\n           depends=\"";
 
             for ( Count<Artifact> dep : Count.count(arti.getCompileDependencies()) ) {
-                ret += getModuleName( dep.obj() );
+                ret += getModuleName( dep.obj().getChoice() );
                 if ( !dep.isLast()) {
                     ret += ", ";
                 }

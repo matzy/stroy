@@ -4,8 +4,8 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import org.apache.commons.io.IOUtils;
 import org.jetbrains.annotations.NotNull;
+import org.openCage.io.SingletonApp;
 import org.openCage.lang.BackgroundExecutor;
-import org.openCage.lang.SingletonApp;
 import org.openCage.lang.errors.Unchecked;
 import org.openCage.lang.functions.FV;
 
@@ -45,9 +45,6 @@ public class PersistingPropStore implements PropStore {
     private final Map<String,Property> store;
     private final XStream              xs      = new XStream( new DomDriver());
     private boolean                    isDirty = false;
-
-    // TODO
-    private static final int BACKINGSIZE = 500000;
 
     private static Map<File, PersistingPropStore> instances = new HashMap<File, PersistingPropStore>();
 
