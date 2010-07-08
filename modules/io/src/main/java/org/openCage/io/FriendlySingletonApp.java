@@ -1,6 +1,5 @@
-package org.openCage.lang;
+package org.openCage.io;
 
-import org.openCage.lang.SingletonApp;
 
 import java.io.File;
 import java.io.IOException;
@@ -39,7 +38,7 @@ public class FriendlySingletonApp implements SingletonApp {
             try {
                 markerFile.getParentFile().mkdirs();
                 markerFile.createNewFile();
-                //FileExistence.createNewFile( markerFile ); // would need depemdecy to io
+                //FileExistence.createNewFile( markerFile ); // would need dependency to io
                 // TODO find a better home
             } catch (IOException e) {
                 throw new IllegalStateException( "can't create singletonapp marker file " + markerFile.getAbsolutePath() );

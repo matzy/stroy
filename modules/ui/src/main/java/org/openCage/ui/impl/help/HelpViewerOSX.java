@@ -39,8 +39,12 @@ import java.util.logging.Logger;
 public class HelpViewerOSX implements HelpViewer {
 
     private static final Logger LOG = Logger.getLogger( HelpViewerOSX.class.getName());
+    private final Localize localize;
+
     @Inject
-    @Named( "ui") private Localize localize;
+    public HelpViewerOSX( @Named( "ui") Localize localize ) {
+        this.localize = localize;
+    }
 
     @Override
     public void viewHelp() {

@@ -10,9 +10,9 @@ import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rtextarea.RTextArea;
+import org.openCage.io.SingletonApp;
 import org.openCage.io.fspath.FSPathBuilder;
 import org.openCage.lang.BackgroundExecutor;
-import org.openCage.lang.SingletonApp;
 import org.openCage.lang.functions.F0;
 import org.openCage.lang.functions.F1;
 import org.openCage.lang.structure.MRU;
@@ -75,7 +75,6 @@ import static org.openCage.ui.Constants.*;
  */
 public class FaustUI extends JFrame {
 
-//    private final Application             application;
     private final FileChooser             fileChooser;
     private final OSXStandardEventHandler osxEventHandler;
     private final Localize                localize;

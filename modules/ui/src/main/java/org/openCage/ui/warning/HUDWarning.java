@@ -26,10 +26,14 @@ import java.awt.event.ActionListener;
  */
 public class HUDWarning {
 
-    @Inject @Named(Constants.UI)
-    Localize localize;
-    @Inject GlobalKeyEventHandler keyEventHandler;
+    private final Localize localize;
+    private final GlobalKeyEventHandler keyEventHandler;
 
+    @Inject public HUDWarning( @Named(Constants.UI) Localize localize, GlobalKeyEventHandler keyEventHandler ) {
+        this.localize = localize;
+        this.keyEventHandler = keyEventHandler;
+    }
+    
     public void show( @NotNull String message ) {
 
         final HudWindow hud = new HudWindow( localize.localize( "org.openCage.localization.dict.warning") );

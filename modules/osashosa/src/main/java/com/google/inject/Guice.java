@@ -1,11 +1,11 @@
 package com.google.inject;
 
-import org.openCage.sip.ModuleInjector;
+import org.openCage.osashosa.OsashosaInjector;
 
 public class Guice {
 
     public static Injector createInjector( Module... modules) {
-        return new ModuleInjector( modules );
+        return new OsashosaInjector( modules );
     }
 
 }

@@ -6,16 +6,13 @@ import com.google.inject.Singleton;
 import com.google.inject.TypeLiteral;
 import com.google.inject.name.Names;
 import org.openCage.gpad.providers.LocalizeProvider;
-import org.openCage.gpad.providers.PropStoreProvider;
-import org.openCage.gpad.providers.TransPropStoreProvider;
 import org.openCage.lang.structure.MRU;
 import org.openCage.lang.artifact.Artifact;
 import org.openCage.lang.BackgroundExecutorImpl;
 import org.openCage.lang.BackgroundExecutor;
-import org.openCage.lang.SingletonApp;
+import org.openCage.io.SingletonApp;
 import org.openCage.localization.Localize;
 import org.openCage.localization.wiring.LocalizeWiring;
-import org.openCage.property.PropStore;
 import org.openCage.property.Property;
 import org.openCage.ui.protocol.PrefBuilder;
 import org.openCage.ui.wiring.UIWiring;
@@ -54,16 +51,16 @@ public class FausterizeWiring implements Module {
         binder.install( new UIWiring());
         binder.install( new LocalizeWiring());
 
-        binder.bind(BackgroundExecutor.class ).
-                to(BackgroundExecutorImpl.class );
+//        binder.bind(BackgroundExecutor.class ).
+//                to(BackgroundExecutorImpl.class );
 
         binder.bind( Artifact.class ).toProvider( FausterizeArtifact.class );
-        binder.bind( PropStore.class ).
-                annotatedWith( Names.named("std")).
-                toProvider( PropStoreProvider.class );
-        binder.bind( PropStore.class ).
-                annotatedWith( Names.named("trans")).
-                toProvider( TransPropStoreProvider.class );
+//        binder.bind( PropStore.class ).
+//                annotatedWith( Names.named( PropertyConstants.STANDARD_PROPSTORE)).
+//                toProvider( PropStoreProvider.class );
+//        binder.bind( PropStore.class ).
+//                annotatedWith( Names.named("trans")).
+//                toProvider( TransPropStoreProvider.class );
         binder.bind( Localize.class).
                 annotatedWith( Names.named(FAUSTERIZE)).
                 toProvider( LocalizeProvider.class);
@@ -71,13 +68,15 @@ public class FausterizeWiring implements Module {
         binder.bind(PrefBuilder.class ).annotatedWith( Names.named(FAUSTERIZE)).to(CodePrefBuilder.class);
 
         binder.bind( new TypeLiteral<Property<MRU<String>>>() {} ).
-                //annotatedWith( Names.named( LocaleProperty.THE_LOCALE)).
+                //annotatedWith( Names.named( LocalePropertyProvider.THE_LOCALE)).
                 toProvider( FaustMRUProperty.class ).
                 in( Singleton.class );
 
-        binder.bind(SingletonApp.class).
-                toProvider( FausterizeSingleton.class ).
-                in( Singleton.class ) ;
+//        binder.bind(SingletonApp.class).
+//                toProvider( FausterizeSingleton.class ).
+//                in( Singleton.class ) ;
+
+        binder.bind( FaustUI.class ).to( FaustUI.class );
 
 
     }

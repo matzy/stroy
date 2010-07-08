@@ -1,10 +1,8 @@
-package org.openCage.lang;
+package org.openCage.io;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.openCage.lang.FriendlySingletonApp;
-import org.openCage.lang.SingletonApp;
 
 import java.io.File;
 

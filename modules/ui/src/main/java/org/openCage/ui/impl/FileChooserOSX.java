@@ -33,8 +33,12 @@ import org.openCage.ui.protocol.FileChooser;
 
 public class FileChooserOSX implements FileChooser {
 
-    @Inject @Named( "ui") private Localize localize;
+    private final Localize localize;
 
+    @Inject
+    public FileChooserOSX( @Named( "ui") Localize localize ) {
+        this.localize = localize;
+    }
 
     /**
      * open a file filebrowser and allow directory selection only
