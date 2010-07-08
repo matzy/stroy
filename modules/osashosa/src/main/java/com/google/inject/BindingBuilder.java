@@ -1,7 +1,7 @@
 package com.google.inject;
 
 import com.google.inject.name.Named;
-import org.openCage.sip.Key;
+import org.openCage.osashosa.Key;
 
 public class BindingBuilder<T> {
 
