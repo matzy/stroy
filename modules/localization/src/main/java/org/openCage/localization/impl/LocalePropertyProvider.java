@@ -3,9 +3,11 @@ package org.openCage.localization.impl;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.name.Named;
+import org.openCage.lang.functions.F0;
 import org.openCage.property.PersistentProp;
 import org.openCage.property.PropStore;
 import org.openCage.property.Property;
+import org.openCage.property.PropertyConstants;
 
 import java.util.Locale;
 
@@ -34,13 +36,14 @@ import java.util.Locale;
 /**
  * The locale used throughout the application, stored in a property
  */
-public class LocaleProperty implements Provider<Property<Locale>> {
+public class LocalePropertyProvider implements Provider<Property<Locale>> {
+
     public static final String THE_LOCALE = "org.openCage.localization.locale";
 
     private final PropStore store;
 
     @Inject
-    public LocaleProperty( @Named("std") PropStore store ) {
+    public LocalePropertyProvider( @Named(PropertyConstants.STANDARD_PROPSTORE) PropStore store ) {
         this.store = store;
     }
 

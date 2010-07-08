@@ -106,11 +106,12 @@ public class Licence {
 
         // if i am apache2, what can I use
         // http://www.apache.org/legal/3party.html#transition
+        // but http://de.wikipedia.org/wiki/Apache-Lizenz states that lgpl3 is ok
         if ( equals( apache2 )) {
             if ( dep.equals( gpl2 ) ||
                     dep.equals( gpl3 ) ||
-                    dep.equals( lgpl2 ) ||
-                    dep.equals( lgpl3 )) {
+                    dep.equals( lgpl2 ) /* ||
+                    dep.equals( lgpl3 )*/) {
                 return false;
             }
         }
