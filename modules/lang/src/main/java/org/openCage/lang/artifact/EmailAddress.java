@@ -72,4 +72,21 @@ public class EmailAddress{
     public String toString() {
         return email;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof EmailAddress)) return false;
+
+        EmailAddress that = (EmailAddress) o;
+
+        if (email != null ? !email.equals(that.email) : that.email != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return email != null ? email.hashCode() : 0;
+    }
 }

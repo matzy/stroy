@@ -35,7 +35,14 @@ public class CombinedLocalize implements Localize {
 	private final List<Localize>   parents    = new ArrayList<Localize>();
 	private final Property<Locale> theLocale;
 	
-	
+//    public CombinedLocalize( String fullyQualifiedName, Property<Locale> theLocale, Localize ... parents ) {
+//        this.parents.addAll( Arrays.asList( parents ));
+//        this.bundleName = fullyQualifiedName;
+//        this.theLocale = theLocale;
+//    }
+//
+
+
     public CombinedLocalize( String fullyQualifiedName, Property<Locale> theLocale, Localize ... parents ) {
         this.parents.addAll( Arrays.asList( parents ));
         this.bundleName = fullyQualifiedName;
@@ -75,7 +82,6 @@ public class CombinedLocalize implements Localize {
     @Override
     public String localize(String key, Object... args) {
         return localize( theLocale.get(), key, args );    
-
     }
 
     public String localize(Locale locale, String key, Object ... args ) {

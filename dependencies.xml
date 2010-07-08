@@ -6,39 +6,51 @@
    <dirname property="dependencies.basedir" file="${ant.file.dependencies}"/>
 
    <!-- ================================================================== -->
+   <target name="depend.io"
+           depends="sys, depend.lang, commons-lang">
+      <ant dir="${dependencies.basedir}/modules/io" target="local.goal" inheritAll="false"/>
+   </target>
+
+   <!-- ================================================================== -->
+   <target name="depend.fausterize"
+           depends="designgridlayout, depend.io, depend.property, depend.lang, args4j, depend.localization, mime-util, depend.ui">
+      <ant dir="${dependencies.basedir}/modules/fausterize" target="local.goal" inheritAll="false"/>
+   </target>
+
+   <!-- ================================================================== -->
+   <target name="depend.localization"
+           depends="depend.property, depend.osashosa">
+      <ant dir="${dependencies.basedir}/modules/localization" target="local.goal" inheritAll="false"/>
+   </target>
+
+   <!-- ================================================================== -->
+   <target name="depend.appstd"
+           depends="depend.io, depend.lang, depend.osashosa">
+      <ant dir="${dependencies.basedir}/modules/appstd" target="local.goal" inheritAll="false"/>
+   </target>
+
+   <!-- ================================================================== -->
+   <target name="depend.property"
+           depends="depend.io, commons-io, depend.lang, depend.osashosa, xstream, depend.appstd">
+      <ant dir="${dependencies.basedir}/modules/property" target="local.goal" inheritAll="false"/>
+   </target>
+
+   <!-- ================================================================== -->
    <target name="depend.lang"
            depends="annotations, jcip-annotations">
       <ant dir="${dependencies.basedir}/modules/lang" target="local.goal" inheritAll="false"/>
    </target>
 
    <!-- ================================================================== -->
-   <target name="depend.io"
-           depends="depend.lang, commons-lang, sys">
-      <ant dir="${dependencies.basedir}/modules/io" target="local.goal" inheritAll="false"/>
-   </target>
-
-   <!-- ================================================================== -->
-   <target name="depend.property"
-           depends="depend.lang, commons-io, xstream">
-      <ant dir="${dependencies.basedir}/modules/property" target="local.goal" inheritAll="false"/>
-   </target>
-
-   <!-- ================================================================== -->
-   <target name="depend.localization"
-           depends="depend.property">
-      <ant dir="${dependencies.basedir}/modules/localization" target="local.goal" inheritAll="false"/>
+   <target name="depend.osashosa"
+           depends="depend.lang">
+      <ant dir="${dependencies.basedir}/modules/osashosa" target="local.goal" inheritAll="false"/>
    </target>
 
    <!-- ================================================================== -->
    <target name="depend.ui"
-           depends="depend.property, depend.localization, depend.io, depend.lang, designgridlayout, RSyntaxTextArea, binding, preferencepanel, macwidgets, json">
+           depends="binding, annotations, designgridlayout, depend.io, preferencepanel, depend.property, depend.lang, json, depend.osashosa, depend.localization, RSyntaxTextArea, macwidgets">
       <ant dir="${dependencies.basedir}/modules/ui" target="local.goal" inheritAll="false"/>
-   </target>
-
-   <!-- ================================================================== -->
-   <target name="depend.fausterize"
-           depends="depend.property, depend.localization, depend.io, depend.lang, depend.ui, designgridlayout, args4j, mime-util">
-      <ant dir="${dependencies.basedir}/modules/fausterize" target="local.goal" inheritAll="false"/>
    </target>
 
 
@@ -52,39 +64,9 @@
    </target>
 
    <!-- ================================================================== -->
-   <target name="jcip-annotations">
-      <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/repo/net/jcip/jcip-annotations/1.0/jcip-annotations-1.0.jar" />
-   </target>
-
-   <!-- ================================================================== -->
-   <target name="junit">
-      <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/repo/junit/junit/4.4/junit-4.4.jar" />
-   </target>
-
-   <!-- ================================================================== -->
-   <target name="commons-lang">
-      <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/repo/commons-lang/commons-lang/2.4/commons-lang-2.4.jar" />
-   </target>
-
-   <!-- ================================================================== -->
-   <target name="sys">
-      <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/repo/munchsoft/sys/1.0/sys-1.0.jar" />
-   </target>
-
-   <!-- ================================================================== -->
-   <target name="commons-io">
-      <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/repo/commons-io/commons-io/1.4/commons-io-1.4.jar" />
-   </target>
-
-   <!-- ================================================================== -->
-   <target name="xstream">
-      <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/repo/com/thoughtworks/xstream/xstream/1.3.1/xstream-1.3.1.jar" />
-   </target>
-
-   <!-- ================================================================== -->
-   <target name="guice"
-           depends="aopalliance">
-      <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/repo/com/google/inject/guice/2.0/guice-2.0.jar" />
+   <target name="designgridlayout"
+           depends="swing-layout">
+      <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/repo/net/java/dev/designgridlayout/designgridlayout/0.9/designgridlayout-0.9.jar" />
    </target>
 
    <!-- ================================================================== -->
@@ -93,19 +75,40 @@
    </target>
 
    <!-- ================================================================== -->
-   <target name="designgridlayout"
-           depends="swing-layout">
-      <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/repo/net/java/dev/designgridlayout/designgridlayout/0.9/designgridlayout-0.9.jar" />
+   <target name="slf4j-api">
+      <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/repo/org/slf4j/slf4j-api/1.5.6/slf4j-api-1.5.6.jar" />
    </target>
 
    <!-- ================================================================== -->
-   <target name="swing-layout">
-      <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/repo/net/java/dev/swing-layout/swing-layout/1.0.2/swing-layout-1.0.2.jar" />
+   <target name="sys">
+      <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/repo/munchsoft/sys/1.0/sys-1.0.jar" />
+   </target>
+
+   <!-- ================================================================== -->
+   <target name="forms">
+      <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/repo/com/jgoodies/forms/1.2.1/forms-1.2.1.jar" />
+   </target>
+
+   <!-- ================================================================== -->
+   <target name="mime-util"
+           depends="slf4j-log4j12, slf4j-api">
+      <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/repo/eu/medsea/mimeutil/mime-util/2.1.3/mime-util-2.1.3.jar" />
    </target>
 
    <!-- ================================================================== -->
    <target name="RSyntaxTextArea">
       <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/repo/fifesoft/RSyntaxTextArea/1.4.1/RSyntaxTextArea-1.4.1.jar" />
+   </target>
+
+   <!-- ================================================================== -->
+   <target name="macwidgets"
+           depends="forms">
+      <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/repo/macwidgets/macwidgets/0.9.5/macwidgets-0.9.5.jar" />
+   </target>
+
+   <!-- ================================================================== -->
+   <target name="slf4j-log4j12">
+      <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/repo/org/slf4j/slf4j-log4j12/1.5.6/slf4j-log4j12-1.5.6.jar" />
    </target>
 
    <!-- ================================================================== -->
@@ -119,19 +122,13 @@
    </target>
 
    <!-- ================================================================== -->
-   <target name="macwidgets"
-           depends="forms">
-      <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/repo/macwidgets/macwidgets/0.9.5/macwidgets-0.9.5.jar" />
+   <target name="jcip-annotations">
+      <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/repo/net/jcip/jcip-annotations/1.0/jcip-annotations-1.0.jar" />
    </target>
 
    <!-- ================================================================== -->
-   <target name="forms">
-      <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/repo/com/jgoodies/forms/1.2.1/forms-1.2.1.jar" />
-   </target>
-
-   <!-- ================================================================== -->
-   <target name="json">
-      <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/repo/org/json/json/20090211/json-20090211.jar" />
+   <target name="commons-lang">
+      <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/repo/commons-lang/commons-lang/2.4/commons-lang-2.4.jar" />
    </target>
 
    <!-- ================================================================== -->
@@ -140,19 +137,34 @@
    </target>
 
    <!-- ================================================================== -->
-   <target name="mime-util"
-           depends="slf4j-api, slf4j-log4j12">
-      <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/repo/eu/medsea/mimeutil/mime-util/2.1.3/mime-util-2.1.3.jar" />
+   <target name="guice"
+           depends="aopalliance">
+      <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/repo/com/google/inject/guice/2.0/guice-2.0.jar" />
    </target>
 
    <!-- ================================================================== -->
-   <target name="slf4j-api">
-      <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/repo/org/slf4j/slf4j-api/1.5.6/slf4j-api-1.5.6.jar" />
+   <target name="json">
+      <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/repo/org/json/json/20090211/json-20090211.jar" />
    </target>
 
    <!-- ================================================================== -->
-   <target name="slf4j-log4j12">
-      <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/repo/org/slf4j/slf4j-log4j12/1.5.6/slf4j-log4j12-1.5.6.jar" />
+   <target name="junit">
+      <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/repo/junit/junit/4.4/junit-4.4.jar" />
+   </target>
+
+   <!-- ================================================================== -->
+   <target name="commons-io">
+      <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/repo/commons-io/commons-io/1.4/commons-io-1.4.jar" />
+   </target>
+
+   <!-- ================================================================== -->
+   <target name="xstream">
+      <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/repo/com/thoughtworks/xstream/xstream/1.3.1/xstream-1.3.1.jar" />
+   </target>
+
+   <!-- ================================================================== -->
+   <target name="swing-layout">
+      <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/repo/net/java/dev/swing-layout/swing-layout/1.0.2/swing-layout-1.0.2.jar" />
    </target>
 
 

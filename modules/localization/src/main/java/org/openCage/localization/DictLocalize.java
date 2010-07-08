@@ -1,12 +1,19 @@
 package org.openCage.localization;
 
-import org.openCage.property.Property;
+import com.google.inject.Inject;
+import com.google.inject.Provider;
 
-import java.util.Locale;
+public class DictLocalize implements Provider<Localize> {
 
-public class DictLocalize extends CombinedLocalize {
+        private final LocalizeFactory factory;
 
-    public DictLocalize( Property<Locale> theLocale) {
-        super( "org.openCage.localization.text", theLocale );
-    }
+        @Inject
+        public DictLocalize( LocalizeFactory factory ) {
+            this.factory = factory;
+        }
+
+        @Override
+        public Localize get() {
+            return factory.get( "org.openCage.localization.text" );
+        }
 }

@@ -144,4 +144,17 @@ public class ESet<T> implements Set<T> {
     public void clear() {
         map.clear();
     }
+
+    @Override
+    public String toString() {
+
+        String ret = "Eset{";
+
+        for ( T t : map.keySet() ) {
+            ret += "   " + t.toString() + "\n";
+        }
+
+
+        return ret + "}";
+    }
 }
