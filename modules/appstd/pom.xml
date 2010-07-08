@@ -1,0 +1,49 @@
+<project>
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>openCage</groupId>
+   <artifactId>openCage-appstd</artifactId>
+   <version>0.0.1</version>
+
+    <repositories>
+        <repository>
+            <id>openCage-repo</id>
+            <name>openCage-repo</name>
+            <url>file://${basedir}/../../repo</url>
+        </repository>
+    </repositories>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.2</version>
+               <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+           </plugin>
+
+        </plugins>
+    </build>
+   <dependencies>
+      <dependency>
+         <groupId>openCage</groupId>
+         <artifactId>openCage-io</artifactId>
+         <version>0.1.0</version>
+         <scope>compile</scope>
+      </dependency>
+      <dependency>
+         <groupId>openCage</groupId>
+         <artifactId>openCage-lang</artifactId>
+         <version>0.2.0</version>
+         <scope>compile</scope>
+      </dependency>
+      <dependency>
+         <groupId>openCage</groupId>
+         <artifactId>openCage-osashosa</artifactId>
+         <version>0.1.0</version>
+         <scope>compile</scope>
+      </dependency>
+   </dependencies>
+</project>
