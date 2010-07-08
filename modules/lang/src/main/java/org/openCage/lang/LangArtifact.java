@@ -37,12 +37,6 @@ public class LangArtifact implements ArtifactProvider {
     public LangArtifact() {
         proj = Project.get( "stroy" );
 
-        proj.external("commons-lang", "commons-lang" ).
-                        descriptionShort( "Apache java language level tools. Random number helpers, system property tools, string tools." ).
-                        address( "http://commons.apache.org/lang/", "apache.org").
-                        apache2().
-                        version( "2.4" );
-
         lang = proj.module( getClass(), "openCage", "openCage-lang" ).
                 mpl11().
                 java6().
@@ -63,12 +57,12 @@ public class LangArtifact implements ArtifactProvider {
                 testDepends( proj.external("junit", "junit" ).
                         address( "http://www.junit.org/", "junit.org" ).
                         cpl().
-                        version( "4.4" ))//.
-//                testDepends( proj.external("commons-lang", "commons-lang" ).
-//                        descriptionShort( "Apache java language level tools. Random number helpers, system property tools, string tools." ).
-//                        address( "http://commons.apache.org/lang/", "apache.org").
-//                        apache2().
-//                        version( "2.4" ))
+                        version( "4.4" )).
+                testDepends( proj.external("commons-lang", "commons-lang" ).
+                        descriptionShort( "Apache java language level tools. Random number helpers, system property tools, string tools." ).
+                        address( "http://commons.apache.org/lang/", "apache.org").
+                        apache2().
+                        version( "2.4" ))
                 ;
 
 
