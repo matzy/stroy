@@ -7,7 +7,6 @@ import org.openCage.lang.artifact.Artifact;
 
 public class StdSingleton extends FriendlySingletonApp {
 
-
     @Inject
     public StdSingleton( Artifact arti ) {
         super( FSPathBuilder.getPreferences().add( arti.gettName(), "application.runs").toFile());

@@ -1,6 +1,7 @@
 package org.openCage.lang.artifact;
 
 import org.jetbrains.annotations.NotNull;
+import org.openCage.lang.structure.Lexicographical;
 import org.openCage.lang.structure.Once;
 
 import javax.swing.Icon;
@@ -33,7 +34,7 @@ import java.util.Set;
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
 
-public class Artifact {
+public class Artifact implements Comparable<Artifact>{
 
     private final String name;
     private final String  groupId;
@@ -45,9 +46,9 @@ public class Artifact {
     private final Once<String> descriptionFull = new Once<String>( "a lengthier description of the prog" );
     private final Once<String> iconResourceOSX = new Once<String>( "" );
 
-    private List<Artifact> compileDeps = new ArrayList<Artifact>();
-    private List<Artifact> testDeps = new ArrayList<Artifact>();
-    private List<Artifact> knowhowDeps = new ArrayList<Artifact>();
+    private Set<Artifact> compileDeps = new HashSet<Artifact>();
+    private Set<Artifact> testDeps = new HashSet<Artifact>();
+    private Set<Artifact> knowhowDeps = new HashSet<Artifact>();
 
     private final List<Author> contributors = new ArrayList<Author>();
     private final List<Author> authors = new ArrayList<Author>();
@@ -65,6 +66,11 @@ public class Artifact {
     private Once<String> iconUrl = new Once<String>("");
     private Once<String> downloadUrl = new Once<String>("");
 
+    private static int instCount = 0;
+    private int instance;
+
+    private Artifact substitute;
+
 
     Artifact( @NotNull String groupId, @NotNull String name ) {
         if ( groupId.isEmpty() ) {
@@ -75,6 +81,26 @@ public class Artifact {
         }
         this.name = name;
         this.groupId = groupId;
+
+        instance = instCount++;
+
+
+    }
+
+    public void setSubstitute( Artifact subst ) {
+        substitute = subst;
+    }
+
+    public Artifact getSubstitute() {
+        return substitute;
+    }
+
+    public Artifact getChoice() {
+        if ( substitute != null ) {
+            return substitute;
+        }
+
+        return this;
     }
 
     public Artifact licence( String name ) {
@@ -194,13 +220,21 @@ public class Artifact {
         return groupId;
     }
 
+    public Artifact depends( Project proj, String group, String name ) {  // version ?
+        
+        return null;
+    }
+
+
     public Artifact depends( Artifact artifact ) {
         if ( licence.isSet() && artifact.licence.isSet() ) {
             if ( !licence.get().canUse( artifact.licence.get() )) {
                 throw new IllegalArgumentException( "licences are not compatible: " +
                         licence.get().getName() +
-                        " can not use " +
-                        artifact.licence.get().getName()  );
+                        " can not use " +                                                           
+                        artifact.licence.get().getName() +
+                        "   (" + name + " <- " + artifact.name + ")"
+                );
             }
         }
         compileDeps.add( artifact );
@@ -217,7 +251,7 @@ public class Artifact {
         return this;
     }
 
-    public List<Artifact> getCompileDependencies() {
+    public Collection<Artifact> getCompileDependencies() {
         return compileDeps;
     }
 
@@ -311,11 +345,24 @@ public class Artifact {
                 '}';
     }
 
+    public void showDeps( int indent ) {
+
+        for ( int i = 0; i < indent; i++ ) {
+            System.out.print(" ");
+        }
+
+        System.out.println( groupId + " : " + name + "   (" + instance + ")");
+
+        for ( Artifact arti : compileDeps ) {
+            arti.showDeps( indent + 3  );
+        }
+    }
+
     public JavaVersion getJavaVersion() {
         return javaVersion.get();
     }
 
-    public List<Artifact> getTestDependencies() {
+    public Collection<Artifact> getTestDependencies() {
         return testDeps;
     }
 
@@ -349,7 +396,7 @@ public class Artifact {
 
     public void merge( Artifact other ) {
         if ( !equals( other )) {
-            throw new IllegalArgumentException( "can't merge complete different Artifact: " + this + " with " + other );
+            throw new IllegalArgumentException( "can't merge completely different Artifacts: " + this + " with " + other );
         }
 
         licence.setIf( other.licence );
@@ -454,4 +501,9 @@ public class Artifact {
         return name;
     }
 
+    @Override
+    public int compareTo(Artifact other) {
+
+        return Lexicographical.compareTo( groupId, other.groupId, name, other.name );
+    }
 }
