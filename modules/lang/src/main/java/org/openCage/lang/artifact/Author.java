@@ -55,4 +55,20 @@ public class Author {
         return email.get();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Author)) return false;
+
+        Author author = (Author) o;
+
+        if (name != null ? !name.equals(author.name) : author.name != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return name != null ? name.hashCode() : 0;
+    }
 }

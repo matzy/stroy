@@ -51,8 +51,8 @@ public class Artifact implements Comparable<Artifact>{
     private ESet<Artifact> testDeps = new ESet<Artifact>();
     private Set<Artifact> knowhowDeps = new HashSet<Artifact>();
 
-    private final List<Author> contributors = new ArrayList<Author>();
-    private final List<Author> authors = new ArrayList<Author>();
+    private final Set<Author> contributors = new HashSet<Author>();
+    private final Set<Author> authors = new HashSet<Author>();
     private Once<EmailAddress> email = new Once<EmailAddress>( new EmailAddress( "mailto:anonymous" ));
     private Once<WebPage> webpage = new Once<WebPage>( new WebPage( "http://404" ));
 
@@ -410,11 +410,11 @@ public class Artifact implements Comparable<Artifact>{
         return licence.get();
     }
 
-    public List<Author> getAuthors() {
+    public Collection<Author> getAuthors() {
         return authors;
     }
 
-    public List<Author> getContributors() {
+    public Collection<Author> getContributors() {
         return contributors;
     }
 
@@ -432,6 +432,8 @@ public class Artifact implements Comparable<Artifact>{
         javaVersion.setIf( other.javaVersion );
         descriptionShort.setIf( other.descriptionShort );
         descriptionFull.setIf( other.descriptionFull );
+        authors.addAll( other.authors );
+        contributors.addAll( other.contributors );
 
         for ( Artifact arti : other.getCompileDependencies() ) {
             if ( !compileDeps.contains( arti ) ) {
