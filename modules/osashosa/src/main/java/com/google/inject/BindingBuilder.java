@@ -2,6 +2,7 @@ package com.google.inject;
 
 import com.google.inject.name.Named;
 import org.openCage.osashosa.Key;
+import org.openCage.osashosa.OsashosaBinder;
 
 public class BindingBuilder<T> {
 
@@ -9,19 +10,21 @@ public class BindingBuilder<T> {
     private Class<? extends Provider<? extends T>> provider;
     private String name = "";
     private Class scope;
-    private Key<T> key;
+    private final Key<T> key;
     private T singleton;
     private String moduleName;
+    private final OsashosaBinder binder;
 
-    public BindingBuilder( Class<T> clazz ) {
-        this.key = Key.get( clazz );
+    BindingBuilder( OsashosaBinder binder, Class<T> clazz ) {
+        this( binder, Key.get( clazz ));
     }
 
-    public BindingBuilder(TypeLiteral<T> literal) {
-        key = new Key<T>( literal );
+    BindingBuilder( OsashosaBinder binder, TypeLiteral<T> literal) {
+        this( binder, new Key<T>( literal ));
     }
 
-    public BindingBuilder(Key<T> key) {
+    public BindingBuilder( OsashosaBinder binder, Key<T> key) {
+        this.binder = binder;
         this.key = key;
     }
 
@@ -30,11 +33,17 @@ public class BindingBuilder<T> {
             int i = 0;
         }
         to = clazz;
+        if ( binder != null ) {
+            binder.bind( this );
+        }
         return this;
     }
 
     public BindingBuilder toProvider( Class<? extends Provider<? extends T>> provider ) {
         this.provider = provider;
+        if ( binder != null ) {
+            binder.bind( this );
+        }
         return this;
     }
 

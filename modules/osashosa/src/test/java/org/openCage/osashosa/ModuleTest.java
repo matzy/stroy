@@ -5,17 +5,12 @@ import com.google.inject.Module;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import com.google.inject.name.Names;
+import org.junit.Ignore;
 import org.openCage.lang.BackgroundExecutor;
 import org.openCage.lang.BackgroundExecutorImpl;
 import org.openCage.lang.artifact.Artifact;
 
-/**
- * Created by IntelliJ IDEA.
- * User: stephan
- * Date: 20.06.2010
- * Time: 16:15:53
- * To change this template use File | Settings | File Templates.
- */
+@Ignore
 public class ModuleTest {
 
     public static class StringProp implements Provider<String> {

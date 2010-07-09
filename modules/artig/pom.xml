@@ -29,14 +29,26 @@
    <dependencies>
       <dependency>
          <groupId>openCage</groupId>
-         <artifactId>openCage-fausterize</artifactId>
-         <version>0.10.0</version>
+         <artifactId>openCage-io</artifactId>
+         <version>0.1.0</version>
+         <scope>compile</scope>
+      </dependency>
+      <dependency>
+         <groupId>commons-io</groupId>
+         <artifactId>commons-io</artifactId>
+         <version>1.4</version>
          <scope>compile</scope>
       </dependency>
       <dependency>
          <groupId>openCage</groupId>
-         <artifactId>openCage-sip</artifactId>
-         <version>0.0.1</version>
+         <artifactId>openCage-lang</artifactId>
+         <version>0.3.0</version>
+         <scope>compile</scope>
+      </dependency>
+      <dependency>
+         <groupId>com.google.inject</groupId>
+         <artifactId>guice</artifactId>
+         <version>2.0</version>
          <scope>compile</scope>
       </dependency>
    </dependencies>

@@ -4,13 +4,6 @@ import org.openCage.io.fspath.FSPath;
 import org.openCage.io.fspath.FSPathBuilder;
 import org.openCage.lang.artifact.ArtifactProvider;
 
-/**
- * Created by IntelliJ IDEA.
- * User: stephan
- * Date: Apr 29, 2010
- * Time: 2:28:23 PM
- * To change this template use File | Settings | File Templates.
- */
 public class StroyDemo {
 
     public static void main(String[] args) {
@@ -18,7 +11,7 @@ public class StroyDemo {
         System.out.println(FSPathBuilder.getPath( StroyDemo.class.getResource(".")));
         FSPath stroyRoot =
                 //FSPathBuilder.getPath( "/Users/stephan/tmp/dd" );
-                FSPathBuilder.getPath( StroyDemo.class.getResource(".") ).parent(6);        // TODO check modules ... 
+                FSPathBuilder.getPath( StroyDemo.class.getResource(".") ).parent(7);        // TODO check modules ... 
         System.out.println( stroyRoot );
 
 ////        MavenGen gen = new MavenGen( new ArtigArtifact().getProject() );
@@ -47,8 +40,8 @@ public class StroyDemo {
 //        stroy.getProject().showDeps();
 //        System.exit(0);
 
-        stroy.getProject().get( "com.google.inject", "guice" ).
-                setSubstitute( stroy.getProject().get( "openCage", "openCage-osashosa") );
+//        stroy.getProject().get( "com.google.inject", "guice" ).
+//                setSubstitute( stroy.getProject().get( "openCage", "openCage-osashosa") );
         MavenGen gen = new MavenGen( stroy.getProject() );
         gen.generate( stroyRoot );
 

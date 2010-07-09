@@ -1,11 +1,11 @@
 package org.openCage.artig;
 
 import net.jcip.annotations.Immutable;
-import org.openCage.gpad.FausterizeArtifact;
+import org.openCage.IOArtifact;
+import org.openCage.lang.LangArtifact;
 import org.openCage.lang.artifact.Artifact;
 import org.openCage.lang.artifact.ArtifactProvider;
 import org.openCage.lang.artifact.Project;
-import org.openCage.osashosa.OsashosaArtifact;
 
 @Immutable
 public class ArtigArtifact implements ArtifactProvider {
@@ -15,8 +15,8 @@ public class ArtigArtifact implements ArtifactProvider {
 
     public ArtigArtifact() {
         proj = Project.get( "stroy" );
-        proj.include( new FausterizeArtifact().getProject());
-        proj.include( new OsashosaArtifact().getProject() );
+        proj.include( new LangArtifact().getProject());
+        proj.include( new IOArtifact().getProject() );
 
         lang = proj.module( getClass(), "openCage", "openCage-artig" ).
                 mpl11().
@@ -26,8 +26,8 @@ public class ArtigArtifact implements ArtifactProvider {
                 email( "mailto:openCag@gmail.com" ).
                 address( "http://stroy.wikidot.com", "wikidot.com").
                 descriptionShort( "a library with small java language level additions" ).
-                depends( proj.get( "openCage", "openCage-fausterize" )).
-                depends( proj.get( "openCage", "openCage-sip" ));
+                depends( proj.get( "openCage", "openCage-lang" )).
+                depends( proj.get( "openCage", "openCage-io" ));
 
 
 

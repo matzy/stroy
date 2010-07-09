@@ -63,17 +63,36 @@ public class OsashosaBinder implements Binder {
     }
 
     private <T> BindingBuilder<T> bind( Key key) {
-        BindingBuilder<T> builder = new BindingBuilder( key );
+        BindingBuilder<T> builder = new BindingBuilder( this, key );
         builder.setModuleName( moduleName );
+//        if ( bindingBuilders.contains( builder )) {
+//            if ( !allowOverride ) {
+//                String msg = "Class " + key + (!(builder.getName().isEmpty()) ? (" named " + builder.getName()) : "") + "\n";
+//
+//                msg += "   was bound to " + bindingBuilders.get( builder ) + "\n";
+//                msg += "   anf now to " + builder;
+//                throw new IllegalArgumentException( msg );
+//            }
+//        }
+//
+//        bindingBuilders.add( builder );
+        return builder;
+
+    }
+
+    public <T> BindingBuilder<T> bind( BindingBuilder<T> builder ) {
         if ( bindingBuilders.contains( builder )) {
             if ( !allowOverride ) {
-                throw new IllegalArgumentException( "repeat binding" );
+                String msg = "Class " + builder.getKey() + (!(builder.getName().isEmpty()) ? (" named " + builder.getName()) : "") + "\n";
+
+                msg += "   was bound to " + bindingBuilders.get( builder ) + "\n";
+                msg += "   anf now to " + builder;
+                throw new IllegalArgumentException( msg );
             }
         }
 
         bindingBuilders.add( builder );
         return builder;
-
     }
 
     public Collection<BindingBuilder<?>> getBuilders() {

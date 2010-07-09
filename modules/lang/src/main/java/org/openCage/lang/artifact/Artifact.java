@@ -1,6 +1,7 @@
 package org.openCage.lang.artifact;
 
 import org.jetbrains.annotations.NotNull;
+import org.openCage.lang.structure.ESet;
 import org.openCage.lang.structure.Lexicographical;
 import org.openCage.lang.structure.Once;
 
@@ -46,8 +47,8 @@ public class Artifact implements Comparable<Artifact>{
     private final Once<String> descriptionFull = new Once<String>( "a lengthier description of the prog" );
     private final Once<String> iconResourceOSX = new Once<String>( "" );
 
-    private Set<Artifact> compileDeps = new HashSet<Artifact>();
-    private Set<Artifact> testDeps = new HashSet<Artifact>();
+    private ESet<Artifact> compileDeps = new ESet<Artifact>();
+    private ESet<Artifact> testDeps = new ESet<Artifact>();
     private Set<Artifact> knowhowDeps = new HashSet<Artifact>();
 
     private final List<Author> contributors = new ArrayList<Author>();
@@ -174,7 +175,7 @@ public class Artifact implements Comparable<Artifact>{
             throw new IllegalArgumentException( "osx icon ends must end with .icns" );
         }
 
-        
+
         return this;
     }
 
@@ -220,28 +221,55 @@ public class Artifact implements Comparable<Artifact>{
         return groupId;
     }
 
-    public Artifact depends( Project proj, String group, String name ) {  // version ?
-        
-        return null;
-    }
+//    public Artifact depends( Project proj, String group, String name ) {  // version ?
+//
+//        return null;
+//    }
 
 
     public Artifact depends( Artifact artifact ) {
+
+        // TODO refactor
         if ( licence.isSet() && artifact.licence.isSet() ) {
             if ( !licence.get().canUse( artifact.licence.get() )) {
                 throw new IllegalArgumentException( "licences are not compatible: " +
                         licence.get().getName() +
-                        " can not use " +                                                           
+                        " can not use " +
                         artifact.licence.get().getName() +
                         "   (" + name + " <- " + artifact.name + ")"
                 );
             }
         }
+
+        if ( testDeps.contains( artifact )) {
+            Artifact old = testDeps.get( artifact );
+            old.merge( artifact );
+            testDeps.remove( old );
+
+            artifact = old;
+        }
+
+        if ( compileDeps.contains( artifact )) {
+            compileDeps.get( artifact ).merge( artifact );
+            return this;
+        }
+
         compileDeps.add( artifact );
         return this;
     }
 
     public Artifact testDepends(Artifact artifact ) {
+
+        if ( compileDeps.contains( artifact )) {
+            return depends( artifact );
+        }
+
+        if ( testDeps.contains( artifact ) ) {
+            testDeps.get( artifact ).merge( artifact );
+            return this;
+        }
+
+
         testDeps.add( artifact );
         return this;
     }

@@ -17,6 +17,7 @@
       <module>modules/lang</module>
       <module>modules/osashosa</module>
       <module>modules/fausterize</module>
+      <module>modules/artig</module>
       <module>modules/localization</module>
       <module>modules/appstd</module>
       <module>modules/ui</module>

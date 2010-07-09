@@ -75,7 +75,7 @@ public class OsashosaInjector implements Injector {
 
     private <T> T getInstance(String name, Key<T> key) {
 
-        BindingBuilder<T> bb = (BindingBuilder<T>)bindings.get( new BindingBuilder(key).annotatedWith( Names.named(name)));
+        BindingBuilder<T> bb = (BindingBuilder<T>)bindings.get( new BindingBuilder(null, key).annotatedWith( Names.named(name)));
 
         if ( bb == null ) {
 
@@ -90,7 +90,7 @@ public class OsashosaInjector implements Injector {
             }
 
             // try self binding
-            bb = new BindingBuilder( key ).to( clazz );
+            bb = new BindingBuilder( null, key ).to( clazz );
         }
 
         if ( bb.getSingleton() != null ) {

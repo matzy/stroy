@@ -1,5 +1,9 @@
 package org.openCage.lang.structure;
 
+import org.junit.Test;
+
+import static junit.framework.Assert.assertEquals;
+
 /***** BEGIN LICENSE BLOCK *****
  * Version: MPL 1.1
  *
@@ -21,5 +25,21 @@ package org.openCage.lang.structure;
  *
  * Contributor(s):
  ***** END LICENSE BLOCK *****/
+
 public class LexicographicalTest {
+
+    @Test
+    public void test2() {
+        assertEquals( -1, Lexicographical.compareTo( "A", "B", 1, 1 ));
+        assertEquals( -1, Lexicographical.compareTo( "A", "B", 1, 2 ));
+        assertEquals( -1, Lexicographical.compareTo( "A", "B", 2, 1 ));
+        assertEquals( -1, Lexicographical.compareTo( "A", "A", 1, 2 ));
+
+        assertEquals( 1, Lexicographical.compareTo( "C", "B", 1, 1 ));
+        assertEquals( 1, Lexicographical.compareTo( "C", "B", 1, 2 ));
+        assertEquals( 1, Lexicographical.compareTo( "C", "B", 2, 1 ));
+        assertEquals( 1, Lexicographical.compareTo( "C", "C", 4, 2 ));
+
+        assertEquals( 0, Lexicographical.compareTo( "D", "D", 7, 7 ));
+    }
 }
