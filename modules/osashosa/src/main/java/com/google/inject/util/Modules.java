@@ -9,13 +9,11 @@ public final class Modules  {
     private Modules() {}
 
     public static OverriddenModuleBuilder override( Module... modules) {
-        return new OverrideModule( modules );
+        return new OverrideModule( modules ){};
     }
 
     public static interface OverriddenModuleBuilder  {
 
         Module with( Module... modules);
-
-        //com.google.inject.Module with(java.lang.Iterable<? extends com.google.inject.Module> iterable);
-    }
+        }
 }
