@@ -19,19 +19,19 @@
 
    <!-- ================================================================== -->
    <target name="depend.localization"
-           depends="depend.property, guice">
+           depends="depend.property, depend.osashosa">
       <ant dir="${dependencies.basedir}/modules/localization" target="local.goal" inheritAll="false"/>
    </target>
 
    <!-- ================================================================== -->
    <target name="depend.appstd"
-           depends="depend.io, depend.lang, guice">
+           depends="depend.io, depend.lang, depend.osashosa">
       <ant dir="${dependencies.basedir}/modules/appstd" target="local.goal" inheritAll="false"/>
    </target>
 
    <!-- ================================================================== -->
    <target name="depend.property"
-           depends="depend.io, commons-io, depend.lang, guice, xstream, depend.appstd">
+           depends="depend.io, commons-io, depend.lang, depend.osashosa, xstream, depend.appstd">
       <ant dir="${dependencies.basedir}/modules/property" target="local.goal" inheritAll="false"/>
    </target>
 
@@ -42,20 +42,19 @@
    </target>
 
    <!-- ================================================================== -->
-   <target name="depend.osashosa"
-           depends="depend.lang">
+   <target name="depend.osashosa">
       <ant dir="${dependencies.basedir}/modules/osashosa" target="local.goal" inheritAll="false"/>
    </target>
 
    <!-- ================================================================== -->
    <target name="depend.ui"
-           depends="binding, annotations, designgridlayout, depend.io, preferencepanel, depend.property, depend.lang, json, guice, depend.localization, RSyntaxTextArea, macwidgets">
+           depends="binding, annotations, designgridlayout, depend.io, preferencepanel, depend.property, depend.lang, json, depend.osashosa, depend.localization, RSyntaxTextArea, macwidgets">
       <ant dir="${dependencies.basedir}/modules/ui" target="local.goal" inheritAll="false"/>
    </target>
 
    <!-- ================================================================== -->
    <target name="depend.artig"
-           depends="depend.io, commons-io, depend.lang, guice">
+           depends="depend.io, commons-io, depend.lang, depend.osashosa">
       <ant dir="${dependencies.basedir}/modules/artig" target="local.goal" inheritAll="false"/>
    </target>
 

@@ -15,5 +15,5 @@ public final class Modules  {
     public static interface OverriddenModuleBuilder  {
 
         Module with( Module... modules);
-        }
+    }
 }

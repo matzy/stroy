@@ -6,9 +6,6 @@ import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import com.google.inject.name.Names;
 import org.junit.Ignore;
-import org.openCage.lang.BackgroundExecutor;
-import org.openCage.lang.BackgroundExecutorImpl;
-import org.openCage.lang.artifact.Artifact;
 
 @Ignore
 public class ModuleTest {

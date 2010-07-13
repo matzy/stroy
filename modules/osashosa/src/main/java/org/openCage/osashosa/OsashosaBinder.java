@@ -4,7 +4,6 @@ import com.google.inject.Binder;
 import com.google.inject.BindingBuilder;
 import com.google.inject.Module;
 import com.google.inject.TypeLiteral;
-import org.openCage.lang.structure.ESet;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -48,7 +47,7 @@ public class OsashosaBinder implements Binder {
             module.configure( this );
             moduleName = current;
         } else {
-            System.out.println("known module installed: " + module.getClass().getName() );
+            //System.out.println("known module installed: " + module.getClass().getName() );
         }
     }
 
@@ -65,17 +64,6 @@ public class OsashosaBinder implements Binder {
     private <T> BindingBuilder<T> bind( Key key) {
         BindingBuilder<T> builder = new BindingBuilder( this, key );
         builder.setModuleName( moduleName );
-//        if ( bindingBuilders.contains( builder )) {
-//            if ( !allowOverride ) {
-//                String msg = "Class " + key + (!(builder.getName().isEmpty()) ? (" named " + builder.getName()) : "") + "\n";
-//
-//                msg += "   was bound to " + bindingBuilders.get( builder ) + "\n";
-//                msg += "   anf now to " + builder;
-//                throw new IllegalArgumentException( msg );
-//            }
-//        }
-//
-//        bindingBuilders.add( builder );
         return builder;
 
     }

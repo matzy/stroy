@@ -11,7 +11,6 @@ import com.google.inject.TypeLiteral;
 import com.google.inject.name.Named;
 import com.google.inject.name.Names;
 import org.junit.Test;
-import org.openCage.lang.structure.MRU;
 
 import java.util.ArrayList;
 import java.util.List;

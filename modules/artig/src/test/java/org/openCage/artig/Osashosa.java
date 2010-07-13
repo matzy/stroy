@@ -40,7 +40,7 @@ public class Osashosa implements ArtifactProvider, Provider<Artifact> {
         osashosa = proj.module( getClass(), "openCage", "openCage-osashosa" ).
                 version( "0.1.0" ).
                 mpl11().
-                depends( proj.get( "openCage", "openCage-lang" ) ).
+                //depends( proj.get( "openCage", "openCage-lang" ) ).
                 testDepends( proj.get( "junit", "junit" ) );
     }
 

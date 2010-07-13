@@ -27,10 +27,7 @@ import org.openCage.osashosa.OsashosaBinder;
  * Contributor(s):
  ***** END LICENSE BLOCK *****/
 
-// todo naming
 public abstract class OverrideModule implements Module, Modules.OverriddenModuleBuilder {
-
-//    List<BindingBuilder> bindings = new ArrayList<BindingBuilder>();
 
     private OsashosaBinder binder = new OsashosaBinder();
 

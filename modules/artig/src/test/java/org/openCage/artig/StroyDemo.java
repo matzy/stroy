@@ -36,17 +36,30 @@ public class StroyDemo {
 //        gen.generate( stroyRoot );
 
         ArtifactProvider stroy = new StroyArtifact();
+//
+//        XStream              xs      = new XStream( new DomDriver());
+//        xs.alias( "Artifact", Artifact.class );
+//        xs.alias( "Licence", Licence.class );
+//        xs.alias( "Version", Version.class );
+//        xs.alias( "JavaVersion", JavaVersion.class );
+//        xs.alias( "EmailAddress", EmailAddress.class );
+//        xs.alias( "WebPage", WebPage.class );
+//        xs.alias( "Author", Author.class );
+//
+//        System.out.println( xs.toXML( new UI().getArtifact()));
 
 //        stroy.getProject().showDeps();
 //        System.exit(0);
 
-//        stroy.getProject().get( "com.google.inject", "guice" ).
-//                setSubstitute( stroy.getProject().get( "openCage", "openCage-osashosa") );
+        stroy.getProject().get( "com.google.inject", "guice" ).
+                setSubstitute( stroy.getProject().get( "openCage", "openCage-osashosa") );
         MavenGen gen = new MavenGen( stroy.getProject() );
         gen.generate( stroyRoot );
 
         PElephGen pgen = new PElephGen( stroy.getProject() );
         pgen.generate( stroyRoot );
+
+
 
 
     }

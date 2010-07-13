@@ -1,19 +1,19 @@
 package org.openCage.osashosa;
 
 import com.google.inject.BindingBuilder;
+import com.google.inject.ConfigurationException;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Module;
 import com.google.inject.Provider;
 import com.google.inject.name.Named;
 import com.google.inject.name.Names;
-import org.openCage.lang.errors.Unchecked;
-import org.openCage.lang.structure.ESet;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 
 /***** BEGIN LICENSE BLOCK *****
@@ -127,37 +127,70 @@ public class OsashosaInjector implements Injector {
     }
 
 
+    /**
+     * find a GUICE constructor
+     *   a) the only one annotated with @Inject
+     *   b) the only constructor, one without args 
+     * @param clazz
+     * @return
+     */
     private Constructor getConstructor( Class clazz ) {
-        Constructor[] cnstrs = clazz.getConstructors();
 
-        for ( Constructor cc : cnstrs ) {
-            if ( cc.isAnnotationPresent( Inject.class )) {
-                return cc;
-            }
+        throwOnOtherInjects(clazz);
+
+        Constructor ret = getInjectedConstructor(clazz);
+
+        if ( ret != null ) {
+            return ret;
         }
 
-        if ( cnstrs.length == 1 ) { // TODO check argument length as GUICE does
-            // find other @Injects
+        Constructor[] cnstrs = clazz.getConstructors();
+        if ( cnstrs.length == 1 ) {
 
-            Field[] fields = clazz.getFields();
-            for ( Field field : fields) {
-
-                if ( field.getAnnotation( Inject.class ) != null ) {
-                        throw new UnsupportedOperationException( "no method or field @Inject supported, class: " + clazz.getName() );
-                }
-//                Annotation[] declared = field.getDeclaredAnnotations();
-//
-//                for ( Annotation anno : clazz.getDeclaredAnnotations() ) {
-//                    if ( anno.annotationType().equals( Inject.class )) {
-//                        throw new UnsupportedOperationException( "no method or field @Inject supported" );
-//                    }
-//                }
+            if ( cnstrs[0].getGenericParameterTypes().length != 0 ) {
+                throw new ConfigurationException( "class " + clazz.getName() + " as only a constructor with arguments");
             }
+
 
             return cnstrs[0];
         }
 
-        throw new UnsupportedOperationException( "class " + clazz.getName() + " has no constructor annotated with @Inject" );
+        throw new ConfigurationException( "class " + clazz.getName() + " has no constructor annotated with @Inject" );
+    }
+
+    private void throwOnOtherInjects(Class clazz) {
+        // find other @Injects
+
+        for ( Field field : clazz.getFields()) {
+
+            if ( field.getAnnotation( Inject.class ) != null ) {
+                    throw new UnsupportedOperationException( "no method or field @Inject supported, class: " + clazz.getName() );
+            }
+        }
+
+
+        for ( Method meth : clazz.getMethods() ) {
+            if ( meth.getAnnotation( Inject.class ) != null ) {
+                    throw new UnsupportedOperationException( "no method or field @Inject supported, class: " + clazz.getName() );
+            }
+        }
+    }
+
+    private Constructor getInjectedConstructor(Class clazz) {
+        Constructor[] cnstrs = clazz.getConstructors();
+
+        Constructor ret = null;
+
+        for ( Constructor cc : cnstrs ) {
+            if ( cc.isAnnotationPresent( Inject.class )) {
+                if ( ret == null ) {
+                    ret = cc;
+                } else {
+                    throw new ConfigurationException( "class " + clazz.getName() + " as more than one constructor annotated with @Inject");
+                }
+            }
+        }
+        return ret;
     }
 
     private Object[] findArguments(Constructor cnstr ) {

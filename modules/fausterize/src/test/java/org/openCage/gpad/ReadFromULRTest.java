@@ -1,6 +1,7 @@
 package org.openCage.gpad;
 
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.*;
@@ -17,6 +18,7 @@ import static junit.framework.Assert.assertEquals;
  * Time: 5:30:37 PM
  * To change this template use File | Settings | File Templates.
  */
+@Ignore
 public class ReadFromULRTest {
     private static final int BUFSIZE = 500000;
 

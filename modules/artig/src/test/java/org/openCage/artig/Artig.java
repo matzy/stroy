@@ -45,7 +45,8 @@ public class Artig implements ArtifactProvider {
                 depends( proj.external( "aopalliance", "aopalliance" ).
                     version( "1.0" ).
                     address( "http://aopalliance.sourceforge.net/", "sourceforge.net" ).
-                    publicDomain()));
+                    publicDomain())).
+                testDepends( proj.get( "junit", "junit" ));
 
     }
 

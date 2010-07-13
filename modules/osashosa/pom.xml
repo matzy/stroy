@@ -28,12 +28,6 @@
     </build>
    <dependencies>
       <dependency>
-         <groupId>openCage</groupId>
-         <artifactId>openCage-lang</artifactId>
-         <version>0.3.0</version>
-         <scope>compile</scope>
-      </dependency>
-      <dependency>
          <groupId>junit</groupId>
          <artifactId>junit</artifactId>
          <version>4.4</version>
