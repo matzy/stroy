@@ -1,5 +1,7 @@
 package org.openCage.stjx;
 
+import org.openCage.lang.Strings;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -27,11 +29,11 @@ public class OrType implements Complex {
     }
 
     public String toJava() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return "public interface " + name + " {}\n";
     }
 
     public String toJavaDecl() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return Stjx.toJavaBeanAttribute( name, Strings.toFirstLower( name ));
     }
 
     public String toSAXStart() {
@@ -49,7 +51,7 @@ public class OrType implements Complex {
 //
 //            ret +=         "\n" +
 //                    "              if ( peek instanceof "+ comp.getName() +" ) {\n" +
-//                    "                  stack.push( new ListHelper<"+ of +">( (("+ comp.getName() +")peek).get" + Stjx.toFirstUpper( name )+ "() ));\n" +
+//                    "                  stack.push( new OrHelper<"+ name +">( (("+ comp.getName() +")peek).get" + Strings.toFirstUpper( name )+ "() ));\n" +
 //                    "                  return;\n" +
 //                    "              } else {\n" +
 //                    "                  throw new IllegalArgumentException( \""+ name +" is not member of \" + peek.getClass() );\n" +
@@ -59,7 +61,13 @@ public class OrType implements Complex {
 //        ret += "          }\n";
 //
 //        return ret;
-        return "";
+
+        String ret = "           if ( qName.equals(\"" + name + "\" )) {\n" +
+                     "              // ortype: nothing to do\n" +
+                     "              return;\n" +
+                     "           }\n";
+
+        return ret;
     }
 
     public boolean uses(String name) {
@@ -85,14 +93,14 @@ public class OrType implements Complex {
         return ret;
     }
 
-    public void addInterface(String name) {
+    public void setInterface(String name) {
     }
 
     public Struct with( String ... names ) {
         alternatives.addAll( Arrays.asList( names ));
 
         for ( String alt : names ) {
-            struct.getZeug().dings.get( alt ).addInterface( name );
+            struct.getZeug().dings.get( alt ).setInterface( name );
         }
 
         return struct;

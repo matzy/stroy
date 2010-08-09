@@ -1,5 +1,7 @@
 package org.openCage.stjx;
 
+import org.openCage.lang.Strings;
+
 import java.util.List;
 
 /**
@@ -14,7 +16,7 @@ public class ListType implements Complex {
  private String name;
  private String of;
 
- public ListType(Struct struct, String name) {
+ public ListType( Struct struct, String name) {
      this.struct = struct;
      this.name = name;
  }
@@ -34,10 +36,10 @@ public class ListType implements Complex {
 
  public String toJavaDecl() {
      return "   private List<" + of + ">  " + name + " = new ArrayList<" + of + ">();\n" +
-            "   public  void add( " + of + " " + Stjx.toFirstLower(of) + ") {\n" +
-            "      " + name + ".add( " + Stjx.toFirstLower( of) + " );\n" +
+            "   public  void add( " + of + " " + Strings.toFirstLower(of) + ") {\n" +
+            "      " + name + ".add( " + Strings.toFirstLower( of) + " );\n" +
             "   };\n" +
-            "   public List<"+ of + "> get" + Stjx.toFirstUpper( name ) + "() {\n" +
+            "   public List<"+ of + "> get" + Strings.toFirstUpper( name ) + "() {\n" +
             "      return " + name + ";\n" +
             "   }\n"+
             "";
@@ -60,7 +62,7 @@ public class ListType implements Complex {
 
          ret +=         "\n" +
                  "              if ( peek instanceof "+ comp.getName() +" ) {\n" +
-                 "                  stack.push( new ListHelper<"+ of +">( (("+ comp.getName() +")peek).get" + Stjx.toFirstUpper( name )+ "() ));\n" +
+                 "                  stack.push( new ListHelper<"+ of +">( (("+ comp.getName() +")peek).get" + Strings.toFirstUpper( name )+ "() ));\n" +
                  "                  return;\n" +
                  "              } else {\n" +
                  "                  throw new IllegalArgumentException( \""+ name +" is not member of \" + peek.getClass() );\n" +
@@ -84,7 +86,7 @@ public class ListType implements Complex {
         return name + " = element " + name +" { " + of + "* }";
     }
 
-    public void addInterface(String name) {
+    public void setInterface(String name) {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 }

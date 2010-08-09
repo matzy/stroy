@@ -1,5 +1,8 @@
 package org.openCage.stjx;
 
+import org.openCage.lang.Strings;
+import org.openCage.lang.functions.F1;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +18,7 @@ public class Struct implements Complex {
     private String name;
     private List<Atti> attis = new ArrayList<Atti>();
     private List<Ref> complexs = new ArrayList<Ref>();
-    private List<String> interfaces = new ArrayList<String>();
+    private String interf;
 
     public Struct(Stjx stjx, String name) {
         this.stjx = stjx;
@@ -59,22 +62,12 @@ public class Struct implements Complex {
                      "import java.util.List;\n" +
                      "public class " + name;
 
-        String intfs = "";
-        if ( !interfaces.isEmpty() ) {
-            for ( String interf : interfaces ) {
-                if ( !intfs.isEmpty() ) {
-                    intfs += ", ";
-                }
 
-                intfs += interf;
-            }
-
-            intfs = " implements " + intfs;
+        if ( interf != null ) {
+            ret += " implements " + interf + " ";
         }
 
-
-
-        ret += intfs + " {\n";
+        ret += " {\n";
 
         for ( Atti atti : attis ) {
             ret += atti.toJava();
@@ -91,7 +84,7 @@ public class Struct implements Complex {
     }
 
     public String toJavaDecl() {
-        return Stjx.toJavaBeanAttribute( name, Stjx.toFirstLower( name ));
+        return Stjx.toJavaBeanAttribute( name, Strings.toFirstLower( name ));
     }
 
     public String toSAXStart() {
@@ -102,7 +95,12 @@ public class Struct implements Complex {
             ret += atti.toSAXStart();
         }
 
-        List<Complex> hasme = stjx.getUsers( name );
+        String className = name;
+        if ( interf != null ) {
+            className = interf;
+        }
+
+        List<Complex> hasme = stjx.getUsers( className );
 
         if ( !hasme.isEmpty()) {
             ret += "               if ( !stack.empty() ) {\n" +
@@ -118,8 +116,8 @@ public class Struct implements Complex {
 
                     String typeName = complex.getName();
 
-                    ret += "                  if ( peek instanceof"+ typeName +") {\n" +
-                           "                     (("+ typeName+")peek).set" + name + "( elem );\n" +
+                    ret += "                  if ( peek instanceof "+ typeName +") {\n" +
+                           "                     (("+ typeName+")peek).set" + className + "( elem );\n" +
                            "                  };\n";
                 }
 
@@ -129,7 +127,7 @@ public class Struct implements Complex {
             if ( list ) {
                 ret +=
                "                  if ( peek instanceof ListHelper ) {\n" +
-               "                      ((ListHelper<" + name +">)peek).add( elem );\n" +
+               "                      ((ListHelper<" + className +">)peek).add( elem );\n" +
                "                  }\n" +
                "\n";
 
@@ -169,36 +167,27 @@ public class Struct implements Complex {
 
         String args = "";
 
-        for ( Atti atti : attis ) {
-            if ( !args.isEmpty() ) {
-                args += ", ";
+        args += Strings.join( attis ).trans( new F1<String, Atti>() {
+            public String call(Atti atti) {
+                return atti.toRnc() + (atti.isOptional() ? "?" : "" );
             }
+        });
 
-            args += atti.toRnc();            
-
-            if ( atti.isOptional() ) {
-                args += "? ";
+        args += Strings.join( complexs ).trans( new F1<String, Ref>() {
+            public String call(Ref ref) {
+                return ref.getName() + (ref.isOptional() ? "?" : "");
             }
-        }
+        }).startWithSeparator( !args.isEmpty() );
 
-        for ( Ref ref : complexs ) {
-            if ( !args.isEmpty() ) {
-                args += ", ";
-            }
-
-            args += ref.getName();
-
-            if ( ref.isOptional() ) {
-                args += "? ";
-            }
-
-        }
 
         return ret + args + "}";
     }
 
-    public void addInterface(String name) {
-        this.interfaces.add( name );
+    public void setInterface(String name) {
+        if ( interf != null ) {
+            throw new IllegalArgumentException( "only one interface allowed" );
+        }
+        this.interf = name;
     }
 
     public Stjx getZeug() {

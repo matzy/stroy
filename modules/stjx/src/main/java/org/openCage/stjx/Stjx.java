@@ -1,5 +1,7 @@
 package org.openCage.stjx;
 
+import org.openCage.lang.Strings;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -20,35 +22,37 @@ public class Stjx {
     public static void main(String[] args) {
         Stjx stjx = new Stjx("Artifact");
 
-//       System.out.println( stjx.ding( "Elem").string( "anAtti" ).toJava() );
-//       System.out.println( stjx.ding(
+//       System.out.println( stjx.struct( "Elem").string( "anAtti" ).toJava() );
+//       System.out.println( stjx.struct(
 //"Duh").optional().string("mabe").toJava() );
-//       System.out.println( stjx.ding( "Compl").list( "eles" ).of(
+//       System.out.println( stjx.struct( "Compl").list( "eles" ).of(
 //"Elem" ).complex("Duh").toJava());
 
         //System.out.println( stjx.toJava());
 
-        stjx.ding( "ArtifactRef" ).
+        stjx.struct( "ArtifactRef" ).
                 string( "groupId" ).
                 string( "name" ).
                 string( "scope" );
 
-        stjx.ding( "Author" ).
+        stjx.struct( "Author" ).
                 string("name").
                 optional().string( "email" );
 
-        stjx.ding( "Module" );
-        stjx.ding( "Extern" );
+        stjx.struct( "Module" ).string( "mod" );
+        stjx.struct( "Extern" ).string( "ext");
+        stjx.struct( "Licence" ).string( "name");
 
-        stjx.ding( "Artifact" ).list( "depends" ).of( "ArtifactRef" ).
+        stjx.struct( "Artifact" ).list( "depends" ).of( "ArtifactRef" ).
                 string( "groupId" ).
                 string( "name" ).
                 string( "version" ).
                 list( "authors" ).of( "Author" ).
-                or( "Application" ).with( "Module", "Extern" );
+                or( "Application" ).with( "Module", "Extern" ).
+                complex( "Licence" );
 
         System.out.println( stjx.toRnc());
-//        stjx.generate();
+        stjx.generate();
 //
 //        try {
 //            JAXBContext.newInstance("");
@@ -77,7 +81,7 @@ public class Stjx {
 
 
         {
-            File outFile = new File( "/Users/stephan/projects/stroy-7/modules/adt/src/main/java/org/openCage/adt/FromXML.java");
+            File outFile = new File( "/Users/stephan/Documents/prs/stroy-10/modules/adt/src/main/java/org/openCage/adt/FromXML.java");
             FileWriter out = null;
             try {
                 out = new FileWriter(outFile);
@@ -92,7 +96,7 @@ public class Stjx {
             if ( cop.getType().startsWith( "List")) {
                 // ignore
             } else {
-                File outFile = new File( "/Users/stephan/projects/stroy-7/modules/adt/src/main/java/org/openCage/adt/" + cop.getName() + ".java");
+                File outFile = new File( "/Users/stephan/Documents/prs/stroy-10/modules/adt/src/main/java/org/openCage/adt/" + cop.getName() + ".java");
                 FileWriter out = null;
                 try {
                     out = new FileWriter(outFile);
@@ -169,6 +173,10 @@ public class Stjx {
                 "       public void endElement( String uri, String localName, String qName) throws SAXException {\n";
 
         for ( Complex complex : dings.values() ) {
+            if ( complex instanceof OrType ) {
+                continue;
+            }
+            
             ret += "           if ( qName.equals( \"" +
                     complex.getName() + "\" ) ) {\n" +
                     "               goal = stack.pop();\n" +
@@ -193,7 +201,7 @@ public class Stjx {
         this.name = name;
     }
 
-    public Struct ding(String name) {
+    public Struct struct(String name) {
         Struct struct = new Struct( this, name );
         dings.put( name, struct);
         return struct;
@@ -226,21 +234,14 @@ public class Stjx {
         return name.charAt( 0 ) == name.toUpperCase().charAt(0);
     }
 
-    public static String toFirstLower( String name ) {
-        return "" + name.toLowerCase().charAt(0) + name.substring(1);
-    }
-
-    public static String toFirstUpper(String name) {
-        return "" + name.toUpperCase().charAt(0) + name.substring(1);
-    }
 
     public static String toJavaBeanAttribute( String type, String name ) {
         String ret = "";
         ret += "   private " + type + " " + name + ";\n";
-        ret += "   public "+ type + " get" + toFirstUpper( name ) + "() {\n";
+        ret += "   public "+ type + " get" + Strings.toFirstUpper( name ) + "() {\n";
         ret += "      return " + name + ";\n";
         ret += "   }\n";
-        ret += "   public void set" + toFirstUpper( name ) + "( " + type
+        ret += "   public void set" + Strings.toFirstUpper( name ) + "( " + type
                 + " " + name + " ) {\n";
         ret += "      this." + name + " = " + name + ";\n";
         ret += "   }\n";

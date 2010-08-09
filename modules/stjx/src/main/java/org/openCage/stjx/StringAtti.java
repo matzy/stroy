@@ -1,5 +1,7 @@
 package org.openCage.stjx;
 
+import org.openCage.lang.Strings;
+
 /**
 * Created by IntelliJ IDEA.
 * User: stephan
@@ -31,7 +33,7 @@ public class StringAtti implements Atti {
  public String toSAXStart() {
      String ret = "               String "+ name + " = attributes.getValue( \"" + name +"\" );\n" +
             "               if ( "+ name + " != null ) {\n" +
-            "                  elem.set" + Stjx.toFirstUpper(name ) + "( " + name + ");\n" +
+            "                  elem.set" + Strings.toFirstUpper(name ) + "( " + name + ");\n" +
             "               } \n";
 
      if ( !optional ) {

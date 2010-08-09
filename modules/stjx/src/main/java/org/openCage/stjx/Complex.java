@@ -15,5 +15,5 @@ public interface Complex {
 
     String toRnc();
 
-    void addInterface(String name);
+    void setInterface(String name);
 }

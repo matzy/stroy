@@ -1,5 +1,7 @@
 package org.openCage.stjx;
 
+import org.openCage.lang.Strings;
+
 /**
 * Created by IntelliJ IDEA.
 * User: stephan
@@ -29,7 +31,7 @@ public class Ref {
  }
 
  public String toJava() {
-     return Stjx.toJavaBeanAttribute( name, Stjx.toFirstLower( name ));
+     return Stjx.toJavaBeanAttribute( name, Strings.toFirstLower( name ));
  }
 
     public boolean isOptional() {
