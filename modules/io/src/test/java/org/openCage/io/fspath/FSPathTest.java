@@ -219,5 +219,12 @@ public class FSPathTest {
         assertEquals( "D:\\foo", path.toString() );
     }
 
+    @Test
+    public void testPackage() {
+        FSPath base = new FSPathUnix("/");
+
+        assertEquals( "/a/b/c", base.addPackage( "a.b.c" ).toString());
+    }
+
 
 }

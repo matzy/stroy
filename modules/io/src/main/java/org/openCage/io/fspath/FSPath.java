@@ -45,6 +45,8 @@ public interface FSPath extends Iterable<FSPath> {
      */
     FSPath add( String ... elements );
 
+    FSPath addPackage( String packageDescr );
+
     /**
      * Iterate over the elements of this path
      * @return

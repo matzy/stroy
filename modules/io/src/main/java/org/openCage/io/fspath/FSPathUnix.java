@@ -139,4 +139,13 @@ public class FSPathUnix implements FSPath {
     public int hashCode() {
         return elements != null ? elements.hashCode() : 0;
     }
+
+    @Override
+    public FSPath addPackage(String packageDescr) {
+        String[] elems = packageDescr.split("\\.");
+
+        return add( elems );
+    }
+
+    
 }

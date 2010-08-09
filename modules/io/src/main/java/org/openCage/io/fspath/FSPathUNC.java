@@ -61,6 +61,13 @@ public class FSPathUNC implements FSPath {
     }
 
     @Override
+    public FSPath addPackage(String packageDescr) {
+        String[] elems = packageDescr.split("\\\\.");
+
+        return add( elems );
+    }
+
+    @Override
     public Iterator<FSPath> iterator() {
         List<FSPath> ret = new ArrayList<FSPath>();
         FSPath path =  null;

@@ -127,4 +127,13 @@ public class FSPathWindows implements FSPath {
         result = Constants.HASHFACTOR * result + (elements != null ? elements.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public FSPath addPackage(String packageDescr) {
+        String[] elems = packageDescr.split("\\\\.");
+
+        return add( elems );
+    }
+
+    
 }
