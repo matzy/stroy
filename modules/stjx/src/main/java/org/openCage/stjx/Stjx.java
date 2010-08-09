@@ -1,5 +1,8 @@
 package org.openCage.stjx;
 
+import org.openCage.io.FileUtils;
+import org.openCage.io.fspath.FSPath;
+import org.openCage.io.fspath.FSPathBuilder;
 import org.openCage.lang.Strings;
 
 import java.io.File;
@@ -52,7 +55,7 @@ public class Stjx {
                 complex( "Licence" );
 
         System.out.println( stjx.toRnc());
-        stjx.generate();
+        //stjx.generate();
 //
 //        try {
 //            JAXBContext.newInstance("");
@@ -77,11 +80,12 @@ public class Stjx {
 
     }
 
-    private void generate() {
+    public void generate( String baseDir, String packag ) {
 
+        String packDir = packag.replace('.', ',');
 
         {
-            File outFile = new File( "/Users/stephan/Documents/prs/stroy-10/modules/adt/src/main/java/org/openCage/adt/FromXML.java");
+            File outFile = FSPathBuilder.getPath( baseDir ).add( "src", "main", "java" ).addPackage(packag ).add( "FromXML.java").toFile();
             FileWriter out = null;
             try {
                 out = new FileWriter(outFile);
@@ -92,22 +96,39 @@ public class Stjx {
             }
         }
 
-        for ( Complex cop : dings.values() ) {
-            if ( cop.getType().startsWith( "List")) {
-                // ignore
-            } else {
-                File outFile = new File( "/Users/stephan/Documents/prs/stroy-10/modules/adt/src/main/java/org/openCage/adt/" + cop.getName() + ".java");
-                FileWriter out = null;
-                try {
-                    out = new FileWriter(outFile);
-                    out.write( "package org.openCage.adt;\n" + cop.toJava() );
-                    out.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+        {
+            for ( Complex cop : dings.values() ) {
+                if ( cop.getType().startsWith( "List")) {
+                    // ignore
+                } else {
+                    File outFile = FSPathBuilder.getPath( baseDir ).add( "src", "main", "java" ).addPackage(packag ).add( cop.getName() + ".java").toFile();
+                    FileWriter out = null;
+                    try {
+                        out = new FileWriter(outFile);
+                        out.write( "package " + packag + ";\n" + cop.toJava() );
+                        out.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
 
+                }
             }
         }
+
+        {
+            FSPath path = FSPathBuilder.getPath( baseDir ).add( "src", "main", "resources" ).addPackage(packag ).add( name + ".rnc" );
+            FileUtils.ensurePath( path );
+            File outFile = path.toFile();
+            FileWriter out = null;
+            try {
+                out = new FileWriter(outFile);
+                out.write( toRnc() );
+                out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        
 
     }
 

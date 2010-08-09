@@ -36,9 +36,9 @@ public class ListType implements Complex {
 
  public String toJavaDecl() {
      return "   private List<" + of + ">  " + name + " = new ArrayList<" + of + ">();\n" +
-            "   public  void add( " + of + " " + Strings.toFirstLower(of) + ") {\n" +
-            "      " + name + ".add( " + Strings.toFirstLower( of) + " );\n" +
-            "   };\n" +
+//            "   public  void add" + Strings.toFirstUpper( name ) + "( " + of + " " + Strings.toFirstLower(of) + ") {\n" +
+//            "      " + name + ".add( " + Strings.toFirstLower( of) + " );\n" +
+//            "   };\n" +
             "   public List<"+ of + "> get" + Strings.toFirstUpper( name ) + "() {\n" +
             "      return " + name + ";\n" +
             "   }\n"+
