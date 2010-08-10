@@ -96,11 +96,20 @@ public class OrType implements Complex {
     public void setInterface(String name) {
     }
 
+    public String toSAXEnd() {
+        return ""; // nohing to do
+    }
+
     public Struct with( String ... names ) {
         alternatives.addAll( Arrays.asList( names ));
 
         for ( String alt : names ) {
-            struct.getZeug().dings.get( alt ).setInterface( name );
+            Complex comp = struct.getZeug().structs.get( alt );
+            if ( comp == null ) {
+                throw new IllegalArgumentException( alt + " used in or("+ name +") before declared as struct" );
+            }
+
+            comp.setInterface( name );
         }
 
         return struct;

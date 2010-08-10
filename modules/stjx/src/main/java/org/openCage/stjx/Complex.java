@@ -16,4 +16,6 @@ public interface Complex {
     String toRnc();
 
     void setInterface(String name);
+
+    String toSAXEnd();
 }

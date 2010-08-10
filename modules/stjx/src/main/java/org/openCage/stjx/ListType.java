@@ -89,4 +89,10 @@ public class ListType implements Complex {
     public void setInterface(String name) {
         //To change body of implemented methods use File | Settings | File Templates.
     }
+
+    public String toSAXEnd() {
+        return "           if ( qName.equals( \"" + name + "\" ) ) {\n" +
+                "               goal = stack.pop();\n" +
+                "           }\n";
+    }
 }

@@ -37,7 +37,7 @@ public class Struct implements Complex {
 
     public ListType list(String name) {
         ListType ll = new ListType( this, name );
-        stjx.dings.put( name, ll );
+        stjx.structs.put( name, ll );
         complexs.add( Ref.optional( name ));
         return ll;
     }
@@ -45,7 +45,7 @@ public class Struct implements Complex {
     public OrType or(String name ) {
 
         OrType ot =  new OrType( this, name );
-        stjx.dings.put( name, ot );
+        stjx.structs.put( name, ot );
         complexs.add( Ref.required( name ));
         return ot;
     }
@@ -74,7 +74,7 @@ public class Struct implements Complex {
         }
 
         for ( Ref ref : complexs ) {
-            Complex comp = stjx.dings.get( ref.getName() );
+            Complex comp = stjx.structs.get( ref.getName() );
             ret += comp.toJavaDecl();
         }
 
@@ -188,6 +188,22 @@ public class Struct implements Complex {
             throw new IllegalArgumentException( "only one interface allowed" );
         }
         this.interf = name;
+    }
+
+    public String toSAXEnd() {
+
+        String ret = "           if ( qName.equals( \"" + name + "\" ) ) {\n" +
+                     "               goal = stack.pop();\n";
+
+        for ( Ref ref : complexs ) {
+            if ( !ref.isOptional() ) {
+                ret += "               if ( (("+name+")goal).get"+ Strings.toFirstUpper(ref.getName() )+"() == null ){\n" +
+                       "                  throw new IllegalArgumentException(\""+ name +" required member "+ ref.getName() +" not set \");\n" +
+                       "               }\n";
+            }
+        }
+
+        return ret +=  "           }\n";
     }
 
     public Stjx getZeug() {

@@ -82,14 +82,12 @@ public class Stjx {
 
     public void generate( String baseDir, String packag ) {
 
-        String packDir = packag.replace('.', ',');
-
         {
             File outFile = FSPathBuilder.getPath( baseDir ).add( "src", "main", "java" ).addPackage(packag ).add( "FromXML.java").toFile();
             FileWriter out = null;
             try {
                 out = new FileWriter(outFile);
-                out.write( toJava() );
+                out.write( "package " + packag + ";\n" + toJava() );
                 out.close();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -97,7 +95,7 @@ public class Stjx {
         }
 
         {
-            for ( Complex cop : dings.values() ) {
+            for ( Complex cop : structs.values() ) {
                 if ( cop.getType().startsWith( "List")) {
                     // ignore
                 } else {
@@ -134,13 +132,7 @@ public class Stjx {
 
     private String toJava() {
 
-//        for ( Complex comp : this.dings.values() ) {
-//            if ( comp instanceof OrType ) {
-//
-//            }
-//        }
-
-        String ret = "package org.openCage.adt;\n\n" +
+        String ret =
                 "import org.xml.sax.Attributes;\n" +
                 "import org.xml.sax.SAXException;\n" +
                 "import org.xml.sax.helpers.DefaultHandler;\n" +
@@ -182,7 +174,7 @@ public class Stjx {
                 "       public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException{\n" +
                 "";
 
-        for ( Complex complex : dings.values() ) {
+        for ( Complex complex : structs.values() ) {
             ret += complex.toSAXStart();
         }
 
@@ -193,15 +185,8 @@ public class Stjx {
                 "       @Override\n" +
                 "       public void endElement( String uri, String localName, String qName) throws SAXException {\n";
 
-        for ( Complex complex : dings.values() ) {
-            if ( complex instanceof OrType ) {
-                continue;
-            }
-            
-            ret += "           if ( qName.equals( \"" +
-                    complex.getName() + "\" ) ) {\n" +
-                    "               goal = stack.pop();\n" +
-                    "           }\n";
+        for ( Complex complex : structs.values() ) {
+            ret += complex.toSAXEnd();
         }
 
         ret += "       }\n" +
@@ -214,7 +199,7 @@ public class Stjx {
         return ret;
     }
 
-    Map<String,Complex> dings = new HashMap<String,Complex>();
+    Map<String,Complex> structs = new HashMap<String,Complex>();
     private String name;
 
 
@@ -224,13 +209,13 @@ public class Stjx {
 
     public Struct struct(String name) {
         Struct struct = new Struct( this, name );
-        dings.put( name, struct);
+        structs.put( name, struct);
         return struct;
     }
 
     public List<Complex> getUsers( String name ) {
         List<Complex> users = new ArrayList<Complex>();
-        for ( Complex complex : dings.values() ) {
+        for ( Complex complex : structs.values() ) {
             if ( complex.uses( name )) {
                 users.add( complex );
             }
@@ -243,7 +228,7 @@ public class Stjx {
 
         ret += "start = " + name + "\n";
 
-        for ( Complex comp : dings.values() ) {
+        for ( Complex comp : structs.values() ) {
             ret += comp.toRnc() + "\n";
         }
 
