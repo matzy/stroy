@@ -23,7 +23,7 @@ public class ArtiTest2 {
                 string("name").
                 optional().string( "email" );
 
-        stjx.struct( "Module" ).string( "mod" );
+        stjx.struct( "Module" ).string("kind");
         stjx.struct( "External" ).string( "ext");
         stjx.struct( "Licence" ).string( "name");
         stjx.struct( "Language" ).string( "name");
@@ -32,21 +32,24 @@ public class ArtiTest2 {
                 optional().string( "max");
         stjx.struct( "Address" ).string( "page").optional().string( "shrt" );
 
+        stjx.struct( "Import").string("path");
+
         stjx.struct( "Artifact" ).list( "depends" ).of( "ArtifactRef" ).
                 string( "groupId" ).
                 string( "name" ).
                 string( "version" ).
+                string( "licence" ).
                 optional().string( "email" ).
                 list( "authors" ).of( "Author" ).
                 list( "contributors" ).of( "Author" ).
                 or( "Application" ).with( "Module", "External" ).
-                complex( "Licence" ).
                 optional().complex( "Address" ).
                 list( "languages").of( "Language" ).
                 optional().complex( "Java").
-                list( "references" ).of( "Artifact" );
+                list( "references" ).of( "Artifact" ).
+                list( "imports").of( "Import" );
 
-        stjx.generate( "/Users/stephan/Documents/prs/stroy-10/modules/artig2", "org.openCage.artig" );
+        stjx.generate( "/Users/stephan/Documents/prs/stroy-10/modules/artig2", "org.openCage.artig.stjx" );
 
 
     }
