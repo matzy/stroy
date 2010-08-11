@@ -78,6 +78,17 @@ public class Struct implements Complex {
             ret += comp.toJavaDecl();
         }
 
+        ret += "    public String toString() {\n" +
+               "       return \"" + name + "(";
+        for ( Atti atti : attis ) {
+            ret += atti.getName() + ": \" + get" + Strings.toFirstUpper( atti.getName() ) + "() +\" ";
+        }
+        for ( Ref ref : complexs ) {
+            ret += ref.getName();
+        }
+        ret += ")\";";
+        ret += "    }\n";
+
         ret += "}\n";
 
         return ret;
