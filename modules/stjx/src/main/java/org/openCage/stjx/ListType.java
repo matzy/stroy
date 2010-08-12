@@ -64,10 +64,11 @@ public class ListType implements Complex {
                  "              if ( peek instanceof "+ comp.getName() +" ) {\n" +
                  "                  stack.push( new ListHelper<"+ of +">( (("+ comp.getName() +")peek).get" + Strings.toFirstUpper( name )+ "() ));\n" +
                  "                  return;\n" +
-                 "              } else {\n" +
-                 "                  throw new IllegalArgumentException( \""+ name +" is not member of \" + peek.getClass() );\n" +
                  "              }\n";
+
+
      }
+     ret +=  "              throw new IllegalArgumentException( \""+ name +" is not member of \" + peek.getClass() );\n";
 
      ret += "          }\n";
 

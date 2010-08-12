@@ -42,7 +42,11 @@ public class Struct implements Complex {
         return ll;
     }
 
-    public OrType or(String name ) {
+    public OrType or( String name ) {
+
+        if ( name.charAt(0) != name.toUpperCase().charAt(0)) {
+            throw new IllegalArgumentException( "or/interface type needs to be first letter uppercase not " + name );
+        }
 
         OrType ot =  new OrType( this, name );
         stjx.structs.put( name, ot );
