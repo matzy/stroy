@@ -1,5 +1,7 @@
 package org.openCage.stjx;
 
+import org.openCage.io.fspath.FSPath;
+import org.openCage.io.fspath.FSPathBuilder;
 import org.openCage.stjx.Stjx;
 
 /**
@@ -18,17 +20,21 @@ public class ModuleDescription {
                 complex( "Artifact" );
 
 
-        stjx.struct( "TopLevel" ).
+        stjx.struct( "Project" ).
+                string( "name" ).
+                string( "groupId" ).
                 list( "modules" ).of( "ModuleRef" ).
                 list( "externals" ).of( "Artifact" ).
                 list( "licences").of( "Licence" );
 
-        stjx.struct( "Complete" ).
+        stjx.struct( "Deployed" ).
                 complex( "Artifact" ).
                 list( "externals" ).of( "Artifact" ).
                 list( "licences").of( "Licence" );
 
-        stjx.struct( "ArtifactDescription" ).or( "Kind" ).with( "Module", "TopLevel", "Complete" );
+        stjx.struct( "ArtifactDescription" ).
+                string( "version" ).
+                or( "Kind" ).with( "Module", "Project", "Deployed" );
 
 
 
@@ -52,7 +58,7 @@ public class ModuleDescription {
                 string( "min").
                 optional().string( "max");
         stjx.struct( "Address" ).string( "page").optional().string( "shrt" );
-        stjx.struct( "References").list( "list" ).of("Artifact");
+        stjx.struct( "References").list( "references" ).of("Artifact");
 
         stjx.struct( "Artifact" ).list( "depends" ).of( "ArtifactRef" ).
                 string( "groupId" ).
@@ -68,9 +74,23 @@ public class ModuleDescription {
                 optional().complex( "Java").
                 list( "refs" ).of( "ArtifactRef" );
 
-        stjx.generate( "/Users/stephan/Documents/prs/stroy-10/modules/artig2", "org.openCage.artig.stjx" );
+        System.out.println( getProjectBase( ModuleDescription.class ) );
+
+        stjx.generate( getProjectBase( ModuleDescription.class ).add( "modules", "artig2").toString(), "org.openCage.artig.stjx" );
 
 
+    }
+
+    public static FSPath getProjectBase( Class clazz ) {
+        FSPath path = FSPathBuilder.getPath( clazz.getResource("."));
+
+
+        while ( !path.getFileName().equals( "classes" )) {
+            path = path.parent();
+        }
+
+
+        return path.parent();
     }
 
 }
