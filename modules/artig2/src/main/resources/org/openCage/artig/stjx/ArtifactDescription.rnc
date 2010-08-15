@@ -1,0 +1,26 @@
+default namespace = ""
+
+start = ArtifactDescription
+contributors = element contributors { Author* }
+licences = element licences { Licence* }
+Author = element Author { attribute name {xsd:string}, attribute email {xsd:string}?}
+Licence = element Licence { attribute name {xsd:string}}
+externals = element externals { Artifact* }
+Module = element Module { Artifact}
+Java = element Java { attribute min {xsd:string}, attribute max {xsd:string}?}
+Deployed = element Deployed { Artifact, externals?, licences?}
+Kind = Kind {(Module, Project, Deployed)}
+ArtifactRef = element ArtifactRef { attribute groupId {xsd:string}, attribute name {xsd:string}, attribute version {xsd:string}?, attribute scope {xsd:string}}
+languages = element languages { Language* }
+authors = element authors { Author* }
+ModuleRef = element ModuleRef { attribute name {xsd:string}}
+references = element references { Artifact* }
+Artifact = element Artifact { attribute groupId {xsd:string}, attribute name {xsd:string}, attribute version {xsd:string}, attribute licence {xsd:string}, attribute email {xsd:string}?, depends?, authors?, contributors?, Address?, languages?, Java?, refs?}
+refs = element refs { ArtifactRef* }
+ArtifactDescription = element ArtifactDescription { attribute version {xsd:string}, Kind}
+References = element References { references?}
+Address = element Address { attribute page {xsd:string}, attribute shrt {xsd:string}?}
+Project = element Project { attribute name {xsd:string}, attribute groupId {xsd:string}, modules?, externals?, licences?}
+Language = element Language { attribute name {xsd:string}}
+depends = element depends { ArtifactRef* }
+modules = element modules { ModuleRef* }
