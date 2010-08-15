@@ -38,6 +38,8 @@ public class Artig {
 
         artig.validate();
 
+        System.out.println( MavenGen.getModulePom( artig.modules.iterator().next().getArtifact()));
+
     }
 
     private void validate() {
