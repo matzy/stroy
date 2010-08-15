@@ -30,14 +30,14 @@ public class StringAtti implements Atti {
      return Stjx.toJavaBeanAttribute( "String", name );
  }
 
- public String toSAXStart() {
+ public String toSAXStart(String complexName) {
      String ret = "               String "+ name + " = attributes.getValue( \"" + name +"\" );\n" +
             "               if ( "+ name + " != null ) {\n" +
             "                  elem.set" + Strings.toFirstUpper(name ) + "( " + name + ");\n" +
             "               } \n";
 
      if ( !optional ) {
-         ret +=                  "               else {\n                  throw new IllegalArgumentException( \"attribute " + name + " is required\" );\n" +
+         ret +=                  "               else {\n                  throw new IllegalArgumentException( \"" + complexName + "\" + \" attribute " + name + " is required\" );\n" +
             "               }\n";
 
      }

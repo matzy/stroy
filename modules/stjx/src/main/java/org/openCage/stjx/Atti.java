@@ -14,7 +14,7 @@ public interface Atti {
 
  String toJava();
 
- String toSAXStart();
+ String toSAXStart(String complexName);
 
     String toRnc();
 

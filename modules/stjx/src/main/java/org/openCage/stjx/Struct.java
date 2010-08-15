@@ -36,10 +36,19 @@ public class Struct implements Complex {
     }
 
     public ListType list(String name) {
+
+        check( name );
+
         ListType ll = new ListType( this, name );
         stjx.structs.put( name, ll );
         complexs.add( Ref.optional( name ));
         return ll;
+    }
+
+    private void check(String name) {
+        if ( !Keywords.isAllowed( name )) {
+            throw new IllegalArgumentException( name + " is a illegal name here" );
+        }
     }
 
     public OrType or( String name ) {
@@ -107,7 +116,7 @@ public class Struct implements Complex {
                 "               " + name + " elem = new " + name + "();\n";
 
         for ( Atti atti : attis ) {
-            ret += atti.toSAXStart();
+            ret += atti.toSAXStart( name );
         }
 
         String className = name;

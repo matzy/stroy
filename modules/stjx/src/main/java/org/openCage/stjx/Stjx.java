@@ -82,6 +82,8 @@ public class Stjx {
 
     public void generate( String baseDir, String packag ) {
 
+        FileUtils.ensurePath( FSPathBuilder.getPath( baseDir ).add( "src", "main", "java" ).addPackage(packag ).add( "foo" ));
+
         {
             File outFile = FSPathBuilder.getPath( baseDir ).add( "src", "main", "java" ).addPackage(packag ).add( "FromXML.java").toFile();
             FileWriter out = null;
@@ -208,6 +210,8 @@ public class Stjx {
     }
 
     public Struct struct(String name) {
+        checkClassName( name );
+
         Struct struct = new Struct( this, name );
         structs.put( name, struct);
         return struct;
@@ -239,6 +243,13 @@ public class Stjx {
     public static boolean isValidType( String name ) {
         return name.charAt( 0 ) == name.toUpperCase().charAt(0);
     }
+
+    private void checkClassName(String name) {
+        if ( !isValidType( name )) {
+            throw new IllegalArgumentException( name + " does not start with an uppercase letter" );
+        }
+    }
+
 
 
     public static String toJavaBeanAttribute( String type, String name ) {
