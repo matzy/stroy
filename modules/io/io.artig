@@ -1,0 +1,22 @@
+<ArtifactDescription version="0.1">
+    <Module>
+        <Artifact name="openCage-io"
+                groupId="openCage"
+                version="0.2"
+                licence="MPL1.1">
+            <Java min="6"/>
+            <authors>
+                <Author name="Stephan Pfab" email="openCage@gmail.com"/>
+            </authors>
+            <Address page="http://stroy.wikidot.com" shrt="wikidot.com" />
+            <!--<Email email="openCage@gmail.com"/> support-->
+
+            <depends>
+                <ArtifactRef groupId="junit" name="junit" scope="test" />
+                <ArtifactRef groupId="openCage" name="openCage-lang" scope="compile" />
+                <!--<ArtifactRef groupId="nix" name="yup" scope="test" />-->
+            </depends>
+        </Artifact>
+    </Module>
+
+</ArtifactDescription>

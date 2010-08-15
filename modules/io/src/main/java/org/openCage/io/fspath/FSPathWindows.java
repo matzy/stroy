@@ -109,6 +109,11 @@ public class FSPathWindows implements FSPath {
     }
 
     @Override
+    public String getFileName() {
+        return elements.get( elements.size() - 1 );
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) { return true; }
         if (!(o instanceof FSPathWindows)) { return false; }

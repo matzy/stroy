@@ -1,11 +1,8 @@
 package org.openCage.io.fspath;
 
-import org.apache.commons.lang.SystemUtils;
-import org.openCage.io.fspath.FSPathUNC;
-import org.openCage.io.fspath.FSPathUnix;
-import org.openCage.io.fspath.FSPathWindows;
+import org.openCage.io.SystemUtils;
 
-import javax.swing.*;
+import javax.swing.JFileChooser;
 import java.io.File;
 import java.net.URL;
 import java.util.Date;

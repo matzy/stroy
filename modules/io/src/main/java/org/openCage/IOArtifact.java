@@ -14,15 +14,15 @@ public class IOArtifact implements ArtifactProvider{
 
         io = proj.module( getClass(), "openCage", "openCage-io").
                 address( "http://stroy.wikidot.com", "stroy.wikidot.com" ).
-                version( "0.1.0").
+                version( "0.2.0").
                 mpl11().
                 depends( proj.get("openCage", "openCage-lang")).
-                depends( proj.get("commons-lang", "commons-lang" ) ).
-                depends( proj.external( "munchsoft", "sys" ).
-                        version("1.0").
-                        descriptionShort( "Tool to help make java apps behave and look like native osx apps. e.g. Menus in menu bar, Preferences open on command-, ... " ).
-                        address( "http://www.muchsoft.com/", "munchsoft.com" ).
-                        licence( "MuchSoft" )).
+//                depends( proj.get("commons-lang", "commons-lang" ) ).
+//                depends( proj.external( "munchsoft", "sys" ).
+//                        version("1.0").
+//                        descriptionShort( "Tool to help make java apps behave and look like native osx apps. e.g. Menus in menu bar, Preferences open on command-, ... " ).
+//                        address( "http://www.muchsoft.com/", "munchsoft.com" ).
+//                        licence( "MuchSoft" )).
                 testDepends( proj.get( "junit", "junit"));
     }
 

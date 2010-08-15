@@ -69,4 +69,6 @@ public interface FSPath extends Iterable<FSPath> {
     FSPath parent(int i);
 
     FSPath parent();
+
+    String getFileName();
 }
