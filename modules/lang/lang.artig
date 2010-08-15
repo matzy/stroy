@@ -1,0 +1,51 @@
+<ArtifactDescription version="0.1">
+    <Module>
+        <Artifact name="openCage-lang"
+                groupId="openCage"
+                version="0.4"
+                licence="MPL1.1">
+            <Java min="6"/>
+            <authors>
+                <Author name="Stephan Pfab" email="openCage@gmail.com"/>
+            </authors>
+            <Address page="http://stroy.wikidot.com" shrt="wikidot.com" />
+            <!--<Email email="openCage@gmail.com"/> support-->
+
+            <depends>
+                <ArtifactRef groupId="junit" name="junit" scope="test" />
+                <!--<ArtifactRef groupId="nix" name="yup" scope="test" />-->
+            </depends>
+        </Artifact>
+    </Module>
+
+    <!--lang = proj.module( getClass(), "openCage", "openCage-lang" ).-->
+            <!--mpl11().-->
+            <!--java6().-->
+            <!--add( Version.valueOf( "0.3.0" ).build( 573 )).-->
+            <!--author( proj.author( "Stephan Pfab" ).email( "mailto:openCag@gmail.com" )).-->
+            <!--email( "mailto:openCage@gmail.com" ).-->
+            <!--address( "http://stroy.wikidot.com", "wikidot.com").-->
+            <!--descriptionShort( "a library with small java language level additions" ).-->
+            <!--depends( proj.external("com.intellij", "annotations" ).-->
+                    <!--descriptionShort( "Nullable annotations (bundled with Idea CE)" ).-->
+                    <!--address( "http://www.jetbrains.com/index.html", "jetbrains").-->
+                    <!--apache2().-->
+                    <!--version( "7.0.3")).-->
+            <!--depends( proj.external("net.jcip", "jcip-annotations" ).-->
+                    <!--address( "http://www.javaconcurrencyinpractice.com/", "javaconcurrencyinpractice" ).-->
+                    <!--creativeCommons().-->
+                    <!--version( "1.0" )).-->
+            <!--testDepends( proj.external("junit", "junit" ).-->
+                    <!--address( "http://www.junit.org/", "junit.org" ).-->
+                    <!--cpl().-->
+                    <!--version( "4.4" )).-->
+            <!--testDepends( proj.external("commons-lang", "commons-lang" ).-->
+                    <!--descriptionShort( "Apache java language level tools. Random number helpers, system property tools, string tools." ).-->
+                    <!--address( "http://commons.apache.org/lang/", "apache.org").-->
+                    <!--apache2().-->
+                    <!--version( "2.4" ))-->
+            <!--;-->
+
+
+    
+</ArtifactDescription>
