@@ -65,7 +65,7 @@ public class ModuleDescription {
                 string( "name" ).
                 string( "version" ).
                 string( "licence" ).
-                optional().string( "email" ).
+                optional().string( "support" ).
                 list( "authors" ).of( "Author" ).
                 list( "contributors" ).of( "Author" ).
                 //or( "Application" ).with( "Module", "External" ).
@@ -76,7 +76,7 @@ public class ModuleDescription {
 
         System.out.println( getProjectBase( ModuleDescription.class ) );
 
-        stjx.generate( getProjectBase( ModuleDescription.class ).add( "modules", "artig2").toString(), "org.openCage.artig.stjx" );
+        stjx.generate( getProjectBase( ModuleDescription.class ).add( "modules", "artig-lib").toString(), "org.openCage.artig.stjx" );
 
 
     }
@@ -85,7 +85,7 @@ public class ModuleDescription {
         FSPath path = FSPathBuilder.getPath( clazz.getResource("."));
 
 
-        while ( !path.getFileName().equals( "classes" )) {
+        while ( !path.getFileName().equals( "classes" ) && !path.getFileName().equals( "out" )) {
             path = path.parent();
         }
 
