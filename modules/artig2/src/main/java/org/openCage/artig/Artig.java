@@ -4,6 +4,7 @@ import org.openCage.artig.stjx.Artifact;
 import org.openCage.artig.stjx.ArtifactDescription;
 import org.openCage.artig.stjx.ArtifactRef;
 import org.openCage.artig.stjx.FromXML;
+import org.openCage.artig.stjx.Licence;
 import org.openCage.artig.stjx.Module;
 import org.openCage.artig.stjx.ModuleRef;
 import org.openCage.artig.stjx.Project;
@@ -29,6 +30,7 @@ public class Artig {
     private FSPath base;
     private Project project;
     private List<Module> modules = new ArrayList<Module>();
+    private Project deflt;
 
     public static void main(String[] args) {
 
@@ -56,6 +58,12 @@ public class Artig {
     public Artig( FSPath base ) {
         this.base = base;
         project = (Project)(read( base.add( "stroy.artig" )).getKind());
+
+        deflt = (Project)(read( FSPathBuilder.getPath( Artig.class.getResource(".").getFile() + "default.artig")).getKind());
+
+
+
+        //FSPathBuilder.getPath( );
     }
 
     public void readModules() {
@@ -77,10 +85,32 @@ public class Artig {
         // check artirefs
 
         for ( ArtifactRef ref : arti.getDepends() ) {
-            if ( find( ref) == null ) {
+            Artifact refA = find( ref);
+            if ( refA == null ) {
                 throw new IllegalArgumentException( "Reference " + ref + " is not defined in the project" );
             }
+
+            
         }
+
+        if ( findLicence( arti.getLicence()) == null ) {
+            throw new IllegalArgumentException( "Licence " + arti.getLicence() + " is not defined in the project" );
+        }
+    }
+
+    private Licence findLicence(String licence) {
+        for ( Licence lic : project.getLicences()) {
+            if ( lic.getName().equals( licence )) {
+                return lic;
+            }
+        }
+
+        for ( Licence lic : deflt.getLicences()) {
+            if ( lic.getName().equals( licence )) {
+                return lic;
+            }
+        }
+        return null;
     }
 
     public Artifact find( ArtifactRef ref ) {
