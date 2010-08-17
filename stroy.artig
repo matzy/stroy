@@ -3,22 +3,23 @@
         <modules>
             <ModuleRef name="lang"/>
             <ModuleRef name="io"/>
+            <ModuleRef name="artig-lib"/>
             <ModuleRef name="artig2"/>
         </modules>
 
         <externals>
+            <Artifact name="annotations"
+                      groupId="com.intellij"
+                    version="7.0.3"
+                    licence="apache2">
+                <Address page="http://www.jetbrains.com/index.html" shrt="jetbrains.com" />
+            </Artifact>
+
             <Artifact name="args4j"
                       groupId="args4j"
                     version="2.0.12"
                     licence="mit">
                 <Address page="https://args4j.dev.java.net" shrt="dev.java.net" />
-            </Artifact>
-
-            <Artifact name="com.intellij"
-                      groupId="annotations"
-                    version="7.0.3"
-                    licence="apache2">
-                <Address page="http://www.jetbrains.com/index.html" shrt="jetbrains.com" />
             </Artifact>
 
             <Artifact name="commons-lang"
@@ -28,13 +29,6 @@
                 <Address page="http://commons.apache.org/lang/" shrt="apache.org" />
             </Artifact>
 
-            <Artifact  name="junit"
-                    groupId="junit"
-                    version="4.4"
-                    licence="cpl">
-                <Address page="http://www.junit.org" shrt="junit.org" />
-            </Artifact>
-
             <Artifact name="jcip-annotations"
                       groupId="net.jcip"
                     version="1.0"
@@ -42,6 +36,12 @@
                 <Address page="http://www.javaconcurrencyinpractice.com/" shrt="javaconcurrencyinpractice.com/" />
             </Artifact>
 
+            <Artifact  name="junit"
+                    groupId="junit"
+                    version="4.4"
+                    licence="cpl">
+                <Address page="http://www.junit.org" shrt="junit.org" />
+            </Artifact>
 
         </externals>
     </Project>
