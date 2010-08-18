@@ -16,6 +16,8 @@
                 <ArtifactRef groupId="openCage" name="openCage-lang" scope="compile" />
                 <ArtifactRef groupId="openCage" name="openCage-io" scope="compile" />
                 <ArtifactRef groupId="args4j" name="args4j" scope="compile" />
+                <ArtifactRef groupId="com.intellij" name="annotations" scope="compile" />
+                <ArtifactRef groupId="openCage" name="artig-lib" scope="compile" />
             </depends>
         </Artifact>
     </Module>
