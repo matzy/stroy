@@ -38,6 +38,15 @@ public final class FSPathBuilder {
 
 
     public static FSPath getPath( String str ) {
+
+        if ( str.endsWith( "..")) {
+            throw new UnsupportedOperationException( ".. not suported yet" );
+        }
+
+        if ( str.endsWith( ".")) {
+            str = str.substring( 0, str.length() - 1 );
+        }
+
         if (SystemUtils.IS_OS_MAC_OSX || SystemUtils.IS_OS_UNIX ) {
             return new FSPathUnix(str);
         }

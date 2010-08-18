@@ -1,8 +1,7 @@
 package org.openCage.io.fspath;
 
 
-import org.apache.commons.lang.StringUtils;
-import org.openCage.io.fspath.FSPath;
+import org.openCage.lang.Strings;
 import org.openCage.lang.errors.Unchecked;
 
 import java.io.File;
@@ -43,7 +42,7 @@ public class FSPathUnix implements FSPath {
 
     public FSPathUnix( String absolutePath ) {
 
-        if ( StringUtils.isEmpty( absolutePath )) {
+        if ( Strings.isEmpty( absolutePath )) {
             throw new IllegalArgumentException("an absolute path can't be empty");
         }
 
@@ -65,7 +64,7 @@ public class FSPathUnix implements FSPath {
     private FSPathUnix() {}
 
     public String toString() {
-        return "/" + StringUtils.join( elements, '/');
+        return "/" + Strings.join( elements ).separator("/").toString();
     }
 
     public File toFile() {

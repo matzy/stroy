@@ -226,5 +226,10 @@ public class FSPathTest {
         assertEquals( "/a/b/c", base.addPackage( "a.b.c" ).toString());
     }
 
+    @Test
+    public void testDots() {
+        assertEquals( "/", FSPathBuilder.getPath("/.").toString() );
+    }
+
 
 }

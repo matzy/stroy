@@ -1,8 +1,8 @@
 package org.openCage.io.fspath;
 
-import com.muchsoft.util.Sys;
 import org.junit.Before;
 import org.junit.Test;
+import org.openCage.lang.OS;
 
 import static junit.framework.Assert.assertTrue;
 
@@ -10,7 +10,7 @@ public class FSPathLinuxTest {
 
     @Before
     public void beforeMethod() {
-        org.junit.Assume.assumeTrue( Sys.isLinux() );
+        org.junit.Assume.assumeTrue( OS.isLinux() );
     }
 
     // TODO

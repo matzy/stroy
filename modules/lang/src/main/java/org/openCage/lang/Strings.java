@@ -26,6 +26,10 @@ public class Strings {
         return new StringJoiner<T>( list );
     }
 
+    public static boolean isEmpty(String str) {
+        return str == null || str.isEmpty();
+    }
+
     public static class StringJoiner<T> {
 
         private final List<T> list;

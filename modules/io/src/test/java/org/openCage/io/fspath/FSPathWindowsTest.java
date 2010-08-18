@@ -1,8 +1,8 @@
 package org.openCage.io.fspath;
 
-import com.muchsoft.util.Sys;
 import org.junit.Before;
 import org.junit.Test;
+import org.openCage.lang.OS;
 
 import java.util.Properties;
 import java.util.prefs.Preferences;
@@ -14,7 +14,7 @@ public class FSPathWindowsTest {
 
     @Before
     public void beforeMethod() {
-        org.junit.Assume.assumeTrue( Sys.isWindows() );
+        org.junit.Assume.assumeTrue( OS.isWindows() );
     }
 
 

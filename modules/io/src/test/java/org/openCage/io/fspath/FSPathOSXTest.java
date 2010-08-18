@@ -1,8 +1,8 @@
 package org.openCage.io.fspath;
 
-import com.muchsoft.util.Sys;
 import org.junit.Before;
 import org.junit.Test;
+import org.openCage.lang.OS;
 
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
@@ -12,7 +12,7 @@ public class FSPathOSXTest {
 
     @Before
     public void beforeMethod() {
-        org.junit.Assume.assumeTrue( !Sys.isWindows() );
+        org.junit.Assume.assumeTrue( !OS.isWindows() );
     }
 
     @Test

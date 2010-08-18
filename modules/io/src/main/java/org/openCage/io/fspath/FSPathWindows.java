@@ -1,8 +1,7 @@
 package org.openCage.io.fspath;
 
-import org.apache.commons.lang.StringUtils;
-import org.openCage.io.fspath.FSPath;
 import org.openCage.lang.Constants;
+import org.openCage.lang.Strings;
 import org.openCage.lang.errors.Unchecked;
 
 import java.io.File;
@@ -21,7 +20,7 @@ public class FSPathWindows implements FSPath {
     private Pattern driveLetter = Pattern.compile( "[a-zA-Z]\\:" );
 
     public FSPathWindows( String absolutePath ) {
-        if ( StringUtils.isEmpty( absolutePath )) {
+        if ( Strings.isEmpty( absolutePath )) {
             throw new IllegalArgumentException("an absolute path can't be empty");
         }
 
@@ -48,7 +47,7 @@ public class FSPathWindows implements FSPath {
     }
 
     public String toString() {
-        return drive + ":\\" + StringUtils.join( elements, '\\');
+        return drive + ":\\" + Strings.join( elements ).separator("\\").toString();
     }
 
     @Override
