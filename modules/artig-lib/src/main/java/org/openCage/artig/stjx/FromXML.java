@@ -38,31 +38,19 @@ import java.util.Stack;
 
        @Override
        public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException{
-          if ( qName.equals( "contributors"))  {
-             if ( stack.empty() ) {
-                throw new IllegalArgumentException( "contributors needs to be in a complex type ");
-             }
-             Object peek =  stack.peek();
-
-              if ( peek instanceof Artifact ) {
-                  stack.push( new ListHelper<Author>( ((Artifact)peek).getContributors() ));
-                  return;
-              }
-              throw new IllegalArgumentException( "contributors is not member of " + peek.getClass() );
-          }
           if ( qName.equals( "licences"))  {
              if ( stack.empty() ) {
                 throw new IllegalArgumentException( "licences needs to be in a complex type ");
              }
              Object peek =  stack.peek();
 
-              if ( peek instanceof Deployed ) {
-                  stack.push( new ListHelper<Licence>( ((Deployed)peek).getLicences() ));
+              if ( peek instanceof Project ) {
+                  stack.push( new ListHelper<Licence>( ((Project)peek).getLicences() ));
                   return;
               }
 
-              if ( peek instanceof Project ) {
-                  stack.push( new ListHelper<Licence>( ((Project)peek).getLicences() ));
+              if ( peek instanceof Deployed ) {
+                  stack.push( new ListHelper<Licence>( ((Deployed)peek).getLicences() ));
                   return;
               }
               throw new IllegalArgumentException( "licences is not member of " + peek.getClass() );
@@ -100,6 +88,13 @@ import java.util.Stack;
                else {
                   throw new IllegalArgumentException( "Licence" + " attribute name is required" );
                }
+               String version = attributes.getValue( "version" );
+               if ( version != null ) {
+                  elem.setVersion( version);
+               } 
+               else {
+                  throw new IllegalArgumentException( "Licence" + " attribute version is required" );
+               }
                if ( !stack.empty() ) {
                   Object peek =  stack.peek();
 
@@ -111,19 +106,31 @@ import java.util.Stack;
                stack.push(elem );
                return;
            }
+          if ( qName.equals( "negatives"))  {
+             if ( stack.empty() ) {
+                throw new IllegalArgumentException( "negatives needs to be in a complex type ");
+             }
+             Object peek =  stack.peek();
+
+              if ( peek instanceof Licence ) {
+                  stack.push( new ListHelper<LicenceRef>( ((Licence)peek).getNegatives() ));
+                  return;
+              }
+              throw new IllegalArgumentException( "negatives is not member of " + peek.getClass() );
+          }
           if ( qName.equals( "externals"))  {
              if ( stack.empty() ) {
                 throw new IllegalArgumentException( "externals needs to be in a complex type ");
              }
              Object peek =  stack.peek();
 
-              if ( peek instanceof Deployed ) {
-                  stack.push( new ListHelper<Artifact>( ((Deployed)peek).getExternals() ));
+              if ( peek instanceof Project ) {
+                  stack.push( new ListHelper<Artifact>( ((Project)peek).getExternals() ));
                   return;
               }
 
-              if ( peek instanceof Project ) {
-                  stack.push( new ListHelper<Artifact>( ((Project)peek).getExternals() ));
+              if ( peek instanceof Deployed ) {
+                  stack.push( new ListHelper<Artifact>( ((Deployed)peek).getExternals() ));
                   return;
               }
               throw new IllegalArgumentException( "externals is not member of " + peek.getClass() );
@@ -163,6 +170,165 @@ import java.util.Stack;
                stack.push(elem );
                return;
            }
+           if ( qName.equals("Kind" )) {
+              // ortype: nothing to do
+              return;
+           }
+          if ( qName.equals( "positives"))  {
+             if ( stack.empty() ) {
+                throw new IllegalArgumentException( "positives needs to be in a complex type ");
+             }
+             Object peek =  stack.peek();
+
+              if ( peek instanceof Licence ) {
+                  stack.push( new ListHelper<LicenceRef>( ((Licence)peek).getPositives() ));
+                  return;
+              }
+              throw new IllegalArgumentException( "positives is not member of " + peek.getClass() );
+          }
+           if ( qName.equals("ModuleRef" )) {
+               ModuleRef elem = new ModuleRef();
+               String name = attributes.getValue( "name" );
+               if ( name != null ) {
+                  elem.setName( name);
+               } 
+               else {
+                  throw new IllegalArgumentException( "ModuleRef" + " attribute name is required" );
+               }
+               if ( !stack.empty() ) {
+                  Object peek =  stack.peek();
+
+                  if ( peek instanceof ListHelper ) {
+                      ((ListHelper<ModuleRef>)peek).add( elem );
+                  }
+
+               }
+               stack.push(elem );
+               return;
+           }
+          if ( qName.equals( "authors"))  {
+             if ( stack.empty() ) {
+                throw new IllegalArgumentException( "authors needs to be in a complex type ");
+             }
+             Object peek =  stack.peek();
+
+              if ( peek instanceof Artifact ) {
+                  stack.push( new ListHelper<Author>( ((Artifact)peek).getAuthors() ));
+                  return;
+              }
+              throw new IllegalArgumentException( "authors is not member of " + peek.getClass() );
+          }
+          if ( qName.equals( "languages"))  {
+             if ( stack.empty() ) {
+                throw new IllegalArgumentException( "languages needs to be in a complex type ");
+             }
+             Object peek =  stack.peek();
+
+              if ( peek instanceof Artifact ) {
+                  stack.push( new ListHelper<Language>( ((Artifact)peek).getLanguages() ));
+                  return;
+              }
+              throw new IllegalArgumentException( "languages is not member of " + peek.getClass() );
+          }
+          if ( qName.equals( "references"))  {
+             if ( stack.empty() ) {
+                throw new IllegalArgumentException( "references needs to be in a complex type ");
+             }
+             Object peek =  stack.peek();
+
+              if ( peek instanceof References ) {
+                  stack.push( new ListHelper<Artifact>( ((References)peek).getReferences() ));
+                  return;
+              }
+              throw new IllegalArgumentException( "references is not member of " + peek.getClass() );
+          }
+           if ( qName.equals("LicenceRef" )) {
+               LicenceRef elem = new LicenceRef();
+               String name = attributes.getValue( "name" );
+               if ( name != null ) {
+                  elem.setName( name);
+               } 
+               else {
+                  throw new IllegalArgumentException( "LicenceRef" + " attribute name is required" );
+               }
+               if ( !stack.empty() ) {
+                  Object peek =  stack.peek();
+
+                  if ( peek instanceof ListHelper ) {
+                      ((ListHelper<LicenceRef>)peek).add( elem );
+                  }
+
+               }
+               stack.push(elem );
+               return;
+           }
+           if ( qName.equals("ArtifactDescription" )) {
+               ArtifactDescription elem = new ArtifactDescription();
+               String version = attributes.getValue( "version" );
+               if ( version != null ) {
+                  elem.setVersion( version);
+               } 
+               else {
+                  throw new IllegalArgumentException( "ArtifactDescription" + " attribute version is required" );
+               }
+               stack.push(elem );
+               return;
+           }
+           if ( qName.equals("References" )) {
+               References elem = new References();
+               stack.push(elem );
+               return;
+           }
+           if ( qName.equals("Project" )) {
+               Project elem = new Project();
+               String name = attributes.getValue( "name" );
+               if ( name != null ) {
+                  elem.setName( name);
+               } 
+               else {
+                  throw new IllegalArgumentException( "Project" + " attribute name is required" );
+               }
+               String groupId = attributes.getValue( "groupId" );
+               if ( groupId != null ) {
+                  elem.setGroupId( groupId);
+               } 
+               else {
+                  throw new IllegalArgumentException( "Project" + " attribute groupId is required" );
+               }
+               if ( !stack.empty() ) {
+                  Object peek =  stack.peek();
+
+                  if ( peek instanceof ArtifactDescription) {
+                     ((ArtifactDescription)peek).setKind( elem );
+                  };
+               }
+               stack.push(elem );
+               return;
+           }
+          if ( qName.equals( "depends"))  {
+             if ( stack.empty() ) {
+                throw new IllegalArgumentException( "depends needs to be in a complex type ");
+             }
+             Object peek =  stack.peek();
+
+              if ( peek instanceof Artifact ) {
+                  stack.push( new ListHelper<ArtifactRef>( ((Artifact)peek).getDepends() ));
+                  return;
+              }
+              throw new IllegalArgumentException( "depends is not member of " + peek.getClass() );
+          }
+          if ( qName.equals( "contributors"))  {
+             if ( stack.empty() ) {
+                throw new IllegalArgumentException( "contributors needs to be in a complex type ");
+             }
+             Object peek =  stack.peek();
+
+              if ( peek instanceof Artifact ) {
+                  stack.push( new ListHelper<Author>( ((Artifact)peek).getContributors() ));
+                  return;
+              }
+              throw new IllegalArgumentException( "contributors is not member of " + peek.getClass() );
+          }
            if ( qName.equals("Deployed" )) {
                Deployed elem = new Deployed();
                if ( !stack.empty() ) {
@@ -174,10 +340,6 @@ import java.util.Stack;
                }
                stack.push(elem );
                return;
-           }
-           if ( qName.equals("Kind" )) {
-              // ortype: nothing to do
-              return;
            }
            if ( qName.equals("ArtifactRef" )) {
                ArtifactRef elem = new ArtifactRef();
@@ -217,62 +379,6 @@ import java.util.Stack;
                stack.push(elem );
                return;
            }
-          if ( qName.equals( "languages"))  {
-             if ( stack.empty() ) {
-                throw new IllegalArgumentException( "languages needs to be in a complex type ");
-             }
-             Object peek =  stack.peek();
-
-              if ( peek instanceof Artifact ) {
-                  stack.push( new ListHelper<Language>( ((Artifact)peek).getLanguages() ));
-                  return;
-              }
-              throw new IllegalArgumentException( "languages is not member of " + peek.getClass() );
-          }
-          if ( qName.equals( "authors"))  {
-             if ( stack.empty() ) {
-                throw new IllegalArgumentException( "authors needs to be in a complex type ");
-             }
-             Object peek =  stack.peek();
-
-              if ( peek instanceof Artifact ) {
-                  stack.push( new ListHelper<Author>( ((Artifact)peek).getAuthors() ));
-                  return;
-              }
-              throw new IllegalArgumentException( "authors is not member of " + peek.getClass() );
-          }
-           if ( qName.equals("ModuleRef" )) {
-               ModuleRef elem = new ModuleRef();
-               String name = attributes.getValue( "name" );
-               if ( name != null ) {
-                  elem.setName( name);
-               } 
-               else {
-                  throw new IllegalArgumentException( "ModuleRef" + " attribute name is required" );
-               }
-               if ( !stack.empty() ) {
-                  Object peek =  stack.peek();
-
-                  if ( peek instanceof ListHelper ) {
-                      ((ListHelper<ModuleRef>)peek).add( elem );
-                  }
-
-               }
-               stack.push(elem );
-               return;
-           }
-          if ( qName.equals( "references"))  {
-             if ( stack.empty() ) {
-                throw new IllegalArgumentException( "references needs to be in a complex type ");
-             }
-             Object peek =  stack.peek();
-
-              if ( peek instanceof References ) {
-                  stack.push( new ListHelper<Artifact>( ((References)peek).getReferences() ));
-                  return;
-              }
-              throw new IllegalArgumentException( "references is not member of " + peek.getClass() );
-          }
            if ( qName.equals("Artifact" )) {
                Artifact elem = new Artifact();
                String groupId = attributes.getValue( "groupId" );
@@ -336,23 +442,6 @@ import java.util.Stack;
               }
               throw new IllegalArgumentException( "refs is not member of " + peek.getClass() );
           }
-           if ( qName.equals("ArtifactDescription" )) {
-               ArtifactDescription elem = new ArtifactDescription();
-               String version = attributes.getValue( "version" );
-               if ( version != null ) {
-                  elem.setVersion( version);
-               } 
-               else {
-                  throw new IllegalArgumentException( "ArtifactDescription" + " attribute version is required" );
-               }
-               stack.push(elem );
-               return;
-           }
-           if ( qName.equals("References" )) {
-               References elem = new References();
-               stack.push(elem );
-               return;
-           }
            if ( qName.equals("Address" )) {
                Address elem = new Address();
                String page = attributes.getValue( "page" );
@@ -369,34 +458,11 @@ import java.util.Stack;
                if ( !stack.empty() ) {
                   Object peek =  stack.peek();
 
+                  if ( peek instanceof Licence) {
+                     ((Licence)peek).setAddress( elem );
+                  };
                   if ( peek instanceof Artifact) {
                      ((Artifact)peek).setAddress( elem );
-                  };
-               }
-               stack.push(elem );
-               return;
-           }
-           if ( qName.equals("Project" )) {
-               Project elem = new Project();
-               String name = attributes.getValue( "name" );
-               if ( name != null ) {
-                  elem.setName( name);
-               } 
-               else {
-                  throw new IllegalArgumentException( "Project" + " attribute name is required" );
-               }
-               String groupId = attributes.getValue( "groupId" );
-               if ( groupId != null ) {
-                  elem.setGroupId( groupId);
-               } 
-               else {
-                  throw new IllegalArgumentException( "Project" + " attribute groupId is required" );
-               }
-               if ( !stack.empty() ) {
-                  Object peek =  stack.peek();
-
-                  if ( peek instanceof ArtifactDescription) {
-                     ((ArtifactDescription)peek).setKind( elem );
                   };
                }
                stack.push(elem );
@@ -422,18 +488,6 @@ import java.util.Stack;
                stack.push(elem );
                return;
            }
-          if ( qName.equals( "depends"))  {
-             if ( stack.empty() ) {
-                throw new IllegalArgumentException( "depends needs to be in a complex type ");
-             }
-             Object peek =  stack.peek();
-
-              if ( peek instanceof Artifact ) {
-                  stack.push( new ListHelper<ArtifactRef>( ((Artifact)peek).getDepends() ));
-                  return;
-              }
-              throw new IllegalArgumentException( "depends is not member of " + peek.getClass() );
-          }
           if ( qName.equals( "modules"))  {
              if ( stack.empty() ) {
                 throw new IllegalArgumentException( "modules needs to be in a complex type ");
@@ -452,9 +506,6 @@ import java.util.Stack;
 
        @Override
        public void endElement( String uri, String localName, String qName) throws SAXException {
-           if ( qName.equals( "contributors" ) ) {
-               goal = stack.pop();
-           }
            if ( qName.equals( "licences" ) ) {
                goal = stack.pop();
            }
@@ -462,6 +513,12 @@ import java.util.Stack;
                goal = stack.pop();
            }
            if ( qName.equals( "Licence" ) ) {
+               goal = stack.pop();
+               if ( ((Licence)goal).getAddress() == null ){
+                  throw new IllegalArgumentException("Licence required member Address not set ");
+               }
+           }
+           if ( qName.equals( "negatives" ) ) {
                goal = stack.pop();
            }
            if ( qName.equals( "externals" ) ) {
@@ -476,31 +533,22 @@ import java.util.Stack;
            if ( qName.equals( "Java" ) ) {
                goal = stack.pop();
            }
-           if ( qName.equals( "Deployed" ) ) {
-               goal = stack.pop();
-               if ( ((Deployed)goal).getArtifact() == null ){
-                  throw new IllegalArgumentException("Deployed required member Artifact not set ");
-               }
-           }
-           if ( qName.equals( "ArtifactRef" ) ) {
-               goal = stack.pop();
-           }
-           if ( qName.equals( "languages" ) ) {
-               goal = stack.pop();
-           }
-           if ( qName.equals( "authors" ) ) {
+           if ( qName.equals( "positives" ) ) {
                goal = stack.pop();
            }
            if ( qName.equals( "ModuleRef" ) ) {
                goal = stack.pop();
            }
+           if ( qName.equals( "authors" ) ) {
+               goal = stack.pop();
+           }
+           if ( qName.equals( "languages" ) ) {
+               goal = stack.pop();
+           }
            if ( qName.equals( "references" ) ) {
                goal = stack.pop();
            }
-           if ( qName.equals( "Artifact" ) ) {
-               goal = stack.pop();
-           }
-           if ( qName.equals( "refs" ) ) {
+           if ( qName.equals( "LicenceRef" ) ) {
                goal = stack.pop();
            }
            if ( qName.equals( "ArtifactDescription" ) ) {
@@ -512,16 +560,34 @@ import java.util.Stack;
            if ( qName.equals( "References" ) ) {
                goal = stack.pop();
            }
-           if ( qName.equals( "Address" ) ) {
-               goal = stack.pop();
-           }
            if ( qName.equals( "Project" ) ) {
                goal = stack.pop();
            }
-           if ( qName.equals( "Language" ) ) {
+           if ( qName.equals( "depends" ) ) {
                goal = stack.pop();
            }
-           if ( qName.equals( "depends" ) ) {
+           if ( qName.equals( "contributors" ) ) {
+               goal = stack.pop();
+           }
+           if ( qName.equals( "Deployed" ) ) {
+               goal = stack.pop();
+               if ( ((Deployed)goal).getArtifact() == null ){
+                  throw new IllegalArgumentException("Deployed required member Artifact not set ");
+               }
+           }
+           if ( qName.equals( "ArtifactRef" ) ) {
+               goal = stack.pop();
+           }
+           if ( qName.equals( "Artifact" ) ) {
+               goal = stack.pop();
+           }
+           if ( qName.equals( "refs" ) ) {
+               goal = stack.pop();
+           }
+           if ( qName.equals( "Address" ) ) {
+               goal = stack.pop();
+           }
+           if ( qName.equals( "Language" ) ) {
                goal = stack.pop();
            }
            if ( qName.equals( "modules" ) ) {
