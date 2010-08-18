@@ -1,6 +1,7 @@
 package org.openCage.io.fspath;
 
 import org.openCage.io.SystemUtils;
+import org.openCage.lang.OS;
 
 import javax.swing.JFileChooser;
 import java.io.File;
@@ -39,6 +40,7 @@ public final class FSPathBuilder {
 
     public static FSPath getPath( String str ) {
 
+        // TODO shift to paths
         if ( str.endsWith( "..")) {
             throw new UnsupportedOperationException( ".. not suported yet" );
         }
@@ -47,12 +49,13 @@ public final class FSPathBuilder {
             str = str.substring( 0, str.length() - 1 );
         }
 
-        if (SystemUtils.IS_OS_MAC_OSX || SystemUtils.IS_OS_UNIX ) {
+//        if (SystemUtils.IS_OS_MAC_OSX || SystemUtils.IS_OS_UNIX ) {
+        if ( OS.isUnix() ) {
             return new FSPathUnix(str);
         }
 
-        if ( SystemUtils.IS_OS_WINDOWS ) {
-
+//        if ( SystemUtils.IS_OS_WINDOWS ) {
+        if ( OS.isWindows() ) {
             if ( str.startsWith( "\\\\" )) {
                 return new FSPathUNC(str);
             }
