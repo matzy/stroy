@@ -17,8 +17,17 @@ public class ModuleDescription {
         Stjx stjx = new Stjx( "ArtifactDescription" );
 
         stjx.struct( "Module" ).
-                complex( "Artifact" );
+                complex( "Artifact" ).
+                optional().complex( "App");
 
+        stjx.struct( "App" ).
+            string( "mainClass" ).
+            complex( "Download" );
+
+        stjx.struct( "Download" ).
+                string( "screenshot").
+                string( "icon" ).
+                string( "download");
 
         stjx.struct( "Project" ).
                 string( "name" ).
@@ -27,14 +36,14 @@ public class ModuleDescription {
                 list( "externals" ).of( "Artifact" ).
                 list( "licences").of( "Licence" );
 
-        stjx.struct( "Deployed" ).
+        stjx.struct( "Complete" ).
                 complex( "Artifact" ).
-                list( "externals" ).of( "Artifact" ).
+                list( "dependencies" ).of( "Artifact" ).
                 list( "licences").of( "Licence" );
 
         stjx.struct( "ArtifactDescription" ).
                 string( "version" ).
-                or( "Kind" ).with( "Module", "Project", "Deployed" );
+                or( "Kind" ).with( "Module", "Project", "Complete" );
 
 
 
@@ -92,7 +101,9 @@ public class ModuleDescription {
         FSPath path = FSPathBuilder.getPath( clazz.getResource("."));
 
 
-        while ( !path.getFileName().equals( "classes" ) && !path.getFileName().equals( "out" )) {
+        while ( !path.getFileName().equals( "classes" ) &&
+                !path.getFileName().equals( "out" ) &&
+                !path.getFileName().equals( "modules" )) {
             path = path.parent();
         }
 

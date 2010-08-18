@@ -1,0 +1,37 @@
+<ArtifactDescription version="0.1">
+    <Module>
+        <Artifact name="fausterize"
+                groupId="openCage"
+                version="0.2"
+                licence="MPL1.1">
+            <Java min="6"/>
+            <authors>
+                <Author name="Stephan Pfab" email="openCage@gmail.com"/>
+            </authors>
+            <Address page="http://stroy.wikidot.com" shrt="wikidot.com" />
+            <!--<Email email="openCage@gmail.com"/> support-->
+
+            <languages>
+                <Language name="English" />
+                <Language name="German" />
+                <Language name="Japanese" />
+            </languages>
+
+            <depends>
+                <ArtifactRef groupId="junit" name="junit" scope="test" />
+                <ArtifactRef groupId="openCage" name="openCage-lang" scope="compile" />
+                <ArtifactRef groupId="openCage" name="openCage-io" scope="compile" />
+                <!--<ArtifactRef groupId="net.jcip" name="jcip-annotations" scope="compile"/>-->
+                <!--<ArtifactRef groupId="nix" name="yup" scope="test" />-->
+            </depends>
+        </Artifact>
+
+        <App mainClass="org.openCage.gpad.UIMain">
+            <Download
+                screenshot="http://stroy.wikidot.com/local--files/screenshots/fausterize-0.6.png"
+                icon="http://stroy.wikidot.com/local--files/screenshots/faust-small.png"
+                download="http://stroy.wikidot.com/local--files/download"/>
+        </App>
+    </Module>
+
+</ArtifactDescription>

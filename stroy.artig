@@ -1,50 +1,83 @@
 <ArtifactDescription version="0.1">
     <Project name="stroy" groupId="openCage">
         <modules>
-            <ModuleRef name="lang"/>
-            <ModuleRef name="io"/>
             <ModuleRef name="artig-lib"/>
             <ModuleRef name="artig2"/>
+            <ModuleRef name="fausterize"/>
+            <ModuleRef name="io"/>
+            <ModuleRef name="lang"/>
+            <ModuleRef name="osashosa"/>
+            <ModuleRef name="stjx"/>
         </modules>
 
         <externals>
             <Artifact name="annotations"
                       groupId="com.intellij"
                     version="7.0.3"
-                    licence="apache2">
+                    licence="Apache2">
                 <Address page="http://www.jetbrains.com/index.html" shrt="jetbrains.com" />
+            </Artifact>
+
+            <Artifact name="aopalliance"
+                      groupId="aopalliance"
+                    version="1.0"
+                    licence="Public Domain">
+                <Address page="http://aopalliance.sourceforge.net" shrt="sourceforge.net" />
             </Artifact>
 
             <Artifact name="args4j"
                       groupId="args4j"
                     version="2.0.12"
-                    licence="mit">
+                    licence="MIT">
                 <Address page="https://args4j.dev.java.net" shrt="dev.java.net" />
             </Artifact>
 
             <Artifact name="commons-lang"
                       groupId="commons-lang"
                     version="2.4"
-                    licence="apache2">
+                    licence="Apache2">
                 <Address page="http://commons.apache.org/lang/" shrt="apache.org" />
+            </Artifact>
+
+            <Artifact name="guice"
+                      groupId="com.google.inject"
+                    version="2.0"
+                    licence="Apache2">
+                <Address page="http://code.google.com/p/google-guice/" shrt="code.google.com" />
+                <Java min="6"/>
+                <depends>
+                    <ArtifactRef groupId="aopalliance" name="aopalliance" />
+                </depends>
             </Artifact>
 
             <Artifact name="jcip-annotations"
                       groupId="net.jcip"
                     version="1.0"
-                    licence="creativeCommons">
+                    licence="Creative Commons">
                 <Address page="http://www.javaconcurrencyinpractice.com/" shrt="javaconcurrencyinpractice.com/" />
             </Artifact>
 
             <Artifact  name="junit"
                     groupId="junit"
                     version="4.4"
-                    licence="cpl">
+                    licence="CPL">
                 <Address page="http://www.junit.org" shrt="junit.org" />
             </Artifact>
 
         </externals>
     </Project>
+
+<!--//                depends( proj.external( "com.google.inject", "guice" ).-->
+<!--//                        apache2().-->
+<!--//                        java6p().-->
+<!--//                        descriptionShort( "Google dependency injection lib in pure java.").-->
+<!--//                        address( "http://code.google.com/p/google-guice/", "code.google" ).-->
+<!--//                        version( "2.0" ).-->
+<!--//                        depends( proj.external( "aopalliance", "aopalliance" ).-->
+<!--//                            version( "1.0" ).-->
+<!--//                            address( "http://aopalliance.sourceforge.net/", "sourceforge.net" ).-->
+<!--//                            publicDomain())).-->
+
 
     <!--depends( proj.external( "args4j", "args4j" ).-->
         <!--version("2.0.12").-->
