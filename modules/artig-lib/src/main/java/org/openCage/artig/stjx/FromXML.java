@@ -186,6 +186,18 @@ import java.util.Stack;
               }
               throw new IllegalArgumentException( "positives is not member of " + peek.getClass() );
           }
+          if ( qName.equals( "languages"))  {
+             if ( stack.empty() ) {
+                throw new IllegalArgumentException( "languages needs to be in a complex type ");
+             }
+             Object peek =  stack.peek();
+
+              if ( peek instanceof Artifact ) {
+                  stack.push( new ListHelper<Language>( ((Artifact)peek).getLanguages() ));
+                  return;
+              }
+              throw new IllegalArgumentException( "languages is not member of " + peek.getClass() );
+          }
            if ( qName.equals("ModuleRef" )) {
                ModuleRef elem = new ModuleRef();
                String name = attributes.getValue( "name" );
@@ -217,18 +229,6 @@ import java.util.Stack;
                   return;
               }
               throw new IllegalArgumentException( "authors is not member of " + peek.getClass() );
-          }
-          if ( qName.equals( "languages"))  {
-             if ( stack.empty() ) {
-                throw new IllegalArgumentException( "languages needs to be in a complex type ");
-             }
-             Object peek =  stack.peek();
-
-              if ( peek instanceof Artifact ) {
-                  stack.push( new ListHelper<Language>( ((Artifact)peek).getLanguages() ));
-                  return;
-              }
-              throw new IllegalArgumentException( "languages is not member of " + peek.getClass() );
           }
           if ( qName.equals( "references"))  {
              if ( stack.empty() ) {
@@ -317,6 +317,39 @@ import java.util.Stack;
               }
               throw new IllegalArgumentException( "depends is not member of " + peek.getClass() );
           }
+           if ( qName.equals("Download" )) {
+               Download elem = new Download();
+               String screenshot = attributes.getValue( "screenshot" );
+               if ( screenshot != null ) {
+                  elem.setScreenshot( screenshot);
+               } 
+               else {
+                  throw new IllegalArgumentException( "Download" + " attribute screenshot is required" );
+               }
+               String icon = attributes.getValue( "icon" );
+               if ( icon != null ) {
+                  elem.setIcon( icon);
+               } 
+               else {
+                  throw new IllegalArgumentException( "Download" + " attribute icon is required" );
+               }
+               String download = attributes.getValue( "download" );
+               if ( download != null ) {
+                  elem.setDownload( download);
+               } 
+               else {
+                  throw new IllegalArgumentException( "Download" + " attribute download is required" );
+               }
+               if ( !stack.empty() ) {
+                  Object peek =  stack.peek();
+
+                  if ( peek instanceof App) {
+                     ((App)peek).setDownload( elem );
+                  };
+               }
+               stack.push(elem );
+               return;
+           }
           if ( qName.equals( "contributors"))  {
              if ( stack.empty() ) {
                 throw new IllegalArgumentException( "contributors needs to be in a complex type ");
@@ -430,6 +463,25 @@ import java.util.Stack;
                stack.push(elem );
                return;
            }
+           if ( qName.equals("App" )) {
+               App elem = new App();
+               String mainClass = attributes.getValue( "mainClass" );
+               if ( mainClass != null ) {
+                  elem.setMainClass( mainClass);
+               } 
+               else {
+                  throw new IllegalArgumentException( "App" + " attribute mainClass is required" );
+               }
+               if ( !stack.empty() ) {
+                  Object peek =  stack.peek();
+
+                  if ( peek instanceof Module) {
+                     ((Module)peek).setApp( elem );
+                  };
+               }
+               stack.push(elem );
+               return;
+           }
           if ( qName.equals( "refs"))  {
              if ( stack.empty() ) {
                 throw new IllegalArgumentException( "refs needs to be in a complex type ");
@@ -536,13 +588,13 @@ import java.util.Stack;
            if ( qName.equals( "positives" ) ) {
                goal = stack.pop();
            }
+           if ( qName.equals( "languages" ) ) {
+               goal = stack.pop();
+           }
            if ( qName.equals( "ModuleRef" ) ) {
                goal = stack.pop();
            }
            if ( qName.equals( "authors" ) ) {
-               goal = stack.pop();
-           }
-           if ( qName.equals( "languages" ) ) {
                goal = stack.pop();
            }
            if ( qName.equals( "references" ) ) {
@@ -566,6 +618,9 @@ import java.util.Stack;
            if ( qName.equals( "depends" ) ) {
                goal = stack.pop();
            }
+           if ( qName.equals( "Download" ) ) {
+               goal = stack.pop();
+           }
            if ( qName.equals( "contributors" ) ) {
                goal = stack.pop();
            }
@@ -580,6 +635,12 @@ import java.util.Stack;
            }
            if ( qName.equals( "Artifact" ) ) {
                goal = stack.pop();
+           }
+           if ( qName.equals( "App" ) ) {
+               goal = stack.pop();
+               if ( ((App)goal).getDownload() == null ){
+                  throw new IllegalArgumentException("App required member Download not set ");
+               }
            }
            if ( qName.equals( "refs" ) ) {
                goal = stack.pop();
