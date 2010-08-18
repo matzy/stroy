@@ -1,13 +1,8 @@
 package org.openCage.artig;
 
-import org.openCage.artig.stjx.Artifact;
-import org.openCage.artig.stjx.ArtifactDescription;
-import org.openCage.artig.stjx.ArtifactRef;
-import org.openCage.artig.stjx.FromXML;
-import org.openCage.artig.stjx.Licence;
-import org.openCage.artig.stjx.Module;
-import org.openCage.artig.stjx.ModuleRef;
-import org.openCage.artig.stjx.Project;
+import org.kohsuke.args4j.CmdLineException;
+import org.kohsuke.args4j.CmdLineParser;
+import org.openCage.artig.stjx.*;
 import org.openCage.io.fspath.FSPath;
 import org.openCage.io.fspath.FSPathBuilder;
 import org.xml.sax.SAXException;
@@ -15,32 +10,72 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
+import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
-/**
- * Created by IntelliJ IDEA.
- * User: stephan
- * Date: Aug 14, 2010
- * Time: 8:23:02 AM
- * To change this template use File | Settings | File Templates.
- */
 public class Artig {
     private FSPath base;
     private Project project;
-    private List<Module> modules = new ArrayList<Module>();
+    private Map<String,Module> modules = new HashMap<String, Module>();
     private Project deflt;
 
     public static void main(String[] args) {
 
-        Artig artig = new Artig( FSPathBuilder.getPath("/Users/stephan/projects/stroy-7/" ));
+        CmdOptions bean = new CmdOptions();
+        CmdLineParser parser = new CmdLineParser(bean);
+        try {
+            parser.parseArgument(args);
+        } catch (CmdLineException e) {
+            System.err.println(e.getMessage());
+            System.err.println("java -jar myprogram.jar [options...] arguments...");
+            parser.printUsage(System.err);
+            return;
+        }
 
-        artig.readModules();
+        if ( bean.getArgs().isEmpty() || bean.getArgs().get(0).equals("help")) {
+            System.err.println("artig: generate poms and build files from Artifact descriptions");
+            parser.printUsage(System.err);
+//            System.err.println("       help: this text");
+//            System.err.println("       pom:  generate poms");
+            System.exit(1);
+        }
 
-        artig.validate();
+        FSPath path = FSPathBuilder.getPath( new File( bean.getDir() ));
 
-        System.out.println( MavenGen.getModulePom( artig.modules.iterator().next().getArtifact()));
+        System.out.println( path );
+        Artig artig = new Artig( path );
+
+
+        if ( bean.getArgs().get(0).equals("pom")) {
+            artig.readModules();
+            artig.validate();
+
+            new MavenGen( artig ).generate();
+
+            return;
+        }
+
+        if ( true ) {
+            System.exit(0);
+        }
+
+
+
+        int i = 0;
+
+//        Artig artig = new Artig( FSPathBuilder.getPath("/Users/stephan/projects/stroy-7/" ));
+        //Artig artig = new Artig( FSPathBuilder.getPath("/Users/stephan/Documents/prs/stroy-10/" ));
+
+
+
+//        for ( Module mod : artig.modules ) {
+//            System.out.println( MavenGen.getModulePom( artig, mod.getArtifact()));
+//        }
+//
+//        System.out.println( MavenGen.getProjectPom( artig.project ));
 
     }
 
@@ -49,7 +84,7 @@ public class Artig {
             isValid( ext );
         }
 
-        for ( Module mod : modules ) {
+        for ( Module mod : modules.values() ) {
             isValid( mod.getArtifact() );
         }
     }
@@ -57,13 +92,16 @@ public class Artig {
 
     public Artig( FSPath base ) {
         this.base = base;
-        project = (Project)(read( base.add( "stroy.artig" )).getKind());
-
         deflt = (Project)(read( FSPathBuilder.getPath( Artig.class.getResource(".").getFile() + "default.artig")).getKind());
+        for ( String name : base.toFile().list() ) {
+            if ( name.endsWith( ".artig" )) {
+                project = (Project)(read( base.add( name )).getKind());
+                return;
+            }
+        }
 
+        throw new IllegalArgumentException( "no file.artig found" );
 
-
-        //FSPathBuilder.getPath( );
     }
 
     public void readModules() {
@@ -72,17 +110,19 @@ public class Artig {
             System.out.println("Reading Module Description " + mod.getName() );
 
             Module module = (Module)read( base.add( "modules", mod.getName(), mod.getName() + ".artig")).getKind();
-            modules.add( module );
+            modules.put( mod.getName(), module );
             System.out.println( module );
         }
     }
 
-    public void writePoms() {
-
-    }
-
     public void isValid( Artifact arti ) {
         // check artirefs
+
+        Licence licence = findLicence( arti.getLicence());
+
+        if ( licence  == null ) {
+            throw new IllegalArgumentException( "Licence " + arti.getLicence() + " is not defined in the project" );
+        }
 
         for ( ArtifactRef ref : arti.getDepends() ) {
             Artifact refA = find( ref);
@@ -90,12 +130,34 @@ public class Artig {
                 throw new IllegalArgumentException( "Reference " + ref + " is not defined in the project" );
             }
 
+            Licence refLicence = findLicence( refA.getLicence() );
+
+            if ( refLicence == null ) {
+                throw new IllegalArgumentException( "Licence " + arti.getLicence() + " is not defined in the project" );
+            }
+
+            if ( !refLicence.getNegatives().isEmpty() ) {
+                for (LicenceRef lref : refLicence.getNegatives() ) {
+                    if ( lref.getName().equals( licence.getName() )) {
+                        throw new IllegalArgumentException( "Licence " + arti.getLicence() + " can not use " + ref  );
+                    }
+                }
+            } else if (!refLicence.getPositives().isEmpty()) {
+                boolean no = true;
+                for (LicenceRef lref : refLicence.getPositives() ) {
+                    if ( lref.getName().equals( licence.getName() )) {
+                        no = false;
+                        break;
+                    }
+                }
+
+                if ( no ) {
+                    throw new IllegalArgumentException( "Licence " + arti.getLicence() + " can not use " + ref  );
+                }
+            }
             
         }
 
-        if ( findLicence( arti.getLicence()) == null ) {
-            throw new IllegalArgumentException( "Licence " + arti.getLicence() + " is not defined in the project" );
-        }
     }
 
     private Licence findLicence(String licence) {
@@ -120,7 +182,7 @@ public class Artig {
             }
         }
 
-        for ( Module mod : modules ) {
+        for ( Module mod : modules.values()) {
             if ( is( mod.getArtifact(), ref )) {
                 return mod.getArtifact();
             }
@@ -160,5 +222,21 @@ public class Artig {
 
         return (ArtifactDescription)from.getGoal();
 
+    }
+
+    public Collection<Module> getModules() {
+        return modules.values();
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public Module get(ModuleRef mod) {
+        return modules.get( mod.getName() );
+    }
+
+    public FSPath getRootPath() {
+        return base;
     }
 }
