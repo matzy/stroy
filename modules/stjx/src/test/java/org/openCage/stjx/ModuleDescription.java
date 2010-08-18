@@ -52,7 +52,14 @@ public class ModuleDescription {
                 string("name").
                 optional().string( "email" );
 
-        stjx.struct( "Licence" ).string( "name");  // TODO fill in
+        stjx.struct( "LicenceRef" ).string( "name" );
+
+        stjx.struct( "Licence" ).
+                string( "name" ).
+                string( "version" ).
+                complex( "Address" ).
+                list( "positives" ).of( "LicenceRef" ).
+                list( "negatives" ).of( "LicenceRef" );
         stjx.struct( "Language" ).string( "name");
         stjx.struct( "Java" ).
                 string( "min").
