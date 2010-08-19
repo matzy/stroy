@@ -37,6 +37,8 @@ public class Strings {
         private String prefix = "";
         private F1<String,T> trans;
         boolean comma = false;
+        private F1<Boolean,T> filter;
+        private String postfix = "";
 
         public StringJoiner(List<T> list) {
             this.list = list;
@@ -50,6 +52,11 @@ public class Strings {
             StringBuffer buf = new StringBuffer( prefix );
 
             for ( T str : list ) {
+
+                if ( filter != null && filter.call( str )) {
+                    continue;
+                }
+
                 if ( comma ) {
                     buf.append( sep );
                 }
@@ -63,11 +70,16 @@ public class Strings {
 
             }
 
-            return buf.toString();
+            return buf.toString() + postfix;
         }
 
         public StringJoiner prefix( String prefix ) {
             this.prefix = prefix;
+            return this;
+        }
+
+        public StringJoiner postfix( String postfix ) {
+            this.postfix = postfix;
             return this;
         }
 
@@ -83,6 +95,11 @@ public class Strings {
 
         public StringJoiner startWithSeparator( boolean start ) {
             comma = start;
+            return this;
+        }
+
+        public StringJoiner skip( F1<Boolean, T> filter ) {
+            this.filter = filter;
             return this;
         }
     }
