@@ -58,6 +58,16 @@ public class Artig {
             return;
         }
 
+
+        if ( bean.getArgs().get(0).equals("ant")) {
+            artig.readModules();
+            artig.validate();
+
+            new ElephantsGen( artig ).generate();
+
+            return;
+        }
+
         if ( true ) {
             System.exit(0);
         }
@@ -191,10 +201,32 @@ public class Artig {
         return null;
     }
 
+    public boolean isModule( ArtifactRef ref ) {
+        for ( Module mod : modules.values()) {
+            if ( is( mod.getArtifact(), ref )) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
+    public String getModuleName( ArtifactRef ref ) {
+        for ( String mod : modules.keySet()) {
+            if ( is( modules.get(mod).getArtifact(), ref )) {
+                return mod; 
+            }
+        }
+
+        throw new IllegalArgumentException( "not a module " + ref );
+    }
+
     public boolean is( Artifact arti, ArtifactRef ref ) {
         return arti.getName().equals( ref.getName() ) &&
                 arti.getGroupId().equals( ref.getGroupId());
     }
+
 
     public ArtifactDescription read( FSPath path ) {
         FromXML from = new FromXML();
