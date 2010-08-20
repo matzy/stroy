@@ -10,6 +10,7 @@ package org.openCage.geni;
 public class Typ {
     private String name;
     private Typ of;
+    public static Typ string = Typ.s("String");
 
     public Typ(String name) {
         this.name = name;

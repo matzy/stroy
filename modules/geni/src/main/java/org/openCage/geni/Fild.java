@@ -7,36 +7,37 @@ package org.openCage.geni;
  * Time: 1:10:51 PM
  * To change this template use File | Settings | File Templates.
  */
-public class Fild {
+public class Fild<T> implements Statement {
     private String name;
-    private Clazz clazz;
+    private T clazz;
     private String mod;
     private Typ typ;
-    private String init;
+    private Expr init;
 
-    public Fild( Clazz clazz, String mod, Typ typ, String name) {
+    public Fild( T clazz, String mod, Typ typ, String name) {
         this.name = name;
         this.clazz = clazz;
         this.mod = mod;
         this.typ = typ;
     }
 
-    public Clazz c() {
+    public T c() {
         return clazz;
     }
 
     public String toString() {
-        String ret =  "   " + mod + " " + typ + " " + name;
+        String ret =  (mod.equals("") ? "" : (mod + " ")) + typ + " " + name;
 
         if ( init != null ) {
             ret += " = " + init;
         }
 
-        return ret + ";\n";
+        return ret;
     }
 
-    public Fild init( String ini ) {
+    public T init( Expr ini ) {
         this.init = ini;
-        return this;
+        return clazz;
     }
+
 }

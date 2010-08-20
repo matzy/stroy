@@ -34,8 +34,8 @@ public class Modi {
     }
 
 
-    public Fild fild( Typ typ, String name ) {
-        Fild fild = new Fild( clazz, mod, typ, name );
+    public Fild<Clazz> fild( Typ typ, String name ) {
+        Fild<Clazz> fild = new Fild<Clazz>( clazz, mod, typ, name );
         clazz.filds.add( fild );        
         return  fild;
     }

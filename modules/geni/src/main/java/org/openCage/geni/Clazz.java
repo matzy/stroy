@@ -48,6 +48,10 @@ public class Clazz {
         return new Modi( "public",  this );
     }
 
+    public Modi publcStatic() {
+        return new Modi( "public static",  this );
+    }
+
     public Modi privt() {
         return new Modi( "private",  this );
     }
