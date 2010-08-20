@@ -1,5 +1,6 @@
 package org.openCage.stjx;
 
+import org.openCage.geni.Mesod;
 import org.openCage.lang.Strings;
 
 import java.util.List;
@@ -95,5 +96,10 @@ public class ListType implements Complex {
         return "           if ( qName.equals( \"" + name + "\" ) ) {\n" +
                 "               goal = stack.pop();\n" +
                 "           }\n";
+    }
+
+    @Override
+    public String toToXML( Mesod mes ) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 }

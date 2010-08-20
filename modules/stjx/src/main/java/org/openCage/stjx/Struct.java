@@ -1,5 +1,6 @@
 package org.openCage.stjx;
 
+import org.openCage.geni.*;
 import org.openCage.lang.Strings;
 import org.openCage.lang.functions.F1;
 
@@ -228,6 +229,37 @@ public class Struct implements Complex {
         }
 
         return ret +=  "           }\n";
+    }
+
+    @Override
+    public String toToXML( Mesod mesod) {
+
+        mesod.arg( Typ.string, "prefix" ).arg( Typ.s(name), Strings.toFirstLower(name)).
+            fild( Typ.string, "ret").init( NameExpr.n("prefix") ).
+            assignPlus( "ret", new Str("<" + name + " "));
+
+        for ( Atti atti : attis ) {
+            mesod.iff( Exp.bi( "=", Call.c( "get" + Strings.toFirstUpper(atti.getName())), Exp.n("null"))).
+                    thn(
+
+            );
+            mesod.assignPlus( "ret",
+                    new BinOp( "+",
+                            new Str( atti.getName() + "= \\\""),
+                            new BinOp( "+",
+                                    Call.c( "get" + Strings.toFirstUpper(atti.getName())),
+                                    Str.s("\\\" "))));
+        }
+
+        mesod.assignPlus( "ret", new Str(">\\n"));
+
+        for ( Ref ref : this.complexs ) {
+            mesod.assignPlus( "ret", Call.c( "toString", Exp.bi("+", Exp.n("prefix"), Str.s("   ")), NameExpr.n(ref.getName())) );
+        }
+
+        mesod.assignPlus( "ret", Exp.bi( "+", Exp.n("prefix"), Str.s( "</" + name + ">\\n")));
+
+        return mesod.toString();
     }
 
     public Stjx getZeug() {

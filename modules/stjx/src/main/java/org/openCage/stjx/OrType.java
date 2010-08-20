@@ -1,5 +1,6 @@
 package org.openCage.stjx;
 
+import org.openCage.geni.Mesod;
 import org.openCage.lang.Strings;
 
 import java.util.ArrayList;
@@ -98,6 +99,11 @@ public class OrType implements Complex {
 
     public String toSAXEnd() {
         return ""; // nohing to do
+    }
+
+    @Override
+    public String toToXML( Mesod mesod ) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     public Struct with( String ... names ) {

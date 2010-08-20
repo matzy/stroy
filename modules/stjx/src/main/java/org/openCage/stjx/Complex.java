@@ -1,5 +1,7 @@
 package org.openCage.stjx;
 
+import org.openCage.geni.Mesod;
+
 public interface Complex {
     String getType();
 
@@ -18,4 +20,6 @@ public interface Complex {
     void setInterface(String name);
 
     String toSAXEnd();
+
+    String toToXML( Mesod mesod);
 }

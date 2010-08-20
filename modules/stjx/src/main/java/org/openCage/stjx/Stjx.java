@@ -1,5 +1,6 @@
 package org.openCage.stjx;
 
+import org.openCage.geni.*;
 import org.openCage.io.FileUtils;
 import org.openCage.io.fspath.FSPath;
 import org.openCage.io.fspath.FSPathBuilder;
@@ -25,14 +26,6 @@ public class Stjx {
     public static void main(String[] args) {
         Stjx stjx = new Stjx("Artifact");
 
-//       System.out.println( stjx.struct( "Elem").string( "anAtti" ).toJava() );
-//       System.out.println( stjx.struct(
-//"Duh").optional().string("mabe").toJava() );
-//       System.out.println( stjx.struct( "Compl").list( "eles" ).of(
-//"Elem" ).complex("Duh").toJava());
-
-        //System.out.println( stjx.toJava());
-
         stjx.struct( "ArtifactRef" ).
                 string( "groupId" ).
                 string( "name" ).
@@ -54,30 +47,7 @@ public class Stjx {
                 or( "Application" ).with( "Module", "Extern" ).
                 complex( "Licence" );
 
-        System.out.println( stjx.toRnc());
-        //stjx.generate();
-//
-//        try {
-//            JAXBContext.newInstance("");
-//        } catch (JAXBException e) {
-//            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-//        }
-
-
-//        try {
-//            // Neuen SAX-Parser erzeugen
-//            SAXParserFactory factory   = SAXParserFactory.newInstance();
-//            SAXParser saxParser = factory.newSAXParser();
-//
-//            // XML Datei parsen, die entsprechenden Methoden des DefaultHandler
-//            // werden als Callback aufgerufen.
-//            saxParser.parse(new File("/Users/stephan/Documents/prs/stroy-10/modules/adt/src/main/java/org/openCage/adt/Test2.xml"), new
-//                    FromXml());
-//        }
-//        catch (Exception e) {
-//            System.out.println(e);
-//        }
-
+        System.out.println( stjx.toToXML());
     }
 
     public void generate( String baseDir, String packag ) {
@@ -130,6 +100,21 @@ public class Stjx {
         }
         
 
+    }
+
+    private String toToXML() {
+
+        Clazz clazz = new Clazz( "org.openCage.foo", Typ.s("ToXML") );
+
+
+        for ( Complex compl : this.structs.values() ) {
+
+            Mesod mes = clazz.publcStatic().method( Typ.string, "toString" );
+            compl.toToXML( mes );
+            mes.retrn( Exp.n("ret "));
+        }
+
+        return clazz.toString();
     }
 
     private String toJava() {
