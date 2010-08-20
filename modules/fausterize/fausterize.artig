@@ -2,14 +2,15 @@
     <Module>
         <Artifact name="fausterize"
                 groupId="openCage"
-                version="0.2"
-                licence="MPL1.1">
+                version="0.10"
+                licence="MPL1.1"
+                support="openCage@gmail.com">
             <Java min="6"/>
             <authors>
                 <Author name="Stephan Pfab" email="openCage@gmail.com"/>
             </authors>
             <Address page="http://stroy.wikidot.com" shrt="wikidot.com" />
-            <!--<Email email="openCage@gmail.com"/> support-->
+
 
             <languages>
                 <Language name="English" />
