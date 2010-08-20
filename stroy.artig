@@ -46,7 +46,7 @@
                 <Address page="http://code.google.com/p/google-guice/" shrt="code.google.com" />
                 <Java min="6"/>
                 <depends>
-                    <ArtifactRef groupId="aopalliance" name="aopalliance" />
+                    <ArtifactRef groupId="aopalliance" name="aopalliance" scope="compile"/>
                 </depends>
             </Artifact>
 
