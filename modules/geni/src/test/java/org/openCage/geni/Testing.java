@@ -37,7 +37,7 @@ public class Testing {
                       "   public void hi(){\n" +
                       "   }\n" +
                       "}\n",
-                      new Clazz("org.openCage.foo", Typ.s("Duh")).publc().method( "hi").retrn().toString());
+                      new Clazz("org.openCage.foo", Typ.s("Duh")).publc().method( "hi").body().retrn(null).toString());
     }
 
     @Test

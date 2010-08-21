@@ -1,5 +1,7 @@
 package org.openCage.geni;
 
+import com.sun.jndi.dns.DnsName;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +11,7 @@ public class Clazz {
     List<Mesod> mesods = new ArrayList<Mesod>();
 
     public List<Fild> filds = new ArrayList<Fild>();
+    private List<String> imports = new ArrayList<String>();
 
     public Clazz( String packag, Typ name ) {
         this.name = name;
@@ -16,8 +19,13 @@ public class Clazz {
     }
 
     public String toString() {
-        String ret = "package " + packag + ";\n\n" +
-               "public class " + name + " {\n";
+        String ret = "package " + packag + ";\n\n";
+
+        for ( String imp : imports ) {
+            ret += "import " + imp + ";\n";
+        }
+
+        ret += "public class " + name + " {\n";
 
         for ( Fild fld : filds ) {
             ret += fld.toString();
@@ -56,4 +64,8 @@ public class Clazz {
         return new Modi( "private",  this );
     }
 
+    public Clazz imprt(String imp) {
+        imports.add( imp );
+        return this;
+    }
 }

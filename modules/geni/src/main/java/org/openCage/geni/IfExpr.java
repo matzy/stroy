@@ -5,40 +5,39 @@ import java.util.List;
 
 public class IfExpr<T> implements Statement {
     private Expr cond;
-    private List<Statement> thns = new ArrayList<Statement>();
-    private List<Statement> els = new ArrayList<Statement>();
     private T base;
+    private Block<IfExpr<T>> thn;
+    private Block<IfExpr<T>> els;
 
     public IfExpr( T base, Expr cond ) {
         this.cond = cond;
+        this.base = base;
     }
 
 
-    public IfExpr thn( Statement stat ) {
-        thns.add( stat );
-        return this;
+    public Block<IfExpr<T>> thn() {
+        if ( thn == null ) {
+            thn = new Block<IfExpr<T>>( this );
+        }
+        return thn;
     }
 
-    public IfExpr els( Statement stat ) {
-        els.add( stat );
-        return this;
+    public Block<IfExpr<T>> els() {
+        if ( els == null ) {
+            els = new Block<IfExpr<T>>( this );
+        }
+        return els;
     }
 
     public String toString() {
-        String ret = "if( " + cond.toString() + " ){\n";
+        String ret = "if( " + cond.toString() + " )";
 
-        for ( Statement st : thns ) {
-            ret += st.toString() + ";\n";
+        ret += thn.toString( "   ", true );
+
+        if ( els != null ) {
+            ret += " else ";
+            ret += els.toString( "   ", true );
         }
-
-        if ( !els.isEmpty() ) {
-            ret += "} else {\n";
-
-            for ( Statement st : els ) {
-                ret += st.toString() + ";\n";
-            }
-        }
-        ret += "}";
 
         return ret;
     }

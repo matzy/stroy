@@ -12,33 +12,59 @@ public class Block<T> implements Statement {
         this.base = base;
     }
 
-    public Fild<Block> fild( Typ typ, String name ) {
-        Fild<Block> fld = new Fild<Block>( this, "", typ, name );
+    public Fild<Block<T>> fild( Typ typ, String name ) {
+        Fild<Block<T>> fld = new Fild<Block<T>>( this, "", typ, name );
         statements.add( fld );
         return fld;
     }
 
-    public Block assign(String var, Expr str) {
+    public Block<T> assign(String var, Expr str) {
         statements.add( new Assign(var,str));
         return this;
     }
 
-    public Block assignPlus(String var, Expr expr) {
+    public Block<T> assignPlus(String var, Expr expr) {
         statements.add( new Assign(var,expr).plus());
         return this;
     }
 
-    public Block retrn( Expr expr ) {
+    public Block<T> retrn( Expr expr ) {
         statements.add( new Return(expr));
         return this;
     }
 
-    public IfExpr<Block> iff( Expr cond ) {
-        IfExpr<Block> ex = new IfExpr<Block>( this, cond );
+
+    public IfExpr<Block<T>> iff( Expr cond ) {
+        IfExpr<Block<T>> ex = new IfExpr<Block<T>>( this, cond );
         statements.add( ex );
         return ex;
     }
 
+    public ForExpr<Block<T>> fr( Typ typ, String var, Expr expr ) {
+        ForExpr<Block<T>> ex = new ForExpr<Block<T>>(this, typ, var, expr );
+        statements.add(ex);
+        return ex;
+    }
 
+    public String toString(String prefix, boolean std ) {
+        String ret = "";
 
+        if ( std ) {
+            ret += "{\n";
+        } else {
+            ret += prefix + "{\n";
+        }
+
+        for ( Statement st : statements ) {
+            ret += "      " + st.toString() + ";\n";
+        }
+        ret +=       "   }\n";
+
+        return ret;
+    }
+
+    public Block<T> thrw( Typ exception, String message ) {
+        statements.add( new UnOp( "throw", new Cnstr( exception, Str.s(message )) ));
+        return this;
+    }
 }
