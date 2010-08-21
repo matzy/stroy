@@ -1,6 +1,12 @@
 package org.openCage.stjx;
 
+import org.openCage.geni.Call;
+import org.openCage.geni.Clazz;
+import org.openCage.geni.Exp;
 import org.openCage.geni.Mesod;
+import org.openCage.geni.NameExpr;
+import org.openCage.geni.Str;
+import org.openCage.geni.Typ;
 import org.openCage.lang.Strings;
 
 import java.util.List;
@@ -99,7 +105,28 @@ public class ListType implements Complex {
     }
 
     @Override
-    public String toToXML( Mesod mes ) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    public void toToXML( Clazz clazz ) {
+
+        Mesod mesod = clazz.publcStatic().method( Typ.string, "toString" + name );
+
+        mesod.arg( Typ.string, "prefix" ).arg( Typ.of("List", Typ.s(this.of)), name );
+
+        mesod.body().iff( Exp.n(name+".isEmpty()" )).
+                thn().retrn( Str.s(""));
+
+        mesod.body().
+                    fild( Typ.string, "ret").init( NameExpr.n("prefix") ).
+                    assignPlus( "ret", Exp.s("<" + name + ">\\n"));
+
+        mesod.body().fr( Typ.s(of), "vr",  Exp.n( name )).body().
+                assignPlus( "ret", Call.c( "toString" + of,
+                                                Exp.bi("+", Exp.n("prefix"), Exp.s("   ")),
+                                                Exp.n("vr")) );
+
+
+
+        mesod.body().assignPlus( "ret", Exp.bi( "+", Exp.n("prefix"), Exp.s( "</"+name+">\\n" ) ));
+        
+        mesod.body().retrn( Exp.n("ret "));
     }
 }

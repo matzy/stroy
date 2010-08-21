@@ -232,34 +232,48 @@ public class Struct implements Complex {
     }
 
     @Override
-    public String toToXML( Mesod mesod) {
+    public void toToXML( Clazz clazz) {
 
-        mesod.arg( Typ.string, "prefix" ).arg( Typ.s(name), Strings.toFirstLower(name)).
-            fild( Typ.string, "ret").init( NameExpr.n("prefix") ).
-            assignPlus( "ret", new Str("<" + name + " "));
+        Mesod mesod = clazz.publcStatic().method( Typ.string, "toString" + name );
+
+        String lower = Strings.toFirstLower(name);
+
+        mesod.arg( Typ.string, "prefix" ).arg( Typ.s(name), lower ).
+                body().
+                    fild( Typ.string, "ret").init( NameExpr.n("prefix") ).
+                    assignPlus( "ret", new Str("<" + name + " "));
 
         for ( Atti atti : attis ) {
-            mesod.iff( Exp.bi( "=", Call.c( "get" + Strings.toFirstUpper(atti.getName())), Exp.n("null"))).
-                    thn(
 
-            );
-            mesod.assignPlus( "ret",
-                    new BinOp( "+",
-                            new Str( atti.getName() + "= \\\""),
+            Call getAtti = getter( lower, atti.getName() );
+
+            mesod.body().iff( Exp.bi( "!=", getAtti, Exp.n("null"))).
+                    thn().assignPlus( "ret",
                             new BinOp( "+",
-                                    Call.c( "get" + Strings.toFirstUpper(atti.getName())),
-                                    Str.s("\\\" "))));
+                                    new Str( atti.getName() + "= \\\""),
+                                    new BinOp( "+",
+                                            getAtti,
+                                            Str.s("\\\" "))));
         }
 
-        mesod.assignPlus( "ret", new Str(">\\n"));
+        if ( complexs.isEmpty() ) {
+            mesod.body().assignPlus( "ret", new Str("/>\\n"));            
+        } else {
+            mesod.body().assignPlus( "ret", new Str(">\\n"));
 
-        for ( Ref ref : this.complexs ) {
-            mesod.assignPlus( "ret", Call.c( "toString", Exp.bi("+", Exp.n("prefix"), Str.s("   ")), NameExpr.n(ref.getName())) );
+            for ( Ref ref : this.complexs ) {
+                mesod.body().iff( Exp.bi( "!=", getter( lower, ref.getName()), Exp.n("null"))).
+                        thn().assignPlus( "ret", Call.c( "toString" + ref.getName(), Exp.bi("+", Exp.n("prefix"), Str.s("   ")), getter( lower, ref.getName())) );
+            }
+
+            mesod.body().assignPlus( "ret", Exp.bi( "+", Exp.n("prefix"), Str.s( "</" + name + ">\\n")));
         }
 
-        mesod.assignPlus( "ret", Exp.bi( "+", Exp.n("prefix"), Str.s( "</" + name + ">\\n")));
+        mesod.body().retrn( Exp.n("ret "));
+    }
 
-        return mesod.toString();
+    public static Call getter( String obj, String name ) {
+        return Call.c( Strings.toFirstLower( obj ) + ".get" + Strings.toFirstUpper( name ));
     }
 
     public Stjx getZeug() {

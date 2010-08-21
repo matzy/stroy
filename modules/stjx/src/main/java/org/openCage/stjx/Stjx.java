@@ -47,7 +47,7 @@ public class Stjx {
                 or( "Application" ).with( "Module", "Extern" ).
                 complex( "Licence" );
 
-        System.out.println( stjx.toToXML());
+        System.out.println( stjx.toToXML( "org.openCage.foo" ));
     }
 
     public void generate( String baseDir, String packag ) {
@@ -86,6 +86,20 @@ public class Stjx {
         }
 
         {
+            FSPath path = FSPathBuilder.getPath( baseDir ).add( "src", "main", "java" ).addPackage(packag ).add( "ToXML.java" );
+            FileUtils.ensurePath( path );
+            File outFile = path.toFile();
+            FileWriter out = null;
+            try {
+                out = new FileWriter(outFile);
+                out.write( toToXML( packag ) );
+                out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        
+        {
             FSPath path = FSPathBuilder.getPath( baseDir ).add( "src", "main", "resources" ).addPackage(packag ).add( name + ".rnc" );
             FileUtils.ensurePath( path );
             File outFile = path.toFile();
@@ -98,20 +112,25 @@ public class Stjx {
                 e.printStackTrace();
             }
         }
-        
+
 
     }
 
-    private String toToXML() {
+    private String toToXML( String pack) {
 
-        Clazz clazz = new Clazz( "org.openCage.foo", Typ.s("ToXML") );
+        Clazz clazz = new Clazz( pack, Typ.s("ToXML") );
+
+        clazz.imprt( "java.util.List");
+//        import java.util.ArrayList;
+//        import java.util.HashMap;
+//        import
+//        import java.util.Map;
 
 
         for ( Complex compl : this.structs.values() ) {
 
-            Mesod mes = clazz.publcStatic().method( Typ.string, "toString" );
-            compl.toToXML( mes );
-            mes.retrn( Exp.n("ret "));
+            compl.toToXML( clazz );
+            //System.out.println( compl.getName() );
         }
 
         return clazz.toString();

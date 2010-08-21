@@ -1,6 +1,12 @@
 package org.openCage.stjx;
 
+import org.openCage.geni.Call;
+import org.openCage.geni.Cast;
+import org.openCage.geni.Clazz;
+import org.openCage.geni.Exp;
 import org.openCage.geni.Mesod;
+import org.openCage.geni.NameExpr;
+import org.openCage.geni.Typ;
 import org.openCage.lang.Strings;
 
 import java.util.ArrayList;
@@ -102,9 +108,40 @@ public class OrType implements Complex {
     }
 
     @Override
-    public String toToXML( Mesod mesod ) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    public void toToXML(Clazz clazz) {
+        Mesod mesod = clazz.publcStatic().method( Typ.string, "toString" + name );
+
+        String arg = Strings.toFirstLower( name );
+
+        mesod.arg( Typ.string, "prefix" ).arg( Typ.s(name), arg );
+
+        for ( String ref : alternatives ) {
+            mesod.body().iff( Exp.bi( "instanceof", Exp.n(arg), Exp.n(ref) )).thn().
+                    retrn( Call.c( "toString" + ref,
+                                   Exp.n("prefix" ),
+                                   Cast.c( Typ.s(ref), Exp.n(arg) )));
+        }
+
+        mesod.body().thrw( Typ.s("IllegalStateException"), "no a valid suptype of " + name );
+
+
+//        mesod.arg( Typ.string, "prefix" ).arg( Typ.of("List", Typ.s(this.of)), name ).
+//                body().
+//                    fild( Typ.string, "ret").init( NameExpr.n("prefix") ).
+//                    assignPlus( "ret", Exp.s("<" + name + ">\\n"));
+//
+//        mesod.body().fr( Typ.s(of), "vr",  Exp.n( name )).body().
+//                assignPlus( "ret", Call.c( "toString" + of,
+//                                                Exp.bi("+", Exp.n("prefix"), Exp.s("   ")),
+//                                                Exp.n("vr")) );
+//
+//
+//
+//        mesod.body().assignPlus( "ret", Exp.bi( "+", Exp.n("prefix"), Exp.s( "</"+name+">\\n" ) ));
+        
+//        mesod.body().retrn( Exp.n("ret "));
     }
+
 
     public Struct with( String ... names ) {
         alternatives.addAll( Arrays.asList( names ));
