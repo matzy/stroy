@@ -90,7 +90,6 @@ public class ElephantsGen {
         ret += antProperty( "el.description.short", "TODO descr") + "\n";
         ret += antProperty( "el.licence", arti.getLicence()) + "\n";
         ret += antProperty( "el.localization", Strings.join( arti.getLanguages()).trans( new F1<String, Language>() {
-            @Override
             public String call(Language language) {
                 return language.getName();
             }

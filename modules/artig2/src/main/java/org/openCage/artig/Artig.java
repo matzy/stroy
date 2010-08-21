@@ -68,6 +68,15 @@ public class Artig {
             return;
         }
 
+        if ( bean.getArgs().get(0).equals("xml")) {
+            artig.readModules();
+            artig.validate();
+
+            System.out.println( ToXML.toStringProject( "", artig.getProject()));
+
+            return;
+        }
+
         if ( true ) {
             System.exit(0);
         }
