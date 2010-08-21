@@ -36,6 +36,7 @@ public class BindingBuilder<T> {
     private T singleton;
     private String moduleName;
     private final OsashosaBinder binder;
+    private boolean eager = false;
 
     BindingBuilder( OsashosaBinder binder, Class<T> clazz ) {
         this( binder, Key.get( clazz ));
@@ -78,6 +79,12 @@ public class BindingBuilder<T> {
         this.scope = scope;
         return this;
     }
+
+    public void asEagerSingleton() {
+        scope = Singleton.class;
+        eager = true;
+    }
+
 
 
     public Class<? extends T> getTo() {
@@ -151,5 +158,9 @@ public class BindingBuilder<T> {
                 ", singleton=" + singleton +
                 ", moduleName='" + moduleName + '\'' +
                 '}';
+    }
+
+    public boolean isEager() {
+        return eager;
     }
 }

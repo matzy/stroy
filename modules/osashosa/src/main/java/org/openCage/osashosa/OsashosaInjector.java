@@ -6,6 +6,7 @@ import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Module;
 import com.google.inject.Provider;
+import com.google.inject.Stage;
 import com.google.inject.name.Named;
 import com.google.inject.name.Names;
 
@@ -14,6 +15,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 import java.lang.reflect.Type;
 
 /***** BEGIN LICENSE BLOCK *****
@@ -41,8 +43,10 @@ import java.lang.reflect.Type;
 public class OsashosaInjector implements Injector {
 
     private ESet<BindingBuilder<?>> bindings = new ESet<BindingBuilder<?>>();
+    private final Stage stage;
 
-    public OsashosaInjector( Module ... modules ) {
+    public OsashosaInjector( Stage stage, Module ... modules ) {
+        this.stage = stage;
         OsashosaBinder binder = new OsashosaBinder();
         for ( Module module : modules ) {
             binder.setCurrentModuleName( module.getClass().getName() );
@@ -58,6 +62,15 @@ public class OsashosaInjector implements Injector {
             bindings.add( builder );
         }
 
+        createEagerObjects();
+    }
+
+    private void createEagerObjects() {
+        for ( BindingBuilder binding : bindings ) {
+            if ( binding.isEager() ) {
+                getInstanceNow( binding );
+            }
+        }
     }
 
 
@@ -97,15 +110,28 @@ public class OsashosaInjector implements Injector {
             return bb.getSingleton();
         }
 
-        Constructor cnstr = getConstructor( bb.isDirect() ? bb.getTo() : bb.getProvider() );
+
+//        // TODO check stage
+//        Class raw = key.getLiteral().getRawType();
+//        if ( raw.isInterface() ) {
+//            return (T)Proxy.newProxyInstance( raw.getClassLoader(),
+//                                              new Class[] { raw },
+//                                              new LazyProxy( bb, this ));
+//        }
+
+        return getInstanceNow( bb );
+    }
+
+    <T> T getInstanceNow( BindingBuilder<T> bindingBuilder ) {
+        Constructor cnstr = getConstructor( bindingBuilder.isDirect() ? bindingBuilder.getTo() : bindingBuilder.getProvider() );
         Object[] params = findArguments(cnstr);
         try {
             Object ret = cnstr.newInstance( params );
 
-            T tret = (bb.isDirect()) ? (T)ret : ((Provider<T>)ret).get();
+            T tret = (bindingBuilder.isDirect()) ? (T)ret : ((Provider<T>)ret).get();
 
-            if ( bb.isSingletonScope()) {
-                bb.setSingleton( tret );
+            if ( bindingBuilder.isSingletonScope()) {
+                bindingBuilder.setSingleton( tret );
             }
 
             return tret;
@@ -123,7 +149,6 @@ public class OsashosaInjector implements Injector {
             e.printStackTrace();
             throw new IllegalArgumentException( "bound a provider with to " + e );
         }
-
     }
 
 
@@ -150,7 +175,6 @@ public class OsashosaInjector implements Injector {
             if ( cnstrs[0].getGenericParameterTypes().length != 0 ) {
                 throw new ConfigurationException( "class " + clazz.getName() + " as only a constructor with arguments");
             }
-
 
             return cnstrs[0];
         }
