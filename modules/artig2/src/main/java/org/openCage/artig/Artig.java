@@ -72,7 +72,14 @@ public class Artig {
             artig.readModules();
             artig.validate();
 
-            System.out.println( ToXML.toStringProject( "", artig.getProject()));
+            CalcDeployed calc = new CalcDeployed(artig);
+            calc.generate();
+//            ModuleRef moduleRef = new ModuleRef();
+//            moduleRef.setName( "fausterize" );
+//
+//            Deployed dp = calc.calc( moduleRef );
+//
+//            System.out.println( ToXML.toStringDeployed( "", dp ));
 
             return;
         }
@@ -179,7 +186,7 @@ public class Artig {
 
     }
 
-    private Licence findLicence(String licence) {
+    public Licence findLicence(String licence) {
         for ( Licence lic : project.getLicences()) {
             if ( lic.getName().equals( licence )) {
                 return lic;
@@ -231,7 +238,7 @@ public class Artig {
         throw new IllegalArgumentException( "not a module " + ref );
     }
 
-    public boolean is( Artifact arti, ArtifactRef ref ) {
+    public static boolean is( Artifact arti, ArtifactRef ref ) {
         return arti.getName().equals( ref.getName() ) &&
                 arti.getGroupId().equals( ref.getGroupId());
     }
