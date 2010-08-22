@@ -36,14 +36,14 @@ public class ModuleDescription {
                 list( "externals" ).of( "Artifact" ).
                 list( "licences").of( "Licence" );
 
-        stjx.struct( "Complete" ).
+        stjx.struct( "Deployed" ).
                 complex( "Artifact" ).
                 list( "dependencies" ).of( "Artifact" ).
                 list( "licences").of( "Licence" );
 
         stjx.struct( "ArtifactDescription" ).
                 string( "version" ).
-                or( "Kind" ).with( "Module", "Project", "Complete" );
+                or( "Kind" ).with( "Module", "Project", "Deployed" );
 
 
 
