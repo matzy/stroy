@@ -9,14 +9,14 @@ public class Deployed implements Kind  {
    public void setArtifact( Artifact artifact ) {
       this.artifact = artifact;
    }
-   private List<Artifact>  externals = new ArrayList<Artifact>();
-   public List<Artifact> getExternals() {
-      return externals;
+   private List<Artifact>  dependencies = new ArrayList<Artifact>();
+   public List<Artifact> getDependencies() {
+      return dependencies;
    }
    private List<Licence>  licences = new ArrayList<Licence>();
    public List<Licence> getLicences() {
       return licences;
    }
     public String toString() {
-       return "Deployed(Artifactexternalslicences)";    }
+       return "Deployed(Artifactdependencieslicences)";    }
 }

@@ -49,8 +49,8 @@ import java.util.Stack;
                   return;
               }
 
-              if ( peek instanceof Complete ) {
-                  stack.push( new ListHelper<Licence>( ((Complete)peek).getLicences() ));
+              if ( peek instanceof Deployed ) {
+                  stack.push( new ListHelper<Licence>( ((Deployed)peek).getLicences() ));
                   return;
               }
               throw new IllegalArgumentException( "licences is not member of " + peek.getClass() );
@@ -275,8 +275,8 @@ import java.util.Stack;
              }
              Object peek =  stack.peek();
 
-              if ( peek instanceof Complete ) {
-                  stack.push( new ListHelper<Artifact>( ((Complete)peek).getDependencies() ));
+              if ( peek instanceof Deployed ) {
+                  stack.push( new ListHelper<Artifact>( ((Deployed)peek).getDependencies() ));
                   return;
               }
               throw new IllegalArgumentException( "dependencies is not member of " + peek.getClass() );
@@ -369,6 +369,18 @@ import java.util.Stack;
               }
               throw new IllegalArgumentException( "contributors is not member of " + peek.getClass() );
           }
+           if ( qName.equals("Deployed" )) {
+               Deployed elem = new Deployed();
+               if ( !stack.empty() ) {
+                  Object peek =  stack.peek();
+
+                  if ( peek instanceof ArtifactDescription) {
+                     ((ArtifactDescription)peek).setKind( elem );
+                  };
+               }
+               stack.push(elem );
+               return;
+           }
            if ( qName.equals("ArtifactRef" )) {
                ArtifactRef elem = new ArtifactRef();
                String groupId = attributes.getValue( "groupId" );
@@ -447,8 +459,8 @@ import java.util.Stack;
                   if ( peek instanceof Module) {
                      ((Module)peek).setArtifact( elem );
                   };
-                  if ( peek instanceof Complete) {
-                     ((Complete)peek).setArtifact( elem );
+                  if ( peek instanceof Deployed) {
+                     ((Deployed)peek).setArtifact( elem );
                   };
                   if ( peek instanceof ListHelper ) {
                       ((ListHelper<Artifact>)peek).add( elem );
@@ -547,18 +559,6 @@ import java.util.Stack;
               }
               throw new IllegalArgumentException( "modules is not member of " + peek.getClass() );
           }
-           if ( qName.equals("Complete" )) {
-               Complete elem = new Complete();
-               if ( !stack.empty() ) {
-                  Object peek =  stack.peek();
-
-                  if ( peek instanceof ArtifactDescription) {
-                     ((ArtifactDescription)peek).setKind( elem );
-                  };
-               }
-               stack.push(elem );
-               return;
-           }
              throw new IllegalArgumentException("unknown tag " + qName );
 
        }
@@ -634,6 +634,12 @@ import java.util.Stack;
            if ( qName.equals( "contributors" ) ) {
                goal = stack.pop();
            }
+           if ( qName.equals( "Deployed" ) ) {
+               goal = stack.pop();
+               if ( ((Deployed)goal).getArtifact() == null ){
+                  throw new IllegalArgumentException("Deployed required member Artifact not set ");
+               }
+           }
            if ( qName.equals( "ArtifactRef" ) ) {
                goal = stack.pop();
            }
@@ -657,12 +663,6 @@ import java.util.Stack;
            }
            if ( qName.equals( "modules" ) ) {
                goal = stack.pop();
-           }
-           if ( qName.equals( "Complete" ) ) {
-               goal = stack.pop();
-               if ( ((Complete)goal).getArtifact() == null ){
-                  throw new IllegalArgumentException("Complete required member Artifact not set ");
-               }
            }
        }
 

@@ -123,8 +123,8 @@ public class ToXML {
       return toStringProject( prefix, ((Project)kind) );
    }
 ;
-      if( kind instanceof Complete ){
-      return toStringComplete( prefix, ((Complete)kind) );
+      if( kind instanceof Deployed ){
+      return toStringDeployed( prefix, ((Deployed)kind) );
    }
 ;
       throw new IllegalStateException( "no a valid suptype of Kind" );
@@ -318,6 +318,25 @@ public class ToXML {
       ret += prefix + "</contributors>\n";
       return ret ;
    }
+   public static String toStringDeployed( String prefix, Deployed deployed ){
+      String ret = prefix;
+      ret += "<Deployed ";
+      ret += ">\n";
+      if( deployed.getArtifact(  ) != null ){
+      ret += toStringArtifact( prefix + "   ", deployed.getArtifact(  ) );
+   }
+;
+      if( deployed.getDependencies(  ) != null ){
+      ret += toStringdependencies( prefix + "   ", deployed.getDependencies(  ) );
+   }
+;
+      if( deployed.getLicences(  ) != null ){
+      ret += toStringlicences( prefix + "   ", deployed.getLicences(  ) );
+   }
+;
+      ret += prefix + "</Deployed>\n";
+      return ret ;
+   }
    public static String toStringArtifactRef( String prefix, ArtifactRef artifactRef ){
       String ret = prefix;
       ret += "<ArtifactRef ";
@@ -460,25 +479,6 @@ public class ToXML {
    }
 ;
       ret += prefix + "</modules>\n";
-      return ret ;
-   }
-   public static String toStringComplete( String prefix, Complete complete ){
-      String ret = prefix;
-      ret += "<Complete ";
-      ret += ">\n";
-      if( complete.getArtifact(  ) != null ){
-      ret += toStringArtifact( prefix + "   ", complete.getArtifact(  ) );
-   }
-;
-      if( complete.getDependencies(  ) != null ){
-      ret += toStringdependencies( prefix + "   ", complete.getDependencies(  ) );
-   }
-;
-      if( complete.getLicences(  ) != null ){
-      ret += toStringlicences( prefix + "   ", complete.getLicences(  ) );
-   }
-;
-      ret += prefix + "</Complete>\n";
       return ret ;
    }
 }
