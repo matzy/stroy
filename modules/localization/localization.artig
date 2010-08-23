@@ -1,8 +1,8 @@
 <ArtifactDescription version="0.1">
     <Module>
-        <Artifact name="openCage-io"
+        <Artifact name="openCage-localization"
                 groupId="openCage"
-                version="0.2"
+                version="0.0.3"
                 licence="MPL1.1">
             <Java min="6"/>
             <authors>
@@ -14,8 +14,10 @@
             <depends>
                 <ArtifactRef groupId="junit" name="junit" scope="test" />
                 <ArtifactRef groupId="openCage" name="openCage-lang" scope="compile" />
-                <ArtifactRef groupId="net.jcip" name="jcip-annotations" scope="compile"/>
-                <!--<ArtifactRef groupId="nix" name="yup" scope="test" />-->
+                <ArtifactRef groupId="openCage" name="openCage-property" scope="compile" />
+                <!--<ArtifactRef groupId="openCage" name="openCage-io" scope="compile" />-->
+                <!--<ArtifactRef groupId="args4j" name="args4j" scope="compile" />-->
+                <!--<ArtifactRef groupId="com.intellij" name="annotations" scope="compile" />-->
             </depends>
         </Artifact>
     </Module>

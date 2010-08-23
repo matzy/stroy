@@ -49,13 +49,13 @@ public class Artig {
         Artig artig = new Artig( path );
 
 
-        if ( bean.getArgs().get(0).equals("pom")) {
+        if ( bean.getArgs().get(0).equals("maven")) {
             artig.readModules();
             artig.validate();
 
             new MavenGen( artig ).generate();
 
-            return;
+            return;          
         }
 
 
@@ -68,7 +68,18 @@ public class Artig {
             return;
         }
 
-        if ( bean.getArgs().get(0).equals("xml")) {
+        if ( bean.getArgs().get(0).equals("all")) {
+            artig.readModules();
+            artig.validate();
+
+            new MavenGen( artig ).generate();
+            new ElephantsGen( artig ).generate();
+            new CalcDeployed(artig).generate();
+
+            return;
+        }
+
+        if ( bean.getArgs().get(0).equals("artig")) {
             artig.readModules();
             artig.validate();
 

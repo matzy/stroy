@@ -14,7 +14,7 @@ import javax.swing.*;
 import net.java.dev.designgridlayout.DesignGridLayout;
 
 
-import org.apache.commons.lang.StringUtils;
+import org.openCage.lang.Strings;
 import org.openCage.lang.artifact.Artifact;
 import org.openCage.lang.artifact.Author;
 import org.openCage.lang.artifact.EmailAddress;
@@ -102,7 +102,7 @@ public class AboutSheetFromApplication extends JDialog implements AboutSheet {
                 str += "; ";
             }
         }
-        if ( !StringUtils.isEmpty(str )) {
+        if ( !Strings.isEmpty(str )) {
             layout.row().label( newIntro( localize.localize("org.openCage.localization.dict.author"))).add( newLabel( str ) );
         }
 
@@ -116,7 +116,7 @@ public class AboutSheetFromApplication extends JDialog implements AboutSheet {
             }
         }
 
-        if ( !StringUtils.isEmpty(str )) {
+        if ( !Strings.isEmpty(str )) {
             layout.row().label( newIntro( localize.localize("org.openCage.localization.dict.contributors"))).add( newLabel( str ) );
         }
 

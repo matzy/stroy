@@ -18,8 +18,20 @@
             </languages>
 
             <depends>
+                <ArtifactRef groupId="com.google.inject" name="guice" scope="compile" />
+                <ArtifactRef groupId="net.java.dev.designgridlayout" name="designgridlayout" scope="compile" />
+                <ArtifactRef groupId="org.json" name="json" scope="compile" />
+                <ArtifactRef groupId="muchsoft" name="Sys" scope="compile" />
                 <ArtifactRef groupId="junit" name="junit" scope="test" />
+                <ArtifactRef groupId="fifesoft" name="RSyntaxTextArea" scope="compile" />
+                <ArtifactRef groupId="com.jgoodies" name="binding" scope="compile" />
+                <ArtifactRef groupId="com.jgoodies" name="forms" scope="compile" />
+                <ArtifactRef groupId="javagraphics" name="preferencepanel" scope="compile" />
+                <ArtifactRef groupId="macwidgets" name="macwidgets" scope="compile" />
+
+
                 <ArtifactRef groupId="openCage" name="openCage-lang" scope="compile" />
+                <ArtifactRef groupId="openCage" name="openCage-localization" scope="compile" />
                 <ArtifactRef groupId="openCage" name="openCage-io" scope="compile" />
                 <!--<ArtifactRef groupId="net.jcip" name="jcip-annotations" scope="compile"/>-->
                 <!--<ArtifactRef groupId="nix" name="yup" scope="test" />-->

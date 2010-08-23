@@ -4,13 +4,6 @@ import org.openCage.io.fspath.FSPath;
 import org.openCage.io.fspath.FSPathBuilder;
 import org.openCage.stjx.Stjx;
 
-/**
- * Created by IntelliJ IDEA.
- * User: stephan
- * Date: Aug 9, 2010
- * Time: 2:13:58 PM
- * To change this template use File | Settings | File Templates.
- */
 public class ModuleDescription {
 
     public static void main(String[] args) {
@@ -76,6 +69,8 @@ public class ModuleDescription {
         stjx.struct( "Address" ).string( "page").optional().string( "shrt" );
         stjx.struct( "References").list( "references" ).of("Artifact");
 
+        stjx.struct( "DropInFor" ).complex("ArtifactRef");
+
         stjx.struct( "Artifact" ).list( "depends" ).of( "ArtifactRef" ).
                 string( "groupId" ).
                 string( "name" ).
@@ -88,7 +83,8 @@ public class ModuleDescription {
                 optional().complex( "Address" ).
                 list( "languages").of( "Language" ).
                 optional().complex( "Java").
-                list( "refs" ).of( "ArtifactRef" );
+                list( "refs" ).of( "ArtifactRef" ).
+                optional().complex( "DropInFor" );
 
         System.out.println( getProjectBase( ModuleDescription.class ) );
 

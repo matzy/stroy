@@ -71,6 +71,13 @@ public class Artifact {
    public List<ArtifactRef> getRefs() {
       return refs;
    }
+   private DropInFor dropInFor;
+   public DropInFor getDropInFor() {
+      return dropInFor;
+   }
+   public void setDropInFor( DropInFor dropInFor ) {
+      this.dropInFor = dropInFor;
+   }
     public String toString() {
-       return "Artifact(groupId: " + getGroupId() +" name: " + getName() +" version: " + getVersion() +" licence: " + getLicence() +" support: " + getSupport() +" dependsauthorscontributorsAddresslanguagesJavarefs)";    }
+       return "Artifact(groupId: " + getGroupId() +" name: " + getName() +" version: " + getVersion() +" licence: " + getLicence() +" support: " + getSupport() +" dependsauthorscontributorsAddresslanguagesJavarefsDropInFor)";    }
 }

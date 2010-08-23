@@ -7,13 +7,6 @@ import org.openCage.lang.functions.F1;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
-* Created by IntelliJ IDEA.
-* User: stephan
-* Date: Aug 8, 2010
-* Time: 2:26:22 AM
-* To change this template use File | Settings | File Templates.
-*/
 public class Struct implements Complex {
     private Stjx stjx;
     private String name;
@@ -89,6 +82,11 @@ public class Struct implements Complex {
 
         for ( Ref ref : complexs ) {
             Complex comp = stjx.structs.get( ref.getName() );
+
+            if ( comp == null ) {
+                throw new IllegalArgumentException( "unknown complex " + ref.getName() );
+            }
+
             ret += comp.toJavaDecl();
         }
 
@@ -250,7 +248,7 @@ public class Struct implements Complex {
             mesod.body().iff( Exp.bi( "!=", getAtti, Exp.n("null"))).
                     thn().assignPlus( "ret",
                             new BinOp( "+",
-                                    new Str( atti.getName() + "= \\\""),
+                                    new Str( atti.getName() + "=\\\""),
                                     new BinOp( "+",
                                             getAtti,
                                             Str.s("\\\" "))));

@@ -237,6 +237,18 @@ import java.util.Stack;
               }
               throw new IllegalArgumentException( "references is not member of " + peek.getClass() );
           }
+           if ( qName.equals("DropInFor" )) {
+               DropInFor elem = new DropInFor();
+               if ( !stack.empty() ) {
+                  Object peek =  stack.peek();
+
+                  if ( peek instanceof Artifact) {
+                     ((Artifact)peek).setDropInFor( elem );
+                  };
+               }
+               stack.push(elem );
+               return;
+           }
            if ( qName.equals("LicenceRef" )) {
                LicenceRef elem = new LicenceRef();
                String name = attributes.getValue( "name" );
@@ -411,6 +423,9 @@ import java.util.Stack;
                if ( !stack.empty() ) {
                   Object peek =  stack.peek();
 
+                  if ( peek instanceof DropInFor) {
+                     ((DropInFor)peek).setArtifactRef( elem );
+                  };
                   if ( peek instanceof ListHelper ) {
                       ((ListHelper<ArtifactRef>)peek).add( elem );
                   }
@@ -606,6 +621,12 @@ import java.util.Stack;
            }
            if ( qName.equals( "references" ) ) {
                goal = stack.pop();
+           }
+           if ( qName.equals( "DropInFor" ) ) {
+               goal = stack.pop();
+               if ( ((DropInFor)goal).getArtifactRef() == null ){
+                  throw new IllegalArgumentException("DropInFor required member ArtifactRef not set ");
+               }
            }
            if ( qName.equals( "LicenceRef" ) ) {
                goal = stack.pop();

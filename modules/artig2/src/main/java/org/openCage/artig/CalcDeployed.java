@@ -85,7 +85,7 @@ public class CalcDeployed {
 //        }
 
           for ( ModuleRef mod : artig.getProject().getModules() ) {
-            FSPath modPom = artig.getRootPath().add( "modules", mod.getName(), mod.getName() + "-deployed.artig" );
+            FSPath modPom = artig.getRootPath().add( "modules", mod.getName(), "src", "main", "resources", mod.getName() + "-deployed.artig" );
             FileUtils.ensurePath( modPom );
 
             try {

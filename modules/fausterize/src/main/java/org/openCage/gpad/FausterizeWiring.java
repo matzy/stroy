@@ -54,7 +54,7 @@ public class FausterizeWiring implements Module {
 //        binder.bind(BackgroundExecutor.class ).
 //                to(BackgroundExecutorImpl.class );
 
-        binder.bind( Artifact.class ).toProvider( FausterizeArtifact.class );
+//        binder.bind( Artifact.class ).toProvider( FausterizeArtifact.class );
 //        binder.bind( PropStore.class ).
 //                annotatedWith( Names.named( PropertyConstants.STANDARD_PROPSTORE)).
 //                toProvider( PropStoreProvider.class );

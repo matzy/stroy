@@ -2,7 +2,7 @@ package org.openCage.ui.clazz;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
-import com.muchsoft.util.Sys;
+import org.openCage.lang.OS;
 import org.openCage.lang.artifact.Artifact;
 import org.openCage.lang.functions.F0;
 import org.openCage.localization.Localize;
@@ -113,7 +113,7 @@ public class MenuHelper {
 
     public void addPrefs( JMenu menu, final F0<Void> prefs ) {
 
-        if ( !Sys.isMacOSX() ) {
+        if ( !OS.isOSX() ) {
             JMenuItem menuItemPrefs = setBackground( new JMenuItem( loca.localize( "org.openCage.localization.dict.preference" )));
             menu.add( menuItemPrefs );
 
@@ -127,7 +127,7 @@ public class MenuHelper {
     }
 
     public void addAbout( JMenu menu ) {
-        if ( !Sys.isMacOSX() ) {
+        if ( !OS.isOSX() ) {
             JMenuItem about = setBackground( new JMenuItem( loca.localize("org.openCage.ui.about_prog", app.gettName() )));
             menu.add( about );
             about.addActionListener( new ActionListener() {

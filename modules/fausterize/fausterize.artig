@@ -19,11 +19,22 @@
             </languages>
 
             <depends>
-                <ArtifactRef groupId="junit" name="junit" scope="test" />
+                <ArtifactRef groupId="args4j" name="args4j" scope="compile" />
+                <ArtifactRef groupId="commons-io" name="commons-io" scope="compile" />
+                <ArtifactRef groupId="com.google.inject" name="guice" scope="compile" />
+                <ArtifactRef groupId="fifesoft" name="RSyntaxTextArea" scope="compile" />
+                <ArtifactRef groupId="eu.medsea.mimeutil" name="mime-util" scope="compile" />
+
+                <ArtifactRef groupId="openCage" name="openCage-appstd" scope="compile" />
                 <ArtifactRef groupId="openCage" name="openCage-lang" scope="compile" />
                 <ArtifactRef groupId="openCage" name="openCage-io" scope="compile" />
-                <!--<ArtifactRef groupId="net.jcip" name="jcip-annotations" scope="compile"/>-->
-                <!--<ArtifactRef groupId="nix" name="yup" scope="test" />-->
+                <ArtifactRef groupId="openCage" name="openCage-ui" scope="compile" />
+                <ArtifactRef groupId="openCage" name="openCage-localization" scope="compile" />
+                <ArtifactRef groupId="openCage" name="openCage-property" scope="compile" />
+
+
+
+                <ArtifactRef groupId="junit" name="junit" scope="test" />
             </depends>
         </Artifact>
 

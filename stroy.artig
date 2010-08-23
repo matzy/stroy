@@ -1,16 +1,22 @@
 <ArtifactDescription version="0.1">
     <Project name="stroy" groupId="openCage">
         <modules>
+            <ModuleRef name="appstd"/>
             <ModuleRef name="artig-lib"/>
             <ModuleRef name="artig2"/>
             <ModuleRef name="fausterize"/>
+            <ModuleRef name="geni"/>
             <ModuleRef name="io"/>
             <ModuleRef name="lang"/>
+            <ModuleRef name="localization"/>
             <ModuleRef name="osashosa"/>
+            <ModuleRef name="property"/>
             <ModuleRef name="stjx"/>
+            <ModuleRef name="ui"/>
         </modules>
 
         <externals>
+                    <!--descriptionShort( "Nullable annotations (bundled with Idea CE)" ).-->
             <Artifact name="annotations"
                       groupId="com.intellij"
                     version="7.0.3"
@@ -25,6 +31,7 @@
                 <Address page="http://aopalliance.sourceforge.net" shrt="sourceforge.net" />
             </Artifact>
 
+            <!--descriptionShort( "Argument parsing as it should be done (via annotations)" ).-->
             <Artifact name="args4j"
                       groupId="args4j"
                     version="2.0.12"
@@ -32,13 +39,51 @@
                 <Address page="https://args4j.dev.java.net" shrt="dev.java.net" />
             </Artifact>
 
+            <!--//                        descriptionShort( "Twoway binding of domain objects and ui objects. Changes to the domain object are displayed by the ui object, changes to the ui object modify the domain object." ).-->
+            <Artifact name="binding"
+                      groupId="com.jgoodies"
+                    version="2.0.6"
+                    licence="BSD">
+                <Address page="http://www.jgoodies.com/downloads/libraries.html" shrt="jgoodies.com" />
+            </Artifact>
+
+                    <!--descriptionShort( "Apache IO tools. e.g. tools to cleanly close resources." ).-->
+            <Artifact name="commons-io"
+                      groupId="commons-io"
+                    version="1.4"
+                    licence="Apache2">
+                <Address page="http://commons.apache.org/io" shrt="apache.org" />
+            </Artifact>
+
+                    <!--descriptionShort( "Apache java language level tools. Random number helpers, system property tools, string tools." ).-->
             <Artifact name="commons-lang"
                       groupId="commons-lang"
                     version="2.4"
                     licence="Apache2">
-                <Address page="http://commons.apache.org/lang/" shrt="apache.org" />
+                <Address page="http://commons.apache.org/lang" shrt="apache.org" />
             </Artifact>
 
+            <!--//                        descriptionShort( "Swing layout manager based on the use of canonical grids for user interface design." ).-->
+            <Artifact name="designgridlayout"
+                      groupId="net.java.dev.designgridlayout"
+                    version="0.9"
+                    licence="Apache2">
+                <Address page="https://designgridlayout.dev.java.net" shrt="dev.java.net" />
+                <depends>
+                    <ArtifactRef groupId="net.java.dev.swing-layout" name="swing-layout" scope="comiple"/>
+                </depends>
+            </Artifact>
+
+        <!--//                        descriptionShort( "JGoodies Forms library," ).-->
+            <Artifact name="forms"
+                      groupId="com.jgoodies"
+                    version="1.2.1"
+                    licence="BSD">
+                <Address page="http://www.jgoodies.com/downloads/libraries.html" shrt="jgoodies.com" />
+            </Artifact>
+
+
+<!--//                        descriptionShort( "Google dependency injection lib in pure java.").-->
             <Artifact name="guice"
                       groupId="com.google.inject"
                     version="2.0"
@@ -48,6 +93,14 @@
                 <depends>
                     <ArtifactRef groupId="aopalliance" name="aopalliance" scope="compile"/>
                 </depends>
+            </Artifact>
+
+
+            <Artifact name="json"
+                      groupId="org.json"
+                    version="20090211"
+                    licence="JSON">
+                <Address page="http://www.json.org/java/index.html" shrt="json.org" />
             </Artifact>
 
             <Artifact name="jcip-annotations"
@@ -64,46 +117,93 @@
                 <Address page="http://www.junit.org" shrt="junit.org" />
             </Artifact>
 
+            <!--//                        descriptionShort( "Library with OSX inspired swing components. e.g. a toolbar that blends in with the title bar, better buttons ..." ).-->
+            <Artifact  name="macwidgets"
+                    groupId="macwidgets"
+                    version="0.9.5"
+                    licence="LGPL3">
+                <Address page="http://code.google.com/p/macwidgets" shrt="code.google.com" />
+            </Artifact>
+
+            <!--descriptionShort( "mime type detection utility, works via extension and/or content").-->
+            <Artifact  name="mime-util"
+                    groupId="eu.medsea.mimeutil"
+                    version="2.1.3"
+                    licence="Apache2">
+                <Address page="http://www.medsea.eu/mime-util" shrt="medsea.eu" />
+                <depends>
+                    <ArtifactRef groupId="org.slf4j" name="slf4j-api" scope="compile"/>
+                    <ArtifactRef groupId="org.slf4j" name="slf4j-log4j12" scope="compile"/>
+                </depends>
+
+            </Artifact>
+
+
+
+
+            <!--//                        descriptionShort( "A OSX style preference panel." ).-->
+            <Artifact  name="preferencepanel"
+                    groupId="javagraphics"
+                    version="1.0"
+                    licence="BSD">
+                <Address page="https://javagraphics.dev.java.net" shrt="dev.java.net" />
+            </Artifact>
+
+
+
+            <!--//                        descriptionShort( "A textarea subclass enhanced by a lot of typical texteditor feature").-->
+            <Artifact  name="RSyntaxTextArea"
+                    groupId="fifesoft"
+                    version="1.4.1"
+                    licence="LGPL3">
+                <Address page="http://fifesoft.com/rsyntaxtextarea" shrt="fifesoft.org" />
+            </Artifact>
+
+            <!--//                        descriptionShort( "Swing layout manager based on the use of canonical grids for user interface design." ).-->
+            <Artifact  name="swing-layout"
+                    groupId="net.java.dev.swing-layout"
+                    version="1.0.2"
+                    licence="LGPL3">
+                <Address page="https://swing-layout.dev.java.net" shrt="dev.java.net" />
+            </Artifact>
+
+            <!--descriptionShort( "The simple logging facade for java abstracts several java logging implementations").-->
+            <Artifact  name="slf4j-api"
+                    groupId="org.slf4j"
+                    version="1.5.6"
+                    licence="MIT">
+                <Address page="http://www.slf4j.org" shrt="slf4j.org" />
+            </Artifact>
+
+                <!--descriptionShort( "The simple logging facade for java abstracts several java logging implementations").-->
+            <Artifact  name="slf4j-log4j12"
+                    groupId="org.slf4j"
+                    version="1.5.6"
+                    licence="MIT">
+                <Address page="http://www.slf4j.org" shrt="slf4j.org" />
+            </Artifact>
+
+
+            <!--////                            descriptionShort( "Tool to help make java apps behave and look like native osx apps. e.g. Menus in menu bar, Preferences open on command-, ... " ).-->
+            <Artifact  name="Sys"
+                    groupId="muchsoft"
+                    version="1.0"
+                    licence="Muchsoft">
+                <Address page="http://www.muchsoft.com" shrt="muchsoft.com" />
+            </Artifact>
+
+<!--//                        descriptionShort( "The java to XML serialization library." ).-->
+            <Artifact  name="xstream"
+                    groupId="com.thoughtworks.xstream"
+                    version="1.3.1"
+                    licence="BSD">
+                <Address page="http://xstream.codehaus.org" shrt="codehaus.org" />
+            </Artifact>
+
+
         </externals>
     </Project>
 
-<!--//                depends( proj.external( "com.google.inject", "guice" ).-->
-<!--//                        apache2().-->
-<!--//                        java6p().-->
-<!--//                        descriptionShort( "Google dependency injection lib in pure java.").-->
-<!--//                        address( "http://code.google.com/p/google-guice/", "code.google" ).-->
-<!--//                        version( "2.0" ).-->
-<!--//                        depends( proj.external( "aopalliance", "aopalliance" ).-->
-<!--//                            version( "1.0" ).-->
-<!--//                            address( "http://aopalliance.sourceforge.net/", "sourceforge.net" ).-->
-<!--//                            publicDomain())).-->
 
-
-    <!--depends( proj.external( "args4j", "args4j" ).-->
-        <!--version("2.0.12").-->
-        <!--descriptionShort( "Argument parsing as it should be done (via annotations)" ).-->
-        <!--address( "https://args4j.dev.java.net/", "dev.java.net").-->
-        <!--mit()).-->
-    
-
-    <!--depends( proj.external("com.intellij", "annotations" ).-->
-            <!--descriptionShort( "Nullable annotations (bundled with Idea CE)" ).-->
-            <!--apache2().-->
-            <!--version( "7.0.3")).-->
-    <!--depends( proj.external("net.jcip", "jcip-annotations" ).-->
-            <!--address( "http://www.javaconcurrencyinpractice.com/", "javaconcurrencyinpractice" ).-->
-            <!--creativeCommons().-->
-            <!--version( "1.0" )).-->
-    <!--testDepends( proj.external("junit", "junit" ).-->
-            <!--address( "http://www.junit.org/", "junit.org" ).-->
-            <!--cpl().-->
-            <!--version( "4.4" )).-->
-    <!--testDepends( proj.external("commons-lang", "commons-lang" ).-->
-            <!--descriptionShort( "Apache java language level tools. Random number helpers, system property tools, string tools." ).-->
-            <!--address( "http://commons.apache.org/lang/", "apache.org").-->
-            <!--apache2().-->
-            <!--version( "2.4" ))-->
-    <!--;-->
-    <!---->
 </ArtifactDescription>
 

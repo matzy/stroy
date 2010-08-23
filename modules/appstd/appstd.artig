@@ -1,6 +1,6 @@
 <ArtifactDescription version="0.1">
     <Module>
-        <Artifact name="stjx"
+        <Artifact name="openCage-appstd"
                 groupId="openCage"
                 version="0.1"
                 licence="MPL1.1">
@@ -8,14 +8,16 @@
             <authors>
                 <Author name="Stephan Pfab" email="openCage@gmail.com"/>
             </authors>
-            <Address page="http://stroy.wikidot.com/stjx" shrt="wikidot.com" />
+            <Address page="http://stroy.wikidot.com" shrt="wikidot.com" />
             <!--<Email email="openCage@gmail.com"/> support-->
 
             <depends>
+                <ArtifactRef groupId="junit" name="junit" scope="test" />
                 <ArtifactRef groupId="openCage" name="openCage-lang" scope="compile" />
                 <ArtifactRef groupId="openCage" name="openCage-io" scope="compile" />
-                <ArtifactRef groupId="openCage" name="geni" scope="compile" />
+                <ArtifactRef groupId="com.google.inject" name="guice" scope="compile" />
             </depends>
         </Artifact>
     </Module>
+
 </ArtifactDescription>

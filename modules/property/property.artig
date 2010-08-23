@@ -1,8 +1,8 @@
 <ArtifactDescription version="0.1">
     <Module>
-        <Artifact name="openCage-io"
+        <Artifact name="openCage-property"
                 groupId="openCage"
-                version="0.2"
+                version="0.3"
                 licence="MPL1.1">
             <Java min="6"/>
             <authors>
@@ -12,10 +12,13 @@
             <!--<Email email="openCage@gmail.com"/> support-->
 
             <depends>
+                <ArtifactRef groupId="com.google.inject" name="guice" scope="compile" />
                 <ArtifactRef groupId="junit" name="junit" scope="test" />
                 <ArtifactRef groupId="openCage" name="openCage-lang" scope="compile" />
-                <ArtifactRef groupId="net.jcip" name="jcip-annotations" scope="compile"/>
-                <!--<ArtifactRef groupId="nix" name="yup" scope="test" />-->
+                <ArtifactRef groupId="openCage" name="openCage-appstd" scope="compile" />
+                <ArtifactRef groupId="com.thoughtworks.xstream" name="xstream" scope="compile" />
+                <ArtifactRef groupId="commons-io" name="commons-io" scope="compile" />
+
             </depends>
         </Artifact>
     </Module>
