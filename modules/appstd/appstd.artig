@@ -15,6 +15,7 @@
                 <ArtifactRef groupId="junit" name="junit" scope="test" />
                 <ArtifactRef groupId="openCage" name="openCage-lang" scope="compile" />
                 <ArtifactRef groupId="openCage" name="openCage-io" scope="compile" />
+                <ArtifactRef groupId="openCage" name="artig-lib" scope="compile" />
                 <ArtifactRef groupId="com.google.inject" name="guice" scope="compile" />
             </depends>
         </Artifact>
