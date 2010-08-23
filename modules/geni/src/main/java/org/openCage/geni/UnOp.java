@@ -21,4 +21,8 @@ public class UnOp implements Expr {
         return op + " " + expr;
     }
 
+    @Override
+    public String toString(String prefix) {
+        return prefix + toString();
+    }
 }

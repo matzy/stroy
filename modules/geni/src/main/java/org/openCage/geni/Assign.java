@@ -18,4 +18,8 @@ public class Assign implements Statement {
         this.plus = true;
         return this;
     }
+
+    @Override public String toString(String prefix) {
+        return prefix + toString();
+    }
 }

@@ -17,4 +17,9 @@ public class Return implements Statement{
     public String toString() {
         return "return " + expr.toString();
     }
+
+    @Override
+    public String toString(String prefix) {
+        return prefix + toString();
+    }
 }

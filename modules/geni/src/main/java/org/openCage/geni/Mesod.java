@@ -43,7 +43,7 @@ public class Mesod {
     }
 
     public String toString() {
-        String ret = "   " + mod + " ";
+        String ret = "\n   " + mod + " ";
 
         ret += Strings.join( typeNames ).prefix( "<").postfix("> ");
 

@@ -14,4 +14,9 @@ public class NameExpr implements Expr {
     public static NameExpr n( String str ) {
         return new NameExpr( str );
     }
+
+    @Override
+    public String toString(String prefix) {
+        return prefix + toString();
+    }
 }

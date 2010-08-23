@@ -22,4 +22,9 @@ public class Call implements Expr {
     public static Call c( String name, Expr ... args ) {
         return new Call( name, args );
     }
+
+    @Override
+    public String toString(String prefix) {
+        return prefix + toString();
+    }
 }

@@ -1,7 +1,5 @@
 package org.openCage.geni;
 
-import com.sun.jndi.dns.DnsName;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,22 +33,9 @@ public class Clazz {
             ret += mesod.toString();
         }
 
-        return ret += "}\n";
+        return ret += "\n}\n";
     }
 
-//    public Mesod method( String retType, String name ) {
-//        Mesod mes = new Mesod( this, retType, name );
-//
-//        mesods.add( mes );
-//
-//        return mes;
-//    }
-    
-//    public Clazz field( String typ, String name ) {
-//        filds.a
-//
-//        return this;
-//    }
 
     public Modi publc() {
         return new Modi( "public",  this );

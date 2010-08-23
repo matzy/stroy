@@ -40,4 +40,8 @@ public class Fild<T> implements Statement {
         return clazz;
     }
 
+    @Override
+    public String toString(String prefix) {
+        return prefix + toString();
+    }
 }

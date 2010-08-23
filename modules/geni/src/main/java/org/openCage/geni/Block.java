@@ -56,9 +56,9 @@ public class Block<T> implements Statement {
         }
 
         for ( Statement st : statements ) {
-            ret += "      " + st.toString() + ";\n";
+            ret += st.toString( prefix + "   ") + ";\n";
         }
-        ret +=       "   }\n";
+        ret += prefix + "}";
 
         return ret;
     }
@@ -66,5 +66,9 @@ public class Block<T> implements Statement {
     public Block<T> thrw( Typ exception, String message ) {
         statements.add( new UnOp( "throw", new Cnstr( exception, Str.s(message )) ));
         return this;
+    }
+
+    @Override public String toString(String prefix) {
+        return toString( prefix, true );
     }
 }

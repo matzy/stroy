@@ -19,4 +19,9 @@ public class Cnstr implements Expr {
     public String toString() {
         return "new " + typ + "( " + Strings.join( args ) + " )";
     }
+
+    @Override
+    public String toString(String prefix) {
+        return prefix + toString();
+    }
 }

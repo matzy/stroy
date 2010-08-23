@@ -14,4 +14,9 @@ public class Str implements Expr {
     public static Str s( String str ) {
         return new Str( str );
     }
+
+    @Override
+    public String toString(String prefix) {
+        return prefix + toString();
+    }
 }

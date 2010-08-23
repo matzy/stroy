@@ -16,4 +16,9 @@ public class Cast implements Expr{
     public String toString() {
         return "((" + typ + ")" + expr + ")";
     }
+
+    @Override
+    public String toString(String prefix) {
+        return prefix + toString();
+    }
 }

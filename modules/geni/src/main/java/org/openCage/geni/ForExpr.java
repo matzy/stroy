@@ -1,12 +1,5 @@
 package org.openCage.geni;
 
-/**
- * Created by IntelliJ IDEA.
- * User: stephan
- * Date: Aug 21, 2010
- * Time: 3:49:08 PM
- * To change this template use File | Settings | File Templates.
- */
 public class ForExpr<T> implements Statement {
     private T base;
     private Typ typ;
@@ -29,8 +22,12 @@ public class ForExpr<T> implements Statement {
     }
 
     public String toString() {
-        return "for ( " + typ.toString() + " " + var + " : " + expr.toString() + " ) " + body.toString( "   ", true ); 
+        return toString( "" );
     }
 
 
+    @Override
+    public String toString(String prefix) {
+        return prefix + "for ( " + typ.toString() + " " + var + " : " + expr.toString() + " ) " + body.toString( prefix  );
+    }
 }

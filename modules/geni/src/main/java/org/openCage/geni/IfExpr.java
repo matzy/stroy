@@ -30,13 +30,17 @@ public class IfExpr<T> implements Statement {
     }
 
     public String toString() {
-        String ret = "if( " + cond.toString() + " )";
+        return toString( "" );
+    }
 
-        ret += thn.toString( "   ", true );
+    @Override public String toString(String prefix) {
+        String ret = prefix + "if( " + cond.toString() + " )";
+
+        ret += thn.toString( prefix );
 
         if ( els != null ) {
             ret += " else ";
-            ret += els.toString( "   ", true );
+            ret += els.toString( prefix );
         }
 
         return ret;
@@ -45,4 +49,5 @@ public class IfExpr<T> implements Statement {
     public T r() {
         return base;
     }
+
 }
