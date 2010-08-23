@@ -1,12 +1,6 @@
 package org.openCage.stjx;
 
-import org.openCage.geni.Call;
-import org.openCage.geni.Clazz;
-import org.openCage.geni.Exp;
-import org.openCage.geni.Mesod;
-import org.openCage.geni.NameExpr;
-import org.openCage.geni.Str;
-import org.openCage.geni.Typ;
+import org.openCage.generj.*;
 import org.openCage.lang.Strings;
 
 import java.util.List;

@@ -1,12 +1,6 @@
 package org.openCage.stjx;
 
-import org.openCage.geni.Call;
-import org.openCage.geni.Cast;
-import org.openCage.geni.Clazz;
-import org.openCage.geni.Exp;
-import org.openCage.geni.Mesod;
-import org.openCage.geni.NameExpr;
-import org.openCage.geni.Typ;
+import org.openCage.generj.*;
 import org.openCage.lang.Strings;
 
 import java.util.ArrayList;
@@ -121,6 +115,7 @@ public class OrType implements Complex {
                                    Exp.n("prefix" ),
                                    Cast.c( Typ.s(ref), Exp.n(arg) )));
         }
+
 
         mesod.body().thrw( Typ.s("IllegalStateException"), "no a valid suptype of " + name );
 

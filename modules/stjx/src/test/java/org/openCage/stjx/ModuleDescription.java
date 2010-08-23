@@ -2,7 +2,6 @@ package org.openCage.stjx;
 
 import org.openCage.io.fspath.FSPath;
 import org.openCage.io.fspath.FSPathBuilder;
-import org.openCage.stjx.Stjx;
 
 public class ModuleDescription {
 

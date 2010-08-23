@@ -1,6 +1,7 @@
 package org.openCage.stjx;
 
-import org.openCage.geni.Clazz;
+import org.openCage.generj.Clazz;
+
 
 public interface Complex {
     String getType();

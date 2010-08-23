@@ -1,6 +1,7 @@
 package org.openCage.stjx;
 
-import org.openCage.geni.*;
+import org.openCage.generj.Clazz;
+import org.openCage.generj.Typ;
 import org.openCage.io.FileUtils;
 import org.openCage.io.fspath.FSPath;
 import org.openCage.io.fspath.FSPathBuilder;

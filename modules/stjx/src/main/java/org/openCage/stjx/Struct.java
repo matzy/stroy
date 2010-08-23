@@ -1,6 +1,6 @@
 package org.openCage.stjx;
 
-import org.openCage.geni.*;
+import org.openCage.generj.*;
 import org.openCage.lang.Strings;
 import org.openCage.lang.functions.F1;
 
