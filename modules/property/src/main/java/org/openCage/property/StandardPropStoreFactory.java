@@ -1,10 +1,10 @@
 package org.openCage.property;
 
 import com.google.inject.Inject;
+import org.openCage.artig.stjx.Artifact;
 import org.openCage.io.SingletonApp;
 import org.openCage.io.fspath.FSPathBuilder;
 import org.openCage.lang.BackgroundExecutor;
-import org.openCage.lang.artifact.Artifact;
 
 
 public class StandardPropStoreFactory  {
@@ -22,7 +22,7 @@ public class StandardPropStoreFactory  {
 
     public PropStore get( String name ) {
         return new PersistingPropStore( executor,
-                FSPathBuilder.getPreferences().add( arti.gettName(), name).toFile(),
+                FSPathBuilder.getPreferences().add( arti.getName(), name).toFile(),
                 null,
                 single );
     }

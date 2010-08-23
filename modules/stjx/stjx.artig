@@ -14,7 +14,7 @@
             <depends>
                 <ArtifactRef groupId="openCage" name="openCage-lang" scope="compile" />
                 <ArtifactRef groupId="openCage" name="openCage-io" scope="compile" />
-                <ArtifactRef groupId="openCage" name="geni" scope="compile" />
+                <ArtifactRef groupId="openCage" name="generj" scope="compile" />
             </depends>
         </Artifact>
     </Module>

@@ -12,9 +12,17 @@
    <version>1.0</version>
    <name>stroy</name>
     <modules>
-      <module>modules/lang</module>
-      <module>modules/io</module>
+      <module>modules/appstd</module>
       <module>modules/artig-lib</module>
       <module>modules/artig2</module>
+      <module>modules/fausterize</module>
+      <module>modules/generj</module>
+      <module>modules/io</module>
+      <module>modules/lang</module>
+      <module>modules/localization</module>
+      <module>modules/osashosa</module>
+      <module>modules/property</module>
+      <module>modules/stjx</module>
+      <module>modules/ui</module>
     </modules>
 </project>

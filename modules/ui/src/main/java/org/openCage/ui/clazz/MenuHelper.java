@@ -2,8 +2,8 @@ package org.openCage.ui.clazz;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
+import org.openCage.artig.stjx.Artifact;
 import org.openCage.lang.OS;
-import org.openCage.lang.artifact.Artifact;
 import org.openCage.lang.functions.F0;
 import org.openCage.localization.Localize;
 import org.openCage.ui.protocol.AboutSheet;
@@ -128,7 +128,7 @@ public class MenuHelper {
 
     public void addAbout( JMenu menu ) {
         if ( !OS.isOSX() ) {
-            JMenuItem about = setBackground( new JMenuItem( loca.localize("org.openCage.ui.about_prog", app.gettName() )));
+            JMenuItem about = setBackground( new JMenuItem( loca.localize("org.openCage.ui.about_prog", app.getName() )));
             menu.add( about );
             about.addActionListener( new ActionListener() {
                 public void actionPerformed(ActionEvent actionEvent) {

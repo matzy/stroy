@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.*;
 import java.util.List;
 
@@ -14,11 +16,11 @@ import javax.swing.*;
 import net.java.dev.designgridlayout.DesignGridLayout;
 
 
+import org.openCage.artig.stjx.Address;
+import org.openCage.artig.stjx.Artifact;
+import org.openCage.artig.stjx.Author;
+import org.openCage.artig.stjx.Deployed;
 import org.openCage.lang.Strings;
-import org.openCage.lang.artifact.Artifact;
-import org.openCage.lang.artifact.Author;
-import org.openCage.lang.artifact.EmailAddress;
-import org.openCage.lang.artifact.WebPage;
 import org.openCage.lang.iterators.Count;
 
 import com.google.inject.Inject;
@@ -57,10 +59,12 @@ public class AboutSheetFromApplication extends JDialog implements AboutSheet {
 
     private final Artifact app;
     private final Localize localize;
+    private final Deployed deployed;
 
     @Inject
-    public AboutSheetFromApplication( final Artifact app, @Named( "ui" ) final Localize localize, GlobalKeyEventHandler keyEventHandler ) {
-        this.app = app;
+    public AboutSheetFromApplication( final Deployed deployed, @Named( "ui" ) final Localize localize, GlobalKeyEventHandler keyEventHandler ) {
+        this.deployed = deployed;
+        this.app = deployed.getArtifact();
         this.localize = localize;
         build();
 
@@ -68,7 +72,7 @@ public class AboutSheetFromApplication extends JDialog implements AboutSheet {
     }
 
     private void build() {
-        setTitle( app.gettName() );
+        setTitle( app.getName() );
         setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
         setBounds( 20, 20,400, 200 );
 
@@ -77,19 +81,20 @@ public class AboutSheetFromApplication extends JDialog implements AboutSheet {
         top.setLayout( layout );
 
         JLabel pic = new JLabel();
-        pic.setIcon( app.getIcon());
+        //pic.setIcon( deployed.getIcon()); TODO
         layout.row().add( pic );
         layout.row().label( new JLabel("    ")).add( new JLabel("  "));
 
-        layout.row().add( newLabel( app.gettName() ));
-        layout.row().label( newIntro( localize.localize("org.openCage.localization.dict.version"))).add( newLabel( app.gettVersion().toString() ));
+        layout.row().add( newLabel( app.getName() ));
+        layout.row().label( newIntro( localize.localize("org.openCage.localization.dict.version"))).add( newLabel( app.getVersion() ));
 //        layout.row().label( new JLabel( localize.localize( "About.copyright" ))).add( new JLabel( app.getCopyright() ), 3 );
 
-        if ( app.getDescriptionShort() != null ) {
-            layout.row().label( newIntro( localize.localize( "application.about.short" ))).add( newLabel( app.getDescriptionShort()), 6 );
-        }
+         // TODO
+//        if ( app.getDescriptionShort() != null ) {
+//            layout.row().label( newIntro( localize.localize( "application.about.short" ))).add( newLabel( app.getDescriptionShort()), 6 );
+//        }
 
-        layout.row().label( newIntro( localize.localize("org.openCage.localization.dict.licence"))).add( newLabel( app.getLicence().getName()), 6 );
+        layout.row().label( newIntro( localize.localize("org.openCage.localization.dict.licence"))).add( newLabel( app.getLicence()), 6 ); // TODO address?
 
 //        layout.row().label( new JLabel( localize.localize("org.openCage.localization.dict.help")))/*.add( new JLabel(""), 3 )*/.add( help ).add( new JLabel(""), 5 );
 
@@ -126,27 +131,27 @@ public class AboutSheetFromApplication extends JDialog implements AboutSheet {
 //        JButton help = new JButton( ".." );
 //        layout.row().label( newIntro( localize.localize("org.openCage.localization.dict.help"))).add( newLabel( "stroy.wikidot.com" ), 5 ).add( help );
 
-        final EmailAddress email = app.getEmail();
+        final String email = app.getSupport();
         JButton emailButton = new JButton( ".." );
         if ( email != null ) {
-            layout.row().label( newIntro( localize.localize( "About.contact" ))).add( newLabel( email.gettEmail().toString()), 5 ).add( emailButton );
+            layout.row().label( newIntro( localize.localize( "About.contact" ))).add( newLabel( email ), 5 ).add( emailButton );
         }
 
 
         emailButton.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
                 try {
-                    new BrowseTmp().browse( email.gettEmail() );
+                    new BrowseTmp().browse( new URI( "mailto:" + email ));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
 
-        final WebPage page = app.getWebpage();
+        final Address page = app.getAddress();
         JButton web = new JButton( ".." );
         if ( page != null ) {
-            layout.row().label( newIntro( localize.localize("org.openCage.localization.dict.web"))).add( newLabel( page.gettPage().toString() ), 5 ).add( web);
+            layout.row().label( newIntro( localize.localize("org.openCage.localization.dict.web"))).add( newLabel( page.getShrt() ), 5 ).add( web);
         }
 
         layout.row().label( new JLabel("    ")).add( new JLabel("  "));
@@ -157,7 +162,7 @@ public class AboutSheetFromApplication extends JDialog implements AboutSheet {
         web.addActionListener( new ActionListener() {
             public void actionPerformed( ActionEvent e ) {
                 try {
-                    new BrowseTmp().browse( page.gettPage() );
+                    new BrowseTmp().browse( new URI(page.getPage()) ); // TODO check
 //                    BrowserLauncher.displayURL( "http://stroy.wikidot.com/start" );
                 } catch (Exception exp ) {
                     exp.printStackTrace();
@@ -186,18 +191,19 @@ public class AboutSheetFromApplication extends JDialog implements AboutSheet {
 
     JComponent getLicenceComponent() {
         final List<Artifact> refs = new ArrayList<Artifact>();
-        refs.addAll( app.getCompileDependencyClosure());
+        refs.addAll( deployed.getDependencies()); // TODO compile only
 
         Collections.sort( refs, new Comparator<Artifact>() {
             @Override
             public int compare(Artifact o1, Artifact o2) {
-                return o1.gettName().compareToIgnoreCase( o2.gettName() );
+                return o1.getName().compareToIgnoreCase( o2.getName() );
             }
         });
+
         String[] lic = new String[refs.size()];
         for ( Count<Artifact> dep : Count.count( refs )) {
-            String name = dep.obj().gettName();
-            lic[dep.idx()] =  name + "         " + dep.obj().getLicence().getName();
+            String name = dep.obj().getName();
+            lic[dep.idx()] =  name + "         " + dep.obj().getLicence();
         }
 
         final JList licences = new JList( lic );
@@ -216,8 +222,10 @@ public class AboutSheetFromApplication extends JDialog implements AboutSheet {
 
 
                     try {
-                        Desktop.getDesktop().browse( selected.getWebpage().gettPage() );
+                        Desktop.getDesktop().browse( new URI( selected.getAddress().getPage() ));
                     } catch (IOException e1) {
+                        e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                    } catch (URISyntaxException e1) {
                         e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                     }
                 }

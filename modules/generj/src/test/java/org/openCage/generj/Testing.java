@@ -51,5 +51,24 @@ public class Testing {
                       new Clazz("org.openCage.foo", Typ.s("Duh")).privt().fild( Typ.s("Arg"), "huh" ).c().toString());
     }
 
+    @Test
+    public void testHelloWorld() {
+
+        Clazz hr = new Clazz("org.open.hello", Typ.s("HelloWorld")).
+                        publcStatic().method( Typ.vooid, "main" ).
+                           arg( Typ.array( "String" ), "args" ).
+                           body().call("System.out.println", Exp.s("Hello World\\n")).r().c();
+
+        assertEquals( "package org.open.hello;\n" +
+                      "\n" +
+                      "public class HelloWorld {\n" +
+                      "\n" +
+                      "   public static void main( String ... args ){\n" +
+                      "      System.out.println( \"Hello World\\n\" );\n" +
+                      "   }\n" +
+                      "}\n",
+                      hr.toString());
+    }
+
 
 }

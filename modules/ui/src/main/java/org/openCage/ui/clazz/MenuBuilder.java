@@ -3,7 +3,7 @@ package org.openCage.ui.clazz;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.muchsoft.util.Sys;
-import org.openCage.lang.artifact.Artifact;
+import org.openCage.artig.stjx.Artifact;
 import org.openCage.lang.functions.F0;
 import org.openCage.localization.Localize;
 import org.openCage.ui.protocol.AboutSheet;
@@ -195,7 +195,7 @@ public class MenuBuilder {
             return new NullItem();
         }
 
-        return item( loca.localize("org.openCage.ui.about_prog", app.gettName() ) ).
+        return item( loca.localize("org.openCage.ui.about_prog", app.getName() ) ).
                 action( new F0<Void>() {
                     @Override
                     public Void call() {

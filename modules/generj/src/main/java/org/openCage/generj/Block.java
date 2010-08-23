@@ -67,7 +67,16 @@ public class Block<T> implements Statement {
         return this;
     }
 
+    public Block<T> call( String name, Expr ... exprs ) {
+        statements.add( new Call( name, exprs ));
+        return this;
+    }
+
     @Override public String toString(String prefix) {
         return toString( prefix, true );
+    }
+
+    public T r() {
+        return base;
     }
 }

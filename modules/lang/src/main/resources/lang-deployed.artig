@@ -1,0 +1,45 @@
+<ArtifactDescription >
+   <Deployed >
+      <Artifact groupId="openCage" name="openCage-lang" version="0.4" licence="MPL1.1" >
+         <depends>
+            <ArtifactRef groupId="com.intellij" name="annotations" version="7.0.3" scope="compile" />
+            <ArtifactRef groupId="net.jcip" name="jcip-annotations" version="1.0" scope="compile" />
+            <ArtifactRef groupId="junit" name="junit" scope="test" />
+            <ArtifactRef groupId="commons-lang" name="commons-lang" scope="test" />
+         </depends>
+         <authors>
+            <Author name="Stephan Pfab" email="openCage@gmail.com" />
+         </authors>
+         <Address page="http://stroy.wikidot.com" shrt="wikidot.com" />
+         <Java min="6" />
+      </Artifact>
+      <dependencies>
+         <Artifact groupId="com.intellij" name="annotations" version="7.0.3" licence="Apache2" >
+            <Address page="http://www.jetbrains.com/index.html" shrt="jetbrains.com" />
+         </Artifact>
+         <Artifact groupId="net.jcip" name="jcip-annotations" version="1.0" licence="Creative Commons" >
+            <Address page="http://www.javaconcurrencyinpractice.com/" shrt="javaconcurrencyinpractice.com/" />
+         </Artifact>
+         <Artifact groupId="junit" name="junit" version="4.4" licence="CPL" >
+            <Address page="http://www.junit.org" shrt="junit.org" />
+         </Artifact>
+         <Artifact groupId="commons-lang" name="commons-lang" version="2.4" licence="Apache2" >
+            <Address page="http://commons.apache.org/lang" shrt="apache.org" />
+         </Artifact>
+      </dependencies>
+      <licences>
+         <Licence name="Apache2" version="2.0" >
+            <Address page="http://www.apache.org/licenses/LICENSE-2.0.html" shrt="apache.org" />
+         </Licence>
+         <Licence name="Creative Commons" version="pre 3.0" >
+            <Address page="http://creativecommons.org/licenses/publicdomain/" shrt="creativecommons.org" />
+         </Licence>
+         <Licence name="CPL" version="1.0" >
+            <Address page="http://www.eclipse.org/legal/cpl-v10.html" shrt="eclipse.org" />
+         </Licence>
+         <Licence name="MPL1.1" version="1.1" >
+            <Address page="http://www.mozilla.org/MPL/MPL-1.1.html" shrt="mozilla.org" />
+         </Licence>
+      </licences>
+   </Deployed>
+</ArtifactDescription>

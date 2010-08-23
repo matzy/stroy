@@ -14,6 +14,7 @@ public class ModuleDescription {
 
         stjx.struct( "App" ).
             string( "mainClass" ).
+            optional().string( "icon" ).
             complex( "Download" );
 
         stjx.struct( "Download" ).
@@ -29,6 +30,7 @@ public class ModuleDescription {
                 list( "licences").of( "Licence" );
 
         stjx.struct( "Deployed" ).
+                optional().string( "icon" ).
                 complex( "Artifact" ).
                 list( "dependencies" ).of( "Artifact" ).
                 list( "licences").of( "Licence" );

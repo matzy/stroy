@@ -12,6 +12,7 @@ public class Typ {
     private String name;
     private Typ of;
     public static Typ string = Typ.s("String");
+    public static Typ vooid = Typ.s("void");
 
     public Typ(String name) {
         this.name = name;
@@ -26,6 +27,10 @@ public class Typ {
         return new Typ( name );
     }
 
+    public static Typ array( String name ) {
+        return new Typ( name + " ...");
+    }
+
     public static Typ of( String name, Typ of ) {
         return new Typ( name, of );
     }
@@ -38,5 +43,4 @@ public class Typ {
         return name + "<" + of.toString() + ">";
     }
 
-    public static Typ vod = new Typ("void");
 }

@@ -6,7 +6,6 @@ import com.google.inject.Module;
 import com.google.inject.name.Names;
 import com.google.inject.util.Modules;
 import org.junit.Ignore;
-import org.openCage.lang.artifact.Artifact;
 import org.openCage.property.NonPersistingPropStore;
 import org.openCage.property.PropStore;
 import org.openCage.property.PropertyConstants;
@@ -50,7 +49,7 @@ public class TestWiring implements Module {
 
     public void configure(Binder binder) {
         binder.install( Modules.override( new UIWiring()).with( new NonPersi() ));
-        binder.bind( Artifact.class ).toProvider( TestArtiProvider.class );
+//        binder.bind( Artifact.class ).toProvider( TestArtiProvider.class );
     }
 
     @Override

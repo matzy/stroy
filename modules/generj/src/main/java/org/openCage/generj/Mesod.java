@@ -38,7 +38,7 @@ public class Mesod {
 
     public Mesod(Clazz clazz,String mod, String name) {
         this.clazz = clazz;
-        this.retType = Typ.vod;
+        this.retType = Typ.vooid;
         this.name = name;
         this.mod = mod;
     }
