@@ -9,6 +9,13 @@ public class App {
    public void setMainClass( String mainClass ) {
       this.mainClass = mainClass;
    }
+   private String icon;
+   public String getIcon() {
+      return icon;
+   }
+   public void setIcon( String icon ) {
+      this.icon = icon;
+   }
    private Download download;
    public Download getDownload() {
       return download;
@@ -17,5 +24,5 @@ public class App {
       this.download = download;
    }
     public String toString() {
-       return "App(mainClass: " + getMainClass() +" Download)";    }
+       return "App(mainClass: " + getMainClass() +" icon: " + getIcon() +" Download)";    }
 }

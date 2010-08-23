@@ -2,6 +2,13 @@ package org.openCage.artig.stjx;
 import java.util.ArrayList;
 import java.util.List;
 public class Deployed implements Kind  {
+   private String icon;
+   public String getIcon() {
+      return icon;
+   }
+   public void setIcon( String icon ) {
+      this.icon = icon;
+   }
    private Artifact artifact;
    public Artifact getArtifact() {
       return artifact;
@@ -18,5 +25,5 @@ public class Deployed implements Kind  {
       return licences;
    }
     public String toString() {
-       return "Deployed(Artifactdependencieslicences)";    }
+       return "Deployed(icon: " + getIcon() +" Artifactdependencieslicences)";    }
 }

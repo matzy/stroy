@@ -285,6 +285,9 @@ public class ToXML {
    public static String toStringDeployed( String prefix, Deployed deployed ){
       String ret = prefix;
       ret += "<Deployed ";
+      if( deployed.getIcon(  ) != null ){
+         ret += "icon=\"" + deployed.getIcon(  ) + "\" ";
+      };
       ret += ">\n";
       if( deployed.getArtifact(  ) != null ){
          ret += toStringArtifact( prefix + "   ", deployed.getArtifact(  ) );
@@ -367,6 +370,9 @@ public class ToXML {
       ret += "<App ";
       if( app.getMainClass(  ) != null ){
          ret += "mainClass=\"" + app.getMainClass(  ) + "\" ";
+      };
+      if( app.getIcon(  ) != null ){
+         ret += "icon=\"" + app.getIcon(  ) + "\" ";
       };
       ret += ">\n";
       if( app.getDownload(  ) != null ){

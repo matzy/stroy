@@ -10,13 +10,14 @@ import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rtextarea.RTextArea;
+import org.openCage.artig.stjx.Artifact;
+import org.openCage.artig.stjx.Deployed;
 import org.openCage.io.SingletonApp;
 import org.openCage.io.fspath.FSPathBuilder;
 import org.openCage.lang.BackgroundExecutor;
 import org.openCage.lang.functions.F0;
 import org.openCage.lang.functions.F1;
 import org.openCage.lang.structure.MRU;
-import org.openCage.lang.artifact.Artifact;
 import org.openCage.lang.iterators.Count;
 import org.openCage.lang.errors.Unchecked;
 import org.openCage.localization.Localize;
@@ -97,11 +98,11 @@ public class FaustUI extends JFrame {
     private static final Color READONLY_COLOR = new Color( 220, 220, 255 );
     private static final Color WARNING_COLOR = new Color( 255, 220, 220 );
     private Property<Integer> caretStyle;
-    private final Artifact artifact;
+    private final Deployed artifact;
     private URLSelector urlselector;
 
     @Inject
-    public FaustUI(Artifact artifact,
+    public FaustUI(Deployed artifact,
                    FileChooser chooser,
                    AboutSheet about,
                    OSXStandardEventHandler osxEventHandler,
@@ -198,7 +199,7 @@ public class FaustUI extends JFrame {
         bottomBar.addComponentToCenter( infoLabel );
         getContentPane().add( bottomBar.getComponent(), BorderLayout.SOUTH );
 
-        setTitle( artifact.gettName());
+        setTitle( artifact.getArtifact().getName());
         setSize( 800, 600 );
 
         pack();
@@ -284,7 +285,7 @@ public class FaustUI extends JFrame {
         File file = null;
 
         do {
-            file = FSPathBuilder.getDocuments().add( artifact.gettName(), "" + i + ".fst1").toFile();
+            file = FSPathBuilder.getDocuments().add( artifact.getArtifact().getName(), "" + i + ".fst1").toFile();
             i++;
         } while ( file.exists());
 

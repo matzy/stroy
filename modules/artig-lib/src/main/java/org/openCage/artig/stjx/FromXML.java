@@ -383,6 +383,10 @@ import java.util.Stack;
           }
            if ( qName.equals("Deployed" )) {
                Deployed elem = new Deployed();
+               String icon = attributes.getValue( "icon" );
+               if ( icon != null ) {
+                  elem.setIcon( icon);
+               } 
                if ( !stack.empty() ) {
                   Object peek =  stack.peek();
 
@@ -494,6 +498,10 @@ import java.util.Stack;
                else {
                   throw new IllegalArgumentException( "App" + " attribute mainClass is required" );
                }
+               String icon = attributes.getValue( "icon" );
+               if ( icon != null ) {
+                  elem.setIcon( icon);
+               } 
                if ( !stack.empty() ) {
                   Object peek =  stack.peek();
 
