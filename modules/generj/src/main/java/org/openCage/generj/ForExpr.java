@@ -1,4 +1,5 @@
-package org.openCage.geni;
+package org.openCage.generj;
+
 
 public class ForExpr<T> implements Statement {
     private T base;

@@ -1,4 +1,5 @@
-package org.openCage.geni;
+package org.openCage.generj;
+
 
 public class NameExpr implements Expr {
     private String str;

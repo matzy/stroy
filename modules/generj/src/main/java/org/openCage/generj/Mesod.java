@@ -1,4 +1,5 @@
-package org.openCage.geni;
+package org.openCage.generj;
+
 
 import com.sun.jndi.dns.DnsName;
 import org.openCage.lang.Strings;

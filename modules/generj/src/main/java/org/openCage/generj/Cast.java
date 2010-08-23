@@ -1,4 +1,4 @@
-package org.openCage.geni;
+package org.openCage.generj;
 
 public class Cast implements Expr{
     private Typ typ;

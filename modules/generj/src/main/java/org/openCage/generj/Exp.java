@@ -1,4 +1,6 @@
-package org.openCage.geni;
+package org.openCage.generj;
+
+
 
 public class Exp {
 

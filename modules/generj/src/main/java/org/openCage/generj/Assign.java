@@ -1,4 +1,4 @@
-package org.openCage.geni;
+package org.openCage.generj;
 
 public class Assign implements Statement {
     private Expr expr;

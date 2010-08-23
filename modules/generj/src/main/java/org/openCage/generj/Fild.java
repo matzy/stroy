@@ -1,12 +1,5 @@
-package org.openCage.geni;
+package org.openCage.generj;
 
-/**
- * Created by IntelliJ IDEA.
- * User: stephan
- * Date: Aug 17, 2010
- * Time: 1:10:51 PM
- * To change this template use File | Settings | File Templates.
- */
 public class Fild<T> implements Statement {
     private String name;
     private T clazz;

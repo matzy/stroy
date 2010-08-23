@@ -1,6 +1,6 @@
 <ArtifactDescription version="0.1">
     <Module>
-        <Artifact name="geni"
+        <Artifact name="generj"
                 groupId="openCage"
                 version="0.1"
                 licence="MPL1.1">
@@ -8,7 +8,7 @@
             <authors>
                 <Author name="Stephan Pfab" email="openCage@gmail.com"/>
             </authors>
-            <Address page="http://stroy.wikidot.com/geni" shrt="wikidot.com" />
+            <Address page="http://stroy.wikidot.com/generj" shrt="wikidot.com" />
             <!--<Email email="openCage@gmail.com"/> support-->
 
             <depends>

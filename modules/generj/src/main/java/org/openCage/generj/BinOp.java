@@ -1,4 +1,5 @@
-package org.openCage.geni;
+package org.openCage.generj;
+
 
 public class BinOp implements Expr {
     private Expr right;

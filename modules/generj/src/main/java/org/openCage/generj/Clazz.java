@@ -1,4 +1,5 @@
-package org.openCage.geni;
+package org.openCage.generj;
+
 
 import java.util.ArrayList;
 import java.util.List;
