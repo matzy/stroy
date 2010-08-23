@@ -12,8 +12,10 @@
             <!--<Email email="openCage@gmail.com"/> support-->
 
             <depends>
+                <ArtifactRef groupId="com.intellij" name="annotations" version="7.0.3" scope="compile"/>
+                <ArtifactRef groupId="net.jcip" name="jcip-annotations" version="1.0" scope="compile"/>
                 <ArtifactRef groupId="junit" name="junit" scope="test" />
-                <!--<ArtifactRef groupId="nix" name="yup" scope="test" />-->
+                <ArtifactRef groupId="commons-lang" name="commons-lang" scope="test" />
             </depends>
         </Artifact>
     </Module>
