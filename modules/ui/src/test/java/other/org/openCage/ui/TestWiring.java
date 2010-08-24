@@ -3,12 +3,16 @@ package other.org.openCage.ui;
 import com.google.inject.Binder;
 import com.google.inject.Guice;
 import com.google.inject.Module;
+import com.google.inject.Provider;
 import com.google.inject.name.Names;
 import com.google.inject.util.Modules;
 import org.junit.Ignore;
+import org.openCage.artig.GetDeployed;
+import org.openCage.artig.stjx.Deployed;
 import org.openCage.property.NonPersistingPropStore;
 import org.openCage.property.PropStore;
 import org.openCage.property.PropertyConstants;
+import org.openCage.ui.impl.about.AboutSheetFromApplication;
 import org.openCage.ui.wiring.UIWiring;
 
 /***** BEGIN LICENSE BLOCK *****
@@ -35,6 +39,12 @@ import org.openCage.ui.wiring.UIWiring;
 @Ignore
 public class TestWiring implements Module {
 
+    public static class DeployedProvider extends GetDeployed implements Provider<Deployed> {
+        public DeployedProvider() {
+            super( AboutSheetFromApplication.class );
+        }
+    }
+
     public static class NonPersi implements Module {
 
         @Override
@@ -49,7 +59,7 @@ public class TestWiring implements Module {
 
     public void configure(Binder binder) {
         binder.install( Modules.override( new UIWiring()).with( new NonPersi() ));
-//        binder.bind( Artifact.class ).toProvider( TestArtiProvider.class );
+        binder.bind( Deployed.class ).toProvider( DeployedProvider.class );
     }
 
     @Override
