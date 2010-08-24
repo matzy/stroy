@@ -85,6 +85,12 @@ public class BindingBuilder<T> {
         eager = true;
     }
 
+    public void toInstance( T instance ) {
+        scope = Singleton.class;
+        eager = true;
+        singleton = instance;
+    }
+
 
 
     public Class<? extends T> getTo() {
