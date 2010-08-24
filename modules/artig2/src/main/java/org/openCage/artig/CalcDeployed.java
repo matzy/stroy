@@ -85,7 +85,7 @@ public class CalcDeployed {
 //        }
 
           for ( ModuleRef mod : artig.getProject().getModules() ) {
-            FSPath modPom = artig.getRootPath().add( "modules", mod.getName(), "src", "main", "resources", mod.getName() + "-deployed.artig" );
+            FSPath modPom = artig.getRootPath().add( "modules", mod.getName(), "src", "main", "resources", "deployed.artig" );
             FileUtils.ensurePath( modPom );
 
             try {
@@ -93,6 +93,7 @@ public class CalcDeployed {
 
                 ArtifactDescription descr = new ArtifactDescription();
                 descr.setKind( calc( mod ) );
+                descr.setVersion("0.1");    // TODO
 
                 writer.write(ToXML.toStringArtifactDescription("", descr ));
 
