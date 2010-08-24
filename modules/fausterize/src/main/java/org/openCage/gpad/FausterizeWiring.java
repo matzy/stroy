@@ -5,6 +5,7 @@ import com.google.inject.Module;
 import com.google.inject.Singleton;
 import com.google.inject.TypeLiteral;
 import com.google.inject.name.Names;
+import org.openCage.appstd.AppStdWiring;
 import org.openCage.gpad.providers.LocalizeProvider;
 import org.openCage.lang.structure.MRU;
 import org.openCage.localization.Localize;
@@ -46,6 +47,9 @@ public class FausterizeWiring implements Module {
 //        binder.install( new IoWiring());
         binder.install( new UIWiring());
         binder.install( new LocalizeWiring());
+        binder.install( new AppStdWiring());
+
+        binder.bind( Class.class ).annotatedWith( Names.named("APPSTD")).toInstance( FausterizeWiring.class );
 
 //        binder.bind(BackgroundExecutor.class ).
 //                to(BackgroundExecutorImpl.class );
@@ -72,7 +76,7 @@ public class FausterizeWiring implements Module {
 //                toProvider( FausterizeSingleton.class ).
 //                in( Singleton.class ) ;
 
-        binder.bind( FaustUI.class ).to( FaustUI.class );
+//        binder.bind( FaustUI.class ).to( FaustUI.class );
 
 
     }
