@@ -183,7 +183,7 @@ public class ElephantsGen {
                     postfix( "\"").
                     skip( new F1<Boolean,ArtifactRef>( ) {
                         @Override public Boolean call(ArtifactRef ref) {
-                            return !ref.getScope().equals( "compile" );
+                            return ref.getScope() != null && !ref.getScope().equals( "compile" );
                         }
                     }).
                     trans( new F1<String,ArtifactRef>() {
@@ -238,7 +238,7 @@ public class ElephantsGen {
                     postfix( "\"").
                     skip( new F1<Boolean,ArtifactRef>( ) {
                         @Override public Boolean call(ArtifactRef ref) {
-                            return !ref.getScope().equals( "compile" );
+                            return ref.getScope() != null && !ref.getScope().equals( "compile" );
                         }
                     }).
                     trans( new F1<String,ArtifactRef>() {

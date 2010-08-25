@@ -12,6 +12,7 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -52,6 +53,8 @@ public class Artig {
         if ( bean.getArgs().get(0).equals("maven")) {
             artig.readModules();
             artig.validate();
+            artig.useDropins();
+            artig.validate();
 
             new MavenGen( artig ).generate();
 
@@ -62,6 +65,8 @@ public class Artig {
         if ( bean.getArgs().get(0).equals("ant")) {
             artig.readModules();
             artig.validate();
+            artig.useDropins();
+            artig.validate();
 
             new ElephantsGen( artig ).generate();
 
@@ -70,6 +75,8 @@ public class Artig {
 
         if ( bean.getArgs().get(0).equals("all")) {
             artig.readModules();
+            artig.validate();
+            artig.useDropins();
             artig.validate();
 
             new MavenGen( artig ).generate();
@@ -81,6 +88,8 @@ public class Artig {
 
         if ( bean.getArgs().get(0).equals("artig")) {
             artig.readModules();
+            artig.validate();
+            artig.useDropins();
             artig.validate();
 
             CalcDeployed calc = new CalcDeployed(artig);
@@ -114,6 +123,42 @@ public class Artig {
 //
 //        System.out.println( MavenGen.getProjectPom( artig.project ));
 
+    }
+
+    private void useDropins() {
+        for ( ArtifactRef dropinRef : project.getDropIns() ) {
+            Artifact dropin = find( dropinRef );
+            ArtifactRef orig = dropin.getDropInFor().getArtifactRef();
+
+            for ( Module mod : modules.values() ) {
+                replace( mod.getArtifact(), orig, dropinRef );
+            }
+
+            for ( Artifact ext : project.getExternals() ) {
+                replace( ext, orig, dropinRef );
+            }
+            
+        }
+    }
+
+    private void replace(Artifact artifact, ArtifactRef orig, ArtifactRef dropin) {
+        ArrayList<ArtifactRef> newDeps = new ArrayList<ArtifactRef>();
+
+        for ( ArtifactRef ref : artifact.getDepends() ) {
+            if ( is( ref, orig )) {
+                newDeps.add( dropin );
+            } else {
+                newDeps.add( ref );
+            }
+        }
+
+        artifact.getDepends().clear();
+        artifact.getDepends().addAll( newDeps );
+
+    }
+
+    private boolean is(ArtifactRef aa, ArtifactRef bb) {
+        return aa.getGroupId().equals( bb.getGroupId() )  && aa.getName().equals( bb.getName());
     }
 
     private void validate() {

@@ -15,6 +15,18 @@ public class ToXML {
       ret += prefix + "</licences>\n";
       return ret ;
    }
+   public static String toStringdropIns( String prefix, List<ArtifactRef> dropIns ){
+      if( dropIns.isEmpty() ){
+         return "";
+      };
+      String ret = prefix;
+      ret += "<dropIns>\n";
+      for ( ArtifactRef vr : dropIns ) {
+         ret += toStringArtifactRef( prefix + "   ", vr );
+      };
+      ret += prefix + "</dropIns>\n";
+      return ret ;
+   }
    public static String toStringAuthor( String prefix, Author author ){
       String ret = prefix;
       ret += "<Author ";
@@ -239,6 +251,9 @@ public class ToXML {
       };
       if( project.getLicences(  ) != null ){
          ret += toStringlicences( prefix + "   ", project.getLicences(  ) );
+      };
+      if( project.getDropIns(  ) != null ){
+         ret += toStringdropIns( prefix + "   ", project.getDropIns(  ) );
       };
       ret += prefix + "</Project>\n";
       return ret ;

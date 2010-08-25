@@ -55,6 +55,18 @@ import java.util.Stack;
               }
               throw new IllegalArgumentException( "licences is not member of " + peek.getClass() );
           }
+          if ( qName.equals( "dropIns"))  {
+             if ( stack.empty() ) {
+                throw new IllegalArgumentException( "dropIns needs to be in a complex type ");
+             }
+             Object peek =  stack.peek();
+
+              if ( peek instanceof Project ) {
+                  stack.push( new ListHelper<ArtifactRef>( ((Project)peek).getDropIns() ));
+                  return;
+              }
+              throw new IllegalArgumentException( "dropIns is not member of " + peek.getClass() );
+          }
            if ( qName.equals("Author" )) {
                Author elem = new Author();
                String name = attributes.getValue( "name" );
@@ -421,9 +433,6 @@ import java.util.Stack;
                if ( scope != null ) {
                   elem.setScope( scope);
                } 
-               else {
-                  throw new IllegalArgumentException( "ArtifactRef" + " attribute scope is required" );
-               }
                if ( !stack.empty() ) {
                   Object peek =  stack.peek();
 
@@ -589,6 +598,9 @@ import java.util.Stack;
        @Override
        public void endElement( String uri, String localName, String qName) throws SAXException {
            if ( qName.equals( "licences" ) ) {
+               goal = stack.pop();
+           }
+           if ( qName.equals( "dropIns" ) ) {
                goal = stack.pop();
            }
            if ( qName.equals( "Author" ) ) {

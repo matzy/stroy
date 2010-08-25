@@ -87,8 +87,12 @@ public class BindingBuilder<T> {
 
     public void toInstance( T instance ) {
         scope = Singleton.class;
-        eager = true;
+        // eager = true; TODO not setting this is a bit strange
+        // the value is already set and needs not be constructed, maybe can;t
         singleton = instance;
+        if ( binder != null ) {
+            binder.bind( this );
+        }
     }
 
 

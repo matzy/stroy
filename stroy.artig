@@ -15,6 +15,10 @@
             <ModuleRef name="ui"/>
         </modules>
 
+        <dropIns>
+            <ArtifactRef groupId="openCage" name="osashosa"/>
+        </dropIns>
+
         <externals>
                     <!--descriptionShort( "Nullable annotations (bundled with Idea CE)" ).-->
             <Artifact name="annotations"

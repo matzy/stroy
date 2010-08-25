@@ -28,6 +28,10 @@ public class Project implements Kind  {
    public List<Licence> getLicences() {
       return licences;
    }
+   private List<ArtifactRef>  dropIns = new ArrayList<ArtifactRef>();
+   public List<ArtifactRef> getDropIns() {
+      return dropIns;
+   }
     public String toString() {
-       return "Project(name: " + getName() +" groupId: " + getGroupId() +" modulesexternalslicences)";    }
+       return "Project(name: " + getName() +" groupId: " + getGroupId() +" modulesexternalslicencesdropIns)";    }
 }

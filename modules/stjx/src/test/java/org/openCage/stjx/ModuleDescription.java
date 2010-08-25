@@ -27,7 +27,8 @@ public class ModuleDescription {
                 string( "groupId" ).
                 list( "modules" ).of( "ModuleRef" ).
                 list( "externals" ).of( "Artifact" ).
-                list( "licences").of( "Licence" );
+                list( "licences").of( "Licence" ).
+                list( "dropIns" ).of( "ArtifactRef" );
 
         stjx.struct( "Deployed" ).
                 optional().string( "icon" ).
@@ -49,7 +50,7 @@ public class ModuleDescription {
                 string( "groupId" ).
                 string( "name" ).
                 optional().string( "version" ). // TODO ?
-                string( "scope" );
+                optional().string( "scope" );
 
         stjx.struct( "Author" ).
                 string("name").

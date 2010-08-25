@@ -12,9 +12,12 @@ public class ElementRules {
 
     public static void check( String ... els  ) {
         for ( String element : els ) {
+            if ( element == null ) {
+                throw new IllegalArgumentException( "not a legal path element: null" );
+            }
             if ( !element.trim().isEmpty() ) {
                 if ( !ElementRules.isLegal( element )) {
-                    throw new IllegalArgumentException( "no a legal path element: " + element );
+                    throw new IllegalArgumentException( "not a legal path element: " + element );
                 }
             }
         }

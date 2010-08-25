@@ -128,7 +128,7 @@ public class MavenGen {
         dep += "         " + leaf( "artifactId", arti.getName()) + "\n";
         dep += "         " + leaf( "version", artifact.getVersion()  ) + "\n";
 
-        if ( arti.getScope().equals( "compile" ) ) {
+        if ( arti.getScope() == null || arti.getScope().equals( "compile" ) ) {
             dep += "         " + leaf( "scope", "compile"  ) + "\n";
         } else if ( arti.getScope().equals( "test" ) ) {
             dep += "         " + leaf( "scope", "test"  ) + "\n";
