@@ -98,7 +98,7 @@ public class UIWiring implements Module {
                 toProvider( CaretStyleProperty.class ).
                 in( Singleton.class );
 
-
+//        binder.bind( MiniBrowserFactory.class ).toProvider(MiniBrowserProvider.class);
 
     }
 
