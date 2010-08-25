@@ -3,6 +3,8 @@ package org.openCage.gpad;
 import com.google.inject.Inject;
 import net.java.dev.designgridlayout.DesignGridLayout;
 import org.openCage.io.fspath.FSPathBuilder;
+import org.openCage.ui.MiniBrowserDialog;
+import org.openCage.ui.MiniBrowserFactory;
 import org.openCage.ui.protocol.FileChooser;
 
 import javax.swing.*;
@@ -20,9 +22,11 @@ public class URLSelector {
     private static final Logger LOG = Logger.getLogger( URLSelector.class.getName());
 
     private final FileChooser fileChooser;
+    private final MiniBrowserFactory minibrowser;
 
-    @Inject public URLSelector( FileChooser fileChooser ) {
+    @Inject public URLSelector( FileChooser fileChooser, MiniBrowserFactory minibrowser ) {
         this.fileChooser = fileChooser;
+        this.minibrowser = minibrowser;
     }
 
     public Dialog get( JFrame parent ) {
@@ -79,7 +83,7 @@ public class URLSelector {
             getWeb.addActionListener( new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    MiniBrowserDialog brows = new MiniBrowserDialog( that );
+                    MiniBrowserDialog brows = minibrowser.get( that );
                     brows.setVisible( true );
                     URL url = brows.getUrl();
                     if ( url != null ) {

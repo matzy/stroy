@@ -104,7 +104,6 @@ public class FaustUI extends JFrame {
     @Inject
     public FaustUI(Deployed artifact,
                    FileChooser chooser,
-                   AboutSheet about,
                    OSXStandardEventHandler osxEventHandler,
                    BackgroundExecutor executor,
                    @Named(FAUSTERIZE) Localize localize,
@@ -113,8 +112,8 @@ public class FaustUI extends JFrame {
                    @Named(FAUSTERIZE) PrefBuilder codePref,
                    @Named(TEXTEDITOR) PrefBuilder textEditorPrefBuilder,
                    final PreferenceFrame prefFrame,
-                   GlobalKeyEventHandler keyHandler,
-                   MenuHelper menuHelper,
+                   //GlobalKeyEventHandler keyHandler,
+                   //MenuHelper menuHelper,
                    TextEditorBuilder textEditorBuilder,
                    Property<MRU<String>> mru,
                    HUDWarning warning,
@@ -307,7 +306,7 @@ public class FaustUI extends JFrame {
             if ( path != null ) {
 
                 try {
-                    ui2file.setPad( new File( path ).toURI() );
+                    ui2file.setPad( path );
                     if ( ui2file.isEncoded() ) {
                         ui2file.codeToggle();
                     }

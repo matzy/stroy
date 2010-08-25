@@ -2,6 +2,7 @@ package org.openCage.gpad;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.google.inject.Stage;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
 
@@ -38,7 +39,7 @@ public class UIMain {
 
     public static void main(String[] args) {
         //Stage.
-        Injector injector = Guice.createInjector(new FausterizeWiring());
+        Injector injector = Guice.createInjector( Stage.DEVELOPMENT, new FausterizeWiring());
 
         CliOptions bean = new CliOptions();
         CmdLineParser parser = new CmdLineParser(bean);
@@ -61,6 +62,7 @@ public class UIMain {
             // cli case
             System.out.println("++++ " + bean.getFilepath());
         }
+        
 
     }
 }
