@@ -44,7 +44,11 @@ public class Mesod {
     }
 
     public String toString() {
-        String ret = "\n   " + mod + " ";
+        return toString("");
+    }
+
+    public String toString( String prefix ) {
+        String ret = prefix + mod + " ";
 
         ret += Strings.join( typeNames ).prefix( "<").postfix("> ");
 
@@ -57,12 +61,13 @@ public class Mesod {
                     }
                 });
 
-        ret +=                                                   " )";
+        ret += " )";
 
-        ret += body.toString( "   ", true );
+        ret += body.toString( prefix + "   " );
 
         return ret;
     }
+
 
     public Clazz c() {
         return clazz;
@@ -74,33 +79,6 @@ public class Mesod {
     }
 
 
-//    public Fild<Mesod> fild( Typ typ, String name ) {
-//        Fild<Mesod> fld = new Fild<Mesod>( this, "", typ, name );
-//        statements.add( fld );
-//        return fld;
-//    }
-//
-//
-//    public Mesod assign(String var, Expr str) {
-//        statements.add( new Assign(var,str));
-//        return this;
-//    }
-//
-//    public Mesod assignPlus(String var, Expr expr) {
-//        statements.add( new Assign(var,expr).plus());
-//        return this;
-//    }
-//
-//    public Mesod retrn( Expr expr ) {
-//        statements.add( new Return(expr));
-//        return this;
-//    }
-//
-//    public IfExpr<Mesod> iff( Expr cond ) {
-//        IfExpr<Mesod> ex = new IfExpr<Mesod>( this, cond );
-//        statements.add( ex );
-//        return ex;
-//    }
 
     public Block<Mesod> body() {
         if ( body == null ) {
@@ -113,4 +91,5 @@ public class Mesod {
         typeNames.add( typeName );
         return this;
     }
+
 }

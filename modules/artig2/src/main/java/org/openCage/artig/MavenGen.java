@@ -1,10 +1,12 @@
 package org.openCage.artig;
 
 
-import org.apache.commons.io.IOUtils;
 import org.jetbrains.annotations.NotNull;
-import org.openCage.artig.stjx.*;
+import org.openCage.artig.stjx.Artifact;
+import org.openCage.artig.stjx.ArtifactRef;
+import org.openCage.artig.stjx.ModuleRef;
 import org.openCage.io.FileUtils;
+import org.openCage.io.IOUtils;
 import org.openCage.io.fspath.FSPath;
 import org.openCage.lang.errors.Unchecked;
 

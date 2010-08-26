@@ -1,6 +1,5 @@
 package org.openCage.artig;
 
-import org.apache.commons.io.IOUtils;
 import org.openCage.artig.stjx.Artifact;
 import org.openCage.artig.stjx.ArtifactDescription;
 import org.openCage.artig.stjx.ArtifactRef;
@@ -9,19 +8,13 @@ import org.openCage.artig.stjx.Licence;
 import org.openCage.artig.stjx.ModuleRef;
 import org.openCage.artig.stjx.ToXML;
 import org.openCage.io.FileUtils;
+import org.openCage.io.IOUtils;
 import org.openCage.io.fspath.FSPath;
 import org.openCage.lang.errors.Unchecked;
 
 import java.io.FileWriter;
 import java.io.IOException;
 
-/**
- * Created by IntelliJ IDEA.
- * User: stephan
- * Date: Aug 22, 2010
- * Time: 8:45:34 AM
- * To change this template use File | Settings | File Templates.
- */
 public class CalcDeployed {
     private Artig artig;
 

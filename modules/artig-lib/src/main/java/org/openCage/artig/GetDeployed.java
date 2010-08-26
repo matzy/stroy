@@ -1,6 +1,5 @@
 package org.openCage.artig;
 
-import org.apache.commons.io.IOUtils;
 import org.openCage.artig.stjx.ArtifactDescription;
 import org.openCage.artig.stjx.Deployed;
 import org.openCage.artig.stjx.FromXML;
@@ -55,7 +54,13 @@ public class GetDeployed {
         catch( ParserConfigurationException pce ) {
             pce.printStackTrace();
         } finally {
-            IOUtils.closeQuietly( is );            
+            if ( is != null ) {
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    // ignore
+                }
+            }
         }
 
 
