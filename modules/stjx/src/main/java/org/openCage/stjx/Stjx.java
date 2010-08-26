@@ -48,7 +48,9 @@ public class Stjx {
                 or( "Application" ).with( "Module", "Extern" ).
                 complex( "Licence" );
 
-        System.out.println( stjx.toToXML( "org.openCage.foo" ));
+        stjx.struct("Foo").map("props").of("ArtifactRef", "Artifact" );
+
+        System.out.println( stjx.toFromXML( "org.openCage.foo" ));
     }
 
     public void generate( String baseDir, String packag ) {
@@ -133,6 +135,26 @@ public class Stjx {
             compl.toToXML( clazz );
             //System.out.println( compl.getName() );
         }
+
+        return clazz.toString();
+    }
+
+    private String toFromXML( String pack) {
+        Clazz clazz = new Clazz( pack, Typ.s( name + "FromXML") ).
+                imprt( "org.xml.sax.Attributes" ).
+                imprt( "org.xml.sax.SAXException" ).
+                imprt( "org.xml.sax.helpers.DefaultHandler" ).
+                imprt( "javax.xml.parsers.SAXParser" ).
+                imprt( "javax.xml.parsers.SAXParserFactory" ).
+                imprt( "javax.xml.stream.events.EntityDeclaration" ).
+                imprt( "java.io.File" ).
+                imprt( "java.util.ArrayList" ).
+                imprt( "java.util.HashMap" ).
+                imprt( "java.util.List" ).
+                imprt( "java.util.Map" ).
+                imprt( "java.util.Stack" ).
+                extnds( Typ.s("DefaultHandler") ).
+                clazz( Typ.of("ListHelper", Typ.s("T")));
 
         return clazz.toString();
     }

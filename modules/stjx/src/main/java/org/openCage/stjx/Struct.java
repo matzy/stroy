@@ -4,6 +4,7 @@ import org.openCage.generj.*;
 import org.openCage.lang.Strings;
 import org.openCage.lang.functions.F1;
 
+import javax.annotation.processing.Completions;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +28,14 @@ public class Struct implements Complex {
     public Struct complex(String name) {
         complexs.add( Ref.required(name) );
         return this;
+    }
+
+    public MapType map(String name) {
+        check( name );
+        MapType ll = new MapType( this, name );
+        stjx.structs.put( name, ll );
+        complexs.add( Ref.optional( name ));
+        return ll;
     }
 
     public ListType list(String name) {

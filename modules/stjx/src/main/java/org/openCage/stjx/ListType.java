@@ -6,83 +6,83 @@ import org.openCage.lang.Strings;
 import java.util.List;
 
 /**
-* Created by IntelliJ IDEA.
-* User: stephan
-* Date: Aug 8, 2010
-* Time: 2:37:39 AM
-* To change this template use File | Settings | File Templates.
-*/
+ * Created by IntelliJ IDEA.
+ * User: stephan
+ * Date: Aug 8, 2010
+ * Time: 2:37:39 AM
+ * To change this template use File | Settings | File Templates.
+ */
 public class ListType implements Complex {
- private Struct struct;
- private String name;
- private String of;
+    private Struct struct;
+    private String name;
+    private String of;
 
- public ListType( Struct struct, String name) {
-     this.struct = struct;
-     this.name = name;
- }
+    public ListType( Struct struct, String name) {
+        this.struct = struct;
+        this.name = name;
+    }
 
- public Struct of(String typName ) {
-     this.of = typName;
-     return struct;
- }
+    public Struct of(String typName ) {
+        this.of = typName;
+        return struct;
+    }
 
- public String getType() {
-     return "List<" + of + ">";
- }
+    public String getType() {
+        return "List<" + of + ">";
+    }
 
- public String toJava() {
-     return "";
- }
+    public String toJava() {
+        return "";
+    }
 
- public String toJavaDecl() {
-     return "   private List<" + of + ">  " + name + " = new ArrayList<" + of + ">();\n" +
+    public String toJavaDecl() {
+        return "   private List<" + of + ">  " + name + " = new ArrayList<" + of + ">();\n" +
 //            "   public  void add" + Strings.toFirstUpper( name ) + "( " + of + " " + Strings.toFirstLower(of) + ") {\n" +
 //            "      " + name + ".add( " + Strings.toFirstLower( of) + " );\n" +
 //            "   };\n" +
-            "   public List<"+ of + "> get" + Strings.toFirstUpper( name ) + "() {\n" +
-            "      return " + name + ";\n" +
-            "   }\n"+
-            "";
+                "   public List<"+ of + "> get" + Strings.toFirstUpper( name ) + "() {\n" +
+                "      return " + name + ";\n" +
+                "   }\n"+
+                "";
 
- }
+    }
 
- public String toSAXStart() {
+    public String toSAXStart() {
 
-     List<Complex> users = struct.getZeug().getUsers( name );
+        List<Complex> users = struct.getZeug().getUsers( name );
 
-     String ret = "          if ( qName.equals( \""+ name + "\"))  {\n" +
-                  "             if ( stack.empty() ) {\n" +
-                  "                throw new IllegalArgumentException( \""+name+" needs to be in a complex type \");\n" +
-                  "             }\n";
-
-
-     ret +=       "             Object peek =  stack.peek();\n";
-
-     for ( Complex comp : users ) {
-
-         ret +=         "\n" +
-                 "              if ( peek instanceof "+ comp.getName() +" ) {\n" +
-                 "                  stack.push( new ListHelper<"+ of +">( (("+ comp.getName() +")peek).get" + Strings.toFirstUpper( name )+ "() ));\n" +
-                 "                  return;\n" +
-                 "              }\n";
+        String ret = "          if ( qName.equals( \""+ name + "\"))  {\n" +
+                "             if ( stack.empty() ) {\n" +
+                "                throw new IllegalArgumentException( \""+name+" needs to be in a complex type \");\n" +
+                "             }\n";
 
 
-     }
-     ret +=  "              throw new IllegalArgumentException( \""+ name +" is not member of \" + peek.getClass() );\n";
+        ret +=       "             Object peek =  stack.peek();\n";
 
-     ret += "          }\n";
+        for ( Complex comp : users ) {
 
-     return ret;
- }
+            ret +=         "\n" +
+                    "              if ( peek instanceof "+ comp.getName() +" ) {\n" +
+                    "                  stack.push( new ListHelper<"+ of +">( (("+ comp.getName() +")peek).get" + Strings.toFirstUpper( name )+ "() ));\n" +
+                    "                  return;\n" +
+                    "              }\n";
 
- public boolean uses(String name) {
-     return of.equals( name );
- }
 
- public String getName() {
-     return name;
- }
+        }
+        ret +=  "              throw new IllegalArgumentException( \""+ name +" is not member of \" + peek.getClass() );\n";
+
+        ret += "          }\n";
+
+        return ret;
+    }
+
+    public boolean uses(String name) {
+        return of.equals( name );
+    }
+
+    public String getName() {
+        return name;
+    }
 
     public String toRnc() {
         return name + " = element " + name +" { " + of + "* }";
@@ -109,18 +109,18 @@ public class ListType implements Complex {
                 thn().retrn( Str.s(""));
 
         mesod.body().
-                    fild( Typ.string, "ret").init( NameExpr.n("prefix") ).
-                    assignPlus( "ret", Exp.s("<" + name + ">\\n"));
+                fild( Typ.string, "ret").init( NameExpr.n("prefix") ).
+                assignPlus( "ret", Exp.s("<" + name + ">\\n"));
 
         mesod.body().fr( Typ.s(of), "vr",  Exp.n( name )).body().
                 assignPlus( "ret", Call.c( "toString" + of,
-                                                Exp.bi("+", Exp.n("prefix"), Exp.s("   ")),
-                                                Exp.n("vr")) );
+                        Exp.bi("+", Exp.n("prefix"), Exp.s("   ")),
+                        Exp.n("vr")) );
 
 
 
         mesod.body().assignPlus( "ret", Exp.bi( "+", Exp.n("prefix"), Exp.s( "</"+name+">\\n" ) ));
-        
+
         mesod.body().retrn( Exp.n("ret "));
     }
 }
