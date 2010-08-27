@@ -71,6 +71,11 @@ public class MapType implements Complex {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
+    @Override
+    public void toJavaProperty(Clazz clazz) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
     public Struct of(String from, String to) {
         this.from = from;
         this.to = to;

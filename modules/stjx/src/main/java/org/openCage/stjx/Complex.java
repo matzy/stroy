@@ -23,4 +23,6 @@ public interface Complex {
     String toSAXEnd();
 
     void toToXML( Clazz clazz );
+
+    void toJavaProperty(Clazz clazz);
 }

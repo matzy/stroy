@@ -37,6 +37,11 @@ public class OrType implements Complex {
         return Stjx.toJavaBeanAttribute( name, Strings.toFirstLower( name ));
     }
 
+    @Override
+    public void toJavaProperty(Clazz clazz) {
+        clazz.property( Typ.s(name), Strings.toFirstLower(name));
+    }
+
     public String toSAXStart() {
 //        List<Complex> users = struct.getZeug().getUsers( name );
 //
@@ -103,7 +108,7 @@ public class OrType implements Complex {
 
     @Override
     public void toToXML(Clazz clazz) {
-        Mesod mesod = clazz.publcStatic().method( Typ.string, "toString" + name );
+        Mesod mesod = clazz.publc().sttic().method( Typ.string, "toString" + name );
 
         String arg = Strings.toFirstLower( name );
 
@@ -138,6 +143,7 @@ public class OrType implements Complex {
     }
 
 
+
     public Struct with( String ... names ) {
         alternatives.addAll( Arrays.asList( names ));
 
@@ -151,5 +157,12 @@ public class OrType implements Complex {
         }
 
         return struct;
+    }
+
+    public Interf toJava(String pack) {
+        Interf interf = new Interf( pack, Typ.s(name ));
+
+
+        return interf;
     }
 }

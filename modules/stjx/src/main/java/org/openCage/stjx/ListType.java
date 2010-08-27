@@ -101,7 +101,7 @@ public class ListType implements Complex {
     @Override
     public void toToXML( Clazz clazz ) {
 
-        Mesod mesod = clazz.publcStatic().method( Typ.string, "toString" + name );
+        Mesod mesod = clazz.publc().sttic().method( Typ.string, "toString" + name );
 
         mesod.arg( Typ.string, "prefix" ).arg( Typ.of("List", Typ.s(this.of)), name );
 
@@ -122,5 +122,11 @@ public class ListType implements Complex {
         mesod.body().assignPlus( "ret", Exp.bi( "+", Exp.n("prefix"), Exp.s( "</"+name+">\\n" ) ));
 
         mesod.body().retrn( Exp.n("ret "));
+    }
+
+    @Override
+    public void toJavaProperty(Clazz clazz) {
+        clazz.property( Typ.of( "List", Typ.s(of) ), Strings.toFirstLower(name), new NewExpr( Typ.of("ArrayList", Typ.s(of))));
+
     }
 }

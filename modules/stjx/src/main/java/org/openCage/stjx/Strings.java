@@ -45,7 +45,7 @@ public class Strings {
         }
 
         public String toString() {
-            if ( list.isEmpty() ) {
+            if ( list == null || list.isEmpty() ) {
                 return "";
             }
 

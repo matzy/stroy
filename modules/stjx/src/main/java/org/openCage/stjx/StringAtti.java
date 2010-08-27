@@ -1,49 +1,55 @@
 package org.openCage.stjx;
 
+import org.openCage.generj.Clazz;
+import org.openCage.generj.Typ;
 import org.openCage.lang.Strings;
 
 /**
-* Created by IntelliJ IDEA.
-* User: stephan
-* Date: Aug 8, 2010
-* Time: 2:24:59 AM
-* To change this template use File | Settings | File Templates.
-*/
+ * Created by IntelliJ IDEA.
+ * User: stephan
+ * Date: Aug 8, 2010
+ * Time: 2:24:59 AM
+ * To change this template use File | Settings | File Templates.
+ */
 public class StringAtti implements Atti {
- private String name;
- private boolean optional;
+    private String name;
+    private boolean optional;
 
- public StringAtti(String name, boolean optional ) {
-     this.name = name;
-     this.optional = optional;
- }
+    public StringAtti(String name, boolean optional ) {
+        this.name = name;
+        this.optional = optional;
+    }
 
- public String getType() {
-     return "String";
- }
+    public String getType() {
+        return "String";
+    }
 
- public String getName() {
-     return name;
- }
+    public String getName() {
+        return name;
+    }
 
- public String toJava() {
-     return Stjx.toJavaBeanAttribute( "String", name );
- }
+    public String toJava() {
+        return Stjx.toJavaBeanAttribute( "String", name );
+    }
 
- public String toSAXStart(String complexName) {
-     String ret = "               String "+ name + " = attributes.getValue( \"" + name +"\" );\n" +
-            "               if ( "+ name + " != null ) {\n" +
-            "                  elem.set" + Strings.toFirstUpper(name ) + "( " + name + ");\n" +
-            "               } \n";
+    @Override public void toJavaProperty(Clazz clazz) {
+        clazz.property( Typ.string, Strings.toFirstLower(name));
+    }
 
-     if ( !optional ) {
-         ret +=                  "               else {\n                  throw new IllegalArgumentException( \"" + complexName + "\" + \" attribute " + name + " is required\" );\n" +
-            "               }\n";
+    public String toSAXStart(String complexName) {
+        String ret = "               String "+ name + " = attributes.getValue( \"" + name +"\" );\n" +
+                "               if ( "+ name + " != null ) {\n" +
+                "                  elem.set" + Strings.toFirstUpper(name ) + "( " + name + ");\n" +
+                "               } \n";
 
-     }
+        if ( !optional ) {
+            ret +=                  "               else {\n                  throw new IllegalArgumentException( \"" + complexName + "\" + \" attribute " + name + " is required\" );\n" +
+                    "               }\n";
 
-     return ret;
- }
+        }
+
+        return ret;
+    }
 
     public String toRnc() {
         return "attribute " + name + " {xsd:string}";
@@ -53,11 +59,12 @@ public class StringAtti implements Atti {
         return optional;
     }
 
-    public static Atti optional(String name) {
-     return new StringAtti( name, true );
- }
 
- public static Atti required(String name) {
-     return new StringAtti( name, false );
- }
+    public static Atti optional(String name) {
+        return new StringAtti( name, true );
+    }
+
+    public static Atti required(String name) {
+        return new StringAtti( name, false );
+    }
 }

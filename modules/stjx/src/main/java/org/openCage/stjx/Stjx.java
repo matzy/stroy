@@ -1,7 +1,6 @@
 package org.openCage.stjx;
 
-import org.openCage.generj.Clazz;
-import org.openCage.generj.Typ;
+import org.openCage.generj.*;
 import org.openCage.io.FileUtils;
 import org.openCage.io.fspath.FSPath;
 import org.openCage.io.fspath.FSPathBuilder;
@@ -49,8 +48,18 @@ public class Stjx {
                 complex( "Licence" );
 
         stjx.struct("Foo").map("props").of("ArtifactRef", "Artifact" );
+        stjx.struct("OO").or("Alti").with( "ArtifactRef", "Artifact" );
 
-        System.out.println( stjx.toFromXML( "org.openCage.foo" ));
+//        System.out.println( stjx.toFromXML( "org.openCage.foo" ));
+        
+        for ( Complex cop : stjx.structs.values() ) {
+            if ( cop instanceof Struct ) {
+                System.out.println( (((Struct) cop).toJava("org.doo")).toString());
+            }
+            if ( cop instanceof OrType ) {
+                System.out.println( (((OrType) cop).toJava("org.doo0000000000")).toString());
+            }
+        }
     }
 
     public void generate( String baseDir, String packag ) {
@@ -154,8 +163,31 @@ public class Stjx {
                 imprt( "java.util.Map" ).
                 imprt( "java.util.Stack" ).
                 extnds( Typ.s("DefaultHandler") ).
-                clazz( Typ.of("ListHelper", Typ.s("T")));
+                    publc().sttic().clazz( Typ.of("ListHelper", Typ.s("T"))).
+                        privt().fild( Typ.of("List",Typ.s("T")), "list").c().
+                        publc().cnstr().arg( Typ.of("List",Typ.s("T")), "list").body().
+                            assign("this.list", Exp.n("list")).r().c().
+                        publc().method( "add").arg( Typ.s("T"), "elem ").body().
+                            call( "list.add", Exp.n("elem")).r().c().r().
+                    privt().fild( Typ.s("Stack"), "stack").init( new NewExpr( Typ.s("Stack"))).
+                    privt().fild( Typ.s("Object"), "goal").c().
+                    publc().override().method( "startDocument").thrws( Typ.s("SAXException")).body().
+                        call( "stack.clear").r().c().
+                    publc().override().method( "endDocument").thrws( Typ.s("SAXException")).body().r().c().
+                    publc().method( Typ.s(name), "getGoal").body().
+                        retrn( Exp.n("gaol")).r().c()
+                  ;
 
+        Block start = clazz.publc().override().method( "startElement").thrws( Typ.s("SAXException")).
+                arg( Typ.string, "uri").
+                arg( Typ.string, "localName").
+                arg( Typ.string, "qName").
+                arg( Typ.s("Attributes"), "attributes").body();
+
+        Block end = clazz.publc().override().method( "endElement").thrws( Typ.s("SAXException")).
+                arg( Typ.string, "uri").
+                arg( Typ.string, "localName").
+                arg( Typ.string, "qName").body();
         return clazz.toString();
     }
 

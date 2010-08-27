@@ -1,5 +1,7 @@
 package org.openCage.stjx;
 
+import org.openCage.generj.Clazz;
+
 /**
 * Created by IntelliJ IDEA.
 * User: stephan
@@ -19,4 +21,6 @@ public interface Atti {
     String toRnc();
 
     boolean isOptional();
+
+    void toJavaProperty(Clazz clazz);
 }

@@ -4,7 +4,6 @@ import org.openCage.generj.*;
 import org.openCage.lang.Strings;
 import org.openCage.lang.functions.F1;
 
-import javax.annotation.processing.Completions;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,6 +70,39 @@ public class Struct implements Complex {
 
     public String getType() {
         return name;
+    }
+
+    public Clazz toJava( String pack ) {
+        Clazz clazz = new Clazz( pack, Typ.s(name) );
+
+        clazz.imprt( "java.util.ArrayList" );
+        clazz.imprt( "java.util.List" );
+
+        if ( interf != null ) {
+            clazz.implments( Typ.s(interf));
+        }
+
+        for ( Atti atti :attis ) {
+            atti.toJavaProperty( clazz );
+        }
+
+        for ( Ref ref : complexs ) {
+            Complex comp = stjx.structs.get( ref.getName() );
+
+            if ( comp == null ) {
+                throw new IllegalArgumentException( "unknown complex " + ref.getName() );
+            }
+
+            comp.toJavaProperty( clazz );
+        }
+
+        
+        return clazz;
+    }
+
+    @Override
+    public void toJavaProperty(Clazz clazz) {
+        clazz.property( Typ.string, Strings.toFirstLower(name));
     }
 
     public String toJava() {
@@ -241,7 +273,7 @@ public class Struct implements Complex {
     @Override
     public void toToXML( Clazz clazz) {
 
-        Mesod mesod = clazz.publcStatic().method( Typ.string, "toString" + name );
+        Mesod mesod = clazz.publc().sttic().method( Typ.string, "toString" + name );
 
         String lower = Strings.toFirstLower(name);
 

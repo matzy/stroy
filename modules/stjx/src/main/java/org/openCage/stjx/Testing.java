@@ -55,7 +55,7 @@ public class Testing {
     public void testHelloWorld() {
 
         Clazz hr = new Clazz("org.open.hello", Typ.s("HelloWorld")).
-                        publcStatic().method( Typ.vooid, "main" ).
+                        publc().sttic().method( Typ.vooid, "main" ).
                            arg( Typ.array( "String" ), "args" ).
                            body().call("System.out.println", Exp.s("Hello World\\n")).r().c();
 
