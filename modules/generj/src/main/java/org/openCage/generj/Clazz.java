@@ -9,23 +9,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Clazz {
-    private Typ name;
+    Typ name;
     private String packag;
     List<Mesod> mesods = new ArrayList<Mesod>();
 
-    public List<Fild> filds = new ArrayList<Fild>();
+    List<Fild> filds = new ArrayList<Fild>();
     private List<String> imports = new ArrayList<String>();
 
     private List<Typ> extnding = new ArrayList<Typ>();
 
-    private List<Clazz> innerClazzes = new ArrayList<Clazz>();
+    List<Clazz> innerClazzes = new ArrayList<Clazz>();
+    private Clazz mother;
+
+    private String modi = "public";
+    private List<Typ> implmets = new ArrayList<Typ>();
 
     public Clazz( String packag, Typ name ) {
         this.name = name;
         this.packag = packag;
     }
 
-    public Clazz( Typ name ) {
+    public Clazz( Clazz mother, Typ name ) {
+        this.mother = mother;
         this.name = name;
     }
 
@@ -44,8 +49,9 @@ public class Clazz {
             ret += prefix + "import " + imp + ";\n";
         }
 
-        ret += prefix + "public class " + name;
+        ret += prefix + modi + " class " + name;
         ret += Strings.join( extnding ).prefix( " extends " );
+        ret += Strings.join( implmets ).prefix( " implements " );
         ret+= " {\n";
 
         for ( Clazz inner : innerClazzes ) {
@@ -53,11 +59,11 @@ public class Clazz {
         }
 
         for ( Fild fld : filds ) {
-            ret += fld.toString( prefix + "   ");
+            ret += fld.toString( prefix + "   ") + ";\n";
         }
 
         for ( Mesod mesod : mesods ) {
-            ret += mesod.toString( prefix + "   ");
+            ret += mesod.toString( prefix + "   ") + "\n";
         }
 
         return ret += "\n" + prefix + "}\n";
@@ -69,13 +75,14 @@ public class Clazz {
         return new Modi( "public",  this );
     }
 
-    public Modi publcStatic() {
-        return new Modi( "public static",  this );
-    }
-
     public Modi privt() {
         return new Modi( "private",  this );
     }
+
+    public Modi packagePrvt() {
+        return new Modi( "",  this );
+    }
+
 
     public Clazz imprt(String imp) {
         imports.add( imp );
@@ -87,9 +94,28 @@ public class Clazz {
         return this;
     }
 
-    public Clazz clazz(Typ typ) {
-        Clazz subClazz = new Clazz( typ );
-        this.innerClazzes.add( subClazz );
-        return subClazz;
+    public Clazz r() {
+        return mother;
+    }
+
+    public Clazz implments(Typ typ) {
+        this.implmets.add( typ );
+        return this;
+    }
+
+    public Clazz property(Typ typ, String name) {
+        String upper = Strings.toFirstUpper( name );
+        privt().fild(typ, name );
+        publc().method( "get" + upper ).body().retrn( Exp.n(name));
+        publc().method( typ, "set" + upper ).arg( typ, name ).body().assign( "this." + name, Exp.n(name));
+        return this;
+    }
+
+    public Clazz property(Typ typ, String name, Expr init ) {
+        String upper = Strings.toFirstUpper( name );
+        privt().fild(typ, name ).init( init );
+        publc().method( "get" + upper ).body().retrn( Exp.n(name));
+        publc().method( typ, "set" + upper ).arg( typ, name ).body().assign( "this." + name, Exp.n(name));
+        return this;
     }
 }

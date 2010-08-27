@@ -43,4 +43,8 @@ public class Typ {
         return name + "<" + of.toString() + ">";
     }
 
+    public String getName() {
+        return name;
+    }
+
 }

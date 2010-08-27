@@ -1,6 +1,7 @@
 package org.openCage.generj;
 
 
+import com.sun.codemodel.internal.JWhileLoop;
 import com.sun.jndi.dns.DnsName;
 import org.openCage.lang.Strings;
 import org.openCage.lang.functions.F1;
@@ -22,12 +23,11 @@ public class Mesod {
     private String name;
     private String mod;
 
-//    private List<Statement> statements = new ArrayList<Statement>();
     private List<T2<Typ,String>> args = new ArrayList<T2<Typ, String>>();
-
 
     private Block<Mesod> body;
     private List<String> typeNames = new ArrayList<String>();
+    private List<Typ> thrws = new ArrayList<Typ>();
 
     public Mesod(Clazz clazz, String mod, Typ retType, String name) {
         this.clazz = clazz;
@@ -52,7 +52,7 @@ public class Mesod {
 
         ret += Strings.join( typeNames ).prefix( "<").postfix("> ");
 
-        ret += retType + " " + name + "( ";
+        ret += (retType != null ? retType : "" )+ " " + name + "( ";
 
 
         ret += Strings.join( args ).trans( new F1<String, T2<Typ, String>>() {
@@ -63,7 +63,9 @@ public class Mesod {
 
         ret += " )";
 
-        ret += body.toString( prefix + "   " );
+        ret += Strings.join( thrws ).prefix( " throws ").postfix(" ");
+
+        ret += body.toString( prefix  );
 
         return ret;
     }
@@ -92,4 +94,8 @@ public class Mesod {
         return this;
     }
 
+    public Mesod thrws(Typ typ) {
+        this.thrws.add( typ );
+        return this;
+    }
 }

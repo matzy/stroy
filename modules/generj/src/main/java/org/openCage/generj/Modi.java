@@ -1,13 +1,6 @@
 package org.openCage.generj;
 
 
-/**
- * Created by IntelliJ IDEA.
- * User: stephan
- * Date: Aug 17, 2010
- * Time: 9:51:44 AM
- * To change this template use File | Settings | File Templates.
- */
 public class Modi {
 
     private String mod;
@@ -41,4 +34,28 @@ public class Modi {
         return  fild;
     }
 
+    public Mesod cnstr() {
+        Mesod mes = new Mesod( clazz, mod, null, clazz.name.getName() );
+
+        clazz.mesods.add( mes );
+
+        return mes;
+    }
+
+    public Clazz clazz(Typ typ) {
+        Clazz subClazz = new Clazz( clazz, typ );
+        clazz.innerClazzes.add( subClazz );
+        return subClazz;
+    }
+
+
+    public Modi sttic() {
+        mod += "static ";
+        return this;
+    }
+
+    public Modi override() {
+        mod = "@Override " + mod;
+        return this;
+    }
 }

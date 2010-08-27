@@ -12,7 +12,9 @@ public class NewExpr implements Expr {
 
     public NewExpr( Typ typ, String ... args ) {
         this.typ = typ;
-        this.args.addAll( Arrays.asList( args ));
+        if ( args.length > 0 ) {
+            this.args.addAll( Arrays.asList( args ));
+        }
     }
 
     public String toString() {
