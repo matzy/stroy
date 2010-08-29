@@ -39,6 +39,12 @@ public class Block<T> implements Statement {
         return ex;
     }
 
+    public IfExpr ifNotNull(Expr expr) {
+        IfExpr<Block<T>> ex = new IfExpr<Block<T>>( this, Exp.bi( "!=", expr, Exp.n("null")) );
+        statements.add( ex );
+        return ex;
+    }
+
     public ForExpr<Block<T>> fr( Typ typ, String var, Expr expr ) {
         ForExpr<Block<T>> ex = new ForExpr<Block<T>>(this, typ, var, expr );
         statements.add(ex);
@@ -79,4 +85,6 @@ public class Block<T> implements Statement {
     public T r() {
         return base;
     }
+
+
 }
