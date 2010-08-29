@@ -41,5 +41,11 @@
          <version>0.4</version>
          <scope>compile</scope>
       </dependency>
+      <dependency>
+         <groupId>openCage</groupId>
+         <artifactId>openCage-io</artifactId>
+         <version>0.2</version>
+         <scope>compile</scope>
+      </dependency>
    </dependencies>
 </project>
