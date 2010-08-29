@@ -2,24 +2,29 @@ package org.openCage.stjx;
 
 import org.openCage.generj.Block;
 import org.openCage.generj.Clazz;
+import org.openCage.generj.Exp;
+import org.openCage.generj.Mesod;
+import org.openCage.generj.NameExpr;
+import org.openCage.generj.Str;
+import org.openCage.generj.Typ;
+import org.openCage.lang.Strings;
 
 /**
  * Created by IntelliJ IDEA.
  * User: stephan
- * Date: Aug 25, 2010
- * Time: 10:55:40 PM
+ * Date: Aug 28, 2010
+ * Time: 7:48:23 AM
  * To change this template use File | Settings | File Templates.
  */
-public class MapType implements Complex {
+public class KeyVal implements Complex {
+    private String mapName;
+    private String key;
+    private String val;
 
-    private Struct struct;
-    private String name;
-    private String from;
-    private String to;
-
-    public MapType(Struct struct, String name) {
-        this.struct = struct;
-        this.name = name;
+    public KeyVal( String mapName, String key, String complex) {
+        this.mapName = mapName;
+        this.key = key;
+        this.val = complex;
     }
 
     @Override
@@ -69,7 +74,19 @@ public class MapType implements Complex {
 
     @Override
     public void toToXML(Clazz clazz) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        Mesod mesod = clazz.publc().sttic().method( Typ.string, "toString" + mapName );
+
+//        String lower = Strings.toFirstLower(name);
+
+        mesod.arg( Typ.string, "prefix" ).arg( Typ.s(mapName), mapName ).
+                body().
+                    fild( Typ.string, "ret").init( NameExpr.n("prefix") ).
+                    assignPlus( "ret", new Str("<" + mapName + " "));
+
+        mesod.body().assignPlus( "ret", Exp.bi( "+", Exp.n("prefix"), Exp.s( "</"+mapName+">\\n" ) ));
+
+        mesod.body().retrn( Exp.n("ret "));
+
     }
 
     @Override
@@ -80,11 +97,5 @@ public class MapType implements Complex {
     @Override
     public void toFromXMLStart(Block start) {
         //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    public Struct of(String from, String to) {
-        this.from = from;
-        this.to = to;
-        return struct;
     }
 }

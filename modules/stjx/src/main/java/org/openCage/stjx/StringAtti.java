@@ -1,6 +1,10 @@
 package org.openCage.stjx;
 
+import org.openCage.generj.Block;
+import org.openCage.generj.Call;
 import org.openCage.generj.Clazz;
+import org.openCage.generj.Exp;
+import org.openCage.generj.IfExpr;
 import org.openCage.generj.Typ;
 import org.openCage.lang.Strings;
 
@@ -34,6 +38,19 @@ public class StringAtti implements Atti {
 
     @Override public void toJavaProperty(Clazz clazz) {
         clazz.property( Typ.string, Strings.toFirstLower(name));
+    }
+
+    @Override
+    public void toFromXMLStart(Block block, String varName) {
+
+        IfExpr ite = block.ifNotNull( new Call( "attributes.getValue", Exp.s(name) ));
+
+        ite.thn().call( "elem.set" + Strings.toFirstUpper(name ), new Call( "attributes.getValue", Exp.s(name) ));
+
+        if( !optional ) {
+            ite.els().thrw( Typ.s("IllegalArgumentException"), varName + ": attribute " + name + " is required"  );
+        }
+
     }
 
     public String toSAXStart(String complexName) {

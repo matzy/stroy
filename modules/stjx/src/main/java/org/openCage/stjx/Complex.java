@@ -1,5 +1,6 @@
 package org.openCage.stjx;
 
+import org.openCage.generj.Block;
 import org.openCage.generj.Clazz;
 
 
@@ -25,4 +26,6 @@ public interface Complex {
     void toToXML( Clazz clazz );
 
     void toJavaProperty(Clazz clazz);
+
+    void toFromXMLStart(Block start);
 }

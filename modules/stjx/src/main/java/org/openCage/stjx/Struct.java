@@ -29,6 +29,13 @@ public class Struct implements Complex {
         return this;
     }
 
+    public Struct keyVal(String mapName, String key, String complex) {
+        KeyVal ll = new KeyVal( mapName, key, complex );
+        stjx.structs.put( name, ll );
+        complexs.add( Ref.optional( name ));
+        return this;
+    }
+
     public MapType map(String name) {
         check( name );
         MapType ll = new MapType( this, name );
@@ -96,6 +103,9 @@ public class Struct implements Complex {
             comp.toJavaProperty( clazz );
         }
 
+
+        // todo toString
+
         
         return clazz;
     }
@@ -104,6 +114,7 @@ public class Struct implements Complex {
     public void toJavaProperty(Clazz clazz) {
         clazz.property( Typ.string, Strings.toFirstLower(name));
     }
+
 
     public String toJava() {
         String ret = "import java.util.ArrayList;\n" +
@@ -149,6 +160,18 @@ public class Struct implements Complex {
 
     public String toJavaDecl() {
         return Stjx.toJavaBeanAttribute( name, Strings.toFirstLower( name ));
+    }
+
+    @Override
+    public void toFromXMLStart(Block start) {
+        Block thn = start.iff( new Call( "qName.equals", Exp.s(name) )).thn();
+
+        thn.fild( Typ.s(name), "elem" ).init( new NewExpr( Typ.s(name)));
+
+        for ( Atti atti : attis ) {
+            atti.toFromXMLStart( thn, name );
+        }
+
     }
 
     public String toSAXStart() {

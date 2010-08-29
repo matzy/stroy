@@ -47,19 +47,20 @@ public class Stjx {
                 or( "Application" ).with( "Module", "Extern" ).
                 complex( "Licence" );
 
-        stjx.struct("Foo").map("props").of("ArtifactRef", "Artifact" );
+//        stjx.struct("Foo").map("props").of("ArtifactRef", "Artifact" );
+        stjx.struct("Foo").keyVal("props", "ref", "Artifact" );
         stjx.struct("OO").or("Alti").with( "ArtifactRef", "Artifact" );
 
-//        System.out.println( stjx.toFromXML( "org.openCage.foo" ));
+        System.out.println( stjx.toFromXML( "org.openCage.foo" ));
         
-        for ( Complex cop : stjx.structs.values() ) {
-            if ( cop instanceof Struct ) {
-                System.out.println( (((Struct) cop).toJava("org.doo")).toString());
-            }
-            if ( cop instanceof OrType ) {
-                System.out.println( (((OrType) cop).toJava("org.doo0000000000")).toString());
-            }
-        }
+//        for ( Complex cop : stjx.structs.values() ) {
+//            if ( cop instanceof Struct ) {
+//                System.out.println( (((Struct) cop).toJava("org.doo")).toString());
+//            }
+//            if ( cop instanceof OrType ) {
+//                System.out.println( (((OrType) cop).toJava("org.doo0000000000")).toString());
+//            }
+//        }
     }
 
     public void generate( String baseDir, String packag ) {
@@ -188,6 +189,11 @@ public class Stjx {
                 arg( Typ.string, "uri").
                 arg( Typ.string, "localName").
                 arg( Typ.string, "qName").body();
+
+        for ( Complex complex : structs.values() ) {
+            complex.toFromXMLStart(start);
+        }
+
         return clazz.toString();
     }
 

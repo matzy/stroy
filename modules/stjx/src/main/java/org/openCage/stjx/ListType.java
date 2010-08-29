@@ -129,4 +129,9 @@ public class ListType implements Complex {
         clazz.property( Typ.of( "List", Typ.s(of) ), Strings.toFirstLower(name), new NewExpr( Typ.of("ArrayList", Typ.s(of))));
 
     }
+
+    @Override
+    public void toFromXMLStart(Block start) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
 }

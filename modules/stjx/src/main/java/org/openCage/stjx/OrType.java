@@ -42,6 +42,11 @@ public class OrType implements Complex {
         clazz.property( Typ.s(name), Strings.toFirstLower(name));
     }
 
+    @Override
+    public void toFromXMLStart(Block start) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
     public String toSAXStart() {
 //        List<Complex> users = struct.getZeug().getUsers( name );
 //
@@ -161,8 +166,6 @@ public class OrType implements Complex {
 
     public Interf toJava(String pack) {
         Interf interf = new Interf( pack, Typ.s(name ));
-
-
         return interf;
     }
 }
