@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Artig {
@@ -158,11 +159,17 @@ public class Artig {
     }
 
     private boolean is(ArtifactRef aa, ArtifactRef bb) {
-        return aa.getGroupId().equals( bb.getGroupId() )  && aa.getName().equals( bb.getName());
+        return /*aa.getGroupId().equals( bb.getGroupId() )  && */ aa.getName().equals( bb.getName()); // TODO optional groupId
     }
 
     private void validate() {
+
+        List<String> artiNames = new ArrayList<String>();
+
         for ( Artifact ext : project.getExternals() ) {
+            if ( artiNames.contains( ext.getName())) {
+                throw new IllegalArgumentException( "name collision " + ext.getName() + " used twice in external Artifacts" );  // TODO use extra groupId
+            }
             isValid( ext );
         }
 
@@ -295,8 +302,7 @@ public class Artig {
     }
 
     public static boolean is( Artifact arti, ArtifactRef ref ) {
-        return arti.getName().equals( ref.getName() ) &&
-                arti.getGroupId().equals( ref.getGroupId());
+        return arti.getName().equals( ref.getName() ) && (ref.getGroupId() != null ? arti.getGroupId().equals( ref.getGroupId()) : true );
     }
 
 
