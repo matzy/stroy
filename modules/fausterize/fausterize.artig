@@ -19,18 +19,18 @@
             </languages>
 
             <depends>
-                <ArtifactRef groupId="args4j" name="args4j" scope="compile" />
-                <ArtifactRef groupId="commons-io" name="commons-io" scope="compile" />
-                <ArtifactRef groupId="com.google.inject" name="guice" scope="compile" />
-                <ArtifactRef groupId="fifesoft" name="RSyntaxTextArea" scope="compile" />
-                <ArtifactRef groupId="eu.medsea.mimeutil" name="mime-util" scope="compile" />
+                <ArtifactRef name="args4j" scope="compile" />
+                <ArtifactRef name="commons-io" scope="compile" />
+                <ArtifactRef name="guice" scope="compile" />
+                <ArtifactRef name="RSyntaxTextArea" scope="compile" />
+                <ArtifactRef name="mime-util" scope="compile" />
 
-                <ArtifactRef groupId="openCage" name="openCage-appstd" scope="compile" />
-                <ArtifactRef groupId="openCage" name="openCage-lang" scope="compile" />
-                <ArtifactRef groupId="openCage" name="openCage-io" scope="compile" />
-                <ArtifactRef groupId="openCage" name="openCage-ui" scope="compile" />
-                <ArtifactRef groupId="openCage" name="openCage-localization" scope="compile" />
-                <ArtifactRef groupId="openCage" name="openCage-property" scope="compile" />
+                <ArtifactRef name="openCage-appstd" scope="compile" />
+                <ArtifactRef name="openCage-lang" scope="compile" />
+                <ArtifactRef name="openCage-io" scope="compile" />
+                <ArtifactRef name="openCage-ui" scope="compile" />
+                <ArtifactRef name="openCage-localization" scope="compile" />
+                <ArtifactRef name="openCage-property" scope="compile" />
 
 
 

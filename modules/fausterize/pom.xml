@@ -30,67 +30,67 @@
     </build>
    <dependencies>
       <dependency>
-         <groupId>args4j</groupId>
+         <groupId>null</groupId>
          <artifactId>args4j</artifactId>
          <version>2.0.12</version>
          <scope>compile</scope>
       </dependency>
       <dependency>
-         <groupId>commons-io</groupId>
+         <groupId>null</groupId>
          <artifactId>commons-io</artifactId>
          <version>1.4</version>
          <scope>compile</scope>
       </dependency>
       <dependency>
-         <groupId>com.google.inject</groupId>
-         <artifactId>guice</artifactId>
-         <version>2.0</version>
+         <groupId>openCage</groupId>
+         <artifactId>osashosa</artifactId>
+         <version>0.2</version>
          <scope>compile</scope>
       </dependency>
       <dependency>
-         <groupId>fifesoft</groupId>
+         <groupId>null</groupId>
          <artifactId>RSyntaxTextArea</artifactId>
          <version>1.4.1</version>
          <scope>compile</scope>
       </dependency>
       <dependency>
-         <groupId>eu.medsea.mimeutil</groupId>
+         <groupId>null</groupId>
          <artifactId>mime-util</artifactId>
          <version>2.1.3</version>
          <scope>compile</scope>
       </dependency>
       <dependency>
-         <groupId>openCage</groupId>
+         <groupId>null</groupId>
          <artifactId>openCage-appstd</artifactId>
          <version>0.1</version>
          <scope>compile</scope>
       </dependency>
       <dependency>
-         <groupId>openCage</groupId>
+         <groupId>null</groupId>
          <artifactId>openCage-lang</artifactId>
          <version>0.4</version>
          <scope>compile</scope>
       </dependency>
       <dependency>
-         <groupId>openCage</groupId>
+         <groupId>null</groupId>
          <artifactId>openCage-io</artifactId>
          <version>0.2</version>
          <scope>compile</scope>
       </dependency>
       <dependency>
-         <groupId>openCage</groupId>
+         <groupId>null</groupId>
          <artifactId>openCage-ui</artifactId>
          <version>0.2</version>
          <scope>compile</scope>
       </dependency>
       <dependency>
-         <groupId>openCage</groupId>
+         <groupId>null</groupId>
          <artifactId>openCage-localization</artifactId>
          <version>0.0.3</version>
          <scope>compile</scope>
       </dependency>
       <dependency>
-         <groupId>openCage</groupId>
+         <groupId>null</groupId>
          <artifactId>openCage-property</artifactId>
          <version>0.3</version>
          <scope>compile</scope>
