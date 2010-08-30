@@ -7,6 +7,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.openCage.generj.Call.CALL;
+import static org.openCage.generj.Cast.CAST;
+import static org.openCage.generj.Dot.DOT;
+import static org.openCage.generj.NameExpr.NAME;
+import static org.openCage.generj.Str.STR;
+import static org.openCage.generj.Typ.TYP;
+
 /**
  * Created by IntelliJ IDEA.
  * User: stephan
@@ -42,37 +49,14 @@ public class OrType implements Complex {
         clazz.property( Typ.s(name), Strings.toFirstLower(name));
     }
 
+
+
     @Override
     public void toFromXMLStart(Block start) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        start.iff( CALL( DOT( NAME( "qName" ), NAME("equals")), STR(name) )).thn().
+                retrn();
     }
-
     public String toSAXStart() {
-//        List<Complex> users = struct.getZeug().getUsers( name );
-//
-//        String ret = "          if ( qName.equals( \""+ name + "\"))  {\n" +
-//                     "             if ( stack.empty() ) {\n" +
-//                     "                throw new IllegalArgumentException( \""+name+" needs to be in a complex type \");\n" +
-//                     "             }\n";
-//
-//
-//        ret +=       "             Object peek =  stack.peek();\n";
-//
-//        for ( Complex comp : users ) {
-//
-//            ret +=         "\n" +
-//                    "              if ( peek instanceof "+ comp.getName() +" ) {\n" +
-//                    "                  stack.push( new OrHelper<"+ name +">( (("+ comp.getName() +")peek).get" + Strings.toFirstUpper( name )+ "() ));\n" +
-//                    "                  return;\n" +
-//                    "              } else {\n" +
-//                    "                  throw new IllegalArgumentException( \""+ name +" is not member of \" + peek.getClass() );\n" +
-//                    "              }\n";
-//        }
-//
-//        ret += "          }\n";
-//
-//        return ret;
-
         String ret = "           if ( qName.equals(\"" + name + "\" )) {\n" +
                      "              // ortype: nothing to do\n" +
                      "              return;\n" +
@@ -107,6 +91,10 @@ public class OrType implements Complex {
     public void setInterface(String name) {
     }
 
+    @Override
+    public void toFromXMLEnd(Block end) {
+        // nothing to do
+    }
     public String toSAXEnd() {
         return ""; // nohing to do
     }
@@ -121,9 +109,9 @@ public class OrType implements Complex {
 
         for ( String ref : alternatives ) {
             mesod.body().iff( Exp.bi( "instanceof", Exp.n(arg), Exp.n(ref) )).thn().
-                    retrn( Call.c( "toString" + ref,
+                    retrn( CALL( NAME("toString" + ref),
                                    Exp.n("prefix" ),
-                                   Cast.c( Typ.s(ref), Exp.n(arg) )));
+                                   CAST( TYP(ref), Exp.n(arg) )));
         }
 
 
@@ -164,7 +152,7 @@ public class OrType implements Complex {
         return struct;
     }
 
-    public Interf toJava(String pack) {
+    public Object toJava(String pack) {
         Interf interf = new Interf( pack, Typ.s(name ));
         return interf;
     }

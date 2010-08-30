@@ -14,13 +14,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by IntelliJ IDEA.
- * User: stephan
- * Date: Aug 5, 2010
- * Time: 2:24:10 PM
- * To change this template use File | Settings | File Templates.
- */
+import static org.openCage.generj.Cast.CAST;
+import static org.openCage.generj.Dot.DOT;
+import static org.openCage.generj.NameExpr.NAME;
+import static org.openCage.generj.Typ.TYP;
+
 public class Stjx {
 
     public static void main(String[] args) {
@@ -48,11 +46,14 @@ public class Stjx {
                 complex( "Licence" );
 
 //        stjx.struct("Foo").map("props").of("ArtifactRef", "Artifact" );
-        stjx.struct("Foo").keyVal("props", "ref", "Artifact" );
+//        stjx.struct("Foo").keyVal("props", "ref", "Artifact" );
         stjx.struct("OO").or("Alti").with( "ArtifactRef", "Artifact" );
 
+        stjx.struct( "CCC").withContent();
+
+//        System.out.println( stjx.toToXML( "org.openCage.foo" ));
         System.out.println( stjx.toFromXML( "org.openCage.foo" ));
-        
+
 //        for ( Complex cop : stjx.structs.values() ) {
 //            if ( cop instanceof Struct ) {
 //                System.out.println( (((Struct) cop).toJava("org.doo")).toString());
@@ -68,11 +69,11 @@ public class Stjx {
         FileUtils.ensurePath( FSPathBuilder.getPath( baseDir ).add( "src", "main", "java" ).addPackage(packag ).add( "foo" ));
 
         {
-            File outFile = FSPathBuilder.getPath( baseDir ).add( "src", "main", "java" ).addPackage(packag ).add( "FromXML.java").toFile();
+            File outFile = FSPathBuilder.getPath( baseDir ).add( "src", "main", "java" ).addPackage(packag ).add( name+ "FromXML.java").toFile();
             FileWriter out = null;
             try {
                 out = new FileWriter(outFile);
-                out.write( "package " + packag + ";\n" + toJava() );
+                out.write( /*"package " + packag + ";\n" +*/ toFromXML( packag ) );
                 out.close();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -81,14 +82,16 @@ public class Stjx {
 
         {
             for ( Complex cop : structs.values() ) {
-                if ( cop.getType().startsWith( "List")) {
-                    // ignore
-                } else {
+
+                Object tojava = cop.toJava( packag );
+
+                if ( tojava != null ) {
+
                     File outFile = FSPathBuilder.getPath( baseDir ).add( "src", "main", "java" ).addPackage(packag ).add( cop.getName() + ".java").toFile();
                     FileWriter out = null;
                     try {
                         out = new FileWriter(outFile);
-                        out.write( "package " + packag + ";\n" + cop.toJava() );
+                        out.write( /*"package " + packag + ";\n" +*/ tojava.toString() );
                         out.close();
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -99,7 +102,7 @@ public class Stjx {
         }
 
         {
-            FSPath path = FSPathBuilder.getPath( baseDir ).add( "src", "main", "java" ).addPackage(packag ).add( "ToXML.java" );
+            FSPath path = FSPathBuilder.getPath( baseDir ).add( "src", "main", "java" ).addPackage(packag ).add( name + "ToXML.java" );
             FileUtils.ensurePath( path );
             File outFile = path.toFile();
             FileWriter out = null;
@@ -131,7 +134,7 @@ public class Stjx {
 
     private String toToXML( String pack) {
 
-        Clazz clazz = new Clazz( pack, Typ.s("ToXML") );
+        Clazz clazz = new Clazz( pack, TYP( name + "ToXML") );
 
         clazz.imprt( "java.util.List");
 //        import java.util.ArrayList;
@@ -167,16 +170,19 @@ public class Stjx {
                     publc().sttic().clazz( Typ.of("ListHelper", Typ.s("T"))).
                         privt().fild( Typ.of("List",Typ.s("T")), "list").c().
                         publc().cnstr().arg( Typ.of("List",Typ.s("T")), "list").body().
-                            assign("this.list", Exp.n("list")).r().c().
-                        publc().method( "add").arg( Typ.s("T"), "elem ").body().
-                            call( "list.add", Exp.n("elem")).r().c().r().
+                            assign( DOT( NAME("this"), NAME("list")), NAME("list")).r().c().
+                        publc().method( "add").arg( TYP("T"), "elem ").body().
+                            call( DOT( NAME( "list"), NAME("add")), NAME("elem")).r().c().r().
                     privt().fild( Typ.s("Stack"), "stack").init( new NewExpr( Typ.s("Stack"))).
                     privt().fild( Typ.s("Object"), "goal").c().
+
                     publc().override().method( "startDocument").thrws( Typ.s("SAXException")).body().
-                        call( "stack.clear").r().c().
+                        call( DOT( NAME( "stack"), NAME("clear"))).r().c().
+
                     publc().override().method( "endDocument").thrws( Typ.s("SAXException")).body().r().c().
-                    publc().method( Typ.s(name), "getGoal").body().
-                        retrn( Exp.n("gaol")).r().c()
+
+                    publc().method( TYP(name), "getGoal").body().
+                        retrn( CAST( TYP(name), NAME("goal"))).r().c()
                   ;
 
         Block start = clazz.publc().override().method( "startElement").thrws( Typ.s("SAXException")).
@@ -193,6 +199,13 @@ public class Stjx {
         for ( Complex complex : structs.values() ) {
             complex.toFromXMLStart(start);
         }
+
+        start.thrwIllegalArgument( Exp.bi( "+", Exp.s("unknown tag "), Exp.n( "qName" )));
+
+        for ( Complex complex : structs.values() ) {
+            complex.toFromXMLEnd(end);
+        }
+
 
         return clazz.toString();
     }

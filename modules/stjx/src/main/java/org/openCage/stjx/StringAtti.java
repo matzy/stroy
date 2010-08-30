@@ -8,6 +8,13 @@ import org.openCage.generj.IfExpr;
 import org.openCage.generj.Typ;
 import org.openCage.lang.Strings;
 
+import static org.openCage.generj.Call.CALL;
+import static org.openCage.generj.Dot.DOT;
+import static org.openCage.generj.NameExpr.NAME;
+import static org.openCage.generj.NameExpr.SETTER;
+import static org.openCage.generj.Str.STR;
+import static org.openCage.generj.Typ.TYP;
+
 /**
  * Created by IntelliJ IDEA.
  * User: stephan
@@ -38,14 +45,16 @@ public class StringAtti implements Atti {
 
     @Override public void toJavaProperty(Clazz clazz) {
         clazz.property( Typ.string, Strings.toFirstLower(name));
+//        clazz.property( TYP( name ), Strings.toFirstLower(name));
     }
 
     @Override
     public void toFromXMLStart(Block block, String varName) {
 
-        IfExpr ite = block.ifNotNull( new Call( "attributes.getValue", Exp.s(name) ));
+        IfExpr ite = block.ifNotNull( CALL( DOT( NAME("attributes"), NAME( "getValue")), STR(name) ));
 
-        ite.thn().call( "elem.set" + Strings.toFirstUpper(name ), new Call( "attributes.getValue", Exp.s(name) ));
+        ite.thn().call( DOT( NAME("elem"), SETTER(name)),
+                        CALL( DOT( NAME("attributes"), NAME( "getValue")), STR(name) ));
 
         if( !optional ) {
             ite.els().thrw( Typ.s("IllegalArgumentException"), varName + ": attribute " + name + " is required"  );

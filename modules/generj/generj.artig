@@ -3,6 +3,7 @@
         <Artifact name="generj"
                 groupId="openCage"
                 version="0.1"
+                description="fluent java source code generation"
                 licence="MPL1.1">
             <Java min="6"/>
             <authors>

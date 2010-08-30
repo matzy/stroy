@@ -3,6 +3,7 @@
         <Artifact name="osashosa"
                 groupId="openCage"
                 version="0.2"
+                description="tiny dropin replacement for guice 2.0"
                 licence="MPL1.1">
             <Java min="6"/>
             <authors>
@@ -10,14 +11,11 @@
             </authors>
             <Address page="http://stroy.wikidot.com/osashosa" shrt="wikidot.com" />
             <DropInFor>
-                <ArtifactRef groupId="com.google.inject" name="guice" scope="compile" />
+                <ArtifactRef name="guice" />
             </DropInFor>
 
             <depends>
-                <!--<ArtifactRef groupId="com.intellij" name="annotations" version="7.0.3" scope="compile"/>-->
-                <!--<ArtifactRef groupId="net.jcip" name="jcip-annotations" version="1.0" scope="compile"/>-->
-                <ArtifactRef groupId="junit" name="junit" scope="test" />
-                <!--<ArtifactRef groupId="commons-lang" name="commons-lang" scope="test" />-->
+                <ArtifactRef name="junit" scope="test" />
             </depends>
         </Artifact>
     </Module>

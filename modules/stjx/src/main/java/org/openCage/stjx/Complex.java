@@ -8,6 +8,7 @@ public interface Complex {
     String getType();
 
     String toJava();
+    Object toJava( String pack );
 
     String toJavaDecl();
 
@@ -28,4 +29,6 @@ public interface Complex {
     void toJavaProperty(Clazz clazz);
 
     void toFromXMLStart(Block start);
+
+    void toFromXMLEnd(Block end);
 }

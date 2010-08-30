@@ -4,6 +4,7 @@
                 groupId="openCage"
                 version="0.10"
                 licence="MPL1.1"
+                description="A simple encrypting texteditor using one-time pads"
                 support="openCage@gmail.com">
             <Java min="6"/>
             <authors>

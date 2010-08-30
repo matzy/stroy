@@ -72,12 +72,14 @@ public class ModuleDescription {
         stjx.struct( "References").list( "references" ).of("Artifact");
 
         stjx.struct( "DropInFor" ).complex("ArtifactRef");
+        stjx.struct( "FullDescription" );
 
         stjx.struct( "Artifact" ).list( "depends" ).of( "ArtifactRef" ).
                 string( "groupId" ).
                 string( "name" ).
                 string( "version" ).
                 string( "licence" ).
+                string( "description" ).
                 optional().string( "support" ).
                 list( "authors" ).of( "Author" ).
                 list( "contributors" ).of( "Author" ).
@@ -86,7 +88,8 @@ public class ModuleDescription {
                 list( "languages").of( "Language" ).
                 optional().complex( "Java").
                 list( "refs" ).of( "ArtifactRef" ).
-                optional().complex( "DropInFor" );
+                optional().complex( "DropInFor" ).
+                optional().complex( "FullDescription");
 
         System.out.println( getProjectBase( ModuleDescription.class ) );
 

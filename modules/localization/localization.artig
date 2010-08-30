@@ -3,21 +3,18 @@
         <Artifact name="openCage-localization"
                 groupId="openCage"
                 version="0.0.3"
+                description="localization support"
                 licence="MPL1.1">
             <Java min="6"/>
             <authors>
                 <Author name="Stephan Pfab" email="openCage@gmail.com"/>
             </authors>
             <Address page="http://stroy.wikidot.com" shrt="wikidot.com" />
-            <!--<Email email="openCage@gmail.com"/> support-->
 
             <depends>
-                <ArtifactRef groupId="junit" name="junit" scope="test" />
-                <ArtifactRef groupId="openCage" name="openCage-lang" scope="compile" />
-                <ArtifactRef groupId="openCage" name="openCage-property" scope="compile" />
-                <!--<ArtifactRef groupId="openCage" name="openCage-io" scope="compile" />-->
-                <!--<ArtifactRef groupId="args4j" name="args4j" scope="compile" />-->
-                <!--<ArtifactRef groupId="com.intellij" name="annotations" scope="compile" />-->
+                <ArtifactRef name="junit" scope="test" />
+                <ArtifactRef name="openCage-lang" scope="compile" />
+                <ArtifactRef name="openCage-property" scope="compile" />
             </depends>
         </Artifact>
     </Module>

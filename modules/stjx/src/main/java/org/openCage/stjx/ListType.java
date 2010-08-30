@@ -5,13 +5,16 @@ import org.openCage.lang.Strings;
 
 import java.util.List;
 
-/**
- * Created by IntelliJ IDEA.
- * User: stephan
- * Date: Aug 8, 2010
- * Time: 2:37:39 AM
- * To change this template use File | Settings | File Templates.
- */
+import static org.openCage.generj.BinOp.INSTANCEOF;
+import static org.openCage.generj.BinOp.PLUS;
+import static org.openCage.generj.Call.CALL;
+import static org.openCage.generj.Cast.CAST;
+import static org.openCage.generj.Dot.DOT;
+import static org.openCage.generj.NameExpr.GETTER;
+import static org.openCage.generj.NameExpr.NAME;
+import static org.openCage.generj.Str.STR;
+import static org.openCage.generj.Typ.TYP;
+
 public class ListType implements Complex {
     private Struct struct;
     private String name;
@@ -35,6 +38,7 @@ public class ListType implements Complex {
         return "";
     }
 
+
     public String toJavaDecl() {
         return "   private List<" + of + ">  " + name + " = new ArrayList<" + of + ">();\n" +
 //            "   public  void add" + Strings.toFirstUpper( name ) + "( " + of + " " + Strings.toFirstLower(of) + ") {\n" +
@@ -45,6 +49,43 @@ public class ListType implements Complex {
                 "   }\n"+
                 "";
 
+    }
+
+    @Override
+    public Object toJava(String pack) {
+        return null;
+    }
+
+
+    @Override
+    public void toFromXMLStart(Block start) {
+
+        Block thn = start.iff( CALL( DOT( NAME( "qName" ), NAME("equals")), STR(name) )).thn();
+
+        thn.iff( CALL( DOT( NAME("stack"), NAME("empty")))).thn().
+                thrwIllegalArgument( STR( name + ": needs to be in complex type"));
+
+        thn.fild( TYP("Object"), "peek").init( CALL( DOT( NAME("stack"), NAME("peek"))));
+
+        List<Complex> users = struct.getZeug().getUsers( name );
+        for ( Complex comp : users ) {
+
+            thn.iff( INSTANCEOF( NAME("peek"), TYP(comp.getName()))).thn().
+                    call( DOT( NAME("stack"), NAME("push")),
+                            CALL( DOT( CAST( TYP(comp.getName()), NAME("peek")),
+                                       GETTER( name ))));
+
+
+
+//            ret +=         "\n" +
+//                    "              if ( peek instanceof "+ comp.getName() +" ) {\n" +
+//                    "                  stack.push( new ListHelper<"+ of +">( (("+ comp.getName() +")peek).get" + Strings.toFirstUpper( name )+ "() ));\n" +
+//                    "                  return;\n" +
+//                    "              }\n";
+//
+
+        }
+        thn.thrwIllegalArgument( PLUS( STR( name + " is not a member of " ), CALL( DOT( NAME("peek"), NAME("getClass")))));
     }
 
     public String toSAXStart() {
@@ -92,6 +133,12 @@ public class ListType implements Complex {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
+    @Override
+    public void toFromXMLEnd(Block end) {
+        end.iff( CALL( DOT( NAME( "qName" ), NAME("equals")), STR(name) )).thn().
+            assign( NAME("goal"), CALL( DOT( NAME("stack"), NAME("pop"))));
+    }
+
     public String toSAXEnd() {
         return "           if ( qName.equals( \"" + name + "\" ) ) {\n" +
                 "               goal = stack.pop();\n" +
@@ -110,19 +157,20 @@ public class ListType implements Complex {
 
         mesod.body().
                 fild( Typ.string, "ret").init( NameExpr.n("prefix") ).
-                assignPlus( "ret", Exp.s("<" + name + ">\\n"));
+                assignPlus( NAME("ret"), Exp.s("<" + name + ">\\n"));
 
         mesod.body().fr( Typ.s(of), "vr",  Exp.n( name )).body().
-                assignPlus( "ret", Call.c( "toString" + of,
+                assignPlus( NAME("ret"), CALL( NAME("toString" + of),
                         Exp.bi("+", Exp.n("prefix"), Exp.s("   ")),
                         Exp.n("vr")) );
 
 
 
-        mesod.body().assignPlus( "ret", Exp.bi( "+", Exp.n("prefix"), Exp.s( "</"+name+">\\n" ) ));
+        mesod.body().assignPlus( NAME("ret"), Exp.bi( "+", Exp.n("prefix"), Exp.s( "</"+name+">\\n" ) ));
 
-        mesod.body().retrn( Exp.n("ret "));
+        mesod.body().retrn( NAME("ret "));
     }
+
 
     @Override
     public void toJavaProperty(Clazz clazz) {
@@ -130,8 +178,5 @@ public class ListType implements Complex {
 
     }
 
-    @Override
-    public void toFromXMLStart(Block start) {
-        //To change body of implemented methods use File | Settings | File Templates.
-    }
+
 }

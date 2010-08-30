@@ -3,6 +3,7 @@
         <Artifact name="openCage-property"
                 groupId="openCage"
                 version="0.3"
+                description="properties of any type"
                 licence="MPL1.1">
             <Java min="6"/>
             <authors>
@@ -12,13 +13,13 @@
             <!--<Email email="openCage@gmail.com"/> support-->
 
             <depends>
-                <ArtifactRef groupId="com.google.inject" name="guice" scope="compile" />
-                <ArtifactRef groupId="junit" name="junit" scope="test" />
-                <ArtifactRef groupId="openCage" name="openCage-lang" scope="compile" />
-                <ArtifactRef groupId="openCage" name="openCage-appstd" scope="compile" />
-                <ArtifactRef groupId="openCage" name="artig-lib" scope="compile" />
-                <ArtifactRef groupId="com.thoughtworks.xstream" name="xstream" scope="compile" />
-                <ArtifactRef groupId="commons-io" name="commons-io" scope="compile" />
+                <ArtifactRef name="guice" scope="compile" />
+                <ArtifactRef name="junit" scope="test" />
+                <ArtifactRef name="openCage-lang" scope="compile" />
+                <ArtifactRef name="openCage-appstd" scope="compile" />
+                <ArtifactRef name="artig-lib" scope="compile" />
+                <ArtifactRef name="xstream" scope="compile" />
+                <ArtifactRef name="commons-io" scope="compile" />
 
             </depends>
         </Artifact>

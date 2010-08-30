@@ -1,11 +1,33 @@
 package org.openCage.stjx;
 
-import org.openCage.generj.*;
+import org.openCage.generj.BinOp;
+import org.openCage.generj.Block;
+import org.openCage.generj.Call;
+import org.openCage.generj.Cast;
+import org.openCage.generj.Clazz;
+import org.openCage.generj.Exp;
+import org.openCage.generj.Mesod;
+import org.openCage.generj.NameExpr;
+import org.openCage.generj.NewExpr;
+import org.openCage.generj.Str;
+import org.openCage.generj.Typ;
 import org.openCage.lang.Strings;
 import org.openCage.lang.functions.F1;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.openCage.generj.BinOp.INSTANCEOF;
+import static org.openCage.generj.Call.CALL;
+import static org.openCage.generj.Cast.CAST;
+import static org.openCage.generj.Dot.DOT;
+import static org.openCage.generj.NameExpr.GETTER;
+import static org.openCage.generj.NameExpr.NAME;
+import static org.openCage.generj.NameExpr.SETTER;
+import static org.openCage.generj.Str.STR;
+import static org.openCage.generj.Typ.TYP;
+import static org.openCage.generj.Typ.TYPOF;
+import static org.openCage.generj.UnOp.NOT;
 
 public class Struct implements Complex {
     private Stjx stjx;
@@ -13,6 +35,7 @@ public class Struct implements Complex {
     private List<Atti> attis = new ArrayList<Atti>();
     private List<Ref> complexs = new ArrayList<Ref>();
     private String interf;
+    private boolean content;
 
     public Struct(Stjx stjx, String name) {
         this.stjx = stjx;
@@ -29,20 +52,20 @@ public class Struct implements Complex {
         return this;
     }
 
-    public Struct keyVal(String mapName, String key, String complex) {
-        KeyVal ll = new KeyVal( mapName, key, complex );
-        stjx.structs.put( name, ll );
-        complexs.add( Ref.optional( name ));
-        return this;
-    }
-
-    public MapType map(String name) {
-        check( name );
-        MapType ll = new MapType( this, name );
-        stjx.structs.put( name, ll );
-        complexs.add( Ref.optional( name ));
-        return ll;
-    }
+//    public Struct keyVal(String mapName, String key, String complex) {
+//        KeyVal ll = new KeyVal( mapName, key, complex );
+//        stjx.structs.put( name, ll );
+//        complexs.add( Ref.optional( name ));
+//        return this;
+//    }
+//
+//    public MapType map(String name) {
+//        check( name );
+//        MapType ll = new MapType( this, name );
+//        stjx.structs.put( name, ll );
+//        complexs.add( Ref.optional( name ));
+//        return ll;
+//    }
 
     public ListType list(String name) {
 
@@ -79,8 +102,8 @@ public class Struct implements Complex {
         return name;
     }
 
-    public Clazz toJava( String pack ) {
-        Clazz clazz = new Clazz( pack, Typ.s(name) );
+    public Object toJava( String pack ) {
+        Clazz clazz = new Clazz( pack, TYP(name) );
 
         clazz.imprt( "java.util.ArrayList" );
         clazz.imprt( "java.util.List" );
@@ -112,7 +135,7 @@ public class Struct implements Complex {
 
     @Override
     public void toJavaProperty(Clazz clazz) {
-        clazz.property( Typ.string, Strings.toFirstLower(name));
+        clazz.property( TYP(name), Strings.toFirstLower(name));
     }
 
 
@@ -164,7 +187,7 @@ public class Struct implements Complex {
 
     @Override
     public void toFromXMLStart(Block start) {
-        Block thn = start.iff( new Call( "qName.equals", Exp.s(name) )).thn();
+        Block thn = start.iff( CALL( DOT( NAME( "qName" ), NAME("equals")), STR(name) )).thn();
 
         thn.fild( Typ.s(name), "elem" ).init( new NewExpr( Typ.s(name)));
 
@@ -172,7 +195,51 @@ public class Struct implements Complex {
             atti.toFromXMLStart( thn, name );
         }
 
+        String className = name;
+        if ( interf != null ) {
+            className = interf;
+        }
+
+        List<Complex> hasme = stjx.getUsers( className );
+
+        if ( !hasme.isEmpty()) {
+
+            Block inner = thn.iff( NOT( CALL( DOT( NAME( "stack"), NAME("empty"))))).thn();
+
+            inner.fild( TYP("Object"), "peek").init( CALL( DOT( NAME( "stack"), NAME("peek"))));
+
+            boolean list = false;
+            for ( Complex complex : hasme ) {
+
+                if ( complex instanceof ListType) {
+                    list = true;
+                } else {
+
+                    String typeName = complex.getName();
+
+                    inner.iff( INSTANCEOF( NAME("peek"), TYP(typeName))).
+                            thn().
+                                call( DOT( CAST( TYP(typeName), NAME("peek")),
+                                           SETTER( className )),
+                                      NAME("elem"));
+                }
+            }
+
+            if ( list ) {
+                inner.iff( INSTANCEOF( NAME("peek"), TYP("ListHelper"))).
+                        thn().
+                        call( DOT( CAST( TYPOF("ListHelper", TYP(className)), NAME("peek")),
+                                   NAME( "add" /*+ className*/ )),
+                              NAME("elem"));
+            }
+
+
+            
+        }
+
+        thn.retrn();
     }
+
 
     public String toSAXStart() {
         String ret = "           if ( qName.equals(\"" + name + "\" )) {\n" +
@@ -277,6 +344,28 @@ public class Struct implements Complex {
         this.interf = name;
     }
 
+
+    @Override
+    public void toFromXMLEnd(Block end) {
+        Block thn = end.iff( CALL( DOT( NAME("qName"), NAME( "equals")), STR(name) )).thn();
+
+        thn.assign( NAME("goal"), CALL( DOT( NAME( "stack" ), NAME( "pop"))));
+
+        for ( Ref ref : complexs ) {
+            if ( !ref.isOptional() ) {
+                thn.ifNotNull( CALL( DOT( CAST( TYP(name), NAME("goal")),
+                                        GETTER( ref.getName() )))).thn().
+                        thrwIllegalArgument( STR( name + ": required member " + ref.getName() + " not set"));
+
+//                ret += "               if ( (("+name+")goal).get"+ Strings.toFirstUpper(ref.getName() )+"() == null ){\n" +
+//                       "                  throw new IllegalArgumentException(\""+ name +" required member "+ ref.getName() +" not set \");\n" +
+//                       "               }\n";
+            }
+        }
+
+    }
+
+
     public String toSAXEnd() {
 
         String ret = "           if ( qName.equals( \"" + name + "\" ) ) {\n" +
@@ -303,14 +392,14 @@ public class Struct implements Complex {
         mesod.arg( Typ.string, "prefix" ).arg( Typ.s(name), lower ).
                 body().
                     fild( Typ.string, "ret").init( NameExpr.n("prefix") ).
-                    assignPlus( "ret", new Str("<" + name + " "));
+                    assignPlus( NAME("ret"), new Str("<" + name + " "));
 
         for ( Atti atti : attis ) {
 
             Call getAtti = getter( lower, atti.getName() );
 
             mesod.body().iff( Exp.bi( "!=", getAtti, Exp.n("null"))).
-                    thn().assignPlus( "ret",
+                    thn().assignPlus( NAME("ret"),
                             new BinOp( "+",
                                     new Str( atti.getName() + "=\\\""),
                                     new BinOp( "+",
@@ -318,24 +407,28 @@ public class Struct implements Complex {
                                             Str.s("\\\" "))));
         }
 
-        if ( complexs.isEmpty() ) {
-            mesod.body().assignPlus( "ret", new Str("/>\\n"));            
+        if ( complexs.isEmpty() && !content ) {
+            mesod.body().assignPlus( NAME("ret"), STR("/>\\n"));
         } else {
-            mesod.body().assignPlus( "ret", new Str(">\\n"));
+            mesod.body().assignPlus( NAME("ret"), STR(">\\n"));
 
             for ( Ref ref : this.complexs ) {
                 mesod.body().iff( Exp.bi( "!=", getter( lower, ref.getName()), Exp.n("null"))).
-                        thn().assignPlus( "ret", Call.c( "toString" + ref.getName(), Exp.bi("+", Exp.n("prefix"), Str.s("   ")), getter( lower, ref.getName())) );
+                        thn().assignPlus( NAME("ret"), CALL( NAME("toString" + ref.getName()), Exp.bi("+", Exp.n("prefix"), Str.s("   ")), getter( lower, ref.getName())) );
             }
 
-            mesod.body().assignPlus( "ret", Exp.bi( "+", Exp.n("prefix"), Str.s( "</" + name + ">\\n")));
+            if ( content ) {
+                mesod.body().assignPlus( NAME("ret"), getter( lower, "content") );
+            }
+
+            mesod.body().assignPlus( NAME("ret"), Exp.bi( "+", Exp.n("prefix"), Str.s( "</" + name + ">\\n")));
         }
 
         mesod.body().retrn( Exp.n("ret "));
     }
 
     public static Call getter( String obj, String name ) {
-        return Call.c( Strings.toFirstLower( obj ) + ".get" + Strings.toFirstUpper( name ));
+        return CALL( DOT( NAME( Strings.toFirstLower( obj )), GETTER(name)));
     }
 
     public Stjx getZeug() {
@@ -350,4 +443,8 @@ public class Struct implements Complex {
         return complexs;
     }
 
+    public Struct withContent() {
+        this.content = true;
+        return this;
+    }
 }

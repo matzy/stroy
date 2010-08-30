@@ -3,6 +3,7 @@
         <Artifact name="stjx"
                 groupId="openCage"
                 version="0.1"
+                description="fluent javas bean with easy readable XML representation"
                 licence="MPL1.1">
             <Java min="6"/>
             <authors>
