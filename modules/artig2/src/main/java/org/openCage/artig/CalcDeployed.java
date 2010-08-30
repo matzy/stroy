@@ -2,11 +2,11 @@ package org.openCage.artig;
 
 import org.openCage.artig.stjx.Artifact;
 import org.openCage.artig.stjx.ArtifactDescription;
+import org.openCage.artig.stjx.ArtifactDescriptionToXML;
 import org.openCage.artig.stjx.ArtifactRef;
 import org.openCage.artig.stjx.Deployed;
 import org.openCage.artig.stjx.Licence;
 import org.openCage.artig.stjx.ModuleRef;
-import org.openCage.artig.stjx.ToXML;
 import org.openCage.io.FileUtils;
 import org.openCage.io.IOUtils;
 import org.openCage.io.fspath.FSPath;
@@ -88,7 +88,7 @@ public class CalcDeployed {
                 descr.setKind( calc( mod ) );
                 descr.setVersion("0.1");    // TODO
 
-                writer.write(ToXML.toStringArtifactDescription("", descr ));
+                writer.write( ArtifactDescriptionToXML.toStringArtifactDescription("", descr ));
 
             } catch (IOException e) {
                 throw Unchecked.wrap( e );

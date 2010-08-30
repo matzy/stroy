@@ -105,24 +105,6 @@ public class Artig {
             return;
         }
 
-        if ( true ) {
-            System.exit(0);
-        }
-
-
-
-        int i = 0;
-
-//        Artig artig = new Artig( FSPathBuilder.getPath("/Users/stephan/projects/stroy-7/" ));
-        //Artig artig = new Artig( FSPathBuilder.getPath("/Users/stephan/Documents/prs/stroy-10/" ));
-
-
-
-//        for ( Module mod : artig.modules ) {
-//            System.out.println( MavenGen.getModulePom( artig, mod.getArtifact()));
-//        }
-//
-//        System.out.println( MavenGen.getProjectPom( artig.project ));
 
     }
 
@@ -328,6 +310,9 @@ public class Artig {
         }
         catch( ParserConfigurationException pce ) {
             pce.printStackTrace();
+        } catch ( IllegalArgumentException exp ) {
+            System.err.println("Problem parsing " + path );
+            exp.printStackTrace();
         }
 
         return (ArtifactDescription)from.getGoal();

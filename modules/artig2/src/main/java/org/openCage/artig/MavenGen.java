@@ -126,7 +126,7 @@ public class MavenGen {
         }
 
         String dep = "      <dependency>\n";
-        dep += "         " + leaf( "groupId", arti.getGroupId()  ) + "\n";
+        dep += "         " + leaf( "groupId", artifact.getGroupId()  ) + "\n";
         dep += "         " + leaf( "artifactId", arti.getName()) + "\n";
         dep += "         " + leaf( "version", artifact.getVersion()  ) + "\n";
 
