@@ -50,7 +50,7 @@ public class Modi {
 
 
     public Modi sttic() {
-        mod += "static ";
+        mod += " static ";
         return this;
     }
 
