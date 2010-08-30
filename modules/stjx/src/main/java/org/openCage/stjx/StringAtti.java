@@ -31,10 +31,6 @@ public class StringAtti implements Atti {
         this.optional = optional;
     }
 
-    public String getType() {
-        return "String";
-    }
-
     public String getName() {
         return name;
     }

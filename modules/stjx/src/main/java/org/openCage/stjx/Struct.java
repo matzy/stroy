@@ -47,6 +47,17 @@ public class Struct implements Complex {
         return this;
     }
 
+    public Struct locale(String name) {
+        attis.add( LocaleAtti.required( name ));
+        return this;
+    }
+
+    public Struct integer(String s) {
+        attis.add( IntAtti.required( name ));
+        return this;
+    }
+
+
     public Struct complex(String name) {
         complexs.add( Ref.required(name) );
         return this;
@@ -447,4 +458,5 @@ public class Struct implements Complex {
         this.content = true;
         return this;
     }
+
 }

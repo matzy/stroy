@@ -9,10 +9,7 @@ import org.openCage.lang.Strings;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.openCage.generj.Cast.CAST;
 import static org.openCage.generj.Dot.DOT;
@@ -22,37 +19,42 @@ import static org.openCage.generj.Typ.TYP;
 public class Stjx {
 
     public static void main(String[] args) {
-        Stjx stjx = new Stjx("Artifact");
+//        Stjx stjx = new Stjx("Artifact");
 
-        stjx.struct( "ArtifactRef" ).
-                string( "groupId" ).
-                string( "name" ).
-                string( "scope" );
+//        stjx.struct( "ArtifactRef" ).
+//                string( "groupId" ).
+//                string( "name" ).
+//                string( "scope" );
+//
+//        stjx.struct( "Author" ).
+//                string("name").
+//                optional().string( "email" );
+//
+//        stjx.struct( "Module" ).string( "mod" );
+//        stjx.struct( "Extern" ).string( "ext");
+//        stjx.struct( "Licence" ).string( "name");
+//
+//        stjx.struct( "Artifact" ).list( "depends" ).of( "ArtifactRef" ).
+//                string( "groupId" ).
+//                string( "name" ).
+//                string( "version" ).
+//                list( "authors" ).of( "Author" ).
+//                or( "Application" ).with( "Module", "Extern" ).
+//                complex( "Licence" );
+//
+////        stjx.struct("Foo").map("props").of("ArtifactRef", "Artifact" );
+////        stjx.struct("Foo").keyVal("props", "ref", "Artifact" );
+//        stjx.struct("OO").or("Alti").with( "ArtifactRef", "Artifact" );
+//
+//        stjx.struct( "CCC").withContent();
 
-        stjx.struct( "Author" ).
-                string("name").
-                optional().string( "email" );
+        Stjx stjx = new Stjx("Loc");
 
-        stjx.struct( "Module" ).string( "mod" );
-        stjx.struct( "Extern" ).string( "ext");
-        stjx.struct( "Licence" ).string( "name");
 
-        stjx.struct( "Artifact" ).list( "depends" ).of( "ArtifactRef" ).
-                string( "groupId" ).
-                string( "name" ).
-                string( "version" ).
-                list( "authors" ).of( "Author" ).
-                or( "Application" ).with( "Module", "Extern" ).
-                complex( "Licence" );
+        stjx.struct("Loc").locale( "theLocal" );
 
-//        stjx.struct("Foo").map("props").of("ArtifactRef", "Artifact" );
-//        stjx.struct("Foo").keyVal("props", "ref", "Artifact" );
-        stjx.struct("OO").or("Alti").with( "ArtifactRef", "Artifact" );
-
-        stjx.struct( "CCC").withContent();
-
-//        System.out.println( stjx.toToXML( "org.openCage.foo" ));
-        System.out.println( stjx.toFromXML( "org.openCage.foo" ));
+        System.out.println( stjx.toToXML( "org.openCage.foo" ));
+//        System.out.println( stjx.toFromXML( "org.openCage.foo" ));
 
 //        for ( Complex cop : stjx.structs.values() ) {
 //            if ( cop instanceof Struct ) {
@@ -62,6 +64,10 @@ public class Stjx {
 //                System.out.println( (((OrType) cop).toJava("org.doo0000000000")).toString());
 //            }
 //        }
+
+        Locale loc = new Locale( "German");
+
+        System.out.println( loc );
     }
 
     public void generate( String baseDir, String packag ) {
@@ -166,6 +172,8 @@ public class Stjx {
                 imprt( "java.util.List" ).
                 imprt( "java.util.Map" ).
                 imprt( "java.util.Stack" ).
+                imprt( "java.util.Locale" ).
+
                 extnds( Typ.s("DefaultHandler") ).
                     publc().sttic().clazz( Typ.of("ListHelper", Typ.s("T"))).
                         privt().fild( Typ.of("List",Typ.s("T")), "list").c().
@@ -173,7 +181,9 @@ public class Stjx {
                             assign( DOT( NAME("this"), NAME("list")), NAME("list")).r().c().
                         publc().method( "add").arg( TYP("T"), "elem ").body().
                             call( DOT( NAME( "list"), NAME("add")), NAME("elem")).r().c().r().
+
                     privt().fild( Typ.s("Stack"), "stack").init( new NewExpr( Typ.s("Stack"))).
+                
                     privt().fild( Typ.s("Object"), "goal").c().
 
                     publc().override().method( "startDocument").thrws( Typ.s("SAXException")).body().

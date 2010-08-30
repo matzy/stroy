@@ -11,8 +11,7 @@ import org.openCage.generj.Clazz;
 * To change this template use File | Settings | File Templates.
 */
 public interface Atti {
- String getType();
-
+ 
  String getName();
 
  String toJava();
