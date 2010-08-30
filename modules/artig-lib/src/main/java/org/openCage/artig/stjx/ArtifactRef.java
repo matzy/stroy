@@ -1,35 +1,35 @@
 package org.openCage.artig.stjx;
+
 import java.util.ArrayList;
 import java.util.List;
 public class ArtifactRef {
    private String groupId;
-   public String getGroupId() {
+   private String name;
+   private String version;
+   private String scope;
+   public String getGroupId(  ){
       return groupId;
    }
-   public void setGroupId( String groupId ) {
+   public void setGroupId( String groupId ){
       this.groupId = groupId;
    }
-   private String name;
-   public String getName() {
+   public String getName(  ){
       return name;
    }
-   public void setName( String name ) {
+   public void setName( String name ){
       this.name = name;
    }
-   private String version;
-   public String getVersion() {
+   public String getVersion(  ){
       return version;
    }
-   public void setVersion( String version ) {
+   public void setVersion( String version ){
       this.version = version;
    }
-   private String scope;
-   public String getScope() {
+   public String getScope(  ){
       return scope;
    }
-   public void setScope( String scope ) {
+   public void setScope( String scope ){
       this.scope = scope;
    }
-    public String toString() {
-       return "ArtifactRef(groupId: " + getGroupId() +" name: " + getName() +" version: " + getVersion() +" scope: " + getScope() +" )";    }
+
 }

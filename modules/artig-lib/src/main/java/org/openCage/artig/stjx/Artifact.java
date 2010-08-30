@@ -1,83 +1,112 @@
 package org.openCage.artig.stjx;
+
 import java.util.ArrayList;
 import java.util.List;
 public class Artifact {
    private String groupId;
-   public String getGroupId() {
+   private String name;
+   private String version;
+   private String licence;
+   private String description;
+   private String support;
+   private List<ArtifactRef> depends = new ArrayList<ArtifactRef>( );
+   private List<Author> authors = new ArrayList<Author>( );
+   private List<Author> contributors = new ArrayList<Author>( );
+   private Address address;
+   private List<Language> languages = new ArrayList<Language>( );
+   private Java java;
+   private List<ArtifactRef> refs = new ArrayList<ArtifactRef>( );
+   private DropInFor dropInFor;
+   private FullDescription fullDescription;
+   public String getGroupId(  ){
       return groupId;
    }
-   public void setGroupId( String groupId ) {
+   public void setGroupId( String groupId ){
       this.groupId = groupId;
    }
-   private String name;
-   public String getName() {
+   public String getName(  ){
       return name;
    }
-   public void setName( String name ) {
+   public void setName( String name ){
       this.name = name;
    }
-   private String version;
-   public String getVersion() {
+   public String getVersion(  ){
       return version;
    }
-   public void setVersion( String version ) {
+   public void setVersion( String version ){
       this.version = version;
    }
-   private String licence;
-   public String getLicence() {
+   public String getLicence(  ){
       return licence;
    }
-   public void setLicence( String licence ) {
+   public void setLicence( String licence ){
       this.licence = licence;
    }
-   private String support;
-   public String getSupport() {
+   public String getDescription(  ){
+      return description;
+   }
+   public void setDescription( String description ){
+      this.description = description;
+   }
+   public String getSupport(  ){
       return support;
    }
-   public void setSupport( String support ) {
+   public void setSupport( String support ){
       this.support = support;
    }
-   private List<ArtifactRef>  depends = new ArrayList<ArtifactRef>();
-   public List<ArtifactRef> getDepends() {
+   public List<ArtifactRef> getDepends(  ){
       return depends;
    }
-   private List<Author>  authors = new ArrayList<Author>();
-   public List<Author> getAuthors() {
+   public void setDepends( List<ArtifactRef> depends ){
+      this.depends = depends;
+   }
+   public List<Author> getAuthors(  ){
       return authors;
    }
-   private List<Author>  contributors = new ArrayList<Author>();
-   public List<Author> getContributors() {
+   public void setAuthors( List<Author> authors ){
+      this.authors = authors;
+   }
+   public List<Author> getContributors(  ){
       return contributors;
    }
-   private Address address;
-   public Address getAddress() {
+   public void setContributors( List<Author> contributors ){
+      this.contributors = contributors;
+   }
+   public Address getAddress(  ){
       return address;
    }
-   public void setAddress( Address address ) {
+   public void setAddress( Address address ){
       this.address = address;
    }
-   private List<Language>  languages = new ArrayList<Language>();
-   public List<Language> getLanguages() {
+   public List<Language> getLanguages(  ){
       return languages;
    }
-   private Java java;
-   public Java getJava() {
+   public void setLanguages( List<Language> languages ){
+      this.languages = languages;
+   }
+   public Java getJava(  ){
       return java;
    }
-   public void setJava( Java java ) {
+   public void setJava( Java java ){
       this.java = java;
    }
-   private List<ArtifactRef>  refs = new ArrayList<ArtifactRef>();
-   public List<ArtifactRef> getRefs() {
+   public List<ArtifactRef> getRefs(  ){
       return refs;
    }
-   private DropInFor dropInFor;
-   public DropInFor getDropInFor() {
+   public void setRefs( List<ArtifactRef> refs ){
+      this.refs = refs;
+   }
+   public DropInFor getDropInFor(  ){
       return dropInFor;
    }
-   public void setDropInFor( DropInFor dropInFor ) {
+   public void setDropInFor( DropInFor dropInFor ){
       this.dropInFor = dropInFor;
    }
-    public String toString() {
-       return "Artifact(groupId: " + getGroupId() +" name: " + getName() +" version: " + getVersion() +" licence: " + getLicence() +" support: " + getSupport() +" dependsauthorscontributorsAddresslanguagesJavarefsDropInFor)";    }
+   public FullDescription getFullDescription(  ){
+      return fullDescription;
+   }
+   public void setFullDescription( FullDescription fullDescription ){
+      this.fullDescription = fullDescription;
+   }
+
 }

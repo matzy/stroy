@@ -1,37 +1,49 @@
 package org.openCage.artig.stjx;
+
 import java.util.ArrayList;
 import java.util.List;
-public class Project implements Kind  {
+public class Project implements Kind {
    private String name;
-   public String getName() {
+   private String groupId;
+   private List<ModuleRef> modules = new ArrayList<ModuleRef>( );
+   private List<Artifact> externals = new ArrayList<Artifact>( );
+   private List<Licence> licences = new ArrayList<Licence>( );
+   private List<ArtifactRef> dropIns = new ArrayList<ArtifactRef>( );
+   public String getName(  ){
       return name;
    }
-   public void setName( String name ) {
+   public void setName( String name ){
       this.name = name;
    }
-   private String groupId;
-   public String getGroupId() {
+   public String getGroupId(  ){
       return groupId;
    }
-   public void setGroupId( String groupId ) {
+   public void setGroupId( String groupId ){
       this.groupId = groupId;
    }
-   private List<ModuleRef>  modules = new ArrayList<ModuleRef>();
-   public List<ModuleRef> getModules() {
+   public List<ModuleRef> getModules(  ){
       return modules;
    }
-   private List<Artifact>  externals = new ArrayList<Artifact>();
-   public List<Artifact> getExternals() {
+   public void setModules( List<ModuleRef> modules ){
+      this.modules = modules;
+   }
+   public List<Artifact> getExternals(  ){
       return externals;
    }
-   private List<Licence>  licences = new ArrayList<Licence>();
-   public List<Licence> getLicences() {
+   public void setExternals( List<Artifact> externals ){
+      this.externals = externals;
+   }
+   public List<Licence> getLicences(  ){
       return licences;
    }
-   private List<ArtifactRef>  dropIns = new ArrayList<ArtifactRef>();
-   public List<ArtifactRef> getDropIns() {
+   public void setLicences( List<Licence> licences ){
+      this.licences = licences;
+   }
+   public List<ArtifactRef> getDropIns(  ){
       return dropIns;
    }
-    public String toString() {
-       return "Project(name: " + getName() +" groupId: " + getGroupId() +" modulesexternalslicencesdropIns)";    }
+   public void setDropIns( List<ArtifactRef> dropIns ){
+      this.dropIns = dropIns;
+   }
+
 }
