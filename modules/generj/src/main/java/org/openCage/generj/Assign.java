@@ -2,16 +2,16 @@ package org.openCage.generj;
 
 public class Assign implements Statement {
     private Expr expr;
-    private String var;
+    private Callble var;
     private boolean plus;
 
-    public Assign( String var, Expr expr) {
+    public Assign( Callble var, Expr expr) {
         this.var = var;
         this.expr = expr;
     }
 
     public String toString() {
-        return var + (plus ? " +" : " " ) + "= " + expr.toString();
+        return var + (plus ? " +" : " " ) + "= " + expr.toString() + ";";
     }
 
     public Assign plus() {

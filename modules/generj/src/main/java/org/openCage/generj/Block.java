@@ -17,18 +17,23 @@ public class Block<T> implements Statement {
         return fld;
     }
 
-    public Block<T> assign(String var, Expr str) {
+    public Block<T> assign(Callble var, Expr str) {
         statements.add( new Assign(var,str));
         return this;
     }
 
-    public Block<T> assignPlus(String var, Expr expr) {
+    public Block<T> assignPlus(Callble var, Expr expr) {
         statements.add( new Assign(var,expr).plus());
         return this;
     }
 
     public Block<T> retrn( Expr expr ) {
         statements.add( new Return(expr));
+        return this;
+    }
+
+    public Block<T> retrn( ) {
+        statements.add( new Return());
         return this;
     }
 
@@ -61,7 +66,7 @@ public class Block<T> implements Statement {
         }
 
         for ( Statement st : statements ) {
-            ret += st.toString( prefix + "   ") + ";\n";
+            ret += st.toString( prefix + "   ") + (st instanceof Expr ? ";" : "" ) + "\n";
         }
         ret += prefix + "}";
 
@@ -73,7 +78,12 @@ public class Block<T> implements Statement {
         return this;
     }
 
-    public Block<T> call( String name, Expr ... exprs ) {
+    public Block<T> thrwIllegalArgument( Expr expr ) {
+        statements.add( new UnOp( "throw", new Cnstr( Typ.s("IllegalArgumentException"), expr )));
+        return this;
+    }
+
+    public Block<T> call( Callble name, Expr ... exprs ) {
         statements.add( new Call( name, exprs ));
         return this;
     }

@@ -1,6 +1,6 @@
 package org.openCage.generj;
 
-public class Cast implements Expr{
+public class Cast implements Expr { 
     private Typ typ;
     private Expr expr;
 
@@ -9,7 +9,7 @@ public class Cast implements Expr{
         this.expr = expr;
     }
 
-    public static Cast c( Typ typ, Expr expr) {
+    public static Cast CAST( Typ typ, Expr expr) {
         return new Cast( typ,expr);
     }
 

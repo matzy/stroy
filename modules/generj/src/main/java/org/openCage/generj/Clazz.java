@@ -8,6 +8,9 @@ import org.openCage.lang.functions.F1;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.openCage.generj.Dot.DOT;
+import static org.openCage.generj.NameExpr.NAME;
+
 public class Clazz {
     Typ name;
     private String packag;
@@ -59,7 +62,7 @@ public class Clazz {
         }
 
         for ( Fild fld : filds ) {
-            ret += fld.toString( prefix + "   ") + ";\n";
+            ret += fld.toString( prefix + "   ") + "\n";
         }
 
         for ( Mesod mesod : mesods ) {
@@ -106,16 +109,16 @@ public class Clazz {
     public Clazz property(Typ typ, String name) {
         String upper = Strings.toFirstUpper( name );
         privt().fild(typ, name );
-        publc().method( "get" + upper ).body().retrn( Exp.n(name));
-        publc().method( typ, "set" + upper ).arg( typ, name ).body().assign( "this." + name, Exp.n(name));
+        publc().method( typ, "get" + upper ).body().retrn( Exp.n(name));
+        publc().method( "set" + upper ).arg( typ, name ).body().assign( DOT( NAME( "this"), NAME( name )), NAME(name));
         return this;
     }
 
     public Clazz property(Typ typ, String name, Expr init ) {
         String upper = Strings.toFirstUpper( name );
         privt().fild(typ, name ).init( init );
-        publc().method( "get" + upper ).body().retrn( Exp.n(name));
-        publc().method( typ, "set" + upper ).arg( typ, name ).body().assign( "this." + name, Exp.n(name));
+        publc().method( typ, "get" + upper ).body().retrn( Exp.n(name));
+        publc().method( "set" + upper ).arg( typ, name ).body().assign( DOT( NAME( "this"), NAME( name )), NAME(name));
         return this;
     }
 }

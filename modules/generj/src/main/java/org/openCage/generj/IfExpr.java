@@ -1,9 +1,6 @@
 package org.openCage.generj;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class IfExpr<T> implements Statement {
     private Expr cond;
     private T base;

@@ -15,8 +15,15 @@ public class Return implements Statement{
         this.expr = expr;
     }
 
+    public Return() {
+    }
+
     public String toString() {
-        return "return " + expr.toString();
+        if ( expr == null ) {
+            return "return;";
+        }
+        
+        return "return " + expr.toString() + ";";
     }
 
     @Override

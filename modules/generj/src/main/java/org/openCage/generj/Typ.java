@@ -27,11 +27,19 @@ public class Typ {
         return new Typ( name );
     }
 
+    public static Typ TYP( String name ) {
+        return new Typ( name );
+    }
+
     public static Typ array( String name ) {
         return new Typ( name + " ...");
     }
 
     public static Typ of( String name, Typ of ) {
+        return new Typ( name, of );
+    }
+
+    public static Typ TYPOF( String name, Typ of ) {
         return new Typ( name, of );
     }
 
@@ -46,5 +54,6 @@ public class Typ {
     public String getName() {
         return name;
     }
+
 
 }

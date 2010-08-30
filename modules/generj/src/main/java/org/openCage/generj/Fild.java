@@ -25,6 +25,8 @@ public class Fild<T> implements Statement {
             ret += " = " + init;
         }
 
+        ret += ";";
+
         return ret;
     }
 

@@ -20,4 +20,14 @@ public class BinOp implements Expr {
     @Override public String toString(String prefix) {
         return prefix + toString();
     }
+
+    public static BinOp INSTANCEOF( Expr expr, Typ typ ) {
+        return new BinOp( "instanceof", expr, Exp.n(typ.getName()) ); // TODO hack 
+    }
+
+    public static BinOp PLUS( Expr left, Expr right ) {
+        return new BinOp( "+", left, right );
+    }
+
+
 }

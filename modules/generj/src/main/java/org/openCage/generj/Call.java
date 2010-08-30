@@ -7,19 +7,23 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Call implements Expr {
-    private String name;
+    private Callble name;
     private List<Expr> args = new ArrayList<Expr>();
 
-    public Call( String name, Expr ... args ) {
+    public Call( Callble name, Expr ... args ) {
         this.name = name;
         this.args.addAll( Arrays.asList( args ));
     }
 
     public String toString() {
+        if ( args.isEmpty() ) {
+            return name + "()";
+        }
+        
         return name + "( " + Strings.join( args ) + " )";
     }
 
-    public static Call c( String name, Expr ... args ) {
+    public static Call CALL( Callble name, Expr ... args ) {
         return new Call( name, args );
     }
 

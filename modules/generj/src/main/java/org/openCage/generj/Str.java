@@ -20,4 +20,8 @@ public class Str implements Expr {
     public String toString(String prefix) {
         return prefix + toString();
     }
+
+    public static Str STR( String str ) {
+        return new Str( str );
+    }
 }
