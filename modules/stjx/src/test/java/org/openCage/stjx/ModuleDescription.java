@@ -47,7 +47,7 @@ public class ModuleDescription {
                 string( "name" );
 
         stjx.struct( "ArtifactRef" ).
-                string( "groupId" ).
+                optional().string( "groupId" ).
                 string( "name" ).
                 optional().string( "version" ). // TODO ?
                 optional().string( "scope" );
