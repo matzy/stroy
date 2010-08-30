@@ -7,7 +7,7 @@
 
    <!-- ================================================================== -->
    <target name="depend.appstd"
-           depends="depend.lang, depend.io, depend.artig-lib, guice">
+           depends="depend.lang, depend.io, depend.artig-lib, depend.osashosa">
       <ant dir="${dependencies.basedir}/modules/appstd" target="local.goal" inheritAll="false"/>
    </target>
 
@@ -25,13 +25,13 @@
 
    <!-- ================================================================== -->
    <target name="depend.fausterize"
-           depends="args4j, commons-io, guice, RSyntaxTextArea, mime-util, depend.appstd, depend.lang, depend.io, depend.ui, depend.localization, depend.property">
+           depends="args4j, commons-io, depend.osashosa, RSyntaxTextArea, mime-util, depend.appstd, depend.lang, depend.io, depend.ui, depend.localization, depend.property">
       <ant dir="${dependencies.basedir}/modules/fausterize" target="local.goal" inheritAll="false"/>
    </target>
 
    <!-- ================================================================== -->
    <target name="depend.generj"
-           depends="depend.lang">
+           depends="depend.lang, depend.io">
       <ant dir="${dependencies.basedir}/modules/generj" target="local.goal" inheritAll="false"/>
    </target>
 
@@ -61,7 +61,7 @@
 
    <!-- ================================================================== -->
    <target name="depend.property"
-           depends="guice, depend.lang, depend.appstd, depend.artig-lib, xstream, commons-io">
+           depends="depend.osashosa, depend.lang, depend.appstd, depend.artig-lib, xstream, commons-io">
       <ant dir="${dependencies.basedir}/modules/property" target="local.goal" inheritAll="false"/>
    </target>
 
@@ -73,7 +73,7 @@
 
    <!-- ================================================================== -->
    <target name="depend.ui"
-           depends="guice, designgridlayout, json, Sys, RSyntaxTextArea, binding, forms, preferencepanel, macwidgets, depend.lang, depend.localization, depend.io">
+           depends="depend.osashosa, designgridlayout, json, Sys, RSyntaxTextArea, binding, forms, preferencepanel, macwidgets, depend.lang, depend.localization, depend.io">
       <ant dir="${dependencies.basedir}/modules/ui" target="local.goal" inheritAll="false"/>
    </target>
 

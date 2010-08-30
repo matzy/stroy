@@ -3,13 +3,13 @@
         <Artifact name="openCage-appstd"
                 groupId="openCage"
                 version="0.1"
+                description="standard bindings for applications using guide/osashosa"
                 licence="MPL1.1">
             <Java min="6"/>
             <authors>
                 <Author name="Stephan Pfab" email="openCage@gmail.com"/>
             </authors>
             <Address page="http://stroy.wikidot.com" shrt="wikidot.com" />
-            <!--<Email email="openCage@gmail.com"/> support-->
 
             <depends>
                 <ArtifactRef groupId="junit" name="junit" scope="test" />

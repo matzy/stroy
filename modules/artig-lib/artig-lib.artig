@@ -3,6 +3,7 @@
         <Artifact name="artig-lib"
                 groupId="openCage"
                 version="0.2"
+                description="project description classes. Needed for artig and others"
                 licence="MPL1.1">
             <Java min="6"/>
             <authors>
@@ -14,9 +15,6 @@
             <depends>
                 <ArtifactRef groupId="junit" name="junit" scope="test" />
                 <ArtifactRef groupId="openCage" name="openCage-lang" scope="compile" />
-                <!--<ArtifactRef groupId="openCage" name="openCage-io" scope="compile" />-->
-                <!--<ArtifactRef groupId="args4j" name="args4j" scope="compile" />-->
-                <!--<ArtifactRef groupId="com.intellij" name="annotations" scope="compile" />-->
             </depends>
         </Artifact>
     </Module>
