@@ -2,8 +2,7 @@ package org.openCage.artig.stjx;
 
 import java.util.List;
 public class ToXML {
-
-   public static String toStringlicences( String prefix, List<Licence> licences ){
+   public static  String toStringlicences( String prefix, List<Licence> licences ){
       if( licences.isEmpty() ){
          return "";
       };
@@ -15,7 +14,7 @@ public class ToXML {
       ret += prefix + "</licences>\n";
       return ret ;
    }
-   public static String toStringdropIns( String prefix, List<ArtifactRef> dropIns ){
+   public static  String toStringdropIns( String prefix, List<ArtifactRef> dropIns ){
       if( dropIns.isEmpty() ){
          return "";
       };
@@ -27,7 +26,7 @@ public class ToXML {
       ret += prefix + "</dropIns>\n";
       return ret ;
    }
-   public static String toStringAuthor( String prefix, Author author ){
+   public static  String toStringAuthor( String prefix, Author author ){
       String ret = prefix;
       ret += "<Author ";
       if( author.getName(  ) != null ){
@@ -39,7 +38,7 @@ public class ToXML {
       ret += "/>\n";
       return ret ;
    }
-   public static String toStringLicence( String prefix, Licence licence ){
+   public static  String toStringLicence( String prefix, Licence licence ){
       String ret = prefix;
       ret += "<Licence ";
       if( licence.getName(  ) != null ){
@@ -61,7 +60,7 @@ public class ToXML {
       ret += prefix + "</Licence>\n";
       return ret ;
    }
-   public static String toStringnegatives( String prefix, List<LicenceRef> negatives ){
+   public static  String toStringnegatives( String prefix, List<LicenceRef> negatives ){
       if( negatives.isEmpty() ){
          return "";
       };
@@ -73,7 +72,7 @@ public class ToXML {
       ret += prefix + "</negatives>\n";
       return ret ;
    }
-   public static String toStringexternals( String prefix, List<Artifact> externals ){
+   public static  String toStringexternals( String prefix, List<Artifact> externals ){
       if( externals.isEmpty() ){
          return "";
       };
@@ -85,7 +84,7 @@ public class ToXML {
       ret += prefix + "</externals>\n";
       return ret ;
    }
-   public static String toStringModule( String prefix, Module module ){
+   public static  String toStringModule( String prefix, Module module ){
       String ret = prefix;
       ret += "<Module ";
       ret += ">\n";
@@ -98,7 +97,7 @@ public class ToXML {
       ret += prefix + "</Module>\n";
       return ret ;
    }
-   public static String toStringJava( String prefix, Java java ){
+   public static  String toStringJava( String prefix, Java java ){
       String ret = prefix;
       ret += "<Java ";
       if( java.getMin(  ) != null ){
@@ -110,7 +109,7 @@ public class ToXML {
       ret += "/>\n";
       return ret ;
    }
-   public static String toStringKind( String prefix, Kind kind ){
+   public static  String toStringKind( String prefix, Kind kind ){
       if( kind instanceof Module ){
          return toStringModule( prefix, ((Module)kind) );
       };
@@ -122,7 +121,7 @@ public class ToXML {
       };
       throw new IllegalStateException( "no a valid suptype of Kind" );
    }
-   public static String toStringpositives( String prefix, List<LicenceRef> positives ){
+   public static  String toStringpositives( String prefix, List<LicenceRef> positives ){
       if( positives.isEmpty() ){
          return "";
       };
@@ -134,7 +133,7 @@ public class ToXML {
       ret += prefix + "</positives>\n";
       return ret ;
    }
-   public static String toStringlanguages( String prefix, List<Language> languages ){
+   public static  String toStringlanguages( String prefix, List<Language> languages ){
       if( languages.isEmpty() ){
          return "";
       };
@@ -146,7 +145,7 @@ public class ToXML {
       ret += prefix + "</languages>\n";
       return ret ;
    }
-   public static String toStringauthors( String prefix, List<Author> authors ){
+   public static  String toStringauthors( String prefix, List<Author> authors ){
       if( authors.isEmpty() ){
          return "";
       };
@@ -158,7 +157,7 @@ public class ToXML {
       ret += prefix + "</authors>\n";
       return ret ;
    }
-   public static String toStringModuleRef( String prefix, ModuleRef moduleRef ){
+   public static  String toStringModuleRef( String prefix, ModuleRef moduleRef ){
       String ret = prefix;
       ret += "<ModuleRef ";
       if( moduleRef.getName(  ) != null ){
@@ -167,7 +166,7 @@ public class ToXML {
       ret += "/>\n";
       return ret ;
    }
-   public static String toStringreferences( String prefix, List<Artifact> references ){
+   public static  String toStringreferences( String prefix, List<Artifact> references ){
       if( references.isEmpty() ){
          return "";
       };
@@ -179,7 +178,7 @@ public class ToXML {
       ret += prefix + "</references>\n";
       return ret ;
    }
-   public static String toStringDropInFor( String prefix, DropInFor dropInFor ){
+   public static  String toStringDropInFor( String prefix, DropInFor dropInFor ){
       String ret = prefix;
       ret += "<DropInFor ";
       ret += ">\n";
@@ -189,7 +188,7 @@ public class ToXML {
       ret += prefix + "</DropInFor>\n";
       return ret ;
    }
-   public static String toStringLicenceRef( String prefix, LicenceRef licenceRef ){
+   public static  String toStringLicenceRef( String prefix, LicenceRef licenceRef ){
       String ret = prefix;
       ret += "<LicenceRef ";
       if( licenceRef.getName(  ) != null ){
@@ -198,7 +197,7 @@ public class ToXML {
       ret += "/>\n";
       return ret ;
    }
-   public static String toStringArtifactDescription( String prefix, ArtifactDescription artifactDescription ){
+   public static  String toStringArtifactDescription( String prefix, ArtifactDescription artifactDescription ){
       String ret = prefix;
       ret += "<ArtifactDescription ";
       if( artifactDescription.getVersion(  ) != null ){
@@ -211,7 +210,7 @@ public class ToXML {
       ret += prefix + "</ArtifactDescription>\n";
       return ret ;
    }
-   public static String toStringdependencies( String prefix, List<Artifact> dependencies ){
+   public static  String toStringdependencies( String prefix, List<Artifact> dependencies ){
       if( dependencies.isEmpty() ){
          return "";
       };
@@ -223,7 +222,7 @@ public class ToXML {
       ret += prefix + "</dependencies>\n";
       return ret ;
    }
-   public static String toStringReferences( String prefix, References references ){
+   public static  String toStringReferences( String prefix, References references ){
       String ret = prefix;
       ret += "<References ";
       ret += ">\n";
@@ -233,7 +232,7 @@ public class ToXML {
       ret += prefix + "</References>\n";
       return ret ;
    }
-   public static String toStringProject( String prefix, Project project ){
+   public static  String toStringProject( String prefix, Project project ){
       String ret = prefix;
       ret += "<Project ";
       if( project.getName(  ) != null ){
@@ -258,7 +257,7 @@ public class ToXML {
       ret += prefix + "</Project>\n";
       return ret ;
    }
-   public static String toStringdepends( String prefix, List<ArtifactRef> depends ){
+   public static  String toStringdepends( String prefix, List<ArtifactRef> depends ){
       if( depends.isEmpty() ){
          return "";
       };
@@ -270,7 +269,7 @@ public class ToXML {
       ret += prefix + "</depends>\n";
       return ret ;
    }
-   public static String toStringDownload( String prefix, Download download ){
+   public static  String toStringDownload( String prefix, Download download ){
       String ret = prefix;
       ret += "<Download ";
       if( download.getScreenshot(  ) != null ){
@@ -285,7 +284,7 @@ public class ToXML {
       ret += "/>\n";
       return ret ;
    }
-   public static String toStringcontributors( String prefix, List<Author> contributors ){
+   public static  String toStringcontributors( String prefix, List<Author> contributors ){
       if( contributors.isEmpty() ){
          return "";
       };
@@ -297,7 +296,7 @@ public class ToXML {
       ret += prefix + "</contributors>\n";
       return ret ;
    }
-   public static String toStringDeployed( String prefix, Deployed deployed ){
+   public static  String toStringDeployed( String prefix, Deployed deployed ){
       String ret = prefix;
       ret += "<Deployed ";
       if( deployed.getIcon(  ) != null ){
@@ -316,7 +315,7 @@ public class ToXML {
       ret += prefix + "</Deployed>\n";
       return ret ;
    }
-   public static String toStringArtifactRef( String prefix, ArtifactRef artifactRef ){
+   public static  String toStringArtifactRef( String prefix, ArtifactRef artifactRef ){
       String ret = prefix;
       ret += "<ArtifactRef ";
       if( artifactRef.getGroupId(  ) != null ){
@@ -334,7 +333,7 @@ public class ToXML {
       ret += "/>\n";
       return ret ;
    }
-   public static String toStringArtifact( String prefix, Artifact artifact ){
+   public static  String toStringArtifact( String prefix, Artifact artifact ){
       String ret = prefix;
       ret += "<Artifact ";
       if( artifact.getGroupId(  ) != null ){
@@ -380,7 +379,7 @@ public class ToXML {
       ret += prefix + "</Artifact>\n";
       return ret ;
    }
-   public static String toStringApp( String prefix, App app ){
+   public static  String toStringApp( String prefix, App app ){
       String ret = prefix;
       ret += "<App ";
       if( app.getMainClass(  ) != null ){
@@ -396,7 +395,7 @@ public class ToXML {
       ret += prefix + "</App>\n";
       return ret ;
    }
-   public static String toStringrefs( String prefix, List<ArtifactRef> refs ){
+   public static  String toStringrefs( String prefix, List<ArtifactRef> refs ){
       if( refs.isEmpty() ){
          return "";
       };
@@ -408,7 +407,7 @@ public class ToXML {
       ret += prefix + "</refs>\n";
       return ret ;
    }
-   public static String toStringAddress( String prefix, Address address ){
+   public static  String toStringAddress( String prefix, Address address ){
       String ret = prefix;
       ret += "<Address ";
       if( address.getPage(  ) != null ){
@@ -420,7 +419,7 @@ public class ToXML {
       ret += "/>\n";
       return ret ;
    }
-   public static String toStringLanguage( String prefix, Language language ){
+   public static  String toStringLanguage( String prefix, Language language ){
       String ret = prefix;
       ret += "<Language ";
       if( language.getName(  ) != null ){
@@ -429,7 +428,7 @@ public class ToXML {
       ret += "/>\n";
       return ret ;
    }
-   public static String toStringmodules( String prefix, List<ModuleRef> modules ){
+   public static  String toStringmodules( String prefix, List<ModuleRef> modules ){
       if( modules.isEmpty() ){
          return "";
       };
@@ -441,4 +440,5 @@ public class ToXML {
       ret += prefix + "</modules>\n";
       return ret ;
    }
+
 }

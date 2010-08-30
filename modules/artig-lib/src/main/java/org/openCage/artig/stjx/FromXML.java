@@ -415,9 +415,6 @@ import java.util.Stack;
                if ( groupId != null ) {
                   elem.setGroupId( groupId);
                } 
-               else {
-                  throw new IllegalArgumentException( "ArtifactRef" + " attribute groupId is required" );
-               }
                String name = attributes.getValue( "name" );
                if ( name != null ) {
                   elem.setName( name);
