@@ -5,10 +5,10 @@ import java.util.List;
 public class Project implements Kind {
    private String name;
    private String groupId;
-   private List<ModuleRef> modules = new ArrayList<ModuleRef>( );
-   private List<Artifact> externals = new ArrayList<Artifact>( );
-   private List<Licence> licences = new ArrayList<Licence>( );
-   private List<ArtifactRef> dropIns = new ArrayList<ArtifactRef>( );
+   private List<ModuleRef> modules = new ArrayList<ModuleRef>();
+   private List<Artifact> externals = new ArrayList<Artifact>();
+   private List<Licence> licences = new ArrayList<Licence>();
+   private List<ArtifactRef> dropIns = new ArrayList<ArtifactRef>();
    public String getName(  ){
       return name;
    }

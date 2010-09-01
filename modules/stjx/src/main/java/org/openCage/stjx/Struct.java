@@ -237,16 +237,15 @@ public class Struct implements Complex {
             }
 
             if ( list ) {
-                inner.iff( INSTANCEOF( NAME("peek"), TYP("ListHelper"))).
+                inner.iff( INSTANCEOF( NAME("peek"), TYP("List"))).
                         thn().
-                        call( DOT( CAST( TYPOF("ListHelper", TYP(className)), NAME("peek")),
+                        call( DOT( CAST( TYPOF("List", TYP(className)), NAME("peek")),
                                    NAME( "add" /*+ className*/ )),
                               NAME("elem"));
             }
-
-
-            
         }
+
+        thn.call( DOT(NAME("stack"), NAME("push")), NAME( "elem" ));
 
         thn.retrn();
     }
@@ -364,7 +363,7 @@ public class Struct implements Complex {
 
         for ( Ref ref : complexs ) {
             if ( !ref.isOptional() ) {
-                thn.ifNotNull( CALL( DOT( CAST( TYP(name), NAME("goal")),
+                thn.ifNull( CALL( DOT( CAST( TYP(name), NAME("goal")),
                                         GETTER( ref.getName() )))).thn().
                         thrwIllegalArgument( STR( name + ": required member " + ref.getName() + " not set"));
 

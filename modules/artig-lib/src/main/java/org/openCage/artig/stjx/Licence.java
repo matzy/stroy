@@ -6,8 +6,8 @@ public class Licence {
    private String name;
    private String version;
    private Address address;
-   private List<LicenceRef> positives = new ArrayList<LicenceRef>( );
-   private List<LicenceRef> negatives = new ArrayList<LicenceRef>( );
+   private List<LicenceRef> positives = new ArrayList<LicenceRef>();
+   private List<LicenceRef> negatives = new ArrayList<LicenceRef>();
    public String getName(  ){
       return name;
    }

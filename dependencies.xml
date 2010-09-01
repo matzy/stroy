@@ -54,8 +54,7 @@
    </target>
 
    <!-- ================================================================== -->
-   <target name="depend.osashosa"
-           depends="">
+   <target name="depend.osashosa">
       <ant dir="${dependencies.basedir}/modules/osashosa" target="local.goal" inheritAll="false"/>
    </target>
 
@@ -109,12 +108,11 @@
 
    <!-- ================================================================== -->
    <target name="commons-lang">
-      <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/repo/commons-lang/commons-lang/2.4/commons-lang-2.4.jar" />
+      <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/repo/commons-lang/commons-lang/2.5/commons-lang-2.5.jar" />
    </target>
 
    <!-- ================================================================== -->
-   <target name="designgridlayout"
-           depends="">
+   <target name="designgridlayout">
       <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/repo/net/java/dev/designgridlayout/designgridlayout/0.9/designgridlayout-0.9.jar" />
    </target>
 
@@ -141,7 +139,7 @@
 
    <!-- ================================================================== -->
    <target name="junit">
-      <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/repo/junit/junit/4.4/junit-4.4.jar" />
+      <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/repo/junit/junit/4.8.1/junit-4.8.1.jar" />
    </target>
 
    <!-- ================================================================== -->

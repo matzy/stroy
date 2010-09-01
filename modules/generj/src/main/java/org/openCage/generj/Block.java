@@ -2,6 +2,8 @@ package org.openCage.generj;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.openCage.generj.NameExpr.NULL;
+
 public class Block<T> implements Statement {
 
     private List<Statement> statements = new ArrayList<Statement>();
@@ -45,7 +47,13 @@ public class Block<T> implements Statement {
     }
 
     public IfExpr ifNotNull(Expr expr) {
-        IfExpr<Block<T>> ex = new IfExpr<Block<T>>( this, Exp.bi( "!=", expr, Exp.n("null")) );
+        IfExpr<Block<T>> ex = new IfExpr<Block<T>>( this, Exp.bi( "!=", expr, NULL) );
+        statements.add( ex );
+        return ex;
+    }
+
+    public IfExpr ifNull(Expr expr) {
+        IfExpr<Block<T>> ex = new IfExpr<Block<T>>( this, Exp.bi( "==", expr, NULL ) );
         statements.add( ex );
         return ex;
     }

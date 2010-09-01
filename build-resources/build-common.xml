@@ -41,6 +41,7 @@
     <!-- <property name="el.url.screenshot" /> -->
     <property name="el.version" value="0.0.1"/>
     <property name="el.webpage" value="http://404" />
+    <property name="el.module.name" value="${ant.project.name}"/>
 
     <property name="app.name" value="${ant.project.name}"/>
     <property name="app.signature" value="${ant.project.name}"/>
@@ -54,14 +55,14 @@
     <!-- ====== local properties ========== -->
 
     <property name="l.helpbook"      value="${l.module}/src/build/helpbook"/>
-    <property name="l.module"        value="${dependencies.basedir}/modules/${ant.project.name}"/>
-    <property name="classes"         value="${dependencies.basedir}/build/classes/${ant.project.name}"/>
-    <property name="objc-classes"    value="${dependencies.basedir}/build/objc-classes/${ant.project.name}"/>
+    <property name="l.module"        value="${dependencies.basedir}/modules/${el.module.name}"/>
+    <property name="classes"         value="${dependencies.basedir}/build/classes/${el.module.name}"/>
+    <property name="objc-classes"    value="${dependencies.basedir}/build/objc-classes/${el.module.name}"/>
     <property name="libs"            value="${dependencies.basedir}/build/libs"/>
     <property name="objc-libs"       value="${dependencies.basedir}/build/objc-libs"/>
-    <property name="collect-jars"    value="${dependencies.basedir}/build/collect-jars/${ant.project.name}"/>
-    <property name="resources"       value="${dependencies.basedir}/build/resources/${ant.project.name}"/>
-    <property name="deploy"          value="${dependencies.basedir}/build/deploy/${ant.project.name}"/>
+    <property name="collect-jars"    value="${dependencies.basedir}/build/collect-jars/${el.module.name}"/>
+    <property name="resources"       value="${dependencies.basedir}/build/resources/${el.module.name}"/>
+    <property name="deploy"          value="${dependencies.basedir}/build/deploy/${el.module.name}"/>
     <property name="l.src.java"             value="${l.module}/${el.src.java}"/>
     <property name="srcres"          value="${l.module}/${el.src.resources}"/>
     <!--<property name="l.helpbook"     value="${module}/${app.helpbook}"/>-->

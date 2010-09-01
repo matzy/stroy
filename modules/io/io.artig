@@ -3,6 +3,7 @@
         <Artifact name="openCage-io"
                 groupId="openCage"
                 version="0.2"
+                description="java io utils with xplatform in mind"
                 licence="MPL1.1">
             <Java min="6"/>
             <authors>

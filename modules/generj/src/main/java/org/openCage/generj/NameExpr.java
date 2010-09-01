@@ -34,4 +34,7 @@ public class NameExpr implements Callble {
     public static NameExpr GETTER( String name ) {
         return new NameExpr( "get" + Strings.toFirstUpper( name ));
     }
+
+    public static NameExpr NULL = new NameExpr( "null" );
+
 }

@@ -1,8 +1,8 @@
 package org.openCage.artig;
 
 import org.openCage.artig.stjx.ArtifactDescription;
+import org.openCage.artig.stjx.ArtifactDescriptionFromXML;
 import org.openCage.artig.stjx.Deployed;
-import org.openCage.artig.stjx.FromXML;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -32,7 +32,7 @@ public class GetDeployed {
             throw new IllegalStateException("this module/jar does not have a deployed.artig file, i.e. not a artig project");
         }
 
-        FromXML from = new FromXML();
+        ArtifactDescriptionFromXML from = new ArtifactDescriptionFromXML();
 
         // create factory
         SAXParserFactory factory = SAXParserFactory.newInstance();

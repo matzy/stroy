@@ -97,6 +97,13 @@ public class ElephantsGen {
         ret += antProperty( "el.email", arti.getSupport()) + "\n";
         ret += antProperty( "el.java.version", arti.getJava().getMin()) + "\n";
 
+        String modName = artig.getModuleName( mod );
+
+        if ( !modName.equals( mod.getArtifact().getName() )) {
+            ret += antProperty( "el.module.name", modName ) + "\n";
+        }
+
+
         List<String> names = new ArrayList<String>();
         for ( Author author : arti.getAuthors() ) {
             names.add( author.getName());

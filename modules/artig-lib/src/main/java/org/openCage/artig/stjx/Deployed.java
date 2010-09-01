@@ -5,8 +5,8 @@ import java.util.List;
 public class Deployed implements Kind {
    private String icon;
    private Artifact artifact;
-   private List<Artifact> dependencies = new ArrayList<Artifact>( );
-   private List<Licence> licences = new ArrayList<Licence>( );
+   private List<Artifact> dependencies = new ArrayList<Artifact>();
+   private List<Licence> licences = new ArrayList<Licence>();
    public String getIcon(  ){
       return icon;
    }

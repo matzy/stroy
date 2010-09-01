@@ -13,6 +13,7 @@
    <property name = "el.webpage"       value="http://stroy.wikidot.com" />
    <property name = "el.email"       value="null" />
    <property name = "el.java.version"       value="6" />
+   <property name = "el.module.name"       value="property" />
    <property name = "el.author"       value="Stephan Pfab" />
    <property name = "el.author.first"       value="Stephan" />
    <property name = "el.author.last"       value="Pfab" />

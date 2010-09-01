@@ -51,11 +51,15 @@ public class Strings {
 
             StringBuffer buf = new StringBuffer( prefix );
 
+            boolean one = false;
+
             for ( T str : list ) {
 
                 if ( filter != null && filter.call( str )) {
                     continue;
                 }
+
+                one = true;
 
                 if ( comma ) {
                     buf.append( sep );
@@ -68,6 +72,10 @@ public class Strings {
                     buf.append( trans.call( str ));
                 }
 
+            }
+
+            if ( !one ) {
+                return "";
             }
 
             return buf.toString() + postfix;

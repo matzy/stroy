@@ -1,6 +1,6 @@
 <ArtifactDescription version="0.1" >
    <Deployed >
-      <Artifact groupId="openCage" name="artig-lib" version="0.2" licence="MPL1.1" >
+      <Artifact groupId="openCage" name="artig-lib" version="0.2" licence="MPL1.1" description="project description classes. Needed for artig and others" >
          <depends>
             <ArtifactRef groupId="junit" name="junit" scope="test" />
             <ArtifactRef groupId="openCage" name="openCage-lang" scope="compile" />
@@ -12,10 +12,10 @@
          <Java min="6" />
       </Artifact>
       <dependencies>
-         <Artifact groupId="junit" name="junit" version="4.4" licence="CPL" >
+         <Artifact groupId="junit" name="junit" version="4.8.1" licence="CPL" description="the unit test lib" >
             <Address page="http://www.junit.org" shrt="junit.org" />
          </Artifact>
-         <Artifact groupId="openCage" name="openCage-lang" version="0.4" licence="MPL1.1" >
+         <Artifact groupId="openCage" name="openCage-lang" version="0.4" licence="MPL1.1" description="simple java utilities" >
             <depends>
                <ArtifactRef groupId="com.intellij" name="annotations" version="7.0.3" scope="compile" />
                <ArtifactRef groupId="net.jcip" name="jcip-annotations" version="1.0" scope="compile" />
@@ -28,13 +28,13 @@
             <Address page="http://stroy.wikidot.com" shrt="wikidot.com" />
             <Java min="6" />
          </Artifact>
-         <Artifact groupId="com.intellij" name="annotations" version="7.0.3" licence="Apache2" >
+         <Artifact groupId="com.intellij" name="annotations" version="7.0.3" licence="Apache2" description="Nullable annotations (bundled with Idea CE)" >
             <Address page="http://www.jetbrains.com/index.html" shrt="jetbrains.com" />
          </Artifact>
-         <Artifact groupId="net.jcip" name="jcip-annotations" version="1.0" licence="Creative Commons" >
+         <Artifact groupId="net.jcip" name="jcip-annotations" version="1.0" licence="Creative Commons" description="annotations from -Java Concurrency in Practice-" >
             <Address page="http://www.javaconcurrencyinpractice.com/" shrt="javaconcurrencyinpractice.com/" />
          </Artifact>
-         <Artifact groupId="commons-lang" name="commons-lang" version="2.4" licence="Apache2" >
+         <Artifact groupId="commons-lang" name="commons-lang" version="2.5" licence="Apache2" description="Apache java language level tools. Random number helpers, system property tools, string tools." >
             <Address page="http://commons.apache.org/lang" shrt="apache.org" />
          </Artifact>
       </dependencies>

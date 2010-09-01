@@ -73,7 +73,8 @@ public class ListType implements Complex {
             thn.iff( INSTANCEOF( NAME("peek"), TYP(comp.getName()))).thn().
                     call( DOT( NAME("stack"), NAME("push")),
                             CALL( DOT( CAST( TYP(comp.getName()), NAME("peek")),
-                                       GETTER( name ))));
+                                       GETTER( name )))).
+                    retrn();
 
 
 

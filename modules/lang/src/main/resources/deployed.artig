@@ -20,10 +20,10 @@
          <Artifact groupId="net.jcip" name="jcip-annotations" version="1.0" licence="Creative Commons" description="annotations from -Java Concurrency in Practice-" >
             <Address page="http://www.javaconcurrencyinpractice.com/" shrt="javaconcurrencyinpractice.com/" />
          </Artifact>
-         <Artifact groupId="junit" name="junit" version="4.4" licence="CPL" description="the unit test lib" >
+         <Artifact groupId="junit" name="junit" version="4.8.1" licence="CPL" description="the unit test lib" >
             <Address page="http://www.junit.org" shrt="junit.org" />
          </Artifact>
-         <Artifact groupId="commons-lang" name="commons-lang" version="2.4" licence="Apache2" description="Apache java language level tools. Random number helpers, system property tools, string tools." >
+         <Artifact groupId="commons-lang" name="commons-lang" version="2.5" licence="Apache2" description="Apache java language level tools. Random number helpers, system property tools, string tools." >
             <Address page="http://commons.apache.org/lang" shrt="apache.org" />
          </Artifact>
       </dependencies>

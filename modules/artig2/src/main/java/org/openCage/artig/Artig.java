@@ -12,6 +12,7 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -86,6 +87,66 @@ public class Artig {
 
             return;
         }
+
+        if ( bean.getArgs().get(0).equals("test")) {
+            artig.readModules();
+            artig.validate();
+            artig.useDropins();
+            artig.validate();
+
+            try {
+                Process process = new ProcessBuilder( "mvn", "install").start();
+
+
+                InputStream is = process.getInputStream();
+
+                int ch;
+                while ( (ch = is.read()) > -1 ) {
+                    System.out.write( ch );
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            }
+            return;
+        }
+
+        if ( bean.getArgs().get(0).equals("check-for-updates")) {
+            artig.readModules();
+            artig.validate();
+            artig.useDropins();
+            artig.validate();
+
+            try {
+                Process process = new ProcessBuilder( "mvn", "versions:display-dependency-updates").start();
+
+
+                InputStream is = process.getInputStream();
+
+                int ch;
+                while ( (ch = is.read()) > -1 ) {
+                    System.out.write( ch );
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            }
+            return;
+        }
+
+
+
+        if ( bean.getArgs().get(0).equals("libs")) {
+            artig.readModules();
+            artig.validate();
+            artig.useDropins();
+            artig.validate();
+
+            new Libs( artig ).copyToRepo();
+
+        }
+
+
 
         if ( bean.getArgs().get(0).equals("artig")) {
             artig.readModules();
@@ -276,7 +337,17 @@ public class Artig {
     public String getModuleName( ArtifactRef ref ) {
         for ( String mod : modules.keySet()) {
             if ( is( modules.get(mod).getArtifact(), ref )) {
-                return mod; 
+                return mod;
+            }
+        }
+
+        throw new IllegalArgumentException( "not a module " + ref );
+    }
+
+    public String getModuleName( Module ref ) {
+        for ( String mod : modules.keySet()) {
+            if ( modules.get(mod) == ref ) {
+                return mod;
             }
         }
 
@@ -289,7 +360,7 @@ public class Artig {
 
 
     public ArtifactDescription read( FSPath path ) {
-        FromXML from = new FromXML();
+        ArtifactDescriptionFromXML from = new ArtifactDescriptionFromXML();
 
         // create factory
         SAXParserFactory factory = SAXParserFactory.newInstance();

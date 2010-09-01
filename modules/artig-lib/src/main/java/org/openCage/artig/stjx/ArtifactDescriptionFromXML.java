@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
+import java.util.Locale;
 public class ArtifactDescriptionFromXML extends DefaultHandler {
    public class ListHelper<T> {
       private List<T> list;
@@ -23,7 +24,7 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
       }
 
    }
-   private Stack stack = new Stack( );
+   private Stack stack = new Stack();
    private Object goal;
    @Override public void startDocument(  ) throws SAXException {
       stack.clear();
@@ -41,9 +42,11 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
          Object peek = stack.peek();
          if( peek instanceof Project ){
             stack.push( ((Project)peek).getLicences() );
+            return;
          }
          if( peek instanceof Deployed ){
             stack.push( ((Deployed)peek).getLicences() );
+            return;
          }
          throw new IllegalArgumentException( "licences is not a member of " + peek.getClass() );
       }
@@ -54,11 +57,12 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
          Object peek = stack.peek();
          if( peek instanceof Project ){
             stack.push( ((Project)peek).getDropIns() );
+            return;
          }
          throw new IllegalArgumentException( "dropIns is not a member of " + peek.getClass() );
       }
       if( qName.equals( "Author" ) ){
-         Author elem = new Author( );
+         Author elem = new Author();
          if( attributes.getValue( "name" ) != null ){
             elem.setName( attributes.getValue( "name" ) );
          } else {
@@ -69,14 +73,15 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
          }
          if( ! stack.empty() ){
             Object peek = stack.peek();
-            if( peek instanceof ListHelper ){
-               ((ListHelper<Author>)peek).add( elem );
+            if( peek instanceof List ){
+               ((List<Author>)peek).add( elem );
             }
          }
+         stack.push( elem );
          return;
       }
       if( qName.equals( "Licence" ) ){
-         Licence elem = new Licence( );
+         Licence elem = new Licence();
          if( attributes.getValue( "name" ) != null ){
             elem.setName( attributes.getValue( "name" ) );
          } else {
@@ -89,10 +94,11 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
          }
          if( ! stack.empty() ){
             Object peek = stack.peek();
-            if( peek instanceof ListHelper ){
-               ((ListHelper<Licence>)peek).add( elem );
+            if( peek instanceof List ){
+               ((List<Licence>)peek).add( elem );
             }
          }
+         stack.push( elem );
          return;
       }
       if( qName.equals( "negatives" ) ){
@@ -102,6 +108,7 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
          Object peek = stack.peek();
          if( peek instanceof Licence ){
             stack.push( ((Licence)peek).getNegatives() );
+            return;
          }
          throw new IllegalArgumentException( "negatives is not a member of " + peek.getClass() );
       }
@@ -112,21 +119,23 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
          Object peek = stack.peek();
          if( peek instanceof Project ){
             stack.push( ((Project)peek).getExternals() );
+            return;
          }
          throw new IllegalArgumentException( "externals is not a member of " + peek.getClass() );
       }
       if( qName.equals( "Module" ) ){
-         Module elem = new Module( );
+         Module elem = new Module();
          if( ! stack.empty() ){
             Object peek = stack.peek();
             if( peek instanceof ArtifactDescription ){
                ((ArtifactDescription)peek).setKind( elem );
             }
          }
+         stack.push( elem );
          return;
       }
       if( qName.equals( "Java" ) ){
-         Java elem = new Java( );
+         Java elem = new Java();
          if( attributes.getValue( "min" ) != null ){
             elem.setMin( attributes.getValue( "min" ) );
          } else {
@@ -141,6 +150,7 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
                ((Artifact)peek).setJava( elem );
             }
          }
+         stack.push( elem );
          return;
       }
       if( qName.equals( "Kind" ) ){
@@ -153,6 +163,7 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
          Object peek = stack.peek();
          if( peek instanceof Licence ){
             stack.push( ((Licence)peek).getPositives() );
+            return;
          }
          throw new IllegalArgumentException( "positives is not a member of " + peek.getClass() );
       }
@@ -163,6 +174,7 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
          Object peek = stack.peek();
          if( peek instanceof Artifact ){
             stack.push( ((Artifact)peek).getLanguages() );
+            return;
          }
          throw new IllegalArgumentException( "languages is not a member of " + peek.getClass() );
       }
@@ -173,11 +185,12 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
          Object peek = stack.peek();
          if( peek instanceof Artifact ){
             stack.push( ((Artifact)peek).getAuthors() );
+            return;
          }
          throw new IllegalArgumentException( "authors is not a member of " + peek.getClass() );
       }
       if( qName.equals( "ModuleRef" ) ){
-         ModuleRef elem = new ModuleRef( );
+         ModuleRef elem = new ModuleRef();
          if( attributes.getValue( "name" ) != null ){
             elem.setName( attributes.getValue( "name" ) );
          } else {
@@ -185,10 +198,11 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
          }
          if( ! stack.empty() ){
             Object peek = stack.peek();
-            if( peek instanceof ListHelper ){
-               ((ListHelper<ModuleRef>)peek).add( elem );
+            if( peek instanceof List ){
+               ((List<ModuleRef>)peek).add( elem );
             }
          }
+         stack.push( elem );
          return;
       }
       if( qName.equals( "references" ) ){
@@ -198,21 +212,23 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
          Object peek = stack.peek();
          if( peek instanceof References ){
             stack.push( ((References)peek).getReferences() );
+            return;
          }
          throw new IllegalArgumentException( "references is not a member of " + peek.getClass() );
       }
       if( qName.equals( "DropInFor" ) ){
-         DropInFor elem = new DropInFor( );
+         DropInFor elem = new DropInFor();
          if( ! stack.empty() ){
             Object peek = stack.peek();
             if( peek instanceof Artifact ){
                ((Artifact)peek).setDropInFor( elem );
             }
          }
+         stack.push( elem );
          return;
       }
       if( qName.equals( "LicenceRef" ) ){
-         LicenceRef elem = new LicenceRef( );
+         LicenceRef elem = new LicenceRef();
          if( attributes.getValue( "name" ) != null ){
             elem.setName( attributes.getValue( "name" ) );
          } else {
@@ -220,19 +236,21 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
          }
          if( ! stack.empty() ){
             Object peek = stack.peek();
-            if( peek instanceof ListHelper ){
-               ((ListHelper<LicenceRef>)peek).add( elem );
+            if( peek instanceof List ){
+               ((List<LicenceRef>)peek).add( elem );
             }
          }
+         stack.push( elem );
          return;
       }
       if( qName.equals( "ArtifactDescription" ) ){
-         ArtifactDescription elem = new ArtifactDescription( );
+         ArtifactDescription elem = new ArtifactDescription();
          if( attributes.getValue( "version" ) != null ){
             elem.setVersion( attributes.getValue( "version" ) );
          } else {
             throw new IllegalArgumentException( "ArtifactDescription: attribute version is required" );
          }
+         stack.push( elem );
          return;
       }
       if( qName.equals( "dependencies" ) ){
@@ -242,15 +260,17 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
          Object peek = stack.peek();
          if( peek instanceof Deployed ){
             stack.push( ((Deployed)peek).getDependencies() );
+            return;
          }
          throw new IllegalArgumentException( "dependencies is not a member of " + peek.getClass() );
       }
       if( qName.equals( "References" ) ){
-         References elem = new References( );
+         References elem = new References();
+         stack.push( elem );
          return;
       }
       if( qName.equals( "Project" ) ){
-         Project elem = new Project( );
+         Project elem = new Project();
          if( attributes.getValue( "name" ) != null ){
             elem.setName( attributes.getValue( "name" ) );
          } else {
@@ -267,6 +287,7 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
                ((ArtifactDescription)peek).setKind( elem );
             }
          }
+         stack.push( elem );
          return;
       }
       if( qName.equals( "depends" ) ){
@@ -276,11 +297,12 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
          Object peek = stack.peek();
          if( peek instanceof Artifact ){
             stack.push( ((Artifact)peek).getDepends() );
+            return;
          }
          throw new IllegalArgumentException( "depends is not a member of " + peek.getClass() );
       }
       if( qName.equals( "Download" ) ){
-         Download elem = new Download( );
+         Download elem = new Download();
          if( attributes.getValue( "screenshot" ) != null ){
             elem.setScreenshot( attributes.getValue( "screenshot" ) );
          } else {
@@ -302,6 +324,7 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
                ((App)peek).setDownload( elem );
             }
          }
+         stack.push( elem );
          return;
       }
       if( qName.equals( "contributors" ) ){
@@ -311,11 +334,12 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
          Object peek = stack.peek();
          if( peek instanceof Artifact ){
             stack.push( ((Artifact)peek).getContributors() );
+            return;
          }
          throw new IllegalArgumentException( "contributors is not a member of " + peek.getClass() );
       }
       if( qName.equals( "Deployed" ) ){
-         Deployed elem = new Deployed( );
+         Deployed elem = new Deployed();
          if( attributes.getValue( "icon" ) != null ){
             elem.setIcon( attributes.getValue( "icon" ) );
          }
@@ -325,10 +349,11 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
                ((ArtifactDescription)peek).setKind( elem );
             }
          }
+         stack.push( elem );
          return;
       }
       if( qName.equals( "ArtifactRef" ) ){
-         ArtifactRef elem = new ArtifactRef( );
+         ArtifactRef elem = new ArtifactRef();
          if( attributes.getValue( "groupId" ) != null ){
             elem.setGroupId( attributes.getValue( "groupId" ) );
          }
@@ -348,14 +373,15 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
             if( peek instanceof DropInFor ){
                ((DropInFor)peek).setArtifactRef( elem );
             }
-            if( peek instanceof ListHelper ){
-               ((ListHelper<ArtifactRef>)peek).add( elem );
+            if( peek instanceof List ){
+               ((List<ArtifactRef>)peek).add( elem );
             }
          }
+         stack.push( elem );
          return;
       }
       if( qName.equals( "Artifact" ) ){
-         Artifact elem = new Artifact( );
+         Artifact elem = new Artifact();
          if( attributes.getValue( "groupId" ) != null ){
             elem.setGroupId( attributes.getValue( "groupId" ) );
          } else {
@@ -392,14 +418,15 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
             if( peek instanceof Deployed ){
                ((Deployed)peek).setArtifact( elem );
             }
-            if( peek instanceof ListHelper ){
-               ((ListHelper<Artifact>)peek).add( elem );
+            if( peek instanceof List ){
+               ((List<Artifact>)peek).add( elem );
             }
          }
+         stack.push( elem );
          return;
       }
       if( qName.equals( "App" ) ){
-         App elem = new App( );
+         App elem = new App();
          if( attributes.getValue( "mainClass" ) != null ){
             elem.setMainClass( attributes.getValue( "mainClass" ) );
          } else {
@@ -414,6 +441,7 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
                ((Module)peek).setApp( elem );
             }
          }
+         stack.push( elem );
          return;
       }
       if( qName.equals( "refs" ) ){
@@ -423,11 +451,12 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
          Object peek = stack.peek();
          if( peek instanceof Artifact ){
             stack.push( ((Artifact)peek).getRefs() );
+            return;
          }
          throw new IllegalArgumentException( "refs is not a member of " + peek.getClass() );
       }
       if( qName.equals( "Address" ) ){
-         Address elem = new Address( );
+         Address elem = new Address();
          if( attributes.getValue( "page" ) != null ){
             elem.setPage( attributes.getValue( "page" ) );
          } else {
@@ -445,20 +474,22 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
                ((Artifact)peek).setAddress( elem );
             }
          }
+         stack.push( elem );
          return;
       }
       if( qName.equals( "FullDescription" ) ){
-         FullDescription elem = new FullDescription( );
+         FullDescription elem = new FullDescription();
          if( ! stack.empty() ){
             Object peek = stack.peek();
             if( peek instanceof Artifact ){
                ((Artifact)peek).setFullDescription( elem );
             }
          }
+         stack.push( elem );
          return;
       }
       if( qName.equals( "Language" ) ){
-         Language elem = new Language( );
+         Language elem = new Language();
          if( attributes.getValue( "name" ) != null ){
             elem.setName( attributes.getValue( "name" ) );
          } else {
@@ -466,10 +497,11 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
          }
          if( ! stack.empty() ){
             Object peek = stack.peek();
-            if( peek instanceof ListHelper ){
-               ((ListHelper<Language>)peek).add( elem );
+            if( peek instanceof List ){
+               ((List<Language>)peek).add( elem );
             }
          }
+         stack.push( elem );
          return;
       }
       if( qName.equals( "modules" ) ){
@@ -479,6 +511,7 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
          Object peek = stack.peek();
          if( peek instanceof Project ){
             stack.push( ((Project)peek).getModules() );
+            return;
          }
          throw new IllegalArgumentException( "modules is not a member of " + peek.getClass() );
       }
@@ -496,7 +529,7 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
       }
       if( qName.equals( "Licence" ) ){
          goal = stack.pop();
-         if( ((Licence)goal).getAddress() != null ){
+         if( ((Licence)goal).getAddress() == null ){
             throw new IllegalArgumentException( "Licence: required member Address not set" );
          }
       }
@@ -508,7 +541,7 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
       }
       if( qName.equals( "Module" ) ){
          goal = stack.pop();
-         if( ((Module)goal).getArtifact() != null ){
+         if( ((Module)goal).getArtifact() == null ){
             throw new IllegalArgumentException( "Module: required member Artifact not set" );
          }
       }
@@ -532,7 +565,7 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
       }
       if( qName.equals( "DropInFor" ) ){
          goal = stack.pop();
-         if( ((DropInFor)goal).getArtifactRef() != null ){
+         if( ((DropInFor)goal).getArtifactRef() == null ){
             throw new IllegalArgumentException( "DropInFor: required member ArtifactRef not set" );
          }
       }
@@ -541,7 +574,7 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
       }
       if( qName.equals( "ArtifactDescription" ) ){
          goal = stack.pop();
-         if( ((ArtifactDescription)goal).getKind() != null ){
+         if( ((ArtifactDescription)goal).getKind() == null ){
             throw new IllegalArgumentException( "ArtifactDescription: required member Kind not set" );
          }
       }
@@ -565,7 +598,7 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
       }
       if( qName.equals( "Deployed" ) ){
          goal = stack.pop();
-         if( ((Deployed)goal).getArtifact() != null ){
+         if( ((Deployed)goal).getArtifact() == null ){
             throw new IllegalArgumentException( "Deployed: required member Artifact not set" );
          }
       }
@@ -577,7 +610,7 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
       }
       if( qName.equals( "App" ) ){
          goal = stack.pop();
-         if( ((App)goal).getDownload() != null ){
+         if( ((App)goal).getDownload() == null ){
             throw new IllegalArgumentException( "App: required member Download not set" );
          }
       }

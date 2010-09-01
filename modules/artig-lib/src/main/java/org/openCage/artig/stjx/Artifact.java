@@ -9,13 +9,13 @@ public class Artifact {
    private String licence;
    private String description;
    private String support;
-   private List<ArtifactRef> depends = new ArrayList<ArtifactRef>( );
-   private List<Author> authors = new ArrayList<Author>( );
-   private List<Author> contributors = new ArrayList<Author>( );
+   private List<ArtifactRef> depends = new ArrayList<ArtifactRef>();
+   private List<Author> authors = new ArrayList<Author>();
+   private List<Author> contributors = new ArrayList<Author>();
    private Address address;
-   private List<Language> languages = new ArrayList<Language>( );
+   private List<Language> languages = new ArrayList<Language>();
    private Java java;
-   private List<ArtifactRef> refs = new ArrayList<ArtifactRef>( );
+   private List<ArtifactRef> refs = new ArrayList<ArtifactRef>();
    private DropInFor dropInFor;
    private FullDescription fullDescription;
    public String getGroupId(  ){
