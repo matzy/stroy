@@ -1,8 +1,6 @@
 package org.openCage.generj;
 
 
-import com.sun.codemodel.internal.JWhileLoop;
-import com.sun.jndi.dns.DnsName;
 import org.openCage.lang.Strings;
 import org.openCage.lang.functions.F1;
 import org.openCage.lang.structure.T2;
@@ -38,7 +36,7 @@ public class Mesod {
 
     public Mesod(Clazz clazz,String mod, String name) {
         this.clazz = clazz;
-        this.retType = Typ.vooid;
+        this.retType = Typ.VOID;
         this.name = name;
         this.mod = mod;
     }

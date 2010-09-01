@@ -43,7 +43,7 @@ public class ModuleDescription {
 
 
         stjx.struct( "ModuleRef" ).
-//                string( "groupId" ).
+//                STRING( "groupId" ).
                 string( "name" );
 
         stjx.struct( "ArtifactRef" ).

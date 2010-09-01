@@ -1,9 +1,7 @@
 package org.openCage.stjx;
 
 import org.openCage.generj.Block;
-import org.openCage.generj.Call;
 import org.openCage.generj.Clazz;
-import org.openCage.generj.Exp;
 import org.openCage.generj.IfExpr;
 import org.openCage.generj.Typ;
 import org.openCage.lang.Strings;
@@ -13,7 +11,6 @@ import static org.openCage.generj.Dot.DOT;
 import static org.openCage.generj.NameExpr.NAME;
 import static org.openCage.generj.NameExpr.SETTER;
 import static org.openCage.generj.Str.STR;
-import static org.openCage.generj.Typ.TYP;
 
 /**
  * Created by IntelliJ IDEA.
@@ -40,7 +37,7 @@ public class StringAtti implements Atti {
     }
 
     @Override public void toJavaProperty(Clazz clazz) {
-        clazz.property( Typ.string, Strings.toFirstLower(name));
+        clazz.property( Typ.STRING, Strings.toFirstLower(name));
 //        clazz.property( TYP( name ), Strings.toFirstLower(name));
     }
 
@@ -74,7 +71,7 @@ public class StringAtti implements Atti {
     }
 
     public String toRnc() {
-        return "attribute " + name + " {xsd:string}";
+        return "attribute " + name + " {xsd:STRING}";
     }
 
     public boolean isOptional() {

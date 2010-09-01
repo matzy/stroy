@@ -2,11 +2,21 @@ package org.openCage.generj;
 
 import org.openCage.lang.Strings;
 
+import java.util.regex.Pattern;
+
 
 public class NameExpr implements Callble {
-    private String str;
+
+    private static Pattern valid = Pattern.compile( "([a-z]*[A-Z]*)*"); // TODO expand
+
+    private final String str;
 
     public NameExpr( String str ) {
+
+        if ( !valid.matcher( str ).matches() ) {
+            throw new IllegalArgumentException( "not a valid java name " + str );
+        }
+
         this.str = str;
     }
 

@@ -11,8 +11,8 @@ package org.openCage.generj;
 public class Typ {
     private String name;
     private Typ of;
-    public static Typ string = Typ.s("String");
-    public static Typ vooid = Typ.s("void");
+    public static Typ STRING = Typ.s("String");
+    public static Typ VOID = Typ.s("void");
 
     public Typ(String name) {
         this.name = name;

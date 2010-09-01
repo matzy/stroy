@@ -22,22 +22,22 @@ public class Stjx {
 //        Stjx stjx = new Stjx("Artifact");
 
 //        stjx.struct( "ArtifactRef" ).
-//                string( "groupId" ).
-//                string( "name" ).
-//                string( "scope" );
+//                STRING( "groupId" ).
+//                STRING( "name" ).
+//                STRING( "scope" );
 //
 //        stjx.struct( "Author" ).
-//                string("name").
-//                optional().string( "email" );
+//                STRING("name").
+//                optional().STRING( "email" );
 //
-//        stjx.struct( "Module" ).string( "mod" );
-//        stjx.struct( "Extern" ).string( "ext");
-//        stjx.struct( "Licence" ).string( "name");
+//        stjx.struct( "Module" ).STRING( "mod" );
+//        stjx.struct( "Extern" ).STRING( "ext");
+//        stjx.struct( "Licence" ).STRING( "name");
 //
 //        stjx.struct( "Artifact" ).list( "depends" ).of( "ArtifactRef" ).
-//                string( "groupId" ).
-//                string( "name" ).
-//                string( "version" ).
+//                STRING( "groupId" ).
+//                STRING( "name" ).
+//                STRING( "version" ).
 //                list( "authors" ).of( "Author" ).
 //                or( "Application" ).with( "Module", "Extern" ).
 //                complex( "Licence" );
@@ -196,15 +196,15 @@ public class Stjx {
                   ;
 
         Block start = clazz.publc().override().method( "startElement").thrws( Typ.s("SAXException")).
-                arg( Typ.string, "uri").
-                arg( Typ.string, "localName").
-                arg( Typ.string, "qName").
+                arg( Typ.STRING, "uri").
+                arg( Typ.STRING, "localName").
+                arg( Typ.STRING, "qName").
                 arg( Typ.s("Attributes"), "attributes").body();
 
         Block end = clazz.publc().override().method( "endElement").thrws( Typ.s("SAXException")).
-                arg( Typ.string, "uri").
-                arg( Typ.string, "localName").
-                arg( Typ.string, "qName").body();
+                arg( Typ.STRING, "uri").
+                arg( Typ.STRING, "localName").
+                arg( Typ.STRING, "qName").body();
 
         for ( Complex complex : structs.values() ) {
             complex.toFromXMLStart(start);

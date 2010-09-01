@@ -3,7 +3,6 @@ package org.openCage.stjx;
 import org.openCage.generj.BinOp;
 import org.openCage.generj.Block;
 import org.openCage.generj.Call;
-import org.openCage.generj.Cast;
 import org.openCage.generj.Clazz;
 import org.openCage.generj.Exp;
 import org.openCage.generj.Mesod;
@@ -395,13 +394,13 @@ public class Struct implements Complex {
     @Override
     public void toToXML( Clazz clazz) {
 
-        Mesod mesod = clazz.publc().sttic().method( Typ.string, "toString" + name );
+        Mesod mesod = clazz.publc().sttic().method( Typ.STRING, "toString" + name );
 
         String lower = Strings.toFirstLower(name);
 
-        mesod.arg( Typ.string, "prefix" ).arg( Typ.s(name), lower ).
+        mesod.arg( Typ.STRING, "prefix" ).arg( Typ.s(name), lower ).
                 body().
-                    fild( Typ.string, "ret").init( NameExpr.n("prefix") ).
+                    fild( Typ.STRING, "ret").init( NameExpr.n("prefix") ).
                     assignPlus( NAME("ret"), new Str("<" + name + " "));
 
         for ( Atti atti : attis ) {
@@ -434,7 +433,7 @@ public class Struct implements Complex {
             mesod.body().assignPlus( NAME("ret"), Exp.bi( "+", Exp.n("prefix"), Str.s( "</" + name + ">\\n")));
         }
 
-        mesod.body().retrn( Exp.n("ret "));
+        mesod.body().retrn( Exp.n("ret"));
     }
 
     public static Call getter( String obj, String name ) {

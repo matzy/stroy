@@ -14,6 +14,7 @@ import static org.openCage.generj.NameExpr.GETTER;
 import static org.openCage.generj.NameExpr.NAME;
 import static org.openCage.generj.Str.STR;
 import static org.openCage.generj.Typ.TYP;
+import static org.openCage.generj.Typ.STRING;
 
 public class ListType implements Complex {
     private Struct struct;
@@ -149,15 +150,15 @@ public class ListType implements Complex {
     @Override
     public void toToXML( Clazz clazz ) {
 
-        Mesod mesod = clazz.publc().sttic().method( Typ.string, "toString" + name );
+        Mesod mesod = clazz.publc().sttic().method( STRING, "toString" + name );
 
-        mesod.arg( Typ.string, "prefix" ).arg( Typ.of("List", Typ.s(this.of)), name );
+        mesod.arg( Typ.STRING, "prefix" ).arg( Typ.of("List", TYP(this.of)), name );
 
-        mesod.body().iff( Exp.n(name+".isEmpty()" )).
+        mesod.body().iff( CALL( DOT( NAME(name), NAME("isEmpty" )))).
                 thn().retrn( Str.s(""));
 
         mesod.body().
-                fild( Typ.string, "ret").init( NameExpr.n("prefix") ).
+                fild( Typ.STRING, "ret").init( NameExpr.n("prefix") ).
                 assignPlus( NAME("ret"), Exp.s("<" + name + ">\\n"));
 
         mesod.body().fr( Typ.s(of), "vr",  Exp.n( name )).body().
@@ -169,7 +170,7 @@ public class ListType implements Complex {
 
         mesod.body().assignPlus( NAME("ret"), Exp.bi( "+", Exp.n("prefix"), Exp.s( "</"+name+">\\n" ) ));
 
-        mesod.body().retrn( NAME("ret "));
+        mesod.body().retrn( NAME("ret"));
     }
 
 

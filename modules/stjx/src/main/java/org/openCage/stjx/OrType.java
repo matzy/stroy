@@ -101,11 +101,11 @@ public class OrType implements Complex {
 
     @Override
     public void toToXML(Clazz clazz) {
-        Mesod mesod = clazz.publc().sttic().method( Typ.string, "toString" + name );
+        Mesod mesod = clazz.publc().sttic().method( Typ.STRING, "toString" + name );
 
         String arg = Strings.toFirstLower( name );
 
-        mesod.arg( Typ.string, "prefix" ).arg( Typ.s(name), arg );
+        mesod.arg( Typ.STRING, "prefix" ).arg( Typ.s(name), arg );
 
         for ( String ref : alternatives ) {
             mesod.body().iff( Exp.bi( "instanceof", Exp.n(arg), Exp.n(ref) )).thn().
@@ -118,9 +118,9 @@ public class OrType implements Complex {
         mesod.body().thrw( Typ.s("IllegalStateException"), "no a valid suptype of " + name );
 
 
-//        mesod.arg( Typ.string, "prefix" ).arg( Typ.of("List", Typ.s(this.of)), name ).
+//        mesod.arg( Typ.STRING, "prefix" ).arg( Typ.of("List", Typ.s(this.of)), name ).
 //                body().
-//                    fild( Typ.string, "ret").init( NameExpr.n("prefix") ).
+//                    fild( Typ.STRING, "ret").init( NameExpr.n("prefix") ).
 //                    assignPlus( "ret", Exp.s("<" + name + ">\\n"));
 //
 //        mesod.body().fr( Typ.s(of), "vr",  Exp.n( name )).body().

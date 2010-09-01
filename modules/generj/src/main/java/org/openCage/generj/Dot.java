@@ -28,5 +28,16 @@ public class Dot implements Callble {
     public static Dot DOT( Expr expr, NameExpr name ) {
         return new Dot( expr, name );
     }
-    
+
+    public static Dot DOT( Expr expr, NameExpr ... names ) {
+
+        Expr ret = expr;
+
+        for ( NameExpr name : names ) {
+            ret = new Dot( ret, name );
+        }
+
+        return (Dot)ret;
+    }
+
 }
