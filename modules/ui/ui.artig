@@ -3,6 +3,7 @@
         <Artifact name="openCage-ui"
                 groupId="openCage"
                 version="0.2"
+                description="swing utils"
                 licence="MPL1.1">
             <Java min="6"/>
             <authors>
