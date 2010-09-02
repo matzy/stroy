@@ -152,7 +152,7 @@ public class OrType implements Complex {
         return struct;
     }
 
-    public Object toJava(String pack) {
+    public ClassI toJava(String pack) {
         Interf interf = new Interf( pack, Typ.s(name ));
         return interf;
     }

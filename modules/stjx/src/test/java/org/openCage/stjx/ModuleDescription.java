@@ -8,6 +8,8 @@ public class ModuleDescription {
     public static void main(String[] args) {
         Stjx stjx = new Stjx( "ArtifactDescription" );
 
+        stjx.mpl( "Stephan Pfab", "openCage@gmail.com", "2006 - 2010", "stroy" ); 
+
         stjx.struct( "Module" ).
                 complex( "Artifact" ).
                 optional().complex( "App");

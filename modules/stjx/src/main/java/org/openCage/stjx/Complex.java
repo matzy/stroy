@@ -1,6 +1,7 @@
 package org.openCage.stjx;
 
 import org.openCage.generj.Block;
+import org.openCage.generj.ClassI;
 import org.openCage.generj.Clazz;
 
 
@@ -8,7 +9,7 @@ public interface Complex {
     String getType();
 
     String toJava();
-    Object toJava( String pack );
+    ClassI toJava( String pack );
 
     String toJavaDecl();
 

@@ -31,7 +31,7 @@
 
    <!-- ================================================================== -->
    <target name="depend.generj"
-           depends="depend.lang, depend.io">
+           depends="depend.lang">
       <ant dir="${dependencies.basedir}/modules/generj" target="local.goal" inheritAll="false"/>
    </target>
 

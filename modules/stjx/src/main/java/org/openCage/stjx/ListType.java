@@ -53,7 +53,7 @@ public class ListType implements Complex {
     }
 
     @Override
-    public Object toJava(String pack) {
+    public ClassI toJava(String pack) {
         return null;
     }
 

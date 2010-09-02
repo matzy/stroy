@@ -41,7 +41,7 @@ public class LineReaderIterator  implements Iterator<String>, Iterable<String> {
         try {
             this.line   = reader.readLine();
         } catch (IOException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            e.printStackTrace();  // TODO
         }
     }
 

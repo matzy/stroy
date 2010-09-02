@@ -10,6 +10,12 @@
             <authors>
                 <Author name="Stephan Pfab" email="openCage@gmail.com"/>
             </authors>
+            <contributors>
+                <Author name="Misa Inabe" />
+                <Author name="Miguel Cuadron Marion" />
+                <Author name="Johann Wolfgang von Goethe (via Project Guttenberg)" />
+                <Author name="Scott Schulz" />
+            </contributors>
             <Address page="http://stroy.wikidot.com" shrt="wikidot.com" />
 
 

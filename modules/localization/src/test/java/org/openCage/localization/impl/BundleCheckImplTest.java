@@ -7,7 +7,7 @@ import org.junit.Test;
 
 public class BundleCheckImplTest {
 
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected=MissingResourceException.class)
 	public void testNoFallback() {
 		BundleCheckImpl check = new BundleCheckImpl();
 		

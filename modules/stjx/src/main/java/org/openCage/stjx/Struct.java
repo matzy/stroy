@@ -1,15 +1,6 @@
 package org.openCage.stjx;
 
-import org.openCage.generj.BinOp;
-import org.openCage.generj.Block;
-import org.openCage.generj.Call;
-import org.openCage.generj.Clazz;
-import org.openCage.generj.Exp;
-import org.openCage.generj.Mesod;
-import org.openCage.generj.NameExpr;
-import org.openCage.generj.NewExpr;
-import org.openCage.generj.Str;
-import org.openCage.generj.Typ;
+import org.openCage.generj.*;
 import org.openCage.lang.Strings;
 import org.openCage.lang.functions.F1;
 
@@ -112,8 +103,10 @@ public class Struct implements Complex {
         return name;
     }
 
-    public Object toJava( String pack ) {
+    public ClassI toJava( String pack ) {
         Clazz clazz = new Clazz( pack, TYP(name) );
+
+        //clazz.comment()
 
         clazz.imprt( "java.util.ArrayList" );
         clazz.imprt( "java.util.List" );

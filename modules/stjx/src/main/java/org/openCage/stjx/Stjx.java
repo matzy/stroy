@@ -17,6 +17,7 @@ import static org.openCage.generj.NameExpr.NAME;
 import static org.openCage.generj.Typ.TYP;
 
 public class Stjx {
+    private BlockComment clazzComment;
 
     public static void main(String[] args) {
 //        Stjx stjx = new Stjx("Artifact");
@@ -70,16 +71,24 @@ public class Stjx {
         System.out.println( loc );
     }
 
+    public void mpl( String author, String email, String time, String project ) {
+        clazzComment = new MPL(author, email, time, project ).getComment();
+    }
+
     public void generate( String baseDir, String packag ) {
 
         FileUtils.ensurePath( FSPathBuilder.getPath( baseDir ).add( "src", "main", "java" ).addPackage(packag ).add( "foo" ));
+        Clazz tofrom = toFromXML( packag );
+        if ( clazzComment != null ) {
+            tofrom.comment( clazzComment );
+        }
 
         {
             File outFile = FSPathBuilder.getPath( baseDir ).add( "src", "main", "java" ).addPackage(packag ).add( name+ "FromXML.java").toFile();
             FileWriter out = null;
             try {
                 out = new FileWriter(outFile);
-                out.write( /*"package " + packag + ";\n" +*/ toFromXML( packag ) );
+                out.write( tofrom.toString() );
                 out.close();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -89,7 +98,11 @@ public class Stjx {
         {
             for ( Complex cop : structs.values() ) {
 
-                Object tojava = cop.toJava( packag );
+                ClassI tojava = cop.toJava( packag );
+
+                if ( tojava != null && clazzComment != null ) {
+                    tojava.comment( clazzComment );
+                }
 
                 if ( tojava != null ) {
 
@@ -114,7 +127,11 @@ public class Stjx {
             FileWriter out = null;
             try {
                 out = new FileWriter(outFile);
-                out.write( toToXML( packag ) );
+                Clazz toxml = toToXML( packag );
+                if( clazzComment != null ) {
+                    toxml.comment( clazzComment );
+                }
+                out.write( toxml.toString() );
                 out.close();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -138,27 +155,21 @@ public class Stjx {
 
     }
 
-    private String toToXML( String pack) {
+    private Clazz toToXML( String pack) {
 
         Clazz clazz = new Clazz( pack, TYP( name + "ToXML") );
 
         clazz.imprt( "java.util.List");
-//        import java.util.ArrayList;
-//        import java.util.HashMap;
-//        import
-//        import java.util.Map;
-
 
         for ( Complex compl : this.structs.values() ) {
 
             compl.toToXML( clazz );
-            //System.out.println( compl.getName() );
         }
 
-        return clazz.toString();
+        return clazz;
     }
 
-    private String toFromXML( String pack) {
+    private Clazz toFromXML( String pack) {
         Clazz clazz = new Clazz( pack, Typ.s( name + "FromXML") ).
                 imprt( "org.xml.sax.Attributes" ).
                 imprt( "org.xml.sax.SAXException" ).
@@ -217,7 +228,7 @@ public class Stjx {
         }
 
 
-        return clazz.toString();
+        return clazz;
     }
 
     private String toJava() {
