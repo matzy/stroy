@@ -290,7 +290,7 @@
     <!--      jar      -->
     <target name="local.create-jar" depends="local.compile,local.create-manifest">
         <echo message="${ant.project.name} - build-common.collect-jars"/>
-        <jar jarfile="${libs}/${el.groupId}-${ant.project.name}-${el.version}.jar"
+        <jar jarfile="${libs}/${ant.project.name}-${el.version}.jar"
              manifest="${resources}/manifest.mf">
             <fileset dir="${classes}" excludes="**/*test*"/>
         </jar>
