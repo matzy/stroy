@@ -1,5 +1,8 @@
 package org.openCage.generj;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * ** BEGIN LICENSE BLOCK *****
@@ -24,26 +27,33 @@ package org.openCage.generj;
  * Contributor(s):
  * **** END LICENSE BLOCK ****
 */
-public class Return implements Statement{
-    private Expr expr;
+public class BlockComment implements Statement{
+    private List<String> lines = new ArrayList<String>();
 
-    public Return( Expr expr ) {
-        this.expr = expr;
+    public BlockComment( String ... lines) {
+        this.lines.addAll( Arrays.asList(lines));
     }
 
-    public Return() {
+    public BlockComment(List<String> comments) {
+        this.lines.addAll( comments );
     }
 
-    public String toString() {
-        if ( expr == null ) {
-            return "return;";
-        }
-        
-        return "return " + expr.toString() + ";";
-    }
 
     @Override
     public String toString(String prefix) {
-        return prefix + toString();
+        String ret = prefix + "/**\n";
+
+        for ( String line : lines ) {
+            ret += prefix + " * " + line + "\n";
+        }
+
+        ret += prefix + "*/\n";
+
+
+        return ret;
+    }
+
+    public String toString() {
+        return toString("");
     }
 }

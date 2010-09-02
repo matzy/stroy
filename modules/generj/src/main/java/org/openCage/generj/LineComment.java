@@ -1,6 +1,5 @@
 package org.openCage.generj;
 
-
 /**
  * ** BEGIN LICENSE BLOCK *****
  * Version: MPL 1.1
@@ -24,26 +23,20 @@ package org.openCage.generj;
  * Contributor(s):
  * **** END LICENSE BLOCK ****
 */
-public class Return implements Statement{
-    private Expr expr;
+public class LineComment implements Statement {
+    private String comment;
 
-    public Return( Expr expr ) {
-        this.expr = expr;
+    public LineComment( String comment ) {
+        this.comment = comment;
     }
 
-    public Return() {
-    }
-
-    public String toString() {
-        if ( expr == null ) {
-            return "return;";
-        }
-        
-        return "return " + expr.toString() + ";";
-    }
 
     @Override
     public String toString(String prefix) {
         return prefix + toString();
+    }
+
+    public String toString() {
+        return "// " + comment + ";";
     }
 }
