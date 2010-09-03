@@ -379,6 +379,9 @@ public class ArtifactDescriptionToXML {
          ret += "support=\"" + artifact.getSupport() + "\" ";
       }
       ret += ">\n";
+      if( artifact.getFullDescription() != null ){
+         ret += prefix + "<FullDescription>" + artifact.getFullDescription() + "</FullDescription>\n";
+      }
       if( artifact.getDepends() != null ){
          ret += toStringdepends( prefix + "   ", artifact.getDepends() );
       }
@@ -402,9 +405,6 @@ public class ArtifactDescriptionToXML {
       }
       if( artifact.getDropInFor() != null ){
          ret += toStringDropInFor( prefix + "   ", artifact.getDropInFor() );
-      }
-      if( artifact.getFullDescription() != null ){
-         ret += toStringFullDescription( prefix + "   ", artifact.getFullDescription() );
       }
       ret += prefix + "</Artifact>\n";
       return ret;
@@ -446,12 +446,6 @@ public class ArtifactDescriptionToXML {
       if( address.getShrt() != null ){
          ret += "shrt=\"" + address.getShrt() + "\" ";
       }
-      ret += "/>\n";
-      return ret;
-   }
-   public static  String toStringFullDescription( String prefix, FullDescription fullDescription ){
-      String ret = prefix;
-      ret += "<FullDescription ";
       ret += "/>\n";
       return ret;
    }

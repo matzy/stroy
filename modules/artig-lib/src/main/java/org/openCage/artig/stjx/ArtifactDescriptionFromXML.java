@@ -44,13 +44,14 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
       public  ListHelper( List<T> list ){
          this.list = list;
       }
-      public void add( T elem  ){
+      public void add( T elem ){
          list.add( elem );
       }
 
    }
    private Stack stack = new Stack();
    private Object goal;
+   private boolean getCharacters;
    @Override public void startDocument(  ) throws SAXException {
       stack.clear();
    }
@@ -450,6 +451,10 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
          stack.push( elem );
          return;
       }
+      if( qName.equals( "FullDescription" ) ){
+         getCharacters = true;
+         return;
+      }
       if( qName.equals( "App" ) ){
          App elem = new App();
          if( attributes.getValue( "mainClass" ) != null ){
@@ -497,17 +502,6 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
             }
             if( peek instanceof Artifact ){
                ((Artifact)peek).setAddress( elem );
-            }
-         }
-         stack.push( elem );
-         return;
-      }
-      if( qName.equals( "FullDescription" ) ){
-         FullDescription elem = new FullDescription();
-         if( ! stack.empty() ){
-            Object peek = stack.peek();
-            if( peek instanceof Artifact ){
-               ((Artifact)peek).setFullDescription( elem );
             }
          }
          stack.push( elem );
@@ -633,6 +627,19 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
       if( qName.equals( "Artifact" ) ){
          goal = stack.pop();
       }
+      if( qName.equals( "FullDescription" ) ){
+         String str = "";
+         while( stack.peek() instanceof String ){
+            str = ((String)stack.pop()) + str;
+         }
+         if( ! stack.empty() ){
+            Object peek = stack.peek();
+            if( peek instanceof Artifact ){
+               ((Artifact)peek).setFullDescription( str );
+            }
+         }
+         getCharacters = false;
+      }
       if( qName.equals( "App" ) ){
          goal = stack.pop();
          if( ((App)goal).getDownload() == null ){
@@ -645,14 +652,20 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
       if( qName.equals( "Address" ) ){
          goal = stack.pop();
       }
-      if( qName.equals( "FullDescription" ) ){
-         goal = stack.pop();
-      }
       if( qName.equals( "Language" ) ){
          goal = stack.pop();
       }
       if( qName.equals( "modules" ) ){
          goal = stack.pop();
+      }
+   }
+   public void characters( char[] ch, int start, int length ){
+      if( getCharacters ){
+         StringBuffer sb = new StringBuffer();
+         for ( int idx = start; (idx < ch.length) && (idx < (start + length)); ++ idx){
+            sb.append( ch[idx] );
+         }
+         stack.push( sb.toString() );
       }
    }
 
