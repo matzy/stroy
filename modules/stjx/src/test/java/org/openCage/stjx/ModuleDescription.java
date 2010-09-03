@@ -74,7 +74,6 @@ public class ModuleDescription {
         stjx.struct( "References").list( "references" ).of("Artifact");
 
         stjx.struct( "DropInFor" ).complex("ArtifactRef");
-        stjx.struct( "FullDescription" );
 
         stjx.struct( "Artifact" ).list( "depends" ).of( "ArtifactRef" ).
                 string( "groupId" ).
@@ -91,7 +90,7 @@ public class ModuleDescription {
                 optional().complex( "Java").
                 list( "refs" ).of( "ArtifactRef" ).
                 optional().complex( "DropInFor" ).
-                optional().complex( "FullDescription");
+                optional().multiLine( "FullDescription");
 
         System.out.println( getProjectBase( ModuleDescription.class ) );
 
