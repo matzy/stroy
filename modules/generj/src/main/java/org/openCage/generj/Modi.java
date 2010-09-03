@@ -51,7 +51,7 @@ public class Modi {
     }
 
 
-    public Fild<Clazz> fild( Typ typ, String name ) {
+    public Fild<Clazz> fild( Typ typ, NameExpr name ) {
         Fild<Clazz> fild = new Fild<Clazz>( clazz, mod, typ, name );
         clazz.filds.add( fild );        
         return  fild;

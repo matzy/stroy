@@ -1,5 +1,8 @@
 package org.openCage.generj;
 
+import static org.openCage.generj.BracketExpr.BRACKET;
+import static org.openCage.generj.NameExpr.NAME;
+
 
 /**
  * ** BEGIN LICENSE BLOCK *****
@@ -45,13 +48,31 @@ public class BinOp implements Expr {
     }
 
     public static BinOp INSTANCEOF( Expr expr, Typ typ ) {
-        return new BinOp( "instanceof", expr, Exp.n(typ.getName()) ); // TODO hack 
+        return new BinOp( "instanceof", expr, NAME(typ.getName()) ); // TODO hack 
     }
 
-    public static BinOp PLUS( Expr left, Expr right ) {
-        return new BinOp( "+", left, right );
+//    public static BinOp PLUS( Expr left, Expr right ) {
+//        return new BinOp( "+", left, right );
+//    }
+
+    public static BinOp PLUS( Expr one, Expr two, Expr ... more  ) {
+        BinOp ret = new BinOp( "+", one, two );
+        for ( Expr next : more ) {
+            ret = new BinOp( "+", ret, next );
+        }
+        return ret;
     }
 
+    public static BinOp LESS( Expr left, Expr right ) {
+        return new BinOp( "<", left, right );
+    }
 
+    public static BinOp AND( Expr left, Expr right ) {
+        return new BinOp( "&&", BRACKET(left), BRACKET(right ));
+    }
+
+    public static BinOp OR( Expr left, Expr right ) {
+        return new BinOp( "||", BRACKET(left), BRACKET(right ));
+    }
 
 }

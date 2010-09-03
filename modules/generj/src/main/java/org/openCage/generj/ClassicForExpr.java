@@ -1,12 +1,5 @@
 package org.openCage.generj;
 
-
-import org.openCage.lang.Strings;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 /**
  * ** BEGIN LICENSE BLOCK *****
  * Version: MPL 1.1
@@ -30,32 +23,39 @@ import java.util.List;
  * Contributor(s):
  * **** END LICENSE BLOCK ****
 */
-public class NewExpr implements Expr {
+public class ClassicForExpr<T> implements Statement {
+    private T parent;
     private Typ typ;
-    private List<Expr> args = new ArrayList<Expr>();
+    private String var;
+    private Expr condition;
+    private Expr incr;
+    private Block<ClassicForExpr<T>> body;
+    private Expr init;
 
-    public static NewExpr NEW( Typ typ, Expr ... args ) {
-        return new NewExpr( typ, args );
+    public ClassicForExpr(T parent, Typ typ, String var, Expr init, Expr condition, Expr incr) {
+        this.parent = parent;
+        this.typ = typ;
+        this.var = var;
+        this.condition = condition;
+        this.incr = incr;
+        this.init = init;
     }
 
-    public NewExpr( Typ typ, Expr ... args ) {
-        this.typ = typ;
-        if ( args.length > 0 ) {
-            this.args.addAll( Arrays.asList( args ));
+    public Block<ClassicForExpr<T>> body() {
+        if ( body == null ) {
+            body = new Block<ClassicForExpr<T>>( this );
         }
+        return body;
     }
 
     public String toString() {
-        if ( args.isEmpty() ) {
-            return "new " + typ + "()";    
-        }
-
-        return "new " + typ + "( " + Strings.join( args ) + ")";
+        return toString( "" );
     }
+
 
     @Override
     public String toString(String prefix) {
-        return prefix + toString();
+        return prefix + "for ( " + typ.toString() + " " + var + " = " + init +"; " + condition.toString() + "; " + incr.toString() + ")"
+                           + body.toString( prefix  );
     }
-
 }

@@ -27,8 +27,10 @@ package org.openCage.generj;
 public class Typ {
     private String name;
     private Typ of;
-    public static Typ STRING = Typ.s("String");
-    public static Typ VOID = Typ.s("void");
+    public static Typ STRING = TYP("String");
+    public static Typ VOID = TYP("void");
+    public static Typ INT = TYP("int");
+    public static Typ BOOLEAN = TYP("boolean");
 
     public Typ(String name) {
         this.name = name;
@@ -37,10 +39,6 @@ public class Typ {
     public Typ(String name, Typ of) {
         this.name = name;
         this.of = of;
-    }
-
-    public static Typ s( String name ) {
-        return new Typ( name );
     }
 
     public static Typ TYP( String name ) {

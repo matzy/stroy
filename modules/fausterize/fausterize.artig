@@ -18,6 +18,11 @@
             </contributors>
             <Address page="http://stroy.wikidot.com" shrt="wikidot.com" />
 
+            <FullDescription>
+Fausterize is a simple encrypting texteditor.
+It uses one-time pads to provide secure encryption with an easy password scheme.
+You can use any file as passwd. The file can/should be from the net and not your computer.                
+            </FullDescription>
 
             <languages>
                 <Language name="English" />

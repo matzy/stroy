@@ -37,7 +37,7 @@ public class NameExpr implements Callble {
     public NameExpr( String str ) {
 
         if ( !valid.matcher( str ).matches() ) {
-            throw new IllegalArgumentException( "not a valid java name " + str );
+            throw new IllegalArgumentException( "not a valid java name: <" + str + ">" );
         }
 
         this.str = str;
@@ -69,5 +69,7 @@ public class NameExpr implements Callble {
     }
 
     public static NameExpr NULL = new NameExpr( "null" );
+    public static NameExpr TRUE = new NameExpr( "true" );
+    public static NameExpr FALSE = new NameExpr( "false" );
 
 }

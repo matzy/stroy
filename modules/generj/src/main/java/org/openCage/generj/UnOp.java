@@ -1,5 +1,7 @@
 package org.openCage.generj;
 
+import static org.openCage.generj.BracketExpr.BRACKET;
+
 
 /**
  * ** BEGIN LICENSE BLOCK *****
@@ -46,4 +48,14 @@ public class UnOp implements Expr {
     public static UnOp NOT( Expr expr ) {
         return new UnOp( "!", expr );
     }
+
+    public static UnOp PLUSPLUS( Expr expr ) {
+        if ( expr instanceof NameExpr ) {
+            return new UnOp( "++", expr);
+        }
+
+        return new UnOp( "++", BRACKET( expr ));
+    }
+
+
 }

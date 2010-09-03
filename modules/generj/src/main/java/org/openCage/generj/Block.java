@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.openCage.generj.NameExpr.NULL;
+import static org.openCage.generj.Typ.TYP;
 
 /**
  * ** BEGIN LICENSE BLOCK *****
@@ -36,7 +37,7 @@ public class Block<T> implements Statement {
         this.base = base;
     }
 
-    public Fild<Block<T>> fild( Typ typ, String name ) {
+    public Fild<Block<T>> fild( Typ typ, NameExpr name ) {
         Fild<Block<T>> fld = new Fild<Block<T>>( this, "", typ, name );
         statements.add( fld );
         return fld;
@@ -69,6 +70,12 @@ public class Block<T> implements Statement {
         return ex;
     }
 
+    public WhileExpr<Block<T>> whle(Expr condition) {
+        WhileExpr<Block<T>> wh = new WhileExpr<Block<T>>( this, condition );
+        statements.add( wh );
+        return wh;
+    }
+
     public IfExpr ifNotNull(Expr expr) {
         IfExpr<Block<T>> ex = new IfExpr<Block<T>>( this, Exp.bi( "!=", expr, NULL) );
         statements.add( ex );
@@ -83,6 +90,12 @@ public class Block<T> implements Statement {
 
     public ForExpr<Block<T>> fr( Typ typ, String var, Expr expr ) {
         ForExpr<Block<T>> ex = new ForExpr<Block<T>>(this, typ, var, expr );
+        statements.add(ex);
+        return ex;
+    }
+
+    public ClassicForExpr<Block<T>> fr( Typ typ, String var, Expr init, Expr condition, Expr incr ) {
+        ClassicForExpr<Block<T>> ex = new ClassicForExpr<Block<T>>(this, typ, var, init, condition, incr );
         statements.add(ex);
         return ex;
     }
@@ -110,7 +123,7 @@ public class Block<T> implements Statement {
     }
 
     public Block<T> thrwIllegalArgument( Expr expr ) {
-        statements.add( new UnOp( "throw", new Cnstr( Typ.s("IllegalArgumentException"), expr )));
+        statements.add( new UnOp( "throw", new Cnstr( TYP("IllegalArgumentException"), expr )));
         return this;
     }
 

@@ -1,12 +1,5 @@
 package org.openCage.generj;
 
-
-import org.openCage.lang.Strings;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 /**
  * ** BEGIN LICENSE BLOCK *****
  * Version: MPL 1.1
@@ -30,32 +23,25 @@ import java.util.List;
  * Contributor(s):
  * **** END LICENSE BLOCK ****
 */
-public class NewExpr implements Expr {
-    private Typ typ;
-    private List<Expr> args = new ArrayList<Expr>();
+public class ArrayOf implements Expr {
+    private Expr array;
+    private Expr idx;
 
-    public static NewExpr NEW( Typ typ, Expr ... args ) {
-        return new NewExpr( typ, args );
-    }
-
-    public NewExpr( Typ typ, Expr ... args ) {
-        this.typ = typ;
-        if ( args.length > 0 ) {
-            this.args.addAll( Arrays.asList( args ));
-        }
+    public ArrayOf( Expr array, Expr idx ) {
+        this.array = array;
+        this.idx = idx;
     }
 
     public String toString() {
-        if ( args.isEmpty() ) {
-            return "new " + typ + "()";    
-        }
+        return array + "[" + idx + "]";
+    }
 
-        return "new " + typ + "( " + Strings.join( args ) + ")";
+    public static ArrayOf ARRAYOF( Expr array, Expr idx ) {
+        return new ArrayOf( array, idx );
     }
 
     @Override
     public String toString(String prefix) {
         return prefix + toString();
     }
-
 }

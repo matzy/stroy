@@ -24,13 +24,13 @@ package org.openCage.generj;
  * **** END LICENSE BLOCK ****
 */
 public class Fild<T> implements Statement {
-    private String name;
+    private NameExpr name;
     private T clazz;
     private String mod;
     private Typ typ;
     private Expr init;
 
-    public Fild( T clazz, String mod, Typ typ, String name) {
+    public Fild( T clazz, String mod, Typ typ, NameExpr name) {
         this.name = name;
         this.clazz = clazz;
         this.mod = mod;

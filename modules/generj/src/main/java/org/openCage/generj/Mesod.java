@@ -37,7 +37,7 @@ public class Mesod {
     private String name;
     private String mod;
 
-    private List<T2<Typ,String>> args = new ArrayList<T2<Typ, String>>();
+    private List<T2<Typ,NameExpr>> args = new ArrayList<T2<Typ, NameExpr>>();
 
     private Block<Mesod> body;
     private List<String> typeNames = new ArrayList<String>();
@@ -69,8 +69,8 @@ public class Mesod {
         ret += (retType != null ? retType : "" )+ " " + name + "( ";
 
 
-        ret += Strings.join( args ).trans( new F1<String, T2<Typ, String>>() {
-                    public String call(T2<Typ, String> arg) {
+        ret += Strings.join( args ).trans( new F1<String, T2<Typ, NameExpr>>() {
+                    public String call(T2<Typ, NameExpr> arg) {
                         return arg.i0 + " " + arg.i1;
                     }
                 });
@@ -89,7 +89,7 @@ public class Mesod {
         return clazz;
     }
 
-    public Mesod arg( Typ typ, String name ) {
+    public Mesod arg( Typ typ, NameExpr name ) {
         this.args.add( T2.valueOf(typ,name));
         return this;
     }

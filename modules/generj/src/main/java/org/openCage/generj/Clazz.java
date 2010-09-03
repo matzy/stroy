@@ -136,19 +136,19 @@ public class Clazz implements ClassI {
         return this;
     }
 
-    public Clazz property(Typ typ, String name) {
-        String upper = Strings.toFirstUpper( name );
+    public Clazz property(Typ typ, NameExpr name) {
+        String upper = Strings.toFirstUpper( name.toString() );
         privt().fild(typ, name );
-        publc().method( typ, "get" + upper ).body().retrn( Exp.n(name));
-        publc().method( "set" + upper ).arg( typ, name ).body().assign( DOT( NAME( "this"), NAME( name )), NAME(name));
+        publc().method( typ, "get" + upper ).body().retrn( name);
+        publc().method( "set" + upper ).arg( typ, name ).body().assign( DOT( NAME( "this"), name ), name );
         return this;
     }
 
-    public Clazz property(Typ typ, String name, Expr init ) {
-        String upper = Strings.toFirstUpper( name );
+    public Clazz property(Typ typ, NameExpr name, Expr init ) {
+        String upper = Strings.toFirstUpper( name.toString() );
         privt().fild(typ, name ).init( init );
-        publc().method( typ, "get" + upper ).body().retrn( Exp.n(name));
-        publc().method( "set" + upper ).arg( typ, name ).body().assign( DOT( NAME( "this"), NAME( name )), NAME(name));
+        publc().method( typ, "get" + upper ).body().retrn( name );
+        publc().method( "set" + upper ).arg( typ, name ).body().assign( DOT( NAME( "this"), name ), name );
         return this;
     }
 

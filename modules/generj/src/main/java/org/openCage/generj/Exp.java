@@ -32,9 +32,6 @@ public class Exp {
         return new BinOp( op, left, right );
     }
 
-    public static NameExpr n( String name ) {
-        return new NameExpr( name );
-    }
 
     public static Str s(String str) {
         return new Str( str );
