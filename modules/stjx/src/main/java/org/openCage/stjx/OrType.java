@@ -7,20 +7,38 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.openCage.generj.BinOp.INSTANCEOF;
 import static org.openCage.generj.Call.CALL;
 import static org.openCage.generj.Cast.CAST;
 import static org.openCage.generj.Dot.DOT;
 import static org.openCage.generj.NameExpr.NAME;
 import static org.openCage.generj.Str.STR;
 import static org.openCage.generj.Typ.TYP;
+import static org.openCage.generj.Typ.STRING;
 
 /**
- * Created by IntelliJ IDEA.
- * User: stephan
- * Date: Aug 8, 2010
- * Time: 9:15:13 PM
- * To change this template use File | Settings | File Templates.
- */
+ * ** BEGIN LICENSE BLOCK *****
+ * Version: MPL 1.1
+ * <p/>
+ * The contents of this file are subject to the Mozilla Public License Version
+ * 1.1 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ * http://www.mozilla.org/MPL/
+ * <p/>
+ * Software distributed under the License is distributed on an "AS IS" basis,
+ * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+ * for the specific language governing rights and limitations under the
+ * License.
+ * <p/>
+ * The Original Code is stroy code
+ * <p/>
+ * The Initial Developer of the Original Code is Stephan Pfab <openCage@gmail.com>.
+ * Portions created by Stephan Pfab are Copyright (C) 2006 - 2010.
+ * All Rights Reserved.
+ * <p/>
+ * Contributor(s):
+ * **** END LICENSE BLOCK ****
+*/
 public class OrType implements Complex {
     private String name;
     private Struct struct;
@@ -46,7 +64,7 @@ public class OrType implements Complex {
 
     @Override
     public void toJavaProperty(Clazz clazz) {
-        clazz.property( Typ.s(name), Strings.toFirstLower(name));
+        clazz.property( TYP(name), NAME(Strings.toFirstLower(name)));
     }
 
 
@@ -105,17 +123,17 @@ public class OrType implements Complex {
 
         String arg = Strings.toFirstLower( name );
 
-        mesod.arg( Typ.STRING, "prefix" ).arg( Typ.s(name), arg );
+        mesod.arg( STRING, NAME("prefix" )).arg( TYP(name), NAME(arg ));
 
         for ( String ref : alternatives ) {
-            mesod.body().iff( Exp.bi( "instanceof", Exp.n(arg), Exp.n(ref) )).thn().
+            mesod.body().iff( INSTANCEOF( NAME(arg), TYP(ref) )).thn().
                     retrn( CALL( NAME("toString" + ref),
-                                   Exp.n("prefix" ),
-                                   CAST( TYP(ref), Exp.n(arg) )));
+                                   NAME("prefix" ),
+                                   CAST( TYP(ref), NAME(arg) )));
         }
 
 
-        mesod.body().thrw( Typ.s("IllegalStateException"), "no a valid suptype of " + name );
+        mesod.body().thrw( TYP("IllegalStateException"), "no a valid suptype of " + name );
 
 
 //        mesod.arg( Typ.STRING, "prefix" ).arg( Typ.of("List", Typ.s(this.of)), name ).
@@ -141,7 +159,7 @@ public class OrType implements Complex {
         alternatives.addAll( Arrays.asList( names ));
 
         for ( String alt : names ) {
-            Complex comp = struct.getZeug().structs.get( alt );
+            Complex comp = struct.getStjx().structs.get( alt );
             if ( comp == null ) {
                 throw new IllegalArgumentException( alt + " used in or("+ name +") before declared as struct" );
             }
@@ -153,7 +171,7 @@ public class OrType implements Complex {
     }
 
     public ClassI toJava(String pack) {
-        Interf interf = new Interf( pack, Typ.s(name ));
+        Interf interf = new Interf( pack, TYP(name ));
         return interf;
     }
 }

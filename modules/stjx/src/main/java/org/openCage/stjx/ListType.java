@@ -16,6 +16,29 @@ import static org.openCage.generj.Str.STR;
 import static org.openCage.generj.Typ.TYP;
 import static org.openCage.generj.Typ.STRING;
 
+/**
+ * ** BEGIN LICENSE BLOCK *****
+ * Version: MPL 1.1
+ * <p/>
+ * The contents of this file are subject to the Mozilla Public License Version
+ * 1.1 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ * http://www.mozilla.org/MPL/
+ * <p/>
+ * Software distributed under the License is distributed on an "AS IS" basis,
+ * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+ * for the specific language governing rights and limitations under the
+ * License.
+ * <p/>
+ * The Original Code is stroy code
+ * <p/>
+ * The Initial Developer of the Original Code is Stephan Pfab <openCage@gmail.com>.
+ * Portions created by Stephan Pfab are Copyright (C) 2006 - 2010.
+ * All Rights Reserved.
+ * <p/>
+ * Contributor(s):
+ * **** END LICENSE BLOCK ****
+*/
 public class ListType implements Complex {
     private Struct struct;
     private String name;
@@ -66,9 +89,9 @@ public class ListType implements Complex {
         thn.iff( CALL( DOT( NAME("stack"), NAME("empty")))).thn().
                 thrwIllegalArgument( STR( name + ": needs to be in complex type"));
 
-        thn.fild( TYP("Object"), "peek").init( CALL( DOT( NAME("stack"), NAME("peek"))));
+        thn.fild( TYP("Object"), NAME("peek")).init( CALL( DOT( NAME("stack"), NAME("peek"))));
 
-        List<Complex> users = struct.getZeug().getUsers( name );
+        List<Complex> users = struct.getStjx().getUsers( name );
         for ( Complex comp : users ) {
 
             thn.iff( INSTANCEOF( NAME("peek"), TYP(comp.getName()))).thn().
@@ -92,7 +115,7 @@ public class ListType implements Complex {
 
     public String toSAXStart() {
 
-        List<Complex> users = struct.getZeug().getUsers( name );
+        List<Complex> users = struct.getStjx().getUsers( name );
 
         String ret = "          if ( qName.equals( \""+ name + "\"))  {\n" +
                 "             if ( stack.empty() ) {\n" +
@@ -152,23 +175,23 @@ public class ListType implements Complex {
 
         Mesod mesod = clazz.publc().sttic().method( STRING, "toString" + name );
 
-        mesod.arg( Typ.STRING, "prefix" ).arg( Typ.of("List", TYP(this.of)), name );
+        mesod.arg( STRING, NAME("prefix")).arg( Typ.of("List", TYP(this.of)), NAME(name ));
 
         mesod.body().iff( CALL( DOT( NAME(name), NAME("isEmpty" )))).
                 thn().retrn( Str.s(""));
 
         mesod.body().
-                fild( Typ.STRING, "ret").init( NameExpr.n("prefix") ).
+                fild( STRING, NAME("ret")).init( NAME("prefix") ).
                 assignPlus( NAME("ret"), Exp.s("<" + name + ">\\n"));
 
-        mesod.body().fr( Typ.s(of), "vr",  Exp.n( name )).body().
+        mesod.body().fr( TYP(of), "vr",  NAME( name )).body().
                 assignPlus( NAME("ret"), CALL( NAME("toString" + of),
-                        Exp.bi("+", Exp.n("prefix"), Exp.s("   ")),
-                        Exp.n("vr")) );
+                        PLUS( NAME("prefix"), STR("   ")),
+                        NAME("vr")) );
 
 
 
-        mesod.body().assignPlus( NAME("ret"), Exp.bi( "+", Exp.n("prefix"), Exp.s( "</"+name+">\\n" ) ));
+        mesod.body().assignPlus( NAME("ret"), PLUS( NAME("prefix"), STR( "</"+name+">\\n" ) ));
 
         mesod.body().retrn( NAME("ret"));
     }
@@ -176,7 +199,7 @@ public class ListType implements Complex {
 
     @Override
     public void toJavaProperty(Clazz clazz) {
-        clazz.property( Typ.of( "List", Typ.s(of) ), Strings.toFirstLower(name), new NewExpr( Typ.of("ArrayList", Typ.s(of))));
+        clazz.property( Typ.of( "List", TYP(of) ), NAME(Strings.toFirstLower(name)), new NewExpr( Typ.of("ArrayList", TYP(of))));
 
     }
 

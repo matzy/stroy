@@ -11,11 +11,46 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
+import static org.openCage.generj.ArrayOf.ARRAYOF;
+import static org.openCage.generj.BinOp.AND;
+import static org.openCage.generj.BinOp.LESS;
+import static org.openCage.generj.BinOp.PLUS;
+import static org.openCage.generj.BracketExpr.BRACKET;
+import static org.openCage.generj.Call.CALL;
 import static org.openCage.generj.Cast.CAST;
 import static org.openCage.generj.Dot.DOT;
 import static org.openCage.generj.NameExpr.NAME;
+import static org.openCage.generj.NewExpr.NEW;
+import static org.openCage.generj.Str.STR;
 import static org.openCage.generj.Typ.TYP;
+import static org.openCage.generj.Typ.INT;
+import static org.openCage.generj.Typ.STRING;
+import static org.openCage.generj.Typ.BOOLEAN;
+import static org.openCage.generj.UnOp.PLUSPLUS;
 
+/**
+ * ** BEGIN LICENSE BLOCK *****
+ * Version: MPL 1.1
+ * <p/>
+ * The contents of this file are subject to the Mozilla Public License Version
+ * 1.1 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ * http://www.mozilla.org/MPL/
+ * <p/>
+ * Software distributed under the License is distributed on an "AS IS" basis,
+ * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+ * for the specific language governing rights and limitations under the
+ * License.
+ * <p/>
+ * The Original Code is stroy code
+ * <p/>
+ * The Initial Developer of the Original Code is Stephan Pfab <openCage@gmail.com>.
+ * Portions created by Stephan Pfab are Copyright (C) 2006 - 2010.
+ * All Rights Reserved.
+ * <p/>
+ * Contributor(s):
+ * **** END LICENSE BLOCK ****
+*/
 public class Stjx {
     private BlockComment clazzComment;
 
@@ -49,13 +84,15 @@ public class Stjx {
 //
 //        stjx.struct( "CCC").withContent();
 
-        Stjx stjx = new Stjx("Loc");
+        Stjx stjx = new Stjx("Big");
+
+        stjx.struct( "Big" ).multiLine( "description" );
 
 
-        stjx.struct("Loc").locale( "theLocal" );
+//        stjx.struct("Loc").locale( "theLocal" );
 
-        System.out.println( stjx.toToXML( "org.openCage.foo" ));
-//        System.out.println( stjx.toFromXML( "org.openCage.foo" ));
+//        System.out.println( stjx.toToXML( "org.openCage.foo" ));
+        System.out.println( stjx.toFromXML( "org.openCage.foo" ));
 
 //        for ( Complex cop : stjx.structs.values() ) {
 //            if ( cop instanceof Struct ) {
@@ -66,9 +103,9 @@ public class Stjx {
 //            }
 //        }
 
-        Locale loc = new Locale( "German");
-
-        System.out.println( loc );
+//        Locale loc = new Locale( "German");
+//
+//        System.out.println( loc );
     }
 
     public void mpl( String author, String email, String time, String project ) {
@@ -170,7 +207,7 @@ public class Stjx {
     }
 
     private Clazz toFromXML( String pack) {
-        Clazz clazz = new Clazz( pack, Typ.s( name + "FromXML") ).
+        Clazz clazz = new Clazz( pack, TYP( name + "FromXML") ).
                 imprt( "org.xml.sax.Attributes" ).
                 imprt( "org.xml.sax.SAXException" ).
                 imprt( "org.xml.sax.helpers.DefaultHandler" ).
@@ -185,43 +222,56 @@ public class Stjx {
                 imprt( "java.util.Stack" ).
                 imprt( "java.util.Locale" ).
 
-                extnds( Typ.s("DefaultHandler") ).
-                    publc().sttic().clazz( Typ.of("ListHelper", Typ.s("T"))).
-                        privt().fild( Typ.of("List",Typ.s("T")), "list").c().
-                        publc().cnstr().arg( Typ.of("List",Typ.s("T")), "list").body().
+                extnds( TYP("DefaultHandler") ).
+                    publc().sttic().clazz( Typ.of("ListHelper", TYP("T"))).
+                        privt().fild( Typ.of("List",TYP("T")), NAME("list")).c().
+                        publc().cnstr().arg( Typ.of("List",TYP("T")), NAME("list")).body().
                             assign( DOT( NAME("this"), NAME("list")), NAME("list")).r().c().
-                        publc().method( "add").arg( TYP("T"), "elem ").body().
+                        publc().method( "add").arg( TYP("T"), NAME("elem")).body().
                             call( DOT( NAME( "list"), NAME("add")), NAME("elem")).r().c().r().
 
-                    privt().fild( Typ.s("Stack"), "stack").init( new NewExpr( Typ.s("Stack"))).
+                    privt().fild( TYP("Stack"), NAME("stack")).init( NEW( TYP("Stack"))).
                 
-                    privt().fild( Typ.s("Object"), "goal").c().
+                    privt().fild( TYP("Object"), NAME("goal")).c().
 
-                    publc().override().method( "startDocument").thrws( Typ.s("SAXException")).body().
+                    publc().override().method( "startDocument").thrws( TYP("SAXException")).body().
                         call( DOT( NAME( "stack"), NAME("clear"))).r().c().
 
-                    publc().override().method( "endDocument").thrws( Typ.s("SAXException")).body().r().c().
+                    publc().override().method( "endDocument").thrws( TYP("SAXException")).body().r().c().
 
                     publc().method( TYP(name), "getGoal").body().
                         retrn( CAST( TYP(name), NAME("goal"))).r().c()
                   ;
 
-        Block start = clazz.publc().override().method( "startElement").thrws( Typ.s("SAXException")).
-                arg( Typ.STRING, "uri").
-                arg( Typ.STRING, "localName").
-                arg( Typ.STRING, "qName").
-                arg( Typ.s("Attributes"), "attributes").body();
+        clazz.privt().fild( BOOLEAN, NAME("getCharacters" ));
 
-        Block end = clazz.publc().override().method( "endElement").thrws( Typ.s("SAXException")).
-                arg( Typ.STRING, "uri").
-                arg( Typ.STRING, "localName").
-                arg( Typ.STRING, "qName").body();
+        Block start = clazz.publc().override().method( "startElement").thrws( TYP("SAXException")).
+                arg( STRING, NAME("uri")).
+                arg( STRING, NAME("localName")).
+                arg( STRING, NAME("qName")).
+                arg( TYP("Attributes"), NAME("attributes")).body();
+
+        Block end = clazz.publc().override().method( "endElement").thrws( TYP("SAXException")).
+                arg( STRING, NAME("uri")).
+                arg( STRING, NAME("localName")).
+                arg( STRING, NAME("qName")).body();
+
+
+        Block content = clazz.publc().method( "characters" ).arg( TYP("char[]"), NAME("ch")).arg( INT, NAME("start")).arg( INT, NAME("length") ).body();
+        Block contentBody = content.iff( NAME("getCharacters")).thn();
+        contentBody.fild( TYP("StringBuffer"), NAME("sb")).init( NEW(TYP("StringBuffer")));
+        contentBody.fr( INT, "idx", NAME("start"),
+                    AND( LESS( NAME("idx"), DOT(NAME("ch"), NAME("length"))), LESS(NAME("idx"), BRACKET(PLUS(NAME("start"), NAME("length"))))),
+                    PLUSPLUS( NAME("idx"))).body().
+                        call( DOT( NAME("sb"), NAME("append")), ARRAYOF( NAME("ch"), NAME("idx")));
+        contentBody.call( DOT(NAME("stack"), NAME("push")), CALL( DOT(NAME("sb"), NAME("toString"))));
+
 
         for ( Complex complex : structs.values() ) {
             complex.toFromXMLStart(start);
         }
 
-        start.thrwIllegalArgument( Exp.bi( "+", Exp.s("unknown tag "), Exp.n( "qName" )));
+        start.thrwIllegalArgument( PLUS( STR("unknown tag "), NAME( "qName" )));
 
         for ( Complex complex : structs.values() ) {
             complex.toFromXMLEnd(end);
@@ -231,74 +281,74 @@ public class Stjx {
         return clazz;
     }
 
-    private String toJava() {
-
-        String ret =
-                "import org.xml.sax.Attributes;\n" +
-                "import org.xml.sax.SAXException;\n" +
-                "import org.xml.sax.helpers.DefaultHandler;\n" +
-                "\n" +
-                "import javax.xml.parsers.SAXParser;\n" +
-                "import javax.xml.parsers.SAXParserFactory;\n" +
-                "import javax.xml.stream.events.EntityDeclaration;\n" +
-                "import java.io.File;\n" +
-                "import java.util.ArrayList;\n" +
-                "import java.util.HashMap;\n" +
-                "import java.util.List;\n" +
-                "import java.util.Map;\n" +
-                "import java.util.Stack;\n\n" +
-                "   public class FromXML extends DefaultHandler {\n" +
-                "\n" +
-                "       private static class ListHelper<T> {\n" +
-                "           private final List<T> list;\n" +
-                "\n" +
-                "           public ListHelper( List<T> list ) {\n" +
-                "               this.list = list;\n" +
-                "           }\n" +
-                "\n" +
-                "           public void add( T elem) {\n" +
-                "               list.add( elem );\n" +
-                "           }\n" +
-                "       }\n" +
-                "\n" +
-                "       private Stack stack = new Stack();"+
-                "       private Object goal;\n" +
-                "       @Override\n" +
-                "       public void startDocument() throws SAXException {\n" +
-                "           stack.clear();\n" +
-                "       }\n" +
-                "\n" +
-                "       @Override\n" +
-                "       public void endDocument() throws SAXException{}           \n" +
-                "\n" +
-                "       @Override\n" +
-                "       public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException{\n" +
-                "";
-
-        for ( Complex complex : structs.values() ) {
-            ret += complex.toSAXStart();
-        }
-
-        ret += "             throw new IllegalArgumentException(\"unknown tag \" + qName );\n" +
-                "\n" +
-                "       }\n" +
-                "\n" +
-                "       @Override\n" +
-                "       public void endElement( String uri, String localName, String qName) throws SAXException {\n";
-
-        for ( Complex complex : structs.values() ) {
-            ret += complex.toSAXEnd();
-        }
-
-        ret += "       }\n" +
-                "\n" +
-                "       public Object getGoal() {\n" +
-                "           return goal;\n" +
-                "       }\n" +
-                "}\n";
-
-        return ret;
-    }
+//    private String toJava() {
+//
+//        String ret =
+//                "import org.xml.sax.Attributes;\n" +
+//                "import org.xml.sax.SAXException;\n" +
+//                "import org.xml.sax.helpers.DefaultHandler;\n" +
+//                "\n" +
+//                "import javax.xml.parsers.SAXParser;\n" +
+//                "import javax.xml.parsers.SAXParserFactory;\n" +
+//                "import javax.xml.stream.events.EntityDeclaration;\n" +
+//                "import java.io.File;\n" +
+//                "import java.util.ArrayList;\n" +
+//                "import java.util.HashMap;\n" +
+//                "import java.util.List;\n" +
+//                "import java.util.Map;\n" +
+//                "import java.util.Stack;\n\n" +
+//                "   public class FromXML extends DefaultHandler {\n" +
+//                "\n" +
+//                "       private static class ListHelper<T> {\n" +
+//                "           private final List<T> list;\n" +
+//                "\n" +
+//                "           public ListHelper( List<T> list ) {\n" +
+//                "               this.list = list;\n" +
+//                "           }\n" +
+//                "\n" +
+//                "           public void add( T elem) {\n" +
+//                "               list.add( elem );\n" +
+//                "           }\n" +
+//                "       }\n" +
+//                "\n" +
+//                "       private Stack stack = new Stack();"+
+//                "       private Object goal;\n" +
+//                "       @Override\n" +
+//                "       public void startDocument() throws SAXException {\n" +
+//                "           stack.clear();\n" +
+//                "       }\n" +
+//                "\n" +
+//                "       @Override\n" +
+//                "       public void endDocument() throws SAXException{}           \n" +
+//                "\n" +
+//                "       @Override\n" +
+//                "       public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException{\n" +
+//                "";
+//
+//        for ( Complex complex : structs.values() ) {
+//            ret += complex.toSAXStart();
+//        }
+//
+//        ret += "             throw new IllegalArgumentException(\"unknown tag \" + qName );\n" +
+//                "\n" +
+//                "       }\n" +
+//                "\n" +
+//                "       @Override\n" +
+//                "       public void endElement( String uri, String localName, String qName) throws SAXException {\n";
+//
+//        for ( Complex complex : structs.values() ) {
+//            ret += complex.toSAXEnd();
+//        }
+//
+//        ret += "       }\n" +
+//                "\n" +
+//                "       public Object getGoal() {\n" +
+//                "           return goal;\n" +
+//                "       }\n" +
+//                "}\n";
+//
+//        return ret;
+//    }
 
     Map<String,Complex> structs = new HashMap<String,Complex>();
     private String name;
@@ -363,157 +413,6 @@ public class Stjx {
         ret += "   }\n";
         return ret;
     }
-
-
-//    public static class Elem {
-//        private String anAtti;
-//        public String get() {
-//            return anAtti;
-//        }
-//        public void setAnAtti( String anAtti ) {
-//            this.anAtti = anAtti;
-//        }
-//    }
-//
-//    public static class Duh {
-//        private String mabe;
-//        public String get() {
-//            return mabe;
-//        }
-//        public void setMabe( String mabe ) {
-//            this.mabe = mabe;
-//        }
-//    }
-//
-//    public static class Compl {
-//        private List<Elem>  eles = new ArrayList<Elem>();
-//        public  void add( Elem elem) {
-//            eles.add( elem );
-//        };
-//        public List<Elem> getEles() {
-//            return eles;
-//        }
-//        private Duh duh;
-//        public Duh get() {
-//            return duh;
-//        }
-//        public void setDuh( Duh duh ) {
-//            this.duh = duh;
-//        }
-//    }
-//
-//
-//
-//    private static class FromXml extends DefaultHandler {
-//
-//        private static class ListHelper<T> {
-//            private final List<T> list;
-//
-//            public ListHelper( List<T> list ) {
-//                this.list = list;
-//            }
-//
-//            public void add( T elem) {
-//                list.add( elem );
-//            }
-//        }
-//
-//        private Stack stack = new Stack();
-//        private Object goal;
-//        @Override
-//        public void startDocument() throws SAXException {
-//            stack.clear();
-//        }
-//
-//        @Override
-//        public void endDocument() throws SAXException {}
-//
-//        @Override
-//        public void startElement(String uri, String localName, String
-//                qName, Attributes attributes) throws SAXException {
-//
-//            if ( qName.equals( "Compl" )) {
-//                Compl elem = new Compl();
-//                stack.push( elem );
-//                return;
-//            }
-//
-//            if ( qName.equals("Elem")) {
-//                Elem elem = new Elem();
-//                String att1 = attributes.getValue( "anAtti" );
-//                if ( att1 != null ) {
-//                    elem.setAnAtti( att1 );
-//                } else {
-//                    throw new IllegalArgumentException( "attribute antAtti is required" );
-//                }
-//
-//                Object peek =  stack.peek();
-//
-//                if ( peek instanceof ListHelper ) {
-//                    ((ListHelper<Elem>)peek).add( elem );
-//                }
-//
-//                stack.push(elem );
-//                return;
-//            }
-//
-//            if ( qName.equals( "Duh"))  {
-//                Duh elem = new Duh();
-//                String att1 = attributes.getValue( "maybe" );
-//                if ( att1 != null ) {
-//                    elem.setMabe( att1 );
-//                }
-//
-//                Object peek =  stack.peek();
-//
-//                if ( peek instanceof Compl ) {
-//                    ((Compl)peek).setDuh( elem );
-//                } else {
-//                    throw new IllegalArgumentException( "duh is not member of " + peek.getClass() );
-//                }
-//
-//                stack.push(elem );
-//                return;
-//
-//            }
-//
-//            if ( qName.equals( "eles"))  {
-//
-//                Object peek =  stack.peek();
-//
-//                if ( peek instanceof Compl ) {
-//                    stack.push( new ListHelper<Elem>( ((Compl)peek).getEles() ));
-//                    return;
-//                } else {
-//                    throw new IllegalArgumentException( "duh is not member of " + peek.getClass() );
-//                }
-//            }
-//
-//            throw new IllegalArgumentException( "unknown tag " + qName );
-//
-//        }
-//
-//        @Override
-//        public void endElement( String uri, String localName, String
-//                qName) throws SAXException {
-//            if ( qName.equals( "eles" ) ) {
-//                goal = stack.pop();
-//            }
-//            if ( qName.equals( "Duh" ) ) {
-//                goal = stack.pop();
-//            }
-//            if ( qName.equals( "Elem" ) ) {
-//                goal = stack.pop();
-//            }
-//            if ( qName.equals( "Compl" ) ) {
-//                goal = stack.pop();
-//            }
-//        }
-//
-//        public Object getGoal() {
-//            return goal;
-//        }
-//    }
 
 
 }
