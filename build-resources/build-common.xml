@@ -746,6 +746,6 @@
 
     <!-- build everything with all dependent modules -->
     <target name="everything">
-        <antcall target="depend.${ant.project.name}"/>
+        <antcall target="depend.${el.module.name}"/>
     </target>
 </project>
