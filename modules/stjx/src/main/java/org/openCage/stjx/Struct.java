@@ -54,6 +54,7 @@ public class Struct implements Complex {
     private String interf;
     private boolean content;
     List<String> multiLines = new ArrayList<String>();
+    private List<String> requiredMultiLines = new ArrayList<String>();
 
     public Struct(Stjx stjx, String name) {
         this.stjx = stjx;
@@ -67,6 +68,7 @@ public class Struct implements Complex {
 
     public Struct multiLine(String name) {
         multiLines.add( name );
+        requiredMultiLines.add( name );
         return this;
     }
 
@@ -160,48 +162,6 @@ public class Struct implements Complex {
     }
 
 
-//    public String toJava() {
-//        String ret = "import java.util.ArrayList;\n" +
-//                     "import java.util.List;\n" +
-//                     "public class " + name;
-//
-//
-//        if ( interf != null ) {
-//            ret += " implements " + interf + " ";
-//        }
-//
-//        ret += " {\n";
-//
-//        for ( Atti atti : attis ) {
-//            ret += atti.toJava();
-//        }
-//
-//        for ( Ref ref : complexs ) {
-//            Complex comp = stjx.structs.get( ref.getName() );
-//
-//            if ( comp == null ) {
-//                throw new IllegalArgumentException( "unknown complex " + ref.getName() );
-//            }
-//
-//            ret += comp.toJavaDecl();
-//        }
-//
-//        ret += "    public String toString() {\n" +
-//               "       return \"" + name + "(";
-//        for ( Atti atti : attis ) {
-//            ret += atti.getName() + ": \" + get" + Strings.toFirstUpper( atti.getName() ) + "() +\" ";
-//        }
-//        for ( Ref ref : complexs ) {
-//            ret += ref.getName();
-//        }
-//        ret += ")\";";
-//        ret += "    }\n";
-//
-//        ret += "}\n";
-//
-//        return ret;
-//    }
-//
 
     @Override
     public void toFromXMLStart(Block start) {
@@ -329,13 +289,14 @@ public class Struct implements Complex {
                 thn.ifNull( CALL( DOT( CAST( TYP(name), NAME("goal")),
                                         GETTER( ref.getName() )))).thn().
                         thrwIllegalArgument( STR( name + ": required member " + ref.getName() + " not set"));
-
-//                ret += "               if ( (("+name+")goal).get"+ Strings.toFirstUpper(ref.getName() )+"() == null ){\n" +
-//                       "                  throw new IllegalArgumentException(\""+ name +" required member "+ ref.getName() +" not set \");\n" +
-//                       "               }\n";
             }
         }
 
+        for ( String multi : requiredMultiLines ) {
+            thn.ifNull( CALL( DOT( CAST( TYP(name), NAME("goal")),
+                                    GETTER( multi )))).thn().
+                    thrwIllegalArgument( STR( name + ": required member " + multi + " not set"));
+        }
 
         for ( String multi : multiLines ) {
             Block thnMulti = end.iff( CALL( DOT( NAME("qName"), NAME( "equals")), STR(multi) )).thn();
