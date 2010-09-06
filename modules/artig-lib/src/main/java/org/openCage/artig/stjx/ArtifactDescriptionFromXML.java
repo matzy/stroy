@@ -231,17 +231,6 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
          stack.push( elem );
          return;
       }
-      if( qName.equals( "references" ) ){
-         if( stack.empty() ){
-            throw new IllegalArgumentException( "references: needs to be in complex type" );
-         }
-         Object peek = stack.peek();
-         if( peek instanceof References ){
-            stack.push( ((References)peek).getReferences() );
-            return;
-         }
-         throw new IllegalArgumentException( "references is not a member of " + peek.getClass() );
-      }
       if( qName.equals( "DropInFor" ) ){
          DropInFor elem = new DropInFor();
          if( ! stack.empty() ){
@@ -252,6 +241,17 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
          }
          stack.push( elem );
          return;
+      }
+      if( qName.equals( "references" ) ){
+         if( stack.empty() ){
+            throw new IllegalArgumentException( "references: needs to be in complex type" );
+         }
+         Object peek = stack.peek();
+         if( peek instanceof References ){
+            stack.push( ((References)peek).getReferences() );
+            return;
+         }
+         throw new IllegalArgumentException( "references is not a member of " + peek.getClass() );
       }
       if( qName.equals( "LicenceRef" ) ){
          LicenceRef elem = new LicenceRef();
@@ -392,7 +392,7 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
             elem.setVersion( attributes.getValue( "version" ) );
          }
          if( attributes.getValue( "scope" ) != null ){
-            elem.setScope( attributes.getValue( "scope" ) );
+            elem.setScope( Scope.valueOf( attributes.getValue( "scope" ) ) );
          }
          if( ! stack.empty() ){
             Object peek = stack.peek();
@@ -579,14 +579,14 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
       if( qName.equals( "ModuleRef" ) ){
          goal = stack.pop();
       }
-      if( qName.equals( "references" ) ){
-         goal = stack.pop();
-      }
       if( qName.equals( "DropInFor" ) ){
          goal = stack.pop();
          if( ((DropInFor)goal).getArtifactRef() == null ){
             throw new IllegalArgumentException( "DropInFor: required member ArtifactRef not set" );
          }
+      }
+      if( qName.equals( "references" ) ){
+         goal = stack.pop();
       }
       if( qName.equals( "LicenceRef" ) ){
          goal = stack.pop();

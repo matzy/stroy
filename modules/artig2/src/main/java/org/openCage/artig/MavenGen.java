@@ -5,6 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import org.openCage.artig.stjx.Artifact;
 import org.openCage.artig.stjx.ArtifactRef;
 import org.openCage.artig.stjx.ModuleRef;
+import org.openCage.artig.stjx.Scope;
 import org.openCage.io.FileUtils;
 import org.openCage.io.IOUtils;
 import org.openCage.io.fspath.FSPath;
@@ -130,9 +131,9 @@ public class MavenGen {
         dep += "         " + leaf( "artifactId", arti.getName()) + "\n";
         dep += "         " + leaf( "version", artifact.getVersion()  ) + "\n";
 
-        if ( arti.getScope() == null || arti.getScope().equals( "compile" ) ) {
+        if ( arti.getScope() == null || arti.getScope().equals( Scope.compile ) ) {
             dep += "         " + leaf( "scope", "compile"  ) + "\n";
-        } else if ( arti.getScope().equals( "test" ) ) {
+        } else if ( arti.getScope().equals( Scope.test ) ) {
             dep += "         " + leaf( "scope", "test"  ) + "\n";
         } else {
                 throw new IllegalStateException( "(yet) unsupported scope " + arti.getScope() );

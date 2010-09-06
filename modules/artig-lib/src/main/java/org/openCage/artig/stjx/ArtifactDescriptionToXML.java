@@ -190,6 +190,16 @@ public class ArtifactDescriptionToXML {
       ret += "/>\n";
       return ret;
    }
+   public static  String toStringDropInFor( String prefix, DropInFor dropInFor ){
+      String ret = prefix;
+      ret += "<DropInFor ";
+      ret += ">\n";
+      if( dropInFor.getArtifactRef() != null ){
+         ret += toStringArtifactRef( prefix + "   ", dropInFor.getArtifactRef() );
+      }
+      ret += prefix + "</DropInFor>\n";
+      return ret;
+   }
    public static  String toStringreferences( String prefix, List<Artifact> references ){
       if( references.isEmpty() ){
          return "";
@@ -200,16 +210,6 @@ public class ArtifactDescriptionToXML {
          ret += toStringArtifact( prefix + "   ", vr );
       }
       ret += prefix + "</references>\n";
-      return ret;
-   }
-   public static  String toStringDropInFor( String prefix, DropInFor dropInFor ){
-      String ret = prefix;
-      ret += "<DropInFor ";
-      ret += ">\n";
-      if( dropInFor.getArtifactRef() != null ){
-         ret += toStringArtifactRef( prefix + "   ", dropInFor.getArtifactRef() );
-      }
-      ret += prefix + "</DropInFor>\n";
       return ret;
    }
    public static  String toStringLicenceRef( String prefix, LicenceRef licenceRef ){

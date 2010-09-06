@@ -1,8 +1,4 @@
 package org.openCage.artig.stjx;
-
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * ** BEGIN LICENSE BLOCK *****
  * Version: MPL 1.1
@@ -26,34 +22,4 @@ import java.util.List;
  * Contributor(s):
  * **** END LICENSE BLOCK ****
 */
-public class ArtifactRef {
-   private String groupId;
-   private String name;
-   private String version;
-   private Scope scope = null;
-   public String getGroupId(  ){
-      return groupId;
-   }
-   public void setGroupId( String groupId ){
-      this.groupId = groupId;
-   }
-   public String getName(  ){
-      return name;
-   }
-   public void setName( String name ){
-      this.name = name;
-   }
-   public String getVersion(  ){
-      return version;
-   }
-   public void setVersion( String version ){
-      this.version = version;
-   }
-   public Scope getScope(  ){
-      return scope;
-   }
-   public void setScope( Scope scope ){
-      this.scope = scope;
-   }
-
-}
+public enum Scope {compile, test, knowhow}

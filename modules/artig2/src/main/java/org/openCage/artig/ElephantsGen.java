@@ -189,7 +189,7 @@ public class ElephantsGen {
                     postfix( "\"").
                     skip( new F1<Boolean,ArtifactRef>( ) {
                         @Override public Boolean call(ArtifactRef ref) {
-                            return ref.getScope() != null && !ref.getScope().equals( "compile" );
+                            return ref.getScope() != null && !ref.getScope().equals( Scope.compile );
                         }
                     }).
                     trans( new F1<String,ArtifactRef>() {
@@ -198,17 +198,6 @@ public class ElephantsGen {
                         }
                     });
 
-//        if ( arti.getCompileDependencies().size() > 0 ) {
-//            ret += "\n           depends=\"";
-//
-//            for ( Count<Artifact> dep : Count.count(arti.getCompileDependencies()) ) {
-//                ret += dep.obj().getChoice().gettName();
-//                if ( !dep.isLast()) {
-//                    ret += ", ";
-//                }
-//            }
-//            ret += "\"";
-//        }
 
         ret += ">\n";
 
@@ -244,7 +233,7 @@ public class ElephantsGen {
                     postfix( "\"").
                     skip( new F1<Boolean,ArtifactRef>( ) {
                         @Override public Boolean call(ArtifactRef ref) {
-                            return ref.getScope() != null && !ref.getScope().equals( "compile" );
+                            return ref.getScope() != null && !ref.getScope().equals( Scope.compile );
                         }
                     }).
                     trans( new F1<String,ArtifactRef>() {
