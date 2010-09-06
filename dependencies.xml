@@ -112,7 +112,8 @@
    </target>
 
    <!-- ================================================================== -->
-   <target name="designgridlayout">
+   <target name="designgridlayout"
+           depends="swing-layout">
       <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/repo/net/java/dev/designgridlayout/designgridlayout/0.9/designgridlayout-0.9.jar" />
    </target>
 
