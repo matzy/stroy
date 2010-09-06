@@ -48,11 +48,13 @@ public class ModuleDescription {
 //                STRING( "groupId" ).
                 string( "name" );
 
+        stjx.enm( "Scope", "compile", "test", "knowhow" );
+
         stjx.struct( "ArtifactRef" ).
                 optional().string( "groupId" ).
                 string( "name" ).
                 optional().string( "version" ). // TODO ?
-                optional().string( "scope" );
+                optional().enm( "scope" );
 
         stjx.struct( "Author" ).
                 string("name").

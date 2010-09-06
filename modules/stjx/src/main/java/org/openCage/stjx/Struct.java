@@ -66,6 +66,12 @@ public class Struct implements Complex {
         return this;
     }
 
+    public Struct enm( String name ) {
+        attis.add( EnumAtti.required( name ));
+        return this;
+    }
+
+
     public Struct multiLine(String name) {
         multiLines.add( name );
         requiredMultiLines.add( name );
@@ -366,11 +372,7 @@ public class Struct implements Complex {
 
             mesod.body().ifNotNull( getAtti ).
                     thn().assignPlus( NAME("ret"),
-                            new BinOp( "+",
-                                    new Str( atti.getName() + "=\\\""),
-                                    new BinOp( "+",
-                                            getAtti,
-                                            Str.s("\\\" "))));
+                            PLUS( STR( atti.getName() + "=\\\""), getAtti, STR("\\\" ")));
         }
 
         if ( complexs.isEmpty() && !content && multiLines.isEmpty() ) {

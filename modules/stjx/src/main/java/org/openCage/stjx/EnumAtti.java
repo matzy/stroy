@@ -1,18 +1,18 @@
 package org.openCage.stjx;
 
+import com.sun.tools.javac.util.List;
 import org.openCage.generj.Block;
 import org.openCage.generj.Clazz;
 import org.openCage.generj.IfExpr;
-import org.openCage.generj.Typ;
 import org.openCage.lang.Strings;
 
 import static org.openCage.generj.Call.CALL;
 import static org.openCage.generj.Dot.DOT;
 import static org.openCage.generj.NameExpr.NAME;
+import static org.openCage.generj.NameExpr.NULL;
 import static org.openCage.generj.NameExpr.SETTER;
 import static org.openCage.generj.Str.STR;
 import static org.openCage.generj.Typ.TYP;
-import static org.openCage.generj.Typ.STRING;
 
 /**
  * ** BEGIN LICENSE BLOCK *****
@@ -37,71 +37,56 @@ import static org.openCage.generj.Typ.STRING;
  * Contributor(s):
  * **** END LICENSE BLOCK ****
 */
-public class StringAtti implements Atti {
+public class EnumAtti implements Atti {
     private String name;
+    private String enumName;
     private boolean optional;
 
-    public StringAtti(String name, boolean optional ) {
+    public EnumAtti( String enumName, String name, boolean optional ) {
         this.name = name;
+        this.enumName = enumName;
         this.optional = optional;
     }
 
+    public static Atti required( String name ) {
+        return new EnumAtti( Strings.toFirstUpper(name), Strings.toFirstLower(name), false );
+    }
+
+    public static Atti optional(String name) {
+        return new EnumAtti( Strings.toFirstUpper(name), Strings.toFirstLower(name), true );
+
+    }
+
+    @Override
     public String getName() {
         return name;
     }
 
-    public String toJava() {
-        return Stjx.toJavaBeanAttribute( "String", name );
-    }
-
-    @Override public void toJavaProperty(Clazz clazz) {
-        clazz.property( STRING, NAME(Strings.toFirstLower(name)));
-//        clazz.property( TYP( name ), Strings.toFirstLower(name));
+    @Override
+    public String toRnc() {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
-    public void toFromXMLStart(Block block, String varName) {
-
-        IfExpr ite = block.ifNotNull( CALL( DOT( NAME("attributes"), NAME( "getValue")), STR(name) ));
-
-        ite.thn().call( DOT( NAME("elem"), SETTER(name)),
-                        CALL( DOT( NAME("attributes"), NAME( "getValue")), STR(name) ));
-
-        if( !optional ) {
-            ite.els().thrw( TYP("IllegalArgumentException"), varName + ": attribute " + name + " is required"  );
-        }
-
-    }
-
-//    public String toSAXStart(String complexName) {
-//        String ret = "               String "+ name + " = attributes.getValue( \"" + name +"\" );\n" +
-//                "               if ( "+ name + " != null ) {\n" +
-//                "                  elem.set" + Strings.toFirstUpper(name ) + "( " + name + ");\n" +
-//                "               } \n";
-//
-//        if ( !optional ) {
-//            ret +=                  "               else {\n                  throw new IllegalArgumentException( \"" + complexName + "\" + \" attribute " + name + " is required\" );\n" +
-//                    "               }\n";
-//
-//        }
-//
-//        return ret;
-//    }
-
-    public String toRnc() {
-        return "attribute " + name + " {xsd:STRING}";
-    }
-
     public boolean isOptional() {
         return optional;
     }
 
-
-    public static Atti optional(String name) {
-        return new StringAtti( name, true );
+    @Override
+    public void toJavaProperty(Clazz clazz) {
+        clazz.property( TYP(enumName), NAME( name ), NULL);
     }
 
-    public static Atti required(String name) {
-        return new StringAtti( name, false );
+    @Override
+    public void toFromXMLStart(Block block, String varName) {
+        IfExpr ite = block.ifNotNull( CALL( DOT( NAME("attributes"), NAME( "getValue")), STR(name) ));
+
+        ite.thn().call( DOT( NAME("elem"), SETTER(name)),
+                        CALL( DOT(NAME( enumName ), NAME("valueOf" )), CALL( DOT( NAME("attributes"), NAME( "getValue")), STR(name) )));
+
+        if( !optional ) {
+            ite.els().thrw( TYP("IllegalArgumentException"), varName + ": attribute " + name + " is required"  );
+        }
     }
+
 }

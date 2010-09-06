@@ -84,9 +84,20 @@ public class Stjx {
 //
 //        stjx.struct( "CCC").withContent();
 
-        Stjx stjx = new Stjx("Big");
+//        Stjx stjx = new Stjx("Big");
+//
+//        stjx.struct( "Big" ).multiLine( "description" );
 
-        stjx.struct( "Big" ).multiLine( "description" );
+        Stjx stjx = new Stjx("Enumi");
+
+        stjx.struct( "Enumi" ).enm( "scope" );
+
+        stjx.enm( "Scope", "A", "B", "C");
+
+
+
+
+
 
 
 //        stjx.struct("Loc").locale( "theLocal" );
@@ -94,19 +105,23 @@ public class Stjx {
 //        System.out.println( stjx.toToXML( "org.openCage.foo" ));
         System.out.println( stjx.toFromXML( "org.openCage.foo" ));
 
-//        for ( Complex cop : stjx.structs.values() ) {
-//            if ( cop instanceof Struct ) {
-//                System.out.println( (((Struct) cop).toJava("org.doo")).toString());
-//            }
-//            if ( cop instanceof OrType ) {
-//                System.out.println( (((OrType) cop).toJava("org.doo0000000000")).toString());
-//            }
-//        }
+        for ( Complex cop : stjx.structs.values() ) {
+            if ( cop instanceof Struct ) {
+                System.out.println( (((Struct) cop).toJava("org.doo")).toString());
+            }
+            if ( cop instanceof OrType ) {
+                System.out.println( (((OrType) cop).toJava("org.doo0000000000")).toString());
+            }
+            if ( cop instanceof EnumType ) {
+                System.out.println( cop.toJava("org.doo0000000000").toString());
+            }
+        }
 
 //        Locale loc = new Locale( "German");
 //
 //        System.out.println( loc );
     }
+
 
     public void mpl( String author, String email, String time, String project ) {
         clazzComment = new MPL(author, email, time, project ).getComment();
@@ -365,6 +380,15 @@ public class Stjx {
         structs.put( name, struct);
         return struct;
     }
+
+    public void enm(String name, String ... vals ) {
+        checkClassName( name );
+
+        EnumType en = new EnumType( this, name, vals );
+        structs.put( name, en);
+
+    }
+
 
     public List<Complex> getUsers( String name ) {
         List<Complex> users = new ArrayList<Complex>();

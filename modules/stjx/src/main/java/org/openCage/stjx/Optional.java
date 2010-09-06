@@ -44,4 +44,9 @@ public class Optional {
         struct.multiLines.add( name );
         return struct;
     }
+
+    public Struct enm( String name) {
+        struct.getAttis().add( EnumAtti.optional( name ));
+        return struct;
+    }
 }
