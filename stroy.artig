@@ -77,7 +77,7 @@
                     licence="Apache2">
                 <Address page="https://designgridlayout.dev.java.net" shrt="dev.java.net" />
                 <depends>
-                    <ArtifactRef groupId="net.java.dev.swing-layout" name="swing-layout" scope="comiple"/>
+                    <ArtifactRef name="swing-layout" scope="compile"/>
                 </depends>
             </Artifact>
 
