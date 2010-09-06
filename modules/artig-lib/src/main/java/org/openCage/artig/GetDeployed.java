@@ -12,24 +12,22 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class GetDeployed {
-    private Class clazz;
+    private String name;
 
-    public GetDeployed( Class clazz ) {
-        this.clazz = clazz;
+    public GetDeployed( String name ) {
+        this.name = name;
     }
 
     public InputStream getIS() {
-        System.out.println( clazz.getResource("."));
-
-        return clazz.getResourceAsStream( "/deployed.artig" );
+        return getClass().getResourceAsStream( "/" + name + "-deployed.artig" );
     }
 
     public Deployed get() {
 
-        InputStream is = clazz.getResourceAsStream( "/deployed.artig" );
+        InputStream is = getClass().getResourceAsStream( "/" + name + "-deployed.artig" );
 
         if ( is == null ) {
-            throw new IllegalStateException("this module/jar does not have a deployed.artig file, i.e. not a artig project");
+            throw new IllegalStateException("this module/jar does not have a <name>-deployed.artig file, i.e. not a artig project");
         }
 
         ArtifactDescriptionFromXML from = new ArtifactDescriptionFromXML();
@@ -69,6 +67,9 @@ public class GetDeployed {
         if ( !(ad.getKind() instanceof Deployed )) {
             throw new IllegalArgumentException("wrong kind of ArtifactDescription, expected Deployed) got " + ad.getKind().getClass().getName());
         }
+
+
+        //((Deployed)ad.getKind()).getArtifact().setDescription( clazz.getResource("/deployed.artig").toString() );        
 
         return (Deployed)ad.getKind();
     }

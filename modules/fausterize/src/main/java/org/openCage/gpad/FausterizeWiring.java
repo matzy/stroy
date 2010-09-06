@@ -49,7 +49,7 @@ public class FausterizeWiring implements Module {
         binder.install( new LocalizeWiring());
         binder.install( new AppStdWiring());
 
-        binder.bind( Class.class ).annotatedWith( Names.named("APPSTD")).toInstance( FausterizeWiring.class );
+        binder.bind( String.class ).annotatedWith( Names.named("APPSTD")).toInstance( "fausterize" );
 
 //        binder.bind(BackgroundExecutor.class ).
 //                to(BackgroundExecutorImpl.class );

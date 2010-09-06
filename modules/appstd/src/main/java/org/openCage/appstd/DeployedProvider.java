@@ -9,8 +9,8 @@ import org.openCage.artig.stjx.Deployed;
 public class DeployedProvider extends GetDeployed implements Provider<Deployed> {
 
     @Inject
-    public DeployedProvider( @Named("APPSTD") Class clazz ) {
-        super( clazz );
+    public DeployedProvider( @Named("APPSTD") String name ) {
+        super( name );
     }
 }
 

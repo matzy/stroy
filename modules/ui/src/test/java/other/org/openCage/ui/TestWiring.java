@@ -41,7 +41,7 @@ public class TestWiring implements Module {
 
     public static class DeployedProvider extends GetDeployed implements Provider<Deployed> {
         public DeployedProvider() {
-            super( AboutSheetFromApplication.class );
+            super( "duda" );
         }
     }
 

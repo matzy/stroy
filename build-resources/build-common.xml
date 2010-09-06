@@ -222,11 +222,12 @@
         <if>
             <available file="${srcres}" />
             <then>
-                <copy todir="${classes}" flatten="no">
+                <copy todir="${classes}" flatten="no">      <!-- TODO: all resources ?-->
                     <fileset dir="${srcres}" includes="**/*.xml"/>
                     <fileset dir="${srcres}" includes="**/*.properties"/>
                     <fileset dir="${srcres}" includes="**/*.png"/>
                     <fileset dir="${srcres}" includes="**/*.txt"/>
+                    <fileset dir="${srcres}" includes="**/*.artig"/>
                 </copy>
             </then>
         </if>

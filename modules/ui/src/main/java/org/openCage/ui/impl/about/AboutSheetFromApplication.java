@@ -89,10 +89,9 @@ public class AboutSheetFromApplication extends JDialog implements AboutSheet {
         layout.row().label( newIntro( localize.localize("org.openCage.localization.dict.version"))).add( newLabel( app.getVersion() ));
 //        layout.row().label( new JLabel( localize.localize( "About.copyright" ))).add( new JLabel( app.getCopyright() ), 3 );
 
-         // TODO
-//        if ( app.getDescriptionShort() != null ) {
-//            layout.row().label( newIntro( localize.localize( "application.about.short" ))).add( newLabel( app.getDescriptionShort()), 6 );
-//        }
+        if ( app.getDescription() != null ) {
+            layout.row().label( newIntro( localize.localize( "application.about.short" ))).add( newLabel( app.getDescription()), 6 );
+        }
 
         layout.row().label( newIntro( localize.localize("org.openCage.localization.dict.licence"))).add( newLabel( app.getLicence()), 6 ); // TODO address?
 
