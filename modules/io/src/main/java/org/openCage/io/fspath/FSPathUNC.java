@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-public class FSPathUNC implements FSPath {
+public class FSPathUNC extends FSPathBase {
 
     private static final String PREFIX = "\\\\";
 
@@ -47,24 +47,12 @@ public class FSPathUNC implements FSPath {
     }
 
     @Override
-    public File toFile() {
-        return new File( toString() );
-    }
-
-    @Override
     public FSPath add(String... els) {
         ElementRules.check( els );
 
         FSPathUNC ret = new FSPathUNC( toString() );
         ret.elements.addAll( Arrays.asList( els ));
         return ret;
-    }
-
-    @Override
-    public FSPath addPackage(String packageDescr) {
-        String[] elems = packageDescr.split("\\\\.");
-
-        return add( elems );
     }
 
     @Override
@@ -107,11 +95,6 @@ public class FSPathUNC implements FSPath {
         ret.elements.addAll( elements.subList( 0, elements.size() - i ));
 
         return ret;
-    }
-
-    @Override
-    public FSPath parent() {
-        return parent(1);
     }
 
     @Override

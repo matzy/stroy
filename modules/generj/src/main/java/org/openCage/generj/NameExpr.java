@@ -64,6 +64,10 @@ public class NameExpr implements Callble {
         return new NameExpr( "set" + Strings.toFirstUpper( name ));
     }
 
+    public static NameExpr ADDER( String name ) {
+        return new NameExpr( "add" + Strings.toFirstUpper( name ));
+    }
+
     public static NameExpr GETTER( String name ) {
         return new NameExpr( "get" + Strings.toFirstUpper( name ));
     }

@@ -36,7 +36,7 @@ import java.util.List;
 
 
 // UNIX only for now, split in builder and path and xplatformize
-public class FSPathUnix implements FSPath {
+public class FSPathUnix extends FSPathBase {
 
     private final List<String> elements = new ArrayList<String>();
 
@@ -65,10 +65,6 @@ public class FSPathUnix implements FSPath {
 
     public String toString() {
         return "/" + Strings.join( elements ).separator("/").toString();
-    }
-
-    public File toFile() {
-        return new File( toString() );
     }
 
     @Override
@@ -118,11 +114,6 @@ public class FSPathUnix implements FSPath {
     }
 
     @Override
-    public FSPath parent() {
-        return parent(1);
-    }
-
-    @Override
     public String getFileName() {
         return elements.get( elements.size() - 1 );
     }
@@ -142,13 +133,6 @@ public class FSPathUnix implements FSPath {
     @Override
     public int hashCode() {
         return elements != null ? elements.hashCode() : 0;
-    }
-
-    @Override
-    public FSPath addPackage(String packageDescr) {
-        String[] elems = packageDescr.split("\\.");
-
-        return add( elems );
     }
 
     

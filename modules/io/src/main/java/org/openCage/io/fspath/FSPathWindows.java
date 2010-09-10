@@ -13,7 +13,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Pattern;
 
-public class FSPathWindows implements FSPath {
+public class FSPathWindows extends FSPathBase {
 
     private final String drive;
     private List<String> elements = new ArrayList<String>();
@@ -50,10 +50,6 @@ public class FSPathWindows implements FSPath {
         return drive + ":\\" + Strings.join( elements ).separator("\\").toString();
     }
 
-    @Override
-    public File toFile() {
-        return new File( toString() );
-    }
 
     @Override
     public FSPath add(String... elements) {
@@ -102,10 +98,6 @@ public class FSPathWindows implements FSPath {
         return ret;
     }
 
-    @Override
-    public FSPath parent() {
-        return parent(1);        
-    }
 
     @Override
     public String getFileName() {
@@ -130,13 +122,6 @@ public class FSPathWindows implements FSPath {
         int result = drive != null ? drive.hashCode() : 0;
         result = Constants.HASHFACTOR * result + (elements != null ? elements.hashCode() : 0);
         return result;
-    }
-
-    @Override
-    public FSPath addPackage(String packageDescr) {
-        String[] elems = packageDescr.split("\\\\.");
-
-        return add( elems );
     }
 
     

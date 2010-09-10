@@ -1,6 +1,5 @@
 package org.openCage.io.fspath;
 
-import org.openCage.io.SystemUtils;
 import org.openCage.lang.OS;
 
 import javax.swing.JFileChooser;
@@ -84,11 +83,11 @@ public final class FSPathBuilder {
 
 
     public static FSPath getHome() {
-        return getPath( SystemUtils.getUserHome() );
+        return getPath( System.getProperty("user.home"));
     }
 
     public static FSPath getARoot() {
-        if (SystemUtils.IS_OS_MAC_OSX || SystemUtils.IS_OS_UNIX ) {
+        if (OS.isUnix() ) {
             return new FSPathUnix("/");
         }
 
@@ -96,11 +95,11 @@ public final class FSPathBuilder {
     }
 
     public static FSPath getDocuments() {
-        if ( SystemUtils.IS_OS_MAC_OSX ) {
+        if ( OS.isOSX() ) {
             return FSPathBuilder.getHome().add( "Documents" );
         }
 
-        if ( SystemUtils.IS_OS_UNIX ) {
+        if ( OS.isUnix() ) {
             // follow freedesktop.org xdg base dir spec
             String docs = System.getenv( "XDG_DOCUMENTS_DIR" );
             if ( docs != null ) {
@@ -110,7 +109,7 @@ public final class FSPathBuilder {
             return FSPathBuilder.getHome().add( "Documents" );
         }
 
-        if ( SystemUtils.IS_OS_WINDOWS ) {
+        if ( OS.isWindows() ) {
 
             // "my documents" in windows (or whatever it is mapped to)
             return getPath( fileChooser.getFileSystemView().getDefaultDirectory());
@@ -120,11 +119,11 @@ public final class FSPathBuilder {
     }
 
     public static FSPath getPreferences() {
-        if ( SystemUtils.IS_OS_MAC_OSX ) {
+        if ( OS.isOSX() ) {
             return FSPathBuilder.getHome().add( "Library", "Preferences");
         }
 
-        if ( SystemUtils.IS_OS_UNIX ) {
+        if ( OS.isUnix() ) {
             // follow freedesktop.org xdg base dir spec
             String conf = System.getenv( "XDG_CONFIG" );
             if ( conf != null ) {
@@ -134,8 +133,8 @@ public final class FSPathBuilder {
             return FSPathBuilder.getHome().add( ".config" );
         }
 
-        if ( SystemUtils.IS_OS_WINDOWS ) {
-            return getPath( System.getenv("APPDATA"));
+        if ( OS.isWindows() ) {
+            return getPath( System.getenv("APPDATA")); // TODO does this always work ?
         }
 
         throw new Error( "unknown os" );
