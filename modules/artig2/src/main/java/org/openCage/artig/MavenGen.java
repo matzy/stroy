@@ -6,7 +6,6 @@ import org.openCage.artig.stjx.Artifact;
 import org.openCage.artig.stjx.ArtifactRef;
 import org.openCage.artig.stjx.ModuleRef;
 import org.openCage.artig.stjx.Scope;
-import org.openCage.io.FileUtils;
 import org.openCage.io.IOUtils;
 import org.openCage.io.fspath.FSPath;
 import org.openCage.lang.errors.Unchecked;
@@ -28,7 +27,7 @@ public class MavenGen {
     public void generate() {
 
         FSPath rootPom = projectRoot.add( "pom.xml" );
-        FileUtils.ensurePath( rootPom );
+        IOUtils.ensurePath( rootPom );
 
         FileWriter writer = null;
         try {
@@ -44,7 +43,7 @@ public class MavenGen {
 
         for ( ModuleRef mod : artig.getProject().getModules() ) {
             FSPath modPom = projectRoot.add( "modules", mod.getName(), "pom.xml" );
-            FileUtils.ensurePath( modPom );
+            IOUtils.ensurePath( modPom );
 
             try {
                 writer = new FileWriter( modPom.toFile() );

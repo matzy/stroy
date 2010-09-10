@@ -1,7 +1,7 @@
 package org.openCage.artig;
 
 import org.openCage.artig.stjx.Artifact;
-import org.openCage.io.FileUtils;
+import org.openCage.io.IOUtils;
 import org.openCage.io.fspath.FSPath;
 import org.openCage.io.fspath.FSPathBuilder;
 
@@ -30,7 +30,7 @@ public class Libs {
                 if ( mavenlocal.toFile().exists() ) {
                     try {
                         System.out.println("copy " + mavenlocal + " ->" + lib );
-                        FileUtils.ensurePath( lib );
+                        IOUtils.ensurePath( lib );
                         copy( mavenlocal.toFile(), lib.toFile() );
                     } catch (IOException e) {
                         e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.

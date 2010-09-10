@@ -2,7 +2,6 @@ package org.openCage.artig;
 
 import org.jetbrains.annotations.NotNull;
 import org.openCage.artig.stjx.*;
-import org.openCage.io.FileUtils;
 import org.openCage.io.IOUtils;
 import org.openCage.io.fspath.FSPath;
 import org.openCage.lang.Strings;
@@ -29,7 +28,7 @@ public class ElephantsGen {
     public void generate() {
 
         FSPath rootPom = artig.getRootPath().add( "dependencies.xml" );
-        FileUtils.ensurePath( rootPom );
+        IOUtils.ensurePath( rootPom );
 
         FileWriter writer = null;
         try {
@@ -45,7 +44,7 @@ public class ElephantsGen {
 
           for ( ModuleRef mod : artig.getProject().getModules() ) {
             FSPath modPom = artig.getRootPath().add( "modules", mod.getName(), "build.xml" );
-            FileUtils.ensurePath( modPom );
+            IOUtils.ensurePath( modPom );
 
             try {
                 writer = new FileWriter( modPom.toFile() );

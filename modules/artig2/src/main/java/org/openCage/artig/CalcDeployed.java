@@ -7,7 +7,6 @@ import org.openCage.artig.stjx.ArtifactRef;
 import org.openCage.artig.stjx.Deployed;
 import org.openCage.artig.stjx.Licence;
 import org.openCage.artig.stjx.ModuleRef;
-import org.openCage.io.FileUtils;
 import org.openCage.io.IOUtils;
 import org.openCage.io.fspath.FSPath;
 import org.openCage.lang.errors.Unchecked;
@@ -63,7 +62,7 @@ public class CalcDeployed {
     public void generate() {
 
         FSPath rootPom = artig.getRootPath().add( "dependencies.xml" );
-        FileUtils.ensurePath( rootPom );
+        IOUtils.ensurePath( rootPom );
 
         FileWriter writer = null;
 //        try {
@@ -79,7 +78,7 @@ public class CalcDeployed {
 
           for ( ModuleRef mod : artig.getProject().getModules() ) {
             FSPath modPom = artig.getRootPath().add( "modules", mod.getName(), "src", "main", "resources", mod.getName() + "-deployed.artig" );
-            FileUtils.ensurePath( modPom );
+            IOUtils.ensurePath( modPom );
 
             try {
                 writer = new FileWriter( modPom.toFile() );
