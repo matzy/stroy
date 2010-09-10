@@ -38,9 +38,11 @@ public class ModuleDescription {
                 list( "dependencies" ).of( "Artifact" ).
                 list( "licences").of( "Licence" );
 
+        stjx.or( "Kind" ).with( "Module", "Project", "Deployed" );
+
         stjx.struct( "ArtifactDescription" ).
                 string( "version" ).
-                or( "Kind" ).with( "Module", "Project", "Deployed" );
+                complex( "Kind" );
 
 
 
