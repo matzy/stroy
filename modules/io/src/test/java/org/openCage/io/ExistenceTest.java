@@ -15,7 +15,7 @@ public class ExistenceTest {
 
         assertFalse( tmp.parent().toFile().exists() );
 
-        FileUtils.ensurePath( tmp.toFile() );
+        IOUtils.ensurePath( tmp.toFile() );
 
         assertTrue( tmp.parent().toFile().exists() );
     }

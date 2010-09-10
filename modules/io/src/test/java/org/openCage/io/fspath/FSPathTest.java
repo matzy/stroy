@@ -227,6 +227,13 @@ public class FSPathTest {
     }
 
     @Test
+    public void testPackageUNC() {
+        FSPath base = new FSPathUNC( "\\\\duda");
+
+        assertEquals( "\\\\duda\\a\\b\\c", base.addPackage( "a.b.c" ).toString());
+    }
+
+    @Test
     public void testDots() {
         assertEquals( "/", FSPathBuilder.getPath("/.").toString() );
     }
