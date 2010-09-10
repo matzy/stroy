@@ -3,13 +3,16 @@ package org.openCage.stjx;
 import org.openCage.generj.*;
 import org.openCage.lang.Strings;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import javax.management.modelmbean.ModelMBeanInfo;
 
+import static org.openCage.generj.BinOp.PLUS;
+import static org.openCage.generj.Call.CALL;
 import static org.openCage.generj.NameExpr.NAME;
+import static org.openCage.generj.NewExpr.NEW;
+import static org.openCage.generj.Str.STR;
 import static org.openCage.generj.Typ.STRING;
 import static org.openCage.generj.Typ.TYP;
+import static org.openCage.generj.Typ.TYPOF;
 
 /**
  * ** BEGIN LICENSE BLOCK *****
@@ -34,27 +37,31 @@ import static org.openCage.generj.Typ.TYP;
  * Contributor(s):
  * **** END LICENSE BLOCK ****
 */
-public class EnumType implements Complex {
-    private Stjx stjx;
-    private String className;
-    private String tagName;
-    private List<String> vals = new ArrayList<String>();
+public class EmbeddedListType implements Complex {
+    private Struct base;
+    private String of;
+    private String ofName;
+    private String listName;
 
-    public EnumType(Stjx stjx, String name, String... vals) {
-        this.stjx = stjx;
-        this.tagName = name;
-        this.className = Strings.toFirstUpper(name);
-        this.vals.addAll( Arrays.asList( vals ));
+    public EmbeddedListType(Struct base, String name, boolean ofString ) {
+        this.base = base;
+        if ( ofString ) {
+            this.of = "String";
+        } else {
+            this.of = Strings.toFirstUpper(name);
+        }
+        this.ofName = name;
+        this.listName = Strings.toFirstLower(name) + "List";
     }
 
     @Override
     public ClassI toJava(String pack) {
-        return new Enm( pack, className, vals );
+        return null; // not standalone
     }
 
     @Override
     public boolean uses(String name) {
-        return false;  // no members
+        return ofName.equals( name );
     }
 
     @Override
@@ -64,17 +71,17 @@ public class EnumType implements Complex {
 
     @Override
     public String getClassName() {
-        return className;
+        return listName;
     }
 
     @Override
     public String getTagName() {
-        return tagName;
+        return listName;
     }
 
 //    @Override
 //    public String getName() {
-//        return name;
+//        return listName;
 //    }
 
     @Override
@@ -84,26 +91,52 @@ public class EnumType implements Complex {
 
     @Override
     public void setInterface(String name) {
-        throw new IllegalArgumentException( "enum can't implement an interface" );
+        throw new IllegalStateException( "no interface for embedded list" );
     }
 
     @Override
     public void toToXML(Clazz clazz) {
-        // nix is used in attis
-    }
+        Mesod mesod = clazz.publc().sttic().method( STRING, "toString" + listName );
+
+         mesod.arg( STRING, NAME("prefix")).arg( Typ.of("List", TYP(this.of)), NAME(of ));
+
+         mesod.body().
+                 fild( STRING, NAME("ret"));
+
+         mesod.body().fr( TYP(of), "vr",  NAME( of )).body().
+                 assignPlus( NAME("ret"), CALL( NAME("toString" + of),
+                         PLUS( NAME("prefix"), STR("   ")),
+                         NAME("vr")) );
+
+
+
+//         mesod.body().assignPlus( NAME("ret"), PLUS( NAME("prefix"), STR( "</"+name+">\\n" ) ));
+
+         mesod.body().retrn( NAME("ret"));
+     }
 
     @Override
     public void toJavaProperty(Clazz clazz) {
-        throw new Error("foo");
+        clazz.property( Typ.of( "List", TYP(of) ), NAME( listName ), NEW( TYPOF("ArrayList", TYP(of))));
     }
+
+
 
     @Override
     public void toFromXMLStart(Block start) {
-        throw new Error("foo");
+        // nothing to do, embedded
     }
 
     @Override
     public void toFromXMLEnd(Block end) {
-        throw new Error("foo");
+        // nothing to do, embedded
+    }
+
+    public String getOf() {
+        return of;
+    }
+
+    public Struct getBase() {
+        return base;
     }
 }

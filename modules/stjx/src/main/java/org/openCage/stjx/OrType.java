@@ -40,70 +40,64 @@ import static org.openCage.generj.Typ.STRING;
  * **** END LICENSE BLOCK ****
 */
 public class OrType implements Complex {
-    private String name;
-    private Struct struct;
+    private String className;
+    private String tagName;
+    private Stjx stjx;
     private List<String> alternatives = new ArrayList<String>();
 
-    public OrType(Struct struct, String name) {
-        this.struct = struct;
-        this.name = name;
-    }
-
-    public String getType() {
-        String ret = "public interface " + name + " {}\n";
-        return ret;
-    }
-
-    public String toJava() {
-        return "public interface " + name + " {}\n";
-    }
-
-    public String toJavaDecl() {
-        return Stjx.toJavaBeanAttribute( name, Strings.toFirstLower( name ));
+    public OrType(Stjx stjx, String name) {
+        this.stjx = stjx;
+        this.tagName = name;
+        this.className = Strings.toFirstUpper( name );
     }
 
     @Override
     public void toJavaProperty(Clazz clazz) {
-        clazz.property( TYP(name), NAME(Strings.toFirstLower(name)));
+        clazz.property( TYP(className), NAME(Strings.toFirstLower(className)));
     }
 
 
 
     @Override
     public void toFromXMLStart(Block start) {
-        start.iff( CALL( DOT( NAME( "qName" ), NAME("equals")), STR(name) )).thn().
+        start.iff( CALL( DOT( NAME( "qName" ), NAME("equals")), STR(tagName) )).thn().
                 retrn();
-    }
-    public String toSAXStart() {
-        String ret = "           if ( qName.equals(\"" + name + "\" )) {\n" +
-                     "              // ortype: nothing to do\n" +
-                     "              return;\n" +
-                     "           }\n";
-
-        return ret;
     }
 
     public boolean uses(String name) {
         return alternatives.contains( name );
     }
 
-    public String getName() {
-        return name;
+    @Override
+    public boolean usesEmbedded(String name) {
+        return false;
     }
 
+    @Override
+    public String getClassName() {
+        return className;
+    }
+
+    @Override
+    public String getTagName() {
+        return tagName;
+    }
+
+
     public String toRnc() {
-        String ret = name + " = " + name + " {(";
-        String arg = "";
-        for ( String alt : alternatives) {
-            if ( !arg.isEmpty()) {
-                arg += ", ";
-            }
-
-            arg += alt;
-        }
-        ret += arg + ")}";
-
-        return ret;
+//        String ret = name + " = " + name + " {(";
+//        String arg = "";
+//        for ( String alt : alternatives) {
+//            if ( !arg.isEmpty()) {
+//                arg += ", ";
+//            }
+//
+//            arg += alt;
+//        }
+//        ret += arg + ")}";
+//
+//        return ret;
+        return null;
     }
 
     public void setInterface(String name) {
@@ -113,17 +107,14 @@ public class OrType implements Complex {
     public void toFromXMLEnd(Block end) {
         // nothing to do
     }
-    public String toSAXEnd() {
-        return ""; // nohing to do
-    }
 
     @Override
     public void toToXML(Clazz clazz) {
-        Mesod mesod = clazz.publc().sttic().method( Typ.STRING, "toString" + name );
+        Mesod mesod = clazz.publc().sttic().method( Typ.STRING, "toString" + className );
 
-        String arg = Strings.toFirstLower( name );
+        String arg = Strings.toFirstLower( className );
 
-        mesod.arg( STRING, NAME("prefix" )).arg( TYP(name), NAME(arg ));
+        mesod.arg( STRING, NAME("prefix" )).arg( TYP(className), NAME(arg ));
 
         for ( String ref : alternatives ) {
             mesod.body().iff( INSTANCEOF( NAME(arg), TYP(ref) )).thn().
@@ -133,7 +124,7 @@ public class OrType implements Complex {
         }
 
 
-        mesod.body().thrw( TYP("IllegalStateException"), "no a valid suptype of " + name );
+        mesod.body().thrw( TYP("IllegalStateException"), "no a valid suptype of " + className );
 
 
 //        mesod.arg( Typ.STRING, "prefix" ).arg( Typ.of("List", Typ.s(this.of)), name ).
@@ -155,23 +146,21 @@ public class OrType implements Complex {
 
 
 
-    public Struct with( String ... names ) {
+    public void with( String ... names ) {
         alternatives.addAll( Arrays.asList( names ));
 
         for ( String alt : names ) {
-            Complex comp = struct.getStjx().structs.get( alt );
+            Complex comp = stjx.getComplex( alt );
             if ( comp == null ) {
-                throw new IllegalArgumentException( alt + " used in or("+ name +") before declared as struct" );
+                throw new IllegalArgumentException( alt + " used in or("+ className +") before declared as struct" );
             }
 
-            comp.setInterface( name );
+            comp.setInterface( className );
         }
-
-        return struct;
     }
 
     public ClassI toJava(String pack) {
-        Interf interf = new Interf( pack, TYP(name ));
+        Interf interf = new Interf( pack, TYP(className ));
         return interf;
     }
 }

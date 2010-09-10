@@ -2,7 +2,6 @@ package org.openCage.stjx;
 
 import org.openCage.generj.*;
 import org.openCage.lang.Strings;
-import org.openCage.lang.functions.F1;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,11 +11,7 @@ import static org.openCage.generj.BinOp.PLUS;
 import static org.openCage.generj.Call.CALL;
 import static org.openCage.generj.Cast.CAST;
 import static org.openCage.generj.Dot.DOT;
-import static org.openCage.generj.NameExpr.GETTER;
-import static org.openCage.generj.NameExpr.NAME;
-import static org.openCage.generj.NameExpr.SETTER;
-import static org.openCage.generj.NameExpr.TRUE;
-import static org.openCage.generj.NameExpr.FALSE;
+import static org.openCage.generj.NameExpr.*;
 import static org.openCage.generj.Str.STR;
 import static org.openCage.generj.Typ.TYP;
 import static org.openCage.generj.Typ.TYPOF;
@@ -48,17 +43,19 @@ import static org.openCage.generj.UnOp.NOT;
 */
 public class Struct implements Complex {
     private Stjx stjx;
-    private String name;
+    private String className;
+    private String tagName;
     private List<Atti> attis = new ArrayList<Atti>();
     private List<Ref> complexs = new ArrayList<Ref>();
     private String interf;
     private boolean content;
-    List<String> multiLines = new ArrayList<String>();
+//    List<String> multiLines = new ArrayList<String>();
     private List<String> requiredMultiLines = new ArrayList<String>();
 
     public Struct(Stjx stjx, String name) {
         this.stjx = stjx;
-        this.name = name;
+        this.className = Strings.toFirstUpper( name );
+        this.tagName = name;
     }
 
     public Struct string(String name) {
@@ -72,18 +69,13 @@ public class Struct implements Complex {
     }
 
 
-    public Struct multiLine(String name) {
-        multiLines.add( name );
-        requiredMultiLines.add( name );
-        return this;
-    }
 
     public Struct locale(String name) {
         attis.add( LocaleAtti.required( name ));
         return this;
     }
 
-    public Struct integer(String s) {
+    public Struct integer(String name ) {
         attis.add( IntAtti.required( name ));
         return this;
     }
@@ -99,10 +91,39 @@ public class Struct implements Complex {
         check( name );
 
         ListType ll = new ListType( this, name );
-        stjx.structs.put( name, ll );
+        stjx.addComplex( ll );
         complexs.add( Ref.optional( name ));
         return ll;
     }
+
+    public Struct multiLine(String name) {
+        MultiLine ml = new MultiLine( stjx, this, name );
+        stjx.addComplex( ml );
+        complexs.add( Ref.required( name ));
+//        multiLines.add( name );
+//        requiredMultiLines.add( name );
+        return this;
+    }
+
+    public Struct embeddedList(String name) {
+        check( name );
+
+        EmbeddedListType ll = new EmbeddedListType( this, name, false );
+        stjx.addComplex( ll );
+        complexs.add( Ref.optional( ll.getTagName() ));
+        return this;
+    }
+
+    public Struct embeddedStringList(String name) {
+        check( name );
+
+        EmbeddedListType ll = new EmbeddedListType( this, name, true );
+        stjx.addComplex( ll );
+        complexs.add( Ref.optional( ll.getTagName() ));
+        return this;
+    }
+
+
 
     private void check(String name) {
         if ( !Keywords.isAllowed( name )) {
@@ -110,23 +131,13 @@ public class Struct implements Complex {
         }
     }
 
-    public OrType or( String name ) {
-
-        if ( name.charAt(0) != name.toUpperCase().charAt(0)) {
-            throw new IllegalArgumentException( "or/interface type needs to be first letter uppercase not " + name );
-        }
-
-        OrType ot =  new OrType( this, name );
-        stjx.structs.put( name, ot );
-        complexs.add( Ref.required( name ));
-        return ot;
-    }
-     public Optional optional() {
+    public Optional optional() {
         return new Optional( this );
     }
 
     public ClassI toJava( String pack ) {
-        Clazz clazz = new Clazz( pack, TYP(name) );
+
+        Clazz clazz = new Clazz( pack, TYP( className ));
 
         //clazz.comment()
 
@@ -141,12 +152,12 @@ public class Struct implements Complex {
             atti.toJavaProperty( clazz );
         }
 
-        for ( String multi : multiLines ) {
-            clazz.property( Typ.STRING, NAME(Strings.toFirstLower(multi)));
-        }
+//        for ( String multi : multiLines ) {
+//            clazz.property( Typ.STRING, NAME(Strings.toFirstLower(multi)));
+//        }
 
         for ( Ref ref : complexs ) {
-            Complex comp = stjx.structs.get( ref.getName() );
+            Complex comp = stjx.getComplex( ref.getName() );
 
             if ( comp == null ) {
                 throw new IllegalArgumentException( "unknown complex " + ref.getName() );
@@ -164,22 +175,22 @@ public class Struct implements Complex {
 
     @Override
     public void toJavaProperty(Clazz clazz) {
-        clazz.property( TYP(name), NAME(Strings.toFirstLower(name)));
+        clazz.property( TYP(className), NAME(Strings.toFirstLower(className)));
     }
 
 
 
     @Override
     public void toFromXMLStart(Block start) {
-        Block thn = start.iff( CALL( DOT( NAME( "qName" ), NAME("equals")), STR(name) )).thn();
+        Block thn = start.iff( CALL( DOT( NAME( "qName" ), NAME("equals")), STR(tagName) )).thn();
 
-        thn.fild( TYP(name), NAME("elem") ).init( new NewExpr( TYP(name)));
+        thn.fild( TYP(className), NAME("elem") ).init( new NewExpr( TYP(className)));
 
         for ( Atti atti : attis ) {
-            atti.toFromXMLStart( thn, name );
+            atti.toFromXMLStart( thn, className );
         }
 
-        String className = name;
+        String className = this.className;
         if ( interf != null ) {
             className = interf;
         }
@@ -199,7 +210,7 @@ public class Struct implements Complex {
                     list = true;
                 } else {
 
-                    String typeName = complex.getName();
+                    String typeName = complex.getClassName();
 
                     inner.iff( INSTANCEOF( NAME("peek"), TYP(typeName))).
                             thn().
@@ -218,18 +229,39 @@ public class Struct implements Complex {
             }
         }
 
+        List<Complex> hasEmbedded = stjx.getEmbeddedUsers( className );
+        if ( !hasEmbedded.isEmpty()) {
+
+            Block inner = thn.iff( NOT( CALL( DOT( NAME( "stack"), NAME("empty"))))).thn();
+
+            inner.fild( TYP("Object"), NAME("peek")).init( CALL( DOT( NAME( "stack"), NAME("peek"))));
+
+            for ( Complex complex : hasEmbedded ) {
+
+                String typeName = complex.getClassName();
+
+                inner.iff( INSTANCEOF( NAME("peek"), TYP(typeName))).
+                        thn().
+                            call( DOT( CALL( DOT( CAST( TYP(typeName), NAME("peek")),
+                                       GETTER( className + "List"))), NAME("add")), 
+                                  NAME("elem"));
+            }
+
+        }
+
+
         thn.call( DOT(NAME("stack"), NAME("push")), NAME( "elem" ));
 
         thn.retrn();
 
 
-        for ( String multi : multiLines ) {
-            Block thnMulti = start.iff( CALL( DOT( NAME( "qName" ), NAME("equals")), STR(multi) )).thn();
-
-            thnMulti.assign( NAME("getCharacters"), TRUE );
-            thnMulti.retrn();
-
-        }
+//        for ( String multi : multiLines ) {
+//            Block thnMulti = start.iff( CALL( DOT( NAME( "qName" ), NAME("equals")), STR(multi) )).thn();
+//
+//            thnMulti.assign( NAME("getCharacters"), TRUE );
+//            thnMulti.retrn();
+//
+//        }
     }
 
 
@@ -241,39 +273,64 @@ public class Struct implements Complex {
             }
         }
 
-        for ( String multi : multiLines ) {
-            if ( multi.endsWith( name )) {
-                return true;
-            }
-        }
+//        for ( String multi : multiLines ) {
+//            if ( multi.endsWith( name )) {
+//                return true;
+//            }
+//        }
 
         return false;
     }
 
-    public String getName() {
-        return name;
+    @Override
+    public boolean usesEmbedded(String name) {
+        for ( Ref ref : complexs ) {
+            Complex comp = stjx.getComplex( ref );
+
+            if ( comp instanceof EmbeddedListType ) {
+                if ( ((EmbeddedListType)comp).getOf().equals( name )) {
+                    return true;
+                }
+            }
+        }
+        return false;  
     }
 
+    @Override
+    public String getClassName() {
+        return className;
+    }
+
+    @Override
+    public String getTagName() {
+        return tagName;
+    }
+
+//    public String getName() {
+//        return name;
+//    }
+
     public String toRnc() {
-        String ret = name + " = element " + name + " { ";
-
-
-        String args = "";
-
-        args += Strings.join( attis ).trans( new F1<String, Atti>() {
-            public String call(Atti atti) {
-                return atti.toRnc() + (atti.isOptional() ? "?" : "" );
-            }
-        });
-
-        args += Strings.join( complexs ).trans( new F1<String, Ref>() {
-            public String call(Ref ref) {
-                return ref.getName() + (ref.isOptional() ? "?" : "");
-            }
-        }).startWithSeparator( !args.isEmpty() );
-
-
-        return ret + args + "}";
+//        String ret = name + " = element " + name + " { ";
+//
+//
+//        String args = "";
+//
+//        args += Strings.join( attis ).trans( new F1<String, Atti>() {
+//            public String call(Atti atti) {
+//                return atti.toRnc() + (atti.isOptional() ? "?" : "" );
+//            }
+//        });
+//
+//        args += Strings.join( complexs ).trans( new F1<String, Ref>() {
+//            public String call(Ref ref) {
+//                return ref.getName() + (ref.isOptional() ? "?" : "");
+//            }
+//        }).startWithSeparator( !args.isEmpty() );
+//
+//
+//        return ret + args + "}";
+        return null;
     }
 
     public void setInterface(String name) {
@@ -286,85 +343,85 @@ public class Struct implements Complex {
 
     @Override
     public void toFromXMLEnd(Block end) {
-        Block thn = end.iff( CALL( DOT( NAME("qName"), NAME( "equals")), STR(name) )).thn();
+        Block thn = end.iff( CALL( DOT( NAME("qName"), NAME( "equals")), STR(tagName) )).thn();
 
         thn.assign( NAME("goal"), CALL( DOT( NAME( "stack" ), NAME( "pop"))));
 
         for ( Ref ref : complexs ) {
             if ( !ref.isOptional() ) {
-                thn.ifNull( CALL( DOT( CAST( TYP(name), NAME("goal")),
+                thn.ifNull( CALL( DOT( CAST( TYP(className), NAME("goal")),
                                         GETTER( ref.getName() )))).thn().
-                        thrwIllegalArgument( STR( name + ": required member " + ref.getName() + " not set"));
+                        thrwIllegalArgument( STR( className + ": required member " + ref.getName() + " not set"));
             }
         }
 
         for ( String multi : requiredMultiLines ) {
-            thn.ifNull( CALL( DOT( CAST( TYP(name), NAME("goal")),
+            thn.ifNull( CALL( DOT( CAST( TYP(className), NAME("goal")),
                                     GETTER( multi )))).thn().
-                    thrwIllegalArgument( STR( name + ": required member " + multi + " not set"));
+                    thrwIllegalArgument( STR( className + ": required member " + multi + " not set"));
         }
 
-        for ( String multi : multiLines ) {
-            Block thnMulti = end.iff( CALL( DOT( NAME("qName"), NAME( "equals")), STR(multi) )).thn();
-
-            thnMulti.fild( STRING, NAME("str")).init( STR("" ));
-
-            Block stringbody = thnMulti.whle( INSTANCEOF( CALL( DOT(NAME("stack"), NAME("peek"))), STRING )).body();
-            stringbody.assign( NAME("str"), PLUS( CAST( STRING, CALL( DOT(NAME("stack"), NAME("pop")))), NAME("str")));
-
-            List<Complex> hasme = stjx.getUsers( multi );
-
-            if ( !hasme.isEmpty()) {
-
-                Block inner = thnMulti.iff( NOT( CALL( DOT( NAME( "stack"), NAME("empty"))))).thn();
-
-                inner.fild( TYP("Object"), NAME("peek")).init( CALL( DOT( NAME( "stack"), NAME("peek"))));
-
-                boolean list = false;
-                for ( Complex complex : hasme ) {
-
-                    if ( complex instanceof ListType) {
-                        list = true;
-                    } else {
-
-                        String typeName = complex.getName();
-
-                        inner.iff( INSTANCEOF( NAME("peek"), TYP(typeName))).
-                                thn().
-                                    call( DOT( CAST( TYP(typeName), NAME("peek")),
-                                               SETTER( multi )),
-                                          NAME("str"));
-                    }
-                }
-
-                if ( list ) {
-                    inner.thrw( TYP("IllegalStateException"), "TODO");
-//                    inner.iff( INSTANCEOF( NAME("peek"), TYP("List"))).
-//                            thn().
-//                            call( DOT( CAST( TYPOF("List", TYP(className)), NAME("peek")),
-//                                       NAME( "add" /*+ className*/ )),
-//                                  NAME("elem"));
-                }
-            }
-
-
-            thnMulti.assign( NAME("getCharacters"), FALSE );
-
-        }
+//        for ( String multi : multiLines ) {
+//            Block thnMulti = end.iff( CALL( DOT( NAME("qName"), NAME( "equals")), STR(multi) )).thn();
+//
+//            thnMulti.fild( STRING, NAME("str")).init( STR("" ));
+//
+//            Block stringbody = thnMulti.whle( INSTANCEOF( CALL( DOT(NAME("stack"), NAME("peek"))), STRING )).body();
+//            stringbody.assign( NAME("str"), PLUS( CAST( STRING, CALL( DOT(NAME("stack"), NAME("pop")))), NAME("str")));
+//
+//            List<Complex> hasme = stjx.getUsers( multi );
+//
+//            if ( !hasme.isEmpty()) {
+//
+//                Block inner = thnMulti.iff( NOT( CALL( DOT( NAME( "stack"), NAME("empty"))))).thn();
+//
+//                inner.fild( TYP("Object"), NAME("peek")).init( CALL( DOT( NAME( "stack"), NAME("peek"))));
+//
+//                boolean list = false;
+//                for ( Complex complex : hasme ) {
+//
+//                    if ( complex instanceof ListType) {
+//                        list = true;
+//                    } else {
+//
+//                        String typeName = complex.getClassName();
+//
+//                        inner.iff( INSTANCEOF( NAME("peek"), TYP(typeName))).
+//                                thn().
+//                                    call( DOT( CAST( TYP(typeName), NAME("peek")),
+//                                               SETTER( multi )),
+//                                          NAME("str"));
+//                    }
+//                }
+//
+//                if ( list ) {
+//                    inner.thrw( TYP("IllegalStateException"), "TODO");
+////                    inner.iff( INSTANCEOF( NAME("peek"), TYP("List"))).
+////                            thn().
+////                            call( DOT( CAST( TYPOF("List", TYP(className)), NAME("peek")),
+////                                       NAME( "add" /*+ className*/ )),
+////                                  NAME("elem"));
+//                }
+//            }
+//
+//
+//            thnMulti.assign( NAME("getCharacters"), FALSE );
+//
+//        }
 
     }
 
     @Override
     public void toToXML( Clazz clazz) {
 
-        Mesod mesod = clazz.publc().sttic().method( Typ.STRING, "toString" + name );
+        Mesod mesod = clazz.publc().sttic().method( Typ.STRING, "toString" + className );
 
-        String lower = Strings.toFirstLower(name);
+        String lower = Strings.toFirstLower(className);
 
-        mesod.arg( Typ.STRING, NAME("prefix") ).arg( TYP(name), NAME(lower) ).
+        mesod.arg( Typ.STRING, NAME("prefix") ).arg( TYP(className), NAME(lower) ).
                 body().
                     fild( STRING, NAME("ret")).init( NAME("prefix") ).
-                    assignPlus( NAME("ret"), new Str("<" + name + " "));
+                    assignPlus( NAME("ret"), new Str("<" + tagName + " "));
 
         for ( Atti atti : attis ) {
 
@@ -375,18 +432,18 @@ public class Struct implements Complex {
                             PLUS( STR( atti.getName() + "=\\\""), getAtti, STR("\\\" ")));
         }
 
-        if ( complexs.isEmpty() && !content && multiLines.isEmpty() ) {
+        if ( complexs.isEmpty() && !content /* && multiLines.isEmpty() */) {
             mesod.body().assignPlus( NAME("ret"), STR("/>\\n"));
         } else {
             mesod.body().assignPlus( NAME("ret"), STR(">\\n"));
 
-            for ( String multi : multiLines ) {
-                Call getMulti = getter( lower, multi );
-
-                mesod.body().ifNotNull( getMulti).
-                        thn().assignPlus( NAME("ret"), PLUS( NAME( "prefix" ), STR("<" + multi + ">"), getMulti, STR("</" + multi +">\\n")));
-
-            }
+//            for ( String multi : multiLines ) {
+//                Call getMulti = getter( lower, multi );
+//
+//                mesod.body().ifNotNull( getMulti).
+//                        thn().assignPlus( NAME("ret"), PLUS( NAME( "prefix" ), STR("<" + multi + ">"), getMulti, STR("</" + multi +">\\n")));
+//
+//            }
 
             for ( Ref ref : this.complexs ) {
                 mesod.body().ifNotNull( getter( lower, ref.getName())).
@@ -397,7 +454,7 @@ public class Struct implements Complex {
                 mesod.body().assignPlus( NAME("ret"), getter( lower, "content") );
             }
 
-            mesod.body().assignPlus( NAME("ret"), PLUS( NAME("prefix"), Str.s( "</" + name + ">\\n")));
+            mesod.body().assignPlus( NAME("ret"), PLUS( NAME("prefix"), Str.s( "</" + tagName + ">\\n")));
         }
 
         mesod.body().retrn( NAME("ret"));
@@ -424,4 +481,7 @@ public class Struct implements Complex {
         return this;
     }
 
+    public EmbeddedMultiple zeroOrMore() {
+        return new EmbeddedMultiple( this );
+    }
 }

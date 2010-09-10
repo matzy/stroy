@@ -1,7 +1,7 @@
 package org.openCage.stjx;
 
 import org.openCage.generj.*;
-import org.openCage.io.FileUtils;
+import org.openCage.io.IOUtils;
 import org.openCage.io.fspath.FSPath;
 import org.openCage.io.fspath.FSPathBuilder;
 import org.openCage.lang.Strings;
@@ -50,7 +50,7 @@ import static org.openCage.generj.UnOp.PLUSPLUS;
  * <p/>
  * Contributor(s):
  * **** END LICENSE BLOCK ****
-*/
+ */
 public class Stjx {
     private BlockComment clazzComment;
 
@@ -88,39 +88,88 @@ public class Stjx {
 //
 //        stjx.struct( "Big" ).multiLine( "description" );
 
-        Stjx stjx = new Stjx("Enumi");
+//        Stjx stjx = new Stjx("Enumi");
+//
+//        stjx.struct( "Enumi" ).enm( "scope" );
+//
+//        stjx.enm( "Scope", "A", "B", "C");
 
-        stjx.struct( "Enumi" ).enm( "scope" );
+//        Stjx stjx = new Stjx("EmbeddedMultiple");
+//
+//        stjx.struct( "EmbeddedMultiple" ).zeroOrMore().complex( "Inti" );
+//
+////        stjx.struct( "EmbeddedMultiple" ).list( "lst" ).of( "Inti");
+////
+//        stjx.struct("A");
+//        stjx.struct("B");
+//        stjx.or( "Inti").with( "A", "B" );
 
-        stjx.enm( "Scope", "A", "B", "C");
+
+        Stjx stjx = new Stjx( "grammer" );
+
+        stjx.struct( "grammer" ).complex( "start" ).zeroOrMore().of("define");
+        stjx.struct( "start").complex( "ref" );
+
+        stjx.struct( "ref" ).string("name");
+
+        stjx.struct( "define").string("name").complex("element");
+
+        stjx.struct( "element" ).
+                zeroOrMore().of("zeroOrMore").
+                zeroOrMore().of("optional").
+                zeroOrMore().of("attribute").
+                zeroOrMore().of("choice");
+
+        stjx.struct( "zeroOrMore" ).complex( "ref");
+        stjx.struct( "optional" ).complex( "ref");
+        stjx.struct( "attribute" ).string( "name" ).optional().complex("text").optional().complex("choice");
+        stjx.struct( "text" );
+
+        stjx.struct("choice").
+                zeroOrMore().ofString("value").  // this is really an or of values and ref but that does not work without
+                zeroOrMore().of("ref");    // extra complex
+
+        stjx.generate( getProjectBase( Stjx.class ).add( "modules", "stjx-rng").toString(), "org.openCage.stjx.rng" );
 
 
+        //stjx.struct( "value" ).
 
 
-
+//        Stjx stjx = new Stjx( "MT");
+//
+////        stjx.struct( "MT").multiLine( "foo" );
+////        stjx.struct( "MT").list( "props" ).ofStrings( "property" ).
+////        list( "aaa" ).of( "AAA" );
+////        stjx.struct( "AAA");
+//        stjx.struct( "MT").zeroOrMore().ofString( "property" );
 
 
 //        stjx.struct("Loc").locale( "theLocal" );
 
-//        System.out.println( stjx.toToXML( "org.openCage.foo" ));
+        System.out.println( stjx.toToXML( "org.openCage.foo" ));
         System.out.println( stjx.toFromXML( "org.openCage.foo" ));
-
-        for ( Complex cop : stjx.structs.values() ) {
-            if ( cop instanceof Struct ) {
-                System.out.println( (((Struct) cop).toJava("org.doo")).toString());
-            }
-            if ( cop instanceof OrType ) {
-                System.out.println( (((OrType) cop).toJava("org.doo0000000000")).toString());
-            }
-            if ( cop instanceof EnumType ) {
-                System.out.println( cop.toJava("org.doo0000000000").toString());
-            }
-        }
-
-//        Locale loc = new Locale( "German");
 //
-//        System.out.println( loc );
+        for ( Complex cop : stjx.structs.values() ) {
+            if ( cop.toJava( "org.doo") != null ) {
+                System.out.println( cop.toJava("org.doo").toString() );
+            }
+
+//            if ( cop instanceof Struct ) {
+//                System.out.println( (((Struct) cop).toJava("org.doo")).toString());
+//            }
+//            if ( cop instanceof OrType ) {
+//                System.out.println( (((OrType) cop).toJava("org.doo0000000000")).toString());
+//            }
+//            if ( cop instanceof EnumType ) {
+//                System.out.println( cop.toJava("org.doo0000000000").toString());
+//            }
+        }
+//
+////        Locale loc = new Locale( "German");
+////
+////        System.out.println( loc );
     }
+
 
 
     public void mpl( String author, String email, String time, String project ) {
@@ -129,7 +178,7 @@ public class Stjx {
 
     public void generate( String baseDir, String packag ) {
 
-        FileUtils.ensurePath( FSPathBuilder.getPath( baseDir ).add( "src", "main", "java" ).addPackage(packag ).add( "foo" ));
+        IOUtils.ensurePath( FSPathBuilder.getPath( baseDir ).add( "src", "main", "java" ).addPackage(packag ).add( "foo" ));
         Clazz tofrom = toFromXML( packag );
         if ( clazzComment != null ) {
             tofrom.comment( clazzComment );
@@ -158,7 +207,7 @@ public class Stjx {
 
                 if ( tojava != null ) {
 
-                    File outFile = FSPathBuilder.getPath( baseDir ).add( "src", "main", "java" ).addPackage(packag ).add( cop.getName() + ".java").toFile();
+                    File outFile = FSPathBuilder.getPath( baseDir ).add( "src", "main", "java" ).addPackage(packag ).add( cop.getClassName() + ".java").toFile();
                     FileWriter out = null;
                     try {
                         out = new FileWriter(outFile);
@@ -174,7 +223,7 @@ public class Stjx {
 
         {
             FSPath path = FSPathBuilder.getPath( baseDir ).add( "src", "main", "java" ).addPackage(packag ).add( name + "ToXML.java" );
-            FileUtils.ensurePath( path );
+            IOUtils.ensurePath( path );
             File outFile = path.toFile();
             FileWriter out = null;
             try {
@@ -189,10 +238,10 @@ public class Stjx {
                 e.printStackTrace();
             }
         }
-        
+
         {
             FSPath path = FSPathBuilder.getPath( baseDir ).add( "src", "main", "resources" ).addPackage(packag ).add( name + ".rnc" );
-            FileUtils.ensurePath( path );
+            IOUtils.ensurePath( path );
             File outFile = path.toFile();
             FileWriter out = null;
             try {
@@ -222,7 +271,7 @@ public class Stjx {
     }
 
     private Clazz toFromXML( String pack) {
-        Clazz clazz = new Clazz( pack, TYP( name + "FromXML") ).
+        Clazz clazz = new Clazz( pack, TYP( Strings.toFirstUpper( name ) + "FromXML") ).
                 imprt( "org.xml.sax.Attributes" ).
                 imprt( "org.xml.sax.SAXException" ).
                 imprt( "org.xml.sax.helpers.DefaultHandler" ).
@@ -238,25 +287,25 @@ public class Stjx {
                 imprt( "java.util.Locale" ).
 
                 extnds( TYP("DefaultHandler") ).
-                    publc().sttic().clazz( Typ.of("ListHelper", TYP("T"))).
-                        privt().fild( Typ.of("List",TYP("T")), NAME("list")).c().
-                        publc().cnstr().arg( Typ.of("List",TYP("T")), NAME("list")).body().
-                            assign( DOT( NAME("this"), NAME("list")), NAME("list")).r().c().
-                        publc().method( "add").arg( TYP("T"), NAME("elem")).body().
-                            call( DOT( NAME( "list"), NAME("add")), NAME("elem")).r().c().r().
+                publc().sttic().clazz( Typ.of("ListHelper", TYP("T"))).
+                privt().fild( Typ.of("List",TYP("T")), NAME("list")).c().
+                publc().cnstr().arg( Typ.of("List",TYP("T")), NAME("list")).body().
+                assign( DOT( NAME("this"), NAME("list")), NAME("list")).r().c().
+                publc().method( "add").arg( TYP("T"), NAME("elem")).body().
+                call( DOT( NAME( "list"), NAME("add")), NAME("elem")).r().c().r().
 
-                    privt().fild( TYP("Stack"), NAME("stack")).init( NEW( TYP("Stack"))).
-                
-                    privt().fild( TYP("Object"), NAME("goal")).c().
+                privt().fild( TYP("Stack"), NAME("stack")).init( NEW( TYP("Stack"))).
 
-                    publc().override().method( "startDocument").thrws( TYP("SAXException")).body().
-                        call( DOT( NAME( "stack"), NAME("clear"))).r().c().
+                privt().fild( TYP("Object"), NAME("goal")).c().
 
-                    publc().override().method( "endDocument").thrws( TYP("SAXException")).body().r().c().
+                publc().override().method( "startDocument").thrws( TYP("SAXException")).body().
+                call( DOT( NAME( "stack"), NAME("clear"))).r().c().
 
-                    publc().method( TYP(name), "getGoal").body().
-                        retrn( CAST( TYP(name), NAME("goal"))).r().c()
-                  ;
+                publc().override().method( "endDocument").thrws( TYP("SAXException")).body().r().c().
+
+                publc().method( TYP(name), "getGoal").body().
+                retrn( CAST( TYP(name), NAME("goal"))).r().c()
+                ;
 
         clazz.privt().fild( BOOLEAN, NAME("getCharacters" ));
 
@@ -276,9 +325,9 @@ public class Stjx {
         Block contentBody = content.iff( NAME("getCharacters")).thn();
         contentBody.fild( TYP("StringBuffer"), NAME("sb")).init( NEW(TYP("StringBuffer")));
         contentBody.fr( INT, "idx", NAME("start"),
-                    AND( LESS( NAME("idx"), DOT(NAME("ch"), NAME("length"))), LESS(NAME("idx"), BRACKET(PLUS(NAME("start"), NAME("length"))))),
-                    PLUSPLUS( NAME("idx"))).body().
-                        call( DOT( NAME("sb"), NAME("append")), ARRAYOF( NAME("ch"), NAME("idx")));
+                AND( LESS( NAME("idx"), DOT(NAME("ch"), NAME("length"))), LESS(NAME("idx"), BRACKET(PLUS(NAME("start"), NAME("length"))))),
+                PLUSPLUS( NAME("idx"))).body().
+                call( DOT( NAME("sb"), NAME("append")), ARRAYOF( NAME("ch"), NAME("idx")));
         contentBody.call( DOT(NAME("stack"), NAME("push")), CALL( DOT(NAME("sb"), NAME("toString"))));
 
 
@@ -365,7 +414,7 @@ public class Stjx {
 //        return ret;
 //    }
 
-    Map<String,Complex> structs = new HashMap<String,Complex>();
+    private Map<String,Complex> structs = new HashMap<String,Complex>();
     private String name;
 
 
@@ -386,8 +435,20 @@ public class Stjx {
 
         EnumType en = new EnumType( this, name, vals );
         structs.put( name, en);
-
     }
+
+    public OrType or( String name ) {
+
+        if ( name.charAt(0) != name.toUpperCase().charAt(0)) {
+            throw new IllegalArgumentException( "or/interface type needs to be first letter uppercase not " + name );
+        }
+
+        OrType ot =  new OrType( this, name );
+        structs.put( name, ot );
+        //complexs.add( Ref.required( name ));
+        return ot;
+    }
+
 
 
     public List<Complex> getUsers( String name ) {
@@ -399,6 +460,20 @@ public class Stjx {
         }
         return users;
     }
+
+    public List<Complex> getEmbeddedUsers( String name ) {
+        List<Complex> users = new ArrayList<Complex>();
+        for ( Complex complex : structs.values() ) {
+            if ( complex.usesEmbedded( name )) {
+                users.add( complex );
+            }
+        }
+        return users;
+
+    }
+
+
+
 
     public String toRnc() {
         String ret = "default namespace = \"\"\n\n";
@@ -418,9 +493,9 @@ public class Stjx {
     }
 
     private void checkClassName(String name) {
-        if ( !isValidType( name )) {
-            throw new IllegalArgumentException( name + " does not start with an uppercase letter" );
-        }
+//        if ( !isValidType( name )) {
+//            throw new IllegalArgumentException( name + " does not start with an uppercase letter" );
+//        }
     }
 
 
@@ -438,6 +513,45 @@ public class Stjx {
         return ret;
     }
 
+
+    public void addComplex(Complex complex) {
+        if ( structs.containsKey( complex.getClassName()) || structs.containsKey( complex.getTagName() )) {
+            throw new IllegalArgumentException( "there is already a complex with name (upper or lower case) " + complex.getTagName()  );
+        }
+
+        structs.put( complex.getTagName(), complex );
+    }
+
+    public Complex getComplex(String name) {
+        if ( structs.containsKey( name )) {
+            return structs.get( name );
+        }
+
+        String lower = Strings.toFirstLower( name );
+        if ( structs.containsKey( lower )) {
+            return structs.get( lower );
+        }
+
+        return structs.get( Strings.toFirstUpper( name ));
+    }
+
+    public Complex getComplex(Ref ref) {
+        return getComplex( ref.getName() );
+    }
+
+    public static FSPath getProjectBase( Class clazz ) {
+        FSPath path = FSPathBuilder.getPath( clazz.getResource("."));
+
+
+        while ( !path.getFileName().equals( "classes" ) &&
+                !path.getFileName().equals( "out" ) &&
+                !path.getFileName().equals( "modules" )) {
+            path = path.parent();
+        }
+
+
+        return path.parent();
+    }
 
 }
 

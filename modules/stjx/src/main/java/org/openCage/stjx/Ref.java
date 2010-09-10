@@ -24,31 +24,31 @@ import org.openCage.lang.Strings;
  * <p/>
  * Contributor(s):
  * **** END LICENSE BLOCK ****
-*/
+ */
 public class Ref {
- private String name;
- private boolean optional;
+    private String name;
+    private boolean optional;
 
- public Ref( String name, boolean optional ) {
-     this.name = name;
-     this.optional = optional;
- }
+    public Ref( String name, boolean optional ) {
+        this.name = name;
+        this.optional = optional;
+    }
 
- public static Ref optional( String name ) {
-     return new Ref( name, true );
- }
+    public static Ref optional( String name ) {
+        return new Ref( name, true );
+    }
 
- public static Ref required( String name ) {
-     return new Ref( name, false );
- }
+    public static Ref required( String name ) {
+        return new Ref( name, false );
+    }
 
- public String getName() {
-     return name;
- }
+    public String getName() {
+        return name;
+    }
 
- public String toJava() {
-     return Stjx.toJavaBeanAttribute( name, Strings.toFirstLower( name ));
- }
+// public String toJava() {
+//     return Stjx.toJavaBeanAttribute( name, Strings.toFirstLower( name ));
+// }
 
     public boolean isOptional() {
         return optional;

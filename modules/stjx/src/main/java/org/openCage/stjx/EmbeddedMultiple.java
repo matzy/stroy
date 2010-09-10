@@ -23,30 +23,20 @@ package org.openCage.stjx;
  * Contributor(s):
  * **** END LICENSE BLOCK ****
 */
-public class Optional {
+public class EmbeddedMultiple {
     private Struct struct;
 
-    public Optional(Struct struct) {
+    public EmbeddedMultiple( Struct struct) {
         this.struct = struct;
     }
 
-    public Struct string(String name) {
-        struct.getAttis().add( StringAtti.optional( name  ));
-        return struct;
+    public Struct of(String name) {
+        return struct.embeddedList( name );
     }
 
-    public Struct complex(String name) {
-        struct.getComplexs().add( Ref.optional(name));
-        return struct;
-    }
-
-    public Struct multiLine(String name) {
-        struct.multiLine( name );
-        return struct;
-    }
-
-    public Struct enm( String name) {
-        struct.getAttis().add( EnumAtti.optional( name ));
-        return struct;
+    public Struct ofString( String name ) {
+        MultiLine ml = new MultiLine( struct.getStjx(), struct, name );
+        struct.getStjx().addComplex( ml );
+        return struct.embeddedStringList( ml.getTagName() ); 
     }
 }

@@ -50,13 +50,12 @@ public class StringAtti implements Atti {
         return name;
     }
 
-    public String toJava() {
-        return Stjx.toJavaBeanAttribute( "String", name );
-    }
+//    public String toJava() {
+//        return Stjx.toJavaBeanAttribute( "String", name );
+//    }
 
     @Override public void toJavaProperty(Clazz clazz) {
         clazz.property( STRING, NAME(Strings.toFirstLower(name)));
-//        clazz.property( TYP( name ), Strings.toFirstLower(name));
     }
 
     @Override
@@ -73,20 +72,6 @@ public class StringAtti implements Atti {
 
     }
 
-//    public String toSAXStart(String complexName) {
-//        String ret = "               String "+ name + " = attributes.getValue( \"" + name +"\" );\n" +
-//                "               if ( "+ name + " != null ) {\n" +
-//                "                  elem.set" + Strings.toFirstUpper(name ) + "( " + name + ");\n" +
-//                "               } \n";
-//
-//        if ( !optional ) {
-//            ret +=                  "               else {\n                  throw new IllegalArgumentException( \"" + complexName + "\" + \" attribute " + name + " is required\" );\n" +
-//                    "               }\n";
-//
-//        }
-//
-//        return ret;
-//    }
 
     public String toRnc() {
         return "attribute " + name + " {xsd:STRING}";

@@ -34,7 +34,11 @@ public interface Complex {
 
     boolean uses(String name);
 
-    String getName();
+    boolean usesEmbedded(String name);
+
+    //String getName();
+    String getClassName();
+    String getTagName();
 
     String toRnc();
 
@@ -47,4 +51,5 @@ public interface Complex {
     void toFromXMLStart(Block start);
 
     void toFromXMLEnd(Block end);
+
 }

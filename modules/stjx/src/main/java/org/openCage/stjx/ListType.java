@@ -43,6 +43,7 @@ public class ListType implements Complex {
     private Struct struct;
     private String name;
     private String of;
+    private String ofName;
 
     public ListType( Struct struct, String name) {
         this.struct = struct;
@@ -51,33 +52,21 @@ public class ListType implements Complex {
 
     public Struct of(String typName ) {
         this.of = typName;
+        this.ofName = typName;
         return struct;
     }
 
-    public String getType() {
-        return "List<" + of + ">";
-    }
-
-    public String toJava() {
-        return "";
-    }
-
-
-    public String toJavaDecl() {
-        return "   private List<" + of + ">  " + name + " = new ArrayList<" + of + ">();\n" +
-//            "   public  void add" + Strings.toFirstUpper( name ) + "( " + of + " " + Strings.toFirstLower(of) + ") {\n" +
-//            "      " + name + ".add( " + Strings.toFirstLower( of) + " );\n" +
-//            "   };\n" +
-                "   public List<"+ of + "> get" + Strings.toFirstUpper( name ) + "() {\n" +
-                "      return " + name + ";\n" +
-                "   }\n"+
-                "";
-
+    public Struct ofStrings(String name) {
+        MultiLine ml = new MultiLine( struct.getStjx(), this, name );
+        struct.getStjx().addComplex( ml );
+        of = "String";
+        ofName = name;
+        return struct;
     }
 
     @Override
     public ClassI toJava(String pack) {
-        return null;
+        return null;    // not standalone
     }
 
 
@@ -94,61 +83,37 @@ public class ListType implements Complex {
         List<Complex> users = struct.getStjx().getUsers( name );
         for ( Complex comp : users ) {
 
-            thn.iff( INSTANCEOF( NAME("peek"), TYP(comp.getName()))).thn().
+            thn.iff( INSTANCEOF( NAME("peek"), TYP(comp.getClassName()))).thn().
                     call( DOT( NAME("stack"), NAME("push")),
-                            CALL( DOT( CAST( TYP(comp.getName()), NAME("peek")),
+                            CALL( DOT( CAST( TYP(comp.getClassName()), NAME("peek")),
                                        GETTER( name )))).
                     retrn();
-
-
-
-//            ret +=         "\n" +
-//                    "              if ( peek instanceof "+ comp.getName() +" ) {\n" +
-//                    "                  stack.push( new ListHelper<"+ of +">( (("+ comp.getName() +")peek).get" + Strings.toFirstUpper( name )+ "() ));\n" +
-//                    "                  return;\n" +
-//                    "              }\n";
-//
-
         }
         thn.thrwIllegalArgument( PLUS( STR( name + " is not a member of " ), CALL( DOT( NAME("peek"), NAME("getClass")))));
     }
 
-    public String toSAXStart() {
-
-        List<Complex> users = struct.getStjx().getUsers( name );
-
-        String ret = "          if ( qName.equals( \""+ name + "\"))  {\n" +
-                "             if ( stack.empty() ) {\n" +
-                "                throw new IllegalArgumentException( \""+name+" needs to be in a complex type \");\n" +
-                "             }\n";
-
-
-        ret +=       "             Object peek =  stack.peek();\n";
-
-        for ( Complex comp : users ) {
-
-            ret +=         "\n" +
-                    "              if ( peek instanceof "+ comp.getName() +" ) {\n" +
-                    "                  stack.push( new ListHelper<"+ of +">( (("+ comp.getName() +")peek).get" + Strings.toFirstUpper( name )+ "() ));\n" +
-                    "                  return;\n" +
-                    "              }\n";
-
-
-        }
-        ret +=  "              throw new IllegalArgumentException( \""+ name +" is not member of \" + peek.getClass() );\n";
-
-        ret += "          }\n";
-
-        return ret;
-    }
-
     public boolean uses(String name) {
-        return of.equals( name );
+        return ofName.equals( name );
     }
 
-    public String getName() {
+    @Override
+    public boolean usesEmbedded(String name) {
+        return false;
+    }
+
+    @Override
+    public String getClassName() {
         return name;
     }
+
+    @Override
+    public String getTagName() {
+        return name;
+    }
+
+//    public String getName() {
+//        return name;
+//    }
 
     public String toRnc() {
         return name + " = element " + name +" { " + of + "* }";
@@ -162,12 +127,6 @@ public class ListType implements Complex {
     public void toFromXMLEnd(Block end) {
         end.iff( CALL( DOT( NAME( "qName" ), NAME("equals")), STR(name) )).thn().
             assign( NAME("goal"), CALL( DOT( NAME("stack"), NAME("pop"))));
-    }
-
-    public String toSAXEnd() {
-        return "           if ( qName.equals( \"" + name + "\" ) ) {\n" +
-                "               goal = stack.pop();\n" +
-                "           }\n";
     }
 
     @Override
@@ -185,7 +144,7 @@ public class ListType implements Complex {
                 assignPlus( NAME("ret"), Exp.s("<" + name + ">\\n"));
 
         mesod.body().fr( TYP(of), "vr",  NAME( name )).body().
-                assignPlus( NAME("ret"), CALL( NAME("toString" + of),
+                assignPlus( NAME("ret"), CALL( NAME("toString" + ofName),
                         PLUS( NAME("prefix"), STR("   ")),
                         NAME("vr")) );
 
@@ -200,7 +159,6 @@ public class ListType implements Complex {
     @Override
     public void toJavaProperty(Clazz clazz) {
         clazz.property( Typ.of( "List", TYP(of) ), NAME(Strings.toFirstLower(name)), new NewExpr( Typ.of("ArrayList", TYP(of))));
-
     }
 
 
