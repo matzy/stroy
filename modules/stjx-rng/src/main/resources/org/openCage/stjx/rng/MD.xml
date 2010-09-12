@@ -1,0 +1,157 @@
+<grammer>
+    <start>
+        <ref name="ArtifactDescription"/>
+    </start>
+
+    <define name="ArtifactDescription">
+        <element name="ArtifactDescription">
+            <attribute name="version"><text/></attribute>
+            <ref name="Kind"/>
+        </element>
+    </define>
+
+    <define name="Kind">
+        <element name="Kind">
+            <choice>
+                <ref name="Module"/>
+                <ref name="Project"/>
+                <ref name="Deployed"/>    
+            </choice>
+        </element>
+    </define>
+
+    <define name="Module">
+        <element name="Module">
+            <ref name="Artifact"/>
+        </element>
+    </define>
+
+    <define name="Project">
+        <element name="Project">
+        </element>
+    </define>
+
+    <define name="Deployed">
+        <element name="Deployed">
+        </element>
+    </define>
+
+    <define name="Artifact">
+        <element name="Artifact">
+            <ref name="depends"/>
+        </element>
+    </define>
+
+    <define name="depends">
+        <element name="depends">
+            <zeroOrMore>
+                <ref name="ArtifactRef"/>
+            </zeroOrMore>
+        </element>
+    </define>
+
+    <define name="ArtifactRef">
+        <element name="ArtifactRef">
+            <attribute name="name"><text/></attribute>
+            <attribute name="scope">
+                <choice>
+                    <value>compile</value>
+                    <value>test</value>
+                    <value>knowhow</value>   
+                </choice>
+            </attribute>
+        </element>
+    </define>
+
+</grammer>
+
+
+<!--Stjx stjx = new Stjx( "ArtifactDescription" );-->
+
+        <!--stjx.mpl( "Stephan Pfab", "openCage@gmail.com", "2006 - 2010", "stroy" ); -->
+
+        <!--stjx.struct( "Module" ).-->
+                <!--complex( "Artifact" ).-->
+                <!--optional().complex( "App");-->
+
+        <!--stjx.struct( "App" ).-->
+            <!--string( "mainClass" ).-->
+            <!--optional().string( "icon" ).-->
+            <!--complex( "Download" );-->
+
+        <!--stjx.struct( "Download" ).-->
+                <!--string( "screenshot").-->
+                <!--string( "icon" ).-->
+                <!--string( "download");-->
+
+        <!--stjx.struct( "Project" ).-->
+                <!--string( "name" ).-->
+                <!--string( "groupId" ).-->
+                <!--list( "modules" ).of( "ModuleRef" ).-->
+                <!--list( "externals" ).of( "Artifact" ).-->
+                <!--list( "licences").of( "Licence" ).-->
+                <!--list( "dropIns" ).of( "ArtifactRef" );-->
+
+        <!--stjx.struct( "Deployed" ).-->
+                <!--optional().string( "icon" ).-->
+                <!--complex( "Artifact" ).-->
+                <!--list( "dependencies" ).of( "Artifact" ).-->
+                <!--list( "licences").of( "Licence" );-->
+
+        <!--stjx.or( "Kind" ).with( "Module", "Project", "Deployed" );-->
+
+        <!--stjx.struct( "ArtifactDescription" ).-->
+                <!--string( "version" ).-->
+                <!--complex( "Kind" );-->
+
+
+
+        <!--stjx.struct( "ModuleRef" ).-->
+<!--//                STRING( "groupId" ).-->
+                <!--string( "name" );-->
+
+        <!--stjx.enm( "Scope", "compile", "test", "knowhow" );-->
+
+        <!--stjx.struct( "ArtifactRef" ).-->
+                <!--optional().string( "groupId" ).-->
+                <!--string( "name" ).-->
+                <!--optional().string( "version" ). // TODO ?-->
+                <!--optional().enm( "scope" );-->
+
+        <!--stjx.struct( "Author" ).-->
+                <!--string("name").-->
+                <!--optional().string( "email" );-->
+
+        <!--stjx.struct( "LicenceRef" ).string( "name" );-->
+
+        <!--stjx.struct( "Licence" ).-->
+                <!--string( "name" ).-->
+                <!--string( "version" ).-->
+                <!--complex( "Address" ).-->
+                <!--list( "positives" ).of( "LicenceRef" ).-->
+                <!--list( "negatives" ).of( "LicenceRef" );-->
+        <!--stjx.struct( "Language" ).string( "name");-->
+        <!--stjx.struct( "Java" ).-->
+                <!--string( "min").-->
+                <!--optional().string( "max");-->
+        <!--stjx.struct( "Address" ).string( "page").optional().string( "shrt" );-->
+        <!--stjx.struct( "References").list( "references" ).of("Artifact");-->
+
+        <!--stjx.struct( "DropInFor" ).complex("ArtifactRef");-->
+
+        <!--stjx.struct( "Artifact" ).list( "depends" ).of( "ArtifactRef" ).-->
+                <!--string( "groupId" ).-->
+                <!--string( "name" ).-->
+                <!--string( "version" ).-->
+                <!--string( "licence" ).-->
+                <!--string( "description" ).-->
+                <!--optional().string( "support" ).-->
+                <!--list( "authors" ).of( "Author" ).-->
+                <!--list( "contributors" ).of( "Author" ).-->
+                <!--//or( "Application" ).with( "Module", "External" ).-->
+                <!--optional().complex( "Address" ).-->
+                <!--list( "languages").of( "Language" ).-->
+                <!--optional().complex( "Java").-->
+                <!--list( "refs" ).of( "ArtifactRef" ).-->
+                <!--optional().complex( "DropInFor" ).-->
+                <!--optional().multiLine( "FullDescription");-->
