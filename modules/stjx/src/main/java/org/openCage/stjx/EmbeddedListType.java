@@ -13,6 +13,7 @@ import static org.openCage.generj.Str.STR;
 import static org.openCage.generj.Typ.STRING;
 import static org.openCage.generj.Typ.TYP;
 import static org.openCage.generj.Typ.TYPOF;
+import static org.openCage.lang.Strings.toFirstUpper;
 
 /**
  * ** BEGIN LICENSE BLOCK *****
@@ -96,15 +97,15 @@ public class EmbeddedListType implements Complex {
 
     @Override
     public void toToXML(Clazz clazz) {
-        Mesod mesod = clazz.publc().sttic().method( STRING, "toString" + listName );
+        Mesod mesod = clazz.publc().sttic().method( STRING, "toString" + toFirstUpper(listName) );
 
-         mesod.arg( STRING, NAME("prefix")).arg( Typ.of("List", TYP(this.of)), NAME(of ));
+         mesod.arg( STRING, NAME("prefix")).arg( Typ.of("List", TYP(this.of)), NAME(ofName ));
 
          mesod.body().
-                 fild( STRING, NAME("ret"));
+                 fild( STRING, NAME("ret")).init(STR(""));
 
-         mesod.body().fr( TYP(of), "vr",  NAME( of )).body().
-                 assignPlus( NAME("ret"), CALL( NAME("toString" + of),
+         mesod.body().fr( TYP(of), "vr",  NAME( ofName )).body().
+                 assignPlus( NAME("ret"), CALL( NAME("toString" + toFirstUpper(ofName)),
                          PLUS( NAME("prefix"), STR("   ")),
                          NAME("vr")) );
 

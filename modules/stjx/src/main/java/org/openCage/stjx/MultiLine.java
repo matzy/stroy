@@ -17,6 +17,7 @@ import static org.openCage.generj.Typ.STRING;
 import static org.openCage.generj.Typ.TYP;
 import static org.openCage.generj.Typ.TYPOF;
 import static org.openCage.generj.UnOp.NOT;
+import static org.openCage.lang.Strings.toFirstUpper;
 
 /**
  * ** BEGIN LICENSE BLOCK *****
@@ -91,13 +92,13 @@ public class MultiLine implements Complex {
 
     @Override
     public void toToXML(Clazz clazz) {
-        Mesod mesod = clazz.publc().sttic().method( STRING, "toString" + tagName  );
+        Mesod mesod = clazz.publc().sttic().method( STRING, "toString" + toFirstUpper(tagName)  );
 
         String lower = Strings.toFirstLower(tagName);
 
         mesod.arg( Typ.STRING, NAME("prefix") ).arg( STRING, NAME(lower) ).
                 body().
-                    retrn( PLUS( NAME("prefix"), STR("<" + tagName + ">"), NAME(lower),STR("</" + tagName + ">")));
+                    retrn( PLUS( NAME("prefix"), STR("<" + tagName + ">"), NAME(lower),STR("</" + tagName + ">\\n")));
 //                    fild( STRING, NAME("ret")).init( NAME("prefix") ).
 //                    assignPlus( NAME("ret"), PLUS( STR("<" + tagName + ">"), NAME(lower),STR("</" + tagName + ">")));
 
@@ -154,7 +155,7 @@ public class MultiLine implements Complex {
                             call( DOT( CALL( DOT( CAST( TYP(baseClassName), NAME("peek")),
                                              GETTER( complex.getClassName() ))),
                                        NAME( "add")), 
-                                  NAME("elem"));
+                                  NAME("str"));
 
 
                 } else {
@@ -174,7 +175,7 @@ public class MultiLine implements Complex {
                             thn().
                             call( DOT( CAST( TYPOF("List", STRING), NAME("peek")),
                                        NAME( "add" )),
-                                  NAME("elem"));
+                                  NAME("str"));
             }
 
 

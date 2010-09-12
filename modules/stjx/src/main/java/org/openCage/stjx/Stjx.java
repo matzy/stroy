@@ -129,7 +129,7 @@ public class Stjx {
                 zeroOrMore().ofString("value").  // this is really an or of values and ref but that does not work without
                 zeroOrMore().of("ref");    // extra complex
 
-        stjx.generate( getProjectBase( Stjx.class ).add( "modules", "stjx-rng").toString(), "org.openCage.stjx.rng" );
+        stjx.generate( FSPathBuilder.getPath( "/Users/stephan/projects/stroy-7" ).add( "modules", "stjx-rng").toString(), "org.openCage.stjx.rng" );
 
 
         //stjx.struct( "value" ).
@@ -185,7 +185,7 @@ public class Stjx {
         }
 
         {
-            File outFile = FSPathBuilder.getPath( baseDir ).add( "src", "main", "java" ).addPackage(packag ).add( name+ "FromXML.java").toFile();
+            File outFile = FSPathBuilder.getPath( baseDir ).add( "src", "main", "java" ).addPackage(packag ).add( Strings.toFirstUpper( name) +  "FromXML.java").toFile();
             FileWriter out = null;
             try {
                 out = new FileWriter(outFile);
@@ -222,7 +222,7 @@ public class Stjx {
         }
 
         {
-            FSPath path = FSPathBuilder.getPath( baseDir ).add( "src", "main", "java" ).addPackage(packag ).add( name + "ToXML.java" );
+            FSPath path = FSPathBuilder.getPath( baseDir ).add( "src", "main", "java" ).addPackage(packag ).add( Strings.toFirstUpper( name )+ "ToXML.java" );
             IOUtils.ensurePath( path );
             File outFile = path.toFile();
             FileWriter out = null;
@@ -258,7 +258,7 @@ public class Stjx {
 
     private Clazz toToXML( String pack) {
 
-        Clazz clazz = new Clazz( pack, TYP( name + "ToXML") );
+        Clazz clazz = new Clazz( pack, TYP( Strings.toFirstUpper( name )+ "ToXML") );
 
         clazz.imprt( "java.util.List");
 
@@ -271,7 +271,10 @@ public class Stjx {
     }
 
     private Clazz toFromXML( String pack) {
-        Clazz clazz = new Clazz( pack, TYP( Strings.toFirstUpper( name ) + "FromXML") ).
+
+        String clazzTyp = Strings.toFirstUpper( name );
+
+        Clazz clazz = new Clazz( pack, TYP( clazzTyp + "FromXML") ).
                 imprt( "org.xml.sax.Attributes" ).
                 imprt( "org.xml.sax.SAXException" ).
                 imprt( "org.xml.sax.helpers.DefaultHandler" ).
@@ -303,8 +306,8 @@ public class Stjx {
 
                 publc().override().method( "endDocument").thrws( TYP("SAXException")).body().r().c().
 
-                publc().method( TYP(name), "getGoal").body().
-                retrn( CAST( TYP(name), NAME("goal"))).r().c()
+                publc().method( TYP(clazzTyp), "getGoal").body().
+                retrn( CAST( TYP(clazzTyp), NAME("goal"))).r().c()
                 ;
 
         clazz.privt().fild( BOOLEAN, NAME("getCharacters" ));

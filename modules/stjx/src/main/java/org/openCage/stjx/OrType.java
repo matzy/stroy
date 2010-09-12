@@ -15,6 +15,7 @@ import static org.openCage.generj.NameExpr.NAME;
 import static org.openCage.generj.Str.STR;
 import static org.openCage.generj.Typ.TYP;
 import static org.openCage.generj.Typ.STRING;
+import static org.openCage.lang.Strings.toFirstUpper;
 
 /**
  * ** BEGIN LICENSE BLOCK *****
@@ -110,7 +111,7 @@ public class OrType implements Complex {
 
     @Override
     public void toToXML(Clazz clazz) {
-        Mesod mesod = clazz.publc().sttic().method( Typ.STRING, "toString" + className );
+        Mesod mesod = clazz.publc().sttic().method( Typ.STRING, "toString" + toFirstUpper(className) );
 
         String arg = Strings.toFirstLower( className );
 
@@ -118,7 +119,7 @@ public class OrType implements Complex {
 
         for ( String ref : alternatives ) {
             mesod.body().iff( INSTANCEOF( NAME(arg), TYP(ref) )).thn().
-                    retrn( CALL( NAME("toString" + ref),
+                    retrn( CALL( NAME("toString" + toFirstUpper(ref)),
                                    NAME("prefix" ),
                                    CAST( TYP(ref), NAME(arg) )));
         }

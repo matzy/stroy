@@ -17,6 +17,7 @@ import static org.openCage.generj.Typ.TYP;
 import static org.openCage.generj.Typ.TYPOF;
 import static org.openCage.generj.Typ.STRING;
 import static org.openCage.generj.UnOp.NOT;
+import static org.openCage.lang.Strings.toFirstUpper;
 
 /**
  * ** BEGIN LICENSE BLOCK *****
@@ -268,16 +269,10 @@ public class Struct implements Complex {
 
     public boolean uses(String name) {
         for ( Ref ref : complexs ) {
-            if ( ref.getName().equals( name )) {
+            if ( ref.getName().equalsIgnoreCase( name )) {
                 return true;
             }
         }
-
-//        for ( String multi : multiLines ) {
-//            if ( multi.endsWith( name )) {
-//                return true;
-//            }
-//        }
 
         return false;
     }
@@ -414,7 +409,7 @@ public class Struct implements Complex {
     @Override
     public void toToXML( Clazz clazz) {
 
-        Mesod mesod = clazz.publc().sttic().method( Typ.STRING, "toString" + className );
+        Mesod mesod = clazz.publc().sttic().method( Typ.STRING, "toString" + toFirstUpper(className) );
 
         String lower = Strings.toFirstLower(className);
 
@@ -447,7 +442,7 @@ public class Struct implements Complex {
 
             for ( Ref ref : this.complexs ) {
                 mesod.body().ifNotNull( getter( lower, ref.getName())).
-                        thn().assignPlus( NAME("ret"), CALL( NAME("toString" + ref.getName()), PLUS( NAME("prefix"), Str.s("   ")), getter( lower, ref.getName())) );
+                        thn().assignPlus( NAME("ret"), CALL( NAME("toString" + toFirstUpper(ref.getName())), PLUS( NAME("prefix"), Str.s("   ")), getter( lower, ref.getName())) );
             }
 
             if ( content ) {

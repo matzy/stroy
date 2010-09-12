@@ -15,6 +15,7 @@ import static org.openCage.generj.NameExpr.NAME;
 import static org.openCage.generj.Str.STR;
 import static org.openCage.generj.Typ.TYP;
 import static org.openCage.generj.Typ.STRING;
+import static org.openCage.lang.Strings.toFirstUpper;
 
 /**
  * ** BEGIN LICENSE BLOCK *****
@@ -132,7 +133,7 @@ public class ListType implements Complex {
     @Override
     public void toToXML( Clazz clazz ) {
 
-        Mesod mesod = clazz.publc().sttic().method( STRING, "toString" + name );
+        Mesod mesod = clazz.publc().sttic().method( STRING, "toString" + toFirstUpper(name) );
 
         mesod.arg( STRING, NAME("prefix")).arg( Typ.of("List", TYP(this.of)), NAME(name ));
 
@@ -144,7 +145,7 @@ public class ListType implements Complex {
                 assignPlus( NAME("ret"), Exp.s("<" + name + ">\\n"));
 
         mesod.body().fr( TYP(of), "vr",  NAME( name )).body().
-                assignPlus( NAME("ret"), CALL( NAME("toString" + ofName),
+                assignPlus( NAME("ret"), CALL( NAME("toString" + toFirstUpper(ofName)),
                         PLUS( NAME("prefix"), STR("   ")),
                         NAME("vr")) );
 
