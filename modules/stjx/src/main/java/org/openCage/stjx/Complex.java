@@ -36,7 +36,6 @@ public interface Complex {
 
     boolean usesEmbedded(String name);
 
-    //String getName();
     String getClassName();
     String getTagName();
 

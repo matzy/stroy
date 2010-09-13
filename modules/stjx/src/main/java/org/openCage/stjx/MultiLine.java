@@ -99,11 +99,6 @@ public class MultiLine implements Complex {
         mesod.arg( Typ.STRING, NAME("prefix") ).arg( STRING, NAME(lower) ).
                 body().
                     retrn( PLUS( NAME("prefix"), STR("<" + tagName + ">"), NAME(lower),STR("</" + tagName + ">\\n")));
-//                    fild( STRING, NAME("ret")).init( NAME("prefix") ).
-//                    assignPlus( NAME("ret"), PLUS( STR("<" + tagName + ">"), NAME(lower),STR("</" + tagName + ">")));
-
-
-
     }
 
     @Override

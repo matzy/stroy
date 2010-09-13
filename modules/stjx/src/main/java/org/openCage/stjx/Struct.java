@@ -189,7 +189,8 @@ public class Struct implements Complex {
 
         for ( Atti atti : attis ) {
             atti.toFromXMLStart( thn, className );
-        }
+        }        
+        thn.call( DOT(NAME("attributes"), NAME("check")));
 
         String className = this.className;
         if ( interf != null ) {
@@ -478,5 +479,13 @@ public class Struct implements Complex {
 
     public EmbeddedMultiple zeroOrMore() {
         return new EmbeddedMultiple( this );
+    }
+
+    public String toString() {
+        String ret = "";
+
+        ret += "Struct(" + className + "/" + tagName +")";
+
+        return ret;
     }
 }

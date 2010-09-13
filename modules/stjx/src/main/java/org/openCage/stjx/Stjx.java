@@ -19,13 +19,12 @@ import static org.openCage.generj.BracketExpr.BRACKET;
 import static org.openCage.generj.Call.CALL;
 import static org.openCage.generj.Cast.CAST;
 import static org.openCage.generj.Dot.DOT;
+import static org.openCage.generj.Int.ZERO;
 import static org.openCage.generj.NameExpr.NAME;
 import static org.openCage.generj.NewExpr.NEW;
 import static org.openCage.generj.Str.STR;
-import static org.openCage.generj.Typ.TYP;
-import static org.openCage.generj.Typ.INT;
-import static org.openCage.generj.Typ.STRING;
-import static org.openCage.generj.Typ.BOOLEAN;
+import static org.openCage.generj.Typ.*;
+import static org.openCage.generj.UnOp.NOT;
 import static org.openCage.generj.UnOp.PLUSPLUS;
 
 /**
@@ -129,7 +128,7 @@ public class Stjx {
                 zeroOrMore().ofString("value").  // this is really an or of values and ref but that does not work without
                 zeroOrMore().of("ref");    // extra complex
 
-        stjx.generate( FSPathBuilder.getPath( "/Users/stephan/projects/stroy-7" ).add( "modules", "stjx-rng").toString(), "org.openCage.stjx.rng" );
+        stjx.generate( FSPathBuilder.getPath( "/Users/stephan/Documents/prs/stroy-10" ).add( "modules", "stjx-rng").toString(), "org.openCage.stjx.rng" );
 
 
         //stjx.struct( "value" ).
@@ -146,24 +145,24 @@ public class Stjx {
 
 //        stjx.struct("Loc").locale( "theLocal" );
 
-        System.out.println( stjx.toToXML( "org.openCage.foo" ));
-        System.out.println( stjx.toFromXML( "org.openCage.foo" ));
+//        System.out.println( stjx.toToXML( "org.openCage.foo" ));
+//        System.out.println( stjx.toFromXML( "org.openCage.foo" ));
+////
+//        for ( Complex cop : stjx.structs.values() ) {
+//            if ( cop.toJava( "org.doo") != null ) {
+//                System.out.println( cop.toJava("org.doo").toString() );
+//            }
 //
-        for ( Complex cop : stjx.structs.values() ) {
-            if ( cop.toJava( "org.doo") != null ) {
-                System.out.println( cop.toJava("org.doo").toString() );
-            }
-
-//            if ( cop instanceof Struct ) {
-//                System.out.println( (((Struct) cop).toJava("org.doo")).toString());
-//            }
-//            if ( cop instanceof OrType ) {
-//                System.out.println( (((OrType) cop).toJava("org.doo0000000000")).toString());
-//            }
-//            if ( cop instanceof EnumType ) {
-//                System.out.println( cop.toJava("org.doo0000000000").toString());
-//            }
-        }
+////            if ( cop instanceof Struct ) {
+////                System.out.println( (((Struct) cop).toJava("org.doo")).toString());
+////            }
+////            if ( cop instanceof OrType ) {
+////                System.out.println( (((OrType) cop).toJava("org.doo0000000000")).toString());
+////            }
+////            if ( cop instanceof EnumType ) {
+////                System.out.println( cop.toJava("org.doo0000000000").toString());
+////            }
+//        }
 //
 ////        Locale loc = new Locale( "German");
 ////
@@ -290,12 +289,13 @@ public class Stjx {
                 imprt( "java.util.Locale" ).
 
                 extnds( TYP("DefaultHandler") ).
-                publc().sttic().clazz( Typ.of("ListHelper", TYP("T"))).
-                privt().fild( Typ.of("List",TYP("T")), NAME("list")).c().
-                publc().cnstr().arg( Typ.of("List",TYP("T")), NAME("list")).body().
-                assign( DOT( NAME("this"), NAME("list")), NAME("list")).r().c().
-                publc().method( "add").arg( TYP("T"), NAME("elem")).body().
-                call( DOT( NAME( "list"), NAME("add")), NAME("elem")).r().c().r().
+
+//                publc().sttic().clazz( TYPOF("ListHelper", TYP("T"))).
+//                    privt().fild( TYPOF("List",TYP("T")), NAME("list")).c().
+//                    publc().cnstr().arg( TYPOF("List",TYP("T")), NAME("list")).body().
+//                        assign( DOT( NAME("this"), NAME("list")), NAME("list")).r().c().
+//                    publc().method( "add").arg( TYP("T"), NAME("elem")).body().
+//                        call( DOT( NAME( "list"), NAME("add")), NAME("elem")).r().c().r().
 
                 privt().fild( TYP("Stack"), NAME("stack")).init( NEW( TYP("Stack"))).
 
@@ -310,13 +310,45 @@ public class Stjx {
                 retrn( CAST( TYP(clazzTyp), NAME("goal"))).r().c()
                 ;
 
+        Clazz AA = clazz.privt().sttic().clazz( TYP("AttributedAttributes"));
+
+        AA.privt().fild( TYP("Attributes"), NAME("attis"));
+        AA.privt().fild( LIST(TYP("Integer")), NAME("idxes")).init( NEW( ARRAYLIST(TYP("Integer"))));
+
+        AA.publc().cnstr().arg( TYP("Attributes"), NAME("attis")).body().
+                    assign( DOT(NAME("this"), NAME("attis")), NAME("attis"));
+
+        Block AAgetValue = AA.publc().method( STRING, "getValue").arg( STRING, NAME("name") ).body();
+        AAgetValue.fild( STRING, NAME("val")).init( CALL(DOT(NAME("attis"), NAME("getValue")), NAME("name")));
+        AAgetValue.ifNotNull(NAME("val")).thn().
+                call( DOT(NAME("idxes"), NAME("add")), CALL(DOT(NAME("attis"), NAME("getIndex")), NAME("name")));
+        AAgetValue.retrn(NAME("name"));
+
+        Block AAcheck = AA.publc().method( "check").body();
+        AAcheck.fr( INT, "idx", ZERO, LESS(NAME("idx"), CALL(DOT(NAME("attis"), NAME("getLength")))), PLUSPLUS(NAME("idx")) ).
+                body().iff( NOT( CALL( DOT(NAME("idxes"), NAME("contains")), NAME("idx")))).thn().
+                    thrwIllegalArgument( PLUS(STR("Unknown Attribute: "), CALL(DOT(NAME("attis"), NAME("getQName")), NAME("idx"))));
+
+//        public void check() {
+//            for ( int idx = 0; idx < attis.getLength(); ++idx ) {
+//                if ( !idxes.contains( idx )) {
+//                    throw new IllegalArgumentException( "Unknown Attribute: " + attis.getQName( idx ) + "=" + attis.getValue(idx));
+//                }
+//            }
+//        }
+//
+
+
+
         clazz.privt().fild( BOOLEAN, NAME("getCharacters" ));
 
         Block start = clazz.publc().override().method( "startElement").thrws( TYP("SAXException")).
                 arg( STRING, NAME("uri")).
                 arg( STRING, NAME("localName")).
                 arg( STRING, NAME("qName")).
-                arg( TYP("Attributes"), NAME("attributes")).body();
+                arg( TYP("Attributes"), NAME("saxAttis")).body();
+        
+        start.fild( TYP("AttributedAttributes"), NAME("attributes")).init( NEW(TYP("AttributedAttributes"), NAME("saxAttis")));
 
         Block end = clazz.publc().override().method( "endElement").thrws( TYP("SAXException")).
                 arg( STRING, NAME("uri")).
@@ -554,6 +586,19 @@ public class Stjx {
 
 
         return path.parent();
+    }
+
+    public String toString() {
+
+        String ret = "Stjx: " + name + "\n";
+
+        for ( Complex comp : structs.values()  ) {
+            ret += comp.toString() + "\n";
+        }
+
+        return ret;
+
+
     }
 
 }
