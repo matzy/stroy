@@ -57,6 +57,14 @@ public class Typ {
         return new Typ( name, of );
     }
 
+    public static Typ LIST( Typ of ) {
+        return new Typ( "List", of );
+    }
+
+    public static Typ ARRAYLIST( Typ of ) {
+        return new Typ( "ArrayList", of );
+    }
+
     public String toString() {
         if ( of == null ) {
             return name;

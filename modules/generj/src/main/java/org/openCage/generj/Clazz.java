@@ -167,4 +167,9 @@ public class Clazz implements ClassI {
         this.comment = comment;
         return this;
     }
+
+    public Clazz setModi(String mod) {
+        this.modi = mod;
+        return this;
+    }
 }

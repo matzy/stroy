@@ -67,6 +67,7 @@ public class Modi {
 
     public Clazz clazz(Typ typ) {
         Clazz subClazz = new Clazz( clazz, typ );
+        subClazz.setModi( mod );
         clazz.innerClazzes.add( subClazz );
         return subClazz;
     }
