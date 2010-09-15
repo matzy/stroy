@@ -89,4 +89,12 @@ public class EnumAtti implements Atti {
         }
     }
 
+    public String toString() {
+        if ( optional ) {
+            return "(enum: " + name + ")";
+        }
+
+        return "enum: " + name;
+    }
+
 }

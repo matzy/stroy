@@ -89,4 +89,8 @@ public class StringAtti implements Atti {
     public static Atti required(String name) {
         return new StringAtti( name, false );
     }
+
+    public String toString() {
+        return "String: " + name;
+    }
 }

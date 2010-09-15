@@ -484,7 +484,11 @@ public class Struct implements Complex {
     public String toString() {
         String ret = "";
 
-        ret += "Struct(" + className + "/" + tagName +")";
+        ret += "Struct(" + className + "/" + tagName +")\n";
+
+        for ( Atti atti : attis) {
+            ret += "   " + atti.toString() + "\n";    
+        }
 
         return ret;
     }

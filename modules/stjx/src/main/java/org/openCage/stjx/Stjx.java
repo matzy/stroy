@@ -114,14 +114,20 @@ public class Stjx {
         stjx.struct( "define").string("name").complex("element");
 
         stjx.struct( "element" ).
+                string( "name" ).
                 zeroOrMore().of("zeroOrMore").
                 zeroOrMore().of("optional").
                 zeroOrMore().of("attribute").
                 zeroOrMore().of("choice");
 
         stjx.struct( "zeroOrMore" ).complex( "ref");
-        stjx.struct( "optional" ).complex( "ref");
-        stjx.struct( "attribute" ).string( "name" ).optional().complex("text").optional().complex("choice");
+        stjx.struct( "optional" ).
+                optional().complex( "ref").
+                optional().complex("attribute");
+        stjx.struct( "attribute" ).
+                string( "name" ).
+                optional().complex("text").
+                optional().complex("choice");
         stjx.struct( "text" );
 
         stjx.struct("choice").
@@ -322,7 +328,7 @@ public class Stjx {
         AAgetValue.fild( STRING, NAME("val")).init( CALL(DOT(NAME("attis"), NAME("getValue")), NAME("name")));
         AAgetValue.ifNotNull(NAME("val")).thn().
                 call( DOT(NAME("idxes"), NAME("add")), CALL(DOT(NAME("attis"), NAME("getIndex")), NAME("name")));
-        AAgetValue.retrn(NAME("name"));
+        AAgetValue.retrn(NAME("val"));
 
         Block AAcheck = AA.publc().method( "check").body();
         AAcheck.fr( INT, "idx", ZERO, LESS(NAME("idx"), CALL(DOT(NAME("attis"), NAME("getLength")))), PLUSPLUS(NAME("idx")) ).
