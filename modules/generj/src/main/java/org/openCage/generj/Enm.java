@@ -60,7 +60,9 @@ public class Enm implements ClassI {
             ret += "package " + pack + ";\n";
         }
 
-        ret += comment.toString( prefix );
+        if ( comment != null ) {
+            ret += comment.toString( prefix );
+        }
         ret += prefix + "public enum " + name + " {";
 
         ret += Strings.join( vals );
