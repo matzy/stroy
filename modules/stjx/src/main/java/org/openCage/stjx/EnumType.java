@@ -5,6 +5,7 @@ import org.openCage.lang.Strings;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.openCage.generj.NameExpr.NAME;
@@ -99,11 +100,16 @@ public class EnumType implements Complex {
 
     @Override
     public void toFromXMLStart(Block start) {
-        throw new Error("foo");
+        // nothing to do ?? throw new Error("foo");
     }
 
     @Override
     public void toFromXMLEnd(Block end) {
-        throw new Error("foo");
+        // nothing to do ?? throw new Error("foo");
+    }
+
+    @Override
+    public List<String> getRefs() {
+        return Collections.EMPTY_LIST;
     }
 }

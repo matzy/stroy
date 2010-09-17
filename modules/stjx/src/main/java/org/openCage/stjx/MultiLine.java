@@ -3,6 +3,7 @@ package org.openCage.stjx;
 import org.openCage.generj.*;
 import org.openCage.lang.Strings;
 
+import java.util.Collections;
 import java.util.List;
 
 import static org.openCage.generj.BinOp.INSTANCEOF;
@@ -176,5 +177,10 @@ public class MultiLine implements Complex {
 
             thnMulti.assign( NAME("getCharacters"), FALSE );
         }
+    }
+
+    @Override
+    public List<String> getRefs() {
+        return Collections.EMPTY_LIST;
     }
 }

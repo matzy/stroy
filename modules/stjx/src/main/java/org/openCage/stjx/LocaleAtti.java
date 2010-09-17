@@ -44,6 +44,8 @@ public class LocaleAtti implements Atti {
     public LocaleAtti(String name, boolean optional) {
         this.name = name;
         this.optional = optional;
+
+        Names.validateTageName( name );
     }
 
 

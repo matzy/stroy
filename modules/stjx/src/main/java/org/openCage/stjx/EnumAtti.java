@@ -46,6 +46,8 @@ public class EnumAtti implements Atti {
         this.name = name;
         this.enumName = enumName;
         this.optional = optional;
+
+        Names.validateTageName( name );
     }
 
     public static Atti required( String name ) {

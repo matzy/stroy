@@ -181,7 +181,21 @@ public class Stjx {
         clazzComment = new MPL(author, email, time, project ).getComment();
     }
 
+
+    public void validate() {
+        for ( Complex comp  : this.structs.values() ) {
+
+            for ( String ref : comp.getRefs() ) {
+                if ( !structs.containsKey(ref)) {
+                    throw new IllegalArgumentException( comp.getTagName() +" Ref not a struct: " + ref );
+                }
+            }
+        }
+    }
+
     public void generate( String baseDir, String packag ) {
+
+        validate();
 
         IOUtils.ensurePath( FSPathBuilder.getPath( baseDir ).add( "src", "main", "java" ).addPackage(packag ).add( "foo" ));
         Clazz tofrom = toFromXML( packag );

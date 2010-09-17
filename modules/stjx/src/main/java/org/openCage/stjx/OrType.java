@@ -110,6 +110,11 @@ public class OrType implements Complex {
     }
 
     @Override
+    public List<String> getRefs() {
+        return alternatives;
+    }
+
+    @Override
     public void toToXML(Clazz clazz) {
         Mesod mesod = clazz.publc().sttic().method( Typ.STRING, "toString" + toFirstUpper(className) );
 

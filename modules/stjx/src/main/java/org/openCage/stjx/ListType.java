@@ -3,6 +3,7 @@ package org.openCage.stjx;
 import org.openCage.generj.*;
 import org.openCage.lang.Strings;
 
+import java.util.Collections;
 import java.util.List;
 
 import static org.openCage.generj.BinOp.INSTANCEOF;
@@ -128,6 +129,14 @@ public class ListType implements Complex {
     public void toFromXMLEnd(Block end) {
         end.iff( CALL( DOT( NAME( "qName" ), NAME("equals")), STR(name) )).thn().
             assign( NAME("goal"), CALL( DOT( NAME("stack"), NAME("pop"))));
+    }
+
+    @Override
+    public List<String> getRefs() {
+        if ( of.equals("String")) {
+            return Collections.EMPTY_LIST;
+        }
+        return Collections.singletonList( of );
     }
 
     @Override

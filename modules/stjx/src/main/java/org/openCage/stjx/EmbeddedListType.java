@@ -5,6 +5,9 @@ import org.openCage.lang.Strings;
 
 import javax.management.modelmbean.ModelMBeanInfo;
 
+import java.util.Collections;
+import java.util.List;
+
 import static org.openCage.generj.BinOp.PLUS;
 import static org.openCage.generj.Call.CALL;
 import static org.openCage.generj.NameExpr.NAME;
@@ -80,10 +83,6 @@ public class EmbeddedListType implements Complex {
         return listName;
     }
 
-//    @Override
-//    public String getName() {
-//        return listName;
-//    }
 
     @Override
     public String toRnc() {
@@ -99,7 +98,7 @@ public class EmbeddedListType implements Complex {
     public void toToXML(Clazz clazz) {
         Mesod mesod = clazz.publc().sttic().method( STRING, "toString" + toFirstUpper(listName) );
 
-         mesod.arg( STRING, NAME("prefix")).arg( Typ.of("List", TYP(this.of)), NAME(ofName ));
+         mesod.arg( STRING, NAME("prefix")).arg( TYPOF("List", TYP(this.of)), NAME(ofName ));
 
          mesod.body().
                  fild( STRING, NAME("ret")).init(STR(""));
@@ -131,6 +130,11 @@ public class EmbeddedListType implements Complex {
     @Override
     public void toFromXMLEnd(Block end) {
         // nothing to do, embedded
+    }
+
+    @Override
+    public List<String> getRefs() {
+        return Collections.singletonList( of );
     }
 
     public String getOf() {

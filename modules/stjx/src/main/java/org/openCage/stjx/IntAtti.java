@@ -43,6 +43,8 @@ public class IntAtti implements Atti {
     public IntAtti(String name, boolean optional) {
         this.name = name;
         this.optional = optional;
+
+        Names.validateTageName( name );
     }
 
     @Override

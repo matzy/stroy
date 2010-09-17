@@ -44,15 +44,14 @@ public class StringAtti implements Atti {
     public StringAtti(String name, boolean optional ) {
         this.name = name;
         this.optional = optional;
+
+        Names.validateTageName( name );
     }
 
     public String getName() {
         return name;
     }
 
-//    public String toJava() {
-//        return Stjx.toJavaBeanAttribute( "String", name );
-//    }
 
     @Override public void toJavaProperty(Clazz clazz) {
         clazz.property( STRING, NAME(Strings.toFirstLower(name)));

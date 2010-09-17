@@ -1,10 +1,8 @@
 package org.openCage.stjx;
 
-import org.openCage.generj.Block;
-import org.openCage.generj.ClassI;
-import org.openCage.generj.Clazz;
-import java.util.List;
+import org.openCage.lang.Strings;
 
+import java.util.regex.Pattern;
 
 /**
  * ** BEGIN LICENSE BLOCK *****
@@ -29,28 +27,26 @@ import java.util.List;
  * Contributor(s):
  * **** END LICENSE BLOCK ****
 */
-public interface Complex {
+public class Names {
 
-    ClassI toJava( String pack );
+    private static Pattern invalidClassNames = Pattern.compile( "String|List");
+    private static Pattern validTagNames = Pattern.compile( "([a-z]|[A-Z])*");
+//    private static Pattern invalidTagNames = Pattern.compile( "");
 
-    boolean uses(String name);
+    public static String getClassName( String str ) {
+        String ret = Strings.toFirstUpper( str );
 
-    boolean usesEmbedded(String name);
+        while( invalidClassNames.matcher( ret ).matches() ) {
+            ret = "C" + ret;
+        }
 
-    String getClassName();
-    String getTagName();
+        return ret;
+    }
 
-    String toRnc();
+    public static void validateTageName( String str ) {
 
-    void setInterface(String name);
-
-    void toToXML( Clazz clazz );
-
-    void toJavaProperty(Clazz clazz);
-
-    void toFromXMLStart(Block start);
-
-    void toFromXMLEnd(Block end);
-
-    List<String> getRefs();
+        if ( !validTagNames.matcher( str ).matches() ) {
+            throw new IllegalArgumentException( "not a valid tagname: " + str );
+        }
+    }
 }

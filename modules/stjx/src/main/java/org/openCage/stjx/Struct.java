@@ -55,8 +55,10 @@ public class Struct implements Complex {
 
     public Struct(Stjx stjx, String name) {
         this.stjx = stjx;
-        this.className = Strings.toFirstUpper( name );
+        this.className = Names.getClassName( name );
         this.tagName = name;
+
+        Names.validateTageName( name );
     }
 
     public Struct string(String name) {
@@ -101,8 +103,6 @@ public class Struct implements Complex {
         MultiLine ml = new MultiLine( stjx, this, name );
         stjx.addComplex( ml );
         complexs.add( Ref.required( name ));
-//        multiLines.add( name );
-//        requiredMultiLines.add( name );
         return this;
     }
 
@@ -210,6 +210,8 @@ public class Struct implements Complex {
 
                 if ( complex instanceof ListType) {
                     list = true;
+                } else if ( complex instanceof EmbeddedListType ) {
+                    // nothing to do
                 } else {
 
                     String typeName = complex.getClassName();
@@ -255,15 +257,6 @@ public class Struct implements Complex {
         thn.call( DOT(NAME("stack"), NAME("push")), NAME( "elem" ));
 
         thn.retrn();
-
-
-//        for ( String multi : multiLines ) {
-//            Block thnMulti = start.iff( CALL( DOT( NAME( "qName" ), NAME("equals")), STR(multi) )).thn();
-//
-//            thnMulti.assign( NAME("getCharacters"), TRUE );
-//            thnMulti.retrn();
-//
-//        }
     }
 
 
@@ -405,6 +398,22 @@ public class Struct implements Complex {
 //
 //        }
 
+    }
+
+    @Override
+    public List<String> getRefs() {
+        List<String> ret = new ArrayList<String>();
+        for ( Ref ref : this.complexs ) {
+            ret.add( ref.getName());
+        }
+
+        for ( Atti atti : attis ) {
+            if ( atti instanceof EnumAtti ) {
+                ret.add( ((EnumAtti)atti).getName() );
+            }
+        }
+
+        return ret;
     }
 
     @Override
