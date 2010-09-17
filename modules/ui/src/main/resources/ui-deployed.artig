@@ -1,8 +1,8 @@
-<ArtifactDescription >
+<ArtifactDescription version="0.1" >
    <Deployed >
-      <Artifact groupId="openCage" name="openCage-ui" version="0.2" licence="MPL1.1" >
+      <Artifact groupId="openCage" name="openCage-ui" version="0.2" licence="MPL1.1" description="swing utils" >
          <depends>
-            <ArtifactRef groupId="com.google.inject" name="guice" scope="compile" />
+            <ArtifactRef name="osashosa" />
             <ArtifactRef groupId="net.java.dev.designgridlayout" name="designgridlayout" scope="compile" />
             <ArtifactRef groupId="org.json" name="json" scope="compile" />
             <ArtifactRef groupId="muchsoft" name="Sys" scope="compile" />
@@ -28,50 +28,53 @@
          <Java min="6" />
       </Artifact>
       <dependencies>
-         <Artifact groupId="com.google.inject" name="guice" version="2.0" licence="Apache2" >
+         <Artifact groupId="openCage" name="osashosa" version="0.2" licence="MPL1.1" description="tiny dropin replacement for guice 2.0" >
             <depends>
-               <ArtifactRef groupId="aopalliance" name="aopalliance" scope="compile" />
+               <ArtifactRef name="junit" scope="test" />
             </depends>
-            <Address page="http://code.google.com/p/google-guice/" shrt="code.google.com" />
+            <authors>
+               <Author name="Stephan Pfab" email="openCage@gmail.com" />
+            </authors>
+            <Address page="http://stroy.wikidot.com/osashosa" shrt="wikidot.com" />
             <Java min="6" />
+            <DropInFor >
+               <ArtifactRef name="guice" />
+            </DropInFor>
          </Artifact>
-         <Artifact groupId="aopalliance" name="aopalliance" version="1.0" licence="Public Domain" >
-            <Address page="http://aopalliance.sourceforge.net" shrt="sourceforge.net" />
+         <Artifact groupId="junit" name="junit" version="4.8.1" licence="CPL" description="the unit test lib" >
+            <Address page="http://www.junit.org" shrt="junit.org" />
          </Artifact>
-         <Artifact groupId="net.java.dev.designgridlayout" name="designgridlayout" version="0.9" licence="Apache2" >
+         <Artifact groupId="net.java.dev.designgridlayout" name="designgridlayout" version="0.9" licence="Apache2" description="Swing layout manager based on the use of canonical grids for user interface design." >
             <depends>
-               <ArtifactRef groupId="net.java.dev.swing-layout" name="swing-layout" scope="comiple" />
+               <ArtifactRef name="swing-layout" scope="compile" />
             </depends>
             <Address page="https://designgridlayout.dev.java.net" shrt="dev.java.net" />
          </Artifact>
-         <Artifact groupId="net.java.dev.swing-layout" name="swing-layout" version="1.0.2" licence="LGPL3" >
+         <Artifact groupId="net.java.dev.swing-layout" name="swing-layout" version="1.0.2" licence="LGPL3" description="Swing layout manager based on the use of canonical grids for user interface design." >
             <Address page="https://swing-layout.dev.java.net" shrt="dev.java.net" />
          </Artifact>
-         <Artifact groupId="org.json" name="json" version="20090211" licence="JSON" >
+         <Artifact groupId="org.json" name="json" version="20090211" licence="JSON" description="json to java and back" >
             <Address page="http://www.json.org/java/index.html" shrt="json.org" />
          </Artifact>
-         <Artifact groupId="muchsoft" name="Sys" version="1.0" licence="Muchsoft" >
+         <Artifact groupId="muchsoft" name="Sys" version="1.0" licence="Muchsoft" description="Tool to help make java apps behave and look like native osx apps. e.g. Menus in menu bar, Preferences open on command-, ... " >
             <Address page="http://www.muchsoft.com" shrt="muchsoft.com" />
          </Artifact>
-         <Artifact groupId="junit" name="junit" version="4.4" licence="CPL" >
-            <Address page="http://www.junit.org" shrt="junit.org" />
-         </Artifact>
-         <Artifact groupId="fifesoft" name="RSyntaxTextArea" version="1.4.1" licence="LGPL3" >
+         <Artifact groupId="fifesoft" name="RSyntaxTextArea" version="1.4.1" licence="LGPL3" description="A textarea subclass enhanced by a lot of typical texteditor feature" >
             <Address page="http://fifesoft.com/rsyntaxtextarea" shrt="fifesoft.org" />
          </Artifact>
-         <Artifact groupId="com.jgoodies" name="binding" version="2.0.6" licence="BSD" >
+         <Artifact groupId="com.jgoodies" name="binding" version="2.0.6" licence="BSD" description="Twoway binding of domain objects and ui objects. Changes to the domain object are displayed by the ui object, changes to the ui object modify the domain object." >
             <Address page="http://www.jgoodies.com/downloads/libraries.html" shrt="jgoodies.com" />
          </Artifact>
-         <Artifact groupId="com.jgoodies" name="forms" version="1.2.1" licence="BSD" >
+         <Artifact groupId="com.jgoodies" name="forms" version="1.2.1" licence="BSD" description="JGoodies Forms library, swing ui" >
             <Address page="http://www.jgoodies.com/downloads/libraries.html" shrt="jgoodies.com" />
          </Artifact>
-         <Artifact groupId="javagraphics" name="preferencepanel" version="1.0" licence="BSD" >
+         <Artifact groupId="javagraphics" name="preferencepanel" version="1.0" licence="BSD" description="A OSX style preference panel." >
             <Address page="https://javagraphics.dev.java.net" shrt="dev.java.net" />
          </Artifact>
-         <Artifact groupId="macwidgets" name="macwidgets" version="0.9.5" licence="LGPL3" >
+         <Artifact groupId="macwidgets" name="macwidgets" version="0.9.5" licence="LGPL3" description="Library with OSX inspired swing components. e.g. a toolbar that blends in with the title bar, better buttons ..." >
             <Address page="http://code.google.com/p/macwidgets" shrt="code.google.com" />
          </Artifact>
-         <Artifact groupId="openCage" name="openCage-lang" version="0.4" licence="MPL1.1" >
+         <Artifact groupId="openCage" name="openCage-lang" version="0.4" licence="MPL1.1" description="simple java utilities" >
             <depends>
                <ArtifactRef groupId="com.intellij" name="annotations" version="7.0.3" scope="compile" />
                <ArtifactRef groupId="net.jcip" name="jcip-annotations" version="1.0" scope="compile" />
@@ -84,20 +87,20 @@
             <Address page="http://stroy.wikidot.com" shrt="wikidot.com" />
             <Java min="6" />
          </Artifact>
-         <Artifact groupId="com.intellij" name="annotations" version="7.0.3" licence="Apache2" >
+         <Artifact groupId="com.intellij" name="annotations" version="7.0.3" licence="Apache2" description="Nullable annotations (bundled with Idea CE)" >
             <Address page="http://www.jetbrains.com/index.html" shrt="jetbrains.com" />
          </Artifact>
-         <Artifact groupId="net.jcip" name="jcip-annotations" version="1.0" licence="Creative Commons" >
+         <Artifact groupId="net.jcip" name="jcip-annotations" version="1.0" licence="Creative Commons" description="annotations from -Java Concurrency in Practice-" >
             <Address page="http://www.javaconcurrencyinpractice.com/" shrt="javaconcurrencyinpractice.com/" />
          </Artifact>
-         <Artifact groupId="commons-lang" name="commons-lang" version="2.4" licence="Apache2" >
+         <Artifact groupId="commons-lang" name="commons-lang" version="2.5" licence="Apache2" description="Apache java language level tools. Random number helpers, system property tools, string tools." >
             <Address page="http://commons.apache.org/lang" shrt="apache.org" />
          </Artifact>
-         <Artifact groupId="openCage" name="openCage-localization" version="0.0.3" licence="MPL1.1" >
+         <Artifact groupId="openCage" name="openCage-localization" version="0.0.3" licence="MPL1.1" description="localization support" >
             <depends>
-               <ArtifactRef groupId="junit" name="junit" scope="test" />
-               <ArtifactRef groupId="openCage" name="openCage-lang" scope="compile" />
-               <ArtifactRef groupId="openCage" name="openCage-property" scope="compile" />
+               <ArtifactRef name="junit" scope="test" />
+               <ArtifactRef name="openCage-lang" scope="compile" />
+               <ArtifactRef name="openCage-property" scope="compile" />
             </depends>
             <authors>
                <Author name="Stephan Pfab" email="openCage@gmail.com" />
@@ -105,15 +108,15 @@
             <Address page="http://stroy.wikidot.com" shrt="wikidot.com" />
             <Java min="6" />
          </Artifact>
-         <Artifact groupId="openCage" name="openCage-property" version="0.3" licence="MPL1.1" >
+         <Artifact groupId="openCage" name="openCage-property" version="0.3" licence="MPL1.1" description="properties of any type" >
             <depends>
-               <ArtifactRef groupId="com.google.inject" name="guice" scope="compile" />
-               <ArtifactRef groupId="junit" name="junit" scope="test" />
-               <ArtifactRef groupId="openCage" name="openCage-lang" scope="compile" />
-               <ArtifactRef groupId="openCage" name="openCage-appstd" scope="compile" />
-               <ArtifactRef groupId="openCage" name="artig-lib" scope="compile" />
-               <ArtifactRef groupId="com.thoughtworks.xstream" name="xstream" scope="compile" />
-               <ArtifactRef groupId="commons-io" name="commons-io" scope="compile" />
+               <ArtifactRef name="osashosa" />
+               <ArtifactRef name="junit" scope="test" />
+               <ArtifactRef name="openCage-lang" scope="compile" />
+               <ArtifactRef name="openCage-appstd" scope="compile" />
+               <ArtifactRef name="artig-lib" scope="compile" />
+               <ArtifactRef name="xstream" scope="compile" />
+               <ArtifactRef name="commons-io" scope="compile" />
             </depends>
             <authors>
                <Author name="Stephan Pfab" email="openCage@gmail.com" />
@@ -121,13 +124,13 @@
             <Address page="http://stroy.wikidot.com" shrt="wikidot.com" />
             <Java min="6" />
          </Artifact>
-         <Artifact groupId="openCage" name="openCage-appstd" version="0.1" licence="MPL1.1" >
+         <Artifact groupId="openCage" name="openCage-appstd" version="0.1" licence="MPL1.1" description="standard bindings for applications using guide/osashosa" >
             <depends>
                <ArtifactRef groupId="junit" name="junit" scope="test" />
                <ArtifactRef groupId="openCage" name="openCage-lang" scope="compile" />
                <ArtifactRef groupId="openCage" name="openCage-io" scope="compile" />
                <ArtifactRef groupId="openCage" name="artig-lib" scope="compile" />
-               <ArtifactRef groupId="com.google.inject" name="guice" scope="compile" />
+               <ArtifactRef name="osashosa" />
             </depends>
             <authors>
                <Author name="Stephan Pfab" email="openCage@gmail.com" />
@@ -135,7 +138,7 @@
             <Address page="http://stroy.wikidot.com" shrt="wikidot.com" />
             <Java min="6" />
          </Artifact>
-         <Artifact groupId="openCage" name="openCage-io" version="0.2" licence="MPL1.1" >
+         <Artifact groupId="openCage" name="openCage-io" version="0.2" licence="MPL1.1" description="java io utils with xplatform in mind" >
             <depends>
                <ArtifactRef groupId="junit" name="junit" scope="test" />
                <ArtifactRef groupId="openCage" name="openCage-lang" scope="compile" />
@@ -147,7 +150,7 @@
             <Address page="http://stroy.wikidot.com" shrt="wikidot.com" />
             <Java min="6" />
          </Artifact>
-         <Artifact groupId="openCage" name="artig-lib" version="0.2" licence="MPL1.1" >
+         <Artifact groupId="openCage" name="artig-lib" version="0.2" licence="MPL1.1" description="project description classes. Needed for artig and others" >
             <depends>
                <ArtifactRef groupId="junit" name="junit" scope="test" />
                <ArtifactRef groupId="openCage" name="openCage-lang" scope="compile" />
@@ -158,22 +161,25 @@
             <Address page="http://stroy.wikidot.com" shrt="wikidot.com" />
             <Java min="6" />
          </Artifact>
-         <Artifact groupId="com.thoughtworks.xstream" name="xstream" version="1.3.1" licence="BSD" >
+         <Artifact groupId="com.thoughtworks.xstream" name="xstream" version="1.3.1" licence="BSD" description="Nice java to XML serialization library." >
             <Address page="http://xstream.codehaus.org" shrt="codehaus.org" />
          </Artifact>
-         <Artifact groupId="commons-io" name="commons-io" version="1.4" licence="Apache2" >
+         <Artifact groupId="commons-io" name="commons-io" version="1.4" licence="Apache2" description="Apache IO tools. e.g. tools to cleanly close resources." >
             <Address page="http://commons.apache.org/io" shrt="apache.org" />
          </Artifact>
       </dependencies>
       <licences>
-         <Licence name="Public Domain" version="2004" >
-            <Address page="http://en.wikipedia.org/wiki/Public_domain" shrt="wikipedia.org" />
+         <Licence name="CPL" version="1.0" >
+            <Address page="http://www.eclipse.org/legal/cpl-v10.html" shrt="eclipse.org" />
          </Licence>
-         <Licence name="Apache2" version="2.0" >
-            <Address page="http://www.apache.org/licenses/LICENSE-2.0.html" shrt="apache.org" />
+         <Licence name="MPL1.1" version="1.1" >
+            <Address page="http://www.mozilla.org/MPL/MPL-1.1.html" shrt="mozilla.org" />
          </Licence>
          <Licence name="LGPL3" version="3.0" >
             <Address page="http://www.gnu.org/licenses/lgpl.html" shrt="gnu.org" />
+         </Licence>
+         <Licence name="Apache2" version="2.0" >
+            <Address page="http://www.apache.org/licenses/LICENSE-2.0.html" shrt="apache.org" />
          </Licence>
          <Licence name="JSON" version="2002" >
             <Address page="http://www.json.org/license.html" shrt="json.org" />
@@ -181,17 +187,11 @@
          <Licence name="Muchsoft" version="2004" >
             <Address page="http://www.muchsoft.com/java/docs/com/muchsoft/util/Sys.html" shrt="muchsoft.com" />
          </Licence>
-         <Licence name="CPL" version="1.0" >
-            <Address page="http://www.eclipse.org/legal/cpl-v10.html" shrt="eclipse.org" />
-         </Licence>
          <Licence name="BSD" version="1989" >
             <Address page="http://www.opensource.org/licenses/bsd-license.php" shrt="opensource.org" />
          </Licence>
          <Licence name="Creative Commons" version="pre 3.0" >
             <Address page="http://creativecommons.org/licenses/publicdomain/" shrt="creativecommons.org" />
-         </Licence>
-         <Licence name="MPL1.1" version="1.1" >
-            <Address page="http://www.mozilla.org/MPL/MPL-1.1.html" shrt="mozilla.org" />
          </Licence>
       </licences>
    </Deployed>
