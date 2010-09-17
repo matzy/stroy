@@ -53,13 +53,15 @@
     <define name="ArtifactRef">
         <element name="ArtifactRef">
             <attribute name="name"><text/></attribute>
-            <attribute name="scope">
-                <choice>
-                    <value>compile</value>
-                    <value>test</value>
-                    <value>knowhow</value>   
-                </choice>
-            </attribute>
+            <optional>
+                <attribute name="scope">
+                    <choice>
+                        <value>compile</value>
+                        <value>test</value>
+                        <value>knowhow</value>
+                    </choice>
+                </attribute>
+            </optional>
         </element>
     </define>
 
