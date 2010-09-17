@@ -4,10 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Element {
+   private String name;
    private List<ZeroOrMore> zeroOrMoreList = new ArrayList<ZeroOrMore>();
    private List<Optional> optionalList = new ArrayList<Optional>();
    private List<Attribute> attributeList = new ArrayList<Attribute>();
    private List<Choice> choiceList = new ArrayList<Choice>();
+   public String getName(  ){
+      return name;
+   }
+   public void setName( String name ){
+      this.name = name;
+   }
    public List<ZeroOrMore> getZeroOrMoreList(  ){
       return zeroOrMoreList;
    }

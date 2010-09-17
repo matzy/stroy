@@ -19,6 +19,9 @@ public class GrammerToXML {
    public static  String toStringElement( String prefix, Element element ){
       String ret = prefix;
       ret += "<element ";
+      if( element.getName() != null ){
+         ret += "name=\"" + element.getName() + "\" ";
+      }
       ret += ">\n";
       if( element.getZeroOrMoreList() != null ){
          ret += toStringZeroOrMoreList( prefix + "   ", element.getZeroOrMoreList() );
@@ -154,11 +157,14 @@ public class GrammerToXML {
       if( optional.getRef() != null ){
          ret += toStringRef( prefix + "   ", optional.getRef() );
       }
+      if( optional.getAttribute() != null ){
+         ret += toStringAttribute( prefix + "   ", optional.getAttribute() );
+      }
       ret += prefix + "</optional>\n";
       return ret;
    }
    public static  String toStringValue( String prefix, String value ){
-      return prefix + "<value>" + value + "</value>";
+      return prefix + "<value>" + value + "</value>\n";
    }
    public static  String toStringRefList( String prefix, List<Ref> ref ){
       String ret = "";

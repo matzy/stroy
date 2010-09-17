@@ -16,13 +16,25 @@ import java.util.Locale;
 
 public class GrammerFromXML extends DefaultHandler {
 
-   public class ListHelper<T> {
-      private List<T> list;
-      public  ListHelper( List<T> list ){
-         this.list = list;
+   private static  class AttributedAttributes {
+      private Attributes attis;
+      private List<Integer> idxes = new ArrayList<Integer>();
+      public  AttributedAttributes( Attributes attis ){
+         this.attis = attis;
       }
-      public void add( T elem ){
-         list.add( elem );
+      public String getValue( String name ){
+         String val = attis.getValue( name );
+         if( val != null ){
+            idxes.add( attis.getIndex( name ) );
+         }
+         return val;
+      }
+      public void check(  ){
+         for ( int idx = 0; idx < attis.getLength(); ++ idx){
+            if( ! idxes.contains( idx ) ){
+               throw new IllegalArgumentException( "Unknown Attribute: " + attis.getQName( idx ) );
+            }
+         }
       }
 
    }
@@ -37,7 +49,8 @@ public class GrammerFromXML extends DefaultHandler {
    public Grammer getGoal(  ){
       return ((Grammer)goal);
    }
-   @Override public void startElement( String uri, String localName, String qName, Attributes attributes ) throws SAXException {
+   @Override public void startElement( String uri, String localName, String qName, Attributes saxAttis ) throws SAXException {
+      AttributedAttributes attributes = new AttributedAttributes( saxAttis);
       if( qName.equals( "define" ) ){
          Define elem = new Define();
          if( attributes.getValue( "name" ) != null ){
@@ -45,6 +58,7 @@ public class GrammerFromXML extends DefaultHandler {
          } else {
             throw new IllegalArgumentException( "Define: attribute name is required" );
          }
+         attributes.check();
          if( ! stack.empty() ){
             Object peek = stack.peek();
             if( peek instanceof Grammer ){
@@ -56,6 +70,12 @@ public class GrammerFromXML extends DefaultHandler {
       }
       if( qName.equals( "element" ) ){
          Element elem = new Element();
+         if( attributes.getValue( "name" ) != null ){
+            elem.setName( attributes.getValue( "name" ) );
+         } else {
+            throw new IllegalArgumentException( "Element: attribute name is required" );
+         }
+         attributes.check();
          if( ! stack.empty() ){
             Object peek = stack.peek();
             if( peek instanceof Define ){
@@ -67,6 +87,7 @@ public class GrammerFromXML extends DefaultHandler {
       }
       if( qName.equals( "text" ) ){
          Text elem = new Text();
+         attributes.check();
          if( ! stack.empty() ){
             Object peek = stack.peek();
             if( peek instanceof Attribute ){
@@ -78,6 +99,7 @@ public class GrammerFromXML extends DefaultHandler {
       }
       if( qName.equals( "choice" ) ){
          Choice elem = new Choice();
+         attributes.check();
          if( ! stack.empty() ){
             Object peek = stack.peek();
             if( peek instanceof Attribute ){
@@ -100,6 +122,13 @@ public class GrammerFromXML extends DefaultHandler {
          } else {
             throw new IllegalArgumentException( "Attribute: attribute name is required" );
          }
+         attributes.check();
+         if( ! stack.empty() ){
+            Object peek = stack.peek();
+            if( peek instanceof Optional ){
+               ((Optional)peek).setAttribute( elem );
+            }
+         }
          if( ! stack.empty() ){
             Object peek = stack.peek();
             if( peek instanceof Element ){
@@ -111,11 +140,13 @@ public class GrammerFromXML extends DefaultHandler {
       }
       if( qName.equals( "grammer" ) ){
          Grammer elem = new Grammer();
+         attributes.check();
          stack.push( elem );
          return;
       }
       if( qName.equals( "zeroOrMore" ) ){
          ZeroOrMore elem = new ZeroOrMore();
+         attributes.check();
          if( ! stack.empty() ){
             Object peek = stack.peek();
             if( peek instanceof Element ){
@@ -132,6 +163,7 @@ public class GrammerFromXML extends DefaultHandler {
          } else {
             throw new IllegalArgumentException( "Ref: attribute name is required" );
          }
+         attributes.check();
          if( ! stack.empty() ){
             Object peek = stack.peek();
             if( peek instanceof ZeroOrMore ){
@@ -155,6 +187,7 @@ public class GrammerFromXML extends DefaultHandler {
       }
       if( qName.equals( "start" ) ){
          Start elem = new Start();
+         attributes.check();
          if( ! stack.empty() ){
             Object peek = stack.peek();
             if( peek instanceof Grammer ){
@@ -166,6 +199,7 @@ public class GrammerFromXML extends DefaultHandler {
       }
       if( qName.equals( "optional" ) ){
          Optional elem = new Optional();
+         attributes.check();
          if( ! stack.empty() ){
             Object peek = stack.peek();
             if( peek instanceof Element ){
@@ -223,9 +257,6 @@ public class GrammerFromXML extends DefaultHandler {
       }
       if( qName.equals( "optional" ) ){
          goal = stack.pop();
-         if( ((Optional)goal).getRef() == null ){
-            throw new IllegalArgumentException( "Optional: required member ref not set" );
-         }
       }
       if( qName.equals( "value" ) ){
          String str = "";

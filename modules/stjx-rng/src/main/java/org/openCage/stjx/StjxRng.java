@@ -57,7 +57,9 @@ public class StjxRng {
             }
         }
 
-        System.out.println( GrammerToXML.toStringGrammer( "", from.getGoal()));
+        //System.out.println( GrammerToXML.toStringGrammer( "", from.getGoal()));
+
+        System.out.println( new GrammerToStjx().getStjx( from.getGoal() ).toString() );
 
     }
 
