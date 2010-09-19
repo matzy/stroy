@@ -89,14 +89,14 @@ public class Struct implements Complex {
         return this;
     }
 
-    public ListType list(String name) {
+    public Struct list(String name, String of ) {
 
         check( name );
 
-        ListType ll = new ListType( this, name );
+        ListType ll = new ListType( this, name, of, false );
         stjx.addComplex( ll );
         complexs.add( Ref.optional( name ));
-        return ll;
+        return this;
     }
 
     public Struct multiLine(String name) {
@@ -500,5 +500,9 @@ public class Struct implements Complex {
         }
 
         return ret;
+    }
+
+    public ZeroOrMore zeroOrMore( String collectionName ) {
+        return new ZeroOrMore( this, collectionName );
     }
 }

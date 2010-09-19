@@ -42,29 +42,41 @@ import static org.openCage.lang.Strings.toFirstUpper;
  * **** END LICENSE BLOCK ****
 */
 public class ListType implements Complex {
-    private Struct struct;
+//    private Struct struct;
     private String name;
     private String of;
     private String ofName;
+    private Stjx stjx;
 
-    public ListType( Struct struct, String name) {
-        this.struct = struct;
+    public ListType( Struct struct, String name, String of, boolean ofString ) {
+        this.stjx = struct.getStjx();
         this.name = name;
+
+        if ( ofString ) {
+            MultiLine ml = new MultiLine( stjx, this, name );
+            struct.getStjx().addComplex( ml );
+            of = "String";
+            ofName = of;
+
+        } else {
+            this.of = of;
+            this.ofName = of;
+        }
     }
 
-    public Struct of(String typName ) {
-        this.of = typName;
-        this.ofName = typName;
-        return struct;
-    }
+//    public Struct of(String typName ) {
+//        this.of = typName;
+//        this.ofName = typName;
+//        return struct;
+//    }
 
-    public Struct ofStrings(String name) {
-        MultiLine ml = new MultiLine( struct.getStjx(), this, name );
-        struct.getStjx().addComplex( ml );
-        of = "String";
-        ofName = name;
-        return struct;
-    }
+//    public Struct ofStrings(String name) {
+//        MultiLine ml = new MultiLine( struct.getStjx(), this, name );
+//        struct.getStjx().addComplex( ml );
+//        of = "String";
+//        ofName = name;
+//        return struct;
+//    }
 
     @Override
     public ClassI toJava(String pack) {
@@ -82,7 +94,7 @@ public class ListType implements Complex {
 
         thn.fild( TYP("Object"), NAME("peek")).init( CALL( DOT( NAME("stack"), NAME("peek"))));
 
-        List<Complex> users = struct.getStjx().getUsers( name );
+        List<Complex> users = stjx.getUsers( name );
         for ( Complex comp : users ) {
 
             thn.iff( INSTANCEOF( NAME("peek"), TYP(comp.getClassName()))).thn().
