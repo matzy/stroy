@@ -32,7 +32,7 @@ import org.openCage.ui.protocol.AboutSheet;
 
 public class AboutSheetTest {
 
-//    @Ignore
+    @Ignore
     @Test
 	public void AboutTest() {
         Injector injector = Guice.createInjector( new TestWiring() );
