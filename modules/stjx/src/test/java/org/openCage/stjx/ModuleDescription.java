@@ -27,16 +27,16 @@ public class ModuleDescription {
         stjx.struct( "Project" ).
                 string( "name" ).
                 string( "groupId" ).
-                list( "modules" ).of( "ModuleRef" ).
-                list( "externals" ).of( "Artifact" ).
-                list( "licences").of( "Licence" ).
-                list( "dropIns" ).of( "ArtifactRef" );
+                zeroOrMore( "modules" ).complex( "ModuleRef" ).
+                list( "externals",  "Artifact" ).
+                list( "licences", "Licence" ).
+                list( "dropIns",  "ArtifactRef" );
 
         stjx.struct( "Deployed" ).
                 optional().string( "icon" ).
                 complex( "Artifact" ).
-                list( "dependencies" ).of( "Artifact" ).
-                list( "licences").of( "Licence" );
+                list( "dependencies", "Artifact" ).
+                list( "licences", "Licence" );
 
         stjx.or( "Kind" ).with( "Module", "Project", "Deployed" );
 
@@ -68,31 +68,31 @@ public class ModuleDescription {
                 string( "name" ).
                 string( "version" ).
                 complex( "Address" ).
-                list( "positives" ).of( "LicenceRef" ).
-                list( "negatives" ).of( "LicenceRef" );
+                list( "positives", "LicenceRef" ).
+                list( "negatives", "LicenceRef" );
         stjx.struct( "Language" ).string( "name");
         stjx.struct( "Java" ).
                 string( "min").
                 optional().string( "max");
         stjx.struct( "Address" ).string( "page").optional().string( "shrt" );
-        stjx.struct( "References").list( "references" ).of("Artifact");
+        stjx.struct( "References").list( "references", "Artifact");
 
         stjx.struct( "DropInFor" ).complex("ArtifactRef");
 
-        stjx.struct( "Artifact" ).list( "depends" ).of( "ArtifactRef" ).
+        stjx.struct( "Artifact" ).list( "depends", "ArtifactRef" ).
                 string( "groupId" ).
                 string( "name" ).
                 string( "version" ).
                 string( "licence" ).
                 string( "description" ).
                 optional().string( "support" ).
-                list( "authors" ).of( "Author" ).
-                list( "contributors" ).of( "Author" ).
+                list( "authors", "Author" ).
+                list( "contributors",  "Author" ).
                 //or( "Application" ).with( "Module", "External" ).
                 optional().complex( "Address" ).
-                list( "languages").of( "Language" ).
+                list( "languages",  "Language" ).
                 optional().complex( "Java").
-                list( "refs" ).of( "ArtifactRef" ).
+                list( "refs", "ArtifactRef" ).
                 optional().complex( "DropInFor" ).
                 optional().multiLine( "FullDescription");
 
