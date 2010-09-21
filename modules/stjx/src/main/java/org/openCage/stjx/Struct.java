@@ -99,28 +99,14 @@ public class Struct implements Complex {
         return this;
     }
 
-    public Struct multiLine(String name) {
+    public Struct multiLine(String name, boolean optional ) {
         MultiLine ml = new MultiLine( stjx, this, name );
         stjx.addComplex( ml );
-        complexs.add( Ref.required( name ));
-        return this;
-    }
-
-    public Struct embeddedList(String name) {
-        check( name );
-
-        EmbeddedListType ll = new EmbeddedListType( this, name, false );
-        stjx.addComplex( ll );
-        complexs.add( Ref.optional( ll.getTagName() ));
-        return this;
-    }
-
-    public Struct embeddedStringList(String name) {
-        check( name );
-
-        EmbeddedListType ll = new EmbeddedListType( this, name, true );
-        stjx.addComplex( ll );
-        complexs.add( Ref.optional( ll.getTagName() ));
+        if ( optional ) {
+            complexs.add( Ref.optional( name ));            
+        } else {
+            complexs.add( Ref.required( name ));
+        }
         return this;
     }
 
@@ -486,9 +472,20 @@ public class Struct implements Complex {
         return this;
     }
 
-    public EmbeddedMultiple zeroOrMore() {
-        return new EmbeddedMultiple( this );
+    public ZeroOrMore zeroOrMore() {
+        return new ZeroOrMore( this );
+        //return new EmbeddedMultiple( this );
     }
+
+    public Struct embeddedStringList(String name) {
+        check( name );
+
+        EmbeddedListType ll = new EmbeddedListType( this, name, true );
+        stjx.addComplex( ll );
+        complexs.add( Ref.optional( ll.getTagName() ));
+        return this;
+    }
+
 
     public String toString() {
         String ret = "";

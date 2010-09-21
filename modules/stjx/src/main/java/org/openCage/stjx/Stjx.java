@@ -5,7 +5,11 @@ import org.openCage.io.IOUtils;
 import org.openCage.io.fspath.FSPath;
 import org.openCage.io.fspath.FSPathBuilder;
 import org.openCage.lang.Strings;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -21,6 +25,7 @@ import static org.openCage.generj.Cast.CAST;
 import static org.openCage.generj.Dot.DOT;
 import static org.openCage.generj.Int.ZERO;
 import static org.openCage.generj.NameExpr.NAME;
+import static org.openCage.generj.NameExpr.NULL;
 import static org.openCage.generj.NewExpr.NEW;
 import static org.openCage.generj.Str.STR;
 import static org.openCage.generj.Typ.*;
@@ -106,7 +111,7 @@ public class Stjx {
 
         Stjx stjx = new Stjx( "grammer" );
 
-        stjx.struct( "grammer" ).complex( "start" ).zeroOrMore().of("define");
+        stjx.struct( "grammer" ).complex( "start" ).zeroOrMore().complex("define");
         stjx.struct( "start").complex( "ref" );
 
         stjx.struct( "ref" ).string("name");
@@ -115,10 +120,10 @@ public class Stjx {
 
         stjx.struct( "element" ).
                 string( "name" ).
-                zeroOrMore().of("zeroOrMore").
-                zeroOrMore().of("optional").
-                zeroOrMore().of("attribute").
-                zeroOrMore().of("choice");
+                zeroOrMore().complex("zeroOrMore").
+                zeroOrMore().complex("optional").
+                zeroOrMore().complex("attribute").
+                zeroOrMore().complex("choice");
 
         stjx.struct( "zeroOrMore" ).complex( "ref");
         stjx.struct( "optional" ).
@@ -131,8 +136,8 @@ public class Stjx {
         stjx.struct( "text" );
 
         stjx.struct("choice").
-                zeroOrMore().ofString("value").  // this is really an or of values and ref but that does not work without
-                zeroOrMore().of("ref");    // extra complex
+                zeroOrMore().string("value").  // this is really an or of values and ref but that does not work without
+                zeroOrMore().complex("ref");    // extra complex
 
         stjx.generate( FSPathBuilder.getPath( "/Users/stephan/Documents/prs/stroy-10" ).add( "modules", "stjx-rng").toString(), "org.openCage.stjx.rng" );
 
@@ -307,27 +312,23 @@ public class Stjx {
                 imprt( "java.util.Map" ).
                 imprt( "java.util.Stack" ).
                 imprt( "java.util.Locale" ).
+                imprt( "java.io.InputStream" ).
+                imprt( "java.io.IOException" ).
+                imprt( "javax.xml.parsers.ParserConfigurationException").
 
                 extnds( TYP("DefaultHandler") ).
-
-//                publc().sttic().clazz( TYPOF("ListHelper", TYP("T"))).
-//                    privt().fild( TYPOF("List",TYP("T")), NAME("list")).c().
-//                    publc().cnstr().arg( TYPOF("List",TYP("T")), NAME("list")).body().
-//                        assign( DOT( NAME("this"), NAME("list")), NAME("list")).r().c().
-//                    publc().method( "add").arg( TYP("T"), NAME("elem")).body().
-//                        call( DOT( NAME( "list"), NAME("add")), NAME("elem")).r().c().r().
 
                 privt().fild( TYP("Stack"), NAME("stack")).init( NEW( TYP("Stack"))).
 
                 privt().fild( TYP("Object"), NAME("goal")).c().
 
                 publc().override().method( "startDocument").thrws( TYP("SAXException")).body().
-                call( DOT( NAME( "stack"), NAME("clear"))).r().c().
+                    call( DOT( NAME( "stack"), NAME("clear"))).r().c().
 
                 publc().override().method( "endDocument").thrws( TYP("SAXException")).body().r().c().
 
                 publc().method( TYP(clazzTyp), "getGoal").body().
-                retrn( CAST( TYP(clazzTyp), NAME("goal"))).r().c()
+                    retrn( CAST( TYP(clazzTyp), NAME("goal"))).r().c()
                 ;
 
         Clazz AA = clazz.privt().sttic().clazz( TYP("AttributedAttributes"));
@@ -349,14 +350,28 @@ public class Stjx {
                 body().iff( NOT( CALL( DOT(NAME("idxes"), NAME("contains")), NAME("idx")))).thn().
                     thrwIllegalArgument( PLUS(STR("Unknown Attribute: "), CALL(DOT(NAME("attis"), NAME("getQName")), NAME("idx"))));
 
-//        public void check() {
-//            for ( int idx = 0; idx < attis.getLength(); ++idx ) {
-//                if ( !idxes.contains( idx )) {
-//                    throw new IllegalArgumentException( "Unknown Attribute: " + attis.getQName( idx ) + "=" + attis.getValue(idx));
-//                }
-//            }
-//        }
-//
+
+        Block read =  clazz.publc().sttic().method( TYP(clazzTyp), "read").arg( TYP("InputStream"), NAME("is")).body();
+        read.fild( TYP( clazzTyp + "FromXML"), NAME("from" )).defaultInit();
+        read.fild( TYP("SAXParserFactory"), NAME("factory")).init( CALL(DOT(NAME("SAXParserFactory"), NAME("newInstance"))));
+
+        TryStatement tryS= read.ttry();
+        Block trytry = tryS.trry();
+        trytry.fild( TYP("SAXParser"), NAME("parser")).init( CALL(DOT(NAME("factory"), NAME("newSAXParser"))));
+        trytry.call( DOT("parser","parse"), NAME("is"), NAME("from") );
+
+        tryS.ctch( TYP("IOException"), NAME("exp") ).call( DOT("exp","printStackTrace")); // TODO improve
+        tryS.ctch( TYP("SAXException"), NAME("exp") ).call( DOT("exp","printStackTrace")); // TODO improve
+        tryS.ctch( TYP("ParserConfigurationException"), NAME("exp") ).call( DOT("exp","printStackTrace")); // TODO improve
+        tryS.ctch( TYP("IllegalArgumentException"), NAME("exp") ).
+                call( DOT("exp","printStackTrace")).
+                call( DOT(NAME("System"), NAME("err"), NAME("println")), STR("Problem parsing "));
+        read.retrn( CALL(DOT("from","getGoal")));
+
+        Block readPath =  clazz.publc().sttic().method( TYP(clazzTyp), "read").arg( TYP("File"), NAME("file")).body();
+        readPath.retrn( CALL( NAME("read"), NEW( TYP("FileInputStream"), NAME("file"))));
+
+
 
 
 
@@ -570,8 +585,23 @@ public class Stjx {
 
 
     public void addComplex(Complex complex) {
-        if ( structs.containsKey( complex.getClassName()) || structs.containsKey( complex.getTagName() )) {
-            throw new IllegalArgumentException( "there is already a complex with name (upper or lower case) " + complex.getTagName()  );
+
+        Complex old = structs.get( complex.getClassName());
+        if ( old != null ) {
+            if ( !old.equals( complex )) {
+                throw new IllegalArgumentException( "there is already a complex with name (upper or lower case) " + complex.getTagName()  );
+            }
+
+            return;
+        }
+
+        old = structs.get( complex.getTagName());
+        if ( old != null ) {
+            if ( !old.equals( complex )) {
+                throw new IllegalArgumentException( "there is already a complex with name (upper or lower case) " + complex.getTagName()  );
+            }
+
+            return;
         }
 
         structs.put( complex.getTagName(), complex );

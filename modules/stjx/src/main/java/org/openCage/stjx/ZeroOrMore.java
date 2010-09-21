@@ -1,14 +1,5 @@
 package org.openCage.stjx;
 
-import org.omg.CosNaming.NamingContextOperations;
-
-/**
- * Created by IntelliJ IDEA.
- * User: stephan
- * Date: Sep 19, 2010
- * Time: 2:22:51 PM
- * To change this template use File | Settings | File Templates.
- */
 public class ZeroOrMore {
 
 
@@ -20,12 +11,38 @@ public class ZeroOrMore {
         this.collectionName = collectionName;
     }
 
-    public Struct complex(String of) {
-//        check( name );
+    public ZeroOrMore(Struct struct) {
+        this.struct = struct;
+    }
 
-        ListType ll = new ListType( struct, collectionName, of, false );
+    public Struct complex(String of) {
+
+        if ( collectionName != null ) {
+            ListType ll = new ListType( struct, collectionName, of, false );
+            struct.getStjx().addComplex( ll );
+            struct.getComplexs().add( Ref.optional( collectionName ));
+            return struct;
+        }
+
+        EmbeddedListType ll = new EmbeddedListType( struct, of, false );
         struct.getStjx().addComplex( ll );
-        struct.getComplexs().add( Ref.optional( collectionName ));
+        struct.getComplexs().add( Ref.optional( ll.getTagName() ));
         return struct;
+
+    }
+
+    public Struct string(String of) {
+
+        if ( collectionName != null ) {
+            ListType ll = new ListType( struct, collectionName, of, true );
+            struct.getStjx().addComplex( ll );
+            struct.getComplexs().add( Ref.optional( collectionName ));
+            return struct;
+        }
+
+        MultiLine ml = new MultiLine( struct.getStjx(), struct, of );
+        struct.getStjx().addComplex( ml );
+
+        return struct.embeddedStringList( ml.getTagName() ); 
     }
 }

@@ -41,7 +41,7 @@ public class Optional {
     }
 
     public Struct multiLine(String name) {
-        struct.multiLine( name );
+        struct.multiLine( name, true );
         return struct;
     }
 

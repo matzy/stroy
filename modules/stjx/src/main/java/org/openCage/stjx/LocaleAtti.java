@@ -2,8 +2,7 @@ package org.openCage.stjx;
 
 import org.openCage.generj.Block;
 import org.openCage.generj.Clazz;
-import org.openCage.generj.IfExpr;
-import org.openCage.generj.Typ;
+import org.openCage.generj.IfStatement;
 import org.openCage.lang.Strings;
 
 import static org.openCage.generj.Call.CALL;
@@ -74,7 +73,7 @@ public class LocaleAtti implements Atti {
     @Override
     public void toFromXMLStart(Block block, String varName) {
 
-        IfExpr ite = block.ifNotNull( CALL( DOT( NAME("attributes"), NAME( "getValue")), STR(name) ));
+        IfStatement ite = block.ifNotNull( CALL( DOT( NAME("attributes"), NAME( "getValue")), STR(name) ));
 
         ite.thn().call( DOT( NAME("elem"), SETTER(name)),
                         NEW( TYP("Locale"), CALL( DOT( NAME("attributes"), NAME( "getValue")), STR(name) )));
