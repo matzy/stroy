@@ -1,0 +1,21 @@
+<ArtifactDescription version="0.1">
+    <Module>
+        <Artifact name="vfs-sandbox"
+                groupId="openCage"
+                version="0.1"
+                description="experimenting"
+                licence="MPL1.1">
+            <Java min="6"/>
+            <authors>
+                <Author name="Stephan Pfab" email="openCage@gmail.com"/>
+            </authors>
+            <Address page="http://stroy.wikidot.com/generj" shrt="wikidot.com" />
+<!-- 0.2 int expression -->
+            <depends>
+                <ArtifactRef name="junit" scope="test" />
+                <ArtifactRef name="commons-vfs" scope="compile" />
+            </depends>
+        </Artifact>
+    </Module>
+
+</ArtifactDescription>
