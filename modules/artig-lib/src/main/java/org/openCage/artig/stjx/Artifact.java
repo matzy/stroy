@@ -33,7 +33,6 @@ public class Artifact {
    private String licence;
    private String description;
    private String support;
-   private String fullDescription;
    private List<ArtifactRef> depends = new ArrayList<ArtifactRef>();
    private List<Author> authors = new ArrayList<Author>();
    private List<Author> contributors = new ArrayList<Author>();
@@ -42,6 +41,7 @@ public class Artifact {
    private Java java;
    private List<ArtifactRef> refs = new ArrayList<ArtifactRef>();
    private DropInFor dropInFor;
+   private String fullDescription;
    public String getGroupId(  ){
       return groupId;
    }
@@ -77,12 +77,6 @@ public class Artifact {
    }
    public void setSupport( String support ){
       this.support = support;
-   }
-   public String getFullDescription(  ){
-      return fullDescription;
-   }
-   public void setFullDescription( String fullDescription ){
-      this.fullDescription = fullDescription;
    }
    public List<ArtifactRef> getDepends(  ){
       return depends;
@@ -131,6 +125,12 @@ public class Artifact {
    }
    public void setDropInFor( DropInFor dropInFor ){
       this.dropInFor = dropInFor;
+   }
+   public String getFullDescription(  ){
+      return fullDescription;
+   }
+   public void setFullDescription( String fullDescription ){
+      this.fullDescription = fullDescription;
    }
 
 }

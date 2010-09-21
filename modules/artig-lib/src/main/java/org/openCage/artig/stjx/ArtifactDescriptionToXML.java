@@ -26,7 +26,7 @@ import java.util.List;
  * **** END LICENSE BLOCK ****
 */
 public class ArtifactDescriptionToXML {
-   public static  String toStringlicences( String prefix, List<Licence> licences ){
+   public static  String toStringLicences( String prefix, List<Licence> licences ){
       if( licences.isEmpty() ){
          return "";
       }
@@ -38,7 +38,7 @@ public class ArtifactDescriptionToXML {
       ret += prefix + "</licences>\n";
       return ret;
    }
-   public static  String toStringdropIns( String prefix, List<ArtifactRef> dropIns ){
+   public static  String toStringDropIns( String prefix, List<ArtifactRef> dropIns ){
       if( dropIns.isEmpty() ){
          return "";
       }
@@ -76,15 +76,15 @@ public class ArtifactDescriptionToXML {
          ret += toStringAddress( prefix + "   ", licence.getAddress() );
       }
       if( licence.getPositives() != null ){
-         ret += toStringpositives( prefix + "   ", licence.getPositives() );
+         ret += toStringPositives( prefix + "   ", licence.getPositives() );
       }
       if( licence.getNegatives() != null ){
-         ret += toStringnegatives( prefix + "   ", licence.getNegatives() );
+         ret += toStringNegatives( prefix + "   ", licence.getNegatives() );
       }
       ret += prefix + "</Licence>\n";
       return ret;
    }
-   public static  String toStringnegatives( String prefix, List<LicenceRef> negatives ){
+   public static  String toStringNegatives( String prefix, List<LicenceRef> negatives ){
       if( negatives.isEmpty() ){
          return "";
       }
@@ -96,7 +96,7 @@ public class ArtifactDescriptionToXML {
       ret += prefix + "</negatives>\n";
       return ret;
    }
-   public static  String toStringexternals( String prefix, List<Artifact> externals ){
+   public static  String toStringExternals( String prefix, List<Artifact> externals ){
       if( externals.isEmpty() ){
          return "";
       }
@@ -145,7 +145,7 @@ public class ArtifactDescriptionToXML {
       }
       throw new IllegalStateException( "no a valid suptype of Kind" );
    }
-   public static  String toStringpositives( String prefix, List<LicenceRef> positives ){
+   public static  String toStringPositives( String prefix, List<LicenceRef> positives ){
       if( positives.isEmpty() ){
          return "";
       }
@@ -157,7 +157,7 @@ public class ArtifactDescriptionToXML {
       ret += prefix + "</positives>\n";
       return ret;
    }
-   public static  String toStringlanguages( String prefix, List<Language> languages ){
+   public static  String toStringLanguages( String prefix, List<Language> languages ){
       if( languages.isEmpty() ){
          return "";
       }
@@ -169,7 +169,7 @@ public class ArtifactDescriptionToXML {
       ret += prefix + "</languages>\n";
       return ret;
    }
-   public static  String toStringauthors( String prefix, List<Author> authors ){
+   public static  String toStringAuthors( String prefix, List<Author> authors ){
       if( authors.isEmpty() ){
          return "";
       }
@@ -200,18 +200,6 @@ public class ArtifactDescriptionToXML {
       ret += prefix + "</DropInFor>\n";
       return ret;
    }
-   public static  String toStringreferences( String prefix, List<Artifact> references ){
-      if( references.isEmpty() ){
-         return "";
-      }
-      String ret = prefix;
-      ret += "<references>\n";
-      for ( Artifact vr : references ) {
-         ret += toStringArtifact( prefix + "   ", vr );
-      }
-      ret += prefix + "</references>\n";
-      return ret;
-   }
    public static  String toStringLicenceRef( String prefix, LicenceRef licenceRef ){
       String ret = prefix;
       ret += "<LicenceRef ";
@@ -234,7 +222,7 @@ public class ArtifactDescriptionToXML {
       ret += prefix + "</ArtifactDescription>\n";
       return ret;
    }
-   public static  String toStringdependencies( String prefix, List<Artifact> dependencies ){
+   public static  String toStringDependencies( String prefix, List<Artifact> dependencies ){
       if( dependencies.isEmpty() ){
          return "";
       }
@@ -244,16 +232,6 @@ public class ArtifactDescriptionToXML {
          ret += toStringArtifact( prefix + "   ", vr );
       }
       ret += prefix + "</dependencies>\n";
-      return ret;
-   }
-   public static  String toStringReferences( String prefix, References references ){
-      String ret = prefix;
-      ret += "<References ";
-      ret += ">\n";
-      if( references.getReferences() != null ){
-         ret += toStringreferences( prefix + "   ", references.getReferences() );
-      }
-      ret += prefix + "</References>\n";
       return ret;
    }
    public static  String toStringProject( String prefix, Project project ){
@@ -267,21 +245,21 @@ public class ArtifactDescriptionToXML {
       }
       ret += ">\n";
       if( project.getModules() != null ){
-         ret += toStringmodules( prefix + "   ", project.getModules() );
+         ret += toStringModules( prefix + "   ", project.getModules() );
       }
       if( project.getExternals() != null ){
-         ret += toStringexternals( prefix + "   ", project.getExternals() );
+         ret += toStringExternals( prefix + "   ", project.getExternals() );
       }
       if( project.getLicences() != null ){
-         ret += toStringlicences( prefix + "   ", project.getLicences() );
+         ret += toStringLicences( prefix + "   ", project.getLicences() );
       }
       if( project.getDropIns() != null ){
-         ret += toStringdropIns( prefix + "   ", project.getDropIns() );
+         ret += toStringDropIns( prefix + "   ", project.getDropIns() );
       }
       ret += prefix + "</Project>\n";
       return ret;
    }
-   public static  String toStringdepends( String prefix, List<ArtifactRef> depends ){
+   public static  String toStringDepends( String prefix, List<ArtifactRef> depends ){
       if( depends.isEmpty() ){
          return "";
       }
@@ -308,7 +286,7 @@ public class ArtifactDescriptionToXML {
       ret += "/>\n";
       return ret;
    }
-   public static  String toStringcontributors( String prefix, List<Author> contributors ){
+   public static  String toStringContributors( String prefix, List<Author> contributors ){
       if( contributors.isEmpty() ){
          return "";
       }
@@ -331,10 +309,10 @@ public class ArtifactDescriptionToXML {
          ret += toStringArtifact( prefix + "   ", deployed.getArtifact() );
       }
       if( deployed.getDependencies() != null ){
-         ret += toStringdependencies( prefix + "   ", deployed.getDependencies() );
+         ret += toStringDependencies( prefix + "   ", deployed.getDependencies() );
       }
       if( deployed.getLicences() != null ){
-         ret += toStringlicences( prefix + "   ", deployed.getLicences() );
+         ret += toStringLicences( prefix + "   ", deployed.getLicences() );
       }
       ret += prefix + "</Deployed>\n";
       return ret;
@@ -379,32 +357,32 @@ public class ArtifactDescriptionToXML {
          ret += "support=\"" + artifact.getSupport() + "\" ";
       }
       ret += ">\n";
-      if( artifact.getFullDescription() != null ){
-         ret += prefix + "<FullDescription>" + artifact.getFullDescription() + "</FullDescription>\n";
-      }
       if( artifact.getDepends() != null ){
-         ret += toStringdepends( prefix + "   ", artifact.getDepends() );
+         ret += toStringDepends( prefix + "   ", artifact.getDepends() );
       }
       if( artifact.getAuthors() != null ){
-         ret += toStringauthors( prefix + "   ", artifact.getAuthors() );
+         ret += toStringAuthors( prefix + "   ", artifact.getAuthors() );
       }
       if( artifact.getContributors() != null ){
-         ret += toStringcontributors( prefix + "   ", artifact.getContributors() );
+         ret += toStringContributors( prefix + "   ", artifact.getContributors() );
       }
       if( artifact.getAddress() != null ){
          ret += toStringAddress( prefix + "   ", artifact.getAddress() );
       }
       if( artifact.getLanguages() != null ){
-         ret += toStringlanguages( prefix + "   ", artifact.getLanguages() );
+         ret += toStringLanguages( prefix + "   ", artifact.getLanguages() );
       }
       if( artifact.getJava() != null ){
          ret += toStringJava( prefix + "   ", artifact.getJava() );
       }
       if( artifact.getRefs() != null ){
-         ret += toStringrefs( prefix + "   ", artifact.getRefs() );
+         ret += toStringRefs( prefix + "   ", artifact.getRefs() );
       }
       if( artifact.getDropInFor() != null ){
          ret += toStringDropInFor( prefix + "   ", artifact.getDropInFor() );
+      }
+      if( artifact.getFullDescription() != null ){
+         ret += toStringFullDescription( prefix + "   ", artifact.getFullDescription() );
       }
       ret += prefix + "</Artifact>\n";
       return ret;
@@ -425,7 +403,7 @@ public class ArtifactDescriptionToXML {
       ret += prefix + "</App>\n";
       return ret;
    }
-   public static  String toStringrefs( String prefix, List<ArtifactRef> refs ){
+   public static  String toStringRefs( String prefix, List<ArtifactRef> refs ){
       if( refs.isEmpty() ){
          return "";
       }
@@ -449,6 +427,9 @@ public class ArtifactDescriptionToXML {
       ret += "/>\n";
       return ret;
    }
+   public static  String toStringFullDescription( String prefix, String fullDescription ){
+      return prefix + "<FullDescription>" + fullDescription + "</FullDescription>\n";
+   }
    public static  String toStringLanguage( String prefix, Language language ){
       String ret = prefix;
       ret += "<Language ";
@@ -458,7 +439,7 @@ public class ArtifactDescriptionToXML {
       ret += "/>\n";
       return ret;
    }
-   public static  String toStringmodules( String prefix, List<ModuleRef> modules ){
+   public static  String toStringModules( String prefix, List<ModuleRef> modules ){
       if( modules.isEmpty() ){
          return "";
       }

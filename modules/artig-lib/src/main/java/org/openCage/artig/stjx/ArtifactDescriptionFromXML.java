@@ -13,6 +13,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 import java.util.Locale;
+import java.io.InputStream;
+import java.io.IOException;
+import javax.xml.parsers.ParserConfigurationException;
 
 /**
  * ** BEGIN LICENSE BLOCK *****
@@ -39,13 +42,25 @@ import java.util.Locale;
 */
 public class ArtifactDescriptionFromXML extends DefaultHandler {
 
-   public class ListHelper<T> {
-      private List<T> list;
-      public  ListHelper( List<T> list ){
-         this.list = list;
+   private static  class AttributedAttributes {
+      private Attributes attis;
+      private List<Integer> idxes = new ArrayList<Integer>();
+      public  AttributedAttributes( Attributes attis ){
+         this.attis = attis;
       }
-      public void add( T elem ){
-         list.add( elem );
+      public String getValue( String name ){
+         String val = attis.getValue( name );
+         if( val != null ){
+            idxes.add( attis.getIndex( name ) );
+         }
+         return val;
+      }
+      public void check(  ){
+         for ( int idx = 0; idx < attis.getLength(); ++ idx){
+            if( ! idxes.contains( idx ) ){
+               throw new IllegalArgumentException( "Unknown Attribute: " + attis.getQName( idx ) );
+            }
+         }
       }
 
    }
@@ -60,7 +75,29 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
    public ArtifactDescription getGoal(  ){
       return ((ArtifactDescription)goal);
    }
-   @Override public void startElement( String uri, String localName, String qName, Attributes attributes ) throws SAXException {
+   public static  ArtifactDescription read( InputStream is ){
+      ArtifactDescriptionFromXML from = new ArtifactDescriptionFromXML();
+      SAXParserFactory factory = SAXParserFactory.newInstance();
+      try {
+         SAXParser parser = factory.newSAXParser();
+         parser.parse( is, from );
+      } catch( IOException exp ) {
+         exp.printStackTrace();
+      } catch( SAXException exp ) {
+         exp.printStackTrace();
+      } catch( ParserConfigurationException exp ) {
+         exp.printStackTrace();
+      } catch( IllegalArgumentException exp ) {
+         exp.printStackTrace();
+         System.err.println( "Problem parsing " );
+      }
+      return from.getGoal();
+   }
+//   public static  ArtifactDescription read( File file ){
+//      return read( new FileInputStream( file) );
+//   }
+   @Override public void startElement( String uri, String localName, String qName, Attributes saxAttis ) throws SAXException {
+      AttributedAttributes attributes = new AttributedAttributes( saxAttis);
       if( qName.equals( "licences" ) ){
          if( stack.empty() ){
             throw new IllegalArgumentException( "licences: needs to be in complex type" );
@@ -97,6 +134,7 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
          if( attributes.getValue( "email" ) != null ){
             elem.setEmail( attributes.getValue( "email" ) );
          }
+         attributes.check();
          if( ! stack.empty() ){
             Object peek = stack.peek();
             if( peek instanceof List ){
@@ -118,6 +156,7 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
          } else {
             throw new IllegalArgumentException( "Licence: attribute version is required" );
          }
+         attributes.check();
          if( ! stack.empty() ){
             Object peek = stack.peek();
             if( peek instanceof List ){
@@ -151,6 +190,7 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
       }
       if( qName.equals( "Module" ) ){
          Module elem = new Module();
+         attributes.check();
          if( ! stack.empty() ){
             Object peek = stack.peek();
             if( peek instanceof ArtifactDescription ){
@@ -170,6 +210,7 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
          if( attributes.getValue( "max" ) != null ){
             elem.setMax( attributes.getValue( "max" ) );
          }
+         attributes.check();
          if( ! stack.empty() ){
             Object peek = stack.peek();
             if( peek instanceof Artifact ){
@@ -222,6 +263,7 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
          } else {
             throw new IllegalArgumentException( "ModuleRef: attribute name is required" );
          }
+         attributes.check();
          if( ! stack.empty() ){
             Object peek = stack.peek();
             if( peek instanceof List ){
@@ -233,6 +275,7 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
       }
       if( qName.equals( "DropInFor" ) ){
          DropInFor elem = new DropInFor();
+         attributes.check();
          if( ! stack.empty() ){
             Object peek = stack.peek();
             if( peek instanceof Artifact ){
@@ -242,17 +285,6 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
          stack.push( elem );
          return;
       }
-      if( qName.equals( "references" ) ){
-         if( stack.empty() ){
-            throw new IllegalArgumentException( "references: needs to be in complex type" );
-         }
-         Object peek = stack.peek();
-         if( peek instanceof References ){
-            stack.push( ((References)peek).getReferences() );
-            return;
-         }
-         throw new IllegalArgumentException( "references is not a member of " + peek.getClass() );
-      }
       if( qName.equals( "LicenceRef" ) ){
          LicenceRef elem = new LicenceRef();
          if( attributes.getValue( "name" ) != null ){
@@ -260,6 +292,7 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
          } else {
             throw new IllegalArgumentException( "LicenceRef: attribute name is required" );
          }
+         attributes.check();
          if( ! stack.empty() ){
             Object peek = stack.peek();
             if( peek instanceof List ){
@@ -276,6 +309,7 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
          } else {
             throw new IllegalArgumentException( "ArtifactDescription: attribute version is required" );
          }
+         attributes.check();
          stack.push( elem );
          return;
       }
@@ -290,11 +324,6 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
          }
          throw new IllegalArgumentException( "dependencies is not a member of " + peek.getClass() );
       }
-      if( qName.equals( "References" ) ){
-         References elem = new References();
-         stack.push( elem );
-         return;
-      }
       if( qName.equals( "Project" ) ){
          Project elem = new Project();
          if( attributes.getValue( "name" ) != null ){
@@ -307,6 +336,7 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
          } else {
             throw new IllegalArgumentException( "Project: attribute groupId is required" );
          }
+         attributes.check();
          if( ! stack.empty() ){
             Object peek = stack.peek();
             if( peek instanceof ArtifactDescription ){
@@ -344,6 +374,7 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
          } else {
             throw new IllegalArgumentException( "Download: attribute download is required" );
          }
+         attributes.check();
          if( ! stack.empty() ){
             Object peek = stack.peek();
             if( peek instanceof App ){
@@ -369,6 +400,7 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
          if( attributes.getValue( "icon" ) != null ){
             elem.setIcon( attributes.getValue( "icon" ) );
          }
+         attributes.check();
          if( ! stack.empty() ){
             Object peek = stack.peek();
             if( peek instanceof ArtifactDescription ){
@@ -394,6 +426,7 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
          if( attributes.getValue( "scope" ) != null ){
             elem.setScope( Scope.valueOf( attributes.getValue( "scope" ) ) );
          }
+         attributes.check();
          if( ! stack.empty() ){
             Object peek = stack.peek();
             if( peek instanceof DropInFor ){
@@ -436,6 +469,7 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
          if( attributes.getValue( "support" ) != null ){
             elem.setSupport( attributes.getValue( "support" ) );
          }
+         attributes.check();
          if( ! stack.empty() ){
             Object peek = stack.peek();
             if( peek instanceof Module ){
@@ -451,10 +485,6 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
          stack.push( elem );
          return;
       }
-      if( qName.equals( "FullDescription" ) ){
-         getCharacters = true;
-         return;
-      }
       if( qName.equals( "App" ) ){
          App elem = new App();
          if( attributes.getValue( "mainClass" ) != null ){
@@ -465,6 +495,7 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
          if( attributes.getValue( "icon" ) != null ){
             elem.setIcon( attributes.getValue( "icon" ) );
          }
+         attributes.check();
          if( ! stack.empty() ){
             Object peek = stack.peek();
             if( peek instanceof Module ){
@@ -495,6 +526,7 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
          if( attributes.getValue( "shrt" ) != null ){
             elem.setShrt( attributes.getValue( "shrt" ) );
          }
+         attributes.check();
          if( ! stack.empty() ){
             Object peek = stack.peek();
             if( peek instanceof Licence ){
@@ -507,6 +539,10 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
          stack.push( elem );
          return;
       }
+      if( qName.equals( "FullDescription" ) ){
+         getCharacters = true;
+         return;
+      }
       if( qName.equals( "Language" ) ){
          Language elem = new Language();
          if( attributes.getValue( "name" ) != null ){
@@ -514,6 +550,7 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
          } else {
             throw new IllegalArgumentException( "Language: attribute name is required" );
          }
+         attributes.check();
          if( ! stack.empty() ){
             Object peek = stack.peek();
             if( peek instanceof List ){
@@ -585,9 +622,6 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
             throw new IllegalArgumentException( "DropInFor: required member ArtifactRef not set" );
          }
       }
-      if( qName.equals( "references" ) ){
-         goal = stack.pop();
-      }
       if( qName.equals( "LicenceRef" ) ){
          goal = stack.pop();
       }
@@ -598,9 +632,6 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
          }
       }
       if( qName.equals( "dependencies" ) ){
-         goal = stack.pop();
-      }
-      if( qName.equals( "References" ) ){
          goal = stack.pop();
       }
       if( qName.equals( "Project" ) ){
@@ -627,6 +658,18 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
       if( qName.equals( "Artifact" ) ){
          goal = stack.pop();
       }
+      if( qName.equals( "App" ) ){
+         goal = stack.pop();
+         if( ((App)goal).getDownload() == null ){
+            throw new IllegalArgumentException( "App: required member Download not set" );
+         }
+      }
+      if( qName.equals( "refs" ) ){
+         goal = stack.pop();
+      }
+      if( qName.equals( "Address" ) ){
+         goal = stack.pop();
+      }
       if( qName.equals( "FullDescription" ) ){
          String str = "";
          while( stack.peek() instanceof String ){
@@ -639,18 +682,6 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
             }
          }
          getCharacters = false;
-      }
-      if( qName.equals( "App" ) ){
-         goal = stack.pop();
-         if( ((App)goal).getDownload() == null ){
-            throw new IllegalArgumentException( "App: required member Download not set" );
-         }
-      }
-      if( qName.equals( "refs" ) ){
-         goal = stack.pop();
-      }
-      if( qName.equals( "Address" ) ){
-         goal = stack.pop();
       }
       if( qName.equals( "Language" ) ){
          goal = stack.pop();
