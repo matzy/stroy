@@ -13,6 +13,7 @@
             <ModuleRef name="property"/>
             <ModuleRef name="stjx"/>
             <ModuleRef name="ui"/>
+            <ModuleRef name="vfs-sandbox"/>
         </modules>
 
         <dropIns>
@@ -68,6 +69,26 @@
                     description="Apache java language level tools. Random number helpers, system property tools, string tools."
                     licence="Apache2">
                 <Address page="http://commons.apache.org/lang" shrt="apache.org" />
+            </Artifact>
+
+            <Artifact name="commons-logging"
+                      groupId="commons-logging"
+                    version="1.0.4"
+                    description="Apache java logging tools"
+                    licence="Apache2">
+                <Address page="http://commons.apache.org/logging/" />
+            </Artifact>
+
+            <Artifact name="commons-vfs"
+                      groupId="commons-vfs"
+                    version="1.0"
+                    description="Apache java virtual file system"
+                    licence="Apache2">
+                <Address page="http://jakarta.apache.org/commons/vfs/" shrt="apache.org" />
+                <depends>
+                    <ArtifactRef name="commons-logging" scope="compile"/>
+                </depends>
+
             </Artifact>
 
             <Artifact name="designgridlayout"
