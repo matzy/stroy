@@ -3,6 +3,7 @@ package org.openCage.stjx;
 import org.openCage.stjx.rng.*;
 import org.openCage.stjx.rng.Optional;
 
+
 /**
  * Created by IntelliJ IDEA.
  * User: stephan
