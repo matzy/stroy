@@ -1,5 +1,8 @@
 package org.openCage.generj;
 
+import static org.openCage.generj.NameExpr.NAME;
+import static org.openCage.generj.Str.STR;
+
 /**
  * ** BEGIN LICENSE BLOCK *****
  * Version: MPL 1.1
@@ -55,5 +58,14 @@ public class Dot implements Callble {
 
         return (Dot)ret;
     }
+
+    public static Dot DOT( String str, NameExpr name ) {
+        return new Dot( NAME(str), name );
+    }
+
+    public static Dot DOT( String str, String str2 ) {
+        return new Dot( NAME(str), NAME(str2) );
+    }
+
 
 }

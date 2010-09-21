@@ -64,11 +64,18 @@ public class Block<T> implements Statement {
     }
 
 
-    public IfExpr<Block<T>> iff( Expr cond ) {
-        IfExpr<Block<T>> ex = new IfExpr<Block<T>>( this, cond );
+    public IfStatement<Block<T>> iff( Expr cond ) {
+        IfStatement<Block<T>> ex = new IfStatement<Block<T>>( this, cond );
         statements.add( ex );
         return ex;
     }
+
+    public TryStatement<Block<T>> ttry() {
+        TryStatement<Block<T>> ty = new TryStatement<Block<T>>(this);
+        statements.add(ty);
+        return ty;
+    }
+
 
     public WhileExpr<Block<T>> whle(Expr condition) {
         WhileExpr<Block<T>> wh = new WhileExpr<Block<T>>( this, condition );
@@ -76,20 +83,20 @@ public class Block<T> implements Statement {
         return wh;
     }
 
-    public IfExpr ifNotNull(Expr expr) {
-        IfExpr<Block<T>> ex = new IfExpr<Block<T>>( this, Exp.bi( "!=", expr, NULL) );
+    public IfStatement ifNotNull(Expr expr) {
+        IfStatement<Block<T>> ex = new IfStatement<Block<T>>( this, Exp.bi( "!=", expr, NULL) );
         statements.add( ex );
         return ex;
     }
 
-    public IfExpr ifNull(Expr expr) {
-        IfExpr<Block<T>> ex = new IfExpr<Block<T>>( this, Exp.bi( "==", expr, NULL ) );
+    public IfStatement ifNull(Expr expr) {
+        IfStatement<Block<T>> ex = new IfStatement<Block<T>>( this, Exp.bi( "==", expr, NULL ) );
         statements.add( ex );
         return ex;
     }
 
-    public ForExpr<Block<T>> fr( Typ typ, String var, Expr expr ) {
-        ForExpr<Block<T>> ex = new ForExpr<Block<T>>(this, typ, var, expr );
+    public ForStatement<Block<T>> fr( Typ typ, String var, Expr expr ) {
+        ForStatement<Block<T>> ex = new ForStatement<Block<T>>(this, typ, var, expr );
         statements.add(ex);
         return ex;
     }

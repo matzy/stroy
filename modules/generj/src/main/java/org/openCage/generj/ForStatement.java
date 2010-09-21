@@ -24,51 +24,34 @@ package org.openCage.generj;
  * Contributor(s):
  * **** END LICENSE BLOCK ****
 */
-public class IfExpr<T> implements Statement {
-    private Expr cond;
+public class ForStatement<T> implements Statement {
     private T base;
-    private Block<IfExpr<T>> thn;
-    private Block<IfExpr<T>> els;
+    private Typ typ;
+    private String var;
+    private Expr expr;
+    private Block<ForStatement<T>> body;
 
-    public IfExpr( T base, Expr cond ) {
-        this.cond = cond;
+    public ForStatement(T base, Typ typ, String var, Expr expr) {
         this.base = base;
+        this.typ = typ;
+        this.var = var;
+        this.expr = expr;
     }
 
-
-    public Block<IfExpr<T>> thn() {
-        if ( thn == null ) {
-            thn = new Block<IfExpr<T>>( this );
+    public Block<ForStatement<T>> body() {
+        if ( body == null ) {
+            body = new Block<ForStatement<T>>( this );
         }
-        return thn;
-    }
-
-    public Block<IfExpr<T>> els() {
-        if ( els == null ) {
-            els = new Block<IfExpr<T>>( this );
-        }
-        return els;
+        return body;
     }
 
     public String toString() {
         return toString( "" );
     }
 
-    @Override public String toString(String prefix) {
-        String ret = prefix + "if( " + cond.toString() + " )";
 
-        ret += thn.toString( prefix );
-
-        if ( els != null ) {
-            ret += " else ";
-            ret += els.toString( prefix );
-        }
-
-        return ret;
+    @Override
+    public String toString(String prefix) {
+        return prefix + "for ( " + typ.toString() + " " + var + " : " + expr.toString() + " ) " + body.toString( prefix  );
     }
-
-    public T r() {
-        return base;
-    }
-
 }

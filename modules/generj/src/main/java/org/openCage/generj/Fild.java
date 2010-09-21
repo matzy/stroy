@@ -1,5 +1,7 @@
 package org.openCage.generj;
 
+import static org.openCage.generj.NewExpr.NEW;
+
 /**
  * ** BEGIN LICENSE BLOCK *****
  * Version: MPL 1.1
@@ -61,5 +63,9 @@ public class Fild<T> implements Statement {
     @Override
     public String toString(String prefix) {
         return prefix + toString();
+    }
+
+    public T defaultInit() {
+        return init( NEW(typ));
     }
 }

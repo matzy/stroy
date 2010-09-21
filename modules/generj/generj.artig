@@ -2,7 +2,7 @@
     <Module>
         <Artifact name="generj"
                 groupId="openCage"
-                version="0.1"
+                version="0.2"
                 description="fluent java source code generation"
                 licence="MPL1.1">
             <Java min="6"/>
@@ -10,12 +10,10 @@
                 <Author name="Stephan Pfab" email="openCage@gmail.com"/>
             </authors>
             <Address page="http://stroy.wikidot.com/generj" shrt="wikidot.com" />
-            <!--<Email email="openCage@gmail.com"/> support-->
-
+<!-- 0.2 int expression -->
             <depends>
                 <ArtifactRef groupId="junit" name="junit" scope="test" />
                 <ArtifactRef groupId="openCage" name="openCage-lang" scope="compile" />
-                <!--<ArtifactRef groupId="openCage" name="openCage-io" scope="compile" />-->
             </depends>
         </Artifact>
     </Module>
