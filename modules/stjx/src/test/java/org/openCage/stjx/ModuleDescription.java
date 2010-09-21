@@ -28,15 +28,15 @@ public class ModuleDescription {
                 string( "name" ).
                 string( "groupId" ).
                 zeroOrMore( "modules" ).complex( "ModuleRef" ).
-                list( "externals",  "Artifact" ).
-                list( "licences", "Licence" ).
-                list( "dropIns",  "ArtifactRef" );
+                zeroOrMore( "externals").complex( "Artifact" ).
+                zeroOrMore( "licences").complex( "Licence" ).
+                zeroOrMore( "dropIns").complex( "ArtifactRef" );
 
         stjx.struct( "Deployed" ).
                 optional().string( "icon" ).
                 complex( "Artifact" ).
-                list( "dependencies", "Artifact" ).
-                list( "licences", "Licence" );
+                zeroOrMore( "dependencies").complex( "Artifact" ).
+                zeroOrMore( "licences" ).complex( "Licence" );
 
         stjx.or( "Kind" ).with( "Module", "Project", "Deployed" );
 
@@ -50,7 +50,7 @@ public class ModuleDescription {
 //                STRING( "groupId" ).
                 string( "name" );
 
-        stjx.enm( "Scope", "compile", "test", "knowhow" );
+        stjx.enm( "scope", "compile", "test", "knowhow" );
 
         stjx.struct( "ArtifactRef" ).
                 optional().string( "groupId" ).
@@ -68,31 +68,31 @@ public class ModuleDescription {
                 string( "name" ).
                 string( "version" ).
                 complex( "Address" ).
-                list( "positives", "LicenceRef" ).
-                list( "negatives", "LicenceRef" );
+                zeroOrMore( "positives" ).complex( "LicenceRef" ).
+                zeroOrMore( "negatives" ).complex( "LicenceRef" );
         stjx.struct( "Language" ).string( "name");
         stjx.struct( "Java" ).
                 string( "min").
                 optional().string( "max");
         stjx.struct( "Address" ).string( "page").optional().string( "shrt" );
-        stjx.struct( "References").list( "references", "Artifact");
+        //stjx.struct( "References").zeroOrMore( "references" ).complex( "Artifact");
 
         stjx.struct( "DropInFor" ).complex("ArtifactRef");
 
-        stjx.struct( "Artifact" ).list( "depends", "ArtifactRef" ).
+        stjx.struct( "Artifact" ).zeroOrMore( "depends" ).complex( "ArtifactRef" ).
                 string( "groupId" ).
                 string( "name" ).
                 string( "version" ).
                 string( "licence" ).
                 string( "description" ).
                 optional().string( "support" ).
-                list( "authors", "Author" ).
-                list( "contributors",  "Author" ).
+                zeroOrMore( "authors" ).complex( "Author" ).
+                zeroOrMore( "contributors" ).complex( "Author" ).
                 //or( "Application" ).with( "Module", "External" ).
                 optional().complex( "Address" ).
-                list( "languages",  "Language" ).
+                zeroOrMore( "languages" ).complex( "Language" ).
                 optional().complex( "Java").
-                list( "refs", "ArtifactRef" ).
+                zeroOrMore( "refs").complex( "ArtifactRef" ).
                 optional().complex( "DropInFor" ).
                 optional().multiLine( "FullDescription");
 

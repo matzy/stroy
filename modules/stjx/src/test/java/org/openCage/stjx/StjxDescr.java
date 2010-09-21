@@ -14,7 +14,7 @@ public class StjxDescr {
 
         Stjx stjx = new Stjx("Stjx");
 
-        stjx.struct( "Stjx").list("attributes").of("Attributes");
+        stjx.struct( "Stjx").zeroOrMore("attributes").complex("Attributes");
     }
 
 }

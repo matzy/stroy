@@ -20,8 +20,8 @@ public class Inventory {
                 string( "timestamp" ).
                 string("seqno").
                 optional().string("to").
-                embeddedList( "DependsOn" ).
-                list( "DatabaseFiles").ofStrings( "File" );
+                zeroOrMore().complex( "DependsOn" ).
+                zeroOrMore( "DatabaseFiles").string( "File" );
 
         stjx.enm( "type", "full", "increment", "difference" );
 
