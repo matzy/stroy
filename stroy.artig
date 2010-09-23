@@ -190,7 +190,8 @@
                     groupId="net.java.dev.swing-layout"
                     description="Swing layout manager based on the use of canonical grids for user interface design."
                     version="1.0.2"
-                    licence="LGPL3">
+                    licence="Apache2">
+<!--                 licence="LGPL3"> -->
                 <Address page="https://swing-layout.dev.java.net" shrt="dev.java.net" />
             </Artifact>
 
