@@ -1,11 +1,6 @@
 <ArtifactDescription version="0.1" >
    <Deployed >
       <Artifact groupId="openCage" name="fausterize" version="0.10" licence="MPL1.1" description="A simple encrypting texteditor using one-time pads" support="openCage@gmail.com" >
-      <FullDescription>
-Fausterize is a simple encrypting texteditor.
-It uses one-time pads to provide secure encryption with an easy password scheme.
-You can use any file as passwd. The file can/should be from the net and not your computer.                
-            </FullDescription>
          <depends>
             <ArtifactRef name="args4j" scope="compile" />
             <ArtifactRef name="commons-io" scope="compile" />
@@ -36,6 +31,11 @@ You can use any file as passwd. The file can/should be from the net and not your
             <Language name="Japanese" />
          </languages>
          <Java min="6" />
+         <FullDescription>
+Fausterize is a simple encrypting texteditor.
+It uses one-time pads to provide secure encryption with an easy password scheme.
+You can use any file as passwd. The file can/should be from the net and not your computer.                
+            </FullDescription>
       </Artifact>
       <dependencies>
          <Artifact groupId="args4j" name="args4j" version="2.0.12" licence="MIT" description="Argument parsing as it should be done (via annotations)" >
@@ -168,7 +168,7 @@ You can use any file as passwd. The file can/should be from the net and not your
             </depends>
             <Address page="https://designgridlayout.dev.java.net" shrt="dev.java.net" />
          </Artifact>
-         <Artifact groupId="net.java.dev.swing-layout" name="swing-layout" version="1.0.2" licence="LGPL3" description="Swing layout manager based on the use of canonical grids for user interface design." >
+         <Artifact groupId="net.java.dev.swing-layout" name="swing-layout" version="1.0.2" licence="Apache2" description="Swing layout manager based on the use of canonical grids for user interface design." >
             <Address page="https://swing-layout.dev.java.net" shrt="dev.java.net" />
          </Artifact>
          <Artifact groupId="org.json" name="json" version="20090211" licence="JSON" description="json to java and back" >
@@ -236,6 +236,9 @@ You can use any file as passwd. The file can/should be from the net and not your
          </Licence>
          <Licence name="LGPL3" version="3.0" >
             <Address page="http://www.gnu.org/licenses/lgpl.html" shrt="gnu.org" />
+            <negatives>
+               <LicenceRef name="Apache2" />
+            </negatives>
          </Licence>
          <Licence name="Creative Commons" version="pre 3.0" >
             <Address page="http://creativecommons.org/licenses/publicdomain/" shrt="creativecommons.org" />

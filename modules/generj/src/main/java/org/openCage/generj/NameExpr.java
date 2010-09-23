@@ -75,5 +75,6 @@ public class NameExpr implements Callble {
     public static NameExpr NULL = new NameExpr( "null" );
     public static NameExpr TRUE = new NameExpr( "true" );
     public static NameExpr FALSE = new NameExpr( "false" );
+    public static NameExpr THIS = new NameExpr( "this" );
 
 }

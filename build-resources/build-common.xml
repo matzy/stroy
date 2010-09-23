@@ -471,6 +471,30 @@
         </if>
     </target>
 
+    <target name="local.clt" depends="local.collect.jars" >
+        <if>
+            <isset property="el.isCLT"/>
+            <then>
+                <echo message="prepare for ${param.target.os}" />
+
+                <property name="lxp.to" value="${deploy}/${param.target.os}/${app.name}" />
+                <copy todir="${lxp.to}/resources/java">
+                    <fileset refid="internalsSet"/>
+                </copy>
+
+                <!-- unix shell script (sh) -->
+                <echo message="java -jar resources/java/${el.groupId}-${ant.project.name}-${el.version}.jar $1 $2 $3 $4 $5 $6 $7 $8 $9"
+                      file="${lxp.to}/${app.name}.sh"/>
+                <chmod file="${lxp.to}/${app.name}.sh" perm="ugo+x"/>
+
+                <!-- windows command script -->
+                <echo message="java -jar resources/java/${el.groupId}-${ant.project.name}-${el.version}.jar"
+                      file="${lxp.to}/${app.name}.cmd"/>
+
+            </then>
+        </if>
+    </target>
+
     <target  name="local.xplatform.prepare" depends="local.collect.jars,local.helpsetup,local.padfile">
         <if>
             <isset property="el.isApp"/>
@@ -634,8 +658,8 @@
         </if>
     </target>
 
-    <!-- build a linux desctop description file -->
-    <target name="local.linux-dektop-description" depends="local.prepare">
+    <!-- build a linux desktop description file -->
+    <target name="local.linux-desktop-description" depends="local.prepare">
         <if>
             <isset property="el.isApp"/>
             <then>
@@ -653,7 +677,7 @@
     </target>
 
     <!-- build a linux debian package -->
-    <target name="local.debian-pkg" depends="local.linux-dektop-description,local.create-jar" >
+    <target name="local.debian-pkg" depends="local.linux-desktop-description,local.create-jar" >
         <if>
             <isset property="el.isApp"/>
             <then>

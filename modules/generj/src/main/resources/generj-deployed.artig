@@ -1,6 +1,6 @@
 <ArtifactDescription version="0.1" >
    <Deployed >
-      <Artifact groupId="openCage" name="generj" version="0.1" licence="MPL1.1" description="fluent java source code generation" >
+      <Artifact groupId="openCage" name="generj" version="0.2" licence="MPL1.1" description="fluent java source code generation" >
          <depends>
             <ArtifactRef groupId="junit" name="junit" scope="test" />
             <ArtifactRef groupId="openCage" name="openCage-lang" scope="compile" />

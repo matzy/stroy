@@ -7,6 +7,8 @@
    <property name = "el.groupId"       value="openCage" />
    <property name = "el.src.java"       value="src/main/java" />
    <property name = "el.src.resources"       value="src/main/resources" />
+   <property name = "el.isApp"       value="true" />
+   <property name = "el.main.class"       value="org.openCage.artig.Artig" />
    <property name = "el.description.short"       value="TODO descr" />
    <property name = "el.licence"       value="MPL1.1" />
    <property name = "el.localization"       value="" />
@@ -17,6 +19,12 @@
    <property name = "el.author"       value="Stephan Pfab" />
    <property name = "el.author.first"       value="Stephan" />
    <property name = "el.author.last"       value="Pfab" />
+   <property name = "el.url.screenshot"       value="http://stroy.wikidot.com/local--files/screenshots/fausterize-0.6.png" />
+   <property name = "el.url.icon"       value="http://stroy.wikidot.com/local--files/screenshots/faust-small.png" />
+   <property name = "el.url.download"       value="http://stroy.wikidot.com/local--files/download" />
+
+   <property name = "el.isCLT"       value="true" />
+
 
    <import file="../../build-resources/build-common.xml"/>
 </project>

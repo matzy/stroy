@@ -82,6 +82,9 @@
 
         <Licence name="LGPL3" version="3.0">
             <Address page="http://www.gnu.org/licenses/lgpl.html" shrt="gnu.org"/>
+            <negatives>
+                <LicenceRef name="Apache2"/> <!-- watch !! http://www.apache.org/legal/resolved.html-->
+            </negatives>
         </Licence>
 
         <Licence name="MIT" version="1.0">
@@ -92,9 +95,19 @@
             <Address page="http://www.mozilla.org/MPL/MPL-1.1.html" shrt="mozilla.org"/>
         </Licence>
 
-        <Licence name="Muchsoft" version="2004">
-            <Address page="http://www.muchsoft.com/java/docs/com/muchsoft/util/Sys.html" shrt="muchsoft.com"/>
+        <Licence name="Ms-PL" version="">
+            <Address page="http://www.opensource.org/licenses/ms-pl.html" shrt="opensource.org"/>
+            <positives>
+                <LicenceRef name="Ms-PL"/>
+                <LicenceRef name="Apache2"/> <!--http://www.apache.org/legal/resolved.html  -->
+                <!-- there may be more-->
+            </positives>
         </Licence>
+
+        <Licence name="Muchsoft" version="2004">
+             <Address page="http://www.muchsoft.com/java/docs/com/muchsoft/util/Sys.html" shrt="muchsoft.com"/>
+         </Licence>
+        
 
         <Licence name="Public Domain" version="2004">
             <Address page="http://en.wikipedia.org/wiki/Public_domain" shrt="wikipedia.org"/>
