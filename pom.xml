@@ -24,5 +24,6 @@
       <module>modules/property</module>
       <module>modules/stjx</module>
       <module>modules/ui</module>
+      <module>modules/vfs-sandbox</module>
     </modules>
 </project>
