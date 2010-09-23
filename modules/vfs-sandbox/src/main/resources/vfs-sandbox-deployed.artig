@@ -16,7 +16,13 @@
             <Address page="http://www.junit.org" shrt="junit.org" />
          </Artifact>
          <Artifact groupId="commons-vfs" name="commons-vfs" version="1.0" licence="Apache2" description="Apache java virtual file system" >
+            <depends>
+               <ArtifactRef name="commons-logging" scope="compile" />
+            </depends>
             <Address page="http://jakarta.apache.org/commons/vfs/" shrt="apache.org" />
+         </Artifact>
+         <Artifact groupId="commons-logging" name="commons-logging" version="1.0.4" licence="Apache2" description="Apache java logging tools" >
+            <Address page="http://commons.apache.org/logging/" />
          </Artifact>
       </dependencies>
       <licences>

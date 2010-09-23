@@ -153,6 +153,9 @@ public class Struct implements Complex {
             comp.toJavaProperty( clazz );
         }
 
+        clazz.publc().method( STRING, "toString").body().
+                retrn( CALL( DOT("ArtifactDescriptionToXML", "toString" + className ), STR(""), THIS ) );
+
 
         // todo toString
 
