@@ -76,6 +76,12 @@
       <ant dir="${dependencies.basedir}/modules/ui" target="local.goal" inheritAll="false"/>
    </target>
 
+   <!-- ================================================================== -->
+   <target name="depend.vfs-sandbox"
+           depends="commons-vfs">
+      <ant dir="${dependencies.basedir}/modules/vfs-sandbox" target="local.goal" inheritAll="false"/>
+   </target>
+
 
    <!-- ================================================================== -->
    <!--     external library dependencies                                  --> 
@@ -109,6 +115,17 @@
    <!-- ================================================================== -->
    <target name="commons-lang">
       <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/repo/commons-lang/commons-lang/2.5/commons-lang-2.5.jar" />
+   </target>
+
+   <!-- ================================================================== -->
+   <target name="commons-logging">
+      <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/repo/commons-logging/commons-logging/1.0.4/commons-logging-1.0.4.jar" />
+   </target>
+
+   <!-- ================================================================== -->
+   <target name="commons-vfs"
+           depends="commons-logging">
+      <copy todir="${dependencies.basedir}/build/libs" file="${dependencies.basedir}/repo/commons-vfs/commons-vfs/1.0/commons-vfs-1.0.jar" />
    </target>
 
    <!-- ================================================================== -->
