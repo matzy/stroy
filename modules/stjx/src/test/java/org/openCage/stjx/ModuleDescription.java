@@ -10,14 +10,22 @@ public class ModuleDescription {
 
         stjx.mpl( "Stephan Pfab", "openCage@gmail.com", "2006 - 2010", "stroy" ); 
 
-        stjx.struct( "Module" ).
-                complex( "Artifact" ).
-                optional().complex( "App");
-
         stjx.struct( "App" ).
             string( "mainClass" ).
             optional().string( "icon" ).
             complex( "Download" );
+
+        stjx.struct( "CLT").string( "mainClass" );
+
+        stjx.struct( "Lib").optional().string( "mainClass" );
+
+
+        stjx.or("ModuleKind").with("App", "CLT", "Lib");
+
+        stjx.struct( "Module" ).
+                complex( "Artifact" ).
+                optional().complex( "ModuleKind");
+
 
         stjx.struct( "Download" ).
                 string( "screenshot").
