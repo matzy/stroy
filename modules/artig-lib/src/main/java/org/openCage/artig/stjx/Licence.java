@@ -62,5 +62,8 @@ public class Licence {
    public void setNegatives( List<LicenceRef> negatives ){
       this.negatives = negatives;
    }
+   public String toString(  ){
+      return ArtifactDescriptionToXML.toStringLicence( "", this );
+   }
 
 }

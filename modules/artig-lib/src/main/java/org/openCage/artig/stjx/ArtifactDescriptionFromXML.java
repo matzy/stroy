@@ -98,6 +98,38 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
 //   }
    @Override public void startElement( String uri, String localName, String qName, Attributes saxAttis ) throws SAXException {
       AttributedAttributes attributes = new AttributedAttributes( saxAttis);
+      if( qName.equals( "CLT" ) ){
+         CLT elem = new CLT();
+         if( attributes.getValue( "mainClass" ) != null ){
+            elem.setMainClass( attributes.getValue( "mainClass" ) );
+         } else {
+            throw new IllegalArgumentException( "CLT: attribute mainClass is required" );
+         }
+         attributes.check();
+         if( ! stack.empty() ){
+            Object peek = stack.peek();
+            if( peek instanceof Module ){
+               ((Module)peek).setModuleKind( elem );
+            }
+         }
+         stack.push( elem );
+         return;
+      }
+      if( qName.equals( "Lib" ) ){
+         Lib elem = new Lib();
+         if( attributes.getValue( "mainClass" ) != null ){
+            elem.setMainClass( attributes.getValue( "mainClass" ) );
+         }
+         attributes.check();
+         if( ! stack.empty() ){
+            Object peek = stack.peek();
+            if( peek instanceof Module ){
+               ((Module)peek).setModuleKind( elem );
+            }
+         }
+         stack.push( elem );
+         return;
+      }
       if( qName.equals( "licences" ) ){
          if( stack.empty() ){
             throw new IllegalArgumentException( "licences: needs to be in complex type" );
@@ -302,17 +334,6 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
          stack.push( elem );
          return;
       }
-      if( qName.equals( "ArtifactDescription" ) ){
-         ArtifactDescription elem = new ArtifactDescription();
-         if( attributes.getValue( "version" ) != null ){
-            elem.setVersion( attributes.getValue( "version" ) );
-         } else {
-            throw new IllegalArgumentException( "ArtifactDescription: attribute version is required" );
-         }
-         attributes.check();
-         stack.push( elem );
-         return;
-      }
       if( qName.equals( "dependencies" ) ){
          if( stack.empty() ){
             throw new IllegalArgumentException( "dependencies: needs to be in complex type" );
@@ -323,6 +344,17 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
             return;
          }
          throw new IllegalArgumentException( "dependencies is not a member of " + peek.getClass() );
+      }
+      if( qName.equals( "ArtifactDescription" ) ){
+         ArtifactDescription elem = new ArtifactDescription();
+         if( attributes.getValue( "version" ) != null ){
+            elem.setVersion( attributes.getValue( "version" ) );
+         } else {
+            throw new IllegalArgumentException( "ArtifactDescription: attribute version is required" );
+         }
+         attributes.check();
+         stack.push( elem );
+         return;
       }
       if( qName.equals( "Project" ) ){
          Project elem = new Project();
@@ -499,7 +531,7 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
          if( ! stack.empty() ){
             Object peek = stack.peek();
             if( peek instanceof Module ){
-               ((Module)peek).setApp( elem );
+               ((Module)peek).setModuleKind( elem );
             }
          }
          stack.push( elem );
@@ -515,6 +547,9 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
             return;
          }
          throw new IllegalArgumentException( "refs is not a member of " + peek.getClass() );
+      }
+      if( qName.equals( "ModuleKind" ) ){
+         return;
       }
       if( qName.equals( "Address" ) ){
          Address elem = new Address();
@@ -574,6 +609,12 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
       throw new IllegalArgumentException( "unknown tag " + qName );
    }
    @Override public void endElement( String uri, String localName, String qName ) throws SAXException {
+      if( qName.equals( "CLT" ) ){
+         goal = stack.pop();
+      }
+      if( qName.equals( "Lib" ) ){
+         goal = stack.pop();
+      }
       if( qName.equals( "licences" ) ){
          goal = stack.pop();
       }
@@ -625,14 +666,14 @@ public class ArtifactDescriptionFromXML extends DefaultHandler {
       if( qName.equals( "LicenceRef" ) ){
          goal = stack.pop();
       }
+      if( qName.equals( "dependencies" ) ){
+         goal = stack.pop();
+      }
       if( qName.equals( "ArtifactDescription" ) ){
          goal = stack.pop();
          if( ((ArtifactDescription)goal).getKind() == null ){
             throw new IllegalArgumentException( "ArtifactDescription: required member Kind not set" );
          }
-      }
-      if( qName.equals( "dependencies" ) ){
-         goal = stack.pop();
       }
       if( qName.equals( "Project" ) ){
          goal = stack.pop();

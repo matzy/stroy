@@ -10,7 +10,7 @@
                 <Author name="Stephan Pfab" email="openCage@gmail.com"/>
             </authors>
             <Address page="http://stroy.wikidot.com" shrt="wikidot.com" />
-            <!--<Email email="openCage@gmail.com"/> support-->
+            <!--<Email email="openCage@gmail.com"/> support -->
 
             <depends>
                 <ArtifactRef groupId="junit" name="junit" scope="test" />

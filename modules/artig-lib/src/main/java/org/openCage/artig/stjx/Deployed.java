@@ -55,5 +55,8 @@ public class Deployed implements Kind {
    public void setLicences( List<Licence> licences ){
       this.licences = licences;
    }
+   public String toString(  ){
+      return ArtifactDescriptionToXML.toStringDeployed( "", this );
+   }
 
 }

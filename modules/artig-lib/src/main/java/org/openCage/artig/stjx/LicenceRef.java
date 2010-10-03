@@ -34,5 +34,8 @@ public class LicenceRef {
    public void setName( String name ){
       this.name = name;
    }
+   public String toString(  ){
+      return ArtifactDescriptionToXML.toStringLicenceRef( "", this );
+   }
 
 }

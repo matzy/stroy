@@ -28,18 +28,21 @@ import java.util.List;
 */
 public class Module implements Kind {
    private Artifact artifact;
-   private App app;
+   private ModuleKind moduleKind;
    public Artifact getArtifact(  ){
       return artifact;
    }
    public void setArtifact( Artifact artifact ){
       this.artifact = artifact;
    }
-   public App getApp(  ){
-      return app;
+   public ModuleKind getModuleKind(  ){
+      return moduleKind;
    }
-   public void setApp( App app ){
-      this.app = app;
+   public void setModuleKind( ModuleKind moduleKind ){
+      this.moduleKind = moduleKind;
+   }
+   public String toString(  ){
+      return ArtifactDescriptionToXML.toStringModule( "", this );
    }
 
 }

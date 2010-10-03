@@ -34,5 +34,8 @@ public class DropInFor {
    public void setArtifactRef( ArtifactRef artifactRef ){
       this.artifactRef = artifactRef;
    }
+   public String toString(  ){
+      return ArtifactDescriptionToXML.toStringDropInFor( "", this );
+   }
 
 }

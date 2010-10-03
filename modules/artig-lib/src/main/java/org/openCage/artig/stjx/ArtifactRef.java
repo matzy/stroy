@@ -55,5 +55,8 @@ public class ArtifactRef {
    public void setScope( Scope scope ){
       this.scope = scope;
    }
+   public String toString(  ){
+      return ArtifactDescriptionToXML.toStringArtifactRef( "", this );
+   }
 
 }

@@ -48,5 +48,8 @@ public class Download {
    public void setDownload( String download ){
       this.download = download;
    }
+   public String toString(  ){
+      return ArtifactDescriptionToXML.toStringDownload( "", this );
+   }
 
 }

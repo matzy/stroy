@@ -132,5 +132,8 @@ public class Artifact {
    public void setFullDescription( String fullDescription ){
       this.fullDescription = fullDescription;
    }
+   public String toString(  ){
+      return ArtifactDescriptionToXML.toStringArtifact( "", this );
+   }
 
 }

@@ -69,5 +69,8 @@ public class Project implements Kind {
    public void setDropIns( List<ArtifactRef> dropIns ){
       this.dropIns = dropIns;
    }
+   public String toString(  ){
+      return ArtifactDescriptionToXML.toStringProject( "", this );
+   }
 
 }

@@ -26,6 +26,24 @@ import java.util.List;
  * **** END LICENSE BLOCK ****
 */
 public class ArtifactDescriptionToXML {
+   public static  String toStringCLT( String prefix, CLT cLT ){
+      String ret = prefix;
+      ret += "<CLT ";
+      if( cLT.getMainClass() != null ){
+         ret += "mainClass=\"" + cLT.getMainClass() + "\" ";
+      }
+      ret += "/>\n";
+      return ret;
+   }
+   public static  String toStringLib( String prefix, Lib lib ){
+      String ret = prefix;
+      ret += "<Lib ";
+      if( lib.getMainClass() != null ){
+         ret += "mainClass=\"" + lib.getMainClass() + "\" ";
+      }
+      ret += "/>\n";
+      return ret;
+   }
    public static  String toStringLicences( String prefix, List<Licence> licences ){
       if( licences.isEmpty() ){
          return "";
@@ -115,8 +133,8 @@ public class ArtifactDescriptionToXML {
       if( module.getArtifact() != null ){
          ret += toStringArtifact( prefix + "   ", module.getArtifact() );
       }
-      if( module.getApp() != null ){
-         ret += toStringApp( prefix + "   ", module.getApp() );
+      if( module.getModuleKind() != null ){
+         ret += toStringModuleKind( prefix + "   ", module.getModuleKind() );
       }
       ret += prefix + "</Module>\n";
       return ret;
@@ -209,6 +227,18 @@ public class ArtifactDescriptionToXML {
       ret += "/>\n";
       return ret;
    }
+   public static  String toStringDependencies( String prefix, List<Artifact> dependencies ){
+      if( dependencies.isEmpty() ){
+         return "";
+      }
+      String ret = prefix;
+      ret += "<dependencies>\n";
+      for ( Artifact vr : dependencies ) {
+         ret += toStringArtifact( prefix + "   ", vr );
+      }
+      ret += prefix + "</dependencies>\n";
+      return ret;
+   }
    public static  String toStringArtifactDescription( String prefix, ArtifactDescription artifactDescription ){
       String ret = prefix;
       ret += "<ArtifactDescription ";
@@ -220,18 +250,6 @@ public class ArtifactDescriptionToXML {
          ret += toStringKind( prefix + "   ", artifactDescription.getKind() );
       }
       ret += prefix + "</ArtifactDescription>\n";
-      return ret;
-   }
-   public static  String toStringDependencies( String prefix, List<Artifact> dependencies ){
-      if( dependencies.isEmpty() ){
-         return "";
-      }
-      String ret = prefix;
-      ret += "<dependencies>\n";
-      for ( Artifact vr : dependencies ) {
-         ret += toStringArtifact( prefix + "   ", vr );
-      }
-      ret += prefix + "</dependencies>\n";
       return ret;
    }
    public static  String toStringProject( String prefix, Project project ){
@@ -414,6 +432,18 @@ public class ArtifactDescriptionToXML {
       }
       ret += prefix + "</refs>\n";
       return ret;
+   }
+   public static  String toStringModuleKind( String prefix, ModuleKind moduleKind ){
+      if( moduleKind instanceof App ){
+         return toStringApp( prefix, ((App)moduleKind) );
+      }
+      if( moduleKind instanceof CLT ){
+         return toStringCLT( prefix, ((CLT)moduleKind) );
+      }
+      if( moduleKind instanceof Lib ){
+         return toStringLib( prefix, ((Lib)moduleKind) );
+      }
+      throw new IllegalStateException( "no a valid suptype of ModuleKind" );
    }
    public static  String toStringAddress( String prefix, Address address ){
       String ret = prefix;

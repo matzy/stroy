@@ -41,5 +41,8 @@ public class ArtifactDescription {
    public void setKind( Kind kind ){
       this.kind = kind;
    }
+   public String toString(  ){
+      return ArtifactDescriptionToXML.toStringArtifactDescription( "", this );
+   }
 
 }

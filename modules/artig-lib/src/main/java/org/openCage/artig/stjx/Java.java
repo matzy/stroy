@@ -41,5 +41,8 @@ public class Java {
    public void setMax( String max ){
       this.max = max;
    }
+   public String toString(  ){
+      return ArtifactDescriptionToXML.toStringJava( "", this );
+   }
 
 }

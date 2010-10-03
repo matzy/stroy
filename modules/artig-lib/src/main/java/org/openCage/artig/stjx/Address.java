@@ -41,5 +41,8 @@ public class Address {
    public void setShrt( String shrt ){
       this.shrt = shrt;
    }
+   public String toString(  ){
+      return ArtifactDescriptionToXML.toStringAddress( "", this );
+   }
 
 }

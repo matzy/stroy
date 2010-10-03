@@ -26,30 +26,16 @@ import java.util.List;
  * Contributor(s):
  * **** END LICENSE BLOCK ****
 */
-public class App implements ModuleKind {
+public class CLT implements ModuleKind {
    private String mainClass;
-   private String icon;
-   private Download download;
    public String getMainClass(  ){
       return mainClass;
    }
    public void setMainClass( String mainClass ){
       this.mainClass = mainClass;
    }
-   public String getIcon(  ){
-      return icon;
-   }
-   public void setIcon( String icon ){
-      this.icon = icon;
-   }
-   public Download getDownload(  ){
-      return download;
-   }
-   public void setDownload( Download download ){
-      this.download = download;
-   }
    public String toString(  ){
-      return ArtifactDescriptionToXML.toStringApp( "", this );
+      return ArtifactDescriptionToXML.toStringCLT( "", this );
    }
 
 }
