@@ -30,6 +30,8 @@
     <property name="el.description.short" value="" />
     <property name="el.email" value="mailto:anonymous" />
     <property name="el.groupId" value="elephants"/>
+    <!-- el.isApp -->
+    <!-- el.isCLT -->
     <property name="el.java.version" value="6" />
     <property name="el.licence" value = "MPL 1.1" />
     <property name="el.localization"  value="English" />
@@ -54,8 +56,8 @@
 
     <!-- ====== local properties ========== -->
 
-    <property name="l.helpbook"      value="${l.module}/src/build/helpbook"/>
     <property name="l.module"        value="${dependencies.basedir}/modules/${el.module.name}"/>
+    <property name="l.helpbook"      value="${l.module}/src/build/helpbook"/>
     <property name="classes"         value="${dependencies.basedir}/build/classes/${el.module.name}"/>
     <property name="objc-classes"    value="${dependencies.basedir}/build/objc-classes/${el.module.name}"/>
     <property name="libs"            value="${dependencies.basedir}/build/libs"/>
@@ -63,9 +65,12 @@
     <property name="collect-jars"    value="${dependencies.basedir}/build/collect-jars/${el.module.name}"/>
     <property name="resources"       value="${dependencies.basedir}/build/resources/${el.module.name}"/>
     <property name="deploy"          value="${dependencies.basedir}/build/deploy/${el.module.name}"/>
-    <property name="l.src.java"             value="${l.module}/${el.src.java}"/>
+    <property name="l.src.java"      value="${l.module}/${el.src.java}"/>
     <property name="srcres"          value="${l.module}/${el.src.resources}"/>
-    <!--<property name="l.helpbook"     value="${module}/${app.helpbook}"/>-->
+    <property name="l.buidresources"  value="${dependencies.basedir}/build-resources"/>
+    <property name="l.templates"      value="${dependencies.basedir}/build-resources/templates"/>
+    <property name="l.buidresources.lib"  value="${dependencies.basedir}/build-resources/lib"/>
+    <property name="l.jarfilename" value="${ant.project.name}-${el.version}.jar"/>
 
     <!-- ====== parameter properties ========== -->
     <property name="param.target.os" value="----" />
@@ -130,23 +135,23 @@
     <!-- if-task and others -->
     <taskdef resource="net/sf/antcontrib/antlib.xml">
         <classpath>
-            <pathelement location="${dependencies.basedir}/external/build/ant-contrib-1.0b3.jar"/>
+            <pathelement location="${l.buidresources.lib}/ant-contrib-1.0b3.jar"/>
         </classpath>
     </taskdef>
 
 
     <!-- build osx apps -->
     <taskdef name="jarbundler"
-             classpath="${dependencies.basedir}/external/build/jarbundler-2.0.0.jar"
+             classpath="${l.buidresources.lib}/jarbundler-2.0.0.jar"
              classname="net.sourceforge.jarbundler.JarBundler"/>
 
 
     <!-- debian package builder task -->
     <taskdef name="deb"
-             classpath="${dependencies.basedir}/external/build/ant-deb-0.0.2.jar"
+             classpath="${l.buidresources.lib}/ant-deb-0.0.2.jar"
              classname="com.googlecode.ant_deb_task.Deb"/>
     <taskdef name="desktopentry"
-             classpath="${dependencies.basedir}/external/build/ant-deb-0.0.2.jar"
+             classpath="${l.buidresources.lib}/ant-deb-0.0.2.jar"
              classname="com.googlecode.ant_deb_task.DesktopEntry"/>
 
 
@@ -154,17 +159,24 @@
     <!-- windows exe builder task -->
     <taskdef name="launch4j"
              classname="net.sf.launch4j.ant.Launch4jTask"
-             classpath="${dependencies.basedir}/external/build/launch4j.jar:${dependencies.basedir}/external/production/xstream-1.3.1.jar" />
+             classpath="${l.buidresources.lib}/launch4j.jar:/build-resources/lib/xstream-1.3.1.jar" />
 
     <!-- ================================================================================= -->
     <!-- =============================== targets ========================================= -->
     <!-- ================================================================================= -->
 
+    <!-- ============================================== -->
+    <!-- ======= clean ================================ -->
+    <!-- ============================================== -->
     <!-- clean all artifacts created in a build -->
     <target name="clean">
         <delete dir="${dependencies.basedir}/build"/>
     </target>
 
+    <!-- ============================================== -->
+    <!-- ======= help ================================= -->
+    <!-- ============================================== -->
+    <!-- print help -->
     <target  name="help">
         <echo message="March o the Elephants build file for ${app.name}" />
         <echo message="ant                        :  builds ${app.name} with all dependencies" />
@@ -183,7 +195,10 @@
 
     </target>
 
-    <!-- internal: prepare directories          -->
+    <!-- ============================================== -->
+    <!-- ======= local.prepare ======================== -->
+    <!-- ============================================== -->
+    <!-- prepare directories          -->
     <target name="local.prepare">
         <tstamp/>
         <mkdir dir="${classes}"/>
@@ -212,6 +227,9 @@
         <fileset refid="internalsSet"/>
     </path>
 
+    <!-- ============================================== -->
+    <!-- ======= local.compile ======================== -->
+    <!-- ============================================== -->
     <!-- compile sources and copy pictures and xmls -->
     <target name="local.compile" depends="local.prepare">
         <echo  message="${l.src.java}" />
@@ -261,6 +279,9 @@
 
     </target>
 
+    <!-- ============================================== -->
+    <!-- ======= local.create-manifest ================ -->
+    <!-- ============================================== -->
     <!-- construct the manifest                                                              -->
     <!-- classpath is everything already in libs, i.e. all libs the current build depends on -->
     <!-- which are specified in dependencies.xml                                             -->
@@ -278,7 +299,10 @@
             <attribute name="Class-Path" value="${jars-var}"/>
         </manifest>
         <if>
-            <isset property="el.isApp"/>
+            <or>                      <!-- TODO better test el.main.class  -->
+                <isset property="el.isApp"/>
+                <isset property="el.isCLT"/>
+            </or>
             <then>
                 <manifest file="${resources}/manifest.mf" mode="update">
                     <attribute name="Main-Class" value="${el.main.class}"/>
@@ -288,15 +312,21 @@
     </target>
 
 
-    <!--      jar      -->
+    <!-- ============================================== -->
+    <!-- ======= local.create-jar ===================== -->
+    <!-- ============================================== -->
+    <!-- create jar file -->
     <target name="local.create-jar" depends="local.compile,local.create-manifest">
         <echo message="${ant.project.name} - build-common.collect-jars"/>
-        <jar jarfile="${libs}/${ant.project.name}-${el.version}.jar"
+        <jar jarfile="${libs}/${l.jarfilename}"
              manifest="${resources}/manifest.mf">
             <fileset dir="${classes}" excludes="**/*test*"/>
         </jar>
     </target>
 
+    <!-- ============================================== -->
+    <!-- ======= local.collect.jars =================== -->
+    <!-- ============================================== -->
     <!-- collect all classpath relevant jars for the current module in an extra dir-->
     <target name="local.collect.jars" depends="local.create-jar">
         <copy todir="${collect-jars}">
@@ -450,7 +480,7 @@
             <mkdir dir="${lxp.to}/resources/java"/>
 
             <!-- pad file -->
-            <copy file="${dependencies.basedir}/build-resources/pad_file.xml" todir="${lxp.to}" />
+            <copy file="${l.templates}/pad_file.xml" todir="${lxp.to}" />
             <replace  file="${lxp.to}/pad_file.xml" token="[groupId]" value="${el.groupId}" />
             <replace  file="${lxp.to}/pad_file.xml" token="[webpage]" value="${el.webpage}" />
             <replace  file="${lxp.to}/pad_file.xml" token="[author.first]" value="${el.author.first}" />
@@ -483,8 +513,9 @@
                 </copy>
 
                 <!-- unix shell script (sh) -->
-                <echo message="java -jar resources/java/${el.groupId}-${ant.project.name}-${el.version}.jar $1 $2 $3 $4 $5 $6 $7 $8 $9"
-                      file="${lxp.to}/${app.name}.sh"/>
+
+                <copy file="${l.templates}/clt.bash" tofile="${lxp.to}/${app.name}.sh"/>
+                <replace file="${lxp.to}/${app.name}.sh" token="[jarfile]" value="resources/java/${el.groupId}-${ant.project.name}-${el.version}.jar"/>
                 <chmod file="${lxp.to}/${app.name}.sh" perm="ugo+x"/>
 
                 <!-- windows command script -->
@@ -497,7 +528,10 @@
 
     <target  name="local.xplatform.prepare" depends="local.collect.jars,local.helpsetup,local.padfile">
         <if>
-            <isset property="el.isApp"/>
+            <or>
+                <isset property="el.isApp"/>
+                <isset property="el.isCLT"/>
+            </or>
             <then>
 
                 <echo message="prepare for ${param.target.os}" />
@@ -528,8 +562,8 @@
 
 
                 <!-- unix shell script (sh) -->
-                <echo message="java -jar resources/java/${el.groupId}-${ant.project.name}-${el.version}.jar"
-                      file="${lxp.to}/${app.name}.sh"/>
+                <copy file="${l.templates}/clt.bash" tofile="${lxp.to}/${app.name}.sh"/>
+                <replace file="${lxp.to}/${app.name}.sh" token="[jarfile]" value="resources/java/${l.jarfilename}"/>
                 <chmod file="${lxp.to}/${app.name}.sh" perm="ugo+x"/>
 
                 <!-- windows command script -->
@@ -547,7 +581,7 @@
     <target name="local.xplatform-app"
             depends="local.collect.jars,local.helpsetup">
         <if>
-            <isset property="el.isApp"/>
+            <isset property="el.isCLT"/>
         <then>
             <antcall target="local.xplatform.prepare" >
                 <param name="param.target.os" value="xplatform"/>
@@ -745,7 +779,7 @@
                 </pathconvert>
                 <property name="l4j.3" value="&lt;cp&gt;${l4j.1}&lt;/cp&gt;" />
 
-                <copy file="${dependencies.basedir}/build-resources/launch4j-config.xml" todir="${deploy}/windows" />
+                <copy file="${l.templates}/launch4j-config.xml" todir="${deploy}/windows" />
 
                 <replace  file="${deploy}/windows/launch4j-config.xml" token="[jarList]" value="${l4j.3}" />
                 <replace  file="${deploy}/windows/launch4j-config.xml" token="[mainjar]" value="resources/java/${el.groupId}-${ant.project.name}-${el.version}.jar" />
