@@ -27,6 +27,17 @@ public class Artig {
 
     public static void main(String[] args) {
 
+        AllBaseOptions cmds = new AllBaseOptions();
+        CmdLineParser baseParser = new CmdLineParser(cmds);
+
+//        if (  cmds.getArgs().size() > 0 ) {
+//            String cmd = cmds.getArgs().get(0);
+//
+//            if ( cmd.equals( "help" )) {
+//
+//            } else if ( cmd.equals() )
+//        }
+
         CmdOptions bean = new CmdOptions();
         CmdLineParser parser = new CmdLineParser(bean);
         try {
@@ -224,7 +235,11 @@ public class Artig {
 
     public Artig( FSPath base ) {
         this.base = base;
-        deflt = (Project)(read( FSPathBuilder.getPath( Artig.class.getResource(".").getFile() + "default.artig")).getKind());
+
+        System.out.println( ">>> " + Artig.class.getResource(".") ); // bad idea, does not work for jars
+        System.out.println( ">>> " + Artig.class.getResource("default.artig") );
+
+        deflt = (Project)(read( Artig.class.getResourceAsStream("default.artig")).getKind());
         for ( String name : base.toFile().list() ) {
             if ( name.endsWith( ".artig" )) {
                 project = (Project)(read( base.add( name )).getKind());
@@ -358,6 +373,39 @@ public class Artig {
         return arti.getName().equals( ref.getName() ) && (ref.getGroupId() != null ? arti.getGroupId().equals( ref.getGroupId()) : true );
     }
 
+    public ArtifactDescription read( InputStream is ) {
+        ArtifactDescriptionFromXML from = new ArtifactDescriptionFromXML();
+
+        // create factory
+        SAXParserFactory factory = SAXParserFactory.newInstance();
+
+        // set it so that it is validating and namespace aware
+        factory.setValidating( true );
+        factory.setNamespaceAware( true );
+
+        try {
+            SAXParser parser = factory.newSAXParser();
+            parser.parse( is, from );
+        }
+        catch( IOException ioe ) {
+//            System.err.println("Problem parsing " + path );
+            ioe.printStackTrace();
+        }
+        catch( SAXException saxe ) {
+//            System.err.println("Problem parsing " + path );
+            saxe.printStackTrace();
+        }
+        catch( ParserConfigurationException pce ) {
+            pce.printStackTrace();
+        } catch ( IllegalArgumentException exp ) {
+//            System.err.println("Problem parsing " + path );
+            exp.printStackTrace();
+        }
+
+        return from.getGoal();
+
+    }
+
 
     public ArtifactDescription read( FSPath path ) {
         ArtifactDescriptionFromXML from = new ArtifactDescriptionFromXML();
@@ -374,9 +422,11 @@ public class Artig {
             parser.parse( path.toFile(), from );
         }
         catch( IOException ioe ) {
+            System.err.println("Problem parsing " + path );
             ioe.printStackTrace();
         }
         catch( SAXException saxe ) {
+            System.err.println("Problem parsing " + path );
             saxe.printStackTrace();
         }
         catch( ParserConfigurationException pce ) {

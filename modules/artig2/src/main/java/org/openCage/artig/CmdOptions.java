@@ -21,7 +21,7 @@ public class CmdOptions {
     @Option( name="-d", usage="the project directory", required = true )
     private String dir;
 
-    @Argument
+    @Argument()
     private List<String> args = new ArrayList<String>();
 
     public boolean isVerbose() {

@@ -80,9 +80,14 @@ public class ElephantsGen {
         ret += antProperty( "el.src.java", "src/main/java") + "\n";
         ret += antProperty( "el.src.resources", "src/main/resources") + "\n";
 
-        if ( mod.getApp() != null ) {
+        if ( mod.getModuleKind() instanceof App ) {
             ret += antProperty( "el.isApp", "true") + "\n";
-            ret += antProperty( "el.main.class", mod.getApp().getMainClass() ) + "\n";
+            ret += antProperty( "el.main.class", ((App)mod.getModuleKind()).getMainClass() ) + "\n";
+        }
+
+        if ( mod.getModuleKind() instanceof CLT ) {
+            ret += antProperty( "el.isCLT", "true") + "\n";
+            ret += antProperty( "el.main.class", ((CLT)mod.getModuleKind()).getMainClass() ) + "\n";
         }
 
         ret += antProperty( "el.description.short", "TODO descr") + "\n";
@@ -115,15 +120,14 @@ public class ElephantsGen {
             ret += antProperty( "el.author.last", firstAuthor.substring( firstAuthor.lastIndexOf(' ') + 1)) + "\n";
         }
 
-        if ( mod.getApp() != null ) {
-            //if ( mod.getApp().getDownload().getScreenshot().isSet() ) {
-                ret += antProperty( "el.url.screenshot", mod.getApp().getDownload().getScreenshot() ) + "\n";
+         if ( mod.getModuleKind() instanceof App ) {
+                ret += antProperty( "el.url.screenshot", ((App)mod.getModuleKind()).getDownload().getScreenshot() ) + "\n";
             //}
             //if ( arti.getIconUrl().isSet() ) {
-                ret += antProperty( "el.url.icon", mod.getApp().getDownload().getIcon() ) + "\n";
+                ret += antProperty( "el.url.icon", ((App)mod.getModuleKind()).getDownload().getIcon() ) + "\n";
             //}
             //if ( arti.getDownloadUrl().isSet() ) {
-                ret += antProperty( "el.url.download", mod.getApp().getDownload().getDownload() ) + "\n";
+                ret += antProperty( "el.url.download", ((App)mod.getModuleKind()).getDownload().getDownload() ) + "\n";
             //}
         }
 
