@@ -21,12 +21,8 @@
             </depends>
         </Artifact>
 
-        <App mainClass="org.openCage.artig.Artig">
-            <Download
-                screenshot="http://stroy.wikidot.com/local--files/screenshots/fausterize-0.6.png"
-                icon="http://stroy.wikidot.com/local--files/screenshots/faust-small.png"
-                download="http://stroy.wikidot.com/local--files/download"/>
-        </App>
+        <CLT mainClass="org.openCage.artig.Artig">
+        </CLT>
 
         
     </Module>
