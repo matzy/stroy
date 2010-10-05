@@ -1,4 +1,4 @@
-<ArtifactDescription version="0.1">
+<Artig version="0.1">
     <Module>
         <Artifact name="fausterize"
                 groupId="openCage"
@@ -58,4 +58,4 @@ You can use any file as passwd. The file can/should be from the net and not your
         </App>
     </Module>
 
-</ArtifactDescription>
+</Artig>
