@@ -5,14 +5,8 @@ import org.openCage.io.IOUtils;
 import org.openCage.io.fspath.FSPath;
 import org.openCage.io.fspath.FSPathBuilder;
 import org.openCage.lang.Strings;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 import static org.openCage.generj.ArrayOf.ARRAYOF;
@@ -25,7 +19,6 @@ import static org.openCage.generj.Cast.CAST;
 import static org.openCage.generj.Dot.DOT;
 import static org.openCage.generj.Int.ZERO;
 import static org.openCage.generj.NameExpr.NAME;
-import static org.openCage.generj.NameExpr.NULL;
 import static org.openCage.generj.NewExpr.NEW;
 import static org.openCage.generj.Str.STR;
 import static org.openCage.generj.Typ.*;
@@ -223,7 +216,7 @@ public class Stjx {
         {
             for ( Complex cop : structs.values() ) {
 
-                ClassI tojava = cop.toJava( packag );
+                ClassI tojava = cop.toJava( packag, name);
 
                 if ( tojava != null && clazzComment != null ) {
                     tojava.comment( clazzComment );
@@ -280,6 +273,7 @@ public class Stjx {
 
     }
 
+
     private Clazz toToXML( String pack) {
 
         Clazz clazz = new Clazz( pack, TYP( Strings.toFirstUpper( name )+ "ToXML") );
@@ -315,6 +309,8 @@ public class Stjx {
                 imprt( "java.io.InputStream" ).
                 imprt( "java.io.IOException" ).
                 imprt( "javax.xml.parsers.ParserConfigurationException").
+                imprt( "java.io.FileInputStream").
+                imprt( "java.io.FileNotFoundException").
 
                 extnds( TYP("DefaultHandler") ).
 
@@ -360,16 +356,38 @@ public class Stjx {
         trytry.fild( TYP("SAXParser"), NAME("parser")).init( CALL(DOT(NAME("factory"), NAME("newSAXParser"))));
         trytry.call( DOT("parser","parse"), NAME("is"), NAME("from") );
 
-        tryS.ctch( TYP("IOException"), NAME("exp") ).call( DOT("exp","printStackTrace")); // TODO improve
-        tryS.ctch( TYP("SAXException"), NAME("exp") ).call( DOT("exp","printStackTrace")); // TODO improve
-        tryS.ctch( TYP("ParserConfigurationException"), NAME("exp") ).call( DOT("exp","printStackTrace")); // TODO improve
-        tryS.ctch( TYP("IllegalArgumentException"), NAME("exp") ).
-                call( DOT("exp","printStackTrace")).
-                call( DOT(NAME("System"), NAME("err"), NAME("println")), STR("Problem parsing "));
+        tryS.ctch( TYP("IOException"), NAME("exp") ).thrw( NEW( TYP("Error"), NAME("exp")));
+        tryS.ctch( TYP("SAXException"), NAME("exp") ).thrw( NEW( TYP("Error"), NAME("exp")));
+        tryS.ctch( TYP("ParserConfigurationException"), NAME("exp") ).thrw( NEW( TYP("Error"), NAME("exp")));
+        tryS.ctch( TYP("IllegalArgumentException"), NAME("exp") ).thrw( NEW( TYP("Error"), NAME("exp")));
+//                call( DOT("exp","printStackTrace")).
+//                call( DOT(NAME("System"), NAME("err"), NAME("println")), STR("Problem parsing "));
+        TryStatement filly = tryS.fnly().ifNotNull( NAME("is")).thn().ttry();
+        filly.trry().call( DOT( "is", "close"));
+        filly.ctch( TYP("IOException"), NAME("e"));
+//        if ( is != null ) {
+//            try {
+//                is.close();
+//            } catch (IOException e) {
+//                // ignore
+//            }
+//        }
+
         read.retrn( CALL(DOT("from","getGoal")));
 
         Block readPath =  clazz.publc().sttic().method( TYP(clazzTyp), "read").arg( TYP("File"), NAME("file")).body();
-        readPath.retrn( CALL( NAME("read"), NEW( TYP("FileInputStream"), NAME("file"))));
+        TryStatement ttr = readPath.ttry();
+        ttr.trry().retrn(CALL( NAME("read"), NEW( TYP("FileInputStream"), NAME("file"))));
+        ttr.ctch( TYP("FileNotFoundException"),NAME("e")).thrw( NEW( TYP("Error"), NAME("e")));
+
+//        public static  Artig read( File file ){
+//            try {
+//                return read( new FileInputStream( file) );
+//            } catch (FileNotFoundException e) {
+//                throw new Error(e);
+//            }
+//        }
+
 
 
 

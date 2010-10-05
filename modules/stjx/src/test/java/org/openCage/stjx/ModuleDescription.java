@@ -6,7 +6,7 @@ import org.openCage.io.fspath.FSPathBuilder;
 public class ModuleDescription {
 
     public static void main(String[] args) {
-        Stjx stjx = new Stjx( "ArtifactDescription" );
+        Stjx stjx = new Stjx( "Artig" );
 
         stjx.mpl( "Stephan Pfab", "openCage@gmail.com", "2006 - 2010", "stroy" ); 
 
@@ -48,7 +48,7 @@ public class ModuleDescription {
 
         stjx.or( "Kind" ).with( "Module", "Project", "Deployed" );
 
-        stjx.struct( "ArtifactDescription" ).
+        stjx.struct( "Artig" ).
                 string( "version" ).
                 complex( "Kind" );
 
@@ -104,9 +104,10 @@ public class ModuleDescription {
                 optional().complex( "DropInFor" ).
                 optional().multiLine( "FullDescription");
 
-        System.out.println( getProjectBase( ModuleDescription.class ) );
+//        System.out.println( getProjectBase( ModuleDescription.class ) );
 
-        stjx.generate( getProjectBase( ModuleDescription.class ).add( "modules", "artig-lib").toString(), "org.openCage.artig.stjx" );
+//        stjx.generate( getProjectBase( ModuleDescription.class ).add( "modules", "artig-lib").toString(), "org.openCage.artig.stjx" );
+        stjx.generate( FSPathBuilder.getPath( "/Users/stephan/Documents/prs/elephants").add( "modules", "artig-lib").toString(), "org.openCage.artig.stjx" );
 
 
     }

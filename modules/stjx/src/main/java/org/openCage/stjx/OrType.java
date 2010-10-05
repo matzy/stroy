@@ -165,7 +165,7 @@ public class OrType implements Complex {
         }
     }
 
-    public ClassI toJava(String pack) {
+    public ClassI toJava(String pack, String rootName) {
         Interf interf = new Interf( pack, TYP(className ));
         return interf;
     }

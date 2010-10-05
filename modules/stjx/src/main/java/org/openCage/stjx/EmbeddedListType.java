@@ -3,8 +3,6 @@ package org.openCage.stjx;
 import org.openCage.generj.*;
 import org.openCage.lang.Strings;
 
-import javax.management.modelmbean.ModelMBeanInfo;
-
 import java.util.Collections;
 import java.util.List;
 
@@ -59,7 +57,7 @@ public class EmbeddedListType implements Complex {
     }
 
     @Override
-    public ClassI toJava(String pack) {
+    public ClassI toJava(String pack, String rootName) {
         return null; // not standalone
     }
 

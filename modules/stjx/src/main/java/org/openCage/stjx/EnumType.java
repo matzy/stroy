@@ -8,10 +8,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static org.openCage.generj.NameExpr.NAME;
-import static org.openCage.generj.Typ.STRING;
-import static org.openCage.generj.Typ.TYP;
-
 /**
  * ** BEGIN LICENSE BLOCK *****
  * Version: MPL 1.1
@@ -49,7 +45,7 @@ public class EnumType implements Complex {
     }
 
     @Override
-    public ClassI toJava(String pack) {
+    public ClassI toJava(String pack, String rootName) {
         return new Enm( pack, className, vals );
     }
 

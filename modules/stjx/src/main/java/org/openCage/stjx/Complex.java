@@ -31,7 +31,7 @@ import java.util.List;
 */
 public interface Complex {
 
-    ClassI toJava( String pack );
+    ClassI toJava(String pack, String rootName);
 
     boolean uses(String name);
 

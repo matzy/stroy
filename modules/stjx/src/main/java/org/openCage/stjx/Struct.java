@@ -122,7 +122,7 @@ public class Struct implements Complex {
         return new Optional( this );
     }
 
-    public ClassI toJava( String pack ) {
+    public ClassI toJava(String pack, String rootName) {
 
         Clazz clazz = new Clazz( pack, TYP( className ));
 
@@ -154,12 +154,9 @@ public class Struct implements Complex {
         }
 
         clazz.publc().method( STRING, "toString").body().
-                retrn( CALL( DOT("ArtifactDescriptionToXML", "toString" + className ), STR(""), THIS ) );
+                retrn( CALL( DOT( rootName + "ToXML", "toString" + className ), STR(""), THIS ) );
 
 
-        // todo toString
-
-        
         return clazz;
     }
 

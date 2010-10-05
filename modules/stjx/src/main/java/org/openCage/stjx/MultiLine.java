@@ -57,7 +57,7 @@ public class MultiLine implements Complex {
     }
 
     @Override
-    public ClassI toJava(String pack) {
+    public ClassI toJava(String pack, String rootName) {
         return null; // not standalone
     }
 
