@@ -1,4 +1,4 @@
-<ArtifactDescription version="0.1">
+<Artig version="0.1">
     <Project name="stroy" groupId="openCage">
         <modules>
             <ModuleRef name="appstd"/>
@@ -232,5 +232,5 @@
     </Project>
 
 
-</ArtifactDescription>
+</Artig>
 
