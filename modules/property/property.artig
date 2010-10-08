@@ -1,4 +1,4 @@
-<ArtifactDescription version="0.1">
+<Artig version="0.1">
     <Module>
         <Artifact name="openCage-property"
                 groupId="openCage"
@@ -25,4 +25,4 @@
         </Artifact>
     </Module>
 
-</ArtifactDescription>
+</Artig>

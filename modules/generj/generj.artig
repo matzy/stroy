@@ -1,4 +1,4 @@
-<ArtifactDescription version="0.1">
+<Artig version="0.1">
     <Module>
         <Artifact name="generj"
                 groupId="openCage"
@@ -18,4 +18,4 @@
         </Artifact>
     </Module>
 
-</ArtifactDescription>
+</Artig>

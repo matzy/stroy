@@ -2,8 +2,8 @@
     <Project name="stroy" groupId="openCage">
         <modules>
             <ModuleRef name="appstd"/>
-            <ModuleRef name="artig-lib"/>
-            <ModuleRef name="artig2"/>
+            <!--<ModuleRef name="artig-lib"/>-->
+            <!--<ModuleRef name="artig2"/>-->
             <ModuleRef name="fausterize"/>
             <ModuleRef name="generj"/>
             <ModuleRef name="io"/>
@@ -46,6 +46,26 @@
                     licence="MIT">
                 <Address page="https://args4j.dev.java.net" shrt="dev.java.net" />
             </Artifact>
+
+            <Artifact name="artig-lib"
+                    groupId="openCage"
+                    version="0.2"
+                    description="project description classes. Needed for artig and others"
+                    licence="BSD">
+                <Java min="6"/>
+                <authors>
+                    <Author name="Stephan Pfab" email="openCage@gmail.com"/>
+                </authors>
+                <Address page="http://stroy.wikidot.com/elephants" shrt="wikidot.com" />
+                <!--<Email email="openCage@gmail.com"/> support -->
+
+                <depends>
+                    <ArtifactRef groupId="junit" name="junit" scope="test" />
+                    <ArtifactRef groupId="openCage" name="openCage-lang" scope="compile" />
+                </depends>
+            </Artifact>
+
+            
 
             <Artifact name="binding"
                       groupId="com.jgoodies"
@@ -169,6 +189,7 @@
                 </depends>
 
             </Artifact>
+
 
             <Artifact  name="preferencepanel"
                     groupId="javagraphics"

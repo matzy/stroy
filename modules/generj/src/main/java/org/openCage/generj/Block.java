@@ -129,6 +129,11 @@ public class Block<T> implements Statement {
         return this;
     }
 
+    public Block<T> thrw( Expr expr ) {
+        statements.add( new UnOp( "throw", expr ));
+        return this;
+    }
+
     public Block<T> thrwIllegalArgument( Expr expr ) {
         statements.add( new UnOp( "throw", new Cnstr( TYP("IllegalArgumentException"), expr )));
         return this;
