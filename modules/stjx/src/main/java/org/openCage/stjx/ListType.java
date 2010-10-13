@@ -52,9 +52,9 @@ public class ListType implements Complex {
         this.name = name;
 
         if ( ofString ) {
-            MultiLine ml = new MultiLine( stjx, this, name );
+            MultiLine ml = new MultiLine( stjx, this, of );
             struct.getStjx().addComplex( ml );
-            of = "String";
+            this.of = "String";
             ofName = of;
 
         } else {
@@ -133,7 +133,7 @@ public class ListType implements Complex {
     }
 
     public void setInterface(String name) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        throw new IllegalArgumentException( "no inheritance for String" );
     }
 
     @Override
@@ -144,6 +144,9 @@ public class ListType implements Complex {
 
     @Override
     public List<String> getRefs() {
+        if ( of == null ) {
+            int i = 0;
+        }
         if ( of.equals("String")) {
             return Collections.EMPTY_LIST;
         }

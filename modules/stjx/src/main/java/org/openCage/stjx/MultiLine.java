@@ -45,13 +45,11 @@ import static org.openCage.lang.Strings.toFirstUpper;
 */
 public class MultiLine implements Complex {
 
-    private Complex base;
     private String tagName;
     private Stjx stjx;
 
     
     public MultiLine( Stjx stjx, Complex base, String name) {
-        this.base = base;
         this.tagName = name;
         this.stjx = stjx;
     }
@@ -182,5 +180,29 @@ public class MultiLine implements Complex {
     @Override
     public List<String> getRefs() {
         return Collections.EMPTY_LIST;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        MultiLine multiLine = (MultiLine) o;
+
+        if (tagName != null ? !tagName.equals(multiLine.tagName) : multiLine.tagName != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return tagName != null ? tagName.hashCode() : 0;
+    }
+
+    @Override
+    public String toString() {
+        return "MultiLine{" +
+                "tagName='" + tagName + '\'' +
+                '}';
     }
 }

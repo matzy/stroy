@@ -15,7 +15,7 @@ public class ZeroOrMore {
         this.struct = struct;
     }
 
-    public Struct complex(String of) {
+    public Struct complex( String of ) {
 
         if ( collectionName != null ) {
             ListType ll = new ListType( struct, collectionName, of, false );
@@ -31,7 +31,7 @@ public class ZeroOrMore {
 
     }
 
-    public Struct string(String of) {
+    public Struct string( String of ) {
 
         if ( collectionName != null ) {
             ListType ll = new ListType( struct, collectionName, of, true );
