@@ -5,7 +5,6 @@
             <!--<ModuleRef name="artig-lib"/>-->
             <!--<ModuleRef name="artig2"/>-->
             <ModuleRef name="fausterize"/>
-            <ModuleRef name="generj"/>
             <ModuleRef name="io"/>
             <ModuleRef name="lang"/>
             <ModuleRef name="localization"/>
