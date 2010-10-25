@@ -278,7 +278,7 @@ public class Stjx {
 
         Clazz clazz = new Clazz( pack, TYP( Strings.toFirstUpper( name )+ "ToXML") );
 
-        clazz.imprt( "java.util.List");
+        clazz._import( "java.util.List");
 
         for ( Complex compl : this.structs.values() ) {
 
@@ -293,78 +293,78 @@ public class Stjx {
         String clazzTyp = Strings.toFirstUpper( name );
 
         Clazz clazz = new Clazz( pack, TYP( clazzTyp + "FromXML") ).
-                imprt( "org.xml.sax.Attributes" ).
-                imprt( "org.xml.sax.SAXException" ).
-                imprt( "org.xml.sax.helpers.DefaultHandler" ).
-                imprt( "javax.xml.parsers.SAXParser" ).
-                imprt( "javax.xml.parsers.SAXParserFactory" ).
-                imprt( "javax.xml.stream.events.EntityDeclaration" ).
-                imprt( "java.io.File" ).
-                imprt( "java.util.ArrayList" ).
-                imprt( "java.util.HashMap" ).
-                imprt( "java.util.List" ).
-                imprt( "java.util.Map" ).
-                imprt( "java.util.Stack" ).
-                imprt( "java.util.Locale" ).
-                imprt( "java.io.InputStream" ).
-                imprt( "java.io.IOException" ).
-                imprt( "javax.xml.parsers.ParserConfigurationException").
-                imprt( "java.io.FileInputStream").
-                imprt( "java.io.FileNotFoundException").
+                _import( "org.xml.sax.Attributes" ).
+                _import( "org.xml.sax.SAXException" ).
+                _import( "org.xml.sax.helpers.DefaultHandler" ).
+                _import( "javax.xml.parsers.SAXParser" ).
+                _import( "javax.xml.parsers.SAXParserFactory" ).
+                _import( "javax.xml.stream.events.EntityDeclaration" ).
+                _import( "java.io.File" ).
+                _import( "java.util.ArrayList" ).
+                _import( "java.util.HashMap" ).
+                _import( "java.util.List" ).
+                _import( "java.util.Map" ).
+                _import( "java.util.Stack" ).
+                _import( "java.util.Locale" ).
+                _import( "java.io.InputStream" ).
+                _import( "java.io.IOException" ).
+                _import( "javax.xml.parsers.ParserConfigurationException").
+                _import( "java.io.FileInputStream").
+                _import( "java.io.FileNotFoundException").
 
-                extnds( TYP("DefaultHandler") ).
+                _extends( TYP("DefaultHandler") ).
 
-                privt().fild( TYP("Stack"), NAME("stack")).init( NEW( TYP("Stack"))).
+                _privat().field( TYP("Stack"), NAME("stack")).init( NEW( TYP("Stack"))).
 
-                privt().fild( TYP("Object"), NAME("goal")).c().
+                _privat().field( TYP("Object"), NAME("goal")).c().
 
-                publc().override().method( "startDocument").thrws( TYP("SAXException")).body().
+                _public().override().method( "startDocument")._throws( TYP("SAXException")).body().
                     call( DOT( NAME( "stack"), NAME("clear"))).r().c().
 
-                publc().override().method( "endDocument").thrws( TYP("SAXException")).body().r().c().
+                _public().override().method( "endDocument")._throws( TYP("SAXException")).body().r().c().
 
-                publc().method( TYP(clazzTyp), "getGoal").body().
-                    retrn( CAST( TYP(clazzTyp), NAME("goal"))).r().c()
+                _public().method( TYP(clazzTyp), "getGoal").body().
+                _return( CAST( TYP(clazzTyp), NAME("goal"))).r().c()
                 ;
 
-        Clazz AA = clazz.privt().sttic().clazz( TYP("AttributedAttributes"));
+        Clazz AA = clazz._privat()._static().clazz( TYP("AttributedAttributes"));
 
-        AA.privt().fild( TYP("Attributes"), NAME("attis"));
-        AA.privt().fild( LIST(TYP("Integer")), NAME("idxes")).init( NEW( ARRAYLIST(TYP("Integer"))));
+        AA._privat().field( TYP("Attributes"), NAME("attis"));
+        AA._privat().field( LIST(TYP("Integer")), NAME("idxes")).init( NEW( ARRAYLIST(TYP("Integer"))));
 
-        AA.publc().cnstr().arg( TYP("Attributes"), NAME("attis")).body().
+        AA._public().cnstr().arg( TYP("Attributes"), NAME("attis")).body().
                     assign( DOT(NAME("this"), NAME("attis")), NAME("attis"));
 
-        Block AAgetValue = AA.publc().method( STRING, "getValue").arg( STRING, NAME("name") ).body();
-        AAgetValue.fild( STRING, NAME("val")).init( CALL(DOT(NAME("attis"), NAME("getValue")), NAME("name")));
-        AAgetValue.ifNotNull(NAME("val")).thn().
+        Block AAgetValue = AA._public().method( STRING, "getValue").arg( STRING, NAME("name") ).body();
+        AAgetValue.field( STRING, NAME("val")).init( CALL(DOT(NAME("attis"), NAME("getValue")), NAME("name")));
+        AAgetValue.ifNotNull(NAME("val"))._then().
                 call( DOT(NAME("idxes"), NAME("add")), CALL(DOT(NAME("attis"), NAME("getIndex")), NAME("name")));
-        AAgetValue.retrn(NAME("val"));
+        AAgetValue._return(NAME("val"));
 
-        Block AAcheck = AA.publc().method( "check").body();
-        AAcheck.fr( INT, "idx", ZERO, LESS(NAME("idx"), CALL(DOT(NAME("attis"), NAME("getLength")))), PLUSPLUS(NAME("idx")) ).
-                body().iff( NOT( CALL( DOT(NAME("idxes"), NAME("contains")), NAME("idx")))).thn().
-                    thrwIllegalArgument( PLUS(STR("Unknown Attribute: "), CALL(DOT(NAME("attis"), NAME("getQName")), NAME("idx"))));
+        Block AAcheck = AA._public().method( "check").body();
+        AAcheck._for( INT, "idx", ZERO, LESS(NAME("idx"), CALL(DOT(NAME("attis"), NAME("getLength")))), PLUSPLUS(NAME("idx")) ).
+                body()._if( NOT( CALL( DOT(NAME("idxes"), NAME("contains")), NAME("idx"))))._then().
+                throwIllegalArgument( PLUS(STR("Unknown Attribute: "), CALL(DOT(NAME("attis"), NAME("getQName")), NAME("idx"))));
 
 
-        Block read =  clazz.publc().sttic().method( TYP(clazzTyp), "read").arg( TYP("InputStream"), NAME("is")).body();
-        read.fild( TYP( clazzTyp + "FromXML"), NAME("from" )).defaultInit();
-        read.fild( TYP("SAXParserFactory"), NAME("factory")).init( CALL(DOT(NAME("SAXParserFactory"), NAME("newInstance"))));
+        Block read =  clazz._public()._static().method( TYP(clazzTyp), "read").arg( TYP("InputStream"), NAME("is")).body();
+        read.field( TYP( clazzTyp + "FromXML"), NAME("from" )).defaultInit();
+        read.field( TYP("SAXParserFactory"), NAME("factory")).init( CALL(DOT(NAME("SAXParserFactory"), NAME("newInstance"))));
 
-        TryStatement tryS= read.ttry();
-        Block trytry = tryS.trry();
-        trytry.fild( TYP("SAXParser"), NAME("parser")).init( CALL(DOT(NAME("factory"), NAME("newSAXParser"))));
+        TryStatement tryS= read._try();
+        Block trytry = tryS._try();
+        trytry.field( TYP("SAXParser"), NAME("parser")).init( CALL(DOT(NAME("factory"), NAME("newSAXParser"))));
         trytry.call( DOT("parser","parse"), NAME("is"), NAME("from") );
 
-        tryS.ctch( TYP("IOException"), NAME("exp") ).thrw( NEW( TYP("Error"), NAME("exp")));
-        tryS.ctch( TYP("SAXException"), NAME("exp") ).thrw( NEW( TYP("Error"), NAME("exp")));
-        tryS.ctch( TYP("ParserConfigurationException"), NAME("exp") ).thrw( NEW( TYP("Error"), NAME("exp")));
-        tryS.ctch( TYP("IllegalArgumentException"), NAME("exp") ).thrw( NEW( TYP("Error"), NAME("exp")));
+        tryS._catch( TYP("IOException"), NAME("exp") )._throw( NEW( TYP("Error"), NAME("exp")));
+        tryS._catch( TYP("SAXException"), NAME("exp") )._throw( NEW( TYP("Error"), NAME("exp")));
+        tryS._catch( TYP("ParserConfigurationException"), NAME("exp") )._throw( NEW( TYP("Error"), NAME("exp")));
+        tryS._catch( TYP("IllegalArgumentException"), NAME("exp") )._throw( NEW( TYP("Error"), NAME("exp")));
 //                call( DOT("exp","printStackTrace")).
 //                call( DOT(NAME("System"), NAME("err"), NAME("println")), STR("Problem parsing "));
-        TryStatement filly = tryS.fnly().ifNotNull( NAME("is")).thn().ttry();
-        filly.trry().call( DOT( "is", "close"));
-        filly.ctch( TYP("IOException"), NAME("e"));
+        TryStatement filly = tryS._finally().ifNotNull( NAME("is"))._then()._try();
+        filly._try().call( DOT( "is", "close"));
+        filly._catch( TYP("IOException"), NAME("e"));
 //        if ( is != null ) {
 //            try {
 //                is.close();
@@ -373,12 +373,12 @@ public class Stjx {
 //            }
 //        }
 
-        read.retrn( CALL(DOT("from","getGoal")));
+        read._return( CALL(DOT("from","getGoal")));
 
-        Block readPath =  clazz.publc().sttic().method( TYP(clazzTyp), "read").arg( TYP("File"), NAME("file")).body();
-        TryStatement ttr = readPath.ttry();
-        ttr.trry().retrn(CALL( NAME("read"), NEW( TYP("FileInputStream"), NAME("file"))));
-        ttr.ctch( TYP("FileNotFoundException"),NAME("e")).thrw( NEW( TYP("Error"), NAME("e")));
+        Block readPath =  clazz._public()._static().method( TYP(clazzTyp), "read").arg( TYP("File"), NAME("file")).body();
+        TryStatement ttr = readPath._try();
+        ttr._try()._return(CALL( NAME("read"), NEW( TYP("FileInputStream"), NAME("file"))));
+        ttr._catch( TYP("FileNotFoundException"),NAME("e"))._throw( NEW( TYP("Error"), NAME("e")));
 
 //        public static  Artig read( File file ){
 //            try {
@@ -393,26 +393,26 @@ public class Stjx {
 
 
 
-        clazz.privt().fild( BOOLEAN, NAME("getCharacters" ));
+        clazz._privat().field( BOOLEAN, NAME("getCharacters" ));
 
-        Block start = clazz.publc().override().method( "startElement").thrws( TYP("SAXException")).
+        Block start = clazz._public().override().method( "startElement")._throws( TYP("SAXException")).
                 arg( STRING, NAME("uri")).
                 arg( STRING, NAME("localName")).
                 arg( STRING, NAME("qName")).
                 arg( TYP("Attributes"), NAME("saxAttis")).body();
         
-        start.fild( TYP("AttributedAttributes"), NAME("attributes")).init( NEW(TYP("AttributedAttributes"), NAME("saxAttis")));
+        start.field( TYP("AttributedAttributes"), NAME("attributes")).init( NEW(TYP("AttributedAttributes"), NAME("saxAttis")));
 
-        Block end = clazz.publc().override().method( "endElement").thrws( TYP("SAXException")).
+        Block end = clazz._public().override().method( "endElement")._throws( TYP("SAXException")).
                 arg( STRING, NAME("uri")).
                 arg( STRING, NAME("localName")).
                 arg( STRING, NAME("qName")).body();
 
 
-        Block content = clazz.publc().method( "characters" ).arg( TYP("char[]"), NAME("ch")).arg( INT, NAME("start")).arg( INT, NAME("length") ).body();
-        Block contentBody = content.iff( NAME("getCharacters")).thn();
-        contentBody.fild( TYP("StringBuffer"), NAME("sb")).init( NEW(TYP("StringBuffer")));
-        contentBody.fr( INT, "idx", NAME("start"),
+        Block content = clazz._public().method( "characters" ).arg( TYP("char[]"), NAME("ch")).arg( INT, NAME("start")).arg( INT, NAME("length") ).body();
+        Block contentBody = content._if( NAME("getCharacters"))._then();
+        contentBody.field( TYP("StringBuffer"), NAME("sb")).init( NEW(TYP("StringBuffer")));
+        contentBody._for( INT, "idx", NAME("start"),
                 AND( LESS( NAME("idx"), DOT(NAME("ch"), NAME("length"))), LESS(NAME("idx"), BRACKET(PLUS(NAME("start"), NAME("length"))))),
                 PLUSPLUS( NAME("idx"))).body().
                 call( DOT( NAME("sb"), NAME("append")), ARRAYOF( NAME("ch"), NAME("idx")));
@@ -423,7 +423,7 @@ public class Stjx {
             complex.toFromXMLStart(start);
         }
 
-        start.thrwIllegalArgument( PLUS( STR("unknown tag "), NAME( "qName" )));
+        start.throwIllegalArgument( PLUS( STR("unknown tag "), NAME( "qName" )));
 
         for ( Complex complex : structs.values() ) {
             complex.toFromXMLEnd(end);

@@ -91,13 +91,13 @@ public class MultiLine implements Complex {
 
     @Override
     public void toToXML(Clazz clazz) {
-        Mesod mesod = clazz.publc().sttic().method( STRING, "toString" + toFirstUpper(tagName)  );
+        Mesod mesod = clazz._public()._static().method( STRING, "toString" + toFirstUpper(tagName)  );
 
         String lower = Strings.toFirstLower(tagName);
 
         mesod.arg( Typ.STRING, NAME("prefix") ).arg( STRING, NAME(lower) ).
                 body().
-                    retrn( PLUS( NAME("prefix"), STR("<" + tagName + ">"), NAME(lower),STR("</" + tagName + ">\\n")));
+                _return( PLUS( NAME("prefix"), STR("<" + tagName + ">"), NAME(lower),STR("</" + tagName + ">\\n")));
     }
 
     @Override
@@ -107,34 +107,34 @@ public class MultiLine implements Complex {
 
     @Override
     public void toFromXMLStart(Block start) {
-        Block thnMulti = start.iff( CALL( DOT( NAME( "qName" ), NAME("equals")), STR(tagName) )).thn();
+        Block thnMulti = start._if( CALL( DOT( NAME( "qName" ), NAME("equals")), STR(tagName) ))._then();
 
         thnMulti.assign( NAME("getCharacters"), TRUE );
-        thnMulti.retrn();
+        thnMulti._return();
     }
 
     @Override
     public void toFromXMLEnd(Block end) {
 //        for ( String multi : requiredMultiLines ) {
-//            thn.ifNull( CALL( DOT( CAST( TYP(className), NAME("goal")),
-//                                    GETTER( multi )))).thn().
-//                    thrwIllegalArgument( STR( className + ": required member " + multi + " not set"));
+//            _then.ifNull( CALL( DOT( CAST( TYP(className), NAME("goal")),
+//                                    GETTER( multi ))))._then().
+//                    throwIllegalArgument( STR( className + ": required member " + multi + " not set"));
 //        }
 
-        Block thnMulti = end.iff( CALL( DOT( NAME("qName"), NAME( "equals")), STR(tagName) )).thn();
+        Block thnMulti = end._if( CALL( DOT( NAME("qName"), NAME( "equals")), STR(tagName) ))._then();
 
-        thnMulti.fild( STRING, NAME("str")).init( STR("" ));
+        thnMulti.field( STRING, NAME("str")).init( STR("" ));
 
-        Block stringbody = thnMulti.whle( INSTANCEOF( CALL( DOT(NAME("stack"), NAME("peek"))), STRING )).body();
+        Block stringbody = thnMulti._while( INSTANCEOF( CALL( DOT(NAME("stack"), NAME("peek"))), STRING )).body();
         stringbody.assign( NAME("str"), PLUS( CAST( STRING, CALL( DOT(NAME("stack"), NAME("pop")))), NAME("str")));
 
         List<Complex> hasme = stjx.getUsers( tagName );
 
         if ( !hasme.isEmpty()) {
 
-            Block inner = thnMulti.iff( NOT( CALL( DOT( NAME( "stack"), NAME("empty"))))).thn();
+            Block inner = thnMulti._if( NOT( CALL( DOT( NAME( "stack"), NAME("empty")))))._then();
 
-            inner.fild( TYP("Object"), NAME("peek")).init( CALL( DOT( NAME( "stack"), NAME("peek"))));
+            inner.field( TYP("Object"), NAME("peek")).init( CALL( DOT( NAME( "stack"), NAME("peek"))));
 
             boolean list = false;
             for ( Complex complex : hasme ) {
@@ -145,7 +145,7 @@ public class MultiLine implements Complex {
 
                     String baseClassName = ((EmbeddedListType)complex).getBase().getClassName();
 
-                    inner.iff( INSTANCEOF( NAME("peek"), TYP(baseClassName))).thn().
+                    inner._if( INSTANCEOF( NAME("peek"), TYP(baseClassName)))._then().
                             call( DOT( CALL( DOT( CAST( TYP(baseClassName), NAME("peek")),
                                              GETTER( complex.getClassName() ))),
                                        NAME( "add")), 
@@ -156,8 +156,8 @@ public class MultiLine implements Complex {
 
                     String typeName = complex.getClassName();
 
-                    inner.iff( INSTANCEOF( NAME("peek"), TYP(typeName))).
-                            thn().
+                    inner._if( INSTANCEOF( NAME("peek"), TYP(typeName))).
+                            _then().
                             call( DOT( CAST( TYP(typeName), NAME("peek")),
                                     SETTER( tagName )),
                                     NAME("str"));
@@ -165,8 +165,8 @@ public class MultiLine implements Complex {
             }
 
             if ( list ) {
-                    inner.iff( INSTANCEOF( NAME("peek"), TYP("List"))).
-                            thn().
+                    inner._if( INSTANCEOF( NAME("peek"), TYP("List"))).
+                            _then().
                             call( DOT( CAST( TYPOF("List", STRING), NAME("peek")),
                                        NAME( "add" )),
                                   NAME("str"));

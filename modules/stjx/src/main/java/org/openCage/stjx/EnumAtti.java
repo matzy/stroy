@@ -82,11 +82,11 @@ public class EnumAtti implements Atti {
     public void toFromXMLStart(Block block, String varName) {
         IfStatement ite = block.ifNotNull( CALL( DOT( NAME("attributes"), NAME( "getValue")), STR(name) ));
 
-        ite.thn().call( DOT( NAME("elem"), SETTER(name)),
+        ite._then().call( DOT( NAME("elem"), SETTER(name)),
                         CALL( DOT(NAME( enumName ), NAME("valueOf" )), CALL( DOT( NAME("attributes"), NAME( "getValue")), STR(name) )));
 
         if( !optional ) {
-            ite.els().thrw( TYP("IllegalArgumentException"), varName + ": attribute " + name + " is required"  );
+            ite._else()._throw( TYP("IllegalArgumentException"), varName + ": attribute " + name + " is required"  );
         }
     }
 

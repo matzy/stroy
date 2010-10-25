@@ -86,23 +86,23 @@ public class ListType implements Complex {
     @Override
     public void toFromXMLStart(Block start) {
 
-        Block thn = start.iff( CALL( DOT( NAME( "qName" ), NAME("equals")), STR(name) )).thn();
+        Block thn = start._if( CALL( DOT( NAME( "qName" ), NAME("equals")), STR(name) ))._then();
 
-        thn.iff( CALL( DOT( NAME("stack"), NAME("empty")))).thn().
-                thrwIllegalArgument( STR( name + ": needs to be in complex type"));
+        thn._if( CALL( DOT( NAME("stack"), NAME("empty"))))._then().
+                throwIllegalArgument( STR( name + ": needs to be in complex type"));
 
-        thn.fild( TYP("Object"), NAME("peek")).init( CALL( DOT( NAME("stack"), NAME("peek"))));
+        thn.field( TYP("Object"), NAME("peek")).init( CALL( DOT( NAME("stack"), NAME("peek"))));
 
         List<Complex> users = stjx.getUsers( name );
         for ( Complex comp : users ) {
 
-            thn.iff( INSTANCEOF( NAME("peek"), TYP(comp.getClassName()))).thn().
+            thn._if( INSTANCEOF( NAME("peek"), TYP(comp.getClassName())))._then().
                     call( DOT( NAME("stack"), NAME("push")),
                             CALL( DOT( CAST( TYP(comp.getClassName()), NAME("peek")),
                                        GETTER( name )))).
-                    retrn();
+                    _return();
         }
-        thn.thrwIllegalArgument( PLUS( STR( name + " is not a member of " ), CALL( DOT( NAME("peek"), NAME("getClass")))));
+        thn.throwIllegalArgument( PLUS( STR( name + " is not a member of " ), CALL( DOT( NAME("peek"), NAME("getClass")))));
     }
 
     public boolean uses(String name) {
@@ -138,7 +138,7 @@ public class ListType implements Complex {
 
     @Override
     public void toFromXMLEnd(Block end) {
-        end.iff( CALL( DOT( NAME( "qName" ), NAME("equals")), STR(name) )).thn().
+        end._if( CALL( DOT( NAME( "qName" ), NAME("equals")), STR(name) ))._then().
             assign( NAME("goal"), CALL( DOT( NAME("stack"), NAME("pop"))));
     }
 
@@ -156,18 +156,18 @@ public class ListType implements Complex {
     @Override
     public void toToXML( Clazz clazz ) {
 
-        Mesod mesod = clazz.publc().sttic().method( STRING, "toString" + toFirstUpper(name) );
+        Mesod mesod = clazz._public()._static().method( STRING, "toString" + toFirstUpper(name) );
 
         mesod.arg( STRING, NAME("prefix")).arg( Typ.of("List", TYP(this.of)), NAME(name ));
 
-        mesod.body().iff( CALL( DOT( NAME(name), NAME("isEmpty" )))).
-                thn().retrn( Str.s(""));
+        mesod.body()._if( CALL( DOT( NAME(name), NAME("isEmpty" )))).
+                _then()._return( Str.s(""));
 
         mesod.body().
-                fild( STRING, NAME("ret")).init( NAME("prefix") ).
+                field( STRING, NAME("ret")).init( NAME("prefix") ).
                 assignPlus( NAME("ret"), Exp.s("<" + name + ">\\n"));
 
-        mesod.body().fr( TYP(of), "vr",  NAME( name )).body().
+        mesod.body()._for( TYP(of), "vr",  NAME( name )).body().
                 assignPlus( NAME("ret"), CALL( NAME("toString" + toFirstUpper(ofName)),
                         PLUS( NAME("prefix"), STR("   ")),
                         NAME("vr")) );
@@ -176,7 +176,7 @@ public class ListType implements Complex {
 
         mesod.body().assignPlus( NAME("ret"), PLUS( NAME("prefix"), STR( "</"+name+">\\n" ) ));
 
-        mesod.body().retrn( NAME("ret"));
+        mesod.body()._return( NAME("ret"));
     }
 
 

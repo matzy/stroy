@@ -61,8 +61,8 @@ public class OrType implements Complex {
 
     @Override
     public void toFromXMLStart(Block start) {
-        start.iff( CALL( DOT( NAME( "qName" ), NAME("equals")), STR(tagName) )).thn().
-                retrn();
+        start._if( CALL( DOT( NAME( "qName" ), NAME("equals")), STR(tagName) ))._then().
+                _return();
     }
 
     public boolean uses(String name) {
@@ -116,29 +116,29 @@ public class OrType implements Complex {
 
     @Override
     public void toToXML(Clazz clazz) {
-        Mesod mesod = clazz.publc().sttic().method( Typ.STRING, "toString" + toFirstUpper(className) );
+        Mesod mesod = clazz._public()._static().method( Typ.STRING, "toString" + toFirstUpper(className) );
 
         String arg = Strings.toFirstLower( className );
 
         mesod.arg( STRING, NAME("prefix" )).arg( TYP(className), NAME(arg ));
 
         for ( String ref : alternatives ) {
-            mesod.body().iff( INSTANCEOF( NAME(arg), TYP(ref) )).thn().
-                    retrn( CALL( NAME("toString" + toFirstUpper(ref)),
+            mesod.body()._if( INSTANCEOF( NAME(arg), TYP(ref) ))._then().
+                    _return( CALL( NAME("toString" + toFirstUpper(ref)),
                                    NAME("prefix" ),
                                    CAST( TYP(ref), NAME(arg) )));
         }
 
 
-        mesod.body().thrw( TYP("IllegalStateException"), "no a valid suptype of " + className );
+        mesod.body()._throw( TYP("IllegalStateException"), "no a valid suptype of " + className );
 
 
 //        mesod.arg( Typ.STRING, "prefix" ).arg( Typ.of("List", Typ.s(this.of)), name ).
 //                body().
-//                    fild( Typ.STRING, "ret").init( NameExpr.n("prefix") ).
+//                    field( Typ.STRING, "ret").init( NameExpr.n("prefix") ).
 //                    assignPlus( "ret", Exp.s("<" + name + ">\\n"));
 //
-//        mesod.body().fr( Typ.s(of), "vr",  Exp.n( name )).body().
+//        mesod.body()._for( Typ.s(of), "vr",  Exp.n( name )).body().
 //                assignPlus( "ret", Call.c( "toString" + of,
 //                                                Exp.bi("+", Exp.n("prefix"), Exp.s("   ")),
 //                                                Exp.n("vr")) );
@@ -147,7 +147,7 @@ public class OrType implements Complex {
 //
 //        mesod.body().assignPlus( "ret", Exp.bi( "+", Exp.n("prefix"), Exp.s( "</"+name+">\\n" ) ));
         
-//        mesod.body().retrn( Exp.n("ret "));
+//        mesod.body()._return( Exp.n("ret "));
     }
 
 

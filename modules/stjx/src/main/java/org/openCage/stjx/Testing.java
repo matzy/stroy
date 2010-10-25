@@ -38,7 +38,7 @@
 //                      "   public void hi(){\n" +
 //                      "   }\n" +
 //                      "}\n",
-//                      new Clazz("org.openCage.foo", Typ.s("Duh")).publc().method( "hi").body().retrn(null).toString());
+//                      new Clazz("org.openCage.foo", Typ.s("Duh"))._public().method( "hi").body()._return(null).toString());
 //    }
 //
 //    @Test
@@ -48,14 +48,14 @@
 //                      "public class Duh {\n" +
 //                      "   private Arg huh;\n" +
 //                      "}\n",
-//                      new Clazz("org.openCage.foo", Typ.s("Duh")).privt().fild( Typ.s("Arg"), "huh" ).c().toString());
+//                      new Clazz("org.openCage.foo", Typ.s("Duh"))._privat().field( Typ.s("Arg"), "huh" ).c().toString());
 //    }
 //
 //    @Test
 //    public void testHelloWorld() {
 //
 //        Clazz hr = new Clazz("org.open.hello", Typ.s("HelloWorld")).
-//                        publc().sttic().method( Typ.VOID, "main" ).
+//                        _public()._static().method( Typ.VOID, "main" ).
 //                           arg( Typ.array( "String" ), "args" ).
 //                           body().call("System.out.println", Exp.s("Hello World\\n")).r().c();
 //

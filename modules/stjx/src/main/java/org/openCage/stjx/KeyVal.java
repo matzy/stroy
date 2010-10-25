@@ -74,18 +74,18 @@
 //
 //    @Override
 //    public void toToXML(Clazz clazz) {
-//        Mesod mesod = clazz.publc().sttic().method( Typ.STRING, "toString" + mapName );
+//        Mesod mesod = clazz._public()._static().method( Typ.STRING, "toString" + mapName );
 //
 ////        String lower = Strings.toFirstLower(name);
 //
 //        mesod.arg( Typ.STRING, "prefix" ).arg( Typ.s(mapName), mapName ).
 //                body().
-//                    fild( Typ.STRING, "ret").init( NameExpr.n("prefix") ).
+//                    field( Typ.STRING, "ret").init( NameExpr.n("prefix") ).
 //                    assignPlus( "ret", new Str("<" + mapName + " "));
 //
 //        mesod.body().assignPlus( "ret", Exp.bi( "+", Exp.n("prefix"), Exp.s( "</"+mapName+">\\n" ) ));
 //
-//        mesod.body().retrn( Exp.n("ret "));
+//        mesod.body()._return( Exp.n("ret "));
 //
 //    }
 //

@@ -71,14 +71,14 @@
 //
 //    @Override
 //    public void toToXML(Clazz clazz) {
-//        Mesod mesod = clazz.publc().sttic().method( STRING, "toString" + listName );
+//        Mesod mesod = clazz._public()._static().method( STRING, "toString" + listName );
 //
 //        mesod.arg( STRING, NAME("prefix")).arg( TYPOF("List", STRING), NAME(listName ));
 //
 //        mesod.body().
-//                fild( STRING, NAME("ret"));
+//                field( STRING, NAME("ret"));
 //
-//        mesod.body().fr( STRING, "vr",  NAME(listName)).body().
+//        mesod.body()._for( STRING, "vr",  NAME(listName)).body().
 //                assignPlus( NAME("ret"), CALL( NAME("toString" + listName),
 //                        PLUS( NAME("prefix"), STR("   ")),
 //                        NAME("vr")) );
@@ -87,7 +87,7 @@
 //
 ////         mesod.body().assignPlus( NAME("ret"), PLUS( NAME("prefix"), STR( "</"+name+">\\n" ) ));
 //
-//        mesod.body().retrn( NAME("ret"));
+//        mesod.body()._return( NAME("ret"));
 //    }
 //
 //    @Override
