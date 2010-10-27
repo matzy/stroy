@@ -12,11 +12,11 @@
             <Address page="http://stroy.wikidot.com" shrt="wikidot.com" />
 
             <depends>
-                <ArtifactRef groupId="junit" name="junit" scope="test" />
-                <ArtifactRef groupId="openCage" name="openCage-lang" scope="compile" />
-                <ArtifactRef groupId="openCage" name="openCage-io" scope="compile" />
-                <ArtifactRef groupId="openCage" name="artig-lib" scope="compile" />
-                <ArtifactRef groupId="com.google.inject" name="guice" scope="compile" />
+                <ArtifactRef name="junit" scope="test" />
+                <ArtifactRef name="openCage-lang" scope="compile" />
+                <ArtifactRef name="openCage-io" scope="compile" />
+                <ArtifactRef name="artig" scope="compile" />
+                <ArtifactRef name="guice" scope="compile" />
             </depends>
         </Artifact>
     </Module>

@@ -17,7 +17,7 @@
                 <ArtifactRef name="junit" scope="test" />
                 <ArtifactRef name="openCage-lang" scope="compile" />
                 <ArtifactRef name="openCage-appstd" scope="compile" />
-                <ArtifactRef name="artig-lib" scope="compile" />
+                <ArtifactRef name="artig" scope="compile" />
                 <ArtifactRef name="xstream" scope="compile" />
                 <ArtifactRef name="commons-io" scope="compile" />
 

@@ -3,10 +3,7 @@ package org.openCage.io;
 import org.openCage.io.fspath.FSPath;
 import org.openCage.lang.errors.Unchecked;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 
 /***** BEGIN LICENSE BLOCK *****
  * Version: MPL 1.1
@@ -51,6 +48,15 @@ public class IOUtils {
         }
     }
 
+    private static void closeQuietly(FileOutputStream out) {
+        if ( out != null ) {
+            try {
+                out.close();
+            } catch (IOException e) {
+            }
+        }
+    }
+
     public static void ensurePath( FSPath path ) {
         ensurePath( path.toFile() );
     }
@@ -67,13 +73,44 @@ public class IOUtils {
         } catch (IOException e) {
             throw Unchecked.wrap( e );
         }
-
     }
 
     public static String getJarLocation( Class classFromJar ) {
         return classFromJar.getProtectionDomain().getCodeSource().getLocation().getFile();
     }
 
+    public static void copy( InputStream in, FSPath file ) {
+        copy( in, file.toFile() );
+    }
+    public static void copy( File in, File out ) {
+        try {
+            copy( new FileInputStream( in), out );
+        } catch (FileNotFoundException e) {
+            throw Unchecked.wrap( e );
+        }
+    }
+
+    public static void copy( InputStream in, File file ) {
+        FileOutputStream out = null;
+        try {
+            out = new FileOutputStream( file );
+
+            // Transfer bytes from in to out
+            byte[] buf = new byte[1024];
+            int len;
+            while ((len = in.read(buf)) > 0) {
+                out.write(buf, 0, len);
+            }
+        } catch (FileNotFoundException e) {
+            throw Unchecked.wrap( e );
+        } catch (IOException e) {
+            throw Unchecked.wrap( e );
+        } finally {
+            closeQuietly( in);
+            closeQuietly( out );
+        }
+
+    }
 
 
 }

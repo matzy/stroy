@@ -10,7 +10,6 @@
             <ModuleRef name="localization"/>
             <ModuleRef name="osashosa"/>
             <ModuleRef name="property"/>
-            <ModuleRef name="stjx"/>
             <ModuleRef name="ui"/>
             <ModuleRef name="vfs-sandbox"/>
         </modules>
@@ -46,7 +45,7 @@
                 <Address page="https://args4j.dev.java.net" shrt="dev.java.net" />
             </Artifact>
 
-            <Artifact name="artig-lib"
+            <Artifact name="artig"
                     groupId="openCage"
                     version="0.2"
                     description="project description classes. Needed for artig and others"
@@ -56,7 +55,6 @@
                     <Author name="Stephan Pfab" email="openCage@gmail.com"/>
                 </authors>
                 <Address page="http://stroy.wikidot.com/elephants" shrt="wikidot.com" />
-                <!--<Email email="openCage@gmail.com"/> support -->
 
                 <depends>
                     <ArtifactRef groupId="junit" name="junit" scope="test" />
