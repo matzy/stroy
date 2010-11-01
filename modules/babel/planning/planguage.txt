@@ -1,0 +1,26 @@
+req:
+
+  easy to use (strong wish)
+     should use interface / methods
+  should be type safe
+  should allow language switching
+  should allow reuse
+  should be one class to use
+  should guarantee fallback, i.e. every keyword must have a answer
+  may allow language selection order
+  may send messages on language change
+  want extensiablity (users should be able to add to bundles)
+
+  must provide for standard strings, menues ...
+
+    need schema for bundles key names
+     e.g. org.... uppercase lowercase
+
+has:
+    resourcebundle: combines several languages for one key word, java std
+                    language selection order, not configurable
+                    uses keyword strings
+
+
+
+    locale
