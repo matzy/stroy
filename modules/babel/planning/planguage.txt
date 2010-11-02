@@ -9,7 +9,7 @@ req:
   should guarantee fallback, i.e. every keyword must have a answer
   may allow language selection order
   may send messages on language change
-  want extensiablity (users should be able to add to bundles)
+  want extensibility (users should be able to add to bundles)
 
   must provide for standard strings, menues ...
 
@@ -20,6 +20,10 @@ has:
     resourcebundle: combines several languages for one key word, java std
                     language selection order, not configurable
                     uses keyword strings
+
+                    get( keyword ) selects value based on a java buildin algorithm based on wiring the
+                    locale bundles into a tree
+                    this structure can be changed on load (i.e. once) with custom ResourceBundle.Control classes
 
 
 
