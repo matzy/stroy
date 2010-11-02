@@ -75,6 +75,34 @@ public class TestBundles {
         for ( String key : de.keySet() ){
             System.out.println(key);
         }
+    }
 
+    public static class Ctrl extends  ResourceBundle.Control {
+        private boolean first = true;
+
+        @Override
+        public List<Locale> getCandidateLocales(String baseName, Locale locale) {
+            if ( first ) {
+                return Arrays.asList( Locale.ENGLISH, Locale.ROOT );        
+            }
+
+            return Arrays.asList( Locale.GERMAN, Locale.ROOT );
+        }
+
+        public void second() {
+            first = false;
+        }
+    }
+
+    @Test
+    public void testChangeControl() {
+        Ctrl ctrl = new Ctrl();
+                
+        ResourceBundle rs = ResourceBundle.getBundle( "org.openCage.babel.testbundle", new Locale("de"), ctrl );
+
+        assertEquals( "eee", rs.getString( "everywhere"));
+
+        ctrl.second();
+        //assertEquals( "sss", rs.getString( "everywhere")); nop
     }
 }
