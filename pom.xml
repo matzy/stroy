@@ -13,14 +13,12 @@
    <name>stroy</name>
     <modules>
       <module>modules/appstd</module>
+      <module>modules/babel</module>
       <module>modules/fausterize</module>
-      <module>modules/generj</module>
       <module>modules/io</module>
       <module>modules/lang</module>
       <module>modules/localization</module>
-      <module>modules/osashosa</module>
       <module>modules/property</module>
-      <module>modules/stjx</module>
       <module>modules/ui</module>
       <module>modules/vfs-sandbox</module>
     </modules>
