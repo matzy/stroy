@@ -34,7 +34,7 @@ public class TestLocalePreference {
         final Counter counter = new Counter();
         final List<Locale> next = Arrays.asList( Locale.TAIWAN, Locale.GERMAN );
 
-        lp.listeners.add( new F1<Void, List<Locale>>() {
+        lp.getListenerControl().add( new F1<Void, List<Locale>>() {
             @Override
             public Void call(List<Locale> locales) {
                 counter.up();

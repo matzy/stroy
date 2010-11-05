@@ -14,7 +14,7 @@ public class BabelBundle {
 
     public BabelBundle( final String bundleLocation, LocalePreference lpref ) {
         this.bundleLocation = bundleLocation;
-        lpref.listeners.add( new F1<Void, List<Locale>>() {
+        lpref.getListenerControl().add( new F1<Void, List<Locale>>() {
             @Override public Void call(List<Locale> locales) {
                 change( locales );
                 return null;

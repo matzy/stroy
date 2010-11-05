@@ -52,15 +52,15 @@ public class URLSelector {
 
             JPanel top = new JPanel();
             DesignGridLayout layout = new DesignGridLayout( top );
-            top.setLayout( layout );
+//            top.setLayout( layout );
 
-            layout.emptyRow( 10 );
-            layout.centerRow().add( new JLabel( "Select a File or Web Document (pdf,mp3...)" ));
-            layout.emptyRow( 5 );
-            layout.row().add(  filePath );
-            layout.row().add( getFile).add( getWeb ).add( new JLabel(" "),3);
-            layout.emptyRow( 10 );
-            layout.row().add( new JLabel(" "),5).add( ok );
+//            layout.emptyRow( 10 );
+//            layout.centerRow().add( new JLabel( "Select a File or Web Document (pdf,mp3...)" ));
+//            layout.emptyRow( 5 );
+//            layout.row().add(  filePath );
+//            layout.row().add( getFile).add( getWeb ).add( new JLabel(" "),3);
+//            layout.emptyRow( 10 );
+//            layout.row().add( new JLabel(" "),5).add( ok );
 
 
             getContentPane().setLayout( new BorderLayout());
