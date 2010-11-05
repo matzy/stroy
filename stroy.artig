@@ -4,11 +4,11 @@
             <ModuleRef name="appstd"/>
             <!--<ModuleRef name="artig-lib"/>-->
             <!--<ModuleRef name="artig2"/>-->
+            <ModuleRef name="babel"/>
             <ModuleRef name="fausterize"/>
             <ModuleRef name="io"/>
             <ModuleRef name="lang"/>
             <ModuleRef name="localization"/>
-            <ModuleRef name="osashosa"/>
             <ModuleRef name="property"/>
             <ModuleRef name="ui"/>
             <ModuleRef name="vfs-sandbox"/>
@@ -110,13 +110,13 @@
 
             <Artifact name="designgridlayout"
                       groupId="net.java.dev.designgridlayout"
-                    version="0.9"
+                    version="1.4"
                     description="Swing layout manager based on the use of canonical grids for user interface design."
                     licence="Apache2">
                 <Address page="https://designgridlayout.dev.java.net" shrt="dev.java.net" />
-                <depends>
-                    <ArtifactRef name="swing-layout" scope="compile"/>
-                </depends>
+                <!--<depends>-->
+                    <!--<ArtifactRef name="swing-layout" scope="compile"/>-->
+                <!--</depends>-->
             </Artifact>
 
             <Artifact name="forms"
@@ -186,6 +186,26 @@
                 </depends>
 
             </Artifact>
+
+            <Artifact name="osashosa"
+                    groupId="openCage"
+                    version="0.2"
+                    description="tiny dropin replacement for guice 2.0"
+                    licence="BSD">
+                <Java min="6"/>
+                <authors>
+                    <Author name="Stephan Pfab" email="openCage@gmail.com"/>
+                </authors>
+                <Address page="http://stroy.wikidot.com/osashosa" shrt="wikidot.com" />
+                <DropInFor>
+                    <ArtifactRef name="guice" />
+                </DropInFor>
+
+                <depends>
+                    <ArtifactRef name="junit" scope="test" />
+                </depends>
+            </Artifact>
+            
 
 
             <Artifact  name="preferencepanel"
