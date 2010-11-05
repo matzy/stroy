@@ -24,6 +24,8 @@ package org.openCage.lang.structure;
 
 public class Lexicographical {
 
+    private Lexicographical() {}
+
     public static <A extends Comparable<A>, B extends Comparable<B>> int compareTo( A a1, A a2, B b1, B b2 ) {
 
         int aa = a1.compareTo(a2);

@@ -31,26 +31,26 @@ import org.openCage.ui.protocol.AboutSheet;
 import org.openCage.ui.protocol.GlobalKeyEventHandler;
 
 /***** BEGIN LICENSE BLOCK *****
- * Version: MPL 1.1
- *
- * The contents of this file are subject to the Mozilla Public License Version
- * 1.1 (the "License"); you may not use this file except in compliance with
- * the License. You may obtain a copy of the License at
- * http://www.mozilla.org/MPL/
- *
- * Software distributed under the License is distributed on an "AS IS" basis,
- * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
- * for the specific language governing rights and limitations under the
- * License.
- *
- * The Original Code is stroy code.
- *
- * The Initial Developer of the Original Code is Stephan Pfab <openCage@gmail.com>.
- * Portions created by Stephan Pfab are Copyright (C) 2006 - 2010.
- * All Rights Reserved.
- *
- * Contributor(s):
- ***** END LICENSE BLOCK *****/
+* Version: MPL 1.1
+*
+* The contents of this file are subject to the Mozilla Public License Version
+* 1.1 (the "License"); you may not use this file except in compliance with
+* the License. You may obtain a copy of the License at
+* http://www.mozilla.org/MPL/
+*
+* Software distributed under the License is distributed on an "AS IS" basis,
+* WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+* for the specific language governing rights and limitations under the
+* License.
+*
+* The Original Code is stroy code.
+*
+* The Initial Developer of the Original Code is Stephan Pfab <openCage@gmail.com>.
+* Portions created by Stephan Pfab are Copyright (C) 2006 - 2010.
+* All Rights Reserved.
+*
+* Contributor(s):
+***** END LICENSE BLOCK *****/
 
 public class AboutSheetFromApplication extends JDialog implements AboutSheet {
 
@@ -72,117 +72,117 @@ public class AboutSheetFromApplication extends JDialog implements AboutSheet {
     }
 
     private void build() {
-        setTitle( app.getName() );
-        setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
-        setBounds( 20, 20,400, 200 );
-
-        JPanel top = new JPanel();
-        DesignGridLayout layout = new DesignGridLayout( top );
-        top.setLayout( layout );
-
-        JLabel pic = new JLabel();
-        //pic.setIcon( deployed.getIcon()); TODO
-        layout.row().add( pic );
-        layout.row().label( new JLabel("    ")).add( new JLabel("  "));
-
-        layout.row().add( newLabel( app.getName() ));
-        layout.row().label( newIntro( localize.localize("org.openCage.localization.dict.version"))).add( newLabel( app.getVersion() ));
-//        layout.row().label( new JLabel( localize.localize( "About.copyright" ))).add( new JLabel( app.getCopyright() ), 3 );
-
-        if ( app.getDescription() != null ) {
-            layout.row().label( newIntro( localize.localize( "application.about.short" ))).add( newLabel( app.getDescription()), 6 );
-        }
-
-        layout.row().label( newIntro( localize.localize("org.openCage.localization.dict.licence"))).add( newLabel( app.getLicence()), 6 ); // TODO address?
-
-//        layout.row().label( new JLabel( localize.localize("org.openCage.localization.dict.help")))/*.add( new JLabel(""), 3 )*/.add( help ).add( new JLabel(""), 5 );
-
-
-        String str = "";
-        for ( Count<? extends Author> author : Count.count(app.getAuthors()) ) {
-            str += author.obj().getName();
-
-            if ( !author.isLast() ) {
-                str += "; ";
-            }
-        }
-        if ( !Strings.isEmpty(str )) {
-            layout.row().label( newIntro( localize.localize("org.openCage.localization.dict.author"))).add( newLabel( str ) );
-        }
-
-
-        str = "";
-        for ( Count<? extends Author> author : Count.count(app.getContributors()) ) {
-            str += author.obj().getName();
-
-            if ( !author.isLast() ) {
-                str += "; ";
-            }
-        }
-
-        if ( !Strings.isEmpty(str )) {
-            layout.row().label( newIntro( localize.localize("org.openCage.localization.dict.contributors"))).add( newLabel( str ) );
-        }
-
-        layout.row().label( new JLabel("    ")).add( new JLabel("  "));
-
-
-//        JButton help = new JButton( ".." );
-//        layout.row().label( newIntro( localize.localize("org.openCage.localization.dict.help"))).add( newLabel( "stroy.wikidot.com" ), 5 ).add( help );
-
-        final String email = app.getSupport();
-        JButton emailButton = new JButton( ".." );
-        if ( email != null ) {
-            layout.row().label( newIntro( localize.localize( "About.contact" ))).add( newLabel( email ), 5 ).add( emailButton );
-        }
-
-
-        emailButton.addActionListener( new ActionListener() {
-            public void actionPerformed(ActionEvent actionEvent) {
-                try {
-                    new BrowseTmp().browse( new URI( "mailto:" + email ));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        final Address page = app.getAddress();
-        JButton web = new JButton( ".." );
-        if ( page != null ) {
-            layout.row().label( newIntro( localize.localize("org.openCage.localization.dict.web"))).add( newLabel( page.getShrt() ), 5 ).add( web);
-        }
-
-        layout.row().label( new JLabel("    ")).add( new JLabel("  "));
-        layout.row().label( newIntro( "used software and their licences" )).add( newLabel(""));
-
-
-
-        web.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e ) {
-                try {
-                    new BrowseTmp().browse( new URI(page.getPage()) ); // TODO check
-//                    BrowserLauncher.displayURL( "http://stroy.wikidot.com/start" );
-                } catch (Exception exp ) {
-                    exp.printStackTrace();
-                }
-            }
-        } );
-
-//        help.addActionListener( new ActionListener() {
+//        setTitle( app.getName() );
+//        setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
+//        setBounds( 20, 20,400, 200 );
+//
+//        JPanel top = new JPanel();
+//        DesignGridLayout layout = new DesignGridLayout( top );
+//        top.setLayout( layout );
+//
+//        JLabel pic = new JLabel();
+//        //pic.setIcon( deployed.getIcon()); TODO
+//        layout.row().add( pic );
+//        layout.row().label( new JLabel("    ")).add( new JLabel("  "));
+//
+//        layout.row().add( newLabel( app.getName() ));
+//        layout.row().label( newIntro( localize.localize("org.openCage.localization.dict.version"))).add( newLabel( app.getVersion() ));
+////        layout.row().label( new JLabel( localize.localize( "About.copyright" ))).add( new JLabel( app.getCopyright() ), 3 );
+//
+//        if ( app.getDescription() != null ) {
+//            layout.row().label( newIntro( localize.localize( "application.about.short" ))).add( newLabel( app.getDescription()), 6 );
+//        }
+//
+//        layout.row().label( newIntro( localize.localize("org.openCage.localization.dict.licence"))).add( newLabel( app.getLicence()), 6 ); // TODO address?
+//
+////        layout.row().label( new JLabel( localize.localize("org.openCage.localization.dict.help")))/*.add( new JLabel(""), 3 )*/.add( help ).add( new JLabel(""), 5 );
+//
+//
+//        String str = "";
+//        for ( Count<? extends Author> author : Count.count(app.getAuthors()) ) {
+//            str += author.obj().getName();
+//
+//            if ( !author.isLast() ) {
+//                str += "; ";
+//            }
+//        }
+//        if ( !Strings.isEmpty(str )) {
+//            layout.row().label( newIntro( localize.localize("org.openCage.localization.dict.author"))).add( newLabel( str ) );
+//        }
+//
+//
+//        str = "";
+//        for ( Count<? extends Author> author : Count.count(app.getContributors()) ) {
+//            str += author.obj().getName();
+//
+//            if ( !author.isLast() ) {
+//                str += "; ";
+//            }
+//        }
+//
+//        if ( !Strings.isEmpty(str )) {
+//            layout.row().label( newIntro( localize.localize("org.openCage.localization.dict.contributors"))).add( newLabel( str ) );
+//        }
+//
+//        layout.row().label( new JLabel("    ")).add( new JLabel("  "));
+//
+//
+////        JButton help = new JButton( ".." );
+////        layout.row().label( newIntro( localize.localize("org.openCage.localization.dict.help"))).add( newLabel( "stroy.wikidot.com" ), 5 ).add( help );
+//
+//        final String email = app.getSupport();
+//        JButton emailButton = new JButton( ".." );
+//        if ( email != null ) {
+//            layout.row().label( newIntro( localize.localize( "About.contact" ))).add( newLabel( email ), 5 ).add( emailButton );
+//        }
+//
+//
+//        emailButton.addActionListener( new ActionListener() {
 //            public void actionPerformed(ActionEvent actionEvent) {
-//                HelpLauncher.showHelp();
+//                try {
+//                    new BrowseTmp().browse( new URI( "mailto:" + email ));
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
 //            }
 //        });
-
-        getContentPane().setLayout( new BorderLayout());
-        getContentPane().add( top, BorderLayout.CENTER  );
-
-        JScrollPane scrollLice = new JScrollPane( getLicenceComponent() );
-
-        getContentPane().add( scrollLice, BorderLayout.SOUTH  );
-
-        pack();
+//
+//        final Address page = app.getAddress();
+//        JButton web = new JButton( ".." );
+//        if ( page != null ) {
+//            layout.row().label( newIntro( localize.localize("org.openCage.localization.dict.web"))).add( newLabel( page.getShrt() ), 5 ).add( web);
+//        }
+//
+//        layout.row().label( new JLabel("    ")).add( new JLabel("  "));
+//        layout.row().label( newIntro( "used software and their licences" )).add( newLabel(""));
+//
+//
+//
+//        web.addActionListener( new ActionListener() {
+//            public void actionPerformed( ActionEvent e ) {
+//                try {
+//                    new BrowseTmp().browse( new URI(page.getPage()) ); // TODO check
+////                    BrowserLauncher.displayURL( "http://stroy.wikidot.com/start" );
+//                } catch (Exception exp ) {
+//                    exp.printStackTrace();
+//                }
+//            }
+//        } );
+//
+////        help.addActionListener( new ActionListener() {
+////            public void actionPerformed(ActionEvent actionEvent) {
+////                HelpLauncher.showHelp();
+////            }
+////        });
+//
+//        getContentPane().setLayout( new BorderLayout());
+//        getContentPane().add( top, BorderLayout.CENTER  );
+//
+//        JScrollPane scrollLice = new JScrollPane( getLicenceComponent() );
+//
+//        getContentPane().add( scrollLice, BorderLayout.SOUTH  );
+//
+//        pack();
 
 
     }

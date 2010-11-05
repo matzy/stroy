@@ -55,7 +55,7 @@
       </dependency>
       <dependency>
          <groupId>openCage</groupId>
-         <artifactId>artig-lib</artifactId>
+         <artifactId>artig</artifactId>
          <version>0.2</version>
          <scope>compile</scope>
       </dependency>

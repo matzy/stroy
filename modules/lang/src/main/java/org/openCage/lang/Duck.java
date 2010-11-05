@@ -23,6 +23,8 @@ package org.openCage.lang;
 ***** END LICENSE BLOCK *****/
 public class Duck {
 
+    private Duck() {}
+
     public static <T> T duck( Class<T> interf, Object obj ) {
 
         return DuckType.coerce( obj ).to( interf );

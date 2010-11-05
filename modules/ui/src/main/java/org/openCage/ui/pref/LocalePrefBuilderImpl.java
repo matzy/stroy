@@ -59,11 +59,11 @@ public class LocalePrefBuilderImpl implements PrefBuilder {
             JComboBox countryBox    = new JComboBox(adapter);
 
             DesignGridLayout layout = new DesignGridLayout( this );
-            setLayout( layout );
+//            setLayout( layout );
 
-            layout.row().label( new JLabel( localize.localize("org.openCage.localization.dict.language" )) ).add( countryBox );
-            layout.row().add( new JLabel(""));
-            layout.row().add( new JLabel( localize.localize( "org.openCage.ui.languageWarning" )));
+//            layout.row().label( new JLabel( localize.localize("org.openCage.localization.dict.language" )) ).add( countryBox );
+//            layout.row().add( new JLabel(""));
+//            layout.row().add( new JLabel( localize.localize( "org.openCage.ui.languageWarning" )));
 
         }
     }

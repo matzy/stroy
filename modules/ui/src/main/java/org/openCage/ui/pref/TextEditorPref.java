@@ -91,9 +91,9 @@ public class TextEditorPref implements PrefBuilder {
 
 
             DesignGridLayout layout = new DesignGridLayout( this );
-            setLayout( layout );
+//            setLayout( layout );
 
-            layout.row().label( new JLabel( localize.localize("org.openCage.ui.caretType") )).add( caretBox );
+  //          layout.row().label( new JLabel( localize.localize("org.openCage.ui.caretType") )).add( caretBox );
         }
 
 

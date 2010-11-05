@@ -3,9 +3,7 @@ package org.openCage.lang;
 import org.junit.Test;
 import org.openCage.lang.functions.F1;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import static junit.framework.Assert.assertEquals;
 
@@ -47,7 +45,7 @@ public class StringsTest {
         assertEquals( "pre1, 2, 3", Strings.join( ints ).prefix("pre").toString());
 
         assertEquals( "", Strings.join( new ArrayList<Integer>()).prefix("pre").toString());
-        assertEquals( "", Strings.join( null).prefix("pre").toString());
+//        assertEquals( "", Strings.join( null).prefix("pre").toString());
     }
 
     @Test
@@ -88,5 +86,24 @@ public class StringsTest {
             }
         }).postfix("wohahah").toString());
 
+    }
+
+    @Test
+    public void testArray() {
+        String[] strs = new String[3];
+        strs[0] = "a";
+        strs[1] = "b";
+        strs[2] = "c";
+
+        assertEquals( "a, b, c", Strings.join( strs ).toString() );
+    }
+
+    @Test
+    public void testSet() {
+        Set<String> set = new HashSet<String>();
+        set.add("a");
+        set.add("b");
+
+        assertEquals( "a, b", Strings.join( set ).order().toString());
     }
 }
