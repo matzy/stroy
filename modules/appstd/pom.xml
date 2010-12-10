@@ -6,57 +6,37 @@
    <artifactId>openCage-appstd</artifactId>
    <version>0.1</version>
 
-    <repositories>
-        <repository>
-            <id>openCage-repo</id>
-            <name>openCage-repo</name>
-            <url>file://${basedir}/../../repo</url>
-        </repository>
-    </repositories>
+      <parent>
+        <groupId>openCage</groupId>
+        <artifactId>stroy</artifactId>
+        <version>1.0</version>
+        <relativePath>../..</relativePath>
+    </parent>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.2</version>
-               <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
-                </configuration>
-           </plugin>
-
-        </plugins>
-    </build>
    <dependencies>
       <dependency>
          <groupId>junit</groupId>
          <artifactId>junit</artifactId>
-         <version>4.8.1</version>
-         <scope>test</scope>
+          <scope>test</scope>
       </dependency>
       <dependency>
          <groupId>openCage</groupId>
          <artifactId>openCage-lang</artifactId>
-         <version>0.4</version>
          <scope>compile</scope>
       </dependency>
       <dependency>
          <groupId>openCage</groupId>
          <artifactId>openCage-io</artifactId>
-         <version>0.3</version>
          <scope>compile</scope>
       </dependency>
       <dependency>
          <groupId>openCage</groupId>
          <artifactId>artig</artifactId>
-         <version>0.2</version>
          <scope>compile</scope>
       </dependency>
       <dependency>
          <groupId>openCage</groupId>
          <artifactId>osashosa</artifactId>
-         <version>0.2</version>
          <scope>compile</scope>
       </dependency>
    </dependencies>

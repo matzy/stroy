@@ -16,6 +16,7 @@ import static junit.framework.Assert.assertEquals;
  */
 public class FaustStringTest {
 
+
     @Test
     public void testRoundTrip() throws URISyntaxException {
         FaustString ds = new FaustString();
