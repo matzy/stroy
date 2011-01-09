@@ -9,8 +9,8 @@ import net.java.dev.designgridlayout.DesignGridLayout;
 import org.fife.ui.rtextarea.ConfigurableCaret;
 import org.openCage.lang.functions.F1;
 import org.openCage.lang.structure.BiMap;
-import org.openCage.localization.Localize;
 import org.openCage.property.Property;
+import org.openCage.ui.CombinedBabel;
 import org.openCage.ui.pref.CaretStyleProperty;
 import org.openCage.ui.protocol.PrefBuilder;
 
@@ -44,11 +44,11 @@ import java.util.ArrayList;
  */
 public class TextEditorPref implements PrefBuilder {
 
-    private Localize localize;
+    private CombinedBabel localize;
     private Property<Integer> cursorStyle;
 
     @Inject
-    public TextEditorPref( @Named( "ui" ) Localize localize,
+    public TextEditorPref( CombinedBabel localize,
                            @Named( CaretStyleProperty.KEY ) Property<Integer> cursorStyle ) {
         this.localize = localize;
         this.cursorStyle = cursorStyle;

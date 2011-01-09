@@ -6,8 +6,6 @@ import com.google.inject.Singleton;
 import com.google.inject.TypeLiteral;
 import com.google.inject.name.Names;
 import com.muchsoft.util.Sys;
-import org.openCage.localization.Localize;
-import org.openCage.localization.wiring.LocalizeWiring;
 import org.openCage.property.Property;
 import org.openCage.ui.impl.FileChooserGeneral;
 import org.openCage.ui.impl.FileChooserOSX;
@@ -59,10 +57,10 @@ public class UIWiring implements Module {
     @Override
     public void configure(Binder binder) {
 
-        binder.install( new LocalizeWiring());
+//        binder.install( new LocalizeWiring());
 
-        binder.bind(Localize.class).
-                annotatedWith(Names.named(UI)).toProvider(UILocalizeProvider.class);
+//        binder.bind(Localize.class).
+//                annotatedWith(Names.named(UI)).toProvider(UILocalizeProvider.class);
 
         if (Sys.isMacOSX()) {
             binder.bind(FileChooser.class).to(FileChooserOSX.class);

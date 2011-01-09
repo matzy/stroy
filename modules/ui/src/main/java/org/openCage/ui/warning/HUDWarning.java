@@ -5,7 +5,7 @@ import com.explodingpixels.macwidgets.HudWindow;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import org.jetbrains.annotations.NotNull;
-import org.openCage.localization.Localize;
+import org.openCage.ui.CombinedBabel;
 import org.openCage.ui.Constants;
 import org.openCage.ui.protocol.GlobalKeyEventHandler;
 
@@ -26,22 +26,22 @@ import java.awt.event.ActionListener;
  */
 public class HUDWarning {
 
-    private final Localize localize;
+    private final CombinedBabel localize;
     private final GlobalKeyEventHandler keyEventHandler;
 
-    @Inject public HUDWarning( @Named(Constants.UI) Localize localize, GlobalKeyEventHandler keyEventHandler ) {
+    @Inject public HUDWarning( CombinedBabel localize, GlobalKeyEventHandler keyEventHandler ) {
         this.localize = localize;
         this.keyEventHandler = keyEventHandler;
     }
     
     public void show( @NotNull String message ) {
 
-        final HudWindow hud = new HudWindow( localize.localize( "org.openCage.localization.dict.warning") );
+        final HudWindow hud = new HudWindow( localize.ui.get( "Warning") );
         hud.getJDialog().setSize(500, 120 );
         hud.getJDialog().setLocationRelativeTo(null);
         hud.getJDialog().setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         JLabel label = HudWidgetFactory.createHudLabel( message );
-        JButton button = HudWidgetFactory.createHudButton( localize.localize( "org.openCage.localization.dict.close"));
+        JButton button = HudWidgetFactory.createHudButton( localize.ui.get("Close"));
         Icon icon = new ImageIcon( getClass().getResource( "warning.png" ));
         JLabel pic = new JLabel("");
         pic.setIcon( icon );

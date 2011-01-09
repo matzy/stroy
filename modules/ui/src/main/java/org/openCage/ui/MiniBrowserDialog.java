@@ -1,7 +1,6 @@
 package org.openCage.ui;
 
 import org.openCage.lang.structure.BFStack;
-import org.openCage.localization.Localize;
 import org.openCage.ui.warning.HUDWarning;
 
 import java.awt.BorderLayout;
@@ -55,10 +54,10 @@ public class MiniBrowserDialog extends JDialog implements HyperlinkListener {
     private Pattern pics = Pattern.compile( ".*\\.(gif|jpg|jpeg|png)" );
     private Pattern docs = Pattern.compile( ".*\\.(pdf|avi|mpeg3|mp3|doc)" );
     private HUDWarning warn;
-    private Localize localize;
+    private CombinedBabel localize;
 
     // Constructor for Mini Web Browser.
-    public MiniBrowserDialog(Localize loc, HUDWarning hudwarning, Dialog parent) {
+    public MiniBrowserDialog(CombinedBabel loc, HUDWarning hudwarning, Dialog parent) {
         super( parent,true );
 
         warn = hudwarning;

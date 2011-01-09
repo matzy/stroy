@@ -7,8 +7,7 @@ import com.jgoodies.binding.beans.PropertyAdapter;
 import com.jgoodies.binding.value.ValueModel;
 import net.java.dev.designgridlayout.DesignGridLayout;
 import org.openCage.lang.errors.Unchecked;
-import org.openCage.localization.Localize;
-import org.openCage.localization.impl.TheLocaleLocalized;
+import org.openCage.ui.CombinedBabel;
 import org.openCage.ui.protocol.PrefBuilder;
 
 import javax.swing.AbstractButton;
@@ -47,7 +46,7 @@ import java.util.List;
  */
 public class LocalePrefBuilderImpl implements PrefBuilder {
 
-    private final Localize localize;
+    private final CombinedBabel localize;
     private TheLocaleLocalized localized;
 
     private class LocalePref extends JPanel {
@@ -69,7 +68,7 @@ public class LocalePrefBuilderImpl implements PrefBuilder {
     }
 
     @Inject
-    public LocalePrefBuilderImpl( @Named( "ui" ) Localize localize, TheLocaleLocalized localized) {
+    public LocalePrefBuilderImpl( CombinedBabel localize, TheLocaleLocalized localized) {
 
         this.localize = localize;
         this.localized = localized;
