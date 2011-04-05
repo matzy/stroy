@@ -51,9 +51,9 @@
 
     <distributionManagement>
         <repository>
-            <id>my-nexus</id>
-            <name>my-nexus</name>
-            <url>file://${basedir}/../../../../repo</url>
+            <id>my-repo</id>
+            <name>my-repo</name>
+            <url>file://${basedir}/../../../../../../repo</url>
         </repository>
     </distributionManagement>
 
