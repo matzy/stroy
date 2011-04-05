@@ -1,0 +1,21 @@
+<Artig version="0.1">
+    <Module>
+        <Artifact name="generj"
+                groupId="openCage"
+                version="0.3"
+                description="fluent java source code generation"
+                licence="BSD">
+            <Java min="6"/>
+            <authors>
+                <Author name="Stephan Pfab" email="openCage@gmail.com"/>
+            </authors>
+            <Address page="http://stroy.wikidot.com/generj" shrt="wikidot.com" />
+<!-- 0.2 int expression -->
+            <depends>
+                <ArtifactRef groupId="junit" name="junit" scope="test" />
+                <ArtifactRef groupId="openCage" name="openCage-lang" scope="compile" />
+            </depends>
+        </Artifact>
+    </Module>
+
+</Artig>

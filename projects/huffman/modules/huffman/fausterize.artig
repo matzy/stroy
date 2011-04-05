@@ -1,0 +1,61 @@
+<Artig version="0.1">
+    <Module>
+        <Artifact name="fausterize"
+                groupId="openCage"
+                version="0.10"
+                licence="MPL1.1"
+                description="A simple encrypting texteditor using one-time pads"
+                support="openCage@gmail.com">
+            <Java min="6"/>
+            <authors>
+                <Author name="Stephan Pfab" email="openCage@gmail.com"/>
+            </authors>
+            <contributors>
+                <Author name="Misa Inabe" />
+                <Author name="Miguel Cuadron Marion" />
+                <Author name="Johann Wolfgang von Goethe (via Project Guttenberg)" />
+                <Author name="Scott Schulz" />
+            </contributors>
+            <Address page="http://stroy.wikidot.com" shrt="wikidot.com" />
+
+            <FullDescription>
+Fausterize is a simple encrypting texteditor.
+It uses one-time pads to provide secure encryption with an easy password scheme.
+You can use any file as passwd. The file can/should be from the net and not your computer.                
+            </FullDescription>
+
+            <languages>
+                <Language name="English" />
+                <Language name="German" />
+                <Language name="Japanese" />
+            </languages>
+
+            <depends>
+                <ArtifactRef name="args4j" scope="compile" />
+                <ArtifactRef name="commons-io" scope="compile" />
+                <ArtifactRef name="guice" scope="compile" />
+                <ArtifactRef name="RSyntaxTextArea" scope="compile" />
+                <ArtifactRef name="mime-util" scope="compile" />
+
+                <ArtifactRef name="openCage-appstd" scope="compile" />
+                <ArtifactRef name="openCage-lang" scope="compile" />
+                <ArtifactRef name="openCage-io" scope="compile" />
+                <ArtifactRef name="openCage-ui" scope="compile" />
+                <ArtifactRef name="openCage-localization" scope="compile" />
+                <ArtifactRef name="openCage-property" scope="compile" />
+
+
+
+                <ArtifactRef groupId="junit" name="junit" scope="test" />
+            </depends>
+        </Artifact>
+
+        <App mainClass="org.openCage.gpad.UIMain">
+            <Download
+                screenshot="http://stroy.wikidot.com/local--files/screenshots/fausterize-0.6.png"
+                icon="http://stroy.wikidot.com/local--files/screenshots/faust-small.png"
+                download="http://stroy.wikidot.com/local--files/download"/>
+        </App>
+    </Module>
+
+</Artig>

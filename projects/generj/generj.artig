@@ -1,0 +1,111 @@
+<Artig version="0.1">
+    <Project name="generj-project" groupId="openCage">
+        <modules>
+            <ModuleRef name="generj"/>
+        </modules>
+
+        <externals>
+            <Artifact name="annotations"
+                      groupId="com.intellij"
+                    version="7.0.3"
+                    licence="Apache2"
+                    description="Nullable annotations (bundled with Idea CE)"
+                    >
+                <Address page="http://www.jetbrains.com/index.html" shrt="jetbrains.com" />
+            </Artifact>
+
+            <Artifact name="aopalliance"
+                      groupId="aopalliance"
+                    version="1.0"
+                    licence="Public Domain"
+                    description="aop library"
+                    >
+                <Address page="http://aopalliance.sourceforge.net" shrt="sourceforge.net" />
+            </Artifact>
+
+            <Artifact name="commons-io"
+                      groupId="commons-io"
+                    version="1.4"
+                    description="Apache IO tools. e.g. tools to cleanly close resources."
+                    licence="Apache2">
+                <Address page="http://commons.apache.org/io" shrt="apache.org" />
+            </Artifact>
+
+            <Artifact name="commons-lang"
+                      groupId="commons-lang"
+                    version="2.5"
+                    description="Apache java language level tools. Random number helpers, system property tools, string tools."
+                    licence="Apache2">
+                <Address page="http://commons.apache.org/lang" shrt="apache.org" />
+            </Artifact>
+
+            <Artifact name="commons-logging"
+                      groupId="commons-logging"
+                    version="1.0.4"
+                    description="Apache java logging tools"
+                    licence="Apache2">
+                <Address page="http://commons.apache.org/logging/" />
+            </Artifact>
+
+
+            <!-- TODO quotes in xml-->
+            <Artifact name="jcip-annotations"
+                      groupId="net.jcip"
+                    version="1.0"
+                    description="annotations from -Java Concurrency in Practice-"
+                    licence="Creative Commons">
+                <Address page="http://www.javaconcurrencyinpractice.com/" shrt="javaconcurrencyinpractice.com/" />
+            </Artifact>
+
+            <Artifact  name="junit"
+                    groupId="junit"
+                    version="4.8.1"
+                    description="the unit test lib"
+                    licence="CPL">
+                <Address page="http://www.junit.org" shrt="junit.org" />
+            </Artifact>
+
+
+        <Artifact name="openCage-lang"
+                groupId="openCage"
+                version="0.4"
+                description="simple java utilities"
+                licence="MPL1.1">
+            <Java min="6"/>
+            <authors>
+                <Author name="Stephan Pfab" email="openCage@gmail.com"/>
+            </authors>
+            <Address page="http://stroy.wikidot.com" shrt="wikidot.com" />
+
+            <depends>
+                <ArtifactRef groupId="com.intellij" name="annotations" version="7.0.3" scope="compile"/>
+                <ArtifactRef groupId="net.jcip" name="jcip-annotations" version="1.0" scope="compile"/>
+                <ArtifactRef groupId="junit" name="junit" scope="test" />
+                <ArtifactRef groupId="commons-lang" name="commons-lang" scope="test" />
+            </depends>
+        </Artifact>
+
+
+            <Artifact  name="slf4j-api"
+                    groupId="org.slf4j"
+                    description="The simple logging facade for java abstracts several java logging implementations"
+                    version="1.5.6"
+                    licence="MIT">
+                <Address page="http://www.slf4j.org" shrt="slf4j.org" />
+            </Artifact>
+
+            <Artifact  name="slf4j-log4j12"
+                    groupId="org.slf4j"
+                    version="1.5.6"
+                    description="The simple logging facade for java abstracts several java logging implementations"
+                    licence="MIT">
+                <Address page="http://www.slf4j.org" shrt="slf4j.org" />
+            </Artifact>
+
+
+        </externals>
+    </Project>
+
+
+</Artig>
+

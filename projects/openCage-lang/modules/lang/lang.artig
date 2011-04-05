@@ -1,0 +1,22 @@
+<Artig version="0.1">
+    <Module>
+        <Artifact name="openCage-lang"
+                groupId="openCage"
+                version="0.5"
+                description="simple java utilities"
+                licence="BSD">
+            <Java min="6"/>
+            <authors>
+                <Author name="Stephan Pfab" email="openCage@gmail.com"/>
+            </authors>
+            <Address page="http://stroy.wikidot.com" shrt="wikidot.com" />
+
+            <depends>
+                <ArtifactRef name="annotations" scope="compile"/>
+                <ArtifactRef name="jcip-annotations" scope="compile"/>
+                <ArtifactRef name="junit" scope="test" />
+                <ArtifactRef name="commons-lang" scope="test" />
+            </depends>
+        </Artifact>
+    </Module>
+</Artig>
