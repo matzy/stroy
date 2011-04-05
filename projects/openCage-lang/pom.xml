@@ -53,7 +53,7 @@
         <repository>
             <id>my-nexus</id>
             <name>my-nexus</name>
-            <url>http://localhost:8081/nexus/content/repositories/releases</url>
+            <url>file://${basedir}/../../../../repo</url>
         </repository>
     </distributionManagement>
 
