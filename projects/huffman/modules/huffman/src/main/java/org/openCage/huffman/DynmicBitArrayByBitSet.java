@@ -78,4 +78,9 @@ public class DynmicBitArrayByBitSet implements DynamicBitArray {
     public boolean bitAt(int idx) {
         return bits.get(idx);
     }
+
+    @Override
+    public int compareTo(DynamicBitArray dynamicBitArray) {
+        return 0;  //To change body of implemented methods use File | Settings | File Templates.
+    }
 }

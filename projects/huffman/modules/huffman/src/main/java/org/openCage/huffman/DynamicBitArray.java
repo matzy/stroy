@@ -7,7 +7,7 @@ package org.openCage.huffman;
  * Time: 3:23:49 PM
  * To change this template use File | Settings | File Templates.
  */
-public interface DynamicBitArray {
+public interface DynamicBitArray extends Comparable<DynamicBitArray> {
     DynamicBitArray append( boolean bit );
 
     byte[] toByteArray();

@@ -17,17 +17,17 @@ import static junit.framework.Assert.assertEquals;
 public class PQueTest {
 
 
-    @Test
-    // check that equally weighted vals are ordered such that last entry is last
-    public void testPQueOrder() {
-        PQue pq = new PQue();
-
-        pq.add(new HNode('c', null, null, 2));
-        pq.add(new HNode('a', null, null, 1));
-        pq.add(new HNode('b', null, null, 1));
-
-        assertEquals( 'a', pq.peek().character);
-    }
+//    @Test
+//    // check that equally weighted vals are ordered such that last entry is last
+//    public void testPQueOrder() {
+//        PQue pq = new PQue();
+//
+//        pq.add(new HNode('c', null, null, 2));
+//        pq.add(new HNode('a', null, null, 1));
+//        pq.add(new HNode('b', null, null, 1));
+//
+//        assertEquals( 'a', pq.peek().character);
+//    }
 
     @Test
     // check that equally weighted vals are ordered such that last entry is last

@@ -1,8 +1,13 @@
 package org.openCage.huffman;
 
+import com.sun.corba.se.impl.presentation.rmi.DynamicAccessPermission;
+import com.sun.org.apache.bcel.internal.generic.D2F;
+import org.openCage.lang.Strings;
+import org.openCage.lang.functions.F1;
 import org.openCage.lang.iterators.Count;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /***** BEGIN LICENSE BLOCK *****
@@ -94,25 +99,35 @@ public class DynamicBitArrayDirect implements DynamicBitArray {
 
     @Override
     public String toString8() {
-        String ret = "DBA: ";
-        for ( Count<Byte> by : Count.count(bytes) ) {
-            int to = 8;
-            if ( by.isLast() ) {
-                to = last;
-            }
-
-            for ( int i = 0; i < to; i++ ) {
-                byte pattern = (byte) (1 << i);
-                if ( (by.obj() & pattern) == pattern ) {
-                    ret += "1";
+        return Strings.join( bytes ).prefix("DBA:").separator("|").trans( new F1<String,Byte>() {
+            @Override
+            public String call(Byte by ) {
+                if ( 32 <= by && by < 127 ) {
+                    return "'" + (char)(by.byteValue()) + "'";
                 } else {
-                    ret += "0";
+                    return by.toString();
                 }
             }
-            ret += "|";
-        }
-
-        return ret;
+        }).toString();
+//        String ret = "DBA: ";
+//        for ( Count<Byte> by : Count.count(bytes) ) {
+//            int to = 8;
+//            if ( by.isLast() ) {
+//                to = last;
+//            }
+//
+//            for ( int i = 0; i < to; i++ ) {
+//                byte pattern = (byte) (1 << i);
+//                if ( (by.obj() & pattern) == pattern ) {
+//                    ret += "1";
+//                } else {
+//                    ret += "0";
+//                }
+//            }
+//            ret += "|";
+//        }
+//
+//        return ret;
     }
 
     @Override
@@ -228,5 +243,52 @@ public class DynamicBitArrayDirect implements DynamicBitArray {
     @Override
     public boolean bitAt( int idx ) {
         return (bytes.get(idx / 8).byteValue() & ((byte) (1 << (idx % 8)))) != 0;
+    }
+
+    @Override
+    public int compareTo(DynamicBitArray other) {
+        if ( getBitSize() != other.getBitSize() ) {
+            return getBitSize() - other.getBitSize();
+        }
+
+        for ( int i = 0; i < getBitSize(); i++ ) {
+
+            if ( bitAt( i) != other.bitAt( i )) {
+                return bitAt( i ) ? 1 : -1;
+            }
+        }
+
+        return 0;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        DynamicBitArrayDirect that = (DynamicBitArrayDirect) o;
+
+        if (last != that.last) return false;
+        if (bytes != null ? !bytes.equals(that.bytes) : that.bytes != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = bytes != null ? bytes.hashCode() : 0;
+        result = 31 * result + last;
+        return result;
+    }
+
+    public static DynamicBitArray valueOf( byte[] src ) {
+        DynamicBitArrayDirect ret = new DynamicBitArrayDirect();
+        ret.bytes.clear();
+
+        for ( byte by : src ) {
+            ret.bytes.add( by );
+        }
+
+        return ret;
     }
 }
