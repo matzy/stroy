@@ -3,8 +3,8 @@
 
     <parent>
         <groupId>openCage</groupId>
-        <artifactId>openCage-libs</artifactId>
-        <version>0.8-SNAPSHOT</version>
+        <artifactId>openCage-io-project</artifactId>
+        <version>0.5.1-SNAPSHOT</version>
         <relativePath>../..</relativePath>
     </parent>
 
@@ -18,9 +18,8 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>${project.groupId}</groupId>
+            <groupId>openCage</groupId>
             <artifactId>openCage-lang</artifactId>
-            <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
