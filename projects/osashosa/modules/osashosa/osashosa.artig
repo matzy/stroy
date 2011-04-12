@@ -1,0 +1,22 @@
+<Artig version="0.1">
+    <Module>
+        <Artifact name="osashosa"
+                groupId="openCage"
+                version="0.2"
+                description="tiny dropin replacement for guice 2.0"
+                licence="BSD">
+            <Java min="6"/>
+            <authors>
+                <Author name="Stephan Pfab" email="openCage@gmail.com"/>
+            </authors>
+            <Address page="http://stroy.wikidot.com/osashosa" shrt="wikidot.com" />
+            <DropInFor>
+                <ArtifactRef name="guice" />
+            </DropInFor>
+
+            <depends>
+                <ArtifactRef name="junit" scope="test" />
+            </depends>
+        </Artifact>
+    </Module>
+</Artig>
