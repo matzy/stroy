@@ -9,7 +9,7 @@
     <groupId>openCage</groupId>
     <artifactId>openCage-lang-project</artifactId>
     <packaging>pom</packaging>
-    <version>0.9.5-SNAPSHOT</version>
+    <version>0.9.5</version>
     <name>opencage-lang-project</name>
 
     <modules>
@@ -44,7 +44,7 @@
 
     <scm>
         <!--<connection>scm:svn:http://openCage-libs.googlecode.com/svn/trunk</connection>-->
-        <developerConnection>scm:svn:https://stroy.googlecode.com/svn/tags/lang/openCage-lang-project-0.9.2</developerConnection>
+        <developerConnection>scm:svn:https://stroy.googlecode.com/svn/tags/lang/openCage-lang-project-0.9.5</developerConnection>
         <!-- for checkins -->
         <!--<url>scm:svn:https://openCage-libs.googlecode.com/tags/openCage-libs-0.7</url>-->
     </scm>
