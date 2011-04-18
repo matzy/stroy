@@ -43,7 +43,7 @@
     </developers>
 
     <scm>
-        <!--<connection>scm:svn:http://openCage-libs.googlecode.com/svn/trunk</connection>-->
+        <!-- needs to be the directory of this pom -->
         <developerConnection>scm:svn:https://stroy.googlecode.com/svn/trunk/projects/openCage-lang/modules/parent</developerConnection>
         <!-- for checkins -->
         <!--<url>scm:svn:https://openCage-libs.googlecode.com/tags/openCage-libs-0.7</url>-->
@@ -53,7 +53,7 @@
         <repository>
             <id>my-repo</id>
             <name>my-repo</name>
-            <url>file://${basedir}/../../../../../../repo</url>
+            <url>file://${basedir}/../../../../../../../repo</url>
         </repository>
     </distributionManagement>
 
