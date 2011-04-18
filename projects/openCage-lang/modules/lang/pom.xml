@@ -3,9 +3,9 @@
 
     <parent>
         <groupId>openCage</groupId>
-        <artifactId>openCage-lang-project</artifactId>
+        <artifactId>openCage-lang-parent</artifactId>
         <version>0.9.7-SNAPSHOT</version>
-        <relativePath>../..</relativePath>
+        <relativePath>../parent</relativePath>
     </parent>
 
     <artifactId>openCage-lang</artifactId>
