@@ -1,0 +1,146 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <!-- ===== following elephants maven standards ======== -->
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- the parent pom -->
+
+    <groupId>openCage</groupId>
+    <artifactId>openCage-lang-parent</artifactId>
+    <packaging>pom</packaging>
+    <version>0.9.10</version>
+    <name>opencage-lang-parent</name>
+
+    <modules>
+        <module>../lang</module>
+    </modules>
+
+    <properties>
+        <java.target>1.6</java.target>
+
+        <!-- same encoding on all machines-->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <licenses>
+        <license>
+            <name>BSD</name>
+            <comments>A business-friendly OSS license</comments>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>Stephan</id>
+            <name>Stephan Pfab</name>
+            <email>openCage@gmail.com</email>
+            <url>http://stroy.wikidot.com</url>
+            <!--<properties>-->
+            <!--<picUrl>http://tinyurl.com/prv4t</picUrl>-->
+            <!--</properties>-->
+        </developer>
+    </developers>
+
+    <scm>
+        <!-- needs to be the directory of this pom -->
+        <developerConnection>scm:svn:https://stroy.googlecode.com/svn/tags/lang/openCage-lang-parent-0.9.10/parent</developerConnection>
+        <!-- for checkins -->
+        <!--<url>scm:svn:https://openCage-libs.googlecode.com/tags/openCage-libs-0.7</url>-->
+    </scm>
+
+    <distributionManagement>
+        <repository>
+            <id>my-repo</id>
+            <name>my-repo</name>
+            <url>file://${basedir}/../../../../../../../repo</url>
+        </repository>
+    </distributionManagement>
+
+
+    <repositories>
+        <repository>
+            <id>openCage-repo</id>
+            <name>openCage-repo</name>
+            <url>file://${basedir}/../../../../repo</url>
+            <releases>
+                <checksumPolicy>ignore</checksumPolicy>
+            </releases>
+            <snapshots>
+                <checksumPolicy>ignore</checksumPolicy>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <build>
+        <!-- pin the versions of plugins -->
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-help-plugin</artifactId>
+                    <version>2.1.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>2.3.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>2.0</version>
+                </plugin>
+
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>${java.target}</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <configuration>
+                    <tagBase>https://stroy.googlecode.com/svn/tags/lang</tagBase>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.intellij</groupId>
+                <artifactId>annotations</artifactId>
+                <version>7.0.3</version>
+            </dependency>
+            <dependency>
+                <groupId>net.jcip</groupId>
+                <artifactId>jcip-annotations</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>[4.8.1,)</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.maven</groupId>
+                <artifactId>maven-plugin-api</artifactId>
+                <version>[2.0,)</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+</project>
