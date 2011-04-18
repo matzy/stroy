@@ -9,7 +9,7 @@
     <groupId>openCage</groupId>
     <artifactId>openCage-lang-parent</artifactId>
     <packaging>pom</packaging>
-    <version>0.9.10-SNAPSHOT</version>
+    <version>0.9.10</version>
     <name>opencage-lang-parent</name>
 
     <modules>
@@ -44,7 +44,7 @@
 
     <scm>
         <!-- needs to be the directory of this pom -->
-        <developerConnection>scm:svn:https://stroy.googlecode.com/svn/trunk/projects/openCage-lang/modules/parent</developerConnection>
+        <developerConnection>scm:svn:https://stroy.googlecode.com/svn/tags/lang/openCage-lang-parent-0.9.10/parent</developerConnection>
         <!-- for checkins -->
         <!--<url>scm:svn:https://openCage-libs.googlecode.com/tags/openCage-libs-0.7</url>-->
     </scm>
