@@ -3,9 +3,9 @@
 
     <parent>
         <groupId>openCage</groupId>
-        <artifactId>openCage-io-project</artifactId>
-        <version>0.5.1-SNAPSHOT</version>
-        <relativePath>../..</relativePath>
+        <artifactId>openCage-io-parent</artifactId>
+        <version>0.5.4</version>
+        <relativePath>../parent</relativePath>
     </parent>
 
     <artifactId>openCage-io</artifactId>
