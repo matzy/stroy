@@ -4,7 +4,7 @@
     <parent>
         <groupId>openCage</groupId>
         <artifactId>openCage-lang-parent</artifactId>
-        <version>0.9.9-SNAPSHOT</version>
+        <version>0.9.9</version>
         <relativePath>../parent</relativePath>
     </parent>
 
