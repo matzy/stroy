@@ -2,8 +2,8 @@ package org.openCage.property;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
-import org.apache.commons.io.IOUtils;
 import org.jetbrains.annotations.NotNull;
+import org.openCage.io.IOUtils;
 import org.openCage.io.SingletonApp;
 import org.openCage.lang.BackgroundExecutor;
 import org.openCage.lang.errors.Unchecked;
@@ -90,7 +90,7 @@ public class PersistingPropStore implements PropStore {
                             } catch (IOException e) {
                                 throw Unchecked.wrap( e );
                             } finally {
-                                IOUtils.closeQuietly( writer );
+                                IOUtils.closeQuietly(writer);
                             }
                             isDirty = false;
                         }
