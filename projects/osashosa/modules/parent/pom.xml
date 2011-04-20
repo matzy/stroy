@@ -11,7 +11,7 @@
     <artifactId>osashosa-parent</artifactId>
     <packaging>pom</packaging>
     <!-- version-->
-    <version>0.3.1-SNAPSHOT</version>
+    <version>0.3.1</version>
     <!-- same as artifactId -->
     <name>osashosa-parent</name>
 
@@ -48,7 +48,7 @@
 
     <scm>
         <!-- needs to be the directory of this pom -->
-        <developerConnection>scm:svn:https://stroy.googlecode.com/svn/trunk/projects/osashosa/modules/parent</developerConnection>
+        <developerConnection>scm:svn:https://stroy.googlecode.com/svn/tags/osashosa/osashosa-parent-0.3.1/parent</developerConnection>
     </scm>
 
     <distributionManagement>
