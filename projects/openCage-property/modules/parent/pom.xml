@@ -11,7 +11,7 @@
     <artifactId>openCage-property-parent</artifactId>
     <packaging>pom</packaging>
     <!-- version-->
-    <version>0.4.1</version>
+    <version>0.4.2-SNAPSHOT</version>
     <!-- same as artifactId -->
     <name>openCage-property-parent</name>
 
@@ -48,7 +48,7 @@
 
     <scm>
         <!-- needs to be the directory of this pom -->
-        <developerConnection>scm:svn:https://stroy.googlecode.com/svn/tags/property/openCage-property-parent-0.4.1/parent</developerConnection>
+        <developerConnection>scm:svn:https://stroy.googlecode.com/svn/trunk/projects/openCage-property/modules/parent</developerConnection>
     </scm>
 
     <distributionManagement>
