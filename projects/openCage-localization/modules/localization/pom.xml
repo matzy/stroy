@@ -8,7 +8,7 @@
         <relativePath>../parent</relativePath>
     </parent>
 
-    <artifactId>localization</artifactId>
+    <artifactId>openCage-localization</artifactId>
     <packaging>jar</packaging>
 
     <dependencies>
