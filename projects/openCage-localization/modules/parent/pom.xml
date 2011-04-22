@@ -1,0 +1,178 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <!-- ===== following elephants maven standards ======== -->
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- the parent pom -->
+
+    <groupId>openCage</groupId>
+    <!-- project name-->
+    <artifactId>openCage-localization-parent</artifactId>
+    <packaging>pom</packaging>
+    <!-- version-->
+    <version>0.2.1-SNAPSHOT</version>
+    <!-- same as artifactId -->
+    <name>openCage-localization-parent</name>
+
+    <modules>
+        <!-- list of modules -->
+        <module>../localization</module>
+    </modules>
+
+    <properties>
+        <java.target>1.6</java.target>
+
+        <!-- same encoding on all machines-->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <licenses>
+        <license>
+            <name>BSD</name>
+            <comments>A business-friendly OSS license</comments>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>Stephan</id>
+            <name>Stephan Pfab</name>
+            <email>openCage@gmail.com</email>
+            <url>http://stroy.wikidot.com</url>
+            <!--<properties>-->
+            <!--<picUrl>http://tinyurl.com/prv4t</picUrl>-->
+            <!--</properties>-->
+        </developer>
+    </developers>
+
+    <scm>
+        <!-- needs to be the directory of this pom -->
+        <developerConnection>scm:svn:https://stroy.googlecode.com/svn/trunk/projects/openCage-localization/modules/parent</developerConnection>
+    </scm>
+
+    <distributionManagement>
+        <repository>
+            <id>my-repo</id>
+            <name>my-repo</name>
+            <url>file://${basedir}/../../../../../../../repo</url>
+        </repository>
+    </distributionManagement>
+
+
+    <repositories>
+        <repository>
+            <id>openCage-repo</id>
+            <name>openCage-repo</name>
+            <url>file://${basedir}/../../../../repo</url>
+            <releases>
+                <checksumPolicy>ignore</checksumPolicy>
+            </releases>
+            <snapshots>
+                <checksumPolicy>ignore</checksumPolicy>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <build>
+        <!-- pin the versions of plugins -->
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-help-plugin</artifactId>
+                    <version>2.1.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>2.3.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>2.0</version>
+                </plugin>
+
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>${java.target}</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <configuration>
+				    <!-- project name-->
+                    <tagBase>https://stroy.googlecode.com/svn/tags/localization</tagBase>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+
+	<!-- version pin the possible dependencies -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>openCage</groupId>
+                <artifactId>openCage-lang</artifactId>
+                <version>[0.9.10,)</version>
+            </dependency>
+            <dependency>
+                <groupId>openCage</groupId>
+                <artifactId>openCage-io</artifactId>
+                <version>[0.5.4,)</version>
+            </dependency>
+
+            <dependency>
+                <groupId>openCage</groupId>
+                <artifactId>openCage-property</artifactId>
+                <version>[0.4.1,)</version>
+            </dependency>
+
+            <dependency>
+                <groupId>openCage</groupId>
+                <artifactId>osashosa</artifactId>
+                <version>[0.3.1,)</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.intellij</groupId>
+                <artifactId>annotations</artifactId>
+                <version>7.0.3</version>
+            </dependency>
+            <dependency>
+                <groupId>net.jcip</groupId>
+                <artifactId>jcip-annotations</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>[4.8.1,)</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.maven</groupId>
+                <artifactId>maven-plugin-api</artifactId>
+                <version>[2.0,)</version>
+            </dependency>
+            <dependency>
+                <groupId>com.thoughtworks.xstream</groupId>
+                <artifactId>xstream</artifactId>
+                <version>[1.3.1,2.0)</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+</project>

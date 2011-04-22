@@ -16,7 +16,6 @@ import com.google.inject.Module;
 import com.google.inject.Singleton;
 import com.google.inject.name.Names;
 import org.openCage.property.Property;
-import org.openCage.property.StandardPropertyWiring;
 
 import java.util.Locale;
 
@@ -46,7 +45,7 @@ public class LocalizeWiring implements  Module {
 
     public void configure(Binder binder) {
 
-        binder.install( new StandardPropertyWiring());
+        //binder.install( new StandardPropertyWiring());
 
 
         binder.bind( new TypeLiteral<Property<Locale>>() {} ).
