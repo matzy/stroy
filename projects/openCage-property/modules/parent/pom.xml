@@ -8,16 +8,16 @@
 
     <groupId>openCage</groupId>
     <!-- project name-->
-    <artifactId>openCage-property-parent</artifactId>
+    <artifactId>generj-parent</artifactId>
     <packaging>pom</packaging>
     <!-- version-->
-    <version>0.4.2-SNAPSHOT</version>
+    <version>0.6.1-SNAPSHOT</version>
     <!-- same as artifactId -->
-    <name>openCage-property-parent</name>
+    <name>generj-parent</name>
 
     <modules>
         <!-- list of modules -->
-        <module>../property</module>
+        <module>../generj</module>
     </modules>
 
     <properties>
