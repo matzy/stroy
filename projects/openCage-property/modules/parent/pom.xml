@@ -11,7 +11,7 @@
     <artifactId>generj-parent</artifactId>
     <packaging>pom</packaging>
     <!-- version-->
-    <version>0.6.1-SNAPSHOT</version>
+    <version>0.6.1</version>
     <!-- same as artifactId -->
     <name>generj-parent</name>
 
@@ -48,7 +48,7 @@
 
     <scm>
         <!-- needs to be the directory of this pom -->
-        <developerConnection>scm:svn:https://stroy.googlecode.com/svn/trunk/projects/openCage-property/modules/parent</developerConnection>
+        <developerConnection>scm:svn:https://stroy.googlecode.com/svn/tags/property/generj-parent-0.6.1/parent</developerConnection>
     </scm>
 
     <distributionManagement>
