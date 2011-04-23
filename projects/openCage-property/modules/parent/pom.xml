@@ -48,7 +48,7 @@
 
     <scm>
         <!-- needs to be the directory of this pom -->
-        <developerConnection>scm:svn:https://stroy.googlecode.com/svn/trunk/projects/openCage-property/modules/parent</developerConnection>
+        <developerConnection>scm:svn:https://stroy.googlecode.com/svn/trunk/projects/generj/modules/parent</developerConnection>
     </scm>
 
     <distributionManagement>
@@ -113,7 +113,7 @@
                 <artifactId>maven-release-plugin</artifactId>
                 <configuration>
 				    <!-- project name-->
-                    <tagBase>https://stroy.googlecode.com/svn/tags/property</tagBase>
+                    <tagBase>https://stroy.googlecode.com/svn/tags/generj</tagBase>
                 </configuration>
             </plugin>
 
