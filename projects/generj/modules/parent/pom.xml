@@ -11,7 +11,7 @@
     <artifactId>generj-parent</artifactId>
     <packaging>pom</packaging>
     <!-- version-->
-    <version>0.6.4</version>
+    <version>0.6.5-SNAPSHOT</version>
     <!-- same as artifactId -->
     <name>generj-parent</name>
 
@@ -48,7 +48,7 @@
 
     <scm>
         <!-- needs to be the directory of this pom -->
-        <developerConnection>scm:svn:https://stroy.googlecode.com/svn/tags/generj/generj-parent-0.6.4/parent</developerConnection>
+        <developerConnection>scm:svn:https://stroy.googlecode.com/svn/trunk/projects/generj/modules/parent</developerConnection>
     </scm>
 
     <distributionManagement>
