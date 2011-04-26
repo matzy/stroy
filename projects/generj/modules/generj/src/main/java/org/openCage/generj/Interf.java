@@ -118,7 +118,13 @@ public class Interf implements ClassI {
         return md;
     }
 
+    @Deprecated
     public Interf _import(String imp) {
+        imports.add( imp );
+        return this;
+    }
+
+    public Interf import_(String imp) {
         imports.add( imp );
         return this;
     }

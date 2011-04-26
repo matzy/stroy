@@ -53,18 +53,38 @@ public class TryStatement<T> implements Statement {
     }
 
 
+    @Deprecated
     public Block<TryStatement<T>> _catch( Typ typ, NameExpr var ) {
         Case<T> cc  = new Case<T>( typ, var, new Block<TryStatement<T>>( this ));
         cases.add( cc );
         return cc.block;
     }
 
+    public Block<TryStatement<T>> catch_( Typ typ, NameExpr var ) {
+        Case<T> cc  = new Case<T>( typ, var, new Block<TryStatement<T>>( this ));
+        cases.add( cc );
+        return cc.block;
+    }
+
+    @Deprecated
     public Block<TryStatement<T>> _finally() {
         fnly = new Block<TryStatement<T>>( this );
         return fnly;
     }
 
+    public Block<TryStatement<T>> finally_() {
+        fnly = new Block<TryStatement<T>>( this );
+        return fnly;
+    }
+
+    @Deprecated
     public Block<TryStatement<T>> _try() {
+        trry = new Block<TryStatement<T>>( this );
+        return trry;
+    }
+
+    @Deprecated
+    public Block<TryStatement<T>> try_() {
         trry = new Block<TryStatement<T>>( this );
         return trry;
     }

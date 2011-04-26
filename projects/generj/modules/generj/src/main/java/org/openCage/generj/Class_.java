@@ -111,11 +111,21 @@ public class Class_ implements ClassI {
         return new Modi( "public",  this );
     }
 
+    @Deprecated
     public Modi privat_() {
         return new Modi( "private",  this );
     }
 
+    public Modi private_() {
+        return new Modi( "private",  this );
+    }
+
+    @Deprecated
     public Modi packagePrivat() {
+        return new Modi( "",  this );
+    }
+
+    public Modi packagePrivate() {
         return new Modi( "",  this );
     }
 
@@ -150,7 +160,7 @@ public class Class_ implements ClassI {
 
     public Class_ property(Typ typ, NameExpr name) {
         String upper = Strings.toFirstUpper( name.toString() );
-        privat_().field(typ, name );
+        private_().field(typ, name );
         public_().method( typ, "get" + upper ).body().return_(name);
         public_().method( "set" + upper ).arg( typ, name ).body().assign( DOT( NAME( "this"), name ), name );
         return this;
@@ -158,7 +168,7 @@ public class Class_ implements ClassI {
 
     public Class_ property(Typ typ, NameExpr name, Expr init ) {
         String upper = Strings.toFirstUpper( name.toString() );
-        privat_().field(typ, name ).init( init );
+        private_().field(typ, name ).init( init );
         public_().method( typ, "get" + upper ).body().return_(name);
         public_().method( "set" + upper ).arg( typ, name ).body().assign( DOT( NAME( "this"), name ), name );
         return this;

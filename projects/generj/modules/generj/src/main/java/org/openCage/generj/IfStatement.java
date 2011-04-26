@@ -40,6 +40,7 @@ public class IfStatement<T> implements Statement {
     }
 
 
+    @Deprecated
     public Block<IfStatement<T>> _then() {
         if ( thn == null ) {
             thn = new Block<IfStatement<T>>( this );
@@ -47,7 +48,23 @@ public class IfStatement<T> implements Statement {
         return thn;
     }
 
+    public Block<IfStatement<T>> then_() {
+        if ( thn == null ) {
+            thn = new Block<IfStatement<T>>( this );
+        }
+        return thn;
+    }
+
+
+    @Deprecated
     public Block<IfStatement<T>> _else() {
+        if ( els == null ) {
+            els = new Block<IfStatement<T>>( this );
+        }
+        return els;
+    }
+
+    public Block<IfStatement<T>> else_() {
         if ( els == null ) {
             els = new Block<IfStatement<T>>( this );
         }

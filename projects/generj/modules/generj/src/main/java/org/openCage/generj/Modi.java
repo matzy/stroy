@@ -69,6 +69,7 @@ public class Modi {
         return mes;
     }
 
+    @Deprecated
     public Class_ clazz(Typ typ) {
         Class_ subClass = new Class_(aClass, typ );
         subClass.setModi( mod );
@@ -76,8 +77,21 @@ public class Modi {
         return subClass;
     }
 
+    public Class_ class_(Typ typ) {
+        Class_ subClass = new Class_(aClass, typ );
+        subClass.setModi( mod );
+        aClass.innerClazzes.add(subClass);
+        return subClass;
+    }
 
+
+    @Deprecated
     public Modi _static() {
+        mod += " static ";
+        return this;
+    }
+
+    public Modi static_() {
         mod += " static ";
         return this;
     }
