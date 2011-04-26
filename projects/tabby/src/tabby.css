@@ -1,0 +1,44 @@
+
+.tabby  {
+  background-color: #eee;
+}  
+.tabby tbody tr.odd {  
+  background-color: #666;  
+  color: white;  
+}
+
+.tabby tbody tr.hovered {  
+  background-color: lightblue;  
+  color: #666;  
+}
+
+/* table header color */
+.tabby thead tr {
+	background-color: #bfb;
+	cursor: hand;
+}
+
+.tabby thead th.sortable {
+    background-image: url( bg.gif );
+    background-repeat: no-repeat;
+    background-position: center right;
+    cursor: pointer;
+}
+
+.tabby thead th.asc {
+    background-image: url( asc.gif );
+    background-repeat: no-repeat;
+    background-position: center right;
+    cursor: pointer;
+}
+
+.tabby thead th.desc {
+    background-image: url( desc.gif );
+    background-repeat: no-repeat;
+    background-position: center right;
+    cursor: pointer;
+}
+
+.tabby tbody .nonvisible {
+    display: none;
+}
