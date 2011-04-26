@@ -1,0 +1,25 @@
+
+
+ddlicious is a alternative frontend for delicious.com
+It uses the apis, standard and feeds.
+
+The datamodel for ddlicious is ...
+
+per link: 
+  description
+  rating: in the form of tags 1,2,3,4,5
+  image: a json object in the notes field with an 'img' member
+         e.g. {img: "http://www.gunnerkrigg.com/images/title.jpg"}
+  update frequency: attribute tags
+                    // time: houerly / daily / mwf / weekly / rare / never 
+                    // not used yey          
+                    
+                    
+                    
+TODO
+   - better ui
+   - random button (filter)
+   - get all links (more than 100) (need to switch to non feed api, means xml parsing)
+                    cross browser ???
+   - complex filter                  
+         

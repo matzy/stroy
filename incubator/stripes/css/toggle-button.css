@@ -1,0 +1,97 @@
+.toggle-button {
+    background: #ccf;
+    cursor: pointer;
+    border-top: solid 2px #eaeaea;
+    border-left: solid 2px #eaeaea;
+    border-bottom: solid 2px #777;
+    border-right: solid 2px #777;
+    padding: 5px 5px;
+	border-radius: 12px;
+
+}
+
+.toggle-button.down {
+    background: #bbf;
+    border-top: solid 2px #777;
+    border-left: solid 2px #777;
+    border-bottom: solid 2px #eaeaea;
+    border-right: solid 2px #eaeaea;
+}
+
+/*
+ #all {
+	// height: 40px; 
+	width: 50%;
+	background: -webkit-gradient(linear, left top, left bottom, from(#55f), to(#555)); // for webkit browsers 
+	//background-color: #0202c0;	
+	// font-size: 25px; 
+	color: #a4a4a4;
+	border-radius: 10px;
+	cursor: pointer;
+	// font-family: "Arial"; 
+}
+
+#all.over {
+	background: -webkit-gradient(linear, left top, left bottom, from(#5f5), to(#555)); // for webkit browsers 		
+	color: #040404;
+}
+*/
+
+#all, #pagify, .edit {
+   border-top: 1px solid #96d1f8;
+   background: #65a9d7;
+   background: -webkit-gradient(linear, left top, left bottom, from(#3e779d), to(#65a9d7));
+   background: -moz-linear-gradient(top, #3e779d, #65a9d7);
+   padding: 9.5px 19px;
+   -webkit-border-radius: 10px;
+   -moz-border-radius: 10px;
+   border-radius: 10px;
+   -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
+   -moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
+   box-shadow: rgba(0,0,0,1) 0 1px 0;
+   text-shadow: rgba(0,0,0,.4) 0 1px 0;
+   color: white;
+   font-size: 17px;
+   font-family: Helvetica, Arial, Sans-Serif;
+   text-decoration: none;
+   vertical-align: middle;
+   }
+   
+#all:hover, #pagify:hover, .edit:hover {
+   border-top-color: #59bd84;
+   background: #59bd84;
+   color: #0a0a0a;
+   }
+#all:active, #pagify:active, .edit:active {
+   border-top-color: #1b435e;
+   background: #1b435e;
+   }
+
+.btn {
+    font-size: 1em;
+    color: #234e70;
+    border-radius: 2px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 3px;
+    -moz-box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 3px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 3px;
+    border: solid 1px #6e93b0;
+    background: url('../img/btn-sm-bg.png') repeat-x 0px 0px;
+    height: 27px;
+    line-height: 26px;
+    text-shadow: rgba(255, 255, 255, 0.5) 0px 1px 0px;
+    display: inline;
+    float: left;
+    margin-right: 5px;
+    padding: 0 10px
+}
+
+.btn:hover {
+    text-decoration: none;
+    color: #234e70
+}
+
+.btn:active {
+    background-position: 0px bottom
+}   
