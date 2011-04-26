@@ -1,0 +1,22 @@
+<Artig version="0.1">
+    <Module>
+        <Artifact name="openCage-babel"
+                groupId="openCage"
+                version="0.1"
+                description="localization support"
+                licence="BSD">
+            <Java min="6"/>
+            <authors>
+                <Author name="Stephan Pfab" email="openCage@gmail.com"/>
+            </authors>
+            <Address page="http://stroy.wikidot.com" shrt="wikidot.com" />
+
+            <depends>
+                <ArtifactRef name="junit" scope="test" />
+                <ArtifactRef name="openCage-lang" scope="compile" />
+                <ArtifactRef name="guice" scope="compile" />
+            </depends>
+        </Artifact>
+    </Module>
+
+</Artig>
