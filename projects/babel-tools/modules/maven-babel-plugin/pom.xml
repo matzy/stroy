@@ -20,7 +20,7 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>babelgenerator</artifactId>
+            <artifactId>babelGenerator</artifactId>
             <version>[${project.version}]</version>
             <scope>compile</scope>
         </dependency>

@@ -45,7 +45,11 @@
                     <!--<artifactId>launch4j-maven-plugin</artifactId>-->
                     <!--<version>1.3</version>-->
                 <!--</plugin>-->
-
+                <plugin>
+                    <groupId>${project.groupId}</groupId>
+                    <artifactId>maven-babel-plugin</artifactId>
+                    <version>${project.version}</version>
+                </plugin>
             </plugins>
         </pluginManagement>
 

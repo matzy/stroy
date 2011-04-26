@@ -34,7 +34,7 @@ public class BabelGen {
         this.bundleLocation = bundleLocation;
     }
 
-    private ResourceBundle getSingleLocaleBundle( String bundleLocation ) {
+    private static ResourceBundle getSingleLocaleBundle( String bundleLocation ) {
         ResourceBundle bundle = ResourceBundle.getBundle(bundleLocation, new ResourceBundle.Control() {
             @Override
             public List<Locale> getCandidateLocales(String s, Locale locale) {
@@ -50,8 +50,8 @@ public class BabelGen {
 
     public String generate( String package_, String name ) {
         Class_ newBB = new Class_( Package.valueOf(package_), TYP( name ) );
-        Typ babelBundle     = newBB.import_( Package.valueOf( "org.openCage.babel"), TYP( "BabelBundle" ));
-        Typ localePref = newBB.import_( Package.valueOf( "org.openCage.babel"), TYP( "LocalePreference" ));
+        Typ babelBundle   = newBB.import_( Package.valueOf( "org.openCage.babel"), TYP( "BabelBundle" ));
+        Typ localePref    = newBB.import_( Package.valueOf( "org.openCage.babel"), TYP( "LocalePreference" ));
         Typ messageFormat = newBB.import_( Package.valueOf( "java.text"), TYP( "MessageFormat" ));
 
         newBB.privat_().field( babelBundle, NAME("bundle"));

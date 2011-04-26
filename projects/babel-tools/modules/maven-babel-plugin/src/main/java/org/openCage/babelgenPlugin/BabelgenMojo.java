@@ -18,8 +18,11 @@ import java.util.List;
 import java.util.PropertyResourceBundle;
 
 /**
- * @goal babelgen
+ * @goal babel
  * @phase generate-sources
+ *
+ * the goal of this plugin
+ * the phase in the maven lifecycle where this plugin runs
  */
 public class BabelgenMojo extends AbstractMojo {
 
@@ -47,10 +50,10 @@ public class BabelgenMojo extends AbstractMojo {
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         try {
-        //To change body of implemented methods use File | Settings | File Templates.
 
         //this.getPluginContext().
         getLog().info( (String)(mavenProject.getBuild().getResources().get(0).getDirectory()));
+
         final CollectProps cp = new CollectProps( FSPathBuilder.getPath( mavenProject.getBuild().getResources().get(0).getDirectory()));
 
         getLog().info( "hw + " + mavenProject.getBasedir());

@@ -19,7 +19,7 @@
     <modules>
         <!-- list of modules -->
         <module>../babel</module>
-        <!--<module>../babelBundles</module>-->
+        <module>../babelBundles</module>
         <module>../babelgenerator</module>
         <module>../maven-babel-plugin</module>
     </modules>
@@ -97,13 +97,6 @@
                     <artifactId>maven-release-plugin</artifactId>
                     <version>2.0</version>
                 </plugin>
-
-                <plugin>
-                    <groupId>openCage</groupId>
-                    <artifactId>maven-babelgen-plugin</artifactId>
-                    <version>[0.1]</version>
-                </plugin>
-
 
             </plugins>
         </pluginManagement>

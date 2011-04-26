@@ -30,7 +30,14 @@ public class BabelGenTest {
                 new PropertyResourceBundle( is )). //new FileInputStream( "/Users/stephan/projects/opencage-libs/modules/babelgen/src/test/resources/org/openCage/babelgen/testbundle_en.properties" ))).
                 generate( "org.openCage.testing", "TestBundle" );
 
+        // class name
         assertTrue( -1 < res.indexOf( "public class TestBundle" ) );
+
+        // getter without args
+        assertTrue( -1 < res.indexOf( "public String aaa(  ){" ) );
+
+        // getter with args
+        assertTrue( -1 < res.indexOf( "String ccc( String arg0, String arg1 ){" ) );
     }
 
     @Test
