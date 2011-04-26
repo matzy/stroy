@@ -1,0 +1,105 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>openCage</groupId>
+        <artifactId>babel-tools-parent</artifactId>
+        <version>0.1.1</version>
+        <relativePath>../parent</relativePath>
+    </parent>
+
+    <artifactId>babelBundles</artifactId>
+    <packaging>jar</packaging>
+    <name>babelBundles</name>
+
+    <dependencies>
+        <!--<dependency>-->
+            <!--<groupId>com.intellij</groupId>-->
+            <!--<artifactId>annotations</artifactId>-->
+            <!--<scope>compile</scope>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>net.jcip</groupId>-->
+            <!--<artifactId>jcip-annotations</artifactId>-->
+            <!--<scope>compile</scope>-->
+        <!--</dependency>-->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>openCage-babel</artifactId>
+            <version>[${project.version}]</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <!-- fix the versions of plugins -->
+        <pluginManagement>
+            <plugins>
+                <!--<plugin>-->
+                    <!--<groupId>com.akathist.maven.plugins.launch4j</groupId>-->
+                    <!--<artifactId>launch4j-maven-plugin</artifactId>-->
+                    <!--<version>1.3</version>-->
+                <!--</plugin>-->
+                <plugin>
+                    <groupId>${project.groupId}</groupId>
+                    <artifactId>maven-babel-plugin</artifactId>
+                    <version>${project.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+
+        <plugins>
+            <plugin>
+                <groupId>openCage</groupId>
+                <artifactId>maven-babel-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals><goal>babel</goal></goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-help-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>effective-pom</goal>
+                        </goals>
+                        <configuration>
+                            <output>
+                                ${project.build.outputDirectory}/META-INF/maven/${project.groupId}/${project.artifactId}/pom.xml
+                            </output>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <!--<mainClass>${mainClass}</mainClass>-->
+                        </manifest>
+                        <!-- no pom in jar, this is written by the help plugin-->
+                        <addMavenDescriptor>false</addMavenDescriptor>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
