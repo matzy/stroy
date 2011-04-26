@@ -4,9 +4,12 @@ import org.junit.Test;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.PropertyResourceBundle;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertTrue;
 
 public class BabelGenTest {
 
@@ -16,14 +19,18 @@ public class BabelGenTest {
     }
 
     @Test
-    public void testFromFile() {
-        try {
-            new BabelGen( "org.openCage.babelgen.testbundle",
-                    new PropertyResourceBundle( new FileInputStream( "/Users/stephan/projects/opencage-libs/modules/babelgen/src/test/resources/org/openCage/babelgen/testbundle_en.properties" ))).
-                    generate( "org.openCage.testing", "TestBundle" );
-        } catch (IOException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
+    public void testFromFile() throws Exception {
+
+
+        InputStream is = this.getClass().getResourceAsStream( "testbundle_en.properties");
+
+        assertNotNull( is );
+
+        String res = new BabelGen( "org.openCage.babelgen.testbundle",
+                new PropertyResourceBundle( is )). //new FileInputStream( "/Users/stephan/projects/opencage-libs/modules/babelgen/src/test/resources/org/openCage/babelgen/testbundle_en.properties" ))).
+                generate( "org.openCage.testing", "TestBundle" );
+
+        assertTrue( -1 < res.indexOf( "public class TestBundle" ) );
     }
 
     @Test
