@@ -12,7 +12,7 @@
     <artifactId>babel-tools-parent</artifactId>
     <packaging>pom</packaging>
     <!-- version-->
-    <version>0.1.1</version>
+    <version>0.1.2-SNAPSHOT</version>
     <!-- same as artifactId -->
     <name>babel-tools-parent</name>
 
@@ -52,7 +52,7 @@
 
     <scm>
         <!-- needs to be the directory of this pom -->
-        <developerConnection>scm:svn:https://stroy.googlecode.com/svn/tags/babel-tools/babel-tools-parent-0.1.1/parent</developerConnection>
+        <developerConnection>scm:svn:https://stroy.googlecode.com/svn/trunk/projects/babel-tools/modules/parent</developerConnection>
     </scm>
 
     <distributionManagement>
