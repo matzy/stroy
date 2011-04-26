@@ -1,0 +1,3739 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Comment here. (1.0a10c2) -->
+<Proj>
+    <ProjName>TextEdit</ProjName>
+
+    <!--                                                  -->
+    <!--    TextEdit/../DocumentProperties.nib.strings    -->
+    <!--                                                  -->
+    <File>
+        <Filepath>TextEdit/Applications/TextEdit.app/Contents/Resources/English.lproj/DocumentProperties.nib.strings</Filepath>
+
+        <TextItem>
+            <Description> Class = &quot;NSTextFieldCell&quot;; title = &quot;Title:\n&quot;; ObjectID = &quot;100014&quot;; </Description>
+            <Position>100014.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Title:\n</base>
+                <tran loc="ja" origin="OldLoc exact match">タイトル：</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSTextFieldCell&quot;; title = &quot;Author:&quot;; ObjectID = &quot;100017&quot;; </Description>
+            <Position>100017.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Author:</base>
+                <tran loc="ja" origin="OldLoc exact match">作成者：</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSTextFieldCell&quot;; title = &quot;Company:&quot;; ObjectID = &quot;100019&quot;; </Description>
+            <Position>100019.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Company:</base>
+                <tran loc="ja" origin="OldLoc exact match">会社：</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSTextFieldCell&quot;; title = &quot;Copyright:&quot;; ObjectID = &quot;100021&quot;; </Description>
+            <Position>100021.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Copyright:</base>
+                <tran loc="ja" origin="OldLoc exact match">コピーライト：</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSTextFieldCell&quot;; title = &quot;Comment:&quot;; ObjectID = &quot;100022&quot;; </Description>
+            <Position>100022.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Comment:</base>
+                <tran loc="ja" origin="OldLoc exact match">コメント：</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSTextFieldCell&quot;; title = &quot;Keywords:&quot;; ObjectID = &quot;100100&quot;; </Description>
+            <Position>100100.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Keywords:</base>
+                <tran loc="ja" origin="OldLoc exact match">キーワード：</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSTextFieldCell&quot;; title = &quot;Subject:\n&quot;; ObjectID = &quot;100221&quot;; </Description>
+            <Position>100221.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Subject:\n</base>
+                <tran loc="ja" origin="OldLoc exact match">主題：</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSTextField&quot;; gToolTip = &quot;Keywords describing the document. Not applicable to plain text documents.&quot;; ObjectID = &quot;101&quot;; </Description>
+            <Position>101.gToolTip</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Keywords describing the document. Not applicable to plain text documents.</base>
+                <tran loc="ja" origin="OldLoc exact match">この書類を説明するキーワードです。標準テキスト書類では使用できません。</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSTextField&quot;; gToolTip = &quot;Comments. Not applicable to plain text documents.&quot;; ObjectID = &quot;143&quot;; </Description>
+            <Position>143.gToolTip</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Comments. Not applicable to plain text documents.</base>
+                <tran loc="ja" origin="OldLoc exact match">コメントです。標準テキスト書類では使用できません。</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSTextField&quot;; gToolTip = &quot;Title of the document. Not applicable to plain text documents.&quot;; ObjectID = &quot;15&quot;; </Description>
+            <Position>15.gToolTip</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Title of the document. Not applicable to plain text documents.</base>
+                <tran loc="ja" origin="OldLoc exact match">この書類のタイトルです。標準テキスト書類では使用できません。</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSTextField&quot;; gToolTip = &quot;Author(s) of the document. Not applicable to plain text documents.&quot;; ObjectID = &quot;16&quot;; </Description>
+            <Position>16.gToolTip</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Author(s) of the document. Not applicable to plain text documents.</base>
+                <tran loc="ja" origin="OldLoc exact match">この書類の作成者です。標準テキスト書類では使用できません。</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSTextField&quot;; gToolTip = &quot;Company or organization name. Not applicable to plain text documents.&quot;; ObjectID = &quot;18&quot;; </Description>
+            <Position>18.gToolTip</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Company or organization name. Not applicable to plain text documents.</base>
+                <tran loc="ja" origin="OldLoc exact match">会社または組織の名前です。標準テキスト書類では使用できません。</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSTextField&quot;; gToolTip = &quot;Copyright notice or other rights information. Not applicable to plain text documents.&quot;; ObjectID = &quot;20&quot;; </Description>
+            <Position>20.gToolTip</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Copyright notice or other rights information. Not applicable to plain text documents.</base>
+                <tran loc="ja" origin="OldLoc exact match">コピーライト表示またはその他の権利情報です。標準テキスト書類では使用できません。</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSTextField&quot;; gToolTip = &quot;Subject of the document. Not applicable to plain text documents.&quot;; ObjectID = &quot;222&quot;; </Description>
+            <Position>222.gToolTip</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Subject of the document. Not applicable to plain text documents.</base>
+                <tran loc="ja" origin="OldLoc exact match">この書類の主題です。標準テキスト書類では使用できません。</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSPanel&quot;; title = &quot;Document Properties&quot;; ObjectID = &quot;5&quot;; </Description>
+            <Position>5.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Document Properties</base>
+                <tran loc="ja" origin="OldLoc exact match">書類のプロパティ</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+    </File>
+
+    <!--                                    -->
+    <!--    TextEdit/../Edit.nib.strings    -->
+    <!--                                    -->
+    <File>
+        <Filepath>TextEdit/Applications/TextEdit.app/Contents/Resources/English.lproj/Edit.nib.strings</Filepath>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Select All&quot;; ObjectID = &quot;101&quot;; </Description>
+            <Position>101.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Select All</base>
+                <tran loc="ja" origin="OldLoc exact match">すべてを選択</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Complete&quot;; ObjectID = &quot;108&quot;; </Description>
+            <Position>108.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Complete</base>
+                <tran loc="ja" origin="OldLoc exact match">単語入力補助</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Paste&quot;; ObjectID = &quot;112&quot;; </Description>
+            <Position>112.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Paste</base>
+                <tran loc="ja" origin="OldLoc exact match">ペースト</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenu&quot;; title = &quot;Edit&quot;; ObjectID = &quot;119&quot;; </Description>
+            <Position>119.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Edit</base>
+                <tran loc="ja" origin="OldLoc exact match">編集</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Copy&quot;; ObjectID = &quot;120&quot;; </Description>
+            <Position>120.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Copy</base>
+                <tran loc="ja" origin="OldLoc exact match">コピー</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Cut&quot;; ObjectID = &quot;124&quot;; </Description>
+            <Position>124.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Cut</base>
+                <tran loc="ja" origin="OldLoc exact match">カット</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Format&quot;; ObjectID = &quot;150&quot;; </Description>
+            <Position>150.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Format</base>
+                <tran loc="ja" origin="OldLoc exact match">フォーマット</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenu&quot;; title = &quot;Text&quot;; ObjectID = &quot;151&quot;; </Description>
+            <Position>151.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Text</base>
+                <tran loc="ja" origin="OldLoc exact match">テキスト</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Paste Style&quot;; ObjectID = &quot;152&quot;; </Description>
+            <Position>152.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Paste Style</base>
+                <tran loc="ja" origin="OldLoc exact match">スタイルをペースト</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Underline&quot;; ObjectID = &quot;154&quot;; </Description>
+            <Position>154.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Underline</base>
+                <tran loc="ja" origin="OldLoc exact match">アンダーライン</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Center&quot;; ObjectID = &quot;155&quot;; </Description>
+            <Position>155.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Center</base>
+                <tran loc="ja" origin="OldLoc exact match">中央揃え</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenu&quot;; title = &quot;Format&quot;; ObjectID = &quot;156&quot;; </Description>
+            <Position>156.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Format</base>
+                <tran loc="ja" origin="OldLoc exact match">フォーマット</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Align Left&quot;; ObjectID = &quot;157&quot;; </Description>
+            <Position>157.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Align Left</base>
+                <tran loc="ja" origin="OldLoc exact match">左揃え</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Text&quot;; ObjectID = &quot;158&quot;; </Description>
+            <Position>158.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Text</base>
+                <tran loc="ja" origin="OldLoc exact match">テキスト</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Font&quot;; ObjectID = &quot;159&quot;; </Description>
+            <Position>159.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Font</base>
+                <tran loc="ja" origin="OldLoc exact match">フォント</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Italic&quot;; ObjectID = &quot;161&quot;; </Description>
+            <Position>161.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Italic</base>
+                <tran loc="ja" origin="OldLoc exact match">イタリック</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Make Rich Text&quot;; ObjectID = &quot;162&quot;; </Description>
+            <Position>162.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Make Rich Text</base>
+                <tran loc="ja" origin="OldLoc exact match">リッチテキストにする</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Bold&quot;; ObjectID = &quot;163&quot;; </Description>
+            <Position>163.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Bold</base>
+                <tran loc="ja" origin="OldLoc exact match">ボールド</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Align Right&quot;; ObjectID = &quot;164&quot;; </Description>
+            <Position>164.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Align Right</base>
+                <tran loc="ja" origin="OldLoc exact match">右揃え</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenu&quot;; title = &quot;Font&quot;; ObjectID = &quot;165&quot;; </Description>
+            <Position>165.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Font</base>
+                <tran loc="ja" origin="OldLoc exact match">フォント</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Copy Ruler&quot;; ObjectID = &quot;167&quot;; </Description>
+            <Position>167.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Copy Ruler</base>
+                <tran loc="ja" origin="OldLoc exact match">ルーラをコピー</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Copy Style&quot;; ObjectID = &quot;168&quot;; </Description>
+            <Position>168.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Copy Style</base>
+                <tran loc="ja" origin="OldLoc exact match">スタイルをコピー</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Show Ruler&quot;; ObjectID = &quot;169&quot;; </Description>
+            <Position>169.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Show Ruler</base>
+                <tran loc="ja" origin="OldLoc exact match">ルーラを表示</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Paste Ruler&quot;; ObjectID = &quot;171&quot;; </Description>
+            <Position>171.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Paste Ruler</base>
+                <tran loc="ja" origin="OldLoc exact match">ルーラをペースト</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Show Fonts&quot;; ObjectID = &quot;172&quot;; </Description>
+            <Position>172.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Show Fonts</base>
+                <tran loc="ja" origin="OldLoc exact match">フォントパネルを表示</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Baseline&quot;; ObjectID = &quot;239&quot;; </Description>
+            <Position>239.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Baseline</base>
+                <tran loc="ja" origin="OldLoc exact match">ベースライン</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenu&quot;; title = &quot;Baseline&quot;; ObjectID = &quot;241&quot;; </Description>
+            <Position>241.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Baseline</base>
+                <tran loc="ja" origin="OldLoc exact match">ベースライン</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Use Default&quot;; ObjectID = &quot;242&quot;; </Description>
+            <Position>242.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Use Default</base>
+                <tran loc="ja" origin="OldLoc exact match">デフォルト</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Ligature&quot;; ObjectID = &quot;243&quot;; </Description>
+            <Position>243.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Ligature</base>
+                <tran loc="ja" origin="OldLoc exact match">リガチャ</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Use All&quot;; ObjectID = &quot;244&quot;; </Description>
+            <Position>244.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Use All</base>
+                <tran loc="ja" origin="OldLoc exact match">すべて使用</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenu&quot;; title = &quot;Ligature&quot;; ObjectID = &quot;246&quot;; </Description>
+            <Position>246.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Ligature</base>
+                <tran loc="ja" origin="OldLoc exact match">リガチャ</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Kern&quot;; ObjectID = &quot;247&quot;; </Description>
+            <Position>247.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Kern</base>
+                <tran loc="ja" origin="OldLoc exact match">カーニング</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Use Default&quot;; ObjectID = &quot;248&quot;; </Description>
+            <Position>248.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Use Default</base>
+                <tran loc="ja" origin="OldLoc exact match">デフォルト</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;About TextEdit&quot;; ObjectID = &quot;25&quot;; </Description>
+            <Position>25.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >About TextEdit</base>
+                <tran loc="ja" origin="OldLoc exact match">テキストエディットについて</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenu&quot;; title = &quot;Kern&quot;; ObjectID = &quot;250&quot;; </Description>
+            <Position>250.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Kern</base>
+                <tran loc="ja" origin="OldLoc exact match">カーニング</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Loosen&quot;; ObjectID = &quot;251&quot;; </Description>
+            <Position>251.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Loosen</base>
+                <tran loc="ja" origin="OldLoc exact match">ゆるく</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Tighten&quot;; ObjectID = &quot;252&quot;; </Description>
+            <Position>252.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Tighten</base>
+                <tran loc="ja" origin="OldLoc exact match">きつく</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Use Default&quot;; ObjectID = &quot;253&quot;; </Description>
+            <Position>253.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Use Default</base>
+                <tran loc="ja" origin="OldLoc exact match">デフォルト</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Use None&quot;; ObjectID = &quot;254&quot;; </Description>
+            <Position>254.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Use None</base>
+                <tran loc="ja" origin="OldLoc exact match">使用しない</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Raise&quot;; ObjectID = &quot;255&quot;; </Description>
+            <Position>255.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Raise</base>
+                <tran loc="ja" origin="OldLoc exact match">上げる</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Lower&quot;; ObjectID = &quot;256&quot;; </Description>
+            <Position>256.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Lower</base>
+                <tran loc="ja" origin="OldLoc exact match">下げる</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Use None&quot;; ObjectID = &quot;262&quot;; </Description>
+            <Position>262.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Use None</base>
+                <tran loc="ja" origin="OldLoc exact match">使用しない</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;File&quot;; ObjectID = &quot;274&quot;; </Description>
+            <Position>274.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >File</base>
+                <tran loc="ja" origin="OldLoc exact match">ファイル</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Open…&quot;; ObjectID = &quot;276&quot;; </Description>
+            <Position>276.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Open…</base>
+                <tran loc="ja" origin="OldLoc exact match">開く...</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Revert to Saved&quot;; ObjectID = &quot;277&quot;; </Description>
+            <Position>277.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Revert to Saved</base>
+                <tran loc="ja" origin="OldLoc exact match">最後に保存した状態に戻す</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;New&quot;; ObjectID = &quot;278&quot;; </Description>
+            <Position>278.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >New</base>
+                <tran loc="ja" origin="OldLoc exact match">新規</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenu&quot;; title = &quot;File&quot;; ObjectID = &quot;279&quot;; </Description>
+            <Position>279.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >File</base>
+                <tran loc="ja" origin="OldLoc exact match">ファイル</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Save As…&quot;; ObjectID = &quot;281&quot;; </Description>
+            <Position>281.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Save As…</base>
+                <tran loc="ja" origin="OldLoc exact match">別名で保存...</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Save&quot;; ObjectID = &quot;283&quot;; </Description>
+            <Position>283.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Save</base>
+                <tran loc="ja" origin="OldLoc exact match">保存</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Save All&quot;; ObjectID = &quot;284&quot;; </Description>
+            <Position>284.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Save All</base>
+                <tran loc="ja" origin="OldLoc exact match">すべてを保存</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Find&quot;; ObjectID = &quot;310&quot;; </Description>
+            <Position>310.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Find</base>
+                <tran loc="ja" origin="OldLoc exact match">検索</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Find…&quot;; ObjectID = &quot;311&quot;; </Description>
+            <Position>311.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Find…</base>
+                <tran loc="ja" origin="OldLoc exact match">検索...</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Find Next&quot;; ObjectID = &quot;312&quot;; </Description>
+            <Position>312.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Find Next</base>
+                <tran loc="ja" origin="OldLoc exact match">次を検索</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Find Previous&quot;; ObjectID = &quot;314&quot;; </Description>
+            <Position>314.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Find Previous</base>
+                <tran loc="ja" origin="OldLoc exact match">前を検索</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Jump to Selection&quot;; ObjectID = &quot;315&quot;; </Description>
+            <Position>315.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Jump to Selection</base>
+                <tran loc="ja" origin="OldLoc exact match">選択部分へジャンプ</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Use Selection for Find&quot;; ObjectID = &quot;316&quot;; </Description>
+            <Position>316.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Use Selection for Find</base>
+                <tran loc="ja" origin="OldLoc exact match">選択部分を検索に使用</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenu&quot;; title = &quot;Find&quot;; ObjectID = &quot;317&quot;; </Description>
+            <Position>317.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Find</base>
+                <tran loc="ja" origin="OldLoc exact match">検索</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Show Colors&quot;; ObjectID = &quot;372&quot;; </Description>
+            <Position>372.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Show Colors</base>
+                <tran loc="ja" origin="OldLoc exact match">カラーパネルを表示</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Superscript&quot;; ObjectID = &quot;375&quot;; </Description>
+            <Position>375.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Superscript</base>
+                <tran loc="ja" origin="OldLoc exact match">上付き</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Subscript&quot;; ObjectID = &quot;376&quot;; </Description>
+            <Position>376.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Subscript</base>
+                <tran loc="ja" origin="OldLoc exact match">下付き</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Wrap to Page&quot;; ObjectID = &quot;381&quot;; </Description>
+            <Position>381.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Wrap to Page</base>
+                <tran loc="ja" origin="OldLoc exact match">ページサイズで表示</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Print…&quot;; ObjectID = &quot;399&quot;; </Description>
+            <Position>399.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Print…</base>
+                <tran loc="ja" origin="OldLoc exact match">プリント...</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenu&quot;; title = &quot;Edit&quot;; ObjectID = &quot;4&quot;; </Description>
+            <Position>4.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Edit</base>
+                <tran loc="ja" origin="OldLoc exact match">編集</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Page Setup…&quot;; ObjectID = &quot;406&quot;; </Description>
+            <Position>406.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Page Setup…</base>
+                <tran loc="ja" origin="OldLoc exact match">ページ設定...</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Close&quot;; ObjectID = &quot;419&quot;; </Description>
+            <Position>419.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Close</base>
+                <tran loc="ja" origin="OldLoc exact match">閉じる</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Allow Hyphenation&quot;; ObjectID = &quot;422&quot;; </Description>
+            <Position>422.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Allow Hyphenation</base>
+                <tran loc="ja" origin="OldLoc exact match">行末ハイフン処理をする</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Justify&quot;; ObjectID = &quot;424&quot;; </Description>
+            <Position>424.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Justify</base>
+                <tran loc="ja" origin="OldLoc exact match">両端揃え</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Undo&quot;; ObjectID = &quot;451&quot;; </Description>
+            <Position>451.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Undo</base>
+                <tran loc="ja" origin="OldLoc exact match">取り消す</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Redo&quot;; ObjectID = &quot;452&quot;; </Description>
+            <Position>452.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Redo</base>
+                <tran loc="ja" origin="OldLoc exact match">やり直す</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Open Recent&quot;; ObjectID = &quot;459&quot;; </Description>
+            <Position>459.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Open Recent</base>
+                <tran loc="ja" origin="OldLoc exact match">最近使った項目を開く</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenu&quot;; title = &quot;Open Recent&quot;; ObjectID = &quot;460&quot;; </Description>
+            <Position>460.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Open Recent</base>
+                <tran loc="ja" origin="OldLoc exact match">最近使った項目を開く</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Clear Menu&quot;; ObjectID = &quot;461&quot;; </Description>
+            <Position>461.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Clear Menu</base>
+                <tran loc="ja" origin="OldLoc exact match">メニューを消去</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Window&quot;; ObjectID = &quot;474&quot;; </Description>
+            <Position>474.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Window</base>
+                <tran loc="ja" origin="OldLoc exact match">ウインドウ</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenu&quot;; title = &quot;Window&quot;; ObjectID = &quot;475&quot;; </Description>
+            <Position>475.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Window</base>
+                <tran loc="ja" origin="OldLoc exact match">ウインドウ</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Bring All to Front&quot;; ObjectID = &quot;476&quot;; </Description>
+            <Position>476.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Bring All to Front</base>
+                <tran loc="ja" origin="OldLoc exact match">すべてを手前に移動</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Minimize&quot;; ObjectID = &quot;477&quot;; </Description>
+            <Position>477.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Minimize</base>
+                <tran loc="ja" origin="OldLoc exact match">しまう</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Zoom&quot;; ObjectID = &quot;478&quot;; </Description>
+            <Position>478.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Zoom</base>
+                <tran loc="ja" origin="OldLoc exact match">拡大／縮小</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenu&quot;; title = &quot;Spelling and Grammar&quot;; ObjectID = &quot;491&quot;; </Description>
+            <Position>491.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Spelling and Grammar</base>
+                <tran loc="ja" origin="OldLoc exact match">スペルと文法</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Spelling and Grammar&quot;; ObjectID = &quot;493&quot;; </Description>
+            <Position>493.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Spelling and Grammar</base>
+                <tran loc="ja" origin="OldLoc exact match">スペルと文法</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Show Spelling and Grammar&quot;; ObjectID = &quot;494&quot;; </Description>
+            <Position>494.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Show Spelling and Grammar</base>
+                <tran loc="ja" origin="OldLoc exact match">スペルと文法を表示</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Check Document Now&quot;; ObjectID = &quot;496&quot;; </Description>
+            <Position>496.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Check Document Now</base>
+                <tran loc="ja" origin="OldLoc exact match">書類を今すぐチェック</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Check Spelling While Typing&quot;; ObjectID = &quot;498&quot;; </Description>
+            <Position>498.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Check Spelling While Typing</base>
+                <tran loc="ja" origin="OldLoc exact match">入力中にスペルチェック</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Preferences…&quot;; ObjectID = &quot;501&quot;; </Description>
+            <Position>501.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Preferences…</base>
+                <tran loc="ja" origin="OldLoc exact match">環境設定...</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenu&quot;; title = &quot;Services&quot;; ObjectID = &quot;503&quot;; </Description>
+            <Position>503.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Services</base>
+                <tran loc="ja" origin="OldLoc exact match">サービス</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Services&quot;; ObjectID = &quot;504&quot;; </Description>
+            <Position>504.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Services</base>
+                <tran loc="ja" origin="OldLoc exact match">サービス</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Hide TextEdit&quot;; ObjectID = &quot;505&quot;; </Description>
+            <Position>505.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Hide TextEdit</base>
+                <tran loc="ja" origin="OldLoc exact match">テキストエディットを隠す</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Quit TextEdit&quot;; ObjectID = &quot;508&quot;; </Description>
+            <Position>508.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Quit TextEdit</base>
+                <tran loc="ja" origin="OldLoc exact match">テキストエディットを終了</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;TextEdit&quot;; ObjectID = &quot;511&quot;; </Description>
+            <Position>511.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >TextEdit</base>
+                <tran loc="ja" origin="OldLoc exact match">テキストエディット</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenu&quot;; title = &quot;TextEdit&quot;; ObjectID = &quot;512&quot;; </Description>
+            <Position>512.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >TextEdit</base>
+                <tran loc="ja" origin="OldLoc exact match">テキストエディット</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Hide Others&quot;; ObjectID = &quot;515&quot;; </Description>
+            <Position>515.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Hide Others</base>
+                <tran loc="ja" origin="OldLoc exact match">ほかを隠す</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Show All&quot;; ObjectID = &quot;517&quot;; </Description>
+            <Position>517.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Show All</base>
+                <tran loc="ja" origin="OldLoc exact match">すべてを表示</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Help&quot;; ObjectID = &quot;524&quot;; </Description>
+            <Position>524.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Help</base>
+                <tran loc="ja" origin="OldLoc exact match">ヘルプ</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;TextEdit Help&quot;; ObjectID = &quot;525&quot;; </Description>
+            <Position>525.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >TextEdit Help</base>
+                <tran loc="ja" origin="OldLoc exact match">テキストエディットヘルプ</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenu&quot;; title = &quot;Help&quot;; ObjectID = &quot;526&quot;; </Description>
+            <Position>526.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Help</base>
+                <tran loc="ja" origin="OldLoc exact match">ヘルプ</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Character Shape&quot;; ObjectID = &quot;529&quot;; </Description>
+            <Position>529.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Character Shape</base>
+                <tran loc="ja" origin="OldLoc exact match">文字の形状</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenu&quot;; title = &quot;Character Shape&quot;; ObjectID = &quot;530&quot;; </Description>
+            <Position>530.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Character Shape</base>
+                <tran loc="ja" origin="OldLoc exact match">文字の形状</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Traditional Form&quot;; ObjectID = &quot;531&quot;; </Description>
+            <Position>531.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Traditional Form</base>
+                <tran loc="ja" origin="OldLoc exact match">旧字体</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Prevent Editing&quot;; ObjectID = &quot;534&quot;; </Description>
+            <Position>534.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Prevent Editing</base>
+                <tran loc="ja" origin="OldLoc exact match">編集不可にする</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Speech&quot;; ObjectID = &quot;537&quot;; </Description>
+            <Position>537.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Speech</base>
+                <tran loc="ja" origin="OldLoc exact match">スピーチ</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenu&quot;; title = &quot;Speech&quot;; ObjectID = &quot;538&quot;; </Description>
+            <Position>538.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Speech</base>
+                <tran loc="ja" origin="OldLoc exact match">スピーチ</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Start Speaking&quot;; ObjectID = &quot;539&quot;; </Description>
+            <Position>539.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Start Speaking</base>
+                <tran loc="ja" origin="OldLoc exact match">読み上げを開始</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Stop Speaking&quot;; ObjectID = &quot;541&quot;; </Description>
+            <Position>541.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Stop Speaking</base>
+                <tran loc="ja" origin="OldLoc exact match">読み上げを停止</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Bigger&quot;; ObjectID = &quot;543&quot;; </Description>
+            <Position>543.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Bigger</base>
+                <tran loc="ja" origin="OldLoc exact match">大きく</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Smaller&quot;; ObjectID = &quot;544&quot;; </Description>
+            <Position>544.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Smaller</base>
+                <tran loc="ja" origin="OldLoc exact match">小さく</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Writing Direction&quot;; ObjectID = &quot;555&quot;; </Description>
+            <Position>555.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Writing Direction</base>
+                <tran loc="ja" origin="OldLoc exact match">文章の方向</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenu&quot;; title = &quot;Writing Direction&quot;; ObjectID = &quot;556&quot;; </Description>
+            <Position>556.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Writing Direction</base>
+                <tran loc="ja" origin="OldLoc exact match">文章の方向</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Right to Left&quot;; ObjectID = &quot;557&quot;; </Description>
+            <Position>557.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Right to Left</base>
+                <tran loc="ja" origin="OldLoc exact match">右から左</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Delete&quot;; ObjectID = &quot;575&quot;; </Description>
+            <Position>575.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Delete</base>
+                <tran loc="ja" origin="OldLoc exact match">削除</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Outline&quot;; ObjectID = &quot;578&quot;; </Description>
+            <Position>578.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Outline</base>
+                <tran loc="ja" origin="OldLoc exact match">アウトライン</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Styles...&quot;; ObjectID = &quot;581&quot;; </Description>
+            <Position>581.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Styles...</base>
+                <tran loc="ja" origin="OldLoc exact match">スタイル...</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Paste and Match Style&quot;; ObjectID = &quot;584&quot;; </Description>
+            <Position>584.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Paste and Match Style</base>
+                <tran loc="ja" origin="OldLoc exact match">ペーストしてスタイルを合わせる</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Show Properties&quot;; ObjectID = &quot;588&quot;; </Description>
+            <Position>588.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Show Properties</base>
+                <tran loc="ja" origin="OldLoc exact match">プロパティを表示</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Spacing...&quot;; ObjectID = &quot;594&quot;; </Description>
+            <Position>594.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Spacing...</base>
+                <tran loc="ja" origin="OldLoc exact match">間隔...</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Line Break&quot;; ObjectID = &quot;597&quot;; </Description>
+            <Position>597.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Line Break</base>
+                <tran loc="ja" origin="OldLoc exact match">改行</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenu&quot;; title = &quot;Insert&quot;; ObjectID = &quot;598&quot;; </Description>
+            <Position>598.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Insert</base>
+                <tran loc="ja" origin="OldLoc exact match">挿入</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Insert&quot;; ObjectID = &quot;599&quot;; </Description>
+            <Position>599.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Insert</base>
+                <tran loc="ja" origin="OldLoc exact match">挿入</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Paragraph Break&quot;; ObjectID = &quot;600&quot;; </Description>
+            <Position>600.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Paragraph Break</base>
+                <tran loc="ja" origin="OldLoc exact match">段落区切り</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Page Break&quot;; ObjectID = &quot;601&quot;; </Description>
+            <Position>601.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Page Break</base>
+                <tran loc="ja" origin="OldLoc exact match">改ページ</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;List…&quot;; ObjectID = &quot;607&quot;; </Description>
+            <Position>607.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >List…</base>
+                <tran loc="ja" origin="OldLoc exact match">リスト...</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Table…&quot;; ObjectID = &quot;609&quot;; </Description>
+            <Position>609.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Table…</base>
+                <tran loc="ja" origin="OldLoc exact match">表...</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Link…&quot;; ObjectID = &quot;613&quot;; </Description>
+            <Position>613.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Link…</base>
+                <tran loc="ja" origin="OldLoc exact match">リンク...</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Check Grammar With Spelling&quot;; ObjectID = &quot;626&quot;; </Description>
+            <Position>626.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Check Grammar With Spelling</base>
+                <tran loc="ja" origin="OldLoc exact match">スペルと一緒に文法をチェック</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Substitutions&quot;; ObjectID = &quot;629&quot;; </Description>
+            <Position>629.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Substitutions</base>
+                <tran loc="ja" origin="OldLoc exact match">自動置換</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenu&quot;; title = &quot;Substitutions&quot;; ObjectID = &quot;630&quot;; </Description>
+            <Position>630.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Substitutions</base>
+                <tran loc="ja" origin="OldLoc exact match">自動置換</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Smart Links&quot;; ObjectID = &quot;631&quot;; </Description>
+            <Position>631.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Smart Links</base>
+                <tran loc="ja" origin="OldLoc exact match">スマートリンク</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Smart Quotes&quot;; ObjectID = &quot;632&quot;; </Description>
+            <Position>632.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Smart Quotes</base>
+                <tran loc="ja" origin="OldLoc exact match">スマート引用符</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Smart Copy/Paste&quot;; ObjectID = &quot;633&quot;; </Description>
+            <Position>633.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Smart Copy/Paste</base>
+                <tran loc="ja" origin="OldLoc exact match">スマートコピー／ペースト</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Select Line...&quot;; ObjectID = &quot;643&quot;; </Description>
+            <Position>643.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Select Line...</base>
+                <tran loc="ja" origin="OldLoc exact match">行を選択...</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Edit&quot;; ObjectID = &quot;96&quot;; </Description>
+            <Position>96.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Edit</base>
+                <tran loc="ja" origin="OldLoc exact match">編集</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+    </File>
+
+    <!--                                                 -->
+    <!--    TextEdit/../EncodingAccessory.nib.strings    -->
+    <!--                                                 -->
+    <File>
+        <Filepath>TextEdit/Applications/TextEdit.app/Contents/Resources/English.lproj/EncodingAccessory.nib.strings</Filepath>
+
+        <TextItem>
+            <Description> Class = &quot;NSButtonCell&quot;; title = &quot;DO NOT LOCALIZE&quot;; ObjectID = &quot;100062&quot;; </Description>
+            <Position>100062.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >DO NOT LOCALIZE</base>
+                <tran loc="ja" origin="OldLoc exact match">DO NOT LOCALIZE</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSTextFieldCell&quot;; title = &quot;Plain Text Encoding:\n&quot;; ObjectID = &quot;100069&quot;; </Description>
+            <Position>100069.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Plain Text Encoding:\n</base>
+                <tran loc="ja" origin="OldLoc exact match">標準テキストのエンコーディング：</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenu&quot;; title = &quot;OtherViews&quot;; ObjectID = &quot;57&quot;; </Description>
+            <Position>57.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >OtherViews</base>
+                <tran loc="ja" origin="OldLoc exact match">OtherViews</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;DO NOT LOCALIZE&quot;; ObjectID = &quot;59&quot;; </Description>
+            <Position>59.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >DO NOT LOCALIZE</base>
+                <tran loc="ja" origin="OldLoc exact match">DO NOT LOCALIZE</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+    </File>
+
+    <!--                                     -->
+    <!--    TextEdit/../InfoPlist.strings    -->
+    <!--                                     -->
+    <File>
+        <Filepath>TextEdit/Applications/TextEdit.app/Contents/Resources/English.lproj/InfoPlist.strings</Filepath>
+
+        <TextItem>
+            <Description></Description>
+            <Position>Apple HTML document</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >HTML</base>
+                <tran loc="ja" origin="OldLoc exact match">HTML</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description></Description>
+            <Position>Apple SimpleText document</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >SimpleText Document</base>
+                <tran loc="ja" origin="OldLoc exact match">SimpleText 書類</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description></Description>
+            <Position>Apple Web archive</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Web archive</base>
+                <tran loc="ja" origin="OldLoc exact match">Web アーカイブ</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Localized &quot;short&quot; name in the app menu bar </Description>
+            <Position>CFBundleDisplayName</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >TextEdit</base>
+                <tran loc="ja" origin="OldLoc exact match">テキストエディット</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Help book </Description>
+            <Position>CFBundleHelpBookName</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >TextEdit Help</base>
+                <tran loc="ja" origin="OldLoc exact match">テキストエディットヘルプ</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Localized versions of Info.plist keys </Description>
+            <Position>CFBundleName</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >TextEdit</base>
+                <tran loc="ja" origin="OldLoc exact match">テキストエディット</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description></Description>
+            <Position>Microsoft Word 2003 XML document</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Word 2003 XML Format </base>
+                <tran loc="ja" origin="OldLoc exact match">Word 2003 XML フォーマット </tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description></Description>
+            <Position>Microsoft Word 2007 document</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Word 2007 Format (docx)</base>
+                <tran loc="ja" origin="OldLoc exact match">Word 2007 フォーマット（docx）</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description></Description>
+            <Position>Microsoft Word 97 document</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Word 97 Format (doc)</base>
+                <tran loc="ja" origin="OldLoc exact match">Word 97 フォーマット（doc）</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Localized &quot;long&quot; name in Finder, etc </Description>
+            <Position>NSHumanReadableCopyright</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Copyright © 1995-2007 Apple Inc.\nAll rights reserved.</base>
+                <tran loc="ja" origin="OldLoc exact match">Copyright © 1995-2007 Apple Inc.\nAll rights reserved.</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description></Description>
+            <Position>NSRTFDPboardType</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >RTF with attachments (RTFD)</base>
+                <tran loc="ja" origin="OldLoc exact match">添付書類付き RTF（RTFD）</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Note that the &quot;\n&quot; is used for indicating a new line  Type names </Description>
+            <Position>NSRTFPboardType</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Rich Text Format (RTF)</base>
+                <tran loc="ja" origin="OldLoc exact match">リッチテキストフォーマット（RTF）</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description></Description>
+            <Position>NSStringPboardType</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Plain text</base>
+                <tran loc="ja" origin="OldLoc exact match">標準テキスト</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description></Description>
+            <Position>OpenDocument Text document</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >OpenDocument Text (odt)</base>
+                <tran loc="ja" origin="OldLoc exact match">OpenDocument テキスト（odt）</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+    </File>
+
+    <!--                                     -->
+    <!--    TextEdit/../LinePanel.strings    -->
+    <!--                                     -->
+    <File>
+        <Filepath>TextEdit/Applications/TextEdit.app/Contents/Resources/English.lproj/LinePanel.strings</Filepath>
+
+        <TextItem>
+            <Description> Error message indicating invalid line specification for &apos;Select Line&apos; </Description>
+            <Position>Invalid line specification \\U201c%@\\U201d.</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Invalid line specification “%@”.</base>
+                <tran loc="ja" origin="OldLoc exact match">指定された“%@”は行ではありません。</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Error message indicating out of bounds line specification for &apos;Select Line&apos; </Description>
+            <Position>Out of bounds line specification \\U201c%@\\U201d.</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Out of bounds line specification “%@”.</base>
+                <tran loc="ja" origin="OldLoc exact match">指定された“%@”行は範囲外です。</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Suggestion for correcting invalid line specification </Description>
+            <Position>Please enter the line number or numbers (separated by dash) of the line(s) to select.</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Please enter the line number or numbers (separated by dash) of the line(s) to select.</base>
+                <tran loc="ja" origin="OldLoc exact match">行番号またはハイフンでつながれた行範囲を入力してください。</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+    </File>
+
+    <!--                                       -->
+    <!--    TextEdit/../Localizable.strings    -->
+    <!--                                       -->
+    <File>
+        <Filepath>TextEdit/Applications/TextEdit.app/Contents/Resources/English.lproj/Localizable.strings</Filepath>
+
+        <TextItem>
+            <Description> Menu item to make the current document plain text </Description>
+            <Position>&amp;Make Plain Text</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >&amp;Make Plain Text</base>
+                <tran loc="ja" origin="OldLoc exact match">標準テキストにする</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Menu item to make the current document rich text </Description>
+            <Position>&amp;Make Rich Text</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >&amp;Make Rich Text</base>
+                <tran loc="ja" origin="OldLoc exact match">リッチテキストにする</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Menu item to cause text to be laid out to the size of the currently selected page type </Description>
+            <Position>&amp;Wrap to Page</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >&amp;Wrap to Page</base>
+                <tran loc="ja" origin="OldLoc exact match">ページサイズで表示</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Menu item to cause text to be laid out to size of the window </Description>
+            <Position>&amp;Wrap to Window</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >&amp;Wrap to Window</base>
+                <tran loc="ja" origin="OldLoc exact match">ウインドウサイズで表示</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Menu item to make the current document editable (not read-only) </Description>
+            <Position>Allow Editing</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Allow Editing</base>
+                <tran loc="ja" origin="OldLoc exact match">編集可能にする</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Menu item to allow hyphenation in the document </Description>
+            <Position>Allow Hyphenation</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Allow Hyphenation</base>
+                <tran loc="ja" origin="OldLoc exact match">行末ハイフン処理をする</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Title of alert panel which brings up a warning about saving over the same document </Description>
+            <Position>Are you sure you want to overwrite the document?</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Are you sure you want to overwrite the document?</base>
+                <tran loc="ja" origin="OldLoc exact match">書類を上書きしてもよろしいですか？</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Title of alert panel which brings up a warning while saving </Description>
+            <Position>Are you sure you want to save using RTFD format?</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Are you sure you want to save using RTFD format?</base>
+                <tran loc="ja" origin="OldLoc exact match">RTFD フォーマットで保存してもよろしいですか？</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Encoding popup entry indicating automatic choice of encoding </Description>
+            <Position>Automatic</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Automatic</base>
+                <tran loc="ja" origin="OldLoc exact match">自動</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Button choice allowing user to cancel. </Description>
+            <Position>Cancel</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Cancel</base>
+                <tran loc="ja" origin="OldLoc exact match">キャンセル</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Title of alert confirming Make Plain Text </Description>
+            <Position>Convert this document to plain text?</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Convert this document to plain text?</base>
+                <tran loc="ja" origin="OldLoc exact match">標準テキストに変換しますか？</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Message indicating file couldn&apos;t be opened; %@ is the filename. </Description>
+            <Position>Couldn\\U2019t open file \\U201c%@\\U201d.</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Couldn’t open file “%@”.</base>
+                <tran loc="ja" origin="OldLoc exact match">ファイル“%@”を開けませんでした。</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Encoding popup entry for bringing up the Customize Encodings List panel (this also occurs as the title of the panel itself, they should have the same localization) </Description>
+            <Position>Customize Encodings List\\U2026</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Customize Encodings List…</base>
+                <tran loc="ja" origin="OldLoc exact match">エンコーディングリストをカスタマイズ...</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Menu item to disallow hyphenation in the document </Description>
+            <Position>Do not Allow Hyphenation</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Do not Allow Hyphenation</base>
+                <tran loc="ja" origin="OldLoc exact match">行末ハイフン処理をしない</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Title for menu item to hide the document properties panel. </Description>
+            <Position>Hide Properties</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Hide Properties</base>
+                <tran loc="ja" origin="OldLoc exact match">プロパティを隠す</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Checkbox indicating that if the user does not specify an extension when saving a plain text file, .txt will be used </Description>
+            <Position>If no extension is provided, use \\U201c.txt\\U201d.</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >If no extension is provided, use “.txt”.</base>
+                <tran loc="ja" origin="OldLoc exact match">拡張子が指定されていない場合は、“.txt”を使用</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Checkbox indicating that when opening a rich text file, the rich text should be ignored (causing the file to be loaded as plain text) </Description>
+            <Position>Ignore rich text commands</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Ignore rich text commands</base>
+                <tran loc="ja" origin="OldLoc exact match">リッチテキストのコマンドを無視する</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Undo menu item text (without &apos;Undo &apos;) for making a document plain text </Description>
+            <Position>Make Plain Text</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Make Plain Text</base>
+                <tran loc="ja" origin="OldLoc exact match">標準テキストにする</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Undo menu item text (without &apos;Undo &apos;) for making a document rich text </Description>
+            <Position>Make Rich Text</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Make Rich Text</base>
+                <tran loc="ja" origin="OldLoc exact match">リッチテキストにする</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Subtitle of alert confirming Make Plain Text </Description>
+            <Position>Making a rich text document plain will lose all text styles (such as fonts and colors), images, attachments, and document properties.</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Making a rich text document plain will lose all text styles (such as fonts and colors), images, attachments, and document properties.</base>
+                <tran loc="ja" origin="OldLoc exact match">リッチテキスト書類を標準テキスト書類にすると、すべてのテキストスタイル（フォント、色など）、イメージ、添付ファイル、および書類のプロパティが失われます。</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> OK </Description>
+            <Position>OK</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >OK</base>
+                <tran loc="ja" origin="OldLoc exact match">OK</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Title of alert indicating error during Open File service </Description>
+            <Position>Open File Failed</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Open File Failed</base>
+                <tran loc="ja" origin="OldLoc exact match">ファイルを開けませんでした</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Button choice allowing user to overwrite the document. </Description>
+            <Position>Overwrite</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Overwrite</base>
+                <tran loc="ja" origin="OldLoc exact match">上書き</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Contents of alert panel informing user that they need to supply a new file name because the save might be lossy </Description>
+            <Position>Overwriting this document might cause you to lose some of the original formatting.  Would you like to save the document using a new name?</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Overwriting this document might cause you to lose some of the original formatting.  Would you like to save the document using a new name?</base>
+                <tran loc="ja" origin="OldLoc exact match">この書類を上書きすると、オリジナルの書式の一部が失われる可能性があります。新しい名前で書類を保存しますか？</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Subtitle of alert panel informing user that the file&apos;s string encoding needs to be changed </Description>
+            <Position>Please choose another encoding (such as UTF-8).</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Please choose another encoding (such as UTF-8).</base>
+                <tran loc="ja" origin="OldLoc exact match">別のエンコーディングを選んでください（UTF-8 など）。</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Title of alert panel which brings up a warning while saving, asking for new name </Description>
+            <Position>Please supply a new name.</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Please supply a new name.</base>
+                <tran loc="ja" origin="OldLoc exact match">新しい名前を指定してください。</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Menu item to make the current document read-only </Description>
+            <Position>Prevent Editing</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Prevent Editing</base>
+                <tran loc="ja" origin="OldLoc exact match">編集不可にする</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Button choice allowing user to choose a new name </Description>
+            <Position>Save with new name</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Save with new name</base>
+                <tran loc="ja" origin="OldLoc exact match">新しい名前で保存</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Button choice which allows the user to save the document. </Description>
+            <Position>Save</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Save</base>
+                <tran loc="ja" origin="OldLoc exact match">保存</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Title of alert indicating error during &apos;New Window Containing Selection&apos; service </Description>
+            <Position>Service failed. Couldn\\U2019t open the selection.</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Service failed. Couldn’t open the selection.</base>
+                <tran loc="ja" origin="OldLoc exact match">サービスが失敗しました。選択部分を開けませんでした。</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Title for menu item to show the document properties panel (should be the same as the initial menu item in the nib). </Description>
+            <Position>Show Properties</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Show Properties</base>
+                <tran loc="ja" origin="OldLoc exact match">プロパティを表示</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Title of alert indicating attached document in TextEdit file could not be opened. </Description>
+            <Position>The attached document could not be opened.</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >The attached document could not be opened.</base>
+                <tran loc="ja" origin="OldLoc exact match">添付ファイルを開けませんでした。</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Recommendation when &apos;New Window Containing Selection&apos; service fails </Description>
+            <Position>There might be an internal error or a performance problem, or the source application may be providing text of invalid type in the service request. Please try the operation a second time. If that doesn\\U2019t work, copy/paste the selection into TextEdit.</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >There might be an internal error or a performance problem, or the source application may be providing text of invalid type in the service request. Please try the operation a second time. If that doesn’t work, copy/paste the selection into TextEdit.</base>
+                <tran loc="ja" origin="OldLoc exact match">内部エラーまたはパフォーマンスの問題が起きているか、サービス要求のソースアプリケーションに含まれるテキストが無効なタイプである可能性があります。もう一度やり直してみてください。それでもうまくいかない場合は、選択部分をコピーしてテキストエディットにペーストしてください。</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Title of alert panel informing user that the file&apos;s string encoding needs to be changed. </Description>
+            <Position>This document can no longer be saved using its original %@ encoding.</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >This document can no longer be saved using its original %@ encoding.</base>
+                <tran loc="ja" origin="OldLoc exact match">この書類はオリジナルのエンコーディング（%@）を使って保存できなくなっています。</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Contents of alert panel informing user that the document is being converted from RTF to RTFD, and allowing them to cancel, save anyway, or save with new name </Description>
+            <Position>This document contains graphics and will be saved using RTFD (RTF with graphics) format. RTFD documents are not compatible with some applications. Save anyway?</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >This document contains graphics and will be saved using RTFD (RTF with graphics) format. RTFD documents are not compatible with some applications. Save anyway?</base>
+                <tran loc="ja" origin="OldLoc exact match">この書類にはグラフィックスが含まれているため、RTFD フォーマット（グラフィックスを含む RTF）で保存されます。RTFD 書類は一部のアプリケーションと互換性がありません。このまま保存しますか？</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Contents of alert panel informing user that they need to supply a new file name because the file needs to be saved using a different format than originally read in </Description>
+            <Position>This document was converted from a format that TextEdit cannot save. It will be saved in %@ format with a new name.</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >This document was converted from a format that TextEdit cannot save. It will be saved in %@ format with a new name.</base>
+                <tran loc="ja" origin="OldLoc exact match">この書類は“テキストエディット”が保存できないフォーマットから変換されています。この書類は新しい名前で“%@”フォーマットで保存されます。</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Message indicating text attachment could not be opened, likely because document has not yet been saved. </Description>
+            <Position>This is likely because the file has not yet been saved.  If possible, try again after saving.</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >This is likely because the file has not yet been saved.  If possible, try again after saving.</base>
+                <tran loc="ja" origin="OldLoc exact match">ファイルがまだ保存されていないことが原因と考えられます。可能な場合、保存した後にもう一度試してください。</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Undo menu change string, without the &apos;Undo&apos; </Description>
+            <Position>author</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Change Author</base>
+                <tran loc="ja" origin="OldLoc exact match">作成者を変更</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Undo menu change string, without the &apos;Undo&apos; </Description>
+            <Position>comment</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Change Comment</base>
+                <tran loc="ja" origin="OldLoc exact match">コメントを変更</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Undo menu change string, without the &apos;Undo&apos; </Description>
+            <Position>company</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Change Company</base>
+                <tran loc="ja" origin="OldLoc exact match">会社を変更</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Undo menu change string, without the &apos;Undo&apos; </Description>
+            <Position>copyright</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Change Copyright</base>
+                <tran loc="ja" origin="OldLoc exact match">コピーライトを変更</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Undo menu change string, without the &apos;Undo&apos; </Description>
+            <Position>keywords</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Change Keywords</base>
+                <tran loc="ja" origin="OldLoc exact match">キーワードを変更</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Rich text with graphics file format name, displayed in alert </Description>
+            <Position>rich text with graphics (RTFD)</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >rich text with graphics (RTFD)</base>
+                <tran loc="ja" origin="OldLoc exact match">グラフィック付きリッチテキスト（RTFD）</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Rich text file format name, displayed in alert </Description>
+            <Position>rich text</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >rich text</base>
+                <tran loc="ja" origin="OldLoc exact match">リッチテキスト</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Undo menu change string, without the &apos;Undo&apos; </Description>
+            <Position>subject</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Change Subject</base>
+                <tran loc="ja" origin="OldLoc exact match">主題を変更</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Undo menu change string, without the &apos;Undo&apos; </Description>
+            <Position>title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Change Title</base>
+                <tran loc="ja" origin="OldLoc exact match">タイトルを変更</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+    </File>
+
+    <!--                                           -->
+    <!--    TextEdit/../Preferences.nib.strings    -->
+    <!--                                           -->
+    <File>
+        <Filepath>TextEdit/Applications/TextEdit.app/Contents/Resources/English.lproj/Preferences.nib.strings</Filepath>
+
+        <TextItem>
+            <Description> Class = &quot;NSTextFieldCell&quot;; title = &quot;Font name&quot;; ObjectID = &quot;100002&quot;; </Description>
+            <Position>100002.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Font name</base>
+                <tran loc="ja" origin="OldLoc exact match">フォント名</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSButtonCell&quot;; title = &quot;Change...&quot;; ObjectID = &quot;100003&quot;; </Description>
+            <Position>100003.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Change...</base>
+                <tran loc="ja" origin="OldLoc exact match">変更...</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSButtonCell&quot;; title = &quot;Change...&quot;; ObjectID = &quot;100013&quot;; </Description>
+            <Position>100013.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Change...</base>
+                <tran loc="ja" origin="OldLoc exact match">変更...</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSTextFieldCell&quot;; title = &quot;Font name&quot;; ObjectID = &quot;100014&quot;; </Description>
+            <Position>100014.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Font name</base>
+                <tran loc="ja" origin="OldLoc exact match">フォント名</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSButtonCell&quot;; title = &quot;Radio&quot;; ObjectID = &quot;100021&quot;; </Description>
+            <Position>100021.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Radio</base>
+                <tran loc="ja" origin="OldLoc exact match">Radio</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSTextFieldCell&quot;; title = &quot;Width:&quot;; ObjectID = &quot;100035&quot;; </Description>
+            <Position>100035.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Width:</base>
+                <tran loc="ja" origin="OldLoc exact match">幅：</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSTextFieldCell&quot;; title = &quot;Height:\n&quot;; ObjectID = &quot;100036&quot;; </Description>
+            <Position>100036.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Height:\n</base>
+                <tran loc="ja" origin="OldLoc exact match">高さ：</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSTextFieldCell&quot;; title = &quot;characters&quot;; ObjectID = &quot;100040&quot;; </Description>
+            <Position>100040.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >characters</base>
+                <tran loc="ja" origin="OldLoc exact match">文字</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSTextFieldCell&quot;; title = &quot;lines&quot;; ObjectID = &quot;100041&quot;; </Description>
+            <Position>100041.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >lines</base>
+                <tran loc="ja" origin="OldLoc exact match">行</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSButtonCell&quot;; title = &quot;Wrap to page&quot;; ObjectID = &quot;100052&quot;; </Description>
+            <Position>100052.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Wrap to page</base>
+                <tran loc="ja" origin="OldLoc exact match">ページサイズで表示</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSButtonCell&quot;; title = &quot;Restore All Defaults&quot;; ObjectID = &quot;100054&quot;; </Description>
+            <Position>100054.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Restore All Defaults</base>
+                <tran loc="ja" origin="OldLoc exact match">すべてをデフォルトに戻す</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSTextFieldCell&quot;; title = &quot;Rich text font:\n&quot;; ObjectID = &quot;100069&quot;; </Description>
+            <Position>100069.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Rich text font:\n</base>
+                <tran loc="ja" origin="OldLoc exact match">リッチテキストのフォント：</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSTextFieldCell&quot;; title = &quot;Plain text font:\n&quot;; ObjectID = &quot;100070&quot;; </Description>
+            <Position>100070.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Plain text font:\n</base>
+                <tran loc="ja" origin="OldLoc exact match">標準テキストのフォント：</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSButtonCell&quot;; title = &quot;Ignore rich text commands in RTF files&quot;; ObjectID = &quot;100171&quot;; </Description>
+            <Position>100171.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Ignore rich text commands in RTF files</base>
+                <tran loc="ja" origin="OldLoc exact match">RTF ファイル中のリッチテキストコマンドを無視</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSTextFieldCell&quot;; title = &quot;Opening files:\n&quot;; ObjectID = &quot;100172&quot;; </Description>
+            <Position>100172.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Opening files:\n</base>
+                <tran loc="ja" origin="OldLoc exact match">ファイルを開くとき：</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSTextFieldCell&quot;; title = &quot;Saving files:\n&quot;; ObjectID = &quot;100175&quot;; </Description>
+            <Position>100175.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Saving files:\n</base>
+                <tran loc="ja" origin="OldLoc exact match">ファイルを保存するとき：</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSButtonCell&quot;; title = &quot;Ignore rich text commands in HTML files&quot;; ObjectID = &quot;100180&quot;; </Description>
+            <Position>100180.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Ignore rich text commands in HTML files</base>
+                <tran loc="ja" origin="OldLoc exact match">HTML ファイル中のリッチテキストコマンドを無視</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSButtonCell&quot;; title = &quot;Delete the automatic backup file&quot;; ObjectID = &quot;100200&quot;; </Description>
+            <Position>100200.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Delete the automatic backup file</base>
+                <tran loc="ja" origin="OldLoc exact match">自動バックアップファイルを削除</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSButtonCell&quot;; title = &quot;Add \&quot;.txt\&quot; extension to plain text files&quot;; ObjectID = &quot;100220&quot;; </Description>
+            <Position>100220.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Add \&quot;.txt\&quot; extension to plain text files</base>
+                <tran loc="ja" origin="OldLoc exact match">標準テキストファイルに拡張子“.txt”を追加</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSButtonCell&quot;; title = &quot;Check spelling as you type &quot;; ObjectID = &quot;100224&quot;; </Description>
+            <Position>100224.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Check spelling as you type </base>
+                <tran loc="ja" origin="OldLoc exact match">入力中に自動スペルチェック</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSButtonCell&quot;; title = &quot;Show ruler&quot;; ObjectID = &quot;100262&quot;; </Description>
+            <Position>100262.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Show ruler</base>
+                <tran loc="ja" origin="OldLoc exact match">ルーラを表示</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSTextFieldCell&quot;; title = &quot;Author:&quot;; ObjectID = &quot;100398&quot;; </Description>
+            <Position>100398.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Author:</base>
+                <tran loc="ja" origin="OldLoc exact match">作成者：</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSTextFieldCell&quot;; title = &quot;Company:&quot;; ObjectID = &quot;100400&quot;; </Description>
+            <Position>100400.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Company:</base>
+                <tran loc="ja" origin="OldLoc exact match">会社：</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSTextFieldCell&quot;; title = &quot;Copyright:&quot;; ObjectID = &quot;100402&quot;; </Description>
+            <Position>100402.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Copyright:</base>
+                <tran loc="ja" origin="OldLoc exact match">コピーライト：</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSTextFieldCell&quot;; title = &quot;When Saving a File:&quot;; ObjectID = &quot;100407&quot;; </Description>
+            <Position>100407.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >When Saving a File:</base>
+                <tran loc="ja" origin="OldLoc exact match">ファイルを保存するとき：</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSTextFieldCell&quot;; title = &quot;When Opening a File:&quot;; ObjectID = &quot;100408&quot;; </Description>
+            <Position>100408.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >When Opening a File:</base>
+                <tran loc="ja" origin="OldLoc exact match">ファイルを開くとき：</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSTextFieldCell&quot;; title = &quot;Plain Text File Encoding&quot;; ObjectID = &quot;100409&quot;; </Description>
+            <Position>100409.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Plain Text File Encoding</base>
+                <tran loc="ja" origin="OldLoc exact match">標準テキストファイルのエンコーディング</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSTextFieldCell&quot;; title = &quot;Document type:\n&quot;; ObjectID = &quot;100413&quot;; </Description>
+            <Position>100413.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Document type:\n</base>
+                <tran loc="ja" origin="OldLoc exact match">書類タイプ：</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSTextFieldCell&quot;; title = &quot;Encoding:\n&quot;; ObjectID = &quot;100417&quot;; </Description>
+            <Position>100417.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Encoding:\n</base>
+                <tran loc="ja" origin="OldLoc exact match">エンコーディング：</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSButtonCell&quot;; title = &quot;Preserve white space&quot;; ObjectID = &quot;100418&quot;; </Description>
+            <Position>100418.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Preserve white space</base>
+                <tran loc="ja" origin="OldLoc exact match">余白を維持</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSTextFieldCell&quot;; title = &quot;HTML Saving Options&quot;; ObjectID = &quot;100421&quot;; </Description>
+            <Position>100421.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >HTML Saving Options</base>
+                <tran loc="ja" origin="OldLoc exact match">HTML 保存オプション</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSTextFieldCell&quot;; title = &quot;Format&quot;; ObjectID = &quot;100426&quot;; </Description>
+            <Position>100426.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Format</base>
+                <tran loc="ja" origin="OldLoc exact match">フォーマット</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSTextFieldCell&quot;; title = &quot;Window Size&quot;; ObjectID = &quot;100427&quot;; </Description>
+            <Position>100427.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Window Size</base>
+                <tran loc="ja" origin="OldLoc exact match">ウインドウサイズ</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSTextFieldCell&quot;; title = &quot;Font&quot;; ObjectID = &quot;100428&quot;; </Description>
+            <Position>100428.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Font</base>
+                <tran loc="ja" origin="OldLoc exact match">フォント</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSTextFieldCell&quot;; title = &quot;Properties&quot;; ObjectID = &quot;100429&quot;; </Description>
+            <Position>100429.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Properties</base>
+                <tran loc="ja" origin="OldLoc exact match">プロパティ</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSTextFieldCell&quot;; title = &quot;Options&quot;; ObjectID = &quot;100430&quot;; </Description>
+            <Position>100430.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Options</base>
+                <tran loc="ja" origin="OldLoc exact match">オプション</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSTextFieldCell&quot;; title = &quot;Styling:&quot;; ObjectID = &quot;100456&quot;; </Description>
+            <Position>100456.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Styling:</base>
+                <tran loc="ja" origin="OldLoc exact match">スタイル：</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSTextFieldCell&quot;; title = &quot;Use the Format menu to choose settings for individual documents.&quot;; ObjectID = &quot;100471&quot;; </Description>
+            <Position>100471.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Use the Format menu to choose settings for individual documents.</base>
+                <tran loc="ja" origin="OldLoc exact match">書類ごとに設定を選択するには、“フォーマット”メニューを使用してください。</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSTextFieldCell&quot;; title = &quot;Document properties can only be used in rich text files. Choose \nFile &gt; Show Properties to change settings for individual documents.&quot;; ObjectID = &quot;100472&quot;; </Description>
+            <Position>100472.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Document properties can only be used in rich text files. Choose \nFile &gt; Show Properties to change settings for individual documents.</base>
+                <tran loc="ja" origin="OldLoc exact match">書類のプロパティは、リッチテキスト・ファイルでのみ使用できます。\n書類ごとに設定を変更するには、“ファイル”＞“プロパティを表示”と選択してください。</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSButtonCell&quot;; title = &quot;Check grammar with spelling &quot;; ObjectID = &quot;100543&quot;; </Description>
+            <Position>100543.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Check grammar with spelling </base>
+                <tran loc="ja" origin="OldLoc exact match">スペルと一緒に文法をチェック</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSButtonCell&quot;; title = &quot;Smart quotes&quot;; ObjectID = &quot;100547&quot;; </Description>
+            <Position>100547.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Smart quotes</base>
+                <tran loc="ja" origin="OldLoc exact match">スマート引用符</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSButtonCell&quot;; title = &quot;Smart links&quot;; ObjectID = &quot;100549&quot;; </Description>
+            <Position>100549.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Smart links</base>
+                <tran loc="ja" origin="OldLoc exact match">スマートリンク</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSButtonCell&quot;; title = &quot;Smart copy/paste&quot;; ObjectID = &quot;100551&quot;; </Description>
+            <Position>100551.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Smart copy/paste</base>
+                <tran loc="ja" origin="OldLoc exact match">スマートコピー／ペースト</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSTextFieldCell&quot;; title = &quot;Autosaving&quot;; ObjectID = &quot;100560&quot;; </Description>
+            <Position>100560.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Autosaving</base>
+                <tran loc="ja" origin="OldLoc exact match">自動保存</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSTextFieldCell&quot;; title = &quot;Autosave modified documents:&quot;; ObjectID = &quot;100577&quot;; </Description>
+            <Position>100577.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Autosave modified documents:</base>
+                <tran loc="ja" origin="OldLoc exact match">変更書類の自動保存：</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSButton&quot;; gToolTip = &quot;Select to open RTF files as plain text with no formatting&quot;; ObjectID = &quot;171&quot;; </Description>
+            <Position>171.gToolTip</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Select to open RTF files as plain text with no formatting</base>
+                <tran loc="ja" origin="OldLoc exact match">RTF ファイルをフォーマットなしの標準テキストとして開くときに選択します</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenu&quot;; title = &quot;OtherViews&quot;; ObjectID = &quot;173&quot;; </Description>
+            <Position>173.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >OtherViews</base>
+                <tran loc="ja" origin="OldLoc exact match">OtherViews</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenu&quot;; title = &quot;OtherViews&quot;; ObjectID = &quot;174&quot;; </Description>
+            <Position>174.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >OtherViews</base>
+                <tran loc="ja" origin="OldLoc exact match">OtherViews</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSPopUpButton&quot;; gToolTip = &quot;Choose the default text encoding to use when saving Plain Text files. Choose Automatic to save files with the same encoding used when opened.&quot;; ObjectID = &quot;177&quot;; </Description>
+            <Position>177.gToolTip</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Choose the default text encoding to use when saving Plain Text files. Choose Automatic to save files with the same encoding used when opened.</base>
+                <tran loc="ja" origin="OldLoc exact match">標準テキストファイルを保存するときに使用するデフォルトのテキストエンコーディングを選択します。開いたときと同じエンコーディングでファイルを保存するときは、“自動”を選択します。</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot; &quot;; ObjectID = &quot;179&quot;; </Description>
+            <Position>179.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            > </base>
+                <tran loc="ja" origin="OldLoc exact match"> </tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSButton&quot;; gToolTip = &quot;Select to open HTML files as plain text with no formatting&quot;; ObjectID = &quot;180&quot;; </Description>
+            <Position>180.gToolTip</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Select to open HTML files as plain text with no formatting</base>
+                <tran loc="ja" origin="OldLoc exact match">HTML ファイルをフォーマットなしの標準テキストとして開くときに選択します</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSPopUpButton&quot;; gToolTip = &quot;Choose the default text encoding to use when opening Plain Text files. If you don&apos;t want to use a specific encoding, choose Automatic.&quot;; ObjectID = &quot;181&quot;; </Description>
+            <Position>181.gToolTip</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Choose the default text encoding to use when opening Plain Text files. If you don&apos;t want to use a specific encoding, choose Automatic.</base>
+                <tran loc="ja" origin="OldLoc exact match">標準テキストファイルを開くときに使用するデフォルトのテキストエンコーディングを選択します。特定のエンコーディングを使いたくない場合は、“自動”を選択します。</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot; &quot;; ObjectID = &quot;184&quot;; </Description>
+            <Position>184.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            > </base>
+                <tran loc="ja" origin="OldLoc exact match"> </tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSButton&quot;; gToolTip = &quot;Select to add the file extension. You can change the extension when you save the file.&quot;; ObjectID = &quot;220&quot;; </Description>
+            <Position>220.gToolTip</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Select to add the file extension. You can change the extension when you save the file.</base>
+                <tran loc="ja" origin="OldLoc exact match">ファイル拡張子を追加するときに選択します。ファイルの保存時に拡張子を変更できます。</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSButton&quot;; gToolTip = &quot;Choose Edit &gt; Spelling to change this option for individual documents.&quot;; ObjectID = &quot;224&quot;; </Description>
+            <Position>224.gToolTip</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Choose Edit &gt; Spelling to change this option for individual documents.</base>
+                <tran loc="ja" origin="OldLoc exact match">書類ごとにこのオプションを変更するには、“編集”＞“スペル”と選択します。</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSButton&quot;; gToolTip = &quot;Press Command-R to view or hide the ruler in an open document.&quot;; ObjectID = &quot;262&quot;; </Description>
+            <Position>262.gToolTip</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Press Command-R to view or hide the ruler in an open document.</base>
+                <tran loc="ja" origin="OldLoc exact match">開いている書類でルーラの表示／非表示を切り替えるには、コマンド＋ R キーを押します。</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSTabViewItem&quot;; label = &quot;Open and Save&quot;; ObjectID = &quot;366&quot;; </Description>
+            <Position>366.label</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Open and Save</base>
+                <tran loc="ja" origin="OldLoc exact match">開く／保存</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSTabViewItem&quot;; label = &quot;New Document&quot;; ObjectID = &quot;368&quot;; </Description>
+            <Position>368.label</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >New Document</base>
+                <tran loc="ja" origin="OldLoc exact match">新規書類</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSPopUpButton&quot;; gToolTip = &quot;Choose the document type for saved HTML files.&quot;; ObjectID = &quot;410&quot;; </Description>
+            <Position>410.gToolTip</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Choose the document type for saved HTML files.</base>
+                <tran loc="ja" origin="OldLoc exact match">保存された HTML ファイルの書類タイプを選択します。</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenu&quot;; title = &quot;OtherViews&quot;; ObjectID = &quot;411&quot;; </Description>
+            <Position>411.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >OtherViews</base>
+                <tran loc="ja" origin="OldLoc exact match">OtherViews</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;HTML 4.01 Strict&quot;; ObjectID = &quot;412&quot;; </Description>
+            <Position>412.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >HTML 4.01 Strict</base>
+                <tran loc="ja" origin="OldLoc exact match">HTML 4.01 Strict</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSButton&quot;; gToolTip = &quot;Select to include HTML code that preserves the blank areas currently in your document.&quot;; ObjectID = &quot;418&quot;; </Description>
+            <Position>418.gToolTip</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Select to include HTML code that preserves the blank areas currently in your document.</base>
+                <tran loc="ja" origin="OldLoc exact match">書類の現在の余白を維持する HTML コードを含めるときに選択します。</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;HTML 4.01 Transitional&quot;; ObjectID = &quot;451&quot;; </Description>
+            <Position>451.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >HTML 4.01 Transitional</base>
+                <tran loc="ja" origin="OldLoc exact match">HTML 4.01 Transitional</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;XHTML 1.0 Strict&quot;; ObjectID = &quot;452&quot;; </Description>
+            <Position>452.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >XHTML 1.0 Strict</base>
+                <tran loc="ja" origin="OldLoc exact match">XHTML 1.0 Strict</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;XHTML 1.0 Transitional&quot;; ObjectID = &quot;455&quot;; </Description>
+            <Position>455.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >XHTML 1.0 Transitional</base>
+                <tran loc="ja" origin="OldLoc exact match">XHTML 1.0 Transitional</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSPopUpButton&quot;; gToolTip = &quot;Choose the form of cascading style sheets (CSS) you want, otherwise choose No CSS.&quot;; ObjectID = &quot;457&quot;; </Description>
+            <Position>457.gToolTip</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Choose the form of cascading style sheets (CSS) you want, otherwise choose No CSS.</base>
+                <tran loc="ja" origin="OldLoc exact match">使用するカスケーディング・スタイル・シート（CSS）の形式を選択します。使用しない場合は“CSS なし”を選択します。</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenu&quot;; title = &quot;OtherViews&quot;; ObjectID = &quot;458&quot;; </Description>
+            <Position>458.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >OtherViews</base>
+                <tran loc="ja" origin="OldLoc exact match">OtherViews</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Embedded CSS&quot;; ObjectID = &quot;460&quot;; </Description>
+            <Position>460.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Embedded CSS</base>
+                <tran loc="ja" origin="OldLoc exact match">埋め込みの CSS</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Inline CSS&quot;; ObjectID = &quot;464&quot;; </Description>
+            <Position>464.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Inline CSS</base>
+                <tran loc="ja" origin="OldLoc exact match">インライン CSS</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;No CSS&quot;; ObjectID = &quot;465&quot;; </Description>
+            <Position>465.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >No CSS</base>
+                <tran loc="ja" origin="OldLoc exact match">CSS なし</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSPopUpButton&quot;; gToolTip = &quot;Choose the text encoding for saved HTML files.&quot;; ObjectID = &quot;491&quot;; </Description>
+            <Position>491.gToolTip</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Choose the text encoding for saved HTML files.</base>
+                <tran loc="ja" origin="OldLoc exact match">保存された HTML ファイルのテキストエンコーディングを選択します。</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenu&quot;; title = &quot;OtherViews&quot;; ObjectID = &quot;492&quot;; </Description>
+            <Position>492.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >OtherViews</base>
+                <tran loc="ja" origin="OldLoc exact match">OtherViews</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot; &quot;; ObjectID = &quot;493&quot;; </Description>
+            <Position>493.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            > </base>
+                <tran loc="ja" origin="OldLoc exact match"> </tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSButton&quot;; gToolTip = &quot;Select to make text wrap to document margins rather than window boundaries.&quot;; ObjectID = &quot;52&quot;; </Description>
+            <Position>52.gToolTip</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Select to make text wrap to document margins rather than window boundaries.</base>
+                <tran loc="ja" origin="OldLoc exact match">ウインドウの境界ではなく書類の余白に合わせてテキストを折り返すときに選択します。</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSButtonCell&quot;; gToolTip = &quot;Select to create files that allow special text or document formatting.&quot;; ObjectID = &quot;539&quot;; </Description>
+            <Position>539.gToolTip</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Select to create files that allow special text or document formatting.</base>
+                <tran loc="ja" origin="OldLoc exact match">特殊文字や書類フォーマットを使用できるファイルを作成するときに選択します。</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSButtonCell&quot;; title = &quot;Rich text&quot;; ObjectID = &quot;539&quot;; </Description>
+            <Position>539.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Rich text</base>
+                <tran loc="ja" origin="OldLoc exact match">リッチテキスト</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSButton&quot;; gToolTip = &quot;Restore all preferences to their initial values&quot;; ObjectID = &quot;54&quot;; </Description>
+            <Position>54.gToolTip</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Restore all preferences to their initial values</base>
+                <tran loc="ja" origin="OldLoc exact match">すべての環境設定を初期値に戻します</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSButtonCell&quot;; gToolTip = &quot;Select to create files that don&apos;t contain formatting.&quot;; ObjectID = &quot;540&quot;; </Description>
+            <Position>540.gToolTip</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Select to create files that don&apos;t contain formatting.</base>
+                <tran loc="ja" origin="OldLoc exact match">フォーマットを含まないファイルを作成するときに選択します。</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSButtonCell&quot;; title = &quot;Plain text&quot;; ObjectID = &quot;540&quot;; </Description>
+            <Position>540.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Plain text</base>
+                <tran loc="ja" origin="OldLoc exact match">標準テキスト</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSButton&quot;; gToolTip = &quot;Choose Edit &gt; Spelling to change this option for individual documents.&quot;; ObjectID = &quot;543&quot;; </Description>
+            <Position>543.gToolTip</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Choose Edit &gt; Spelling to change this option for individual documents.</base>
+                <tran loc="ja" origin="OldLoc exact match">書類ごとにこのオプションを変更するには、“編集”＞“スペル”と選択します。</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSButton&quot;; gToolTip = &quot;Choose Edit &gt; Substitutions to change this option for individual documents.&quot;; ObjectID = &quot;547&quot;; </Description>
+            <Position>547.gToolTip</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Choose Edit &gt; Substitutions to change this option for individual documents.</base>
+                <tran loc="ja" origin="OldLoc exact match">書類ごとにこのオプションを変更するには、“編集”＞“自動置換”と選択します。</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSButton&quot;; gToolTip = &quot;Choose Edit &gt; Substitutions to change this option for individual documents.&quot;; ObjectID = &quot;549&quot;; </Description>
+            <Position>549.gToolTip</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Choose Edit &gt; Substitutions to change this option for individual documents.</base>
+                <tran loc="ja" origin="OldLoc exact match">書類ごとにこのオプションを変更するには、“編集”＞“自動置換”と選択します。</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSButton&quot;; gToolTip = &quot;Choose Edit &gt; Substitutions to change this option for individual documents.&quot;; ObjectID = &quot;551&quot;; </Description>
+            <Position>551.gToolTip</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Choose Edit &gt; Substitutions to change this option for individual documents.</base>
+                <tran loc="ja" origin="OldLoc exact match">書類ごとにこのオプションを変更するには、“編集”＞“自動置換”と選択します。</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSPopUpButton&quot;; gToolTip = &quot;Specify how often TextEdit should save side-copies of documents being modified. These \&quot;autosave\&quot; copies can be used to recover contents of unsaved documents.&quot;; ObjectID = &quot;572&quot;; </Description>
+            <Position>572.gToolTip</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Specify how often TextEdit should save side-copies of documents being modified. These \&quot;autosave\&quot; copies can be used to recover contents of unsaved documents.</base>
+                <tran loc="ja" origin="OldLoc exact match">“テキストエディット”で変更された書類のコピーを保存する間隔を指定します。これらの“自動保存”コピーは、保存されなかった書類の内容を復元するのに使用されます。</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenu&quot;; title = &quot;OtherViews&quot;; ObjectID = &quot;573&quot;; </Description>
+            <Position>573.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >OtherViews</base>
+                <tran loc="ja" origin="OldLoc exact match">OtherViews</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Every 15 seconds&quot;; ObjectID = &quot;574&quot;; </Description>
+            <Position>574.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Every 15 seconds</base>
+                <tran loc="ja" origin="OldLoc exact match">15 秒ごと</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Every 5 minutes&quot;; ObjectID = &quot;575&quot;; </Description>
+            <Position>575.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Every 5 minutes</base>
+                <tran loc="ja" origin="OldLoc exact match">5 分ごと</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Every minute&quot;; ObjectID = &quot;576&quot;; </Description>
+            <Position>576.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Every minute</base>
+                <tran loc="ja" origin="OldLoc exact match">1 分ごと</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Never&quot;; ObjectID = &quot;578&quot;; </Description>
+            <Position>578.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Never</base>
+                <tran loc="ja" origin="OldLoc exact match">しない</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSMenuItem&quot;; title = &quot;Every 30 seconds&quot;; ObjectID = &quot;580&quot;; </Description>
+            <Position>580.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Every 30 seconds</base>
+                <tran loc="ja" origin="OldLoc exact match">30 秒ごと</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSWindow&quot;; title = &quot;Preferences&quot;; ObjectID = &quot;9&quot;; </Description>
+            <Position>9.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Preferences</base>
+                <tran loc="ja" origin="OldLoc exact match">環境設定</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+    </File>
+
+    <!--                                                   -->
+    <!--    TextEdit/../PrintPanelAccessory.nib.strings    -->
+    <!--                                                   -->
+    <File>
+        <Filepath>TextEdit/Applications/TextEdit.app/Contents/Resources/English.lproj/PrintPanelAccessory.nib.strings</Filepath>
+
+        <TextItem>
+            <Description> Class = &quot;NSButtonCell&quot;; title = &quot;Print header and footer&quot;; ObjectID = &quot;2&quot;; </Description>
+            <Position>2.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Print header and footer</base>
+                <tran loc="ja" origin="OldLoc exact match">ヘッダとフッタをプリント</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+    </File>
+
+    <!--                                               -->
+    <!--    TextEdit/../PrintPanelAccessory.strings    -->
+    <!--                                               -->
+    <File>
+        <Filepath>TextEdit/Applications/TextEdit.app/Contents/Resources/English.lproj/PrintPanelAccessory.strings</Filepath>
+
+        <TextItem>
+            <Description> Print panel summary item title for whether header and footer (page number, date, document title) should be printed </Description>
+            <Position>Header and Footer</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Header and Footer</base>
+                <tran loc="ja" origin="OldLoc exact match">ヘッダとフッタ</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Print panel summary value when header and footer printing is off </Description>
+            <Position>Off</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Off</base>
+                <tran loc="ja" origin="OldLoc exact match">切</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Print panel summary value when header and footer printing is on </Description>
+            <Position>On</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >On</base>
+                <tran loc="ja" origin="OldLoc exact match">入</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+    </File>
+
+    <!--                                                    -->
+    <!--    TextEdit/../SelectEncodingsPanel.nib.strings    -->
+    <!--                                                    -->
+    <File>
+        <Filepath>TextEdit/Applications/TextEdit.app/Contents/Resources/English.lproj/SelectEncodingsPanel.nib.strings</Filepath>
+
+        <TextItem>
+            <Description> Class = &quot;NSButtonCell&quot;; title = &quot;Switch&quot;; ObjectID = &quot;100009&quot;; </Description>
+            <Position>100009.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Switch</base>
+                <tran loc="ja" origin="OldLoc exact match">Switch</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSTextFieldCell&quot;; title = &quot;Enable the text encodings you would like to be able to use.&quot;; ObjectID = &quot;100011&quot;; </Description>
+            <Position>100011.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Enable the text encodings you would like to be able to use.</base>
+                <tran loc="ja" origin="OldLoc exact match">目的のテキストエンコーディングを使用できるようにします。</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSButtonCell&quot;; title = &quot;Select all&quot;; ObjectID = &quot;100014&quot;; </Description>
+            <Position>100014.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Select all</base>
+                <tran loc="ja" origin="OldLoc exact match">すべてを選択</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSButtonCell&quot;; title = &quot;Clear all&quot;; ObjectID = &quot;100015&quot;; </Description>
+            <Position>100015.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Clear all</base>
+                <tran loc="ja" origin="OldLoc exact match">すべてを選択解除</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSButtonCell&quot;; title = &quot;Revert to default&quot;; ObjectID = &quot;100016&quot;; </Description>
+            <Position>100016.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Revert to default</base>
+                <tran loc="ja" origin="OldLoc exact match">デフォルトに戻す</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSPanel&quot;; title = &quot;Customize Encodings List&quot;; ObjectID = &quot;5&quot;; </Description>
+            <Position>5.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Customize Encodings List</base>
+                <tran loc="ja" origin="OldLoc exact match">エンコーディングリストのカスタマイズ</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+    </File>
+
+    <!--                                               -->
+    <!--    TextEdit/../SelectLinePanel.nib.strings    -->
+    <!--                                               -->
+    <File>
+        <Filepath>TextEdit/Applications/TextEdit.app/Contents/Resources/English.lproj/SelectLinePanel.nib.strings</Filepath>
+
+        <TextItem>
+            <Description> Class = &quot;NSTextFieldCell&quot;; placeholderString = &quot;Line number&quot;; ObjectID = &quot;100009&quot;; </Description>
+            <Position>100009.placeholderString</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Line number</base>
+                <tran loc="ja" origin="OldLoc exact match">行番号</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSButtonCell&quot;; title = &quot;Select&quot;; ObjectID = &quot;100010&quot;; </Description>
+            <Position>100010.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Select</base>
+                <tran loc="ja" origin="OldLoc exact match">選択</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSPanel&quot;; title = &quot;Select Line&quot;; ObjectID = &quot;7&quot;; </Description>
+            <Position>7.title</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Select Line</base>
+                <tran loc="ja" origin="OldLoc exact match">行を選択</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSTextField&quot;; designAccessibilityDescription = &quot;line number&quot;; ObjectID = &quot;9&quot;; </Description>
+            <Position>9.designAccessibilityDescription</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >line number</base>
+                <tran loc="ja" origin="OldLoc exact match">行番号</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Class = &quot;NSTextField&quot;; gToolTip = &quot;Line number to select. Can specify a range (e.g. 10-20), or line number relative to current selection (e.g. -5).&quot;; ObjectID = &quot;9&quot;; </Description>
+            <Position>9.gToolTip</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >Line number to select. Can specify a range (e.g. 10-20), or line number relative to current selection (e.g. -5).</base>
+                <tran loc="ja" origin="OldLoc exact match">選択する行番号を指定します。範囲（例 “10-20”）または現在の行からの範囲（例 “-5”）を指定することもできます。</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+    </File>
+
+    <!--                                        -->
+    <!--    TextEdit/../ServicesMenu.strings    -->
+    <!--                                        -->
+    <File>
+        <Filepath>TextEdit/Applications/TextEdit.app/Contents/Resources/English.lproj/ServicesMenu.strings</Filepath>
+
+        <TextItem>
+            <Description> Services menu item to allow opening the selected text in TextEdit </Description>
+            <Position>TextEdit/New Window Containing Selection</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >TextEdit/New Window Containing Selection</base>
+                <tran loc="ja" origin="OldLoc exact match">テキストエディット/選択部分を含む新しいウインドウを開く</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Services menu item to allow opening the selected text as a new file in TextEdit </Description>
+            <Position>TextEdit/Open Selected File</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >TextEdit/Open Selected File</base>
+                <tran loc="ja" origin="OldLoc exact match">テキストエディット/選択したファイルを開く</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+    </File>
+
+    <!--                                      -->
+    <!--    TextEdit/../ZoomValues.strings    -->
+    <!--                                      -->
+    <File>
+        <Filepath>TextEdit/Applications/TextEdit.app/Contents/Resources/English.lproj/ZoomValues.strings</Filepath>
+
+        <TextItem>
+            <Description> Zoom popup entry </Description>
+            <Position>10%</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >10%</base>
+                <tran loc="ja" origin="OldLoc exact match">10%</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Zoom popup entry </Description>
+            <Position>100%</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >100%</base>
+                <tran loc="ja" origin="OldLoc exact match">100%</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Zoom popup entry </Description>
+            <Position>125%</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >125%</base>
+                <tran loc="ja" origin="OldLoc exact match">125%</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Zoom popup entry </Description>
+            <Position>150%</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >150%</base>
+                <tran loc="ja" origin="OldLoc exact match">150%</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Zoom popup entry </Description>
+            <Position>1600%</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >1600%</base>
+                <tran loc="ja" origin="OldLoc exact match">1600%</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Zoom popup entry </Description>
+            <Position>200%</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >200%</base>
+                <tran loc="ja" origin="OldLoc exact match">200%</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Zoom popup entry </Description>
+            <Position>25%</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >25%</base>
+                <tran loc="ja" origin="OldLoc exact match">25%</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Zoom popup entry </Description>
+            <Position>400%</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >400%</base>
+                <tran loc="ja" origin="OldLoc exact match">400%</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Zoom popup entry </Description>
+            <Position>50%</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >50%</base>
+                <tran loc="ja" origin="OldLoc exact match">50%</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Zoom popup entry </Description>
+            <Position>75%</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >75%</base>
+                <tran loc="ja" origin="OldLoc exact match">75%</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+        <TextItem>
+            <Description> Zoom popup entry </Description>
+            <Position>800%</Position>
+            <TranslationSet>
+
+                <base loc="en"                            >800%</base>
+                <tran loc="ja" origin="OldLoc exact match">800%</tran>
+
+            </TranslationSet>
+        </TextItem>
+
+    </File>
+</Proj>
