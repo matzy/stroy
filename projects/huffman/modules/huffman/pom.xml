@@ -4,13 +4,13 @@
 
     <parent>
         <groupId>openCage</groupId>
-        <artifactId>huffman-project</artifactId>
-        <version>0.11-SNAPSHOT</version>
-        <relativePath>../..</relativePath>
+        <artifactId>openCage-huffman-parent</artifactId>
+        <version>0.2.1-SNAPSHOT</version>
+        <relativePath>../parent</relativePath>
     </parent>
 
     <groupId>openCage</groupId>
-    <artifactId>huffman</artifactId>
+    <artifactId>openCage-huffman</artifactId>
 
 
     <dependencies>
