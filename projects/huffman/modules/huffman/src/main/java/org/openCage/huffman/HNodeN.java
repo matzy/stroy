@@ -8,23 +8,23 @@ package org.openCage.huffman;
  * To change this template use File | Settings | File Templates.
  */
 public class HNodeN implements Comparable<HNodeN>{
-    private DynamicBitArray ch;
+    private BitField ch;
     private int weight;
     private HNodeN left;
     private HNodeN right;
 
-    public HNodeN(DynamicBitArray key, int count ) {
+    public HNodeN(BitField key, int count ) {
         this.ch = key;
         this.weight = count;
     }
 
-    public HNodeN(DynamicBitArray key, int count, HNodeN left, HNodeN right  ) {
+    public HNodeN(BitField key, int count, HNodeN left, HNodeN right  ) {
         this( key, count);
         this.left = left;
         this.right = right;
     }
 
-    public DynamicBitArray getCh() {
+    public BitField getCh() {
         return ch;
     }
 

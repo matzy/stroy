@@ -1,8 +1,5 @@
 package org.openCage.huffman;
 
-import com.sun.org.apache.xalan.internal.xsltc.compiler.util.MultiHashtable;
-import org.openCage.lang.structure.T2;
-
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,13 +14,13 @@ import java.util.PriorityQueue;
  */
 public class Canonical {
 
-    public Map<DynamicBitArray, DynamicBitArray> canonisize( Map<DynamicBitArray, DynamicBitArray> code ) {
+    public Map<BitField, BitField> canonisize( Map<BitField, BitField> code ) {
 
-        PriorityQueue<Map.Entry<DynamicBitArray,DynamicBitArray>> sorted = new PriorityQueue<Map.Entry<DynamicBitArray, DynamicBitArray>>(code.size(), new Comparator<Map.Entry<DynamicBitArray, DynamicBitArray>>() {
+        PriorityQueue<Map.Entry<BitField,BitField>> sorted = new PriorityQueue<Map.Entry<BitField, BitField>>(code.size(), new Comparator<Map.Entry<BitField, BitField>>() {
             @Override
-            public int compare(Map.Entry<DynamicBitArray, DynamicBitArray> a, Map.Entry<DynamicBitArray, DynamicBitArray> b) {
-                if ( a.getValue().getBitSize() != b.getValue().getBitSize() ) {
-                    return a.getValue().getBitSize() - b.getValue().getBitSize();
+            public int compare(Map.Entry<BitField, BitField> a, Map.Entry<BitField, BitField> b) {
+                if ( a.getValue().size() != b.getValue().size() ) {
+                    return a.getValue().size() - b.getValue().size();
                 }
                 return a.getKey().compareTo(b.getKey());
             }
@@ -32,12 +29,24 @@ public class Canonical {
 
         sorted.addAll( code.entrySet());
 
-        Map<DynamicBitArray, DynamicBitArray> ret = new HashMap<DynamicBitArray, DynamicBitArray>( code.size());
+        Map<BitField, BitField> ret = new HashMap<BitField, BitField>( code.size());
+
+        BitField nextCode = new DynamicBitArrayDirect();
 
         while ( sorted.size() > 0 ) {
-            Map.Entry<DynamicBitArray,DynamicBitArray> pair = sorted.poll();
+            Map.Entry<BitField,BitField> pair = sorted.poll();
 
-            ret.put( pair.getKey(), null );
+            BitField val = pair.getValue();
+
+            if ( nextCode.size() < val.size() ) {
+                while ( nextCode.size() < val.size() ) {
+                    nextCode.append(false);
+                }
+            } else {
+                nextCode = nextCode.clonePlusOne();
+            }
+
+            ret.put( pair.getKey(), nextCode );
         }
 
         return ret;

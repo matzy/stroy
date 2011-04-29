@@ -4,7 +4,6 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.PriorityQueue;
-import java.util.concurrent.PriorityBlockingQueue;
 
 /**
  * Created by IntelliJ IDEA.
@@ -15,21 +14,21 @@ import java.util.concurrent.PriorityBlockingQueue;
  */
 public class HuffmanN {
 
-    private final DynamicBitArray source;
+    private final BitField source;
 
-    public HuffmanN( DynamicBitArray src ) {
+    public HuffmanN( BitField src ) {
         this.source = src;
     }
 
-    public Map<DynamicBitArray, DynamicBitArray> getCode( int size ) {
+    public Map<BitField, BitField> getCode( int size ) {
 
-        Map<DynamicBitArray, Integer> count = count(size);
+        Map<BitField, Integer> count = count(size);
 
         PriorityQueue<HNodeN> pq = fillPriorityQue(count);
 
         buildHuffmanTree(pq);
 
-        Map<DynamicBitArray, DynamicBitArray> codes = new HashMap<DynamicBitArray, DynamicBitArray>();
+        Map<BitField, BitField> codes = new HashMap<BitField, BitField>();
         computeCodes( pq.poll(), new DynamicBitArrayDirect(), codes );
 
         return codes;
@@ -44,25 +43,25 @@ public class HuffmanN {
         }
     }
 
-    private PriorityQueue<HNodeN> fillPriorityQue(Map<DynamicBitArray, Integer> count) {
+    private PriorityQueue<HNodeN> fillPriorityQue(Map<BitField, Integer> count) {
         PriorityQueue<HNodeN> pq = new PriorityQueue<HNodeN>();
 
-        for ( Map.Entry<DynamicBitArray,Integer> pair : count.entrySet() ) {
+        for ( Map.Entry<BitField,Integer> pair : count.entrySet() ) {
             pq.add( new HNodeN( pair.getKey(), pair.getValue().intValue()));
         }
         return pq;
     }
 
-    private Map<DynamicBitArray, Integer> count(int size) {
-        Map<DynamicBitArray, Integer> count = new HashMap<DynamicBitArray, Integer>();
+    private Map<BitField, Integer> count(int size) {
+        Map<BitField, Integer> count = new HashMap<BitField, Integer>();
 
-        for ( int i = 0; i < source.getBitSize(); i += size ) {
+        for ( int i = 0; i < source.size(); i += size ) {
             incr( count, source.getSlice( i, size ));
         }
         return count;
     }
 
-    private static void incr( Map<DynamicBitArray, Integer> count, DynamicBitArray key ) {
+    private static void incr( Map<BitField, Integer> count, BitField key ) {
         if ( !count.containsKey( key )) {
             count.put( key, 1 );
             return;
@@ -71,7 +70,7 @@ public class HuffmanN {
         count.put( key, count.get(key) + 1);
     }
 
-    private void computeCodes( HNodeN node, DynamicBitArray prefix, Map<DynamicBitArray, DynamicBitArray> codes ) {
+    private void computeCodes( HNodeN node, BitField prefix, Map<BitField, BitField> codes ) {
         if ( node.isLeaf() ) {
             //System.out.println( "" + node + " -> "  + prefix );
             codes.put( node.getCh(), prefix );
@@ -82,11 +81,10 @@ public class HuffmanN {
         computeCodes( node.getRight(), prefix.clone().append( true  ), codes );
     }
 
-    public static void printCodes( Map<DynamicBitArray, DynamicBitArray>  codes ) {
-        PriorityQueue<Map.Entry<DynamicBitArray, DynamicBitArray>> out = new PriorityQueue<Map.Entry<DynamicBitArray, DynamicBitArray>>( codes.size(),
-                new Comparator<Map.Entry<DynamicBitArray, DynamicBitArray>>() {
-                    @Override
-                    public int compare(Map.Entry<DynamicBitArray, DynamicBitArray> a, Map.Entry<DynamicBitArray, DynamicBitArray> b) {
+    public static void printCodes( Map<BitField, BitField>  codes ) {
+        PriorityQueue<Map.Entry<BitField, BitField>> out = new PriorityQueue<Map.Entry<BitField, BitField>>( codes.size(),
+                new Comparator<Map.Entry<BitField, BitField>>() {
+                    @Override public int compare(Map.Entry<BitField, BitField> a, Map.Entry<BitField, BitField> b) {
                         return a.getKey().compareTo(b.getKey());
                     }
                 }
@@ -96,7 +94,7 @@ public class HuffmanN {
 
 
         while( out.size() > 0 ) {
-            Map.Entry<DynamicBitArray, DynamicBitArray> pair = out.poll();
+            Map.Entry<BitField, BitField> pair = out.poll();
 
             System.out.println( pair.getKey().toString8() + " -> " + pair.getValue().toString());
         }

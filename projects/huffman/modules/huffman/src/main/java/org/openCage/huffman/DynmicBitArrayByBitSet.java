@@ -9,13 +9,13 @@ import java.util.BitSet;
  * Time: 3:24:25 PM
  * To change this template use File | Settings | File Templates.
  */
-public class DynmicBitArrayByBitSet implements DynamicBitArray {
+public class DynmicBitArrayByBitSet implements BitField {
 
     private BitSet bits   = new BitSet();
     private int    length = 0;
 
     @Override
-    public DynamicBitArray append(boolean bit) {
+    public BitField append(boolean bit) {
         bits.set( length, bit );
         length++;
         return this;
@@ -37,12 +37,17 @@ public class DynmicBitArrayByBitSet implements DynamicBitArray {
     }
 
     @Override
-    public DynamicBitArray append(DynamicBitArray other) {
+    public BitField append(BitField other) {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
-    public DynamicBitArray clone() {
+    public BitField clonePlusOne() {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public BitField clone() {
         DynmicBitArrayByBitSet next = new DynmicBitArrayByBitSet();
         next.length = this.length;
         next.bits = (BitSet)bits.clone();
@@ -55,32 +60,32 @@ public class DynmicBitArrayByBitSet implements DynamicBitArray {
     }
 
     @Override
-    public int getBitSize() {
+    public int size() {
         return length;
     }
 
     @Override
-    public int toInt(int size) {
+    public int getInt(int size) {
         return 0;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
-    public int toInt(int from, int size) {
+    public int getInt(int from, int size) {
         return 0;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
-    public DynamicBitArray getSlice(int from, int size) {
+    public BitField getSlice(int from, int size) {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
-    public boolean bitAt(int idx) {
+    public boolean get(int idx) {
         return bits.get(idx);
     }
 
     @Override
-    public int compareTo(DynamicBitArray dynamicBitArray) {
+    public int compareTo(BitField dynamicBitArray) {
         return 0;  //To change body of implemented methods use File | Settings | File Templates.
     }
 }

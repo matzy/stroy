@@ -13,16 +13,19 @@ import java.nio.charset.Charset;
  */
 public class HuffmanNTest {
 
+
     @Test
     public void testA() {
         String src = "abcabea";
-        DynamicBitArray dba = DynamicBitArrayDirect.valueOf( src.getBytes(Charset.forName("utf8")));
+        BitField dba = DynamicBitArrayDirect.valueOf( src.getBytes(Charset.forName("utf8")));
 
         System.out.println( dba.toString8() );
 
         HuffmanN hn = new HuffmanN( dba );
 
         HuffmanN.printCodes( hn.getCode( 8 ));
+
+        System.out.println("-------");
 
         HuffmanN.printCodes( new Canonical().canonisize( hn.getCode( 8 )));
     }

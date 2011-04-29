@@ -1,13 +1,10 @@
 package org.openCage.huffman;
 
-import com.sun.corba.se.impl.presentation.rmi.DynamicAccessPermission;
-import com.sun.org.apache.bcel.internal.generic.D2F;
 import org.openCage.lang.Strings;
 import org.openCage.lang.functions.F1;
 import org.openCage.lang.iterators.Count;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /***** BEGIN LICENSE BLOCK *****
@@ -31,7 +28,7 @@ import java.util.List;
 *
 * Contributor(s):
 ***** END LICENSE BLOCK *****/
-public class DynamicBitArrayDirect implements DynamicBitArray {
+public class DynamicBitArrayDirect implements BitField {
 
     private List<Byte> bytes = new ArrayList<Byte>();
     private int last = 0;
@@ -40,9 +37,12 @@ public class DynamicBitArrayDirect implements DynamicBitArray {
         bytes.add( (byte)0);
     }
 
+    int internalGetLast() {
+        return last;
+    }
 
     @Override
-    public DynamicBitArray append( boolean bit ) {
+    public BitField append( boolean bit ) {
         if ( bit ) {
             byte by = bytes.get(bytes.size() -1);
             by |= (byte) (1 << last);
@@ -131,7 +131,7 @@ public class DynamicBitArrayDirect implements DynamicBitArray {
     }
 
     @Override
-    public DynamicBitArray append( DynamicBitArray other ) {
+    public BitField append( BitField other ) {
 
         String todo = other.toString();
         for ( int i = 0; i < todo.length(); ++i ) {
@@ -142,7 +142,32 @@ public class DynamicBitArrayDirect implements DynamicBitArray {
     }
 
     @Override
-    public DynamicBitArray clone() {
+    public BitField clonePlusOne() {
+        int first0 = -1;
+        for ( int i = size() - 1; i >= 0; i-- ) {
+            if ( !get(i) ) {
+                first0 = i;
+                break;
+            }
+        }
+
+        BitField ret = new DynamicBitArrayDirect();
+
+        for ( int i = 0; i < first0; i++ ) {
+            ret.append( get(i));
+        }
+
+        ret.append( true );
+
+        for ( int i = first0 + 1; i < size(); i++ ) {
+            ret.append( false );
+        }
+
+        return ret;
+    }
+
+    @Override
+    public BitField clone() {
         DynamicBitArrayDirect dba = new DynamicBitArrayDirect();
         dba.bytes = new ArrayList<Byte>( bytes );
         dba.last = last;
@@ -156,16 +181,16 @@ public class DynamicBitArrayDirect implements DynamicBitArray {
     }
 
     @Override
-    public int getBitSize() {
+    public int size() {
         return ((bytes.size() - 1) * 8) + last;
     }
 
-    public static DynamicBitArray toDba( int num ) {
+    public static BitField toDba( int num ) {
         if ( num < 0 ) {
             throw new IllegalArgumentException();
         }
 
-        DynamicBitArray ret = new DynamicBitArrayDirect();
+        BitField ret = new DynamicBitArrayDirect();
 
         int max = 0;
         int val = 1;
@@ -182,10 +207,10 @@ public class DynamicBitArrayDirect implements DynamicBitArray {
         return ret;
     }
 
-    public static DynamicBitArray toDba( int i, int size ) {
-        DynamicBitArray ret = toDba( i );
+    public static BitField toDba( int i, int size ) {
+        BitField ret = toDba( i );
 
-        while ( ret.getBitSize() < size ) {
+        while ( ret.size() < size ) {
             ret.append( false );
         }
 
@@ -193,7 +218,7 @@ public class DynamicBitArrayDirect implements DynamicBitArray {
     }
 
     @Override
-    public int toInt( int size ) {
+    public int getInt(int size) {
         int ret = 0;
         int val = 1;
 
@@ -212,7 +237,7 @@ public class DynamicBitArrayDirect implements DynamicBitArray {
     }
 
     @Override
-    public int toInt( int from, int size ) {
+    public int getInt(int from, int size) {
         int ret = 0;
         int val = 1;
 
@@ -230,31 +255,31 @@ public class DynamicBitArrayDirect implements DynamicBitArray {
     }
 
     @Override
-    public DynamicBitArray getSlice( int from, int size ) {
-        DynamicBitArray ret = new DynamicBitArrayDirect();
+    public BitField getSlice( int from, int size ) {
+        BitField ret = new DynamicBitArrayDirect();
 
         for ( int i = from; i < from + size; ++i ) {
-            ret.append( bitAt(i));
+            ret.append( get(i));
         }
 
         return ret;
     }
 
     @Override
-    public boolean bitAt( int idx ) {
+    public boolean get(int idx) {
         return (bytes.get(idx / 8).byteValue() & ((byte) (1 << (idx % 8)))) != 0;
     }
 
     @Override
-    public int compareTo(DynamicBitArray other) {
-        if ( getBitSize() != other.getBitSize() ) {
-            return getBitSize() - other.getBitSize();
+    public int compareTo(BitField other) {
+        if ( size() != other.size() ) {
+            return size() - other.size();
         }
 
-        for ( int i = 0; i < getBitSize(); i++ ) {
+        for ( int i = 0; i < size(); i++ ) {
 
-            if ( bitAt( i) != other.bitAt( i )) {
-                return bitAt( i ) ? 1 : -1;
+            if ( get(i) != other.get(i)) {
+                return get(i) ? 1 : -1;
             }
         }
 
@@ -281,12 +306,26 @@ public class DynamicBitArrayDirect implements DynamicBitArray {
         return result;
     }
 
-    public static DynamicBitArray valueOf( byte[] src ) {
+    public static BitField valueOf( byte[] src ) {
         DynamicBitArrayDirect ret = new DynamicBitArrayDirect();
         ret.bytes.clear();
 
         for ( byte by : src ) {
             ret.bytes.add( by );
+        }
+
+        // full byte
+        ret.last = 7;
+
+        return ret;
+    }
+
+    public static BitField valueOf( String str ) {
+        DynamicBitArrayDirect ret = new DynamicBitArrayDirect();
+        //ret.bytes.clear();
+
+        for ( int i = 0; i < str.length(); i++ ) {
+            ret.append( str.charAt(i) == '1');
         }
 
         return ret;

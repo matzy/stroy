@@ -26,24 +26,24 @@ import java.util.PriorityQueue;
 
 public class Huffman {
 
-    public DynamicBitArray encode( byte[] array ) {
+    public BitField encode( byte[] array ) {
 
         PriorityQueue<HNode> pq = buildPriorityQue( array );
 
         combine( pq );
 
-        DynamicBitArray[] codes = new DynamicBitArray[257];
+        BitField[] codes = new BitField[257];
         computeCodes( pq.poll(), new DynamicBitArrayDirect(), codes );
 
-        DynamicBitArray result = encode( array, codes );
+        BitField result = encode( array, codes );
 
 
         return result;
     }
 
-    private DynamicBitArray encode(byte[] array, DynamicBitArray[] codes) {
+    private BitField encode(byte[] array, BitField[] codes) {
 
-        DynamicBitArray res = new DynamicBitArrayDirect();
+        BitField res = new DynamicBitArrayDirect();
 
         for ( byte by : array ) {
             res.append( codes[by - Byte.MIN_VALUE ]);
@@ -83,7 +83,7 @@ public class Huffman {
         }
     }
 
-    private void computeCodes( HNode node, DynamicBitArray prefix, DynamicBitArray[] codes ) {
+    private void computeCodes( HNode node, BitField prefix, BitField[] codes ) {
         if ( node.left == null && node.right == null ) {
             //System.out.println( "" + node + " -> "  + prefix );
             codes[ node.character - Byte.MIN_VALUE ] = prefix;
@@ -96,7 +96,7 @@ public class Huffman {
 
 
     // halfhated attempt to extend the huffman code class to encrypt/decrypt
-//    private DynamicBitArray encodeCodes( DynamicBitArray[] codes ) {
+//    private BitField encodeCodes( BitField[] codes ) {
 //
 //        List<Integer> indeces = new ArrayList<Integer>();
 //        for ( int i = 0; i < 256; ++i ) {
@@ -106,13 +106,13 @@ public class Huffman {
 //        Collections.shuffle( indeces );
 //        indeces.add( 256 );
 //
-//        DynamicBitArray res = new DynamicBitArrayDirect();
+//        BitField res = new DynamicBitArrayDirect();
 //        for ( Integer i : indeces ) {
 //            if ( codes[i] != null ) {
 ////                System.out.println("" + i + " " + codes[i].toString8());
-////                System.out.println(DynamicBitArray.toDba( i, 9).toString8());
+////                System.out.println(BitField.toDba( i, 9).toString8());
 //                res.append( DynamicBitArrayDirect.toDba( i, 9));
-//                res.append( DynamicBitArrayDirect.toDba( codes[i].getBitSize(), 5));
+//                res.append( DynamicBitArrayDirect.toDba( codes[i].size(), 5));
 //                res.append( codes[i] );
 //            }
 //        }
@@ -120,9 +120,9 @@ public class Huffman {
 //        return res;
 //    }
 //
-//    private void decodeCodes( DynamicBitArray dba ) {
-//        int idx = dba.toInt( 9 );
-//        int len = dba.toInt( 10, 5 );
-//        DynamicBitArray code = dba.getSlice( 15, len );
+//    private void decodeCodes( BitField dba ) {
+//        int idx = dba.getInt( 9 );
+//        int len = dba.getInt( 10, 5 );
+//        BitField code = dba.getSlice( 15, len );
 //    }
 }
