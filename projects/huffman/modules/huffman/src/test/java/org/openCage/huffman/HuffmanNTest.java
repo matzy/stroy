@@ -29,4 +29,18 @@ public class HuffmanNTest {
 
         HuffmanN.printCodes( new Canonical().canonisize( hn.getCode( 8 )));
     }
+
+
+    @Test
+    public void testWriteCanonical() {
+        String src = "aaaaabcabbbbeeeaf";
+        BitField dba = BitFieldImpl.valueOf( src.getBytes(Charset.forName("utf8")));
+
+        Canonical can = new Canonical();
+
+        BitField ww = can.writeCode( can.canonisize( new HuffmanN(dba).getCode(8)));
+
+        System.out.println(ww.toString8());
+
+    }
 }

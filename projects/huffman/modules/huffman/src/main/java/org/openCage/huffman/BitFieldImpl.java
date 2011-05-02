@@ -55,6 +55,27 @@ public class BitFieldImpl implements BitField {
         return ret;
     }
 
+    public static BitField valueOf( byte by ) {
+        BitFieldImpl ret = new BitFieldImpl();
+
+        ret.bytes.add( by );
+
+        // full byte
+        ret.last = 7;
+
+        return ret;
+    }
+
+    public static BitField valueOf( byte by, int size ) {
+        BitFieldImpl ret = new BitFieldImpl();
+
+        ret.bytes.add( by );
+
+        // full byte
+        ret.last = size;
+
+        return ret;
+    }
 
 
 
@@ -78,7 +99,11 @@ public class BitFieldImpl implements BitField {
 
     @Override
     public BitField append(BitField other) {
-        throw new Error( "not impl" );
+        for ( int i = 0; i < other.size(); i++ ) {
+            append( other.get(i));
+        }
+
+        return this;
     }
 
     @Override

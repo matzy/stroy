@@ -53,4 +53,39 @@ public class Canonical {
 
     }
 
+    public BitField writeCode( Map<BitField, BitField> code ) {
+
+        int size = code.keySet().iterator().next().size(); // size of all keys should be the same
+
+        // write size in 5 bit
+
+        if ( size > 20 ) {
+            throw new IllegalArgumentException( "key sizes to large" );
+        }
+
+        BitField ret = BitFieldImpl.valueOf( (byte)size, 5 );
+
+        int bitSize = 1;
+        while( size > 1 ) {
+            bitSize++;
+            size /= 2;
+        }
+
+        System.out.println(bitSize);
+
+        BitField key = BitFieldImpl.valueOf(false);
+
+        for ( int i = 0; i < (int)Math.pow( 2, size ); i++) {
+            if ( !code.containsKey( key )) {
+                ret.append( BitFieldImpl.valueOf((byte)0,bitSize));
+            } else {
+                ret.append( BitFieldImpl.valueOf( (byte)code.get(key).size(),bitSize));
+            }
+
+            key = key.clonePlusOne();
+        }
+
+        return ret;
+    }
+
 }
