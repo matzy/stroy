@@ -38,15 +38,15 @@ public class Canonical {
 
             BitField val = pair.getValue();
 
+            nextCode = nextCode.clonePlusOne();
+
             if ( nextCode.size() < val.size() ) {
                 while ( nextCode.size() < val.size() ) {
                     nextCode.append(false);
                 }
-            } else {
-                nextCode = nextCode.clonePlusOne();
             }
 
-            ret.put( pair.getKey(), nextCode );
+            ret.put( pair.getKey(), nextCode.clone() );
         }
 
         return ret;
