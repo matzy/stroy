@@ -8,20 +8,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by IntelliJ IDEA.
- * User: spf
- * Date: 28.04.11
- * Time: 17:48
- * To change this template use File | Settings | File Templates.
+ * 0
+ * 10
+ * 76543210
+ * 76543210 8
+ * 76543210 98
  */
 public class BitFieldImpl implements BitField {
 
     private List<Byte> bytes = new ArrayList<Byte>();
 
     // last bit in last byte
-    private int last = -1;
+    private int last = 7;
 
-    private BitFieldImpl() {
+    public BitFieldImpl() {
     }
 
     public static BitFieldImpl valueOf(boolean val) {
@@ -60,17 +60,17 @@ public class BitFieldImpl implements BitField {
 
     @Override
     public BitField append(boolean bit) {
+        last++;
+
+        if (last == 8 || last == -1) {
+            bytes.add((byte) 0);
+            last = 0;
+        }
+
         if (bit) {
             byte by = bytes.get(bytes.size() - 1);
             by |= (byte) (1 << last);
             bytes.set(bytes.size() - 1, by);
-        }
-
-        last++;
-
-        if (last == 8) {
-            bytes.add((byte) 0);
-            last = 0;
         }
 
         return this;
@@ -78,43 +78,52 @@ public class BitFieldImpl implements BitField {
 
     @Override
     public BitField append(BitField other) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        throw new Error( "not impl" );
     }
 
     @Override
     public BitField clonePlusOne() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        throw new Error( "not impl" );
     }
 
     @Override
     public byte[] toByteArray() {
-        return new byte[0];  //To change body of implemented methods use File | Settings | File Templates.
+        throw new Error( "not impl" );
     }
 
     @Override
     public String toString() {
 
+        if ( bytes.size() == 0 ) {
+            return "-1";
+        }
 
         String ret = "";
-        for ( Count<Byte> by : Count.count(bytes) ) {
-            int to = 8;
-            if ( by.isLast() ) {
-                to = last + 1;
-            }
 
-            for ( int i = to -1; i >= 0; i-- ) {
-                byte pattern = (byte) (1 << i);
-                if ( (by.obj() & pattern) == pattern ) {
-                    ret += "1";
-                } else {
-                    ret += "0";
-                }
-            }
+        for ( int i = size() -1; i >= 0; i-- ) {
+            boolean bit = get(i);
+            ret += (bit ? "1" : "0");
         }
 
-        if ( ret.equals("")) {
-            return "0";
-        }
+//        for ( Count<Byte> by : Count.count(bytes) ) {
+//            int to = 8;
+//            if ( by.isLast() ) {
+//                to = last + 1;
+//            }
+//
+//            for ( int i = to -1; i >= 0; i-- ) {
+//                byte pattern = (byte) (1 << i);
+//                if ( (by.obj() & pattern) == pattern ) {
+//                    ret += "1";
+//                } else {
+//                    ret += "0";
+//                }
+//            }
+//        }
+//
+//        if ( ret.equals("")) {
+//            return "0";
+//        }
 
         return ret;
     }
@@ -122,12 +131,44 @@ public class BitFieldImpl implements BitField {
 
     @Override
     public String toString8() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        if ( bytes.size() == 0 ) {
+            return "-1";
+        }
+
+        return Strings.join( bytes ).prefix("DBA:").separator("|").trans( new F1<String,Byte>() {
+            @Override
+            public String call(Byte by ) {
+                if ( 32 <= by && by < 127 ) {
+                    return "'" + (char)(by.byteValue()) + "'";
+                } else {
+                    return by.toString();
+                }
+            }
+        }).toString();
+
+
+//        String ret = "";
+//
+//        boolean first = true;
+//        for ( int i = bytes.size() - 1; i >= 0; i--) {
+//
+//            ret += bytes.get(i) + "|";
+//        }
+//
+////        for ( int i = size() -1; i >= 0; i-- ) {
+////            boolean bit = get(i);
+////            ret += (bit ? "1" : "0");
+////        }
+//
+//        return ret;
     }
 
     @Override
     public BitField clone() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        BitFieldImpl ret = new BitFieldImpl();
+        ret.last = last;
+        ret.bytes.addAll( bytes );
+        return ret;
     }
 
     @Override
@@ -137,43 +178,73 @@ public class BitFieldImpl implements BitField {
 
     @Override
     public boolean get(int idx) {
-        return (bytes.get(idx / 8).byteValue() & ((byte) (1 << (7 -(idx % 8))))) != 0;
+        return (bytes.get(idx / 8).byteValue() & ((byte) (1 << (idx % 8)))) != 0;
     }
 
     @Override
     public int getInt(int size) {
-        return 0;  //To change body of implemented methods use File | Settings | File Templates.
+        throw new Error( "not impl" );
     }
 
     @Override
     public int getInt(int from, int size) {
-        return 0;  //To change body of implemented methods use File | Settings | File Templates.
+        throw new Error( "not impl" );
     }
 
     @Override
     public Byte getByteModulo(int idx) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        throw new Error( "not impl" );
     }
 
     @Override
     public BitField getSlice(int from, int size) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        BitField ret = new BitFieldImpl();
+        for ( int i = from; i < from + size; i++) {
+            ret.append( get(i));
+        }
+        return ret;
     }
 
     @Override
     public int compareTo(BitField other) {
-        if ( size() != other.size() ) {
-            return size() - other.size();
+
+        if ( !(other instanceof BitFieldImpl )) {
+            throw new IllegalArgumentException( "different impls of bitfield don't compare" );
         }
 
-        for ( int i = 0; i < size(); i++ ) {
+        BitFieldImpl oimpl = (BitFieldImpl)other;
 
-            if ( get(i) != other.get(i)) {
-                return get(i) ? 1 : -1;
+        if ( bytes.size() != oimpl.bytes.size()  ) {
+            return bytes.size() - oimpl.bytes.size();
+        }
+
+        for ( int i = bytes.size() - 1; i>= 0; i-- ) {
+            if ( bytes.get(i) != oimpl.bytes.get(i)) {
+                return bytes.get(i) - oimpl.bytes.get(i);
             }
         }
 
         return 0;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        BitFieldImpl bitField = (BitFieldImpl) o;
+
+        if (last != bitField.last) return false;
+        if (bytes != null ? !bytes.equals(bitField.bytes) : bitField.bytes != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = bytes != null ? bytes.hashCode() : 0;
+        result = 31 * result + last;
+        return result;
     }
 
     // for tests

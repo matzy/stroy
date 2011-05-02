@@ -28,8 +28,7 @@ public class HuffmanN {
 
         buildHuffmanTree(pq);
 
-        Map<BitField, BitField> codes = new HashMap<BitField, BitField>();
-        computeCodes( pq.poll(), new DynamicBitArrayDirect(), codes );
+        Map<BitField, BitField> codes = computeCodes( pq.poll(), new BitFieldImpl(), new HashMap<BitField, BitField>() );
 
         return codes;
     }
@@ -39,7 +38,7 @@ public class HuffmanN {
             HNodeN left = pq.poll();
             HNodeN right = pq.poll();
 
-            pq.add( new HNodeN( new DynamicBitArrayDirect(), left.getWeight() + right.getWeight(), left, right  ));
+            pq.add( new HNodeN( new BitFieldImpl(), left.getWeight() + right.getWeight(), left, right  ));
         }
     }
 
@@ -70,15 +69,17 @@ public class HuffmanN {
         count.put( key, count.get(key) + 1);
     }
 
-    private void computeCodes( HNodeN node, BitField prefix, Map<BitField, BitField> codes ) {
+    private Map<BitField, BitField> computeCodes( HNodeN node, BitField prefix, Map<BitField, BitField> codes ) {
         if ( node.isLeaf() ) {
             //System.out.println( "" + node + " -> "  + prefix );
             codes.put( node.getCh(), prefix );
-            return;
+            return codes;
         }
 
         computeCodes( node.getLeft(), prefix.clone().append( false  ), codes );
         computeCodes( node.getRight(), prefix.clone().append( true  ), codes );
+
+        return codes;
     }
 
     public static void printCodes( Map<BitField, BitField>  codes ) {

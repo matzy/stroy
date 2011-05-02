@@ -146,14 +146,14 @@ public class BitFieldImplTest {
             System.out.println( "a.get(" + i + ")= " + a.get(i));
         }
 
-        assertFalse(a.get(0));
-        assertTrue(a.get(1));
-        assertTrue(a.get(2));
-        assertFalse(a.get(3));
+        assertFalse(a.get(7));
+        assertTrue(a.get(6));
+        assertTrue(a.get(5));
         assertFalse(a.get(4));
-        assertFalse(a.get(5));
-        assertFalse(a.get(6));
-        assertTrue(a.get(7));
+        assertFalse(a.get(3));
+        assertFalse(a.get(2));
+        assertFalse(a.get(1));
+        assertTrue(a.get(0));
 
         assertTrue(0 > a.compareTo(b));
 

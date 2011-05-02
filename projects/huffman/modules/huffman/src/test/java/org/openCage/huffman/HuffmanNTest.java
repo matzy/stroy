@@ -17,7 +17,7 @@ public class HuffmanNTest {
     @Test
     public void testA() {
         String src = "abcabea";
-        BitField dba = DynamicBitArrayDirect.valueOf( src.getBytes(Charset.forName("utf8")));
+        BitField dba = BitFieldImpl.valueOf( src.getBytes(Charset.forName("utf8")));
 
         System.out.println( dba.toString8() );
 
