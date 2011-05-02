@@ -120,7 +120,7 @@ public class BitFieldImpl implements BitField {
 
         String ret = "";
 
-        for ( int i = size() -1; i >= 0; i-- ) {
+        for ( int i = 0; i < size(); i++ ) {
             boolean bit = get(i);
             ret += (bit ? "1" : "0");
         }

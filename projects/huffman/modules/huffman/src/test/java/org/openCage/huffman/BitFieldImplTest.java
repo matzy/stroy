@@ -166,4 +166,14 @@ public class BitFieldImplTest {
 
         assertEquals( "101000", bf.clonePlusOne().toString());
     }
+
+
+    @Test
+    public void testToString() {
+        assertEquals( "100111", BitFieldImpl.valueOf( "100111" ).toString());
+
+
+        assertEquals( "100111", BitFieldImpl.valueOf( "10011" ).append(true).toString());
+
+    }
 }
