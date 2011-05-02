@@ -159,4 +159,11 @@ public class BitFieldImplTest {
 
 
     }
+
+    @Test
+    public void testPlusOne() {
+        BitField bf = BitFieldImpl.valueOf( "100111" );
+
+        assertEquals( "101000", bf.clonePlusOne().toString());
+    }
 }

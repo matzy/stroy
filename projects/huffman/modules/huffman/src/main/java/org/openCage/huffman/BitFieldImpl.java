@@ -83,7 +83,27 @@ public class BitFieldImpl implements BitField {
 
     @Override
     public BitField clonePlusOne() {
-        throw new Error( "not impl" );
+        int first0 = -1;
+        for ( int i = size() - 1; i >= 0; i-- ) {
+            if ( !get(i) ) {
+                first0 = i;
+                break;
+            }
+        }
+
+        BitField ret = new BitFieldImpl();
+
+        for ( int i = 0; i < first0; i++ ) {
+            ret.append( get(i));
+        }
+
+        ret.append( true );
+
+        for ( int i = first0 + 1; i < size(); i++ ) {
+            ret.append( false );
+        }
+
+        return ret;
     }
 
     @Override

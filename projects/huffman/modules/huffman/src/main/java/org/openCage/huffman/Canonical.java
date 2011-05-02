@@ -31,7 +31,7 @@ public class Canonical {
 
         Map<BitField, BitField> ret = new HashMap<BitField, BitField>( code.size());
 
-        BitField nextCode = new DynamicBitArrayDirect();
+        BitField nextCode = new BitFieldImpl();
 
         while ( sorted.size() > 0 ) {
             Map.Entry<BitField,BitField> pair = sorted.poll();
