@@ -1,8 +1,10 @@
 package org.openCage.huffman;
 
 import org.junit.Test;
+import org.openCage.lang.structure.T2;
 
 import java.nio.charset.Charset;
+import java.util.Map;
 
 /**
  * Created by IntelliJ IDEA.
@@ -27,7 +29,7 @@ public class HuffmanNTest {
 
         System.out.println("-------");
 
-        HuffmanN.printCodes( new Canonical().canonisize( hn.getCode( 8 )));
+        HuffmanN.printCodes( new Canonical().canonisize( hn.getCode( 8 )).i0);
     }
 
 
@@ -38,9 +40,15 @@ public class HuffmanNTest {
 
         Canonical can = new Canonical();
 
-        BitField ww = can.writeCode( can.canonisize( new HuffmanN(dba).getCode(8)));
+        T2<Map<BitField, BitField>, Integer> code = can.canonisize( new HuffmanN(dba).getCode(8));
+        BitField ww = can.writeCode( code.i0, (byte)code.i1.intValue() );
+
+        System.out.println( code.i1);
+        System.out.println(ww.size() / 8);
 
         System.out.println(ww.toString8());
+
+        can.readCode(ww);
 
     }
 }

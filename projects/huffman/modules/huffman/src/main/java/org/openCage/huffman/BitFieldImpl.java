@@ -223,6 +223,9 @@ public class BitFieldImpl implements BitField {
 
     @Override
     public boolean get(int idx) {
+        if ( idx < 0 || idx >= size() ) {
+            throw new IllegalArgumentException( "index out of bounds");
+        }
         return (bytes.get(idx / 8).byteValue() & ((byte) (1 << (idx % 8)))) != 0;
     }
 
@@ -233,7 +236,19 @@ public class BitFieldImpl implements BitField {
 
     @Override
     public int getInt(int from, int size) {
-        throw new Error( "not impl" );
+        if ( size > 30 ) {
+            throw new IllegalArgumentException( "size too big " + size );
+        }
+
+        int ret = 0;
+        for ( int i = size; i >= 0; i--  ) {
+            ret *= 2;
+            if ( get( from+i)) {
+                ret++;
+            }
+        }
+
+        return ret;
     }
 
     @Override
