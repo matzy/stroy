@@ -1,5 +1,8 @@
 package org.openCage.huffman;
 
+import org.openCage.lang.structure.T2;
+
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
@@ -103,6 +106,59 @@ public class HuffmanN {
         }
     }
 
+    public BitField encode( int keySize ) {
+        Map<BitField, BitField> code = getCode( keySize );
+
+        T2<Map<BitField, BitField>,Integer> can = Canonical.canonisize( code );
+        code = can.i0;
+        int valSize = can.i1;
+//
+//        for ( BitField val : code.values() ) {
+//            valSize = Math.max( valSize,  val.size() );
+//        }
+
+        BitField res = Canonical.writeCode(code, (byte) valSize);
+
+        System.out.println( "res with code " + res);
+
+        for( int pos = 0; pos < source.size(); pos += keySize ) {
+            BitField key = source.getSlice( pos, keySize );
+            res.append( code.get( key ));
+        }
+
+        System.out.println( "and content   " +res);
+
+        return res;
+    }
+
+    public BitField decode( BitField coded )  {
+        T2<Map<BitField,BitField>,Integer> res= Canonical.readCode( coded );
+        Map<BitField,BitField> code = res.i0;
+        int pos = res.i1;
+
+        HNodeN tree = codeToTree( code );
+        BitField ret = new BitFieldImpl();
+
+        HNodeN current = tree;
+        for ( int i = pos; i < coded.size(); i++ ) {
+            if ( coded.get(i)) {
+                current = current.getRight();
+            } else {
+                current = current.getLeft();
+            }
+
+            if ( current.getCh().size() > 0 ) {
+                // found one
+                ret.append( current.getCh() );
+                current = tree;
+            }
+        }
+
+        ret.trimEnd();
+        return ret;
+
+    }
+
     public BitField encode( Map<BitField, BitField> code ) {
 
         BitField res = new BitFieldImpl();
@@ -154,13 +210,13 @@ public class HuffmanN {
                 }
                 if ( val.get(i)) {
                     if ( current.getRight() == null ) {
-                        current.setRight( new HNodeN( new BitFieldImpl(), -1 ) );
+                        current.setRight(new HNodeN(new BitFieldImpl(), -1));
                     }
 
                     current = current.getRight();
                 } else {
                     if ( current.getLeft() == null ) {
-                        current.setLeft( new HNodeN( new BitFieldImpl(), -1 ) );
+                        current.setLeft(new HNodeN(new BitFieldImpl(), -1));
                     }
 
                     current = current.getLeft();

@@ -16,7 +16,7 @@ import java.util.PriorityQueue;
  */
 public class Canonical {
 
-    public T2<Map<BitField, BitField>, Integer> canonisize( Map<BitField, BitField> code ) {
+    public static T2<Map<BitField, BitField>, Integer> canonisize( Map<BitField, BitField> code ) {
 
         PriorityQueue<Map.Entry<BitField,BitField>> sorted = new PriorityQueue<Map.Entry<BitField, BitField>>(code.size(), new Comparator<Map.Entry<BitField, BitField>>() {
             @Override
@@ -59,7 +59,7 @@ public class Canonical {
 
     }
 
-    public BitField writeCode( Map<BitField, BitField> code, byte depth ) {
+    public static BitField writeCode( Map<BitField, BitField> code, byte depth ) {
 
         int size = code.keySet().iterator().next().size(); // size of all keys should be the same
 
@@ -93,7 +93,7 @@ public class Canonical {
         return ret;
     }
 
-    public Map<BitField, BitField> readCode( BitField bf ) {
+    public static T2<Map<BitField, BitField>, Integer> readCode( BitField bf ) {
         int keySize = bf.getInt(0,5);
         int valLength = bf.getInt(5,5);
 
@@ -143,7 +143,7 @@ public class Canonical {
         }
 
 
-        return ret;
+        return T2.valueOf( ret, ((int)Math.pow( 2, keySize ) * valLength) + 10);
     }
 
 
@@ -167,5 +167,7 @@ public class Canonical {
 
         return ret;
     }
+
+//    public static boolean equals( Map<BitField, BitField>, )
 
 }

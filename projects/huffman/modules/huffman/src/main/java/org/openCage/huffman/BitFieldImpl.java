@@ -71,8 +71,14 @@ public class BitFieldImpl implements BitField {
 
         ret.bytes.add( by );
 
-        // full byte
-        ret.last = size -1;
+        if ( size < 9 ) {
+            ret.last = size -1;
+        } else {
+            ret.last = 7;
+            for ( int i = 8; i < size; i++ ) {
+                ret.append( false );
+            }
+        }
 
         return ret;
     }
@@ -248,7 +254,12 @@ public class BitFieldImpl implements BitField {
         if ( idx < 0 || idx >= size() ) {
             throw new IllegalArgumentException( "index out of bounds");
         }
-        return (bytes.get(idx / 8).byteValue() & ((byte) (1 << (idx % 8)))) != 0;
+        try {
+            return (bytes.get(idx / 8).byteValue() & ((byte) (1 << (idx % 8)))) != 0;
+        }catch ( IndexOutOfBoundsException exp ) {
+            int yoo = 0;
+            return false;
+        }
     }
 
     @Override

@@ -3,6 +3,7 @@ package org.openCage.huffman;
 import org.junit.Test;
 import org.openCage.lang.structure.T2;
 
+import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.Map;
 
@@ -52,7 +53,28 @@ public class HuffmanNTest {
 
         System.out.println(" --- ");
 
-        HuffmanN.printCodes( can.readCode(ww));
+        Map<BitField, BitField> out = can.readCode(ww).i0;
+        HuffmanN.printCodes( can.readCode(ww).i0);
+
+        assertEquals( code.i0, out );
+    }
+
+    @Test
+    public void testCanonical() {
+        String src = "aaaaabcabbbbeeeaf";
+        BitField dba = BitFieldImpl.valueOf( src.getBytes(Charset.forName("utf8")));
+
+        for ( int len = 2; len < 17; len++ ) {
+
+            System.out.println(" ---------------------------- " + len + " ---------------------------- ");
+
+            T2<Map<BitField, BitField>, Integer> code = Canonical.canonisize(new HuffmanN(dba).getCode(len));
+            BitField ww = Canonical.writeCode( code.i0, (byte)code.i1.intValue() );
+
+            Map<BitField, BitField> out = Canonical.readCode(ww).i0;
+
+            assertEquals( code.i0, out );
+        }
     }
 
     @Test
@@ -89,6 +111,63 @@ public class HuffmanNTest {
 
         }
 
+    }
+
+    @Test
+    public void testEncodeDecodeWithCanonical () {
+        String src = "aaaaabcabbbbeeeaf";
+        BitField bsrc = BitFieldImpl.valueOf( src.getBytes(Charset.forName("utf8")));
+
+        HuffmanN hn = new HuffmanN( bsrc );
+
+        for ( int len = 2; len < 16; len++ ) {
+            if ( len == 9 ) {
+                continue;
+            }
+            Map<BitField,BitField> code1 = hn.getCode(len);
+            Map<BitField,BitField> codeC = Canonical.canonisize(code1).i0;
+
+            BitField res =  hn.decode(codeC, hn.encode(codeC));
+            System.out.println(bsrc);
+            System.out.println(res.toString());
+
+            assertEquals("len is " + len, bsrc, res);
+
+        }
+
+    }
+
+    @Test
+    public void testCompressPic() {
+        InputStream is = getClass().getResourceAsStream( "content.jpg");
+
+    }
+
+    @Test
+    public void testEncodeDecode2() {
+        String src = "aaaaabcabbbbeeeaf";
+        BitField bsrc = BitFieldImpl.valueOf( src.getBytes(Charset.forName("utf8")));
+
+        System.out.println( "orig: " + bsrc);
+
+        HuffmanN hn = new HuffmanN( bsrc );
+
+        for ( int len = 2; len < 16; len++ ) {
+
+            BitField bf = hn.encode( len );
+            System.out.println( "coded " + bf );
+            System.out.println( "coded " + bf.toString8());
+            BitField back = hn.decode( bf);
+
+            System.out.println(bsrc);
+            System.out.println(bsrc.toString8());
+            System.out.println(back);
+            System.out.println(back.toString8());
+
+
+            assertEquals("len is " + len, bsrc, back);
+
+        }
     }
 
 }
