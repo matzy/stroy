@@ -80,6 +80,11 @@ public class DynmicBitArrayByBitSet implements BitField {
     }
 
     @Override
+    public void trimEnd() {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
     public boolean get(int idx) {
         return bits.get(idx);
     }

@@ -43,11 +43,12 @@ public class Canonical {
 
             if ( nextCode.size() < val.size() ) {
                 while ( nextCode.size() < val.size() ) {
-                    nextCode.append(false);
+                    nextCode = BitFieldImpl.valueOf(false).append( nextCode );
+//                    nextCode.append(false);
                 }
             }
 
-            ret.put( pair.getKey(), nextCode.clone() );
+            ret.put( pair.getKey(), reverse( nextCode.clone() ));
 
             lastCode = nextCode;
             nextCode = nextCode.clonePlusOne();
@@ -68,15 +69,16 @@ public class Canonical {
             throw new IllegalArgumentException( "key sizes to large" );
         }
 
-        int valSize = highestSetBit( BitFieldImpl.valueOf((byte)4));
-        System.out.println("-- " + valSize);
+        int valSize = highestSetBit( BitFieldImpl.valueOf((byte)depth)) + 1;
+        System.out.println("header " + size + ", " +valSize);
 
         BitField ret = BitFieldImpl.valueOf((byte) size, 5);
+        System.out.println(ret);
         ret.append(BitFieldImpl.valueOf((byte) valSize, 5));
 
         System.out.println( ret );
 
-        BitField key = BitFieldImpl.valueOf(false);
+        BitField key = BitFieldImpl.valueOf((byte)0,size);
 
         for ( int i = 0; i < (int)Math.pow( 2, size ); i++) {
             if ( !code.containsKey( key )) {
@@ -97,7 +99,51 @@ public class Canonical {
 
         System.out.println( "" + keySize + " - " + valLength );
 
-        return null;
+        BitField key = BitFieldImpl.valueOf((byte)0,keySize);
+
+        PriorityQueue<T2<BitField,Integer>> sorted = new PriorityQueue<T2<BitField, Integer>>(100, new Comparator<T2<BitField, Integer>>() {
+            @Override
+            public int compare(T2<BitField, Integer> a, T2<BitField, Integer> b) {
+                if ( a.i1 != b.i1 ) {
+                    return a.i1 - b.i1;
+                }
+                return a.i0.compareTo(b.i0);
+            }
+        });
+
+        for ( int i = 0; i < (int)Math.pow( 2, keySize ); i++) {
+            int val = bf.getInt( 10 + i * valLength, valLength );
+            if ( val != 0 ) {
+                System.out.println(key.toString8() + " -> " + val);
+                sorted.add( T2.valueOf( key,val ));
+            }
+            key = key.clonePlusOne();
+        }
+
+        Map<BitField, BitField> ret = new HashMap<BitField, BitField>( sorted.size() );
+
+        BitField nextCode = BitFieldImpl.valueOf( false );
+        BitField lastCode = null;
+
+        while ( sorted.size() > 0 ) {
+            T2<BitField,Integer> pair = sorted.poll();
+
+            if ( nextCode.size() < pair.i1 ) {
+                while ( nextCode.size() < pair.i1 ) {
+                    nextCode = BitFieldImpl.valueOf(false).append( nextCode );
+//                    nextCode.append(false);
+                }
+            }
+
+            ret.put( pair.i0, reverse( nextCode.clone() ));
+
+            lastCode = nextCode;
+            nextCode = nextCode.clonePlusOne();
+
+        }
+
+
+        return ret;
     }
 
 
@@ -110,6 +156,16 @@ public class Canonical {
         }
 
         return -1;
+    }
+
+    public static BitField reverse( BitField orig ) {
+        BitField ret = new BitFieldImpl();
+
+        for ( int i = orig.size() -1; i >= 0; i-- ) {
+            ret.append( orig.get(i));
+        }
+
+        return ret;
     }
 
 }

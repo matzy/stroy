@@ -78,6 +78,8 @@ public class HuffmanN {
 
         computeCodes( node.getLeft(), prefix.clone().append( false  ), codes );
         computeCodes( node.getRight(), prefix.clone().append( true  ), codes );
+//        computeCodes( node.getLeft(), BitFieldImpl.valueOf( false ).append( prefix ), codes );
+//        computeCodes( node.getRight(), BitFieldImpl.valueOf( true ).append( prefix ), codes );
 
         return codes;
     }
@@ -99,6 +101,78 @@ public class HuffmanN {
 
             System.out.println( pair.getKey().toString8() + " -> " + pair.getValue().toString());
         }
+    }
+
+    public BitField encode( Map<BitField, BitField> code ) {
+
+        BitField res = new BitFieldImpl();
+
+        int keySize = code.keySet().iterator().next().size();
+
+        for( int pos = 0; pos < source.size(); pos += keySize ) {
+            BitField key = source.getSlice( pos, keySize );
+            res.append( code.get( key ));
+        }
+
+        return res;
+    }
+
+    public BitField decode( Map<BitField, BitField> code, BitField src ) {
+        HNodeN tree = codeToTree( code );
+        BitField ret = new BitFieldImpl();
+
+        HNodeN current = tree;
+        for ( int i = 0; i < src.size(); i++ ) {
+            if ( src.get(i)) {
+                current = current.getRight();
+            } else {
+                current = current.getLeft();
+            }
+
+            if ( current.getCh().size() > 0 ) {
+                // found one
+                ret.append( current.getCh() );
+                current = tree;
+            }
+        }
+
+        ret.trimEnd();
+        return ret;
+    }
+
+    private HNodeN codeToTree( Map<BitField, BitField> code ) {
+        HNodeN tree = new HNodeN( new BitFieldImpl(), -1 );
+
+        for ( Map.Entry<BitField, BitField> pair : code.entrySet() ) {
+            BitField val = pair.getValue();
+
+            HNodeN current = tree;
+
+            for ( int i = 0; i < val.size(); i++ ) {
+                if( current.getCh().size() > 0 ) {
+                    throw new IllegalArgumentException( "can't attach a node to a leaf" );
+                }
+                if ( val.get(i)) {
+                    if ( current.getRight() == null ) {
+                        current.setRight( new HNodeN( new BitFieldImpl(), -1 ) );
+                    }
+
+                    current = current.getRight();
+                } else {
+                    if ( current.getLeft() == null ) {
+                        current.setLeft( new HNodeN( new BitFieldImpl(), -1 ) );
+                    }
+
+                    current = current.getLeft();
+
+                }
+            }
+
+            current.setCh( pair.getKey() );
+        }
+
+        return tree;
+
     }
 
 

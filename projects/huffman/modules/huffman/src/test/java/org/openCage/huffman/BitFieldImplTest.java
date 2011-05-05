@@ -168,10 +168,10 @@ public class BitFieldImplTest {
     public void testPlusOne() {
         BitField bf = BitFieldImpl.valueOf( "100111" );
 
-        assertEquals( "101000", bf.clonePlusOne().toString());
+        assertEquals( "010111", bf.clonePlusOne().toString());
 
-        assertEquals( "100", BitFieldImpl.valueOf( "11" ).clonePlusOne().toString());
-        assertEquals( "0100", BitFieldImpl.valueOf( "0011" ).clonePlusOne().toString());
+        assertEquals( "001", BitFieldImpl.valueOf( "11" ).clonePlusOne().toString());
+        assertEquals( "1011", BitFieldImpl.valueOf( "0011" ).clonePlusOne().toString());
 
         BitField count = BitFieldImpl.valueOf(false);
         for ( int i = 0; i < 10; i++ ) {
@@ -193,7 +193,7 @@ public class BitFieldImplTest {
     public void testGetInt() {
         assertEquals( 5, BitFieldImpl.valueOf((byte)5).getInt(0,3));
 
-        assertEquals( 8, BitFieldImpl.valueOf("100").getInt(0,2));
+        assertEquals( 8, BitFieldImpl.valueOf("0001").getInt(0,4));
 
         //assertEquals( 100, BitFieldImpl.valueOf((byte)100).getInt(0,7));
         System.out.println(BitFieldImpl.valueOf((byte)100));

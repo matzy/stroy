@@ -266,6 +266,10 @@ public class DynamicBitArrayDirect implements BitField {
     }
 
     @Override
+    public void trimEnd() {
+    }
+
+    @Override
     public boolean get(int idx) {
         return (bytes.get(idx / 8).byteValue() & ((byte) (1 << (idx % 8)))) != 0;
     }

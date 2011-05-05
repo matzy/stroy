@@ -72,7 +72,7 @@ public class BitFieldImpl implements BitField {
         ret.bytes.add( by );
 
         // full byte
-        ret.last = size;
+        ret.last = size -1;
 
         return ret;
     }
@@ -108,27 +108,49 @@ public class BitFieldImpl implements BitField {
 
     @Override
     public BitField clonePlusOne() {
-        int first0 = -1;
-        for ( int i = size() - 1; i >= 0; i-- ) {
-            if ( !get(i) ) {
-                first0 = i;
-                break;
+        BitField ret = new BitFieldImpl();
+
+        boolean found0 = false;
+        for (int i =0; i < size(); i++ ) {
+            if( get(i)) {
+                ret.append( found0 );
+            } else {
+                if ( !found0 ) {
+                    found0 = true;
+                    ret.append( true );
+                } else {
+                    ret.append( !found0 );
+                }
             }
         }
 
-        BitField ret = new BitFieldImpl();
-
-        for ( int i = 0; i < first0; i++ ) {
-            ret.append( get(i));
-        }
-
-        ret.append( true );
-
-        for ( int i = first0 + 1; i < size(); i++ ) {
-            ret.append( false );
+        if ( !found0 ) {
+            ret.append(true);
         }
 
         return ret;
+
+//        int first0 = -1;
+//        for ( int i = size() - 1; i >= 0; i-- ) {
+//            if ( !get(i) ) {
+//                first0 = i;
+//                break;
+//            }
+//        }
+//
+//        BitField ret = new BitFieldImpl();
+//
+//        for ( int i = 0; i < first0; i++ ) {
+//            ret.append( get(i));
+//        }
+//
+//        ret.append( true );
+//
+//        for ( int i = first0 + 1; i < size(); i++ ) {
+//            ret.append( false );
+//        }
+//
+//        return ret;
     }
 
     @Override
@@ -241,7 +263,7 @@ public class BitFieldImpl implements BitField {
         }
 
         int ret = 0;
-        for ( int i = size; i >= 0; i--  ) {
+        for ( int i = size-1; i >= 0; i--  ) {
             ret *= 2;
             if ( get( from+i)) {
                 ret++;
@@ -260,9 +282,21 @@ public class BitFieldImpl implements BitField {
     public BitField getSlice(int from, int size) {
         BitField ret = new BitFieldImpl();
         for ( int i = from; i < from + size; i++) {
-            ret.append( get(i));
+            if ( i >= size() ) {
+                ret.append(false);
+            } else {
+                ret.append( get(i));
+            }
         }
         return ret;
+    }
+
+    @Override
+    public void trimEnd() {
+        if ( last != 7 && bytes.size() > 1  ) {
+            last = 7;
+            bytes.remove( bytes.size() -1 );
+        }
     }
 
     @Override

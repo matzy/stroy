@@ -48,4 +48,16 @@ public class HNodeN implements Comparable<HNodeN>{
     public int compareTo(HNodeN hNodeN) {
         return weight - hNodeN.getWeight();
     }
+
+    public void setRight(HNodeN hNodeN) {
+        right = hNodeN;
+    }
+
+    public void setLeft(HNodeN hNodeN) {
+        left = hNodeN;
+    }
+
+    public void setCh(BitField key) {
+        ch = key;
+    }
 }

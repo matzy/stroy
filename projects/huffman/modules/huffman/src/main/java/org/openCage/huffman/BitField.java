@@ -25,4 +25,6 @@ public interface BitField extends Comparable<BitField> {
     Byte getByteModulo( int idx );
 
     BitField getSlice( int from, int size );
+
+    void trimEnd();
 }
