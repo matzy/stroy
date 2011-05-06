@@ -104,6 +104,7 @@ public class HuffmanNTest {
             Map<BitField,BitField> cod = hn.getCode(len);
 
             BitField res =  hn.decode(code, hn.encode(code));
+            res.trimTo( bsrc.size());
             System.out.println(bsrc);
             System.out.println(res.toString());
 
@@ -127,7 +128,11 @@ public class HuffmanNTest {
             Map<BitField,BitField> code1 = hn.getCode(len);
             Map<BitField,BitField> codeC = Canonical.canonisize(code1).i0;
 
+            BitField encoded = hn.encode(codeC);
+            System.out.println( "encoded to " + encoded.size());
+
             BitField res =  hn.decode(codeC, hn.encode(codeC));
+            res.trimTo( bsrc.size());
             System.out.println(bsrc);
             System.out.println(res.toString());
 
@@ -152,7 +157,9 @@ public class HuffmanNTest {
 
         HuffmanN hn = new HuffmanN( bsrc );
 
-        for ( int len = 2; len < 16; len++ ) {
+        for ( int len = 2; len < 13; len++ ) {
+
+            System.out.println(" ---------------------- " + len + " ---------------------- " );
 
             BitField bf = hn.encode( len );
             System.out.println( "coded " + bf );
@@ -169,5 +176,29 @@ public class HuffmanNTest {
 
         }
     }
+
+    public static byte[] toBytes( int by ) {
+        byte[] data = new byte[4];
+
+// int -> byte[]
+        for (int i = 0; i < 4; ++i) {
+            int shift = i << 3; // i * 8
+            data[i] = (byte)((by & (0xff << shift)) >>> shift);
+        }
+
+        return data;
+    }
+
+
+    @Test
+    public void testTT() {
+        byte[] bytes = toBytes( 1 );
+
+        assertEquals( 1, bytes[0]);
+        assertEquals( 0, bytes[1]);
+        assertEquals( 0, bytes[2]);
+        assertEquals( 0, bytes[3]);
+    }
+
 
 }

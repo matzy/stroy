@@ -232,4 +232,14 @@ public class BitFieldImplTest {
     public static <A,B> void foreach( Iterable<A> it1, Iterable<B> it2, F2<Void, A, B> body ) {
 
     }
+
+    @Test
+    public void testTrimTo() {
+
+        for ( int i = 1; i < 23; i++ ) {
+            assertEquals( i, BitFieldImpl.valueOf( "11111100000000000000000000000000000000111111111" ).trimTo( i ).size());
+        }
+
+    }
+
 }
