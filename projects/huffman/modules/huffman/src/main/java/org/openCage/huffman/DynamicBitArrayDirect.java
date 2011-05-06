@@ -266,7 +266,8 @@ public class DynamicBitArrayDirect implements BitField {
     }
 
     @Override
-    public void trimEnd() {
+    public BitField trimTo(int len) {
+        throw new Error( "not impl" );
     }
 
     @Override

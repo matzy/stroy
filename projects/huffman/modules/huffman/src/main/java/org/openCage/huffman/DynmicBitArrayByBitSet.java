@@ -80,9 +80,10 @@ public class DynmicBitArrayByBitSet implements BitField {
     }
 
     @Override
-    public void trimEnd() {
-        //To change body of implemented methods use File | Settings | File Templates.
+    public BitField trimTo(int len) {
+        throw new Error( "not impl" );
     }
+
 
     @Override
     public boolean get(int idx) {

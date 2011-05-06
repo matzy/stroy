@@ -26,5 +26,6 @@ public interface BitField extends Comparable<BitField> {
 
     BitField getSlice( int from, int size );
 
-    void trimEnd();
+    BitField trimTo( int len );
+
 }

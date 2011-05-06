@@ -66,18 +66,24 @@ public class BitFieldImpl implements BitField {
         return ret;
     }
 
-    public static BitField valueOf( byte by, int size ) {
+    public static BitField valueOf( int by, int size ) {
+
+        if ( by < 0 ) {
+            throw new IllegalArgumentException( "negative numbers are not supported " + by );
+        }
+
+        if ( size <= 0 ) {
+            throw new IllegalArgumentException( "size needs to be >0 " + size );
+        }
+
+
         BitFieldImpl ret = new BitFieldImpl();
 
-        ret.bytes.add( by );
+        int mask = 1;
 
-        if ( size < 9 ) {
-            ret.last = size -1;
-        } else {
-            ret.last = 7;
-            for ( int i = 8; i < size; i++ ) {
-                ret.append( false );
-            }
+        for ( int pos = 0; pos < size && pos < 32; pos++ ) {
+            ret.append( (by & mask) != 0);
+            mask <<= 1;
         }
 
         return ret;
@@ -269,7 +275,7 @@ public class BitFieldImpl implements BitField {
 
     @Override
     public int getInt(int from, int size) {
-        if ( size > 30 ) {
+        if ( size > 32 ) {
             throw new IllegalArgumentException( "size too big " + size );
         }
 
@@ -303,12 +309,25 @@ public class BitFieldImpl implements BitField {
     }
 
     @Override
-    public void trimEnd() {
-        if ( last != 7 && bytes.size() > 1  ) {
-            last = 7;
+    public BitField trimTo(int len) {
+
+        if ( len <= 0 ) {
+            throw new IllegalArgumentException( "can't be negative " + len );
+        }
+
+        if ( size() < len ) {
+            return this;
+        }
+
+        while ( (bytes.size() - 1)* 8 >= len ) {
             bytes.remove( bytes.size() -1 );
         }
+
+        last = len - ((bytes.size() -1) * 8) - 1;
+
+        return this;
     }
+
 
     @Override
     public int compareTo(BitField other) {
