@@ -111,10 +111,12 @@ public class Canonical {
             }
         });
 
+        System.out.println( "math pow " +  (int)Math.pow( 2, keySize ));
+
         for ( int i = 0; i < (int)Math.pow( 2, keySize ); i++) {
             int val = bf.getInt( 10 + i * valLength, valLength );
             if ( val != 0 ) {
-                System.out.println(key.toString8() + " -> " + val);
+//                System.out.println(key.toString8() + " -> " + val);
                 sorted.add( T2.valueOf( key,val ));
             }
             key = key.clonePlusOne();

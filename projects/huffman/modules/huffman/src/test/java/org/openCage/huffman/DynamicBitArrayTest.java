@@ -115,16 +115,16 @@ public class DynamicBitArrayTest {
         assertEquals( -1, a.compareTo(b));
     }
 
-    @Test
-    public void testCompareChar() {
-        BitField a = DynamicBitArrayDirect.valueOf( "a".getBytes(Charset.forName("utf8")));
-        BitField b = DynamicBitArrayDirect.valueOf( "b".getBytes(Charset.forName("utf8")));
-
-        System.out.println( "a = " + a );
-        System.out.println( "b = " + b );
-
-        assertTrue( a.compareTo(b) < 0 );
-    }
+//    @Test
+//    public void testCompareChar() {
+//        BitField a = DynamicBitArrayDirect.valueOf( "a".getBytes(Charset.forName("utf8")));
+//        BitField b = DynamicBitArrayDirect.valueOf( "b".getBytes(Charset.forName("utf8")));
+//
+//        System.out.println( "a = " + a );
+//        System.out.println( "b = " + b );
+//
+//        assertTrue( a.compareTo(b) < 0 );
+//    }
 
 
     @Test

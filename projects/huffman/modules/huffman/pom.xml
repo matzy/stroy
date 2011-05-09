@@ -19,11 +19,11 @@
             <artifactId>openCage-lang</artifactId>
             <scope>compile</scope>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>openCage</groupId>-->
-            <!--<artifactId>openCage-io</artifactId>-->
-            <!--<scope>compile</scope>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>openCage</groupId>
+            <artifactId>openCage-io</artifactId>
+            <scope>compile</scope>
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

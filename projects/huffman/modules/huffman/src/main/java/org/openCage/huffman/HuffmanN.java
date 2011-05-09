@@ -121,19 +121,19 @@ public class HuffmanN {
 
         res.append( BitFieldImpl.valueOf( source.size(), 32 ));
 
-        System.out.println( "res with code " + res);
+//        System.out.println( "res with code " + res);
 
         for( int pos = 0; pos < source.size(); pos += keySize ) {
             BitField key = source.getSlice( pos, keySize );
             res.append( code.get( key ));
         }
 
-        System.out.println( "and content   " +res);
+//        System.out.println( "and content   " +res);
 
         return res;
     }
 
-    public BitField decode( BitField coded )  {
+    public static BitField decode( BitField coded )  {
         T2<Map<BitField,BitField>,Integer> res= Canonical.readCode( coded );
         Map<BitField,BitField> code = res.i0;
         int pos = res.i1;
@@ -201,7 +201,7 @@ public class HuffmanN {
         return ret;
     }
 
-    private HNodeN codeToTree( Map<BitField, BitField> code ) {
+    private static HNodeN codeToTree( Map<BitField, BitField> code ) {
         HNodeN tree = new HNodeN( new BitFieldImpl(), -1 );
 
         for ( Map.Entry<BitField, BitField> pair : code.entrySet() ) {

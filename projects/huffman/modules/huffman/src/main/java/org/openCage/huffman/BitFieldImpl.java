@@ -177,11 +177,11 @@ public class BitFieldImpl implements BitField {
             return "-1";
         }
 
-        String ret = "";
+        StringBuilder ret = new StringBuilder();
 
         for ( int i = 0; i < size(); i++ ) {
             boolean bit = get(i);
-            ret += (bit ? "1" : "0");
+            ret.append(bit ? "1" : "0");
         }
 
 //        for ( Count<Byte> by : Count.count(bytes) ) {
@@ -204,7 +204,7 @@ public class BitFieldImpl implements BitField {
 //            return "0";
 //        }
 
-        return ret;
+        return ret.toString();
     }
 
 
@@ -258,7 +258,7 @@ public class BitFieldImpl implements BitField {
     @Override
     public boolean get(int idx) {
         if ( idx < 0 || idx >= size() ) {
-            throw new IllegalArgumentException( "index out of bounds");
+            throw new IllegalArgumentException( "index out of bounds ("+ size() +"): " + idx);
         }
         try {
             return (bytes.get(idx / 8).byteValue() & ((byte) (1 << (idx % 8)))) != 0;
