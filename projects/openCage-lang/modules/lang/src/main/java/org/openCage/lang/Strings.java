@@ -218,7 +218,7 @@ public class Strings {
         }
 
         /**
-         * Wether the join starts with the separator or not (not is default)
+         * Whether the join starts with the separator or not (not is default)
          * @param start
          * @return Itself (fluent style)
          */
