@@ -4,6 +4,9 @@ import org.openCage.lang.Strings;
 import org.openCage.lang.functions.F1;
 import org.openCage.lang.iterators.Count;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,6 +67,25 @@ public class BitFieldImpl implements BitField {
         ret.last = 7;
 
         return ret;
+    }
+
+    public static BitField valueOf( InputStream is ) throws IOException {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream(1024);
+        byte[] bytes = new byte[512];
+
+        // Read bytes from the input stream in bytes.length-sized chunks and write
+        // them into the output stream
+        int readBytes;
+        while ((readBytes = is.read(bytes)) > 0) {
+            outputStream.write(bytes, 0, readBytes);
+        }
+
+        // Convert the contents of the output stream into a byte array
+        byte[] byteData = outputStream.toByteArray();
+
+
+        return valueOf( byteData );
+
     }
 
     public static BitField valueOf( int by, int size ) {
@@ -167,7 +189,15 @@ public class BitFieldImpl implements BitField {
 
     @Override
     public byte[] toByteArray() {
-        throw new Error( "not impl" );
+        byte[] ret  = new byte[bytes.size()];
+
+        for ( int i = 0; i < bytes.size(); i++ ) {
+            ret[i] = bytes.get(i);
+        }
+
+        return ret;
+
+
     }
 
     @Override

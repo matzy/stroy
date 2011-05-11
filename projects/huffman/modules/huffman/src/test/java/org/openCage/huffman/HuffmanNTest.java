@@ -157,23 +157,7 @@ public class HuffmanNTest {
         Resource.tryWith(new FE1<Void, Resource>() {
             @Override public Void call(Resource resource) throws Exception {
 
-                InputStream is = resource.add(getClass().getResourceAsStream("content.jpg"));
-
-                ByteArrayOutputStream outputStream = new ByteArrayOutputStream(1024);
-                byte[] bytes = new byte[512];
-
-                // Read bytes from the input stream in bytes.length-sized chunks and write
-                // them into the output stream
-                int readBytes;
-                while ((readBytes = is.read(bytes)) > 0) {
-                    outputStream.write(bytes, 0, readBytes);
-                }
-
-                // Convert the contents of the output stream into a byte array
-                byte[] byteData = outputStream.toByteArray();
-
-
-                BitField bf = BitFieldImpl.valueOf( byteData );
+                BitField bf = BitFieldImpl.valueOf( resource.add(getClass().getResourceAsStream("content.jpg")));
 
                 for ( int len = 2; len < 17; len++ ) {
 

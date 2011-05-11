@@ -1,8 +1,22 @@
 package org.openCage.huffman.clt;
 
+import com.sun.jndi.toolkit.url.UrlUtil;
 import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
+import org.kohsuke.args4j.Option;
+import org.openCage.huffman.BitField;
+import org.openCage.huffman.BitFieldImpl;
+import org.openCage.huffman.HuffmanN;
+import org.openCage.io.Resource;
+import org.openCage.io.fspath.FSPath;
+import org.openCage.io.fspath.FSPathBuilder;
+import org.openCage.lang.functions.FE1;
+
+import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 /**
  * Created by IntelliJ IDEA.
@@ -15,6 +29,9 @@ public class Main {
 
     @Argument(required = true)
     private String source;
+
+    @Option(name = "b")
+    private int wordLength;
 
 
     public static void main(String[] args) {
@@ -35,5 +52,32 @@ public class Main {
         }
 
         System.out.println( values.source );
+
+        try {
+            values.encode( new URI(values.source ), FSPathBuilder.getDocuments().add("tmp.huff"));
+        } catch (URISyntaxException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+
+    }
+
+    public void encode( final URI uri, final FSPath target )  {
+
+        Resource.tryWith( new FE1<Object, Resource>() {
+            @Override public Object call(Resource resource) throws Exception {
+
+                BitField encoded = new HuffmanN(BitFieldImpl.valueOf( resource.add( new BufferedInputStream( uri.toURL().openStream())))).encode(8);
+
+                OutputStream os = resource.add( new FileOutputStream( target.toFile()));
+
+
+                os.write( encoded.toByteArray() );
+
+                return null;
+            }
+        });
+
+
+
     }
 }
