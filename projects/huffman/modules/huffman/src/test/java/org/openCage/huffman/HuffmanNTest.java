@@ -25,7 +25,7 @@ public class HuffmanNTest {
     @Test
     public void testA() {
         String src = "aaaaabcabbbbeeeaf";
-        BitField dba = BitFieldImpl.valueOf(src.getBytes(Charset.forName("utf8")));
+        BitField dba = BitList.valueOf(src.getBytes(Charset.forName("utf8")));
 
         System.out.println(dba.toString8());
 
@@ -42,7 +42,7 @@ public class HuffmanNTest {
     @Test
     public void testWriteCanonical() {
         String src = "aaaaabcabbbbeeeafgghijklmnopqrastuvw1234567789";
-        BitField dba = BitFieldImpl.valueOf(src.getBytes(Charset.forName("utf8")));
+        BitField dba = BitList.valueOf(src.getBytes(Charset.forName("utf8")));
 
         Canonical can = new Canonical();
 
@@ -70,7 +70,7 @@ public class HuffmanNTest {
     @Test
     public void testCanonical() {
         String src = "aaaaabcabbbbeeeaf";
-        BitField dba = BitFieldImpl.valueOf(src.getBytes(Charset.forName("utf8")));
+        BitField dba = BitList.valueOf(src.getBytes(Charset.forName("utf8")));
 
         for (int len = 2; len < 17; len++) {
 
@@ -88,7 +88,7 @@ public class HuffmanNTest {
     @Test
     public void testEncodeDecode() {
         String src = "aaaaabcabbbbeeeaf";
-        BitField bsrc = BitFieldImpl.valueOf(src.getBytes(Charset.forName("utf8")));
+        BitField bsrc = BitList.valueOf(src.getBytes(Charset.forName("utf8")));
 
         HuffmanN hn = new HuffmanN(bsrc);
 
@@ -125,7 +125,7 @@ public class HuffmanNTest {
     @Test
     public void testEncodeDecodeWithCanonical() {
         String src = "aaaaabcabbbbeeeaf";
-        BitField bsrc = BitFieldImpl.valueOf(src.getBytes(Charset.forName("utf8")));
+        BitField bsrc = BitList.valueOf(src.getBytes(Charset.forName("utf8")));
 
         HuffmanN hn = new HuffmanN(bsrc);
 
@@ -157,7 +157,7 @@ public class HuffmanNTest {
         Resource.tryWith(new FE1<Void, Resource>() {
             @Override public Void call(Resource resource) throws Exception {
 
-                BitField bf = BitFieldImpl.valueOf( resource.add(getClass().getResourceAsStream("content.jpg")));
+                BitField bf = BitList.valueOf(resource.add(getClass().getResourceAsStream("content.jpg")));
 
                 for ( int len = 2; len < 17; len++ ) {
 
@@ -205,7 +205,7 @@ public class HuffmanNTest {
                 byte[] byteData = outputStream.toByteArray();
 
 
-                BitField bf = BitFieldImpl.valueOf( byteData );
+                BitField bf = BitList.valueOf(byteData);
 
                 BitField first = new HuffmanN(bf).encode(8);
 
@@ -237,7 +237,7 @@ public class HuffmanNTest {
     @Test
     public void testEncodeDecode2() {
         String src = "aaaaabcabbbbeeeaf";
-        BitField bsrc = BitFieldImpl.valueOf(src.getBytes(Charset.forName("utf8")));
+        BitField bsrc = BitList.valueOf(src.getBytes(Charset.forName("utf8")));
 
         System.out.println("orig: " + bsrc);
 

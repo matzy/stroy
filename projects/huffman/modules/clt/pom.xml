@@ -12,6 +12,9 @@
     <groupId>openCage</groupId>
     <artifactId>huffman-clt</artifactId>
 
+    <properties>
+        <mainclass>org.openCage.huffman.clt.Main</mainclass>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -42,59 +45,75 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>2.3.1</version>
                 <configuration>
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>org.openCage.gpad.MvnMain</mainClass>
+                            <mainClass>${mainclass}</mainClass>
                         </manifest>
                         <!--<manifestEntries>-->
-                            <!--<mode>development</mode>-->
-                            <!--<url>${pom.url}</url>-->
+                        <!--<mode>development</mode>-->
+                        <!--<url>${pom.url}</url>-->
                         <!--</manifestEntries>-->
                     </archive>
                 </configuration>
             </plugin>
 
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>appassembler-maven-plugin</artifactId>
+                <configuration>
+                    <platforms>
+                        <platform>windows</platform>
+                        <platform>unix</platform>
+                    </platforms>
+                    <programs>
+                        <program>
+                            <mainClass>${mainclass}</mainClass>
+                            <name>huffman</name>
+                        </program>
+                    </programs>
+                </configuration>
+            </plugin>
+
             <!--<plugin>-->
-                <!--<groupId>com.akathist.maven.plugins.launch4j</groupId>-->
-                <!--<artifactId>launch4j-maven-plugin</artifactId>-->
-                <!--<version>1.3</version>-->
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<id>4j-gui</id>-->
-                        <!--<phase>package</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>launch4j</goal>-->
-                        <!--</goals>-->
-                        <!--<configuration>-->
-                            <!--<headerType>console</headerType>-->
-                            <!--&lt;!&ndash;<outfile>target/two.exe</outfile>   &lt;!&ndash; var &ndash;&gt;&ndash;&gt;-->
-                            <!--&lt;!&ndash;<jar>target/two-0.2.jar</jar>&ndash;&gt;-->
-                            <!--<errTitle>fff</errTitle>-->
-                            <!--<classPath>-->
-                                <!--<mainClass>org.openCage.gpad.MvnMain</mainClass>-->
-                                <!--<addDependencies>true</addDependencies>-->
-                                <!--&lt;!&ndash;<preCp>anything</preCp>&ndash;&gt;-->
-                            <!--</classPath>-->
-                            <!--<jre>-->
-                                <!--<minVersion>1.6.0</minVersion>-->
-                            <!--</jre>-->
-                            <!--<versionInfo>-->
-                                <!--<fileVersion>1.2.3.4</fileVersion>-->
-                                <!--<txtFileVersion>txt file version?</txtFileVersion>-->
-                                <!--<fileDescription>a description</fileDescription>-->
-                                <!--<copyright>my copyright</copyright>-->
-                                <!--<productVersion>4.3.2.1</productVersion>-->
-                                <!--<txtProductVersion>txt product version</txtProductVersion>-->
-                                <!--<productName>M-T</productName>-->
-                                <!--<internalName>mt</internalName>-->
-                                <!--<originalFilename>original.exe</originalFilename>-->
-                            <!--</versionInfo>-->
-                        <!--</configuration>-->
-                    <!--</execution>-->
-                <!--</executions>-->
+            <!--<groupId>com.akathist.maven.plugins.launch4j</groupId>-->
+            <!--<artifactId>launch4j-maven-plugin</artifactId>-->
+            <!--<version>1.3</version>-->
+            <!--<executions>-->
+            <!--<execution>-->
+            <!--<id>4j-gui</id>-->
+            <!--<phase>package</phase>-->
+            <!--<goals>-->
+            <!--<goal>launch4j</goal>-->
+            <!--</goals>-->
+            <!--<configuration>-->
+            <!--<headerType>console</headerType>-->
+            <!--&lt;!&ndash;<outfile>target/two.exe</outfile>   &lt;!&ndash; var &ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;<jar>target/two-0.2.jar</jar>&ndash;&gt;-->
+            <!--<errTitle>fff</errTitle>-->
+            <!--<classPath>-->
+            <!--<mainClass>org.openCage.gpad.MvnMain</mainClass>-->
+            <!--<addDependencies>true</addDependencies>-->
+            <!--&lt;!&ndash;<preCp>anything</preCp>&ndash;&gt;-->
+            <!--</classPath>-->
+            <!--<jre>-->
+            <!--<minVersion>1.6.0</minVersion>-->
+            <!--</jre>-->
+            <!--<versionInfo>-->
+            <!--<fileVersion>1.2.3.4</fileVersion>-->
+            <!--<txtFileVersion>txt file version?</txtFileVersion>-->
+            <!--<fileDescription>a description</fileDescription>-->
+            <!--<copyright>my copyright</copyright>-->
+            <!--<productVersion>4.3.2.1</productVersion>-->
+            <!--<txtProductVersion>txt product version</txtProductVersion>-->
+            <!--<productName>M-T</productName>-->
+            <!--<internalName>mt</internalName>-->
+            <!--<originalFilename>original.exe</originalFilename>-->
+            <!--</versionInfo>-->
+            <!--</configuration>-->
+            <!--</execution>-->
+            <!--</executions>-->
             <!--</plugin>-->
         </plugins>
     </build>

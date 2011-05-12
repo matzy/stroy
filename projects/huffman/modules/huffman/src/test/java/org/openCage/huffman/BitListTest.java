@@ -1,9 +1,6 @@
 package org.openCage.huffman;
 
-import org.junit.Assert;
 import org.junit.Test;
-import org.openCage.lang.functions.F0;
-import org.openCage.lang.functions.F1;
 import org.openCage.lang.functions.F2;
 import org.openCage.lang.structure.T2;
 
@@ -20,11 +17,11 @@ import static org.junit.Assert.assertTrue;
  * Time: 17:50
  * To change this template use File | Settings | File Templates.
  */
-public class BitFieldImplTest {
+public class BitListTest {
 
     @Test
     public void testAppend() {
-        BitFieldImpl bf = BitFieldImpl.valueOf(false);
+        BitList bf = BitList.valueOf(false);
         assertEquals( 0, bf.internalGetLast());
         assertEquals( 1, bf.internalGetBytes().size());
         assertEquals( 1, bf.size());
@@ -135,12 +132,12 @@ public class BitFieldImplTest {
 
     @Test
     public void testString() {
-        BitField a = BitFieldImpl.valueOf( "a".getBytes(Charset.forName("utf8")));
+        BitField a = BitList.valueOf("a".getBytes(Charset.forName("utf8")));
 
         assertEquals( 8, a.size() );
         System.out.println(a);
 
-        BitField b = BitFieldImpl.valueOf( "b".getBytes(Charset.forName("utf8")));
+        BitField b = BitList.valueOf("b".getBytes(Charset.forName("utf8")));
 
         assertEquals(8, b.size());
         System.out.println(b);
@@ -166,14 +163,14 @@ public class BitFieldImplTest {
 
     @Test
     public void testPlusOne() {
-        BitField bf = BitFieldImpl.valueOf( "100111" );
+        BitField bf = BitList.valueOf("100111");
 
         assertEquals( "010111", bf.clonePlusOne().toString());
 
-        assertEquals( "001", BitFieldImpl.valueOf( "11" ).clonePlusOne().toString());
-        assertEquals( "1011", BitFieldImpl.valueOf( "0011" ).clonePlusOne().toString());
+        assertEquals( "001", BitList.valueOf("11").clonePlusOne().toString());
+        assertEquals( "1011", BitList.valueOf("0011").clonePlusOne().toString());
 
-        BitField count = BitFieldImpl.valueOf(false);
+        BitField count = BitList.valueOf(false);
         for ( int i = 0; i < 10; i++ ) {
             System.out.println(count);
             count = count.clonePlusOne();
@@ -183,30 +180,30 @@ public class BitFieldImplTest {
 
     @Test
     public void testToString() {
-        assertEquals( "100111", BitFieldImpl.valueOf( "100111" ).toString());
+        assertEquals( "100111", BitList.valueOf("100111").toString());
 
 
-        assertEquals( "100111", BitFieldImpl.valueOf( "10011" ).append(true).toString());
+        assertEquals( "100111", BitList.valueOf("10011").append(true).toString());
     }
 
     @Test
     public void testGetInt() {
-        assertEquals( 5, BitFieldImpl.valueOf((byte)5).getInt(0,3));
+        assertEquals( 5, BitList.valueOf((byte) 5).getInt(0,3));
 
-        assertEquals( 8, BitFieldImpl.valueOf("0001").getInt(0,4));
+        assertEquals( 8, BitList.valueOf("0001").getInt(0,4));
 
-        //assertEquals( 100, BitFieldImpl.valueOf((byte)100).getInt(0,7));
-//        System.out.println(BitFieldImpl.valueOf((byte)100));
-//        System.out.println(BitFieldImpl.valueOf((byte)100).append( BitFieldImpl.valueOf( "00")));
-//        assertEquals( 400, BitFieldImpl.valueOf((byte)100).append( BitFieldImpl.valueOf( "00")).getInt(0,9));
+        //assertEquals( 100, BitList.valueOf((byte)100).getInt(0,7));
+//        System.out.println(BitList.valueOf((byte)100));
+//        System.out.println(BitList.valueOf((byte)100).append( BitList.valueOf( "00")));
+//        assertEquals( 400, BitList.valueOf((byte)100).append( BitList.valueOf( "00")).getInt(0,9));
 
 
     }
 
     @Test
     public void testBitOrder() {
-        BitField one = BitFieldImpl.valueOf((byte)1);
-        BitField two = BitFieldImpl.valueOf((byte)2);
+        BitField one = BitList.valueOf((byte) 1);
+        BitField two = BitList.valueOf((byte) 2);
 
         System.out.println("one " + one );
         System.out.println("two " + two );
@@ -237,7 +234,7 @@ public class BitFieldImplTest {
     public void testTrimTo() {
 
         for ( int i = 1; i < 23; i++ ) {
-            assertEquals( i, BitFieldImpl.valueOf( "11111100000000000000000000000000000000111111111" ).trimTo( i ).size());
+            assertEquals( i, BitList.valueOf("11111100000000000000000000000000000000111111111").trimTo( i ).size());
         }
 
     }

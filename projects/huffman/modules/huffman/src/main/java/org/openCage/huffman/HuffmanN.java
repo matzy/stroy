@@ -2,7 +2,6 @@ package org.openCage.huffman;
 
 import org.openCage.lang.structure.T2;
 
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,7 +30,7 @@ public class HuffmanN {
 
         buildHuffmanTree(pq);
 
-        Map<BitField, BitField> codes = computeCodes( pq.poll(), new BitFieldImpl(), new HashMap<BitField, BitField>() );
+        Map<BitField, BitField> codes = computeCodes( pq.poll(), new BitList(), new HashMap<BitField, BitField>() );
 
         return codes;
     }
@@ -41,7 +40,7 @@ public class HuffmanN {
             HNodeN left = pq.poll();
             HNodeN right = pq.poll();
 
-            pq.add( new HNodeN( new BitFieldImpl(), left.getWeight() + right.getWeight(), left, right  ));
+            pq.add( new HNodeN( new BitList(), left.getWeight() + right.getWeight(), left, right  ));
         }
     }
 
@@ -81,8 +80,8 @@ public class HuffmanN {
 
         computeCodes( node.getLeft(), prefix.clone().append( false  ), codes );
         computeCodes( node.getRight(), prefix.clone().append( true  ), codes );
-//        computeCodes( node.getLeft(), BitFieldImpl.valueOf( false ).append( prefix ), codes );
-//        computeCodes( node.getRight(), BitFieldImpl.valueOf( true ).append( prefix ), codes );
+//        computeCodes( node.getLeft(), BitList.valueOf( false ).append( prefix ), codes );
+//        computeCodes( node.getRight(), BitList.valueOf( true ).append( prefix ), codes );
 
         return codes;
     }
@@ -119,7 +118,7 @@ public class HuffmanN {
 
         BitField res = Canonical.writeCode(code, (byte) valSize);
 
-        res.append( BitFieldImpl.valueOf( source.size(), 32 ));
+        res.append( BitList.valueOf(source.size(), 32));
 
 //        System.out.println( "res with code " + res);
 
@@ -142,7 +141,7 @@ public class HuffmanN {
         pos += 32;
 
         HNodeN tree = codeToTree( code );
-        BitField ret = new BitFieldImpl();
+        BitField ret = new BitList();
 
         HNodeN current = tree;
         for ( int i = pos; i < coded.size(); i++ ) {
@@ -166,7 +165,7 @@ public class HuffmanN {
 
     public BitField encode( Map<BitField, BitField> code ) {
 
-        BitField res = new BitFieldImpl();
+        BitField res = new BitList();
 
         int keySize = code.keySet().iterator().next().size();
 
@@ -180,7 +179,7 @@ public class HuffmanN {
 
     public BitField decode( Map<BitField, BitField> code, BitField src ) {
         HNodeN tree = codeToTree( code );
-        BitField ret = new BitFieldImpl();
+        BitField ret = new BitList();
 
         HNodeN current = tree;
         for ( int i = 0; i < src.size(); i++ ) {
@@ -202,7 +201,7 @@ public class HuffmanN {
     }
 
     private static HNodeN codeToTree( Map<BitField, BitField> code ) {
-        HNodeN tree = new HNodeN( new BitFieldImpl(), -1 );
+        HNodeN tree = new HNodeN( new BitList(), -1 );
 
         for ( Map.Entry<BitField, BitField> pair : code.entrySet() ) {
             BitField val = pair.getValue();
@@ -215,13 +214,13 @@ public class HuffmanN {
                 }
                 if ( val.get(i)) {
                     if ( current.getRight() == null ) {
-                        current.setRight(new HNodeN(new BitFieldImpl(), -1));
+                        current.setRight(new HNodeN(new BitList(), -1));
                     }
 
                     current = current.getRight();
                 } else {
                     if ( current.getLeft() == null ) {
-                        current.setLeft(new HNodeN(new BitFieldImpl(), -1));
+                        current.setLeft(new HNodeN(new BitList(), -1));
                     }
 
                     current = current.getLeft();

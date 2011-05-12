@@ -2,7 +2,6 @@ package org.openCage.huffman;
 
 import org.openCage.lang.Strings;
 import org.openCage.lang.functions.F1;
-import org.openCage.lang.iterators.Count;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -17,18 +16,18 @@ import java.util.List;
  * 76543210 8
  * 76543210 98
  */
-public class BitFieldImpl implements BitField {
+public class BitList implements BitField {
 
     private List<Byte> bytes = new ArrayList<Byte>();
 
     // last bit in last byte
     private int last = 7;
 
-    public BitFieldImpl() {
+    public BitList() {
     }
 
-    public static BitFieldImpl valueOf(boolean val) {
-        BitFieldImpl ret = new BitFieldImpl();
+    public static BitList valueOf(boolean val) {
+        BitList ret = new BitList();
         ret.last = 0;
         ret.bytes.add((byte) (val ? 1 : 0));
 
@@ -36,7 +35,7 @@ public class BitFieldImpl implements BitField {
     }
 
     public static BitField valueOf(String str) {
-        BitFieldImpl ret = new BitFieldImpl();
+        BitList ret = new BitList();
 
         for (int i = 0; i < str.length(); i++) {
             ret.append(str.charAt(i) == '1');
@@ -46,7 +45,7 @@ public class BitFieldImpl implements BitField {
     }
 
     public static BitField valueOf( byte[] src ) {
-        BitFieldImpl ret = new BitFieldImpl();
+        BitList ret = new BitList();
 
         for ( byte by : src ) {
             ret.bytes.add( by );
@@ -59,7 +58,7 @@ public class BitFieldImpl implements BitField {
     }
 
     public static BitField valueOf( byte by ) {
-        BitFieldImpl ret = new BitFieldImpl();
+        BitList ret = new BitList();
 
         ret.bytes.add( by );
 
@@ -99,7 +98,7 @@ public class BitFieldImpl implements BitField {
         }
 
 
-        BitFieldImpl ret = new BitFieldImpl();
+        BitList ret = new BitList();
 
         int mask = 1;
 
@@ -142,7 +141,7 @@ public class BitFieldImpl implements BitField {
 
     @Override
     public BitField clonePlusOne() {
-        BitField ret = new BitFieldImpl();
+        BitField ret = new BitList();
 
         boolean found0 = false;
         for (int i =0; i < size(); i++ ) {
@@ -172,7 +171,7 @@ public class BitFieldImpl implements BitField {
 //            }
 //        }
 //
-//        BitField ret = new BitFieldImpl();
+//        BitField ret = new BitList();
 //
 //        for ( int i = 0; i < first0; i++ ) {
 //            ret.append( get(i));
@@ -274,7 +273,7 @@ public class BitFieldImpl implements BitField {
 
     @Override
     public BitField clone() {
-        BitFieldImpl ret = new BitFieldImpl();
+        BitList ret = new BitList();
         ret.last = last;
         ret.bytes.addAll( bytes );
         return ret;
@@ -327,7 +326,7 @@ public class BitFieldImpl implements BitField {
 
     @Override
     public BitField getSlice(int from, int size) {
-        BitField ret = new BitFieldImpl();
+        BitField ret = new BitList();
         for ( int i = from; i < from + size; i++) {
             if ( i >= size() ) {
                 ret.append(false);
@@ -362,11 +361,11 @@ public class BitFieldImpl implements BitField {
     @Override
     public int compareTo(BitField other) {
 
-        if ( !(other instanceof BitFieldImpl )) {
+        if ( !(other instanceof BitList)) {
             throw new IllegalArgumentException( "different impls of bitfield don't compare" );
         }
 
-        BitFieldImpl oimpl = (BitFieldImpl)other;
+        BitList oimpl = (BitList)other;
 
         if ( bytes.size() != oimpl.bytes.size()  ) {
             return bytes.size() - oimpl.bytes.size();
@@ -386,7 +385,7 @@ public class BitFieldImpl implements BitField {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        BitFieldImpl bitField = (BitFieldImpl) o;
+        BitList bitField = (BitList) o;
 
         if (last != bitField.last) return false;
         if (bytes != null ? !bytes.equals(bitField.bytes) : bitField.bytes != null) return false;

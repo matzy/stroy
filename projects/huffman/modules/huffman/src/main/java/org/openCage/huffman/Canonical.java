@@ -33,7 +33,7 @@ public class Canonical {
 
         Map<BitField, BitField> ret = new HashMap<BitField, BitField>( code.size());
 
-        BitField nextCode = BitFieldImpl.valueOf( false );
+        BitField nextCode = BitList.valueOf(false);
         BitField lastCode = null;
 
         while ( sorted.size() > 0 ) {
@@ -43,7 +43,7 @@ public class Canonical {
 
             if ( nextCode.size() < val.size() ) {
                 while ( nextCode.size() < val.size() ) {
-                    nextCode = BitFieldImpl.valueOf(false).append( nextCode );
+                    nextCode = BitList.valueOf(false).append( nextCode );
 //                    nextCode.append(false);
                 }
             }
@@ -69,22 +69,22 @@ public class Canonical {
             throw new IllegalArgumentException( "key sizes to large" );
         }
 
-        int valSize = highestSetBit( BitFieldImpl.valueOf((byte)depth)) + 1;
+        int valSize = highestSetBit( BitList.valueOf((byte) depth)) + 1;
         System.out.println("header " + size + ", " +valSize);
 
-        BitField ret = BitFieldImpl.valueOf((byte) size, 5);
+        BitField ret = BitList.valueOf((byte) size, 5);
         System.out.println(ret);
-        ret.append(BitFieldImpl.valueOf((byte) valSize, 5));
+        ret.append(BitList.valueOf((byte) valSize, 5));
 
         System.out.println( ret );
 
-        BitField key = BitFieldImpl.valueOf((byte)0,size);
+        BitField key = BitList.valueOf((byte) 0, size);
 
         for ( int i = 0; i < (int)Math.pow( 2, size ); i++) {
             if ( !code.containsKey( key )) {
-                ret.append( BitFieldImpl.valueOf((byte)0,valSize));
+                ret.append( BitList.valueOf((byte) 0, valSize));
             } else {
-                ret.append( BitFieldImpl.valueOf( (byte)code.get(key).size(),valSize));
+                ret.append( BitList.valueOf((byte) code.get(key).size(), valSize));
             }
 
             key = key.clonePlusOne();
@@ -99,7 +99,7 @@ public class Canonical {
 
         System.out.println( "" + keySize + " - " + valLength );
 
-        BitField key = BitFieldImpl.valueOf((byte)0,keySize);
+        BitField key = BitList.valueOf((byte) 0, keySize);
 
         PriorityQueue<T2<BitField,Integer>> sorted = new PriorityQueue<T2<BitField, Integer>>(100, new Comparator<T2<BitField, Integer>>() {
             @Override
@@ -124,7 +124,7 @@ public class Canonical {
 
         Map<BitField, BitField> ret = new HashMap<BitField, BitField>( sorted.size() );
 
-        BitField nextCode = BitFieldImpl.valueOf( false );
+        BitField nextCode = BitList.valueOf(false);
         BitField lastCode = null;
 
         while ( sorted.size() > 0 ) {
@@ -132,7 +132,7 @@ public class Canonical {
 
             if ( nextCode.size() < pair.i1 ) {
                 while ( nextCode.size() < pair.i1 ) {
-                    nextCode = BitFieldImpl.valueOf(false).append( nextCode );
+                    nextCode = BitList.valueOf(false).append( nextCode );
 //                    nextCode.append(false);
                 }
             }
@@ -161,7 +161,7 @@ public class Canonical {
     }
 
     public static BitField reverse( BitField orig ) {
-        BitField ret = new BitFieldImpl();
+        BitField ret = new BitList();
 
         for ( int i = orig.size() -1; i >= 0; i-- ) {
             ret.append( orig.get(i));
