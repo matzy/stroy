@@ -30,3 +30,24 @@ Intellij IDEA setup
 * settings: compiler/resource pattern = !?.class
 * project structure: Project / Project SDK / Project language level: 6.0 
 
+
+maven
+
+	cd modules/parent
+	mvn clean install
+	   builds all modules
+	mvn release:prepare
+	mvn relasee:perform 
+	   makes a new release
+	   
+	cd to some module with appassembler configured
+	mvn package appassembler:assemble
+	   builds a clt in target/appassembler
+	!! both goals need to be on the same line/call, it does not work iterative
+	
+	? clt for non-snapshot?
+	
+	
+
+	
+

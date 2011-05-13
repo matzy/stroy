@@ -32,13 +32,13 @@ public class Main {
     private String source;
     private URI uriSource;
 
-    @Option(name = "-b")
+    @Option(name = "-b", aliases = "--wordLength")
     private int wordLength;
 
-    @Option( name = "-d", required = false )
+    @Option( name = "-d", aliases = {"--decode"}, required = false )
     private boolean decode = false;
 
-    @Option( name = "-o", required = true )
+    @Option( name = "-o", aliases = {"--output"},required = true )
     private String target;
     private FSPath targetPath;
 
@@ -53,7 +53,8 @@ public class Main {
             parser.parseArgument(args);
         } catch (CmdLineException e) {
             System.err.println(e.getMessage());
-            System.err.println("java DotsMain [options...] arguments...");
+            System.err.println("huffman [options...] arguments...");
+            parser.printUsage( System.err );
             // print the list of available options
             parser.printUsage(System.err);
             System.err.println();

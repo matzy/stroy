@@ -1,0 +1,69 @@
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+                      http://maven.apache.org/xsd/settings-1.0.0.xsd">
+    <!--<localRepository/>-->
+    <!--<interactiveMode/>-->
+    <!--<usePluginRegistry/>-->
+    <!--<offline/>-->
+    <!--<pluginGroups/>-->
+    <!--<servers/>-->
+    <servers>
+    <server>
+      <id>my-nexus</id>
+      <username>admin</username>
+      <password>admin123</password>
+      <!--<privateKey>${user.home}/.ssh/id_dsa</privateKey>-->
+      <!--<passphrase>some_passphrase</passphrase>-->
+      <!--<filePermissions>664</filePermissions>-->
+      <!--<directoryPermissions>775</directoryPermissions>-->
+      <configuration></configuration>
+    </server>
+  </servers>
+
+    <mirrors>
+        <mirror>
+            <id>nexus</id>
+            <!--<mirrorOf>external:*,!akathist-repository</mirrorOf>-->
+            <mirrorOf>external:*</mirrorOf>
+            <url>http://localhost:8081/nexus/content/groups/public</url>
+        </mirror>
+    </mirrors>
+    <!--<proxies/>-->
+    <!--<profiles>-->
+        <!--<profile>-->
+            <!--<id>nexus</id>-->
+            <!--<repositories>-->
+                <!--&lt;!&ndash;<repository>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<id>openCage-repo</id>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<name>openCage-repo</name>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<url>file://${basedir}/repo</url>&ndash;&gt;-->
+                <!--&lt;!&ndash;</repository>&ndash;&gt;-->
+
+                <!--<repository>-->
+                    <!--<id>akathist-repository</id>-->
+                    <!--<name>Akathist Repository</name>-->
+                    <!--<url>http://www.9stmaryrd.com/maven</url>-->
+                    <!--<releases><enabled>true</enabled></releases>-->
+                    <!--<snapshots><enabled>true</enabled></snapshots>-->
+                <!--</repository>-->
+            <!--</repositories>-->
+
+            <!--<pluginRepositories>-->
+                <!--<pluginRepository>-->
+                    <!--<id>akathist-repository</id>-->
+                    <!--<name>Akathist Repository</name>-->
+                    <!--<url>http://www.9stmaryrd.com/maven</url>-->
+                    <!--<releases><enabled>true</enabled></releases>-->
+                    <!--<snapshots><enabled>true</enabled></snapshots>-->
+                <!--</pluginRepository>-->
+            <!--</pluginRepositories>-->
+        <!--</profile>-->
+
+    <!--</profiles>-->
+ <!--<activeProfiles>-->
+    <!--&lt;!&ndash;make the profile active all the time &ndash;&gt;-->
+    <!--<activeProfile>nexus</activeProfile>-->
+  <!--</activeProfiles>-->
+
+</settings>
