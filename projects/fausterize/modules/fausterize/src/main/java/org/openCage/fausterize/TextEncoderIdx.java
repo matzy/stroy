@@ -1,4 +1,4 @@
-package org.openCage.gpad;
+package org.openCage.fausterize;
 
 import java.net.URI;
 

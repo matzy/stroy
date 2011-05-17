@@ -1,8 +1,8 @@
-package org.openCage.gpad;
+package org.openCage.fausterize;
 
 import org.junit.Test;
+import org.openCage.fausterize.FaustString;
 
-import java.io.File;
 import java.net.URISyntaxException;
 
 import static junit.framework.Assert.assertEquals;
@@ -22,7 +22,7 @@ public class FaustStringTest {
         FaustString ds = new FaustString();
         ds.setPad( getClass().getResource("FaustStringTest.class").toURI());
 
-        String txt = "\n"; //hi\nwooo";
+        String txt = "\nhi\nwooo";
 
         String enc = ds.encode( txt, 0 );
         String dec = ds.decode( enc, 0 );

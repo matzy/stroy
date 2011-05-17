@@ -1,4 +1,4 @@
-package org.openCage.gpad;
+package org.openCage.fausterize;
 
 import org.jetbrains.annotations.NotNull;
 import org.openCage.huffman.BitField;

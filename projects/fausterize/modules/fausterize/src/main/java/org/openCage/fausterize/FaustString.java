@@ -1,6 +1,8 @@
-package org.openCage.gpad;
+package org.openCage.fausterize;
 
 import eu.medsea.util.EncodingGuesser;
+import org.openCage.fausterize.FaustByteNum;
+import org.openCage.fausterize.TextEncoderIdx;
 import org.openCage.lang.iterators.ArrayCount;
 import org.openCage.lang.iterators.ByteCount;
 import org.openCage.lang.errors.Unchecked;
