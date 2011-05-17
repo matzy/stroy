@@ -42,6 +42,28 @@
 
     <build>
         <plugins>
+            <!-- override the pom used for build jar -->
+            <!-- maven uses the project pom, which is often useless without the parent pom -->
+            <!-- this step here uses the effective pom, which is large but independent -->
+            <!-- everything is expanded and filled in -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-help-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>effective-pom</goal>
+                        </goals>
+                        <configuration>
+                            <output>
+                                ${project.build.outputDirectory}/META-INF/maven/${project.groupId}/${project.artifactId}/pom.xml
+                            </output>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -51,10 +73,8 @@
                             <addClasspath>true</addClasspath>
                             <mainClass>${mainclass}</mainClass>
                         </manifest>
-                        <!--<manifestEntries>-->
-                        <!--<mode>development</mode>-->
-                        <!--<url>${pom.url}</url>-->
-                        <!--</manifestEntries>-->
+                        <!-- no pom in jar, this is written by the help plugin-->
+                        <addMavenDescriptor>false</addMavenDescriptor>
                     </archive>
                 </configuration>
             </plugin>
@@ -74,6 +94,37 @@
                         </program>
                     </programs>
                 </configuration>
+                <!--make it part of the standard build lifecycle-->
+                <!--hook it into the assemble phase (called with 'mvn package')-->
+                <executions>
+                    <execution>
+                        <id>assemble</id>
+                        <goals>
+                            <goal>assemble</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <descriptors>
+                        <descriptor>src/main/assembly/clt.xml</descriptor>
+                    </descriptors>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <!-- this is used for inheritance merges -->
+                        <phase>package</phase>
+                        <!-- bind to the packaging phase -->
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
 
             <!--<plugin>-->
