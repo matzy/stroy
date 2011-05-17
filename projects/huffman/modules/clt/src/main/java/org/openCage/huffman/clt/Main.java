@@ -4,10 +4,8 @@ import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.Option;
-import org.omg.CORBA.PUBLIC_MEMBER;
 import org.openCage.huffman.BitField;
 import org.openCage.huffman.BitList;
-import org.openCage.huffman.Huffman;
 import org.openCage.huffman.HuffmanN;
 import org.openCage.io.Resource;
 import org.openCage.io.fspath.FSPath;
@@ -17,7 +15,6 @@ import org.openCage.lang.functions.FE1;
 import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.logging.Handler;
 
 /**
  * Created by IntelliJ IDEA.
