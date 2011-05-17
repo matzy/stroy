@@ -321,7 +321,7 @@ public class BitList implements BitField {
 
     @Override
     public Byte getByteModulo(int idx) {
-        throw new Error( "not impl" );
+        return bytes.get( idx % bytes.size() );
     }
 
     @Override
