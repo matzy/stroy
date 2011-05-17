@@ -11,7 +11,7 @@
     <artifactId>openCage-huffman-parent</artifactId>
     <packaging>pom</packaging>
     <!-- version-->
-    <version>0.2.2</version>
+    <version>0.2.3-SNAPSHOT</version>
     <!-- same as artifactId -->
     <name>openCage-huffman-parent</name>
 
@@ -49,7 +49,7 @@
 
     <scm>
         <!-- needs to be the directory of this pom -->
-        <developerConnection>scm:svn:https://stroy.googlecode.com/svn/tags/huffman/openCage-huffman-parent-0.2.2/parent</developerConnection>
+        <developerConnection>scm:svn:https://stroy.googlecode.com/svn/trunk/projects/huffman/modules/parent</developerConnection>
     </scm>
 
     <distributionManagement>
