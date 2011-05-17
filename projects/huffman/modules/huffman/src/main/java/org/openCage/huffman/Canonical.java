@@ -70,13 +70,13 @@ public class Canonical {
         }
 
         int valSize = highestSetBit( BitList.valueOf((byte) depth)) + 1;
-        System.out.println("header " + size + ", " +valSize);
+        //System.out.println("header " + size + ", " +valSize);
 
         BitField ret = BitList.valueOf((byte) size, 5);
-        System.out.println(ret);
+        //System.out.println(ret);
         ret.append(BitList.valueOf((byte) valSize, 5));
 
-        System.out.println( ret );
+        //System.out.println( ret );
 
         BitField key = BitList.valueOf((byte) 0, size);
 
@@ -97,7 +97,7 @@ public class Canonical {
         int keySize = bf.getInt(0,5);
         int valLength = bf.getInt(5,5);
 
-        System.out.println( "" + keySize + " - " + valLength );
+        //System.out.println( "" + keySize + " - " + valLength );
 
         BitField key = BitList.valueOf((byte) 0, keySize);
 
@@ -111,7 +111,7 @@ public class Canonical {
             }
         });
 
-        System.out.println( "math pow " +  (int)Math.pow( 2, keySize ));
+        // System.out.println( "math pow " +  (int)Math.pow( 2, keySize ));
 
         for ( int i = 0; i < (int)Math.pow( 2, keySize ); i++) {
             int val = bf.getInt( 10 + i * valLength, valLength );

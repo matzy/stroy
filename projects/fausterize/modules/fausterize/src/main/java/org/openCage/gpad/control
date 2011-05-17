@@ -1,0 +1,10 @@
+Package: [[name]]
+Version: [[version]]
+Section: misc
+Priority: optional
+Architecture: all
+Depends: jdk (>= 1.6)
+Maintainer: Stephan Pfab <openCage@gmail.com>
+Description: simple encrypting texteditor
+Distribution: development
+

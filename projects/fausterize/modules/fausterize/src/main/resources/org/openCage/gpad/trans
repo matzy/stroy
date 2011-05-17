@@ -1,0 +1,602 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="build-common" default="default">
+    <import file="../dependencies.xml"/>
+
+    <!-- March of the Pink Elephants                      -->
+    <!-- ant based full build system for java projects    -->
+    <!-- version: 0.3                                     -->
+    <!-- licence: MPL1.1                                  -->
+    <!-- home: http://stroy.wikidot.com/motpe             -->
+    <!-- contact: openCage@gmail.com                      -->
+
+    <target name="default" depends="goal"/>
+
+    <!-- ====== overrideable properties ========== -->
+
+    <property name="version" value="0.0.1"/>
+    <property name="creator" value="Stephan Pfab"/>
+    <property name="buildnumber" value="42"/>
+    <property name="app.name" value="${ant.project.name}"/>
+    <property name="app.main" value=""/>
+    <property name="app.signature" value="${ant.project.name}"/>
+    <property name="app.bundleid" value="elph"/>
+    <property name="app.icon.osx" value=""/>
+    <property name="app.icon.small.png" value=""/>
+    <property name="app.helpbook" value=""/>
+    <property name="groupId" value="elephants"/>
+
+
+    <!-- ====== properties ========== -->
+
+    <property name="classes" value="${dependencies.basedir}/build/classes/${ant.project.name}"/>
+    <property name="objc-classes" value="${dependencies.basedir}/build/objc-classes/${ant.project.name}"/>
+    <property name="libs" value="${dependencies.basedir}/build/libs"/>
+    <property name="objc-libs" value="${dependencies.basedir}/build/objc-libs"/>
+    <property name="dist" value="${dependencies.basedir}/build/dist/${ant.project.name}"/>
+    <property name="module" value="${dependencies.basedir}/modules/${ant.project.name}"/>
+    <property name="resources" value="${dependencies.basedir}/build/resources/${ant.project.name}"/>
+    <property name="deploy" value="${dependencies.basedir}/build/deploy/${ant.project.name}"/>
+    <property name="src" value="${module}/src"/>
+    <property name="helpbooksrc" value="${module}/${app.helpbook}"/>
+    <!--<property name="jar-name"        value="openCage-${ant.project.name}-${version}.jar"/>-->
+
+    <condition property="isOSX">
+        <and>
+            <os family="mac"/>
+            <os family="unix"/>
+        </and>
+    </condition>
+    <condition property="isLinux">
+        <and>
+            <not>
+                <os family="mac"/>
+            </not>
+            <os family="unix"/>
+        </and>
+    </condition>
+    <condition property="isWindows">
+        <and>
+            <os family="winnt"/>
+        </and>
+    </condition>
+    <condition property="isUnix">
+        <and>
+            <os family="unix"/>
+        </and>
+    </condition>
+    <!--<condition property="isOSXApp">-->
+        <!--<and>-->
+            <!--<not>-->
+                <!--<equals arg1="${app.icon.osx}" arg2=""/>-->
+            <!--</not>-->
+            <!--<not>-->
+                <!--<equals arg1="${app.bundleid}" arg2=""/>-->
+            <!--</not>-->
+        <!--</and>-->
+    <!--</condition>-->
+    <condition property="osx.icon" value="${src}/${app.icon.osx}" else="${dependencies.basedir}/build-resources/elephant.icns">
+        <and>
+            <not><equals arg1="${app.icon.osx}" arg2="" /></not>
+            <available file="${src}/${app.icon.osx}"/>
+        </and>
+    </condition>
+    <condition property="osx.background-png" value="fooo" else="${dependencies.basedir}/build-resources/elephant.png">
+        <available file="foooo"/>
+    </condition>
+
+
+
+    <!-- ====== extra tasks ========== -->
+
+    <!-- if-task -->
+    <taskdef resource="net/sf/antcontrib/antlib.xml">
+        <classpath>
+            <pathelement location="${dependencies.basedir}/external/build/ant-contrib-1.0b3.jar"/>
+        </classpath>
+    </taskdef>
+
+
+    <!-- build osx apps -->
+    <taskdef name="jarbundler"
+             classpath="${dependencies.basedir}/external/build/jarbundler-2.0.0.jar"
+             classname="net.sourceforge.jarbundler.JarBundler"/>
+
+
+    <!-- debian package builder -->
+    <!--<taskdef name="deb"-->
+             <!--classpath="${dependencies.basedir}/external/build/jdeb-0.7.jar"-->
+             <!--classname="org.vafer.jdeb.ant.DebAntTask"/>-->
+
+    <!--
+desktopentry=com.googlecode.ant_deb_task.DesktopEntry
+deb=com.googlecode.ant_deb_task.Deb
+-->
+    <!-- ant-deb-task -->
+    <taskdef name="deb"
+             classpath="${dependencies.basedir}/external/build/ant-deb-0.0.1.jar"
+             classname="com.googlecode.ant_deb_task.Deb"/>
+    <taskdef name="desktopentry"
+             classpath="${dependencies.basedir}/external/build/ant-deb-0.0.1.jar"
+             classname="com.googlecode.ant_deb_task.DesktopEntry"/>
+
+
+
+    <!-- windows exe builder -->
+     <taskdef name="launch4j"
+              classname="net.sf.launch4j.ant.Launch4jTask"
+              classpath="${dependencies.basedir}/external/build/launch4j.jar" />
+    <!-- which xstream to pick -->
+    <!-- classpath="${dependencies.basedir}/external/build/launch4j.jar:${launch4j.dir}/lib/xstream.jar" /> -->
+
+    <!-- ====== targets ========== -->
+
+    <target name="clean">
+        <delete dir="${dependencies.basedir}/build"/>
+    </target>
+
+    <target name="prepare">
+        <tstamp/>
+        <mkdir dir="${classes}"/>
+        <mkdir dir="${objc-classes}"/>
+        <mkdir dir="${libs}"/>
+        <mkdir dir="${objc-libs}"/>
+        <mkdir dir="${dist}"/>
+        <mkdir dir="${resources}"/>
+        <mkdir dir="${deploy}"/>
+        <mkdir dir="${deploy}/linux"/>
+        <mkdir dir="${deploy}/unix"/>
+        <mkdir dir="${deploy}/xplatform"/>
+        <mkdir dir="${deploy}/windows"/>
+        <mkdir dir="${deploy}/osx"/>
+        <mkdir dir="${deploy}/debian"/>
+
+    </target>
+
+
+    <fileset id="internalsSet" dir="${libs}">
+        <include name="*.jar"/>
+    </fileset>
+    <path id="jars">
+        <fileset refid="internalsSet"/>
+    </path>
+
+    <!-- compile sources and copy pictures and xmsl -->
+    <target name="compile" depends="prepare">
+        <javac srcdir="${src}" destdir="${classes}">
+            <classpath refid="jars"/>
+        </javac>
+
+        <copy todir="${classes}" flatten="no">
+            <fileset dir="${src}" includes="**/*.xml"/>
+            <fileset dir="${src}" includes="**/*.properties"/>
+            <fileset dir="${src}" includes="**/*.png"/>
+            <fileset dir="${src}" includes="**/*.txt"/>
+        </copy>
+
+        <if>
+            <and>
+                <isset property="objective-c-helpviewer"/>
+                <isset property="isOSX"/>
+            </and>
+            <then>
+                <!-- Create a JNI library for launching the Help Viewer -->
+                <exec executable="cc">
+                    <arg line="-c"/>
+                    <arg line="-I/System/Library/Frameworks/JavaVM.framework/Headers"/>
+                    <arg line="-o ${objc-classes}/HelpBookJNI.o"/>
+                    <arg value="${module}/objc-src/HelpBookJNI.m"/>
+                </exec>
+
+                <exec executable="cc">
+                    <arg line="-dynamiclib"/>
+                    <arg line="-framework JavaVM"/>
+                    <arg line="-framework Cocoa"/>
+                    <arg line="-o ${objc-libs}/libHelpBookJNI.jnilib"/>
+                    <arg value="${objc-classes}/HelpBookJNI.o"/>
+                </exec>
+
+                <delete file="${objc-classes}/HelpBookJNI.o" quiet="true"/>
+            </then>
+        </if>
+
+
+    </target>
+
+    <!-- construct the manifest                                                              -->
+    <!-- classpath is everything already in libs, i.e. all libs the current build depends on -->
+    <!-- which are specified in dependencies.xml                                              -->
+    <target name="create-manifest" depends="prepare">
+        <pathconvert property="jars-var" pathsep=" " refid="jars">
+            <map from="${libs}/" to=""/>
+        </pathconvert>
+
+        <!-- dbg -->
+        <echo message="jars-vars = ${jars-var}"/>
+
+        <manifest file="${resources}/manifest.mf" mode="replace">
+            <attribute name="Built-By" value="${user.name}"/>
+            <attribute name="Created-By" value="${creator}"/>
+            <attribute name="Class-Path" value="${jars-var}"/>
+        </manifest>
+        <if>
+            <isset property="isApp"/>
+            <then>
+                <manifest file="${resources}/manifest.mf" mode="update">
+                    <attribute name="Main-Class" value="${app.main}"/>
+                </manifest>
+            </then>
+        </if>
+    </target>
+
+
+    <!--      jar      -->
+    <target name="create-jar" depends="compile,create-manifest">
+        <echo message="${ant.project.name} - build-common.dist"/>
+        <jar jarfile="${libs}/${groupId}-${ant.project.name}-${version}.jar"
+             manifest="${resources}/manifest.mf">
+            <fileset dir="${classes}" excludes="**/*test*"/>
+        </jar>
+    </target>
+
+
+    <!-- copy help html pages together                                         -->
+    <!-- based on osx help layout                                              -->
+    <!-- English is required other languages are optional and will use English -->
+    <target name="helpsetup">
+        <if>
+            <and>
+                <!--<isset property="isApp"/>-->
+                <available file="${helpbooksrc}/English"/>
+            </and>
+            <then>
+                <copy todir="${resources}/helpbook/English.lproj/HelpBook">
+                    <fileset dir="${helpbooksrc}/English"/>
+                    <fileset dir="${helpbooksrc}/common"/>
+                </copy>
+            </then>
+            <else>
+                <copy todir="${resources}/helpbook/English.lproj/HelpBook">
+                    <fileset dir="${dependencies.basedir}/build-resources/English"/>
+                    <fileset dir="${dependencies.basedir}/build-resources/common"/>
+                </copy>
+            </else>
+        </if>
+        <if>
+            <available file="${helpbooksrc}/Japanese"/>
+            <then>
+                <copy todir="${resources}/helpbook/Japanese.lproj/HelpBook">
+                    <fileset dir="${helpbooksrc}/Japanese"/>
+                    <fileset dir="${helpbooksrc}/common"/>
+                </copy>
+            </then>
+            <else>
+                <copy todir="${resources}/helpbook/Japanese.lproj/HelpBook">
+                    <fileset dir="${dependencies.basedir}/build-resources/English"/>
+                    <fileset dir="${dependencies.basedir}/build-resources/common"/>
+                </copy>
+            </else>
+        </if>
+        <if>
+            <available file="${helpbooksrc}/German"/>
+            <then>
+                <copy todir="${resources}/helpbook/German.lproj/HelpBook">
+                    <fileset dir="${helpbooksrc}/German"/>
+                    <fileset dir="${helpbooksrc}/common"/>
+                </copy>
+            </then>
+            <else>
+                <copy todir="${resources}/helpbook/German.lproj/HelpBook">
+                    <fileset dir="${dependencies.basedir}/build-resources/English"/>
+                    <fileset dir="${dependencies.basedir}/build-resources/common"/>
+                </copy>
+            </else>
+        </if>
+        <if>
+            <available file="${helpbooksrc}/Spanish"/>
+            <then>
+                <copy todir="${resources}/helpbook/Spanish.lproj/HelpBook">
+                    <fileset dir="${helpbooksrc}/German"/>
+                    <fileset dir="${helpbooksrc}/common"/>
+                </copy>
+            </then>
+            <else>
+                <copy todir="${resources}/helpbook/Spanish.lproj/HelpBook">
+                    <fileset dir="${dependencies.basedir}/build-resources/English"/>
+                    <fileset dir="${dependencies.basedir}/build-resources/common"/>
+                </copy>
+            </else>
+        </if>
+    </target>
+
+    <!-- build a osx app, app layout, plist, icon, help -->
+    <target name="osx-app" depends="dist,helpsetup"> <!-- ,jni"> -->
+        <if>
+            <and>
+                <isset property="isOSX"/>
+                <isset property="isApp"/>
+            </and>
+            <then>
+                    <!-- location changed to help with zipping, ant copy does not work for osx-apps -->
+                    <mkdir dir="${deploy}/osx/${app.name}"/>
+                    <jarbundler dir="${deploy}/osx/${app.name}"
+                                verbose="true"
+                                name="${app.name}"
+                                shortname="${app.name}"
+                                stubfile="${app.name}"
+                                signature="${app.signature}"
+                                mainclass="${app.main}"
+                                jvmversion="1.6+"
+                                version="${version}"
+                                infostring="${app.name}, MPL1.1"
+                                build="${buildnumber}"
+                                bundleid="${app.bundleid}"
+                                icon="${osx.icon}"
+                                helpbookfolder="HelpBook"
+                                helpbookname="${app.name}"
+                            >
+                        <jarfileset refid="internalsSet"/>
+
+                        <!-- Copy the HelpBook JNI library  -->
+                        <!--<javafilelist dir="${objc-libs}" files="libHelpBookJNI.jnilib"/>-->
+
+                        <javaproperty name="apple.laf.useScreenMenuBar" value="true"/>
+                        <javaproperty name="com.apple.macos.useScreenMenuBar" value="true"/>
+
+                        <HelpBook locale="English">
+                            <fileset dir="${resources}/helpbook/English.lproj/HelpBook"/>
+                        </HelpBook>
+
+                        <HelpBook locale="German">
+                            <fileset dir="${resources}/helpbook/German.lproj/HelpBook"/>
+                        </HelpBook>
+
+                        <HelpBook locale="Japanese">
+                            <fileset dir="${resources}/helpbook/Japanese.lproj/HelpBook"/>
+                        </HelpBook>
+
+                    </jarbundler>
+
+                    <!--<copy todir="${deploy}/osx/${app.name}" >-->
+                    <!--<fileset dir="${deploy}/osx/" >-->
+                    <!--<exclude name="${app.name}"/>-->
+                    <!--</fileset>-->
+                    <!--</copy>-->
+                    <zip destfile="${deploy}/osx/${app.name}.app-${version}.zip"
+                         basedir="${deploy}/osx/${app.name}"/>
+            </then>
+            <else>
+                <echo message="not all properties set to build an osx.app"/>
+            </else>
+        </if>
+    </target>
+
+    <!-- build a xplatform deliverable   -->
+    <!-- i.e. jar files started by os-specific shell scripts-->
+    <!-- layout inspired by osx app layout      -->
+    <target name="xplatform-app"
+            depends="dist,helpsetup">
+        <if>
+            <isset property="isApp"/>
+            <then>
+                <mkdir dir="${deploy}/xplatform/${app.name}/resources/java"/>
+                <copy todir="${deploy}/xplatform/${app.name}/resources/java">
+                    <fileset refid="internalsSet"/>
+                </copy>
+
+                <if>
+                    <available file="${resources}/helpbook"/>
+                    <then>
+                        <copy todir="${deploy}/xplatform/${app.name}/resources">
+                            <fileset dir="${resources}/helpbook"/>
+                        </copy>
+                    </then>
+                </if>
+
+                <!-- unix shell script (sh) -->
+                <echo message="java -jar resources/java/${groupId}-${ant.project.name}-${version}.jar"
+                      file="${deploy}/xplatform/${app.name}/${app.name}.sh"/>
+                <chmod file="${deploy}/xplatform/${app.name}/${app.name}.sh" perm="ugo+x"/>
+
+                <!-- windows command script -->
+                <echo message="java -jar resources/java/${groupId}-${ant.project.name}-${version}.jar"
+                      file="${deploy}/xplatform/${app.name}/${app.name}.cmd"/>
+
+                <zip destfile="${deploy}/xplatform/${app.name}-${version}.zip" basedir="${deploy}/xplatform/${app.name}"/>
+            </then>
+        </if>
+    </target>
+
+    <!-- Create a DMG - This only works on MacOSX (requires hdiutil) -->
+    <target name="dmg" depends="osx-app"
+            description="Create a DMG package for MacOSX (only works on MacOSX)">
+
+        <if>
+            <and>
+                <isset property="isApp"/>
+                <isset property="isOSX"/>
+            </and>
+            <then>
+
+        <!-- Set this property value to your application name -->
+        <!--<property name="app.name"-->
+                  <!--value="MY_APPLICATION_NAME"/>-->
+
+        <!-- Set this property value to a directory where you can
+ mount temporarily your images, for example /tmp -->
+        <property name="mountdir"
+                  value="/tmp"/>
+
+        <!-- Delete previously created DMG -->
+        <!--<delete file="${app.name}.dmg}"-->
+                <!--quiet="yes" failonerror="false"/>-->
+
+        <property name="tmpdmg" value="${deploy}/osx/${app.name}-tmp.dmg"/>
+
+        <!-- Create a temporary Disk Image -->
+        <exec executable="/usr/bin/hdiutil" os="Mac OS X" failonerror="true">
+            <arg value="create"/>
+            <arg value="-srcfolder"/>
+            <arg value="${deploy}/osx/${app.name}/${app.name}.app"/>
+            <arg value="-volname"/>
+            <arg value="${app.name}"/>
+            <arg value="-ov"/>
+            <arg value="${tmpdmg}"/>
+            <arg value="-format"/>
+            <arg value="UDRW"/>
+        </exec>
+
+        <!-- Attach the temporary image -->
+        <exec executable="/usr/bin/hdiutil" os="Mac OS X" failonerror="true">
+            <arg value="attach"/>
+            <arg value="${tmpdmg}"/>
+            <arg value="-mountroot"/>
+            <arg value="${mountdir}/"/>
+        </exec>
+
+        <!-- Copy the background, the volume icon and DS_Store files -->
+        <mkdir dir="${mountdir}/${app.name}/.background"/>
+        <copy file="${osx.background-png}"
+              tofile="${mountdir}/${app.name}/.background/background.png"
+              overwrite="true"/>
+        <copy file="${osx.icon}"
+              tofile="${mountdir}/${app.name}/.VolumeIcon.icns"
+              overwrite="true"/>
+        <!--<copy file="DS_Store"-->
+              <!--tofile="${mountdir}/${app.name}/.DS_Store"-->
+              <!--overwrite="true"/>-->
+
+        <!-- Indicate that we want a custom icon -->
+        <exec executable="/Developer/Tools/SetFile" os="Mac OS X">
+            <arg value="-a"/>
+            <arg value="C"/>
+            <arg value="${mountdir}/${app.name}"/>
+        </exec>
+
+        <!-- Add a symbolic link to the Applications directory -->
+        <symlink link="${mountdir}/${app.name}" resource="/Applications"/>
+
+        <!-- Detach the temporary image -->
+        <exec executable="/usr/bin/hdiutil" os="Mac OS X" failonerror="true">
+            <arg value="detach"/>
+            <arg value="${mountdir}/${app.name}"/>
+        </exec>
+
+        <!-- Compress it to a new image -->
+        <exec executable="/usr/bin/hdiutil" os="Mac OS X" failonerror="true">
+            <arg value="convert"/>
+            <arg value="${tmpdmg}"/>
+            <arg value="-format"/>
+            <arg value="UDZO"/>
+            <arg value="-o"/>
+            <arg value="${deploy}/osx/${app.name}.dmg"/>
+        </exec>
+
+        <!-- Delete the temporary image -->
+        <delete file="${app.name}-tmp.dmg"
+                quiet="yes" failonerror="false"/>
+        </then>
+        </if>
+    </target>
+
+    <!--&lt;!&ndash; EXPERIMENTAL &ndash;&gt;-->
+    <!--<target name="debian-pgk" depends="create-jar">-->
+           <!--<if>-->
+                <!--<isset property="isApp"/>-->
+           <!--<then>-->
+
+            <!--<mkdir dir="${deploy}/linux/${app.name}/tmp/control"/>-->
+            <!--<copy todir="${deploy}/linux/${app.name}/tmp/control">-->
+                <!--<fileset dir="${src}/org/openCage/gpad"/>-->
+                <!--&lt;!&ndash;<fileset dir="src/main/resources/deb/control"/>&ndash;&gt;-->
+                <!--<filterset begintoken="[[" endtoken="]]">-->
+                <!--<filter token="version" value="${version}"/>-->
+                <!--<filter token="name" value="${app.name}"/>-->
+              <!--</filterset>-->
+            <!--</copy>-->
+
+            <!--&lt;!&ndash;<deb destfile="${deploy}/linux/${app.name}.deb" control="${deploy}/linux/${app.name}/tmp/control">&ndash;&gt;-->
+              <!--&lt;!&ndash;<data refid="internalsSet" >&ndash;&gt;-->
+              <!--&lt;!&ndash;</data>&ndash;&gt;-->
+            <!--&lt;!&ndash;</deb>&ndash;&gt;-->
+        <!--</then>-->
+        <!--</if>-->
+
+    <!--</target>-->
+
+    <target name="linux-dektop-description" depends="prepare">
+        <if>
+             <isset property="isApp"/>
+        <then>
+            <desktopentry
+                toFile="${deploy}/debian/${app.name}.desktop"
+                name="${app.name}"
+                comment="fooo comment"
+                exec="java -jar /usr/share/${app.name}/resources/java/${groupId}-${ant.project.name}-${version}.jar"
+                path="/usr/share/${app.name}/"
+                icon="/usr/share/${app.name}/${app.icon.small.png}"
+                categories="Utility;Java"
+                />
+        </then>
+        </if>
+    </target>
+
+    <target name="debian-pkg" depends="linux-dektop-description,create-jar" >
+        <if>
+             <isset property="isApp"/>
+        <then>
+            <mkdir dir="${deploy}/debian/${app.name}/resources/java"/>
+            <copy todir="${deploy}/debian/${app.name}/resources/java">
+                <fileset refid="internalsSet"/>
+            </copy>
+
+            <if>
+                <available file="${src}/${app.icon.small.png}"/>
+                <then>
+                    <copy todir= "${deploy}/debian/${app.name}" file="${src}/${app.icon.small.png}"/>
+                </then>
+            </if>
+
+            <if>
+                <available file="${resources}/helpbook"/>
+                <then>
+                    <copy todir="${deploy}/debian/${app.name}/resources">
+                        <fileset dir="${resources}/helpbook"/>
+                    </copy>
+                </then>
+            </if>
+
+            <deb
+                todir="${deploy}/debian"
+                package="${app.name}"
+                section="utils"
+                depends="openjdk-6-jre"
+            >
+                <version upstream="${version}"/>
+                <maintainer email="openCage@gmail.com"/>
+                <description synopsis="Foo">
+                    foo is a foo.
+                </description>
+
+                <tarfileset dir="${deploy}/debian/${app.name}" prefix="usr/share/${app.name}"/>
+                <!--<tarfileset dir="${deploy}/debian/" prefix="usr/share/doc/${app.name}">-->
+                    <!--<exclude name="*.jar"/>-->
+                    <!--<exclude name="*.gif"/>-->
+                <!--</tarfileset>-->
+                <tarfileset file="${deploy}/debian/${app.name}.desktop" prefix="usr/share/applications"/>
+            </deb>
+        </then>
+        </if>
+    </target>
+
+    <target name="dist" depends="create-jar">
+        <copy todir="${dist}">
+            <fileset refid="internalsSet"/>
+        </copy>
+    </target>
+
+    <target name="goal" depends="xplatform-app, osx-app, dmg, debian-pkg"/>
+
+    <target name="dist.dependencies">
+        <antcall target="depend.${ant.project.name}"/>
+    </target>
+</project>

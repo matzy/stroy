@@ -101,7 +101,7 @@ public class HuffmanN {
         while( out.size() > 0 ) {
             Map.Entry<BitField, BitField> pair = out.poll();
 
-            System.out.println( pair.getKey().toString8() + " -> " + pair.getValue().toString());
+            //System.out.println( pair.getKey().toString8() + " -> " + pair.getValue().toString());
         }
     }
 
