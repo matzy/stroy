@@ -1,11 +1,12 @@
 package org.openCage.gpad;
 
-import org.apache.commons.io.IOUtils;
 import org.jetbrains.annotations.NotNull;
-import org.openCage.huffman.DynamicBitArray;
+import org.openCage.huffman.BitField;
 import org.openCage.huffman.Huffman;
+import org.openCage.io.Resource;
 import org.openCage.lang.errors.Unchecked;
 import org.openCage.lang.functions.F1;
+import org.openCage.lang.functions.FE1;
 import org.openCage.lang.iterators.Iterators;
 import org.openCage.io.With;
 
@@ -59,7 +60,7 @@ public class FaustByteNum implements TextEncoderIdx<Byte,String> {
     private List<String>[]          num2line;
     private Set<String>             knownLines = new HashSet<String>();
     private Map<String,Integer>     line2num = new HashMap<String,Integer>();
-    private DynamicBitArray pad;
+    private BitField pad;
 
     @Override
     public void setPad( @NotNull URI path ) {
@@ -104,33 +105,38 @@ public class FaustByteNum implements TextEncoderIdx<Byte,String> {
             num2line[i] = new ArrayList<String>();
         }
 
-        BufferedReader reader = null;
-        try {
-            reader = new BufferedReader( new InputStreamReader( getClass().getResource( "faust.txt" ).openStream()) );
+        Resource.tryWith( new FE1<Object, Resource>() {
+            @Override
+            public Object call(Resource resource) throws Exception {
+                BufferedReader reader = resource.add(
+                    new BufferedReader( new InputStreamReader( getClass().getResource( "faust.txt" ).openStream()) ));
 
-            int idx = 0;
-            for ( String str : Iterators.lines( reader ) ) {
-                if ( str.contains(":") || str.contains("(") || str.trim().equals( "" )) {
-                    continue;
+                int idx = 0;
+                for ( String str : Iterators.lines( reader ) ) {
+                    if ( str.contains(":") || str.contains("(") || str.trim().equals( "" )) {
+                        continue;
+                    }
+
+                    if ( knownLines.contains(str )) {
+                        continue;
+                    }
+
+                    ++idx;
+                    knownLines.add( str );
+                    num2line[idx % UNSIGNED_BYTE_MAX].add(str);
+                    line2num.put( str, idx % UNSIGNED_BYTE_MAX);
                 }
-
-                if ( knownLines.contains(str )) {
-                    continue;
-                }
-
-                ++idx;
-                knownLines.add( str );
-                num2line[idx % UNSIGNED_BYTE_MAX].add(str);
-                line2num.put( str, idx % UNSIGNED_BYTE_MAX);
+                return null;  //To change body of implemented methods use File | Settings | File Templates.
             }
+        });
 
 
-        } catch (IOException e) {
-            LOG.severe( "can't read internal resource" );
-            throw new Unchecked(e);
-        } finally {
-            IOUtils.closeQuietly( reader );
-        }
+//        } catch (IOException e) {
+//            LOG.severe( "can't read internal resource" );
+//            throw new Unchecked(e);
+//        } finally {
+//            IOUtils.closeQuietly( reader );
+//        }
     }
 
     @Override public String encode( Byte ch, int idx ) {
