@@ -24,6 +24,7 @@ public class ElementRulesTest {
         assertFalse( ElementRules.isLegal( "@" ));
         assertFalse( ElementRules.isLegal( "|" ));
         assertFalse( ElementRules.isLegal( "%" ));
+        assertTrue( ElementRules.isLegal( "My Documents" ));
     }
 
     @Test( expected = IllegalArgumentException.class )

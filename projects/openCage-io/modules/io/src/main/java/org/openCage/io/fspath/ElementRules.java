@@ -6,7 +6,7 @@ public class ElementRules {
 
     private ElementRules() {}
 
-    private static Pattern legal = Pattern.compile( "([a-z]|[A-Z]|\\-|_|\\.|[0-9]|\\+)+" );
+    private static Pattern legal = Pattern.compile( "([a-z]| |[A-Z]|\\-|_|\\.|[0-9]|\\+)+" );
 
     public static boolean isLegal( String pathElement ) {
         return legal.matcher( pathElement ).matches(); 
