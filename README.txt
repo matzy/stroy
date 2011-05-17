@@ -40,12 +40,29 @@ maven
 	mvn relasee:perform 
 	   makes a new release
 	   
+	   release schedule: build *.*.x releases until happy than make a relase only change to *.*+1 or *1.0
+	   
 	cd to some module with appassembler configured
 	mvn package appassembler:assemble
 	   builds a clt in target/appassembler
-	!! both goals need to be on the same line/call, it does not work iterative
+	   !! both goals need to be on the same line/call, it does not work iterative
+	     or add it to assembly phase/goal 
+
+build tool goals
+
+  - write it once
+    i.e. ide and build tool should be configured with the same method/text
+ 
+  - standard
+    others should be able to read/unterstand/modify it  
+		 
+		 
+maven versus ...
+
+pro maven
+   - quasi standard (standard)
+   - intellij works with it (write in once)   
 	
-	? clt for non-snapshot?
 	
 	
 
