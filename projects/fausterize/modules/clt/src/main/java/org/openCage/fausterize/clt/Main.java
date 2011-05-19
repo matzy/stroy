@@ -69,6 +69,7 @@ public class Main {
                 int idx = 0;
                 for (String str : Iterators.lines(reader)) {
                     ret.append(str);
+                    ret.append("\n");
                 }
                 return ret.toString();
             }

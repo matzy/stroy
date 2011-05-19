@@ -2,7 +2,9 @@ package org.openCage.fausterize;
 
 import org.jetbrains.annotations.NotNull;
 import org.openCage.huffman.BitField;
+import org.openCage.huffman.BitList;
 import org.openCage.huffman.Huffman;
+import org.openCage.huffman.HuffmanN;
 import org.openCage.io.Resource;
 import org.openCage.lang.errors.Unchecked;
 import org.openCage.lang.functions.F1;
@@ -88,7 +90,9 @@ public class FaustByteNum implements TextEncoderIdx<Byte,String> {
             }
         });
 
-        pad = new Huffman().encode( uncompressedPad );
+        HuffmanN hn = new HuffmanN(BitList.valueOf( uncompressedPad ));
+
+        pad  = hn.encode( hn.getCode( 8 ));
     }
 
     @Override public boolean isSet() {
@@ -153,7 +157,13 @@ public class FaustByteNum implements TextEncoderIdx<Byte,String> {
             throw new IllegalStateException("no pad yet");
         }
 
+        try {
         return xor((byte)((line2num.get(line)) + Byte.MIN_VALUE), getByte(idx));
+        } catch ( NullPointerException exp ) {
+            byte by = getByte(idx);
+            xor((byte)((line2num.get(line)) + Byte.MIN_VALUE), by );
+            return  null;
+        }
     }
 
 
