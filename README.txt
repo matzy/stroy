@@ -62,6 +62,29 @@ maven versus ...
 pro maven
    - quasi standard (standard)
    - intellij works with it (write in once)   
+   
+
+intellij maven local repo
+   a local file repo either needs poms and checksums or 
+   configure intellij to ignore checksums (default is fail)
+   
+
+structure
+    * parent project parallel to modules, opposed to parent dir
+      - looks strange
+      - works even if not called through parent
+      - release plugin creates correct tags
+      
+    * parent pom has all the dependencies and plugin by version (only managmeent )
+    * module pom inherits the versions
+    * module to module dependency uses ${project.version} (not in parent)
+    
+    
+plan: grow the poms, project by project, 
+      work with commenting
+      
+Problem: appasmbler does not set x flag on unix shell script      
+
 	
 	
 	
