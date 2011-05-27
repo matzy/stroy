@@ -21,6 +21,7 @@
         <module>../ejbu-web</module>
         <module>../ejbu-ejb</module>
         <module>../ejbu-ear</module>
+        <module>../ejbu-client</module>
     </modules>
 
     <properties>

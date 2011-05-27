@@ -10,5 +10,5 @@ package org.openCage.ejbu;
 @javax.ejb.Remote
 public interface EjbApi
 {
-   public String berechne( String d1, String d2 );
+   public String compute( String d1, String d2 );
 }

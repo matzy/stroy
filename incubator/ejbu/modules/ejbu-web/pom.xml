@@ -10,8 +10,8 @@
     </parent>
 
     <groupId>openCage</groupId>
-    <artifactId>ejb-web</artifactId>
-    <name>ejb-web</name>
+    <artifactId>ejbu-web</artifactId>
+    <name>ejbu-web</name>
     <packaging>war</packaging>
 
     <!--<properties>-->
@@ -22,9 +22,18 @@
          <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
-            <version>6.0</version>
             <scope>provided</scope>
-          </dependency>        <!--<dependency>-->
+          </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>ejbu-ejb</artifactId>
+            <version>${project.version}</version>
+            <classifier>client</classifier>
+            <scope>compile</scope>
+        </dependency>
+
+        <!--<dependency>-->
             <!--<groupId>openCage</groupId>-->
             <!--<artifactId>openCage-lang</artifactId>-->
             <!--<scope>compile</scope>-->
@@ -60,6 +69,8 @@
     </dependencies>
 
     <build>
+        <finalName>${project.artifactId}</finalName>
+
         <plugins>
             <!-- override the pom used for build jar -->
             <!-- maven uses the project pom, which is often useless without the parent pom -->
@@ -83,48 +94,48 @@
                 </executions>
             </plugin>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                            <mainClass>${mainclass}</mainClass>
-                        </manifest>
-                        <!-- no pom in jar, this is written by the help plugin-->
-                        <addMavenDescriptor>false</addMavenDescriptor>
-                    </archive>
-                </configuration>
-            </plugin>
+            <!--<plugin>-->
+                <!--<groupId>org.apache.maven.plugins</groupId>-->
+                <!--<artifactId>maven-jar-plugin</artifactId>-->
+                <!--<configuration>-->
+                    <!--<archive>-->
+                        <!--<manifest>-->
+                            <!--<addClasspath>true</addClasspath>-->
+                            <!--<mainClass>${mainclass}</mainClass>-->
+                        <!--</manifest>-->
+                        <!--&lt;!&ndash; no pom in jar, this is written by the help plugin&ndash;&gt;-->
+                        <!--<addMavenDescriptor>false</addMavenDescriptor>-->
+                    <!--</archive>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
 
 			
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>appassembler-maven-plugin</artifactId>
-                <configuration>
-                    <platforms>
-                        <platform>windows</platform>
-                        <platform>unix</platform>
-                    </platforms>
-                    <programs>
-                        <program>
-                            <mainClass>${mainclass}</mainClass>
-                            <name>huffman</name>
-                        </program>
-                    </programs>
-                </configuration>
-                <!--make it part of the standard build lifecycle-->
-                <!--hook it into the assemble phase (called with 'mvn package')-->
-                <executions>
-                    <execution>
-                        <id>assemble</id>
-                        <goals>
-                            <goal>assemble</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+            <!--<plugin>-->
+                <!--<groupId>org.codehaus.mojo</groupId>-->
+                <!--<artifactId>appassembler-maven-plugin</artifactId>-->
+                <!--<configuration>-->
+                    <!--<platforms>-->
+                        <!--<platform>windows</platform>-->
+                        <!--<platform>unix</platform>-->
+                    <!--</platforms>-->
+                    <!--<programs>-->
+                        <!--<program>-->
+                            <!--<mainClass>${mainclass}</mainClass>-->
+                            <!--<name>huffman</name>-->
+                        <!--</program>-->
+                    <!--</programs>-->
+                <!--</configuration>-->
+                <!--&lt;!&ndash;make it part of the standard build lifecycle&ndash;&gt;-->
+                <!--&lt;!&ndash;hook it into the assemble phase (called with 'mvn package')&ndash;&gt;-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<id>assemble</id>-->
+                        <!--<goals>-->
+                            <!--<goal>assemble</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+            <!--</plugin>-->
 
             <!--<plugin>-->
                 <!--<groupId>org.apache.maven.plugins</groupId>-->

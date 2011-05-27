@@ -10,7 +10,7 @@ package org.openCage.ejbu;
 @javax.ejb.Stateless( mappedName = "MyEjb" )
 public class EjbApiImpl implements EjbApi
 {
-   public String berechne( String d1, String d2 )
+   public String compute( String d1, String d2 )
    {
       try {
          return "" + (Double.parseDouble( d1 ) + Double.parseDouble( d2 ));

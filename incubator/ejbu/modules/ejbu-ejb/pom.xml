@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
@@ -12,45 +13,18 @@
     <groupId>openCage</groupId>
     <artifactId>ejbu-ejb</artifactId>
     <packaging>ejb</packaging>
-    
+
     <properties>
         <mainclass>org.openCage.fausterize.Main</mainclass>
     </properties>
 
     <dependencies>
-         <dependency>
+        <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
-            <version>6.0</version>
             <scope>provided</scope>
-          </dependency>        <!--<dependency>-->
-            <!--<groupId>openCage</groupId>-->
-            <!--<artifactId>openCage-lang</artifactId>-->
-            <!--<scope>compile</scope>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>openCage</groupId>-->
-            <!--<artifactId>openCage-io</artifactId>-->
-            <!--<scope>compile</scope>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>openCage</groupId>-->
-            <!--<artifactId>openCage-huffman</artifactId>-->
-            <!--<scope>compile</scope>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>eu.medsea.mimeutil</groupId>-->
-            <!--<artifactId>mime-util</artifactId>-->
-            <!--<scope>compile</scope>-->
-        <!--</dependency>-->
-
-<!--
-        <dependency>
-            <groupId>args4j</groupId>
-            <artifactId>args4j</artifactId>
-            <scope>compile</scope>
         </dependency>
-		-->
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -60,6 +34,21 @@
 
     <build>
         <plugins>
+
+            <plugin>
+                <artifactId>maven-ejb-plugin</artifactId>
+                <version>2.3</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                        </manifest>
+                    </archive>
+                    <ejbVersion>3.0</ejbVersion>
+                    <generateClient>true</generateClient>
+                </configuration>
+            </plugin>
+
             <!-- override the pom used for build jar -->
             <!-- maven uses the project pom, which is often useless without the parent pom -->
             <!-- this step here uses the effective pom, which is large but independent -->
@@ -97,53 +86,53 @@
                 </configuration>
             </plugin>
 
-			
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>appassembler-maven-plugin</artifactId>
-                <configuration>
-                    <platforms>
-                        <platform>windows</platform>
-                        <platform>unix</platform>
-                    </platforms>
-                    <programs>
-                        <program>
-                            <mainClass>${mainclass}</mainClass>
-                            <name>huffman</name>
-                        </program>
-                    </programs>
-                </configuration>
-                <!--make it part of the standard build lifecycle-->
-                <!--hook it into the assemble phase (called with 'mvn package')-->
-                <executions>
-                    <execution>
-                        <id>assemble</id>
-                        <goals>
-                            <goal>assemble</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
 
             <!--<plugin>-->
-                <!--<groupId>org.apache.maven.plugins</groupId>-->
-                <!--<artifactId>maven-assembly-plugin</artifactId>-->
+                <!--<groupId>org.codehaus.mojo</groupId>-->
+                <!--<artifactId>appassembler-maven-plugin</artifactId>-->
                 <!--<configuration>-->
-                    <!--<descriptors>-->
-                        <!--<descriptor>src/main/assembly/clt.xml</descriptor>-->
-                    <!--</descriptors>-->
+                    <!--<platforms>-->
+                        <!--<platform>windows</platform>-->
+                        <!--<platform>unix</platform>-->
+                    <!--</platforms>-->
+                    <!--<programs>-->
+                        <!--<program>-->
+                            <!--<mainClass>${mainclass}</mainClass>-->
+                            <!--<name>huffman</name>-->
+                        <!--</program>-->
+                    <!--</programs>-->
                 <!--</configuration>-->
+                <!--&lt;!&ndash;make it part of the standard build lifecycle&ndash;&gt;-->
+                <!--&lt;!&ndash;hook it into the assemble phase (called with 'mvn package')&ndash;&gt;-->
                 <!--<executions>-->
                     <!--<execution>-->
-                        <!--<id>make-assembly</id>-->
-                        <!--&lt;!&ndash; this is used for inheritance merges &ndash;&gt;-->
-                        <!--<phase>package</phase>-->
-                        <!--&lt;!&ndash; bind to the packaging phase &ndash;&gt;-->
+                        <!--<id>assemble</id>-->
                         <!--<goals>-->
-                            <!--<goal>single</goal>-->
+                            <!--<goal>assemble</goal>-->
                         <!--</goals>-->
                     <!--</execution>-->
                 <!--</executions>-->
+            <!--</plugin>-->
+
+            <!--<plugin>-->
+            <!--<groupId>org.apache.maven.plugins</groupId>-->
+            <!--<artifactId>maven-assembly-plugin</artifactId>-->
+            <!--<configuration>-->
+            <!--<descriptors>-->
+            <!--<descriptor>src/main/assembly/clt.xml</descriptor>-->
+            <!--</descriptors>-->
+            <!--</configuration>-->
+            <!--<executions>-->
+            <!--<execution>-->
+            <!--<id>make-assembly</id>-->
+            <!--&lt;!&ndash; this is used for inheritance merges &ndash;&gt;-->
+            <!--<phase>package</phase>-->
+            <!--&lt;!&ndash; bind to the packaging phase &ndash;&gt;-->
+            <!--<goals>-->
+            <!--<goal>single</goal>-->
+            <!--</goals>-->
+            <!--</execution>-->
+            <!--</executions>-->
             <!--</plugin>-->
 
             <!--<plugin>-->
