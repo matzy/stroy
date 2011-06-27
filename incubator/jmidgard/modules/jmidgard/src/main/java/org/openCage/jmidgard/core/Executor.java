@@ -17,8 +17,13 @@ public class Executor {
         List<Task> todo = Tasks.getLinearPrereqs( task );
 
         for ( Task now : todo ) {
+            System.out.println("[" + now.getName() + "]");
             if ( now.needsToRun() ) {
-                now.run();
+                System.out.println( "   running ...");
+                if ( !now.run()) {
+                    System.out.println("   failed");
+                    return;
+                }
             }
         }
     }

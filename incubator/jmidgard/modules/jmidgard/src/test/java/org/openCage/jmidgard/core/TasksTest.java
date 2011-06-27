@@ -26,6 +26,8 @@ public class TasksTest {
         List<Task> pres = Tasks.getLinearPrereqs( d );
 
         assertEquals( 4, pres.size()  );
+
+        new Executor().execute( d );
     }
 
 }
