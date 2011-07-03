@@ -36,6 +36,7 @@ public class Main2 {
         Iterable<? extends JavaFileObject> compilationUnits = fileManager
                 .getJavaFileObjectsFromStrings(Arrays.asList( loc + "Foo.java"));
 
+
         JavaCompiler.CompilationTask task = compiler.getTask( null, fileManager, diagnostics, null, null, compilationUnits);
         boolean success = task.call();
 

@@ -4,6 +4,7 @@ import org.openCage.io.IOUtils;
 import org.openCage.io.Resource;
 import org.openCage.io.fspath.FSPath;
 import org.openCage.io.fspath.FSPathBuilder;
+import org.openCage.jmidgard.core.Compiler;
 import org.openCage.lang.functions.FE1;
 
 import java.io.BufferedWriter;
@@ -28,7 +29,7 @@ public class Main {
         FSPath current = FSPathBuilder.getPath(new File("."));
         String name = current.getFileName();
 
-        if ( true ) { //!current.add( "modules" ).toFile().exists() ) {
+        if ( !current.add( "modules" ).toFile().exists() ) {
             IOUtils.ensurePath( current.add( "modules", name, "src", "main", "java", "org", "openCage", name, "foo.java" ));
             IOUtils.ensurePath( current.add( "modules", name, "src", "test", "java", "org", "openCage", name, "fooTest.java" ));
             IOUtils.ensurePath( current.add( "modules", "parent", "pom.xml" ));
@@ -40,6 +41,20 @@ public class Main {
 
             writeHelloW( current.add( "modules", name, "src", "main", "java", "org", "openCage", name, "HelloWorld.java" ), name );
             writeConfi( current.add( "modules", "jmdg", "src", "main", "java", "modules", name + ".java" ), name);
+        } else {
+
+            for ( File file : current.add( "modules", "jmdg", "src", "main", "java", "modules" ).toFile().listFiles() ) {
+                System.out.println(file.getAbsolutePath());
+
+                IOUtils.ensurePath( current.add( "modules", "jmdg", "target", "classes", "example" ));
+
+                if ( file.toString().endsWith(".java")) {
+                    new Compiler().
+                            addSource(FSPathBuilder.getPath(file)).
+                            targetDir(current.add("modules", "jmdg", "target", "classes" )).
+                            compile();
+                }
+            }
         }
     }
 
