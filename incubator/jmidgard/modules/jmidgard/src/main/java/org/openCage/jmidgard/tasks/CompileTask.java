@@ -6,6 +6,9 @@ import org.openCage.io.fspath.FSPathBuilder;
 import org.openCage.jmidgard.core.*;
 import org.openCage.jmidgard.core.Compiler;
 
+import javax.persistence.criteria.Path;
+import java.io.File;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -53,15 +56,32 @@ public class CompileTask extends BaseTask {
         }
         System.out.println( "   target " + trgt );
 
-        FSPath target = FSPathBuilder.getPath(getBase().getRootDir().toString() + "\\" + trgt);
+        // TODO
+        FSPath target = FSPathBuilder.getPath(getBase().getRootDir().toString() + "\\modules\\jtest\\" + trgt);
         IOUtils.ensurePath( target.add( "foo.duh" ));
 
         Compiler cc = new Compiler().targetDir( target );
         for ( String s : src ) {
-            FSPathBuilder.getPath(getBase().getRootDir().toString() + "\\" + s))
+            FSPath srcRoot = FSPathBuilder.getPath(getBase().getRootDir().toString() + "\\modules\\jtest\\" + s);
+
+            addSrcFile( cc, srcRoot.toFile() );
         }
 
         return cc.compile();
+    }
+
+    private void addSrcFile(Compiler cc, File file) {
+        System.out.println("      looking at " + file.getAbsolutePath() );
+        if ( file.isFile() ) {
+            if ( file.toString().endsWith(".java")) {
+                cc.addSource( FSPathBuilder.getPath( file ));
+            }
+            return;
+        }
+
+        for ( File child : file.listFiles() ) {
+            addSrcFile( cc, child );
+        }
     }
 
     @Override
