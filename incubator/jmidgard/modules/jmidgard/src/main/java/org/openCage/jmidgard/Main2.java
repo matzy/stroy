@@ -1,12 +1,16 @@
 package org.openCage.jmidgard;
 
+import sun.awt.windows.ThemeReader;
+
 import javax.tools.*;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -36,8 +40,21 @@ public class Main2 {
         Iterable<? extends JavaFileObject> compilationUnits = fileManager
                 .getJavaFileObjectsFromStrings(Arrays.asList( loc + "Foo.java"));
 
+        //
+        List<String> optionList = new ArrayList<String>();
+//// set compiler's classpath to be same as the runtime's
+//optionList.addAll(Arrays.asList("-classpath",System.getProperty("java.class.path")));
+        String target = "C:\\tmp\\jmidg\\target";
+    optionList.add("-d"); optionList.add( target );
 
-        JavaCompiler.CompilationTask task = compiler.getTask( null, fileManager, diagnostics, null, null, compilationUnits);
+//
+//// any other options you want
+//optionList.addAll(Arrays.asList(options));
+//
+//JavaCompiler.CompilationTask task = compiler.getTask(out,jfm,diagnostics,optionList,null,jfos);
+        //
+
+        JavaCompiler.CompilationTask task = compiler.getTask( null, fileManager, diagnostics, optionList, null, compilationUnits);
         boolean success = task.call();
 
         System.out.println("Success: " + success);
@@ -54,7 +71,7 @@ public class Main2 {
             try {
 
         // Load and instantiate compiled class.
-        URLClassLoader classLoader = URLClassLoader.newInstance(new URL[]{new File(loc).toURI().toURL()});
+        URLClassLoader classLoader = URLClassLoader.newInstance(new URL[]{new File(target).toURI().toURL()});
                 Class<?> cls = Class.forName("Foo", true, classLoader);
 //                Class<?> cls = Class.forName("org.openCage.jmidgard.Foo", true, classLoader);
         Conf instance = (Conf)cls.newInstance(); // Should print "hello".

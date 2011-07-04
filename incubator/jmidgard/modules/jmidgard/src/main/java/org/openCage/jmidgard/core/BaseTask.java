@@ -20,6 +20,7 @@ public abstract class BaseTask implements Task {
 
     private final String name;
     private Set<Task> prereqs;
+    private Base base;
 
     public BaseTask( String name, Set<Task> prereqs ) {
         this.name = name;
@@ -59,5 +60,14 @@ public abstract class BaseTask implements Task {
     @Override
     public Collection<Task> getPrerequisites() {
         return prereqs;
+    }
+
+    public Task setBase( Base base  ) {
+        this.base = base;
+        return this;
+    }
+
+    public Base getBase() {
+        return base;
     }
 }
