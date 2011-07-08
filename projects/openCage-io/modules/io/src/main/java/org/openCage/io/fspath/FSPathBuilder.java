@@ -70,7 +70,6 @@ public final class FSPathBuilder {
         throw new UnsupportedOperationException("impl me");
     }
 
-
     public static FSPath getPath( URL url ) {
         File file = IOUtils.url2File( url );
 
