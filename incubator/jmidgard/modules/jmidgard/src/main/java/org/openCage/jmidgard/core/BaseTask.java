@@ -1,13 +1,9 @@
 package org.openCage.jmidgard.core;
 
-import sun.plugin.dom.exception.NoModificationAllowedException;
-
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-
-import static java.util.Collections.EMPTY_LIST;
 
 /**
  * Created by IntelliJ IDEA.
@@ -21,6 +17,7 @@ public abstract class BaseTask implements Task {
     private final String name;
     private Set<Task> prereqs;
     private Base base;
+    private String moduleName;
 
     public BaseTask( String name, Set<Task> prereqs ) {
         this.name = name;
@@ -62,12 +59,17 @@ public abstract class BaseTask implements Task {
         return prereqs;
     }
 
-    public Task setBase( Base base  ) {
+    public Task setConf(Base base, String module) {
         this.base = base;
+        this.moduleName = module;
         return this;
     }
 
     public Base getBase() {
         return base;
+    }
+
+    public String getModuleName() {
+        return moduleName;
     }
 }

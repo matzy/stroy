@@ -1,6 +1,5 @@
 package org.openCage.jmidgard;
 
-import com.sun.deploy.security.MozillaJSSDSASignature;
 import org.openCage.io.fspath.FSPathBuilder;
 import org.openCage.jmidgard.core.Base;
 import org.openCage.jmidgard.core.Executor;
@@ -28,7 +27,7 @@ public class Main3 {
 
 
         CompileTask comp = new CompileTask( "Compile" );
-        comp.setBase( base );
+        comp.setConf(base, "jtest" );
 
         new Executor().execute( comp );
 

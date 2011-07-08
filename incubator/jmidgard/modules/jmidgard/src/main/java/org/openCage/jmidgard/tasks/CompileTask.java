@@ -57,12 +57,12 @@ public class CompileTask extends BaseTask {
         System.out.println( "   target " + trgt );
 
         // TODO
-        FSPath target = FSPathBuilder.getPath(getBase().getRootDir().toString() + "\\modules\\jtest\\" + trgt);
+        FSPath target = FSPathBuilder.getPath(getBase().getRootDir().toString() + "\\modules\\"+ getModuleName() +"\\" + trgt);
         IOUtils.ensurePath( target.add( "foo.duh" ));
 
         Compiler cc = new Compiler().targetDir( target );
         for ( String s : src ) {
-            FSPath srcRoot = FSPathBuilder.getPath(getBase().getRootDir().toString() + "\\modules\\jtest\\" + s);
+            FSPath srcRoot = FSPathBuilder.getPath(getBase().getRootDir().toString() + "\\modules\\"+ getModuleName() +"\\" + s);
 
             addSrcFile( cc, srcRoot.toFile() );
         }

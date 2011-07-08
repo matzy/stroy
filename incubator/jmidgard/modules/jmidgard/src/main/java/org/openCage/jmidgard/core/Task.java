@@ -17,4 +17,9 @@ public interface Task {
     public void             clean();
     public String           getName();
     public void             depends( Task task );
+
+    public Task setConf(Base base, String module);
+
+    public Base getBase();
+
 }

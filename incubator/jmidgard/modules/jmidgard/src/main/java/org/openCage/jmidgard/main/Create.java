@@ -18,7 +18,7 @@ import java.io.FileWriter;
  * Time: 4:35 PM
  * To change this template use File | Settings | File Templates.
  */
-public class Main {
+public class Create {
 
     public static void main(String[] args) {
 
@@ -27,35 +27,25 @@ public class Main {
         System.out.println(FSPathBuilder.getPath(new File(".")).getFileName());
 
         FSPath current = FSPathBuilder.getPath(new File("."));
-        String name = current.getFileName();
 
-        if ( !current.add( "modules" ).toFile().exists() ) {
-            IOUtils.ensurePath( current.add( "modules", name, "src", "main", "java", "org", "openCage", name, "foo.java" ));
-            IOUtils.ensurePath( current.add( "modules", name, "src", "test", "java", "org", "openCage", name, "fooTest.java" ));
-            IOUtils.ensurePath( current.add( "modules", "parent", "pom.xml" ));
-            IOUtils.ensurePath( current.add( "modules", "jmdg", "src", "main", "java", "modules" , name + ".java" ));
-
-            writeParentPom( current.add( "modules", "parent", "pom.xml" ), name );
-            writeModulePom( current.add( "modules", name, "pom.xml" ), name );
-            writeJmdgPom( current.add( "modules", "jmdg", "pom.xml" ), name );
-
-            writeHelloW( current.add( "modules", name, "src", "main", "java", "org", "openCage", name, "HelloWorld.java" ), name );
-            writeConfi( current.add( "modules", "jmdg", "src", "main", "java", "modules", name + ".java" ), name);
-        } else {
-
-            for ( File file : current.add( "modules", "jmdg", "src", "main", "java", "modules" ).toFile().listFiles() ) {
-                System.out.println(file.getAbsolutePath());
-
-                IOUtils.ensurePath( current.add( "modules", "jmdg", "target", "classes", "example" ));
-
-                if ( file.toString().endsWith(".java")) {
-                    new Compiler().
-                            addSource(FSPathBuilder.getPath(file)).
-                            targetDir(current.add("modules", "jmdg", "target", "classes" )).
-                            compile();
-                }
-            }
+        if (args.length < 1  )  {
+            throw new IllegalArgumentException("need a project name");
         }
+
+        String name = args[0];
+        current = current.add( name );
+
+        IOUtils.ensurePath( current.add( "modules", name, "src", "main", "java", "org", "openCage", name, "foo.java" ));
+        IOUtils.ensurePath( current.add( "modules", name, "src", "test", "java", "org", "openCage", name, "fooTest.java" ));
+        IOUtils.ensurePath( current.add( "modules", "parent", "pom.xml" ));
+        IOUtils.ensurePath( current.add( "modules", "jmdg", "src", "main", "java", "modules" , name + ".java" ));
+
+        writeParentPom( current.add( "modules", "parent", "pom.xml" ), name );
+        writeModulePom( current.add( "modules", name, "pom.xml" ), name );
+        writeJmdgPom( current.add( "modules", "jmdg", "pom.xml" ), name );
+
+        writeHelloW( current.add( "modules", name, "src", "main", "java", "org", "openCage", name, "HelloWorld.java" ), name );
+        writeConfi( current.add( "modules", "jmdg", "src", "main", "java", "modules", name + ".java" ), name);
     }
 
     private static void writeHelloW(FSPath to, String name) {
@@ -109,7 +99,7 @@ public class Main {
                 "\n" +
                 "\t<!--\n" +
                 "    <properties>\n" +
-                "        <mainclass>org.openCage.fausterize.Main</mainclass>\n" +
+                "        <mainclass>org.openCage.fausterize.Create</mainclass>\n" +
                 "    </properties>\n" +
                 "-->\n" +
                 "\t\n" +
@@ -541,7 +531,7 @@ public class Main {
                 "\n" +
                 "\t<!--\n" +
                 "    <properties>\n" +
-                "        <mainclass>org.openCage.fausterize.Main</mainclass>\n" +
+                "        <mainclass>org.openCage.fausterize.Create</mainclass>\n" +
                 "    </properties>\n" +
                 "-->\n" +
                 "\t\n" +
