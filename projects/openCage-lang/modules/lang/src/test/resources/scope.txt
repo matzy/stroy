@@ -1,4 +1,4 @@
-//package org.openCage.lang.artifact;
+//package org.openCage.modules.lang.artifact;
 //
 ///***** BEGIN LICENSE BLOCK *****
 //* Version: MPL 1.1
