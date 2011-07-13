@@ -17,6 +17,7 @@ import java.util.Locale;
  */
 public class Compiler {
 
+    private static final Log log = Log.getLogger( Compiler.class.getName() );
     private FSPath target;
     private List<String> sources = new ArrayList<String>();
 
@@ -55,8 +56,12 @@ public class Compiler {
         JavaCompiler.CompilationTask task = compiler.getTask( null, fileManager, diagnostics, options, null, compilationUnits);
         boolean success = task.call();
 
-        System.out.println("Success: " + success);
+        if ( success ) {
+            log.two.info( "Success: " + success );
+        }
         if (!success ) {
+            log.two.severe( "Success: " + success );
+
             for (Diagnostic diagnostic : diagnostics.getDiagnostics()) {
                 System.out.println( diagnostic.getMessage(Locale.getDefault()));
                 System.out.println(diagnostic.getLineNumber());

@@ -6,9 +6,7 @@ import org.openCage.io.fspath.FSPathBuilder;
 import org.openCage.jmidgard.core.*;
 import org.openCage.jmidgard.core.Compiler;
 
-import javax.persistence.criteria.Path;
 import java.io.File;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -21,6 +19,8 @@ import java.util.Set;
  * To change this template use File | Settings | File Templates.
  */
 public class CompileTask extends BaseTask {
+
+    private static Log log = Log.getLogger( BaseTask.class.getName() );
 
     // TODO relpath
     private List<String> src = new ArrayList<String>();
@@ -49,12 +49,12 @@ public class CompileTask extends BaseTask {
 
     @Override
     public boolean run() {
-        System.out.println( "   root: " + getBase().getRootDir());
-        System.out.println( "   source paths: ");
+        log.two.info( "root: " + getBase().getRootDir());
+        log.two.info( "source paths: " );
         for ( String s : src ) {
-            System.out.println( "      " + s );
+            log.three.info( s );
         }
-        System.out.println( "   target " + trgt );
+        log.two.info( "target " + trgt );
 
         // TODO
         FSPath target = FSPathBuilder.getPath(getBase().getRootDir().toString() + "\\modules\\"+ getModuleName() +"\\" + trgt);
@@ -71,9 +71,10 @@ public class CompileTask extends BaseTask {
     }
 
     private void addSrcFile(Compiler cc, File file) {
-        System.out.println("      looking at " + file.getAbsolutePath() );
+        log.three.finest( "looking at " + file.getAbsolutePath() );
         if ( file.isFile() ) {
             if ( file.toString().endsWith(".java")) {
+                log.four.fine( "added" +  file.getAbsolutePath() );
                 cc.addSource( FSPathBuilder.getPath( file ));
             }
             return;

@@ -13,15 +13,18 @@ import java.util.*;
  */
 public class Executor {
 
+    private static final Log log = Log.getLogger( Executor.class.getName() );
+
     public void execute( Task task ) {
         List<Task> todo = Tasks.getLinearPrereqs( task );
 
         for ( Task now : todo ) {
-            System.out.println("[" + now.getName() + "]");
+
+            log.one.info( "[" + now.getName() + "]" );
             if ( now.needsToRun() ) {
-                System.out.println( "   running ...");
+                log.two.info( "running ... " );
                 if ( !now.run()) {
-                    System.out.println("   failed");
+                    log.two.severe( "failed" );
                     return;
                 }
             }

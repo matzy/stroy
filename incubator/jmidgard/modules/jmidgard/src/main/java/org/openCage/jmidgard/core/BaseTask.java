@@ -1,5 +1,6 @@
 package org.openCage.jmidgard.core;
 
+import javax.resource.spi.RetryableUnavailableException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
@@ -28,8 +29,9 @@ public abstract class BaseTask implements Task {
         this(name, new HashSet<Task>( Arrays.asList( prereqs )));
     }
 
-    public void depends( Task dep ) {
+    public Task depends( Task dep ) {
         prereqs.add( dep );
+        return this;
     }
 
 
