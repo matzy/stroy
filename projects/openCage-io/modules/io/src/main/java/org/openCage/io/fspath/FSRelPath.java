@@ -15,22 +15,18 @@ import java.util.List;
  */
 public class FSRelPath {
 
-    private char separator;
-
     List<String> elems = new ArrayList<String>();
 
-    public FSRelPath( char separator, String ... elems ) {
+    public FSRelPath( String ... elems ) {
         this.elems = Arrays.asList( elems );
-        this.separator = separator;
     }
 
-    public FSRelPath( char separator, List<String>elems ) {
+    public FSRelPath( List<String>elems ) {
         this.elems = elems;
-        this.separator = separator;
     }
 
     public FSRelPath add( String ... more ) {
-        FSRelPath ret = new FSRelPath( separator, elems );
+        FSRelPath ret = new FSRelPath( elems );
 
         ret.elems.addAll( Arrays.asList(more));
 
@@ -39,7 +35,11 @@ public class FSRelPath {
 
     @Override
     public String toString() {
-        return Strings.join( elems ).separator( "" + separator ).toString();
+        return Strings.join( elems ).separator( ":" ).toString();
+    }
+
+    public List<String> getAsList() {
+        return elems;
     }
 }
 

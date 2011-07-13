@@ -1,10 +1,12 @@
 package org.openCage.io.fspath;
 
+import com.sun.xml.internal.messaging.saaj.packaging.mime.util.LineInputStream;
 import net.jcip.annotations.Immutable;
 
 import java.io.File;
 import java.net.URI;
 import java.util.Iterator;
+import java.util.List;
 
 /***** BEGIN LICENSE BLOCK *****
  * New BSD License
@@ -50,6 +52,20 @@ public interface FSPath extends Iterable<FSPath> {
      * @return A new FSPath
      */
     FSPath add( String ... elements );
+
+    /**
+     * create a new fspath relative to this one
+     * @param elements path elements.
+     * @return A new FSPath
+     */
+    FSPath add( List<String> elements );
+
+    /**
+     * create a new fspath realtive to this one
+     * @param rel
+     * @return
+     */
+    FSPath add( FSRelPath rel );
 
     /**
      * Translate a package (e.g. org.openCage.foo) in a platform specfic directroy path

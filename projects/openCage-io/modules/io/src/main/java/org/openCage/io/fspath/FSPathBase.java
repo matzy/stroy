@@ -1,6 +1,7 @@
 package org.openCage.io.fspath;
 
 import java.io.File;
+import java.util.List;
 
 /***** BEGIN LICENSE BLOCK *****
  * New BSD License
@@ -45,4 +46,20 @@ public abstract class FSPathBase implements FSPath {
 
         return add( elems );
     }
+
+    @Override public FSPath add( List<String> elements ) {
+
+    }
+
+
+    @Override public FSPath add( FSRelPath rel ) {
+        FSPath ret = this;
+        for ( String el : rel.getAsList() ) {
+            ret = ret.add( el );
+        }
+
+        return ret;
+    }
+
+
 }
