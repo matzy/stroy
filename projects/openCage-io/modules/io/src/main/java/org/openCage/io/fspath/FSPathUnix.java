@@ -78,11 +78,11 @@ public class FSPathUnix extends FSPathBase {
     }
 
     @Override
-    public FSPath add( String ... els ) {
+    public FSPath add( List<String> els ) {
         ElementRules.check( els );
 
         FSPathUnix ret = new FSPathUnix( toString() );
-        ret.elements.addAll( Arrays.asList( els ));
+        ret.elements.addAll( els );
         return ret;
     }
 

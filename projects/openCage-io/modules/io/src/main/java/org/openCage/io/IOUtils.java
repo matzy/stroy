@@ -74,7 +74,7 @@ public class IOUtils {
     }
 
     public static File url2File( URL url ) {
-        File file = null;
+        File file;
         try {
           file = new File(url.toURI());
         } catch(URISyntaxException e) {

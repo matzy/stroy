@@ -62,8 +62,8 @@ public interface FSPath extends Iterable<FSPath> {
 
     /**
      * create a new fspath realtive to this one
-     * @param rel
-     * @return
+     * @param rel A relative path
+     * @return returns a new path with the relative path added to it
      */
     FSPath add( FSRelPath rel );
 

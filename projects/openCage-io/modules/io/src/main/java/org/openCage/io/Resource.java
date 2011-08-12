@@ -48,9 +48,9 @@ public class Resource {
      *     }
      * }
      * </code>
-     * @param func
-     * @param <T>
-     * @return
+     * @param func A function throwing any exception
+     * @param <T>  The return type
+     * @return The result of the fuction
      */
     public static <T> T tryWith( FE1<T, Resource> func ) {
         Resource resource = new Resource();
@@ -65,7 +65,7 @@ public class Resource {
     }
 
 
-    private List<Closeable> resources = new ArrayList<Closeable>();
+    private final List<Closeable> resources = new ArrayList<Closeable>();
 
     public <T extends Closeable> T add( T t) {
         resources.add( t );

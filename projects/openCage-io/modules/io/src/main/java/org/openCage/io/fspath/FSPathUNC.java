@@ -53,12 +53,13 @@ public class FSPathUNC extends FSPathBase {
         return UNC_PREFIX + Strings.join( elements ).separator("\\").toString();
     }
 
+
     @Override
-    public FSPath add(String... els) {
-        ElementRules.check( els );
+    public FSPath add(List<String> elements) {
+        ElementRules.check( elements );
 
         FSPathUNC ret = new FSPathUNC( toString() );
-        ret.elements.addAll( Arrays.asList( els ));
+        ret.elements.addAll( elements );
         return ret;
     }
 

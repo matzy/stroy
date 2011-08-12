@@ -17,8 +17,8 @@ import java.util.regex.Pattern;
 public class FSPathWindows extends FSPathBase {
 
     private final String drive;
-    private List<String> elements = new ArrayList<String>();
-    private Pattern driveLetter = Pattern.compile( "[a-zA-Z]\\:" );
+    private final List<String> elements = new ArrayList<String>();
+    private static final Pattern driveLetter = Pattern.compile( "[a-zA-Z]\\:" );
 
     public FSPathWindows( String absolutePath ) {
         if ( Strings.isEmpty( absolutePath )) {
@@ -60,11 +60,11 @@ public class FSPathWindows extends FSPathBase {
 
 
     @Override
-    public FSPath add(String... elements) {
+    public FSPath add( List<String> elements) {
         ElementRules.check( elements );        
         // clone
         FSPathWindows ret = new FSPathWindows( toString() );
-        ret.elements.addAll( Arrays.asList( elements ));
+        ret.elements.addAll( elements );
         return ret;
     }
 

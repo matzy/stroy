@@ -39,9 +39,9 @@ import java.util.UUID;
 
 public final class FSPathBuilder {
 
-    private FSPathBuilder() {};
+    private FSPathBuilder() {}
 
-    private static JFileChooser fileChooser = new JFileChooser();
+    private static final JFileChooser fileChooser = new JFileChooser();
 
 
     public static FSPath getPath( String str ) {

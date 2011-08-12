@@ -54,6 +54,7 @@ public class With {
             throw new UndeclaredThrowableException(e);
         } finally {
             if ( stream != null ) {
+                //noinspection EmptyCatchBlock
                 try {
                     stream.close();
                 } catch (IOException e) {
