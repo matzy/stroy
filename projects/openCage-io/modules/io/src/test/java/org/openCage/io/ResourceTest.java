@@ -26,6 +26,7 @@ public class ResourceTest {
     public void testNoFile() {
         tryWith( new FE1<Object, Resource>() { @Override public Object call(Resource resource) throws Exception {
 
+                @SuppressWarnings({"UnusedAssignment"})
                 InputStream is = resource.add( new FileInputStream( "no such file" ));
                 fail( "wooot" );
                 return null;
@@ -66,6 +67,8 @@ public class ResourceTest {
         tryWith( new FE1<Object, Resource>() {
             @Override
             public Object call(Resource resource) throws Exception {
+                // null is to be tested here
+                //noinspection NullableProblems
                 resource.add(null);
                 return null;
             }
