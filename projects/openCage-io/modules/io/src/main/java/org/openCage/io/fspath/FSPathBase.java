@@ -48,7 +48,7 @@ public abstract class FSPathBase implements FSPath {
         return add( elems );
     }
 
-
+        return null;
     @Override public FSPath add( FSRelPath rel ) {
         return add( rel.getAsList());
     }
