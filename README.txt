@@ -36,7 +36,9 @@ maven
 	cd modules/parent
 	mvn clean install
 	   builds all modules
-	mvn release:prepare
+	mvn release:prepare -Dusername=<username> -Dpassword=<password>
+         may need: svn list https://stroy.googlecode.com
+         to allow checkin from here
 	mvn relasee:perform 
 	   makes a new release
 	   
