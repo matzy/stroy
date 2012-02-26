@@ -69,14 +69,14 @@ public final class Symbol {
     
     public Object getGlobal() {
         if ( !isSpecial ) {
-            throw new LishpException("can't eval global of non special");
+            throw new LishpException( Symbol.get("SyntaxError"), "can't eval global of non special");
         }
         return global;
     }
     
     public void setGlobal( final Object obj ) {
         if ( !isSpecial ) {
-            throw new LishpException("can't assign to non special");
+            throw new LishpException(Symbol.get("SyntaxError"), "can't assign to non special");
         }
         
         global = obj;

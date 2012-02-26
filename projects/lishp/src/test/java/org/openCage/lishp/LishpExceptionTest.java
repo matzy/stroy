@@ -5,7 +5,7 @@ import org.junit.Test;
 public class LishpExceptionTest {
 
     public void noExp() {
-        throw new LishpException("foo");
+        throw new LishpException( Symbol.get("duh"), "foo");
     }
 
     @Test( expected = LishpException.class )

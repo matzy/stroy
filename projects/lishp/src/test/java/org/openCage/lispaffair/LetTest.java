@@ -20,7 +20,7 @@ public class LetTest {
 
         Object obj = frmt.parseObject( "(let " +
                 "     x             5 " +
-                " in" +
+                " :in" +
                 "     x)" );
 
         assertEquals(5, Eval.eval(obj, new Lispaffair().getEnv()));
@@ -34,7 +34,7 @@ public class LetTest {
                 "(let " +
                         "     x             5 " +
                         "     y             7 " +
-                " in" +
+                " :in" +
                 "     x)" );
 
         assertEquals(5, Eval.eval(obj, new Lispaffair().getEnv()));
@@ -61,25 +61,12 @@ public class LetTest {
         Object obj = frmt.parseObject(
                 "(let (: (key val) tl)   '((1 2) (3 4) 5)" +
                 "     x                  5 " +
-                " in" +
+                " :in" +
                 "     key " +
                 "     val)" );
 
         assertEquals(2, Eval.eval(obj, new Lispaffair().getEnv()));
     }
 
-    @Test
-    public void testCatch() throws ParseException {
-        LispFormat frmt = new LispFormat();
-
-        Object obj = frmt.parseObject(
-                "(try (let (x)     5 " +
-                "          in" +
-                "        x)" +
-                "  catch exp" +
-                "  finally 'huh)" );
-
-        assertEquals(5, Eval.eval(obj, new Lispaffair().getEnv()));
-    }
 
 }

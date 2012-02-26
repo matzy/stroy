@@ -37,10 +37,14 @@ public class Lispaffair {
     private void init() {
         env.bind( Symbol.get( "<"), Buildin.numberSmaller );        
         env.bind( Symbol.get( "-"), Buildin.numberMinus );        
-        env.bind( Symbol.get( "*"), Buildin.numberTimes );        
-        
+        env.bind( Symbol.get( "*"), Buildin.numberTimes );
+
         env.bind( Symbol.get( "if"), BuildinSpecials.specialIf );
         LispFormat.addReaderMacro( "#if", BuildinSpecials.specialIf );
+        env.bind( Symbol.get( "try"), BuildinSpecials.trycatch );
+        LispFormat.addReaderMacro( ":try", BuildinSpecials.trycatch );
+        env.bind( Symbol.get( "throw"), BuildinSpecials.specialThrow );
+        LispFormat.addReaderMacro( ":throw", BuildinSpecials.specialThrow );
 
         env.bind( Symbol.get( "set"), BuildinSpecials.specialSet );
         LispFormat.addReaderMacro( "#set", BuildinSpecials.specialSet );

@@ -56,8 +56,8 @@ public class FindTest {
 
         Object obj = frmt.parseObject(
                 "(find '((foo 5) (du 7) (tags \"123 4\")) " +
-                        "(fct (x) (let (key val) x in (= key 'tags))) " +
-                        "(fct (x) (let (key val) x in val)))" );
+                        "(fct (x) (let (key val) x :in (= key 'tags))) " +
+                        "(fct (x) (let (key val) x :in val)))" );
 
         List answ =  ((List) Eval.eval(obj, new Lispaffair().getEnv()));
         

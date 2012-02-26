@@ -35,7 +35,7 @@ public class RecursionTest {
     }
 
     @Test
-    public void testArgs() throws ParseException {
+    public void testArgs() throws  ParseException {
         LispFormat frmt = new LispFormat();
 
         Object obj = frmt.parseObject( "((fct (x) ((fct (x) #n) 7) x) 5)" );

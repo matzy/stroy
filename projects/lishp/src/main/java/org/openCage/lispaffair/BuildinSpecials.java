@@ -1,8 +1,7 @@
 package org.openCage.lispaffair;
-import org.openCage.lishp.BuildinSpecial;
-import org.openCage.lishp.Special;
-import org.openCage.lishp.Symbol;
+import org.openCage.lishp.*;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -73,7 +72,7 @@ public class BuildinSpecials {
 
     };
 
-    public static Special specialFct = new Special() {
+    public static Special specialFct = new BuildinSpecial( ":fct" ) {
         public Object       apply( List lst, Environment env ) {
 
             LinkedList body = new LinkedList();
@@ -121,7 +120,7 @@ public class BuildinSpecials {
 
     };
 
-    public static Special specialClone = new Special() {
+    public static Special specialClone = new BuildinSpecial( ":clone" ) {
         public Object       apply( List lst, Environment env ) {
 
             Environment ret = env.copy();
@@ -144,7 +143,7 @@ public class BuildinSpecials {
     };
 
 
-    public static Special specialSet = new Special() {
+    public static Special specialSet = new BuildinSpecial( ":set" ) {
         public Object       apply( List lst, Environment env ) {
 
             Object sym = lst.get( 1 );
@@ -182,14 +181,19 @@ public class BuildinSpecials {
         
     };
 
-    public static Special let = new Special() {
-        public Object       apply( List lst, Environment env ) {
+    public static Special let = new BuildinSpecial( ":let" ) {
+        public Object       apply( List<Object> lst, Environment env ) {
 
             env.push();
             
             int i = 1;
 
             while ( true ) {
+                
+                if ( i + 2 >= lst.size()  ) {
+                    throw new LishpException( Symbol.get("SyntaxError"), "let: no pairs or missing ':in > " + lst );
+                }
+
                 Object key = lst.get( i );
                 Object val = Eval.eval( lst.get( i+1 ), env );
 
@@ -201,7 +205,7 @@ public class BuildinSpecials {
                 i += 2;
 
                 Object inp = lst.get(i);
-                if ( (inp instanceof Symbol) &&  inp == Symbol.get( "in")) {
+                if ( (inp instanceof Symbol) &&  inp == Symbol.get( ":in")) {
                     break;
                 }
 
@@ -491,6 +495,85 @@ public class BuildinSpecials {
         }
     };
 
+    public static Special trycatch = new BuildinSpecial(":try"){
+        public Object apply( List<Object> lst, Environment outer ) {
+
+            // format (try .... *[:catch sym ...]  [:finally ...])
+            
+            
+
+            List<List<Object>> blocks = Lists.split( lst.subList(1,lst.size()), Symbol.get(":catch"), Symbol.get(":finally"));
+
+            if ( blocks.isEmpty() || blocks.get(0).isEmpty() ) {
+                throw new LishpException( Symbol.get("SyntaxError"), "no try block " + lst );
+            }
+            
+            Object ret = null;
+            
+            try {
+                for ( Object obj : blocks.get(0)) {
+                    ret = Eval.eval( obj, outer );
+                }
+                return ret;
+            } catch ( LishpException exp ) {
+                for ( List<Object> block : blocks ) {
+                    if ( block.size() > 1 && block.get(0) == Symbol.get(":catch") && block.get(1) == exp.getExceptionSymbol() ) {
+                        for ( int i = 2; i < block.size(); ++i ) {
+                            ret = Eval.eval( block.get(i), outer );
+                        }
+                        return ret;
+                    }
+                }
+                return null;
+            } finally {
+                for ( List<Object> block : blocks ) {
+                    if ( !block.isEmpty() && block.get(0) == Symbol.get(":finally")) {
+                        for ( int i  =1; i < block.size(); ++i ) {
+                            Eval.eval( block.get(i), outer );
+                        }
+                    }
+                }
+            }
+            
+        }
+
+        public int argNum() {
+            return -1;
+        }
+
+        public StringBuffer format( StringBuffer toAppendTo ) {
+            toAppendTo.append( "." );
+            return toAppendTo;
+        }
+    };
+
+    public static Special specialThrow = new BuildinSpecial(":throw"){
+        public Object apply( List<Object> lst, Environment outer ) {
+
+            Object sym = lst.get(1);
+
+            if (!( sym instanceof Symbol )) {
+                throw new LishpException( Symbol.get("SyntaxError"), "throw without symbol " + lst );
+            }
+
+            String msg = "";
+            if ( lst.size() > 2 ) {
+                msg = (String)Eval.eval( lst.get(2),outer  );;
+            }
+            
+            throw new LishpException( (Symbol)sym, msg );
+        }
+
+        public int argNum() {
+            return -1;
+        }
+
+        public StringBuffer format( StringBuffer toAppendTo ) {
+            toAppendTo.append( "throw" +
+                    "" );
+            return toAppendTo;
+        }
+    };
 
 
 }

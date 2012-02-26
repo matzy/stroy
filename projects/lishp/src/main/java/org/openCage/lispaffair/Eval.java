@@ -66,7 +66,7 @@ public class Eval {
             return eval( ((Macro)hd).expand( lst ), env );
         }
      
-        System.out.println( "huh " + obj  );
+        System.out.println( "huh can eval " + obj  );
         return null;
     }
 }
