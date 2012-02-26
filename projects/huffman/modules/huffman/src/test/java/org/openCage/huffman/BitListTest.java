@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.openCage.lang.functions.F2;
 import org.openCage.lang.structure.T2;
 
+import java.io.IOException;
 import java.nio.charset.Charset;
 
 import static junit.framework.Assert.assertEquals;
@@ -236,6 +237,26 @@ public class BitListTest {
         for ( int i = 1; i < 23; i++ ) {
             assertEquals( i, BitList.valueOf("11111100000000000000000000000000000000111111111").trimTo( i ).size());
         }
+
+    }
+
+    @Test
+    public void testSame() throws IOException {
+        BitField bf = BitList.valueOf( getClass().getResourceAsStream("content.jpg"));
+
+        HuffmanN hn = new HuffmanN(bf);
+
+        BitField encoded = hn.encode( hn.getCode(8));
+
+        for ( int i = 0; i < 10; i++ ) {
+            byte by = encoded.getByteModulo(i);
+
+            System.out.println( by );
+        }
+
+        System.out.println(encoded.getSlice(0,8));
+
+        //System.out.println(bf);
 
     }
 

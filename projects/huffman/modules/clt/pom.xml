@@ -2,6 +2,7 @@
 
     <modelVersion>4.0.0</modelVersion>
 
+    <!--point to parent pom for predefined stuff, e.g. version, plugins versions, dependency versions-->
     <parent>
         <groupId>openCage</groupId>
         <artifactId>openCage-huffman-parent</artifactId>
@@ -16,6 +17,7 @@
         <mainclass>org.openCage.huffman.clt.Main</mainclass>
     </properties>
 
+    <!--list the dependencies, only choose osme prefe in parent-->
     <dependencies>
         <dependency>
             <groupId>openCage</groupId>

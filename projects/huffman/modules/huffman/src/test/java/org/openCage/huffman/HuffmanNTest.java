@@ -263,6 +263,7 @@ public class HuffmanNTest {
         }
     }
 
+
     public static byte[] toBytes(int by) {
         byte[] data = new byte[4];
 

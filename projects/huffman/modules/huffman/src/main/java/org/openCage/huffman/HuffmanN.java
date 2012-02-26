@@ -140,7 +140,7 @@ public class HuffmanN {
         int len = coded.getInt( pos, 32 );
         pos += 32;
 
-        HNodeN tree = codeToTree( code );
+        HNodeN tree = codeToTree( code  );
         BitField ret = new BitList();
 
         HNodeN current = tree;
