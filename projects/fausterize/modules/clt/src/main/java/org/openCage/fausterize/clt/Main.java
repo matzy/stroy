@@ -34,6 +34,9 @@ public class Main {
     private URI uriPad;
     private URI uriSource;
 
+    @Option( required = false, name="-d")
+    private boolean decode = false;
+
     public static void main(String[] args) {
         // parse the command line arguments and options
         final Main values = new Main();
@@ -75,10 +78,15 @@ public class Main {
             }
         });
 
+        if ( values.decode ) {
 
-        String dec = ds.decode( txt, 0 );
+            String dec = ds.decode( txt, 0 );
+            System.out.println(dec);
+        } else {
+            String dec = ds.encode( txt, 0 );
+            System.out.println(dec);
 
-        System.out.println(dec);
+        }
     }
 
     public void init() {
