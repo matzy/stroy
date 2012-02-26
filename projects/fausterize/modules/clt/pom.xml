@@ -90,7 +90,7 @@
                     <programs>
                         <program>
                             <mainClass>${mainclass}</mainClass>
-                            <name>huffman</name>
+                            <name>fausterize</name>
                         </program>
                     </programs>
                 </configuration>
