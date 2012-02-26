@@ -1,0 +1,10 @@
+allprojects {
+	repositories {
+	    maven {
+    		 url "../../repo"
+    	}
+	    maven {
+    		 url "../../../../repo"
+	    }
+	}
+}
