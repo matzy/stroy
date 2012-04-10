@@ -309,6 +309,7 @@ public class FileTypes extends PreferenceBase<Map<String, Action>> {
     }
 
     public boolean hasDiffType(String ext) {
+        getOrCreateActionForExt( ext );
         Action act =  findActionForExt(ext);
         return act != null && act.diff != ExternalProgs.unknown;
     }
@@ -340,6 +341,7 @@ public class FileTypes extends PreferenceBase<Map<String, Action>> {
     }
 
     public boolean hasOpen(String extension) {
+        getOrCreateActionForExt( extension );
         Action action = findActionForExt( extension );
 
         return action != null && action.open != ExternalProgs.unknown;

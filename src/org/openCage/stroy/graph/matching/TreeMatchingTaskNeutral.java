@@ -103,12 +103,12 @@ public class TreeMatchingTaskNeutral<T extends Content> implements TreeMatchingT
     // TODO
     public void shortStatus() {
 
-        if ( Log.isAtLeast( Level.FINE )) {
-            System.out.println("unmatched source dirs  " + dirTask.getUnmatchedLeft().size() );
-            System.out.println("unmatched source files " + fileTask.getUnmatchedLeft().size() );
-            System.out.println("unmatched target dirs  " + dirTask.getUnmatchedRight().size() );
-            System.out.println("unmatched target files " + fileTask.getUnmatchedRight().size() );
-        }
+//        if ( Log.isAtLeast( Level.FINE )) {
+//            System.out.println("unmatched source dirs  " + dirTask.getUnmatchedLeft().size() );
+//            System.out.println("unmatched source files " + fileTask.getUnmatchedLeft().size() );
+//            System.out.println("unmatched target dirs  " + dirTask.getUnmatchedRight().size() );
+//            System.out.println("unmatched target files " + fileTask.getUnmatchedRight().size() );
+//        }
     }
 
     // TODO

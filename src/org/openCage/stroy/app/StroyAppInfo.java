@@ -35,7 +35,7 @@ import java.util.List;
 @SuppressWarnings({"HardCodedStringLiteral"})
 public class StroyAppInfo implements AppInfo {
 
-    private final Version2        version         = new Version2( 1, 0, 3, 147 );
+    private final Version2        version         = new Version2( 1, 0, 4, 151 );
     private final List<Reference> refs            = new ArrayList<Reference>();
     private final List<Reference> buildRefs       = new ArrayList<Reference>();
     private final List<Change>    changes         = new ArrayList<Change>();
@@ -48,7 +48,7 @@ public class StroyAppInfo implements AppInfo {
 
         ref("MD5" ).description( "Fast implementation of RSA's MD5 hash generator" ).
                     de( "Efficiente und schnelle Implementation eines MD5 Gernerators" ).
-                    es( "Puesta en pr‡ctica r‡pida del generador del picadillo de MD5 de RSA." ).
+                    es( "Puesta en prï¿½ctica rï¿½pida del generador del picadillo de MD5 de RSA." ).
                     address( "http://www.helsinki.fi/~sjpaavol/programs/md5", "helsinki.fi").
                     lgpl().
                     typ( "runtime" );

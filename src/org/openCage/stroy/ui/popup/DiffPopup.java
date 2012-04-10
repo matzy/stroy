@@ -246,7 +246,6 @@ public class DiffPopup<T extends Content> extends JPopupMenu {
             matched = taskLeft.isContentChanged( node );
         }
 
-
         diffMenu.setVisible( matched && decider.showDiff( node ));
         diffWith.setVisible( matched && decider.showDiffWith( node ));
 

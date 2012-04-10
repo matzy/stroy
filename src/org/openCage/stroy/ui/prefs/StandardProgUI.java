@@ -70,7 +70,7 @@ public class StandardProgUI extends JPanel {
         top.setLayout( layout );
 
         layout.row().add( new JLabel("")).add( new JLabel( Message.get( "Pref.StandardProgs.intro" )) ).add( new JLabel(""));        
-        layout.row().add( new JLabel( Message.get( "" )));
+        layout.row().add( new JLabel( "" ));
 
 
         ButtonGroup diffGroup = new ButtonGroup();
@@ -88,7 +88,7 @@ public class StandardProgUI extends JPanel {
 
         layout.row().add( new JLabel(Message.get( "Pref.StandardProgs.diff" )),2).add( stdDiff, 2 ).add( new JLabel(stdDiffProg), 5);
         layout.row().add( new JLabel(" "), 2).add( otherDiff,2 ).add( diffText, 4).add( diffButton, 1);
-        layout.row().add( new JLabel( Message.get( "")));
+        layout.row().add( new JLabel( ""));
 
 //        openText.setEditable( false );
 //        layout.row().label( ExternalProgs.open ).add( openText, 8 ).add( new JLabel( "" ), 1);

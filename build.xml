@@ -1,6 +1,6 @@
 <project name="stroy" default="help" basedir=".">
 
-    <property name="version" value="1.0.3"/>
+    <property name="version" value="1.0.4"/>
     <property name="buildnumber" value="147"/>
     <property name="copyright" value="Copyright &#xa9; 2006-2009 Stephan Pfab MPL1.1"/>
 
@@ -121,28 +121,28 @@
     </target>
 
 
-    <!-- Create a JNI library for launching the Help Viewer -->
-    <target name="jni"  description="Create HelpBook JNI Library">
-        <exec executable="cc">
-            <arg line="-c"/>
-            <arg line="-I/System/Library/Frameworks/JavaVM.framework/Headers"/>
-            <arg line="-o ${build-objc}/HelpBookJNI.o"/>
-            <arg value="${src-objc}/HelpBookJNI.m"/>
-        </exec>
+    <!--&lt;!&ndash; Create a JNI library for launching the Help Viewer &ndash;&gt;-->
+    <!--<target name="jni"  description="Create HelpBook JNI Library">-->
+        <!--<exec executable="cc">-->
+            <!--<arg line="-c"/>-->
+            <!--<arg line="-I/System/Library/Frameworks/JavaVM.framework/Headers"/>-->
+            <!--<arg line="-o ${build-objc}/HelpBookJNI.o"/>-->
+            <!--<arg value="${src-objc}/HelpBookJNI.m"/>-->
+        <!--</exec>-->
 
-        <exec executable="cc">
-            <arg line="-dynamiclib"/>
-            <arg line="-framework JavaVM"/>
-            <arg line="-framework Cocoa"/>
-            <arg line="-o ${build-objc}/libHelpBookJNI.jnilib"/>
-            <arg value="${build-objc}/HelpBookJNI.o"/>
-        </exec>
+        <!--<exec executable="cc">-->
+            <!--<arg line="-dynamiclib"/>-->
+            <!--<arg line="-framework JavaVM"/>-->
+            <!--<arg line="-framework Cocoa"/>-->
+            <!--<arg line="-o ${build-objc}/libHelpBookJNI.jnilib"/>-->
+            <!--<arg value="${build-objc}/HelpBookJNI.o"/>-->
+        <!--</exec>-->
 
-        <delete file="${build-objc}/HelpBookJNI.o" quiet="true"/>
-    </target>
+        <!--<delete file="${build-objc}/HelpBookJNI.o" quiet="true"/>-->
+    <!--</target>-->
 
 
-    <target name="stroy.app" depends="compile,stroy2-ui-jar,jni">
+    <target name="stroy.app" depends="compile,stroy2-ui-jar"> <!-- jni -->
         <jarbundler dir="${osx}"
                     verbose="true"
                     name="stroy"
@@ -161,22 +161,22 @@
             <jarfileset refid="externalsSet"/>
             <jarfilelist dir="${lib}" files="stroy2ui.jar" />
 
-            <!-- Copy the HelpBook JNI library  -->
-            <javafilelist dir="${build-objc}" files="libHelpBookJNI.jnilib"/>
+            <!--&lt;!&ndash; Copy the HelpBook JNI library  &ndash;&gt;-->
+            <!--<javafilelist dir="${build-objc}" files="libHelpBookJNI.jnilib"/>-->
 
             <javaproperty name="apple.laf.useScreenMenuBar" value="true"/>
             <javaproperty name="com.apple.macos.useScreenMenuBar" value="true"/>
 
-            <HelpBook locale="English">
-                <fileset dir="${resources}/HelpBook/English" />
-                <fileset dir="${resources}/HelpBook/common" />
-            </HelpBook>
+            <!--<HelpBook locale="English">-->
+                <!--<fileset dir="${resources}/HelpBook/English" />-->
+                <!--<fileset dir="${resources}/HelpBook/common" />-->
+            <!--</HelpBook>-->
 
         </jarbundler>
 
     </target>
 
-    <target name="stroy.app-jp" depends="compile,stroy2-ui-jar,jni">
+    <target name="stroy.app-jp" depends="compile,stroy2-ui-jar"> <!-- jni -->
         <jarbundler dir="${osx}"
                     verbose="true"
                     name="stroy"
@@ -196,15 +196,15 @@
             <jarfilelist dir="${lib}" files="stroy2ui.jar" />
 
             <!-- Copy the HelpBook JNI library  -->
-            <javafilelist dir="${build-objc}" files="libHelpBookJNI.jnilib"/>
+            <!--<javafilelist dir="${build-objc}" files="libHelpBookJNI.jnilib"/>-->
 
             <javaproperty name="apple.laf.useScreenMenuBar" value="true"/>
             <javaproperty name="com.apple.macos.useScreenMenuBar" value="true"/>
 
-            <HelpBook locale="Japanese">
-                <fileset dir="${resources}/HelpBook/English" />
-                <fileset dir="${resources}/HelpBook/common" />
-            </HelpBook>
+            <!--<HelpBook locale="Japanese">-->
+                <!--<fileset dir="${resources}/HelpBook/English" />-->
+                <!--<fileset dir="${resources}/HelpBook/common" />-->
+            <!--</HelpBook>-->
 
         </jarbundler>
 
