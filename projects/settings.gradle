@@ -1,4 +1,4 @@
-include 'lishp', 'openCage-lang'
+include 'lishp', 'openCage-lang', 'openCage-io', 'osashosa', 'lishp', openCage-property
 //'openCage-lang:modules:lang','openCage-io:modules:io', 'osashosa:modules:osashosa'
 //'huffman' , , 'openCage-localization'
 
