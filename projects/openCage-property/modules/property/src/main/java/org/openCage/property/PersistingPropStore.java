@@ -7,7 +7,7 @@ import org.openCage.io.IOUtils;
 import org.openCage.io.SingletonApp;
 import org.openCage.lang.BackgroundExecutor;
 import org.openCage.lang.errors.Unchecked;
-import org.openCage.lang.functions.FV;
+import org.openCage.lang.functions.VF0;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -76,7 +76,7 @@ public class PersistingPropStore implements PropStore {
 
             final PersistingPropStore propStore = this;
 
-            background.addPeriodicAndExitTask( new FV() {
+            background.addPeriodicAndExitTask( new VF0() {
                 @Override
                 public void call() {
                     if ( isDirty ) {

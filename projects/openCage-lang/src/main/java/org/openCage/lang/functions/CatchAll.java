@@ -37,7 +37,7 @@ public final class CatchAll {
 
     private CatchAll() {};
 
-    public static void call( FV f ) {
+    public static void call( VF0 f ) {
         try {
             f.call();
         } catch (Exception ex) {

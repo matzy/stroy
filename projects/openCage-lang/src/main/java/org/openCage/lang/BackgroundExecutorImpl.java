@@ -3,7 +3,7 @@ package org.openCage.lang;
 import java.util.logging.Logger;
 
 import org.openCage.lang.functions.CatchAll;
-import org.openCage.lang.functions.FV;
+import org.openCage.lang.functions.VF0;
 
 /***** BEGIN LICENSE BLOCK *****
  * New BSD License
@@ -42,12 +42,12 @@ public class BackgroundExecutorImpl implements BackgroundExecutor {
     private static final int WAITING = 10000; // 10s
     private static final Logger LOG = Logger.getLogger(BackgroundExecutorImpl.class.getName());
 
-    public void addPeriodicAndExitTask( final FV task) {
+    public void addPeriodicAndExitTask( final VF0 task) {
         addExitTask( task );
         addPeriodicTask( task );
     }
 
-    @Override public void addPeriodicTask( final FV task) {
+    @Override public void addPeriodicTask( final VF0 task) {
         new Thread() {
 
             @SuppressWarnings({"OverlyBroadCatchBlock"})
@@ -68,7 +68,7 @@ public class BackgroundExecutorImpl implements BackgroundExecutor {
         }.start();
     }
 
-    @Override public void addExitTask( final FV task ) {
+    @Override public void addExitTask( final VF0 task ) {
         Runtime.getRuntime().addShutdownHook(
                 new Thread( new Runnable() {
                     @Override public void run() {

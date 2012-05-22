@@ -34,4 +34,8 @@ public final class Tu {
     public static <A,B> T2<A,B> c( A a, B b ) {
         return new T2<A,B>(a,b);
     }
+
+    public static <A,B,C> T3<A,B,C> c( A a, B b, C c ) {
+        return new T3<A,B,C>(a,b,c);
+    }
 }

@@ -39,4 +39,8 @@ public class Ref<T> {
     public int hashCode() {
         return obj != null ? obj.hashCode() : 0;
     }
+
+    public static <T> Ref<T> valueOf( T t ) {
+        return new Ref(t);
+    }
 }

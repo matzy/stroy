@@ -1,0 +1,46 @@
+package org.openCage.utils.func;
+
+import org.openCage.lang.functions.F0;
+import org.openCage.lang.functions.F1;
+import org.openCage.lang.functions.F2;
+
+/***** BEGIN LICENSE BLOCK *****
+* Version: MPL 1.1
+*
+* The contents of this file are subject to the Mozilla Public License Version
+* 1.1 (the "License"); you may not use this file except in compliance with
+* the License. You may obtain a copy of the License at
+* http://www.mozilla.org/MPL/
+*
+* Software distributed under the License is distributed on an "AS IS" basis,
+* WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+* for the specific language governing rights and limitations under the
+* License.
+*
+* The Original Code is stroy code.
+*
+* The Initial Developer of the Original Code is Stephan Pfab <openCage@gmail.com>.
+* Portions created by Stephan Pfab are Copyright (C) 2006 - 2009.
+* All Rights Reserved.
+*
+* Contributor(s):
+***** END LICENSE BLOCK *****/
+
+public class Curry {
+
+    public static <R, A> F0<R> curry( final F1<R, A> f, final A a) {
+        return new F0<R>() {
+            public R call() {
+                return f.call(a);
+            }
+        };
+    }
+
+    public static <R,A,B> F1<R,A> curry( final F2<R,A,B> f, final B b) {
+        return new F1<R,A>() {
+            public R call( A a) {
+                return f.call(a, b);
+            }
+        };
+    }
+}

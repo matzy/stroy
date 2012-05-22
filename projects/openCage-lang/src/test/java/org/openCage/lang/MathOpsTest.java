@@ -38,7 +38,7 @@ public class MathOpsTest {
     @Test
     public void testByteXor() {
 
-        // 2 loops avoiding max values to not create infinity loops
+        // 2 loops avoiding max values to not create infinite loops
 
         for ( byte a = Byte.MIN_VALUE; a < Byte.MAX_VALUE -1; ++a ) {
             for ( byte b = Byte.MIN_VALUE; b < Byte.MAX_VALUE -1; ++b ) {

@@ -1,0 +1,18 @@
+
+
+content use
+
+1) identify by extension
+    - some may be same e.g. htm == html
+
+2) select finger print algorithm
+
+3) select viewer
+
+
+a) file -> content type
+
+b) content type -> algo
+                -> view
+                ...
+

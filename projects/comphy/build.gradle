@@ -1,0 +1,35 @@
+apply plugin: 'java'
+
+dependsOn( ':openCage-lang' );
+
+sourceCompatibility = 1.6
+version = '0.1.0'
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'comphy', 'Implementation-Version': version
+    }
+}
+
+// license new bsd (3-clause)
+
+dependencies {
+    compile project( ':osashosa' )
+    compile project( ':openCage-lang' )
+
+    testCompile 'junit:junit:4.+'
+}
+
+//test {
+//    systemProperties 'property': 'value'
+//}
+
+
+
+
+//uploadArchives {
+//    repositories {
+//       flatDir {
+//           dirs 'repos'
+//       }
+//    }
+//}

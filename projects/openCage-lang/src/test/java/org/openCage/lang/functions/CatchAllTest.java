@@ -36,7 +36,7 @@ public class CatchAllTest {
 
     @Test
     public void testCatch() {
-        CatchAll.call( new FV() {
+        CatchAll.call( new VF0() {
             @Override public void call() {
                 throw new IllegalArgumentException("");
             }
@@ -45,7 +45,7 @@ public class CatchAllTest {
 
     @Test
     public void testCatchError() {
-        CatchAll.call( new FV() {
+        CatchAll.call( new VF0() {
             @Override public void call() {
                 throw new Error("");
             }

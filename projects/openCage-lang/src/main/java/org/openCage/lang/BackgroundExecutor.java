@@ -1,7 +1,6 @@
 package org.openCage.lang;
 
-import org.openCage.lang.functions.F0;
-import org.openCage.lang.functions.FV;
+import org.openCage.lang.functions.VF0;
 
 /***** BEGIN LICENSE BLOCK *****
  * New BSD License
@@ -37,20 +36,20 @@ public interface BackgroundExecutor {
      * the task will run periodically and also at the end of the program
      * @param task
      */
-    void addPeriodicAndExitTask( FV task );
+    void addPeriodicAndExitTask( VF0 task );
 
     /**
      * the task will be run every 10 seconds
      * te task should run fairly quick
      * @param task
      */
-    void addPeriodicTask( FV task );
+    void addPeriodicTask( VF0 task );
 
     /**
      * the task will be executed at the end of the program
      * independent of how the program ends
      * @param task
      */
-    void addExitTask( FV task );
+    void addExitTask( VF0 task );
 
 }

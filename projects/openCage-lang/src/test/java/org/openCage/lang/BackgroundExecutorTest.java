@@ -1,7 +1,7 @@
 package org.openCage.lang;
 
 import org.junit.Test;
-import org.openCage.lang.functions.FV;
+import org.openCage.lang.functions.VF0;
 import org.openCage.lang.structure.Ref;
 
 import static junit.framework.Assert.assertTrue;
@@ -43,7 +43,7 @@ public class BackgroundExecutorTest {
 
         final Ref<Integer> count = new Ref<Integer>(0);
 
-        bg.addPeriodicTask( new FV() {
+        bg.addPeriodicTask( new VF0() {
             public void call() {
                 count.set( count.get() + 1);
             }
