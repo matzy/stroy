@@ -1,10 +1,4 @@
-/*
- * Strindex.java
- *
- * Created on 8. Januar 2005, 18:00
- */
-
-package openCage.util;
+package org.openCage.lang;
 
 /**
  *

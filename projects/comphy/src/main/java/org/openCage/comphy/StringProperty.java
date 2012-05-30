@@ -1,13 +1,14 @@
 package org.openCage.comphy;
 
 
-import org.openCage.lang.Listeners;
+import org.openCage.lang.listeners.VoidListenerControl;
+import org.openCage.lang.listeners.VoidListeners;
 
 import static org.openCage.comphy.RU.r;
 
 public class StringProperty implements Property {
 
-    private Listeners listeners = new Listeners();
+    private VoidListeners listeners = new VoidListeners();
     private String str;
 
     public String get() {
@@ -16,17 +17,12 @@ public class StringProperty implements Property {
 
     public void set(String str) {
         this.str = str;
-        listeners.shout(null);
+        listeners.shout();
     }
 
 
     public StringProperty(String str) {
         this.str = str;
-    }
-
-    @Override
-    public void addObserver(Observer ob) {
-        listeners.add(ob);
     }
 
     @Override
@@ -54,5 +50,10 @@ public class StringProperty implements Property {
     @Override
     public String toString() {
         return "Property: " + str;
+    }
+
+    @Override
+    public VoidListenerControl getListenerControl() {
+        return listeners;
     }
 }

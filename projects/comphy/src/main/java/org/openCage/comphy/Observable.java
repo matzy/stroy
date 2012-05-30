@@ -1,5 +1,7 @@
 package org.openCage.comphy;
 
+import org.openCage.lang.listeners.VoidListenerControl;
+
 /**
  * Created with IntelliJ IDEA.
  * User: stephan
@@ -9,5 +11,5 @@ package org.openCage.comphy;
  */
 public interface Observable {
 
-    void addObserver( Observer ob );
+    VoidListenerControl getListenerControl();
 }

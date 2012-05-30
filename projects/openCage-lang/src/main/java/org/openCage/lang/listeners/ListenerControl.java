@@ -1,11 +1,6 @@
-package org.openCage.lang;
+package org.openCage.lang.listeners;
 
-import net.jcip.annotations.ThreadSafe;
 import org.openCage.lang.functions.F1;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /***** BEGIN LICENSE BLOCK *****
  * New BSD License
@@ -33,47 +28,10 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-***** END LICENSE BLOCK *****/
+ ***** END LICENSE BLOCK *****/
 
-@ThreadSafe
-public class Listeners<T> implements ListenerControl<T>{
+public interface ListenerControl<T> {
 
-    private ReentrantReadWriteLock lock      = new ReentrantReadWriteLock( );
-    private List<F1<Void,T>>       listeners = new ArrayList<F1<Void,T>>();
+    void add(F1<Void, T> listener);
 
-    /**
-     * Call all the listeners with the news
-     * @param news The news
-     */
-    public void shout( T news ) {
-        lock.readLock().lock();
-        try {
-            for ( F1<Void,T> listener : listeners  ) {
-                listener.call( news );
-            }
-        } finally {
-            lock.readLock().unlock();
-        }
-    }
-
-    /**
-     * Add a listener
-     * @param listener Any Listener
-     */
-    public void add( F1<Void,T> listener ) {
-        lock.writeLock().lock();
-        try {
-            listeners.add( listener );
-        } finally {
-            lock.writeLock().unlock();
-        }
-    }
-
-    /**
-     * Get a restricted version of a Listeners to be used outside the class holding the Listeners
-     * @return A object allowing only adding listeners
-     */
-    public ListenerControl<T> get() {
-        return this;
-    }
 }

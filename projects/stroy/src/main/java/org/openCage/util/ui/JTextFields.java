@@ -38,7 +38,7 @@ public class JTextFields {
         }
                 
         String txt = field.getText();
-        txt.trim();
+        txt = txt.trim();
 
         if ( txt.startsWith( "\"")) {
             txt = txt.substring( 1, txt.indexOf( " ", 1));

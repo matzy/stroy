@@ -1,8 +1,5 @@
 package org.openCage.comphy;
 
-import java.util.List;
-import java.util.Map;
-
 /**
  * Created with IntelliJ IDEA.
  * User: stephan
@@ -12,10 +9,10 @@ import java.util.Map;
  */
 public class RU {
     public static Readable r( String str ) {
-        return new ReadableString( str );
+        return new RString( str );
     }
 
     public static String es( Readable rdbl ) {
-        return ((ReadableString)rdbl).get();
+        return ((RString)rdbl).get();
     }
 }

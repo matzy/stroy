@@ -108,8 +108,6 @@ public class CompareBuilder extends SwingWorker<GraphicalDiffMyDoggy, T2<String,
         // build the trees ui in the background
         publish( Tu.c( Message.get( "Progress.MainWindowBuilding" ), (String)null ));
 
-        Log.warning("before new Doggy");
-
         return new GraphicalDiffMyDoggy( menuFactory.get(), diffPaneGen, new Tasks<FileContent>( tasks ) );
     }
 

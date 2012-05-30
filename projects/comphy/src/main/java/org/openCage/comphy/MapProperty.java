@@ -1,6 +1,8 @@
 package org.openCage.comphy;
 
-import org.openCage.lang.Listeners;
+import org.openCage.lang.listeners.Listeners;
+import org.openCage.lang.listeners.VoidListenerControl;
+import org.openCage.lang.listeners.VoidListeners;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -14,10 +16,10 @@ import java.util.Set;
  * Time: 5:28 PM
  * To change this template use File | Settings | File Templates.
  */
-public class MapProperty<T extends Property> implements Property, Map<String,T> {
+public class MapProperty<T extends Property> implements Property, Map<Key,T>, Observer  {
 
-    private Map<String,T> map = new HashMap<String, T>();
-    private Listeners listeners = new Listeners();
+    private Map<Key,T> map = new HashMap<Key, T>();
+    private VoidListeners listeners = new VoidListeners();
 
     @Override
     public int size() {
@@ -45,33 +47,48 @@ public class MapProperty<T extends Property> implements Property, Map<String,T> 
     }
 
     @Override
-    public T put(String key, T value) {
+    public T put(Key key, T value) {
         T ret = map.put(key, value);
-        listeners.shout(null);
+        value.getListenerControl().add(this);
+        if ( ret != null ) {
+            ret.getListenerControl().remove(this);
+        }
+        listeners.shout();
         return ret;
+    }
+
+    public MapProperty<T> put( String key, T val ) {
+        map.put( new Key(key), val);
+        listeners.shout();
+        return this;
+
     }
 
     @Override
     public T remove(Object key) {
         T ret = map.remove(key);
-        listeners.shout(null);
+        listeners.shout();
         return ret;
     }
 
     @Override
-    public void putAll(Map<? extends String, ? extends T> m) {
-        map.putAll( m );
-        listeners.shout(null);
+    public void putAll(Map<? extends Key, ? extends T> m) {
+        for ( Map.Entry<? extends Key, ? extends T> pair : m.entrySet()  ) {
+            put( pair.getKey(), pair.getValue());
+        }
     }
 
     @Override
     public void clear() {
+        for ( T val : map.values()) {
+            val.getListenerControl().remove(this);
+        }
         map.clear();
-        listeners.shout(null);
+        listeners.shout();
     }
 
     @Override
-    public Set<String> keySet() {
+    public Set<Key> keySet() {
         return map.keySet();
     }
 
@@ -81,21 +98,26 @@ public class MapProperty<T extends Property> implements Property, Map<String,T> 
     }
 
     @Override
-    public Set<Entry<String, T>> entrySet() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public void addObserver(Observer ob) {
-        listeners.add(ob);
+    public Set<Entry<Key, T>> entrySet() {
+        return map.entrySet();
     }
 
     @Override
     public Readable toReadable() {
         RMap ret = new RMap();
-        for ( Map.Entry<String,T> pair : map.entrySet() ) {
+        for ( Map.Entry<Key,T> pair : map.entrySet() ) {
             ret.put(pair.getKey(), pair.getValue().toReadable());
         }
         return ret;
+    }
+
+    @Override
+    public void call() {
+        listeners.shout();
+    }
+
+    @Override
+    public VoidListenerControl getListenerControl() {
+        return listeners;
     }
 }

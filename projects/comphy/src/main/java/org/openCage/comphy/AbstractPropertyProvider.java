@@ -4,12 +4,12 @@ import com.google.inject.Provider;
 
 public abstract class AbstractPropertyProvider<T extends Property> implements Provider<T> {
 
-    private final PropertyStore5 store;
+    private final PropertyStore store;
     private final Dereadalizer<T> deread;
     private final T deflt;
-    private final String key;
+    private final Key key;
 
-    public AbstractPropertyProvider(PropertyStore5 store, Dereadalizer<T> deread, T deflt, String key) {
+    public AbstractPropertyProvider( PropertyStore store, Dereadalizer<T> deread, T deflt, Key key) {
         this.store = store;
         this.deread = deread;
         this.deflt = deflt;

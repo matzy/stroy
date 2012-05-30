@@ -1,6 +1,6 @@
 apply plugin: 'java'
 
-dependsOn( ':openCage-lang' );
+//dependsOn( ':openCage-lang' );
 
 sourceCompatibility = 1.6
 version = '0.1.0'
@@ -15,6 +15,7 @@ jar {
 dependencies {
     compile project( ':osashosa' )
     compile project( ':openCage-lang' )
+    compile project( ':openCage-io' )
 
     testCompile 'junit:junit:4.+'
 }

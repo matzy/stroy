@@ -10,13 +10,18 @@ import java.util.ArrayList;
  * To change this template use File | Settings | File Templates.
  */
 public class RList extends ArrayList<Readable> implements Readable {
-    public String getElementKey() {
+    private Key elementKey;
+
+    public RList( Key elementKey ) {
+        this.elementKey = elementKey;
+    }
+
+    public Key getElementKey() {
         return elementKey;
     }
 
-    private String elementKey;
-
-    public RList( String elementKey ) {
-        this.elementKey = elementKey;
+    @Override
+    public String toString() {
+        return "rlist " + elementKey;
     }
 }

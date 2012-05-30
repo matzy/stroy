@@ -1,8 +1,5 @@
 package org.openCage.comphy;
 
-import java.util.List;
-import java.util.Map;
-
 /**
  * Created with IntelliJ IDEA.
  * User: stephan
@@ -12,18 +9,18 @@ import java.util.Map;
  */
 public class StringPropertyDereader implements Dereadalizer<StringProperty> {
     @Override
-    public StringProperty fromString(String str) {
-        return new StringProperty(str);
+    public StringProperty fromString( RString str) {
+        return new StringProperty(str.get());
     }
 
     @Override
-    public StringProperty fromList(List<Readable> lst) {
+    public StringProperty fromList(RList lst) {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
-    public StringProperty fromMap(Map<String, Readable> map) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    public StringProperty fromMap(RMap map) {
+        throw new IllegalArgumentException( "can't create a RString from a map" );
     }
 
 

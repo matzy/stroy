@@ -1,0 +1,12 @@
+stroy refactoring plan
+
+# instead of a big rewrite do a slow rewrite, keep it working
+
+# move to jdk 6
+#   swing worker is already in 6
+#   jdic is already in 6
+#   replace guice 1 with osashosa
+##  fix osashosa (to(typeliteral))
+
+# move to gradle
+  move jarbuilder to gradle: todo

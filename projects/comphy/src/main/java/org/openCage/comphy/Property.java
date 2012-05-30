@@ -1,11 +1,10 @@
 package org.openCage.comphy;
 
 /**
- * Created with IntelliJ IDEA.
- * User: stephan
- * Date: 5/21/12
- * Time: 8:55 AM
- * To change this template use File | Settings | File Templates.
+ * A Property here is an object that can be (a) serialized, i.e. stored persistently and (b) readable and
+ * guaranties changes to be persisted and informs interested parties about changes
+ * => it is observable and readalizable
+ *
  */
 public interface Property extends Observable, Readalizable {
 }

@@ -1,10 +1,11 @@
 package org.openCage.stroy;
 
-import com.google.inject.Binder;
-import com.google.inject.Module;
-import com.google.inject.Singleton;
-import com.google.inject.TypeLiteral;
+import com.google.inject.*;
 import com.google.inject.name.Names;
+import org.openCage.comphy.*;
+import org.openCage.io.fspath.FSPathBuilder;
+import org.openCage.lang.BackgroundExecutor;
+import org.openCage.lang.BackgroundExecutorImpl;
 import org.openCage.stroy.array.AddIngnorantListMetric;
 import org.openCage.stroy.array.ListChangeMetric;
 import org.openCage.stroy.array.ReorderIgnorantArrayDistance;
@@ -177,5 +178,19 @@ public class RuntimeModule implements Module {
 
         binder.bind(PrefsUI.class).to( PrefsUIImpl.class ).in(Singleton.class);
 
+        binder.bind( File.class ).annotatedWith( Names.named("PropStoreFile")).toInstance(FSPathBuilder.getPreferences().add("stroy.cphy").toFile());
+
+        binder.bind( BackgroundExecutor.class ).to(BackgroundExecutorImpl.class);
+        binder.bind( PropertyStore.class ).to( PersistantPropertyStore.class);
+        binder.bind( StringProperty.class ).annotatedWith( Names.named("dir.first")).toProvider( DirFirstProv.class );
+
     }
+
+    public static class DirFirstProv extends StringPropertyProvider {
+        @Inject
+        public DirFirstProv( PropertyStore store) {
+            super(store, new Key("dir.first"), "" );
+        }
+    }
+
 }

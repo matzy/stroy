@@ -1,9 +1,12 @@
 package org.openCage.stroy.ui;
 
 import com.google.inject.Inject;
+import com.google.inject.name.Named;
 import com.muchsoft.util.mac.Java14Adapter;
 import com.muchsoft.util.mac.Java14Handler;
 import com.muchsoft.util.Sys;
+import org.openCage.comphy.Observer;
+import org.openCage.comphy.StringProperty;
 import org.openCage.stroy.ui.menu.PortableMenuFactory;
 import org.openCage.util.io.FileUtils;
 import org.openCage.stroy.dir.FileContent;
@@ -12,6 +15,7 @@ import org.openCage.stroy.ui.prefs.PrefsUI;
 import org.openCage.stroy.ui.menu.PortableMenu;
 import org.openCage.stroy.update.UpdateChecker;
 import org.openCage.stroy.locale.Message;
+import org.openCage.util.prefs.TextField2;
 import org.openCage.util.ui.FileChooser;
 import org.openCage.util.app.About;
 import org.openCage.util.app.AboutImpl;
@@ -64,7 +68,7 @@ public class DirSelectorImpl extends JFrame
 
     private final JProgressBar progressBar = new JProgressBar();
 
-    private final TextField oneTxt      =  new TextField( "dir.first" );
+    private final TextField2 oneTxt;
     private final JButton   oneButton   = new JButton("..");
     private final TextField twoTxt      = new TextField( "dir.second" );
     private final JButton   twoButton   = new JButton("..");
@@ -93,8 +97,11 @@ public class DirSelectorImpl extends JFrame
                             final PortableMenuFactory portableMenuFactory,
                             final AppInfo appInfo,
                             final UpdateChecker updateChecker,
-                            final CompareBuilderFactory cbf ) {
+                            final CompareBuilderFactory cbf,
+                            @Named( value = "dir.first") final StringProperty dirFirst ) {
         super( "stroy");
+
+        this.oneTxt = new TextField2( dirFirst );
 
         this.appInfo       = appInfo;
         this.updateChecker = updateChecker;
@@ -130,11 +137,17 @@ public class DirSelectorImpl extends JFrame
         addFileChooser( threeButton, threeTxt, oneTxt );
 
 
-        oneTxt.getItem().addListener( new PreferencesChangeListener<String>() {
-            public void changed(String txt) {
+        oneTxt.getListenerControl().add( new Observer() {
+            @Override
+            public void call() {
                 checkGo();
             }
         });
+//        oneTxt.getItem().addListener( new PreferencesChangeListener<String>() {
+//            public void changed(String txt) {
+//                checkGo();
+//            }
+//        });
 
         twoTxt.getItem().addListener( new PreferencesChangeListener<String>() {
             public void changed(String txt) {
@@ -183,8 +196,12 @@ public class DirSelectorImpl extends JFrame
 
                 if ( ref.getText().length() > 0 ) {
                     File refFile = new File( ref.getText() );
-                    if ( refFile.exists() ) {
-                        baseDir = refFile.getParentFile().getAbsolutePath();
+                    if ( refFile.exists() ){
+                        if ( refFile.isDirectory() ) {
+                            baseDir = refFile.getAbsolutePath();
+                        } else {
+                            baseDir = refFile.getParentFile().getAbsolutePath();
+                        }
                     }
                 }
 

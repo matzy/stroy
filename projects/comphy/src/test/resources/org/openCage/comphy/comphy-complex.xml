@@ -1,0 +1,15 @@
+<comphy>
+    <fileTypes>
+        <jpg>
+            <description>lossy picture codec</description>
+            <diff>image diff</diff>
+            <open>paint</open>
+        </jpg>
+        <java>
+            <description>java source</description>
+            <diff>text diff</diff>
+            <open>intellij</open>
+        </java>
+    </fileTypes>
+    <loglevel>fine</loglevel>
+</comphy>

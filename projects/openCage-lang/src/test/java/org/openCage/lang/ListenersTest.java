@@ -2,6 +2,7 @@ package org.openCage.lang;
 
 import org.junit.Test;
 import org.openCage.lang.functions.F1;
+import org.openCage.lang.listeners.Listeners;
 import org.openCage.lang.structure.Ref;
 
 import static junit.framework.Assert.assertEquals;
@@ -34,7 +35,7 @@ import static junit.framework.Assert.assertEquals;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **** END LICENSE BLOCK *****/
 
-public class ListenersTest {
+public class    ListenersTest {
 
     @Test
     public void testStd() {

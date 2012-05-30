@@ -1,6 +1,7 @@
 package org.openCage.comphy;
 
-import org.openCage.lang.Listeners;
+import org.openCage.lang.listeners.VoidListenerControl;
+import org.openCage.lang.listeners.VoidListeners;
 
 import java.util.*;
 
@@ -14,16 +15,19 @@ import java.util.*;
 public class ListProperty<T extends Property> implements Property, List<T>, Observer {
 
     private List<T> list = new ArrayList<T>();
-    private Listeners<Object> observers = new Listeners<Object>();
-    private String elementKey;
+    private VoidListeners observers = new VoidListeners();
+    private Key elementKey;
     private Dereadalizer<T> elemDeread;
 
-    public ListProperty(String elementKey, Dereadalizer<T> elemDeread) {
+    public ListProperty(Key elementKey, Dereadalizer<T> elemDeread) {
         this.elementKey = elementKey;
         this.elemDeread = elemDeread;
     }
 
-    @Override
+    public ListProperty(String elementKey, Dereadalizer<T> elemDeread) {
+        this( new Key(elementKey), elemDeread );
+    }
+        @Override
     public int size() {
         return list.size();
     }
@@ -57,18 +61,21 @@ public class ListProperty<T extends Property> implements Property, List<T>, Obse
     public boolean add(T s) {
         boolean ret = list.add(s);
         announceChange();
-        s.addObserver(this);
+        s.getListenerControl().add(this);
         return ret;
     }
 
     private void announceChange() {
-        observers.shout( null );
+        observers.shout();
     }
 
     @Override
     public boolean remove(Object o) {
         boolean ret = list.remove(o);
-        announceChange();
+        if ( ret ) {
+            ((T)o).getListenerControl().remove(this);
+            announceChange();
+        }
         return ret;
     }
 
@@ -80,6 +87,9 @@ public class ListProperty<T extends Property> implements Property, List<T>, Obse
     @Override
     public boolean addAll(Collection<? extends T> c) {
         boolean ret = list.addAll(c);
+        for( T elem : c ) {
+            elem.getListenerControl().add(this);
+        }
         announceChange();
         return ret;
     }
@@ -88,6 +98,9 @@ public class ListProperty<T extends Property> implements Property, List<T>, Obse
     @Override
     public boolean addAll(int index, Collection<? extends T> c) {
         boolean ret = list.addAll(index,c);
+        for( T elem : c ) {
+            elem.getListenerControl().add(this);
+        }
         announceChange();
         return ret;
     }
@@ -95,17 +108,30 @@ public class ListProperty<T extends Property> implements Property, List<T>, Obse
     @Override
     public boolean removeAll(Collection<?> c) {
         boolean ret = list.removeAll(c);
+        for( T elem : (Collection<T>)c ) {
+            elem.getListenerControl().removeCompletely(this);
+        }
         announceChange();
         return ret;
     }
 
     @Override
     public boolean retainAll(Collection<?> c) {
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
+        for ( T elem : list ) {
+            if ( !c.contains(elem)) {
+                elem.getListenerControl().remove(this);
+            }
+        }
+        boolean ret = list.retainAll(c);
+        observers.shout();
+        return ret;
     }
 
     @Override
     public void clear() {
+        for ( T elem : list ) {
+            elem.getListenerControl().remove(this);
+        }
         list.clear();
         announceChange();
     }
@@ -167,12 +193,7 @@ public class ListProperty<T extends Property> implements Property, List<T>, Obse
 
     @Override
     public List<T> subList(int fromIndex, int toIndex) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public void addObserver(Observer ob) {
-        observers.add( ob );
+        throw new Error("impl me");
     }
 
 
@@ -186,8 +207,12 @@ public class ListProperty<T extends Property> implements Property, List<T>, Obse
     }
 
     @Override
-    public Void call(Object o) {
-        observers.shout(null);
-        return null;
+    public void call() {
+        observers.shout();
+    }
+
+    @Override
+    public VoidListenerControl getListenerControl() {
+        return observers;
     }
 }

@@ -68,7 +68,6 @@ public class GraphicalDiffMyDoggy<T extends Content> extends JFrame implements I
         this.tasks = tasks.getTasks();
         this.portableMenu = portableMenu;
 
-        Log.warning("111");
         // part of unified taskbar // refactor
         //getRootPane().putClientProperty("apple.awt.brushMetalLook", Boolean.TRUE);
 
@@ -76,45 +75,32 @@ public class GraphicalDiffMyDoggy<T extends Content> extends JFrame implements I
 
         fillGhosts( dmtRoots );
 
-        Log.warning("222");
-
         setTitle( Message.get( "Docking.Main.Title" ));
         setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
         setSize( 400, 200 );
 
         getContentPane().setLayout( new BorderLayout());
 
-        Log.warning("333");
-
         try {
 
-            Log.warning( "gen " + gen );
-        diffPane = gen.getDiffPane( this.tasks, dmtRoots );
+            diffPane = gen.getDiffPane( this.tasks, dmtRoots );
         } catch ( Throwable exp ) {
             exp.fillInStackTrace();
             Log.warning(exp.getMessage());
             Log.log( exp );
         }
 
-        Log.warning("aaaa");
         final JComponent top = new ShowDiffSummary( this.tasks, dmtRoots );
   //      final ShowCurrentDiff current = new ShowCurrentDiff( tasks );
 //        final Buttons buttons = new Buttons( this );
 
     //    center.addNSelectionListener( current );
 
-        Log.warning("bbb");
-
 
         toolWindowManager = new MyDoggyToolWindowManager( this );
 
-        Log.warning("cc");
-
 
         getContentPane().add(toolWindowManager, BorderLayout.CENTER);
-
-        Log.warning("444");
-
 
         toolWindowManager.registerToolWindow( Message.get("Docking.summary"),  // Id
                                               Message.get("Docking.summary"),                 // Title
@@ -144,8 +130,6 @@ public class GraphicalDiffMyDoggy<T extends Content> extends JFrame implements I
                                                           diffPane.getPanel() );
 
         pack();
-
-        Log.warning("444b");
 
 
         // Made all tools available
@@ -249,9 +233,6 @@ public class GraphicalDiffMyDoggy<T extends Content> extends JFrame implements I
                 }
             }
         };
-
-        Log.warning("555");
-
 
         for ( TreeMatchingTask<T> task : tasks.getTasks() ) {
             task.getFileTask().addNodeChangeListener( listener );
