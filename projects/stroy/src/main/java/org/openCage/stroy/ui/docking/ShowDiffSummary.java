@@ -17,26 +17,29 @@ import java.util.List;
 import net.java.dev.designgridlayout.DesignGridLayout;
 
 /***** BEGIN LICENSE BLOCK *****
- * Version: MPL 1.1
+ * BSD License (2 clause)
+ * Copyright (c) 2006 - 2012, Stephan Pfab
+ * All rights reserved.
  *
- * The contents of this file are subject to the Mozilla Public License Version
- * 1.1 (the "License"); you may not use this file except in compliance with
- * the License. You may obtain a copy of the License at
- * http://www.mozilla.org/MPL/
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above copyright
+ *       notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the
+ *       documentation and/or other materials provided with the distribution.
  *
- * Software distributed under the License is distributed on an "AS IS" basis,
- * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
- * for the specific language governing rights and limitations under the
- * License.
- *
- * The Original Code is stroy code.
- *
- * The Initial Developer of the Original Code is Stephan Pfab <openCage@gmail.com>.
- * Portions created by Stephan Pfab are Copyright (C) 2006 - 2009.
- * All Rights Reserved.
- *
- * Contributor(s):
- ***** END LICENSE BLOCK *****/
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL Stephan Pfab BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+***** END LICENSE BLOCK *****/
 
 public class ShowDiffSummary<T extends Content> extends JPanel {
     private final JLabel multiple = new JLabel( Message.get( "Summary.multiple" ));
@@ -72,7 +75,7 @@ public class ShowDiffSummary<T extends Content> extends JPanel {
 
         final JPanel top = new JPanel();
         final DesignGridLayout layout = new DesignGridLayout( top );
-        top.setLayout( layout );
+        //top.setLayout( layout );
 
         int totalSize = 1;
         int onlySize = 1;
@@ -90,10 +93,10 @@ public class ShowDiffSummary<T extends Content> extends JPanel {
 
 
         leftRootDir = new JLabel( getRootPath( roots.get(0) ) );
-        layout.row().label( new JLabel( Message.get( "Summary.first" ))).add( leftRootDir, contentSize + renamedSize + movedSize ).add( refresh, multipleSize );
-        layout.row().label( new JLabel( Message.get( "Summary.second" ))).add( new JLabel( getRootPath( roots.get(1) ) ));
+        layout.row().grid( new JLabel( Message.get( "Summary.first" ))).add( leftRootDir, contentSize + renamedSize + movedSize ).add( refresh, multipleSize );
+        layout.row().grid( new JLabel( Message.get( "Summary.second" ))).add( new JLabel( getRootPath( roots.get(1) ) ));
 
-        layout.emptyRow( 20 );
+        layout.row().grid().empty( 20 );
 
         // total + only
 
@@ -101,37 +104,37 @@ public class ShowDiffSummary<T extends Content> extends JPanel {
         only.setForeground( Colors.ONLYHERE );
         only2.setForeground( Colors.ONLYHERE );
 
-        layout.row().empty().
+        layout.row().grid().empty().
                 add( new JLabel( Message.get( "Summary.total" )), totalSize).
                 add( only, onlySize );
         if ( Message.hasNewLines( "Summary.only" )) {
 
             only2.setText( Message.get("Summary.only", 1 ));
 
-            layout.row().empty( 1 + totalSize ).
+            layout.row().grid().empty( 1 + totalSize ).
                     add( only2, onlySize )
                     //empty(contentSize + renamedSize + movedSize + multipleSize)
                     ;
         }
 
-        layout.row().label( Message.getl( "Summary.first" )).add( new JLabel( Message.get("Summary.dirs"))).
+        layout.row().grid( Message.getl( "Summary.first" )).add( new JLabel( Message.get("Summary.dirs"))).
                 add( leftDirsTotal, totalSize ).
                 add( leftDirsOnly, onlySize )
                 //empty(contentSize + renamedSize + movedSize + multipleSize)
                 ;
-        layout.row().add( Message.getl( "Summary.files" )).
+        layout.row().grid().add( Message.getl( "Summary.files" )).
                 add( leftFilesTotal, totalSize ).
                 add( leftFilesOnly, onlySize )
                 //empty(4)
                 ;
 
 
-        layout.row().label( Message.getl( "Summary.second" )).add( new JLabel( Message.get("Summary.dirs"))).
+        layout.row().grid( Message.getl( "Summary.second" )).add( new JLabel( Message.get("Summary.dirs"))).
                 add( rightDirsTotal, totalSize ).
                 add( rightDirsOnly, onlySize )
                 //empty(4)
                 ;
-        layout.row().add( Message.getl( "Summary.files" )).
+        layout.row().grid().add( Message.getl( "Summary.files" )).
                 add( rightFilesTotal, totalSize ).
                 add( rightFilesOnly, onlySize )
                 //empty(4)
@@ -145,14 +148,14 @@ public class ShowDiffSummary<T extends Content> extends JPanel {
         moved.setForeground( Colors.STRUCTUR );
         multiple.setForeground( Colors.CONTENT_AND_STRUCTUR );
 
-        layout.row().empty();
-        layout.row().empty().
+        layout.row().grid().empty();
+        layout.row().grid().empty().
                 add( content, contentSize ).
                 add( renamed, renamedSize ).
                 add( moved, movedSize ).
                 add( multiple, multipleSize) ;
 
-        layout.row().label( Message.getl( "Summary.changed" )).
+        layout.row().grid( Message.getl( "Summary.changed" )).
                 add( new JLabel( Message.get("Summary.dirs"))).
                 add( new JLabel( "-" ), contentSize ).
                 add( renamedDirs, renamedSize ).
@@ -160,7 +163,7 @@ public class ShowDiffSummary<T extends Content> extends JPanel {
                 add( new JLabel( "-" ), multipleSize
                 );
 
-        layout.row().
+        layout.row().grid().
                 add( Message.getl( "Summary.files" )).
                 add( contentLeaves, contentSize ).
                 add( renamedFiles, renamedSize ).

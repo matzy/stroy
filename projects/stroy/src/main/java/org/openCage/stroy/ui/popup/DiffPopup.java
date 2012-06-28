@@ -1,22 +1,24 @@
 package org.openCage.stroy.ui.popup;
 
 import com.google.inject.name.Named;
+import org.openCage.comphy.ImmuProp;
 import org.openCage.comphy.StringProperty;
+import org.openCage.lang.inc.Str;
 import org.openCage.lang.structure.T2;
 import org.openCage.lang.structure.Tu;
+import org.openCage.stroy.file.FileTypes5;
+import org.openCage.stroy.filter.IgnoreCentral5;
 import org.openCage.util.io.FileUtils;
 import org.openCage.util.external.ExternalProgs;
-import org.openCage.stroy.file.FileTypes;
 import org.openCage.stroy.graph.node.TreeNode;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.ui.util.NodeToNode;
-import org.openCage.stroy.ui.prefs.StandardProgUI;
 import org.openCage.stroy.ui.prefs.PrefsUI;
 import org.openCage.stroy.locale.Message;
 import org.openCage.stroy.content.Content;
-import org.openCage.util.prefs.PreferenceString;
 
-import javax.swing.*;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 import javax.swing.tree.TreePath;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,26 +26,29 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 
 /***** BEGIN LICENSE BLOCK *****
- * Version: MPL 1.1
+ * BSD License (2 clause)
+ * Copyright (c) 2006 - 2012, Stephan Pfab
+ * All rights reserved.
  *
- * The contents of this file are subject to the Mozilla Public License Version
- * 1.1 (the "License"); you may not use this file except in compliance with
- * the License. You may obtain a copy of the License at
- * http://www.mozilla.org/MPL/
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above copyright
+ *       notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the
+ *       documentation and/or other materials provided with the distribution.
  *
- * Software distributed under the License is distributed on an "AS IS" basis,
- * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
- * for the specific language governing rights and limitations under the
- * License.
- *
- * The Original Code is stroy code.
- *
- * The Initial Developer of the Original Code is Stephan Pfab <openCage@gmail.com>.
- * Portions created by Stephan Pfab are Copyright (C) 2006 - 2009.
- * All Rights Reserved.
- *
- * Contributor(s):
- ***** END LICENSE BLOCK *****/
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL Stephan Pfab BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+***** END LICENSE BLOCK *****/
 
 /**
  * Popupmenu for stroy
@@ -52,14 +57,12 @@ import java.io.File;
  */
 public class DiffPopup<T extends Content> extends JPopupMenu {
 
-    @Named( value = StandardProgUI.STANDARD_DIFF_KEY )
-    private StringProperty standard_diff;
-
     private final TreeMatchingTask<T> taskRight;
     private final TreeMatchingTask<T> taskLeft;
     private TreePath                  currentPath;
 
-    private FileTypes     fileTypes;
+//    private FileTypes     fileTypes;
+    private final FileTypes5 fileTypes;
 
     private JMenuItem diffMenu;
     private JMenuItem diffWith;
@@ -67,17 +70,28 @@ public class DiffPopup<T extends Content> extends JPopupMenu {
     private JMenuItem open;
     private JMenuItem openAsText;
 
-    private DiffPopupDecider decider = new DiffPopupDecider();
+    private DiffPopupDecider decider;
     private PrefsUI prefsUI;
+    private final ImmuProp<Str> editor;
+    private final ImmuProp<Str> diffProg;
+    private final IgnoreCentral5 central;
 
-    public DiffPopup( final PrefsUI prefsUI,
-                      final TreeMatchingTask<T> taskLeft,
-                      final TreeMatchingTask<T> taskRight ) {
+    public DiffPopup(final PrefsUI prefsUI,
+                     @Named(value = "Editor") ImmuProp<Str> editor,
+                     @Named(value = "DiffProg") ImmuProp<Str> diffProg,
+                     final FileTypes5 fileTypes,
+                     IgnoreCentral5 central, final TreeMatchingTask<T> taskLeft,
+                     final TreeMatchingTask<T> taskRight) {
+        this.diffProg = diffProg;
+        this.fileTypes = fileTypes;
+        this.central = central;
+        this.decider =  new DiffPopupDecider(fileTypes);
+
 
         this.taskLeft  = taskLeft;
         this.taskRight = taskRight;
         this.prefsUI = prefsUI;
-        fileTypes      = FileTypes.create();
+        this.editor = editor;
 
         diffMenu();
         diffWithMenu();
@@ -136,7 +150,7 @@ public class DiffPopup<T extends Content> extends JPopupMenu {
                     return;
                 }
 
-                new IgnoreOneUI( NodeToNode.getStringPath( currentPath ), file.getName(), FileUtils.getExtension( file )).setVisible( true );
+                new IgnoreOneUI( NodeToNode.getStringPath( currentPath ), file.getName(), FileUtils.getExtension( file ), central).setVisible( true );
             }
         });
         add(menuItem);
@@ -151,7 +165,7 @@ public class DiffPopup<T extends Content> extends JPopupMenu {
                     return;
                 }
 
-                String cmd = PreferenceString.get( StandardProgUI.STANDARD_TEXT_EDITOR_KEY ).get();
+                String cmd = editor.get().get();
 
                 ExternalProgs.execute( cmd, file.getAbsolutePath() );
             }
@@ -229,7 +243,7 @@ public class DiffPopup<T extends Content> extends JPopupMenu {
                 String cmd = fileTypes.getDiffType(FileUtils.getExtension(nodes.i0.getContent().getName()));
 
                 if ( cmd != null && cmd.equals( ExternalProgs.STANDARD_DIFF )) {
-                    cmd = PreferenceString.getOrCreate( StandardProgUI.STANDARD_DIFF_KEY, "" ).get();
+                    cmd = diffProg.get().get();
                 }
 
                 ExternalProgs.execute( cmd,

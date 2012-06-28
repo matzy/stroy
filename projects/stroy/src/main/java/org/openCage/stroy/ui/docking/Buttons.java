@@ -63,7 +63,7 @@
 //        DesignGridLayout layout = new DesignGridLayout( top );
 //        top.setLayout( layout );
 //
-//        layout.row().add( diffMerge ).add( matchSelection );
+//        layout.row().grid().add( diffMerge ).add( matchSelection );
 //
 //        setLayout( new BorderLayout());
 //        add( top, BorderLayout.CENTER  );

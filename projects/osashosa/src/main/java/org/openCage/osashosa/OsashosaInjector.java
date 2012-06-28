@@ -8,26 +8,29 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.*;
 
 /***** BEGIN LICENSE BLOCK *****
- * Version: MPL 1.1
+ * BSD License (2 clause)
+ * Copyright (c) 2006 - 2012, Stephan Pfab
+ * All rights reserved.
  *
- * The contents of this file are subject to the Mozilla Public License Version
- * 1.1 (the "License"); you may not use this file except in compliance with
- * the License. You may obtain a copy of the License at
- * http://www.mozilla.org/MPL/
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above copyright
+ *       notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the
+ *       documentation and/or other materials provided with the distribution.
  *
- * Software distributed under the License is distributed on an "AS IS" basis,
- * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
- * for the specific language governing rights and limitations under the
- * License.
- *
- * The Original Code is stroy code.
- *
- * The Initial Developer of the Original Code is Stephan Pfab <openCage@gmail.com>.
- * Portions created by Stephan Pfab are Copyright (C) 2006 - 2010.
- * All Rights Reserved.
- *
- * Contributor(s):
- ***** END LICENSE BLOCK *****/
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL Stephan Pfab BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+***** END LICENSE BLOCK *****/
 
 public class OsashosaInjector implements Injector {
 
@@ -67,6 +70,30 @@ public class OsashosaInjector implements Injector {
         return getInstance( null, "", clazz );
     }
 
+    @Override
+    public void injectMembers(Object o) {
+
+        Class clazz = o.getClass();
+
+        for ( Field field : clazz.getFields()) {
+
+            if ( field.getAnnotation( Inject.class ) != null ) {
+                Annotation anno = field.getAnnotation( Named.class );
+                String name = "";
+                if ( anno != null ) {
+                    name = ((Named)anno).value();
+                }
+                try {
+                    field.set( o, getInstance( null, name, field.getType()) );
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                }
+         //       throw new UnsupportedOperationException( "no method or field @Inject supported, class: " + clazz.getName() );
+            }
+        }
+
+    }
+
     private <T> T getInstance( StackList before, String name, Class<T> clazz ) {
         return getInstance( before, name, Key.get(clazz));
     }
@@ -77,7 +104,7 @@ public class OsashosaInjector implements Injector {
 
     <T> T getInstance(StackList before, String name, Key<T> key) {
 
-        BindingBuilder<T> bb = (BindingBuilder<T>)bindings.get( new BindingBuilder(null, key).annotatedWith( Names.named(name)));
+        BindingBuilder<T> bb = (BindingBuilder<T>)bindings.get( (BindingBuilder)new BindingBuilder(null, key).annotatedWith( Names.named(name)));
 
         if ( bb == null ) {
 
@@ -104,7 +131,7 @@ public class OsashosaInjector implements Injector {
             }
 
             // try self binding
-            bb = new BindingBuilder( null, key ).to( clazz );
+            bb = (BindingBuilder<T>)new BindingBuilder( null, key ).to( clazz );
         }
 
         if ( bb.getSingleton() != null ) {
@@ -132,6 +159,12 @@ public class OsashosaInjector implements Injector {
             before = new StackList( bindingBuilder, before );
         }
 
+        if ( bindingBuilder.getConcreteProvider() != null ) {
+            Provider<? extends T> prov = bindingBuilder.getConcreteProvider();
+            injectMembers(prov);
+            return prov.get();
+        }
+
         Constructor cnstr = getConstructor( bindingBuilder.isDirect() ? bindingBuilder.getTo() : bindingBuilder.getProvider() );
         Object[] params = findArguments( before, cnstr);
         try {
@@ -156,7 +189,7 @@ public class OsashosaInjector implements Injector {
             throw Unchecked.wrap( e );
         } catch ( IllegalArgumentException e ) {
             e.printStackTrace();
-            throw new IllegalArgumentException( "bound a provider with to " + e );
+            throw new IllegalArgumentException( "bound a provider with 'to', should be 'toProvider' " + e );
         }
     }
 
@@ -182,7 +215,7 @@ public class OsashosaInjector implements Injector {
         if ( cnstrs.length == 1 ) {
 
             if ( cnstrs[0].getGenericParameterTypes().length != 0 ) {
-                throw new ConfigurationException( "class " + clazz.getName() + " as only a constructor with arguments");
+                throw new ConfigurationException( "class " + clazz.getName() + " has only a constructor with arguments");
             }
 
             return cnstrs[0];

@@ -10,30 +10,35 @@ import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Formatter;
 
-import org.openCage.util.prefs.PComboBox;
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
+import org.openCage.util.prefs.*;
 import org.openCage.stroy.locale.Message;
 import net.java.dev.designgridlayout.DesignGridLayout;
 
 /***** BEGIN LICENSE BLOCK *****
-* Version: MPL 1.1
-*
-* The contents of this file are subject to the Mozilla Public License Version
-* 1.1 (the "License"); you may not use this file except in compliance with
-* the License. You may obtain a copy of the License at
-* http://www.mozilla.org/MPL/
-*
-* Software distributed under the License is distributed on an "AS IS" basis,
-* WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
-* for the specific language governing rights and limitations under the
-* License.
-*
-* The Original Code is stroy code.
-*
-* The Initial Developer of the Original Code is Stephan Pfab <openCage@gmail.com>.
-* Portions created by Stephan Pfab are Copyright (C) 2006 - 2009.
-* All Rights Reserved.
-*
-* Contributor(s):
+ * BSD License (2 clause)
+ * Copyright (c) 2006 - 2012, Stephan Pfab
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above copyright
+ *       notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the
+ *       documentation and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL Stephan Pfab BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ***** END LICENSE BLOCK *****/
 
 public class LogHandlerPanel extends JFrame {
@@ -46,8 +51,8 @@ public class LogHandlerPanel extends JFrame {
 //    private final String PRESET_INLEVEL = "inlevel";
 
     private Handler           logHandler         = new GraphicalHandler( this );
-    private final PComboBox   selectLogLevel     = new PComboBox( STROY_LOG_OUT );
-    private final PComboBox   selectHandlerLevel = new PComboBox( STROY_LOG_IN );
+    private final PComboBox2 selectLogLevel;//     = new PComboBox( STROY_LOG_OUT );
+//    private final PComboBox   selectHandlerLevel = new PComboBox( STROY_LOG_IN );
     private JTextArea         messages           = new JTextArea();
     private JScrollPane       messagesScoll      = new JScrollPane( messages );
     private final JButton     refreshButton      = new JButton( "refresh" );
@@ -58,7 +63,10 @@ public class LogHandlerPanel extends JFrame {
     private final Formatter fullFormater = new SimpleFormatter();
     private final Formatter slimFormater = new SimpleFormatter();
 
-    public LogHandlerPanel() {
+    @Inject
+    public LogHandlerPanel( LogLevelSelectionProperty5 loglevels) {
+
+        selectLogLevel = new PComboBox2( loglevels );
 
         setTitle( "Logs" );
         setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
@@ -81,29 +89,29 @@ public class LogHandlerPanel extends JFrame {
             }
         });
 
-        selectLogLevel.addActionListener( new ActionListener() {
-            public void actionPerformed(ActionEvent actionEvent) {
-                String levelName = (String) selectLogLevel.getSelectedItem();
-                if ( levelName == null ) {
-                    Log.warning( "null as log level" );
-                    return;
-                }
-                Level level = Level.parse( levelName );
-                Log.setLevel( level );
-            }
-        });
+//        selectLogLevel.addActionListener( new ActionListener() {
+//            public void actionPerformed(ActionEvent actionEvent) {
+//                String levelName = (String) selectLogLevel.getSelectedItem();
+//                if ( levelName == null ) {
+//                    Log.warning( "null as log level" );
+//                    return;
+//                }
+//                Level level = Level.parse( levelName );
+//                Log.setLevel( level );
+//            }
+//        });
 
-        selectHandlerLevel.addActionListener( new ActionListener() {
-            public void actionPerformed(ActionEvent actionEvent) {
-                String levelName = (String) selectHandlerLevel.getSelectedItem();
-                if ( levelName == null ) {
-                    Log.warning( "null as log level" );
-                    return;
-                }
-                Level level = Level.parse(levelName);
-                logHandler.setLevel( level );
-            }
-        });
+//        selectHandlerLevel.addActionListener( new ActionListener() {
+//            public void actionPerformed(ActionEvent actionEvent) {
+//                String levelName = (String) selectHandlerLevel.getSelectedItem();
+//                if ( levelName == null ) {
+//                    Log.warning( "null as log level" );
+//                    return;
+//                }
+//                Level level = Level.parse(levelName);
+//                logHandler.setLevel( level );
+//            }
+//        });
 
 //        Preset.addListener( this );
 //        Preset.inform( StroyConstants.PRESET_LOGS, PRESET_OUTLEVEL);
@@ -113,9 +121,8 @@ public class LogHandlerPanel extends JFrame {
     private void createLayout() {
         JPanel top = new JPanel();
         DesignGridLayout layout = new DesignGridLayout( top );
-        top.setLayout( layout );
 
-        layout.row().label( new JLabel( Message.get( "Pref.Logging.display" ))).add( selectLogLevel);
+        layout.row().grid( new JLabel( Message.get( "Pref.Logging.display" ))).add( selectLogLevel);
                 //.add( new JLabel("")).add( refreshButton );
 
         getContentPane().setLayout( new BorderLayout());
@@ -124,10 +131,9 @@ public class LogHandlerPanel extends JFrame {
 
         JPanel bottom = new JPanel();
         DesignGridLayout layout2 = new DesignGridLayout( bottom );
-        layout2.row().label( new JLabel( "severe"/*Message.get( "Log.level.severe" ))*/)).add( severeTextField );
-        layout2.row().label( new JLabel( "warn" /*Message.get( "Log.level.warn" )*/ )).add( warnTextField );
-        layout2.row().label( new JLabel( "info" /*Message.get( "Log.level.info" )*/)).add( infoTextField );
-        bottom.setLayout( layout2 );
+        layout2.row().grid( new JLabel( "severe"/*Message.get( "Log.level.severe" ))*/)).add( severeTextField );
+        layout2.row().grid( new JLabel( "warn" /*Message.get( "Log.level.warn" )*/ )).add( warnTextField );
+        layout2.row().grid( new JLabel( "info" /*Message.get( "Log.level.info" )*/)).add( infoTextField );
 
         getContentPane().add( bottom, BorderLayout.SOUTH  );
 
@@ -137,7 +143,7 @@ public class LogHandlerPanel extends JFrame {
 
     private void refresh() {
         selectLogLevel.setSelectedItem( Log.getLevel().getName());
-        selectHandlerLevel.setSelectedItem( logHandler.getLevel().getName() );
+//        selectHandlerLevel.setSelectedItem( logHandler.getLevel().getName() );
     }
 
     public void add( LogRecord logRecord ) {

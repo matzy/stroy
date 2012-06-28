@@ -40,8 +40,8 @@
 //        DesignGridLayout layout = new DesignGridLayout( top );
 //        top.setLayout( layout );
 //
-//        layout.row().label( "command" ).add( cmdField, 5).add( cmdButton);
-//        layout.row().label( "remember" ).add( typeButton ).add( thisButton);
+//        layout.row().grid( "command" ).add( cmdField, 5).add( cmdButton);
+//        layout.row().grid( "remember" ).add( typeButton ).add( thisButton);
 //
 //        setLayout( new BorderLayout());
 //        add(top, BorderLayout.CENTER);

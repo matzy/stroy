@@ -1,33 +1,44 @@
 package org.openCage.stroy.ui.prefs;
 
 import com.google.inject.Inject;
+import com.google.inject.name.Named;
+import org.openCage.comphy.ImmuProp;
+import org.openCage.comphy.StringProperty;
+import org.openCage.lang.inc.Str;
+import org.openCage.stroy.file.FileTypes5;
+import org.openCage.stroy.filter.IgnoreCentral5;
 import org.openCage.stroy.locale.Message;
 import org.openCage.stroy.update.UpdatePrefs;
 import org.openCage.util.io.FileUtils;
+import org.openCage.util.prefs.LocaleSelectionProperty5;
+import org.openCage.util.prefs.LogLevelSelectionProperty5;
 
 import javax.swing.*;
 import java.awt.*;
 
 /***** BEGIN LICENSE BLOCK *****
-* Version: MPL 1.1
-*
-* The contents of this file are subject to the Mozilla Public License Version
-* 1.1 (the "License"); you may not use this file except in compliance with
-* the License. You may obtain a copy of the License at
-* http://www.mozilla.org/MPL/
-*
-* Software distributed under the License is distributed on an "AS IS" basis,
-* WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
-* for the specific language governing rights and limitations under the
-* License.
-*
-* The Original Code is stroy code.
-*
-* The Initial Developer of the Original Code is Stephan Pfab <openCage@gmail.com>.
-* Portions created by Stephan Pfab are Copyright (C) 2006 - 2009.
-* All Rights Reserved.
-*
-* Contributor(s):
+ * BSD License (2 clause)
+ * Copyright (c) 2006 - 2012, Stephan Pfab
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above copyright
+ *       notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the
+ *       documentation and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL Stephan Pfab BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ***** END LICENSE BLOCK *****/
 
 public class PrefsUIImpl extends PrefsUI {
@@ -44,13 +55,29 @@ public class PrefsUIImpl extends PrefsUI {
 //    }
 
 
-    private ExternalPref fileTypes   = new ExternalPref( this );
+    private ExternalPref fileTypes;
     private UpdatePrefs updatePrefs;
+    private final LocaleSelectionProperty5 localeSelection;
+    private final LogLevelSelectionProperty5 loglevelSelection;
+    private final ImmuProp<Str> editorPref;
+    private final ImmuProp<Str> diffPref;
+    private final IgnoreCentral5 central;
 
     @Inject
-    public PrefsUIImpl(final UpdatePrefs updatePrefs) {
+    public PrefsUIImpl(final UpdatePrefs updatePrefs,
+                       LocaleSelectionProperty5 localeSelection,
+                       LogLevelSelectionProperty5 loglevelSelection,
+                       @Named(value = "Editor") ImmuProp<Str> editorPref,
+                       @Named(value = "DiffProg") ImmuProp<Str> diffPref,
+                       FileTypes5 fileTypes, IgnoreCentral5 central) {
         this.updatePrefs = updatePrefs;
-        
+        this.localeSelection = localeSelection;
+        this.loglevelSelection = loglevelSelection;
+        this.editorPref = editorPref;
+        this.diffPref = diffPref;
+        this.central = central;
+        this.fileTypes = new ExternalPref( this, fileTypes );
+
         createLayout();
     }
 
@@ -63,10 +90,10 @@ public class PrefsUIImpl extends PrefsUI {
         tabbed = new JTabbedPane();
 
         tabbed.addTab( Message.get( "Pref.FileType.title" ), null, fileTypes   );
-        tabbed.addTab( Message.get( "Pref.Filter.title" ), null,  new FilterFrameDetails());
-        tabbed.addTab( Message.get( "Pref.StandardProgs.title" ), null,  new StandardProgUI( this ));
+        tabbed.addTab( Message.get( "Pref.Filter.title" ), null,  new FilterFrameDetails(central));
+        tabbed.addTab( Message.get( "Pref.StandardProgs.title" ), null,  new StandardProgUI( this, editorPref, diffPref));
 //        tabbed.addTab( Message.get( "Pref.Logging.title" ), null,  new LogPrefs());
-        tabbed.addTab( Message.get( "Pref.More.title" ), null, new MorePrefs( updatePrefs )  );
+        tabbed.addTab( Message.get( "Pref.More.title" ), null, new MorePrefs( updatePrefs, localeSelection, loglevelSelection )  );
 
         getContentPane().add( tabbed, BorderLayout.CENTER );
 

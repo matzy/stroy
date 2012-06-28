@@ -238,8 +238,8 @@
             <fileset dir="${external}/production" includes="**/jdic.dll" />
         </copy>
         <copy todir="${win}/help">
-            <fileset dir="${resources}/HelpBook/English" />
-            <fileset dir="${resources}/HelpBook/common" />
+            <fileset dir="src/main/resources/org/openCage/stroy/ui/help/en" />
+            <fileset dir="src/main/resources/org/openCage/stroy/ui/help/common" />
         </copy>
     </target>
     

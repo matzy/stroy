@@ -1,6 +1,6 @@
 package org.openCage.stroy.ui.popup;
 
-import org.openCage.stroy.filter.IgnoreCentral;
+import org.openCage.stroy.filter.IgnoreCentral5;
 import org.openCage.stroy.locale.Message;
 
 import javax.swing.*;
@@ -11,25 +11,28 @@ import java.awt.event.ActionListener;
 import net.java.dev.designgridlayout.DesignGridLayout;
 
 /***** BEGIN LICENSE BLOCK *****
-* Version: MPL 1.1
-*
-* The contents of this file are subject to the Mozilla Public License Version
-* 1.1 (the "License"); you may not use this file except in compliance with
-* the License. You may obtain a copy of the License at
-* http://www.mozilla.org/MPL/
-*
-* Software distributed under the License is distributed on an "AS IS" basis,
-* WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
-* for the specific language governing rights and limitations under the
-* License.
-*
-* The Original Code is stroy code.
-*
-* The Initial Developer of the Original Code is Stephan Pfab <openCage@gmail.com>.
-* Portions created by Stephan Pfab are Copyright (C) 2006 - 2009.
-* All Rights Reserved.
-*
-* Contributor(s):
+ * BSD License (2 clause)
+ * Copyright (c) 2006 - 2012, Stephan Pfab
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above copyright
+ *       notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the
+ *       documentation and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL Stephan Pfab BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ***** END LICENSE BLOCK *****/
 
 /**
@@ -48,12 +51,14 @@ public class IgnoreOneUI extends JFrame {
     private final String name;
     private final String path;
     private final String realName;
+    private final IgnoreCentral5 central;
 
 
-    public IgnoreOneUI( final String path, final String nme, final String extension ) {
+    public IgnoreOneUI(final String path, final String nme, final String extension, IgnoreCentral5 central) {
 
         this.path = path;
         this.extension = extension;
+        this.central = central;
         String nameTmp = nme;
         name = ".*/" + nameTmp.replaceAll( "\\.", "\\\\.");
         realName = nme;
@@ -71,21 +76,21 @@ public class IgnoreOneUI extends JFrame {
 
         extButton.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
-                IgnoreCentral.create().addSingleExtension( extension );
+                central.addExtension( extension );
                 dispose();
             }
         });
 
         nameButton.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
-                IgnoreCentral.create().addSinglePattern( name );
+                central.addPattern( name );
                 dispose();
             }
         });
 
         pathButton.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
-                IgnoreCentral.create().addSinglePath( path );
+                central.addPath( path );
                 dispose();
             }
         });
@@ -99,7 +104,6 @@ public class IgnoreOneUI extends JFrame {
 
         JPanel top = new JPanel();
         DesignGridLayout layout = new DesignGridLayout( top );
-        top.setLayout( layout );
 
         extButton = new JButton( Message.get("SingleIgnore.extensionButton" ));
         pathButton = new JButton( Message.get( "SingleIgnore.pathButton" ));
@@ -121,17 +125,17 @@ public class IgnoreOneUI extends JFrame {
 //        patternButton.setEnabled( false );
 //        patternField.setEnabled( false );
 
-        layout.row().label( new JLabel( Message.get( "SingleIgnore.title" ))).add( new JLabel( realName ),3).add( new JLabel(""));
-        layout.row().add( new JLabel(""));
-        layout.row().label( new JLabel( Message.get( "SingleIgnore.path" ))).add( pathLabel, 3 ).add( pathButton );
-        layout.row().label( new JLabel( Message.get( "SingleIgnore.name" ))).add(nameLabel, 3 ).add( nameButton );
-        layout.row().label( new JLabel( Message.get( "SingleIgnore.extension" ))).add(extLabel, 3 ).add( extButton );
+        layout.row().grid( new JLabel( Message.get( "SingleIgnore.title" ))).add( new JLabel( realName ),3).add( new JLabel(""));
+        layout.row().grid().add( new JLabel(""));
+        layout.row().grid( new JLabel( Message.get( "SingleIgnore.path" ))).add( pathLabel, 3 ).add( pathButton );
+        layout.row().grid( new JLabel( Message.get( "SingleIgnore.name" ))).add(nameLabel, 3 ).add( nameButton );
+        layout.row().grid( new JLabel( Message.get( "SingleIgnore.extension" ))).add(extLabel, 3 ).add( extButton );
 
 
         // TODO fill with live
-//        layout.row().add("");
-//        layout.row().label( "All files with pattern" ).add( patternField, 3 ).add( patternButton );
-//        layout.row().add( legal ).add( matches);
+//        layout.row().grid().add("");
+//        layout.row().grid( "All files with pattern" ).add( patternField, 3 ).add( patternButton );
+//        layout.row().grid().add( legal ).add( matches);
 
         setLayout( new BorderLayout());
         add( top, BorderLayout.CENTER  );

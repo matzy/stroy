@@ -2,7 +2,10 @@ package org.openCage.stroy.ui.prefs;
 
 import javax.swing.*;
 
-import org.openCage.util.prefs.PreferenceString;
+import com.google.inject.name.Named;
+import org.openCage.comphy.ImmuProp;
+import org.openCage.comphy.StringProperty;
+import org.openCage.lang.inc.Str;
 import org.openCage.util.ui.FileChooser;
 import org.openCage.util.ui.JTextFields;
 import org.openCage.util.io.FileUtils;
@@ -19,26 +22,31 @@ import java.awt.event.KeyEvent;
 import com.muchsoft.util.Sys;
 import net.java.dev.designgridlayout.DesignGridLayout;
 
+import static org.openCage.lang.inc.Strng.S;
+
 /***** BEGIN LICENSE BLOCK *****
-* Version: MPL 1.1
-*
-* The contents of this file are subject to the Mozilla Public License Version
-* 1.1 (the "License"); you may not use this file except in compliance with
-* the License. You may obtain a copy of the License at
-* http://www.mozilla.org/MPL/
-*
-* Software distributed under the License is distributed on an "AS IS" basis,
-* WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
-* for the specific language governing rights and limitations under the
-* License.
-*
-* The Original Code is stroy code.
-*
-* The Initial Developer of the Original Code is Stephan Pfab <openCage@gmail.com>.
-* Portions created by Stephan Pfab are Copyright (C) 2006 - 2009.
-* All Rights Reserved.
-*
-* Contributor(s):
+ * BSD License (2 clause)
+ * Copyright (c) 2006 - 2012, Stephan Pfab
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above copyright
+ *       notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the
+ *       documentation and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL Stephan Pfab BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ***** END LICENSE BLOCK *****/
 
 public class StandardProgUI extends JPanel {
@@ -53,8 +61,10 @@ public class StandardProgUI extends JPanel {
     private final JButton resetButton = new JButton( "reset");
 //    private final JTextField openText = new JTextField("opens the file with the assigned program");
     private final JTextField editorText = new JTextField();
-    private final PreferenceString editorPref =  PreferenceString.getOrCreate( STANDARD_TEXT_EDITOR_KEY, "" ); // TODO
-    private final PreferenceString diffPref =  PreferenceString.getOrCreate( STANDARD_DIFF_KEY, "" );
+//    private final PreferenceString editorPref =  PreferenceString.getOrCreate( STANDARD_TEXT_EDITOR_KEY, "" ); // TODO
+//    private final PreferenceString diffPref =  PreferenceString.getOrCreate( STANDARD_DIFF_KEY, "" );
+    private final ImmuProp<Str> editorPref;
+    private final ImmuProp<Str> diffPref;
 
     private final JButton editButton = new JButton("..");
     private final JRadioButton stdEdit   = new JRadioButton( Message.get( "Pref.StandardProgs.osText" ));
@@ -62,15 +72,16 @@ public class StandardProgUI extends JPanel {
     private final JRadioButton stdDiff   = new JRadioButton( Message.get( "Pref.StandardProgs.osDiff" ));
     private final JRadioButton otherDiff = new JRadioButton( Message.get( "Pref.StandardProgs.DiffOther" ));
 
-    public StandardProgUI( JFrame frme ) {
+    public StandardProgUI(JFrame frme, @Named(value = "Editor") ImmuProp<Str> editorPref, @Named(value = "DiffProg") ImmuProp<Str> diffPref) {
         this.frame = frme;
+        this.editorPref = editorPref;
+        this.diffPref = diffPref;
 
         JPanel top = new JPanel();
         DesignGridLayout layout = new DesignGridLayout( top );
-        top.setLayout( layout );
 
-        layout.row().add( new JLabel("")).add( new JLabel( Message.get( "Pref.StandardProgs.intro" )) ).add( new JLabel(""));        
-        layout.row().add( new JLabel( "" ));
+        layout.row().grid().add( new JLabel("")).add( new JLabel( Message.get( "Pref.StandardProgs.intro" )) ).add( new JLabel(""));
+        layout.row().grid().add( new JLabel( "" ));
 
 
         ButtonGroup diffGroup = new ButtonGroup();
@@ -86,13 +97,13 @@ public class StandardProgUI extends JPanel {
             stdDiffProg = "diff";
         }
 
-        layout.row().add( new JLabel(Message.get( "Pref.StandardProgs.diff" )),2).add( stdDiff, 2 ).add( new JLabel(stdDiffProg), 5);
-        layout.row().add( new JLabel(" "), 2).add( otherDiff,2 ).add( diffText, 4).add( diffButton, 1);
-        layout.row().add( new JLabel( ""));
+        layout.row().grid().add( new JLabel(Message.get( "Pref.StandardProgs.diff" )),2).add( stdDiff, 2 ).add( new JLabel(stdDiffProg), 5);
+        layout.row().grid().add( new JLabel(" "), 2).add( otherDiff,2 ).add( diffText, 4).add( diffButton, 1);
+        layout.row().grid().add( new JLabel( ""));
 
 //        openText.setEditable( false );
-//        layout.row().label( ExternalProgs.open ).add( openText, 8 ).add( new JLabel( "" ), 1);
-//        layout.row().add( "   " );
+//        layout.row().grid( ExternalProgs.open ).add( openText, 8 ).add( new JLabel( "" ), 1);
+//        layout.row().grid().add( "   " );
 
         //editorText.setEditable( false );
         ButtonGroup textGroup = new ButtonGroup();
@@ -108,8 +119,8 @@ public class StandardProgUI extends JPanel {
             stdText = "vi";
         }
 
-        layout.row().add( new JLabel(Message.get( "Pref.StandardProgs.text" )),2).add( stdEdit, 2 ).add( new JLabel(stdText), 5);
-        layout.row().add( new JLabel(" "), 2).add( otherText,2 ).add( editorText, 4).add( editButton, 1);
+        layout.row().grid().add( new JLabel(Message.get( "Pref.StandardProgs.text" )),2).add( stdEdit, 2 ).add( new JLabel(stdText), 5);
+        layout.row().grid().add( new JLabel(" "), 2).add( otherText,2 ).add( editorText, 4).add( editButton, 1);
 
         setLayout( new BorderLayout());
         add( top, BorderLayout.CENTER );
@@ -121,7 +132,7 @@ public class StandardProgUI extends JPanel {
                     if ( path != null ) {
                         String norm = FileUtils.normalizePath( path );
                         diffText.setText( norm );
-                        diffPref.set( norm );
+                        StandardProgUI.this.diffPref.set(S(norm));
                     }
             }
         });
@@ -140,7 +151,7 @@ public class StandardProgUI extends JPanel {
                     if ( path != null ) {
                         String norm = FileUtils.normalizePath( path );
                         editorText.setText( norm );
-                        editorPref.set( norm );
+                        StandardProgUI.this.editorPref.set(S(norm));
                     }
 
             }
@@ -150,7 +161,7 @@ public class StandardProgUI extends JPanel {
             public void actionPerformed(ActionEvent actionEvent) {
                 editorText.setEnabled( false );
                 editButton.setEnabled( false );
-                editorPref.set( ExternalProgs.OS_TEXT_EDIT );
+                StandardProgUI.this.editorPref.set(ExternalProgs.OS_TEXT_EDIT);
             }
         });
 
@@ -165,7 +176,7 @@ public class StandardProgUI extends JPanel {
             public void actionPerformed(ActionEvent actionEvent) {
                 diffText.setEnabled( false );
                 diffButton.setEnabled( false );
-                diffPref.set( ExternalProgs.OS_TEXT_EDIT );
+                StandardProgUI.this.diffPref.set(ExternalProgs.OS_TEXT_EDIT);
             }
         });
 
@@ -178,18 +189,18 @@ public class StandardProgUI extends JPanel {
 
 
         // to fix preference setttings
-        if ( editorPref.get().equals( "" )) {
-            editorPref.set( ExternalProgs.OS_TEXT_EDIT );
+        if ( this.editorPref.get().equals( "" )) {
+            this.editorPref.set(ExternalProgs.OS_TEXT_EDIT);
         }
-        if ( editorPref.get().equals( ExternalProgs.WIN_TEXT_EDIT )) {
-            editorPref.set( ExternalProgs.OS_TEXT_EDIT );
+        if ( this.editorPref.get().equals( ExternalProgs.WIN_TEXT_EDIT )) {
+            this.editorPref.set(ExternalProgs.OS_TEXT_EDIT);
         }
-        if ( editorPref.get().equals( ExternalProgs.openAsText )) {
-            editorPref.set( ExternalProgs.OS_TEXT_EDIT );
+        if ( this.editorPref.get().equals( ExternalProgs.openAsText )) {
+            this.editorPref.set(ExternalProgs.OS_TEXT_EDIT);
         }
 
 
-        if ( editorPref.get().equals( ExternalProgs.OS_TEXT_EDIT ) ) {
+        if ( this.editorPref.get().equals( ExternalProgs.OS_TEXT_EDIT ) ) {
             editorText.setEnabled( false );
             editButton.setEnabled( false );
             stdEdit.setSelected( true );
@@ -197,22 +208,22 @@ public class StandardProgUI extends JPanel {
             editorText.setEnabled( true );
             editButton.setEnabled( true );
             otherText.setSelected( true );
-            editorText.setText( editorPref.get() );
+            editorText.setText( this.editorPref.get().get() );
         }
 
 
         // to fix preference setttings
-        if ( diffPref.get().equals( "" )) {
-            diffPref.set( ExternalProgs.STANDARD_DIFF );
+        if ( this.diffPref.get().equals( "" )) {
+            this.diffPref.set(ExternalProgs.STANDARD_DIFF);
         }
-        if ( diffPref.get().equals( ExternalProgs.fileMerge )) {
-            diffPref.set( ExternalProgs.STANDARD_DIFF );
+        if ( this.diffPref.get().equals( ExternalProgs.fileMerge )) {
+            this.diffPref.set(ExternalProgs.STANDARD_DIFF);
         }
-        if ( diffPref.get().equals( ExternalProgs.WIN_DIFF )) {
-            diffPref.set( ExternalProgs.STANDARD_DIFF );
+        if ( this.diffPref.get().equals( ExternalProgs.WIN_DIFF )) {
+            this.diffPref.set(ExternalProgs.STANDARD_DIFF);
         }
 
-        if ( diffPref.get().equals( ExternalProgs.STANDARD_DIFF ) ) {
+        if ( this.diffPref.get().equals( ExternalProgs.STANDARD_DIFF ) ) {
             diffText.setEnabled( false );
             diffButton.setEnabled( false );
             stdDiff.setSelected( true );
@@ -220,14 +231,14 @@ public class StandardProgUI extends JPanel {
             diffText.setEnabled( true );
             diffButton.setEnabled( true );
             otherDiff.setSelected( true );
-            diffText.setText( diffPref.get() );
+            diffText.setText( this.diffPref.get().get() );
         }
 
         diffText.addKeyListener( new KeyAdapter() {
             public void keyReleased(KeyEvent keyEvent) {
                 super.keyReleased( keyEvent );
                 if ( JTextFields.isFile( diffText, Colors.BACKGROUND_NEUTRAL, Colors.BACKGROUND_WARN)) {
-                    diffPref.set( diffText.getText() );
+                    StandardProgUI.this.diffPref.set(S(diffText.getText()));
                 }
             }
         });
@@ -236,7 +247,7 @@ public class StandardProgUI extends JPanel {
             public void keyReleased(KeyEvent keyEvent) {
                 super.keyReleased( keyEvent );
                 if ( JTextFields.isFile( editorText, Colors.BACKGROUND_NEUTRAL, Colors.BACKGROUND_WARN)) {
-                    editorPref.set( editorText.getText() );
+                    StandardProgUI.this.editorPref.set(S(editorText.getText()));
                 }
             }
         });

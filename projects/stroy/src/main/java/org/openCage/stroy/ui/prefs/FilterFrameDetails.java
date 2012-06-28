@@ -1,6 +1,6 @@
 package org.openCage.stroy.ui.prefs;
 
-import org.openCage.stroy.filter.IgnoreCentral;
+import org.openCage.stroy.filter.IgnoreCentral5;
 import org.openCage.stroy.locale.Message;
 
 import javax.swing.*;
@@ -16,30 +16,33 @@ import net.java.dev.designgridlayout.DesignGridLayout;
 
 
 /***** BEGIN LICENSE BLOCK *****
-* Version: MPL 1.1
-*
-* The contents of this file are subject to the Mozilla Public License Version
-* 1.1 (the "License"); you may not use this file except in compliance with
-* the License. You may obtain a copy of the License at
-* http://www.mozilla.org/MPL/
-*
-* Software distributed under the License is distributed on an "AS IS" basis,
-* WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
-* for the specific language governing rights and limitations under the
-* License.
-*
-* The Original Code is stroy code.
-*
-* The Initial Developer of the Original Code is Stephan Pfab <openCage@gmail.com>.
-* Portions created by Stephan Pfab are Copyright (C) 2006 - 2009.
-* All Rights Reserved.
-*
-* Contributor(s):
+ * BSD License (2 clause)
+ * Copyright (c) 2006 - 2012, Stephan Pfab
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above copyright
+ *       notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the
+ *       documentation and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL Stephan Pfab BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ***** END LICENSE BLOCK *****/
 
 public class FilterFrameDetails extends JPanel {
 
-    private IgnoreCentral central;
+    private final IgnoreCentral5 central;
     private JList extList;
     private JList patternList;
     private JList pathList;
@@ -59,38 +62,38 @@ public class FilterFrameDetails extends JPanel {
     private final JButton delExtButton = new JButton( "-");
     private final JTextField addExtField = new JTextField();
 
-    public FilterFrameDetails() {
+    public FilterFrameDetails(IgnoreCentral5 central) {
+        this.central = central;
 
 
-        central     = IgnoreCentral.create();
-        extList     = new JList( new Vector( central.get().extensions  ));
-        patternList = new JList( new Vector( central.get().patterns  ));
-        pathList    = new JList( new Vector( central.get().paths  ));
+//        extList     = new JList( new Vector( this.central.get().extensions  ));
+        patternList = new JList( new Vector( this.central.getPatterns()  ));
+//        pathList    = new JList( new Vector( this.central.get().paths  ));
 
         createLayout();
 
-        addListenersStd( extList, delExtButton );
-        addListenersStd( pathList, delPathButton );
+//        addListenersStd( extList, delExtButton );
+//        addListenersStd( pathList, delPathButton );
         addListenersStd( patternList, delPatternButton );
 
-        resetExtension.addActionListener( new ActionListener() {
-            public void actionPerformed(ActionEvent actionEvent) {
-                central.resetExtensions();
-                extList.setListData(new Vector( central.get().extensions  ));
-            }
-        });
+//        resetExtension.addActionListener( new ActionListener() {
+//            public void actionPerformed(ActionEvent actionEvent) {
+//                FilterFrameDetails.this.central.resetExtensions();
+//                extList.setListData(new Vector( FilterFrameDetails.this.central.get().extensions  ));
+//            }
+//        });
 
-        resetPaths.addActionListener( new ActionListener() {
-            public void actionPerformed(ActionEvent actionEvent) {
-                central.resetPaths();
-                pathList.setListData(new Vector( central.get().paths  ));
-            }
-        });
+//        resetPaths.addActionListener( new ActionListener() {
+//            public void actionPerformed(ActionEvent actionEvent) {
+//                FilterFrameDetails.this.central.resetPaths();
+//                pathList.setListData(new Vector( FilterFrameDetails.this.central.get().paths  ));
+//            }
+//        });
 
         resetPatterns.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
-                central.resetPatterns();
-                patternList.setListData(new Vector( central.get().patterns  ));
+//                FilterFrameDetails.this.central.resetPatterns();
+//                patternList.setListData(new Vector( FilterFrameDetails.this.central.get().patterns  ));
             }
         });
 
@@ -101,32 +104,32 @@ public class FilterFrameDetails extends JPanel {
         delPathButton.setEnabled( false );
         delPatternButton.setEnabled( false );
 
-        delExtButton.addActionListener( new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String ext = (String)extList.getSelectedValue();
-
-                central.removeExtension( ext );
-                extList.setListData(new Vector( central.get().extensions  ));
-            }
-        });
+//        delExtButton.addActionListener( new ActionListener() {
+//            public void actionPerformed(ActionEvent e) {
+//                String ext = (String)extList.getSelectedValue();
+//
+//                FilterFrameDetails.this.central.removeExtension(ext);
+//                extList.setListData(new Vector( FilterFrameDetails.this.central.get().extensions  ));
+//            }
+//        });
 
         delPatternButton.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String pat = (String)patternList.getSelectedValue();
 
-                central.removePattern( pat );
-                patternList.setListData(new Vector( central.get().patterns  ));
+                FilterFrameDetails.this.central.getPatterns().remove(pat);
+                patternList.setListData(new Vector( FilterFrameDetails.this.central.getPatterns()  ));
             }
         });
 
-        delPathButton.addActionListener( new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String path = (String)pathList.getSelectedValue();
-
-                central.removePath( path );
-                pathList.setListData(new Vector( central.get().paths  ));
-            }
-        });
+//        delPathButton.addActionListener( new ActionListener() {
+//            public void actionPerformed(ActionEvent e) {
+//                String path = (String)pathList.getSelectedValue();
+//
+//                FilterFrameDetails.this.central.removePath(path);
+//                pathList.setListData(new Vector( FilterFrameDetails.this.central.get().paths  ));
+//            }
+//        });
     }
 
     private void addListenersStd( final JList list, final JButton delButton  ) {
@@ -203,13 +206,12 @@ public class FilterFrameDetails extends JPanel {
 
         JPanel top = new JPanel();
         DesignGridLayout layout = new DesignGridLayout( top );
-        top.setLayout( layout );
-        layout.row().add( addButton).add( field, 5 );
-        layout.row().add( delButton).add( new JLabel(" "), 5 );
-        layout.row().add( new JLabel(" ") );
-        layout.row().add( new JLabel(" ") );
-        layout.row().add( new JLabel(" ") );
-        layout.row().add( resetButton).add( new JLabel(" "), 5 );
+        layout.row().grid().add( addButton).add( field, 5 );
+        layout.row().grid().add( delButton).add( new JLabel(" "), 5 );
+        layout.row().grid().add( new JLabel(" ") );
+        layout.row().grid().add( new JLabel(" ") );
+        layout.row().grid().add( new JLabel(" ") );
+        layout.row().grid().add( resetButton).add( new JLabel(" "), 5 );
 
         cnstraint = new GridBagConstraints();
         cnstraint.fill = GridBagConstraints.BOTH;

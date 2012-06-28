@@ -1,6 +1,7 @@
 package org.openCage.comphy;
 
 import org.junit.Test;
+import org.openCage.lang.inc.Strng;
 import org.openCage.lang.structure.Ref;
 
 import java.util.HashMap;
@@ -8,13 +9,30 @@ import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created with IntelliJ IDEA.
- * User: stephan
- * Date: 5/24/12
- * Time: 8:28 AM
- * To change this template use File | Settings | File Templates.
- */
+/***** BEGIN LICENSE BLOCK *****
+ * BSD License (2 clause)
+ * Copyright (c) 2006 - 2012, Stephan Pfab
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above copyright
+ *       notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the
+ *       documentation and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL Stephan Pfab BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ ***** END LICENSE BLOCK *****/
 public class MapPropertyTest {
 
     @Test
@@ -30,7 +48,7 @@ public class MapPropertyTest {
             }
         });
 
-        map.put( Key.valueOf("duh"), new StringProperty("foo"));
+        map.put( Strng.valueOf("duh"), new StringProperty("foo"));
 
         assertEquals( 1, count.get().intValue() );
 
@@ -40,7 +58,7 @@ public class MapPropertyTest {
     public void testElemModify () {
         MapProperty<StringProperty> map = new MapProperty<StringProperty>();
         StringProperty str = new StringProperty("foo");
-        map.put( Key.valueOf("duh"), str );
+        map.put( Strng.valueOf("duh"), str );
 
         final Ref<Integer> count = new Ref<Integer>(0);
 
@@ -62,8 +80,8 @@ public class MapPropertyTest {
     public void testPutOverride () {
         MapProperty<StringProperty> map = new MapProperty<StringProperty>();
         StringProperty str = new StringProperty("foo");
-        map.put( Key.valueOf("duh"), str );
-        map.put( Key.valueOf("duh"), new StringProperty("new") );
+        map.put( Strng.valueOf("duh"), str );
+        map.put( Strng.valueOf("duh"), new StringProperty("new") );
 
         final Ref<Integer> count = new Ref<Integer>(0);
 
@@ -86,15 +104,15 @@ public class MapPropertyTest {
     public void testPutAll() {
         MapProperty<StringProperty> map = new MapProperty<StringProperty>();
         StringProperty stra = new StringProperty("aa");
-        map.put( Key.valueOf("a"), stra );
+        map.put( Strng.valueOf("a"), stra );
         StringProperty strb = new StringProperty("b");
-        map.put( Key.valueOf("b"), strb );
+        map.put( Strng.valueOf("b"), strb );
 
-        Map<Key,StringProperty> map2 = new HashMap<Key, StringProperty>();
+        Map<Strng,StringProperty> map2 = new HashMap<Strng, StringProperty>();
         StringProperty strb2 = new StringProperty("b2");
-        map2.put( Key.valueOf("b"), strb2 );
+        map2.put( Strng.valueOf("b"), strb2 );
         StringProperty strc = new StringProperty("c");
-        map2.put( Key.valueOf("c"), strc );
+        map2.put( Strng.valueOf("c"), strc );
 
         map.putAll(map2);
 
@@ -127,7 +145,7 @@ public class MapPropertyTest {
     public void testClear() {
         MapProperty<StringProperty> map = new MapProperty<StringProperty>();
         StringProperty str = new StringProperty("foo");
-        map.put( Key.valueOf("duh"), str );
+        map.put( Strng.valueOf("duh"), str );
         map.clear();
 
         final Ref<Integer> count = new Ref<Integer>(0);

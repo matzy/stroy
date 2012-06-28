@@ -5,8 +5,10 @@ import com.google.inject.name.Named;
 import com.muchsoft.util.mac.Java14Adapter;
 import com.muchsoft.util.mac.Java14Handler;
 import com.muchsoft.util.Sys;
+import org.openCage.comphy.ImmuProp;
 import org.openCage.comphy.Observer;
 import org.openCage.comphy.StringProperty;
+import org.openCage.lang.inc.Str;
 import org.openCage.stroy.ui.menu.PortableMenuFactory;
 import org.openCage.util.io.FileUtils;
 import org.openCage.stroy.dir.FileContent;
@@ -15,14 +17,13 @@ import org.openCage.stroy.ui.prefs.PrefsUI;
 import org.openCage.stroy.ui.menu.PortableMenu;
 import org.openCage.stroy.update.UpdateChecker;
 import org.openCage.stroy.locale.Message;
+import org.openCage.util.logging.Log;
 import org.openCage.util.prefs.TextField2;
 import org.openCage.util.ui.FileChooser;
 import org.openCage.util.app.About;
 import org.openCage.util.app.AboutImpl;
 import org.openCage.util.app.AppInfo;
 import org.openCage.util.logging.LogHandlerPanel;
-import org.openCage.util.prefs.PreferencesChangeListener;
-import org.openCage.util.prefs.TextField;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -41,25 +42,28 @@ import java.io.File;
 import net.java.dev.designgridlayout.DesignGridLayout;
 
 /***** BEGIN LICENSE BLOCK *****
-* Version: MPL 1.1
-*
-* The contents of this file are subject to the Mozilla Public License Version
-* 1.1 (the "License"); you may not use this file except in compliance with
-* the License. You may obtain a copy of the License at
-* http://www.mozilla.org/MPL/
-*
-* Software distributed under the License is distributed on an "AS IS" basis,
-* WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
-* for the specific language governing rights and limitations under the
-* License.
-*
-* The Original Code is stroy code.
-*
-* The Initial Developer of the Original Code is Stephan Pfab <openCage@gmail.com>.
-* Portions created by Stephan Pfab are Copyright (C) 2006 - 2009.
-* All Rights Reserved.
-*
-* Contributor(s):
+ * BSD License (2 clause)
+ * Copyright (c) 2006 - 2012, Stephan Pfab
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above copyright
+ *       notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the
+ *       documentation and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL Stephan Pfab BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ***** END LICENSE BLOCK *****/
 
 public class DirSelectorImpl extends JFrame
@@ -70,9 +74,9 @@ public class DirSelectorImpl extends JFrame
 
     private final TextField2 oneTxt;
     private final JButton   oneButton   = new JButton("..");
-    private final TextField twoTxt      = new TextField( "dir.second" );
+    private final TextField2 twoTxt;
     private final JButton   twoButton   = new JButton("..");
-    private final TextField threeTxt    = new TextField( "dir.third" );
+    //private final TextField threeTxt    = new TextField( "dir.third" );
     private final JButton   threeButton = new JButton("..");
 
     private final JButton go                = new JButton( Message.get( "DirSelector.Compare" ) );
@@ -81,7 +85,7 @@ public class DirSelectorImpl extends JFrame
 
     private final AppInfo appInfo;
 
-    private final LogHandlerPanel logHandlerPanel = new LogHandlerPanel();
+    private final LogHandlerPanel logHandlerPanel;
 
     private org.openCage.stroy.ui.menu.Menu menu;
 //    private PComboBox strategyCombo = new PComboBox( "stroy.first.strategy" );
@@ -98,10 +102,14 @@ public class DirSelectorImpl extends JFrame
                             final AppInfo appInfo,
                             final UpdateChecker updateChecker,
                             final CompareBuilderFactory cbf,
-                            @Named( value = "dir.first") final StringProperty dirFirst ) {
+                            @Named( value = "dir.first")  final ImmuProp<Str> dirFirst,
+                            @Named( value = "dir.second") final ImmuProp<Str> dirSecond,
+                            LogHandlerPanel logHandlerPanel ) {
         super( "stroy");
 
         this.oneTxt = new TextField2( dirFirst );
+        this.twoTxt = new TextField2( dirSecond );
+        this.logHandlerPanel = logHandlerPanel;
 
         this.appInfo       = appInfo;
         this.updateChecker = updateChecker;
@@ -126,7 +134,8 @@ public class DirSelectorImpl extends JFrame
         go.setEnabled( false );
         go.addActionListener( new ActionListener(){
             public void actionPerformed(ActionEvent actionEvent) {
-                compareBuilderFactory.get( oneTxt.getText(), twoTxt.getText(), threeTxt.getText() ).execute();
+                Log.fine( "comparing: " + oneTxt.getText() + " with " + twoTxt.getText());
+                compareBuilderFactory.get( oneTxt.getText(), twoTxt.getText(), "" ).execute();
                 dispose();
             }
         });
@@ -134,23 +143,19 @@ public class DirSelectorImpl extends JFrame
 
         addFileChooser( oneButton, oneTxt, twoTxt);
         addFileChooser( twoButton, twoTxt, oneTxt );
-        addFileChooser( threeButton, threeTxt, oneTxt );
+        //addFileChooser( threeButton, threeTxt, oneTxt );
 
 
-        oneTxt.getListenerControl().add( new Observer() {
+        oneTxt.getListenerControl().add(new Observer() {
             @Override
             public void call() {
                 checkGo();
             }
         });
-//        oneTxt.getItem().addListener( new PreferencesChangeListener<String>() {
-//            public void changed(String txt) {
-//                checkGo();
-//            }
-//        });
 
-        twoTxt.getItem().addListener( new PreferencesChangeListener<String>() {
-            public void changed(String txt) {
+        twoTxt.getListenerControl().add( new Observer() {
+            @Override
+            public void call() {
                 checkGo();
             }
         });
@@ -223,7 +228,7 @@ public class DirSelectorImpl extends JFrame
 
         boolean oneOk   = checkTextField( oneTxt );
         boolean twoOk   = checkTextField( twoTxt );
-        checkTextField( threeTxt );
+        //checkTextField( threeTxt );
 
 
         go.setEnabled( oneOk && twoOk );
@@ -255,22 +260,21 @@ public class DirSelectorImpl extends JFrame
 
         JPanel top = new JPanel();
         DesignGridLayout layout = new DesignGridLayout( top );
-        top.setLayout( layout );
 
         // TODO modes
 //        layout.row().label( "Strategy" ).add( strategyCombo );
-        layout.row().label( Message.getl( "DirSelector.first" ) ).add(oneTxt, 8 ). add(oneButton);
-        layout.row().label( Message.getl( "DirSelector.second" ) ).add(twoTxt, 8 ).add(twoButton);
+        layout.row().grid( Message.getl( "DirSelector.first" ) ).add(oneTxt, 8 ). add(oneButton);
+        layout.row().grid( Message.getl( "DirSelector.second" ) ).add(twoTxt, 8 ).add(twoButton);
 
         // TODO 3
 //        layout.row().label( "Third").add( threeTxt, 8 ).add( threeButton );
 
-         layout.row().add( new JLabel(""),4).add( go ).add(new JLabel(""),4);
+         layout.row().grid().add( new JLabel(""),4).add( go ).add(new JLabel(""),4);
 
         // fix layout problem in no macs
         // TODO check newer designgridlayout
         if ( !Sys.isMacOSX() ) {
-            layout.row().empty();
+            layout.row().grid().empty();
         }
 
 

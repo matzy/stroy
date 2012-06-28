@@ -130,7 +130,7 @@
 //            row.add( contact, 2 );
 //        }
 //
-//        layout.row().add( new JLabel(ref.getDescr()));
+//        layout.row().grid().add( new JLabel(ref.getDescr()));
 //
 //    }
 //}

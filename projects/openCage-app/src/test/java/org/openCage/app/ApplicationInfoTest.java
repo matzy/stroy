@@ -1,20 +1,39 @@
 package org.openCage.app;
 
 import org.junit.Test;
-import org.openCage.comphy.XMLtoReadable;
+import org.openCage.comphy.*;
+import org.openCage.comphy.Readable;
 
-import java.io.InputStream;
 import java.net.URL;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-/**
- * Created with IntelliJ IDEA.
- * User: stephan
- * Date: 5/30/12
- * Time: 8:42 AM
- * To change this template use File | Settings | File Templates.
- */
+/***** BEGIN LICENSE BLOCK *****
+ * BSD License (2 clause)
+ * Copyright (c) 2006 - 2012, Stephan Pfab
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above copyright
+ *       notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the
+ *       documentation and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL Stephan Pfab BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+***** END LICENSE BLOCK *****/
+
 public class ApplicationInfoTest {
 
     @Test
@@ -22,8 +41,19 @@ public class ApplicationInfoTest {
         XMLtoReadable xmLtoReadable = new XMLtoReadable();
 
 //        InputStream is = getClass().getResourceAsStream( "/org/openCage/app/sillyapp.appinfo");
-        URL is = getClass().getResource("/org/openCage/app/sillyapp.appinfo");
+        URL url = getClass().getResource("/org/openCage/app/sillyapp.appinfo");
 
-        assertNotNull( is );
+        assertNotNull( url );
+
+        Readable readable = xmLtoReadable.read("appinfo", url.getFile());
+
+        ToAndFro ps = new ToAndFro();
+
+        ApplicationInfo ai = ps.get( ApplicationInfo.class, readable );
+
+        assertEquals("silly", ai.getName());
+
+
+
     }
 }

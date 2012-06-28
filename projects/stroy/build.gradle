@@ -25,7 +25,7 @@ dependencies {
     compile 'net.sourceforge.mydoggy:mydoggy-api:1.3.1'
     compile 'net.sourceforge.mydoggy:mydoggy-plaf:1.3.1'
     compile 'net.sourceforge.mydoggy:mydoggy-res:1.3.1'
-    compile 'net.java.dev.designgridlayout:designgridlayout:0.9'
+    compile 'net.java.dev.designgridlayout:designgridlayout:1.9'
 
     runtime  'tablelayout:tablelayout:20020517'
 

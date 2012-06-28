@@ -1,44 +1,61 @@
 package org.openCage.stroy.update;
 
-import org.openCage.util.prefs.PListSelectionString;
-import org.openCage.util.prefs.PreferenceString;
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
+import org.openCage.lang.inc.ImuDate;
+import org.openCage.lang.ImuDateUtils;
+import org.openCage.util.prefs.DateProperty;
 
-import java.util.Date;
 
+/***** BEGIN LICENSE BLOCK *****
+ * BSD License (2 clause)
+ * Copyright (c) 2006 - 2012, Stephan Pfab
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above copyright
+ *       notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the
+ *       documentation and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL Stephan Pfab BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ ***** END LICENSE BLOCK *****/
 
 public class Interval {
 
-    private static String key = "update.interval";
-    private static String lastKey = "update.last";
-    private static final long WEEK = 1000 * 60 * 60 * 24 * 7;
-    private static final long MONTH = WEEK * 30;
+    private final UpdateSelectionProperty updateTimeSelection;
+    private final DateProperty lastCheck;
 
-    public String getKey() {
-
-        PListSelectionString.getOrCreate( key , "Pref.Update.Weekly", "Pref.Update.Every", "Pref.Update.Weekly", "Pref.Update.Monthly", "Pref.Update.Never" );
-        return key;
+    @Inject
+    public Interval(UpdateSelectionProperty updateTimeSelection, @Named( value = "lastUpdateCheck" ) DateProperty lastCheck) {
+        this.updateTimeSelection = updateTimeSelection;
+        this.lastCheck = lastCheck;
     }
 
     public boolean isTime() {
 
-        PListSelectionString inter = PListSelectionString.getOrCreate( key , "Pref.Update.Weekly", "Pref.Update.Every", "Pref.Update.Weekly", "Pref.Update.Monthly", "Pref.Update.Never" );
-        PreferenceString     last = PreferenceString.getOrCreate( lastKey, "" + new Date().getTime() );
+        ImuDate now = ImuDate.now();
+        ImuDate last = lastCheck.get();
+        lastCheck.set( now);
 
-        long diff = new Date().getTime() - Long.valueOf( last.get() );
-
-        if ( inter.get().getSelection().equals( "Pref.Update.Every" ) ) {
-            return true;
-        } else if ( inter.get().getSelection().equals( "Pref.Update.Weekly" ) ) {
-            return diff >= WEEK;
-        } else if ( inter.get().getSelection().equals( "Pref.Update.Weekly" ) ) {
-            return diff >= MONTH;
+        switch ( updateTimeSelection.getSelection() ) {
+            case everyStart: return true;
+            case never:      return false;
+            case weekly:     return  ImuDateUtils.moreThanAWeek( last, now );
+            case monthly:    return  ImuDateUtils.moreThanAMonth( last, now );
         }
 
         return false;
-    }
-
-    public void done() {
-        PreferenceString     last = PreferenceString.getOrCreate( lastKey, "" + new Date().getTime() );
-        last.set( "" + new Date().getTime() );
     }
 }

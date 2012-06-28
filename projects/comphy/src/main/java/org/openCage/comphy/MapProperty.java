@@ -1,6 +1,7 @@
 package org.openCage.comphy;
 
-import org.openCage.lang.listeners.Listeners;
+import org.openCage.lang.inc.GMap;
+import org.openCage.lang.inc.Str;
 import org.openCage.lang.listeners.VoidListenerControl;
 import org.openCage.lang.listeners.VoidListeners;
 
@@ -9,16 +10,36 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * Created with IntelliJ IDEA.
- * User: stephan
- * Date: 5/21/12
- * Time: 5:28 PM
- * To change this template use File | Settings | File Templates.
- */
-public class MapProperty<T extends Property> implements Property, Map<Key,T>, Observer  {
+import static org.openCage.comphy.Readables.R;
 
-    private Map<Key,T> map = new HashMap<Key, T>();
+/***** BEGIN LICENSE BLOCK *****
+ * BSD License (2 clause)
+ * Copyright (c) 2006 - 2012, Stephan Pfab
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above copyright
+ *       notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the
+ *       documentation and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL Stephan Pfab BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ ***** END LICENSE BLOCK *****/
+
+public class MapProperty<T extends Property> implements Property, Map<Str,T>, Observer  {
+
+    private Map<Str,T> map = new HashMap<Str, T>();
     private VoidListeners listeners = new VoidListeners();
 
     @Override
@@ -43,25 +64,21 @@ public class MapProperty<T extends Property> implements Property, Map<Key,T>, Ob
 
     @Override
     public T get(Object key) {
+        if ( !(key instanceof Str)) {
+            throw new ClassCastException("object is no Str " + key );
+        }
         return map.get(key);
     }
 
     @Override
-    public T put(Key key, T value) {
-        T ret = map.put(key, value);
-        value.getListenerControl().add(this);
+    public T put( Str key, T val ) {
+        T ret = map.put(key, val);
+        val.getListenerControl().add(this);
         if ( ret != null ) {
             ret.getListenerControl().remove(this);
         }
         listeners.shout();
         return ret;
-    }
-
-    public MapProperty<T> put( String key, T val ) {
-        map.put( new Key(key), val);
-        listeners.shout();
-        return this;
-
     }
 
     @Override
@@ -72,8 +89,8 @@ public class MapProperty<T extends Property> implements Property, Map<Key,T>, Ob
     }
 
     @Override
-    public void putAll(Map<? extends Key, ? extends T> m) {
-        for ( Map.Entry<? extends Key, ? extends T> pair : m.entrySet()  ) {
+    public void putAll(Map<? extends Str, ? extends T> m) {
+        for ( Map.Entry<? extends Str, ? extends T> pair : m.entrySet()  ) {
             put( pair.getKey(), pair.getValue());
         }
     }
@@ -88,7 +105,7 @@ public class MapProperty<T extends Property> implements Property, Map<Key,T>, Ob
     }
 
     @Override
-    public Set<Key> keySet() {
+    public Set<Str> keySet() {
         return map.keySet();
     }
 
@@ -98,17 +115,17 @@ public class MapProperty<T extends Property> implements Property, Map<Key,T>, Ob
     }
 
     @Override
-    public Set<Entry<Key, T>> entrySet() {
+    public Set<Entry<Str, T>> entrySet() {
         return map.entrySet();
     }
 
     @Override
     public Readable toReadable() {
-        RMap ret = new RMap();
-        for ( Map.Entry<Key,T> pair : map.entrySet() ) {
+        GMap<Str, Readable> ret = Readables.Map().getMap();
+        for ( Map.Entry<Str,T> pair : map.entrySet() ) {
             ret.put(pair.getKey(), pair.getValue().toReadable());
         }
-        return ret;
+        return R(ret);
     }
 
     @Override

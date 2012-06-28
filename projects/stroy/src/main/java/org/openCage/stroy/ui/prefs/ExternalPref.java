@@ -1,6 +1,6 @@
 package org.openCage.stroy.ui.prefs;
 
-import org.openCage.stroy.file.FileTypes;
+import org.openCage.stroy.file.FileTypes5;
 import org.openCage.stroy.file.SimilarityAlgorithm;
 import org.openCage.stroy.locale.Message;
 import org.openCage.stroy.ui.Colors;
@@ -24,31 +24,34 @@ import net.java.dev.designgridlayout.DesignGridLayout;
 
 
 /***** BEGIN LICENSE BLOCK *****
-* Version: MPL 1.1
-*
-* The contents of this file are subject to the Mozilla Public License Version
-* 1.1 (the "License"); you may not use this file except in compliance with
-* the License. You may obtain a copy of the License at
-* http://www.mozilla.org/MPL/
-*
-* Software distributed under the License is distributed on an "AS IS" basis,
-* WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
-* for the specific language governing rights and limitations under the
-* License.
-*
-* The Original Code is stroy code.
-*
-* The Initial Developer of the Original Code is Stephan Pfab <openCage@gmail.com>.
-* Portions created by Stephan Pfab are Copyright (C) 2006 - 2009.
-* All Rights Reserved.
-*
-* Contributor(s):
+ * BSD License (2 clause)
+ * Copyright (c) 2006 - 2012, Stephan Pfab
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above copyright
+ *       notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the
+ *       documentation and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL Stephan Pfab BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ***** END LICENSE BLOCK *****/
 
 public class ExternalPref extends JPanel {
     private JTextField descriptionField = new JTextField();
 
-    private FileTypes fileTypes;
+    private FileTypes5 fileTypes;
 
     private JComboBox algoBox;
     private JButton algoReset = new JButton( Message.get( "Button.reset" ) );
@@ -75,11 +78,11 @@ public class ExternalPref extends JPanel {
     private Map<String, String> algo2mesg = new HashMap<String, String>();
     private Map<String, String> mesg2algo = new HashMap<String, String>();
 
-    public ExternalPref( final JFrame frame ) {
+    public ExternalPref( final JFrame frame, FileTypes5 filesTypes) {
 
         this.frame = frame;
 
-        fileTypes = FileTypes.create();
+        this.fileTypes = filesTypes;
 
         List<String> exts = new ArrayList<String>( fileTypes.getTypeList());
         Collections.sort( exts );
@@ -179,7 +182,7 @@ public class ExternalPref extends JPanel {
         algoReset.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
                 String ext = (String)extList.getSelectedValue();
-                fileTypes.resetAlgo( ext );
+//                fileTypes.resetAlgo( ext ); TODO
                 algoBox.setSelectedItem( algo2mesg.get(fileTypes.getAlgo( ext ).toString() ));
             }
         });
@@ -234,7 +237,7 @@ public class ExternalPref extends JPanel {
                 openText.setBackground(Colors.BACKGROUND_NEUTRAL);
                 openText.setEnabled( false );
                 openDir.setEnabled( false );
-                fileTypes.setOpenProg( (String)extList.getSelectedValue(), ExternalProgs.open );
+                fileTypes.setOpenProg( (String)extList.getSelectedValue(), ExternalProgs.open.get() );
             }
         });
 
@@ -244,7 +247,7 @@ public class ExternalPref extends JPanel {
                 openText.setBackground(Colors.BACKGROUND_NEUTRAL);
                 openText.setEnabled( false );
                 openDir.setEnabled( false );
-                fileTypes.setOpenProg( (String)extList.getSelectedValue(), ExternalProgs.openAsText );
+                fileTypes.setOpenProg( (String)extList.getSelectedValue(), ExternalProgs.openAsText.get() );
             }
         });
 
@@ -294,7 +297,7 @@ public class ExternalPref extends JPanel {
                 diffOtherText.setBackground(Colors.BACKGROUND_NEUTRAL);
                 diffOtherText.setEnabled( false );
                 diffDir.setEnabled( false );
-                fileTypes.setDiffProg( (String)extList.getSelectedValue(), ExternalProgs.STANDARD_DIFF );
+                fileTypes.setDiffProg( (String)extList.getSelectedValue(), ExternalProgs.STANDARD_DIFF.get() );
             }
         });
 
@@ -304,7 +307,7 @@ public class ExternalPref extends JPanel {
                 diffOtherText.setBackground(Colors.BACKGROUND_NEUTRAL);
                 diffOtherText.setEnabled( false );
                 diffDir.setEnabled( false );
-                fileTypes.setDiffProg( (String)extList.getSelectedValue(), ExternalProgs.unknown );
+                fileTypes.setDiffProg( (String)extList.getSelectedValue(), ExternalProgs.unknown.get() );
             }
         });
 
@@ -327,17 +330,16 @@ public class ExternalPref extends JPanel {
 
         JPanel bottom = new JPanel();
         DesignGridLayout layoutB = new DesignGridLayout( bottom );
-        bottom.setLayout( layoutB );
 
-        layoutB.row().add( new JLabel("")).add( new JLabel(Message.get("Pref.FileType.intro")),10).add( new JLabel(""));
-        layoutB.row().add( new JLabel(" "), 10);
+        layoutB.row().grid().add( new JLabel("")).add( new JLabel(Message.get("Pref.FileType.intro")),10).add( new JLabel(""));
+        layoutB.row().grid().add( new JLabel(" "), 10);
 
 
-        layoutB.row().add( new JLabel( Message.get("Pref.FileType.description")), 2 ).
+        layoutB.row().grid().add( new JLabel( Message.get("Pref.FileType.description")), 2 ).
                 add( descriptionField, 8 );
-        layoutB.row().add( new JLabel( Message.get("Pref.FileType.algo")),2).
+        layoutB.row().grid().add( new JLabel( Message.get("Pref.FileType.algo")),2).
                 add( algoBox, 8 );
-        layoutB.row().add( new JLabel(" "), 10);
+        layoutB.row().grid().add( new JLabel(" "), 10);
 
 
         diffText = new JRadioButton( Message.get("Pref.FileType.Diff") );
@@ -348,18 +350,18 @@ public class ExternalPref extends JPanel {
         diffGroup.add( diffOther);
         diffGroup.add( diffUnknown );
 
-        layoutB.row().add( new JLabel( Message.get("Pref.FileType.external")),2).
+        layoutB.row().grid().add( new JLabel( Message.get("Pref.FileType.external")),2).
                 add(diffText, 2 ).add( new JLabel(" "),6);
-        layoutB.row().add( new JLabel(" ") ,2 ).add(diffUnknown,2).add( new JLabel(" "),6);
-        layoutB.row().add( new JLabel(" ") ,2 ).add(diffOther,2).add( diffOtherText, 5).add( diffDir );
-        layoutB.row().add( new JLabel(" "), 10);
+        layoutB.row().grid().add( new JLabel(" ") ,2 ).add(diffUnknown,2).add( new JLabel(" "),6);
+        layoutB.row().grid().add( new JLabel(" ") ,2 ).add(diffOther,2).add( diffOtherText, 5).add( diffDir );
+        layoutB.row().grid().add( new JLabel(" "), 10);
 
 //                add( diffText, 7 ).add( diffDir );
-//        layoutB.row().add( new JLabel(" "), 2).
+//        layoutB.row().grid().add( new JLabel(" "), 2).
 //                /*add( diffReset, 1 ).add( diffStd, 1 ).*/add( new JLabel(" "), 8);
 
 //                .add( openText, 5 ).add( openDir );
-//        layoutB.row().add( new JLabel(" "), 3).                    add( openReset, 1 ).add( openSystem, 1).add( new JLabel(" "), 4 );
+//        layoutB.row().grid().add( new JLabel(" "), 3).                    add( openReset, 1 ).add( openSystem, 1).add( new JLabel(" "), 4 );
 
         openWithAssociated = new JRadioButton( Message.get( "Pref.FileType.OpenAssociated") );
         openWithText = new JRadioButton( Message.get( "Pref.FileType.OpenTextEditor") );
@@ -371,21 +373,21 @@ public class ExternalPref extends JPanel {
 //        openGroup.add( openWithAudio);
         openGroup.add( openWithOther);
 
-        layoutB.row().add( new JLabel( Message.get("Pref.FileType.open")),2).
+        layoutB.row().grid().add( new JLabel( Message.get("Pref.FileType.open")),2).
                 add(openWithAssociated, 2 ).add( new JLabel(" "),6);
-        layoutB.row().add( new JLabel(" ") ,2 ).add(openWithText,2).add( new JLabel(" "),6);
+        layoutB.row().grid().add( new JLabel(" ") ,2 ).add(openWithText,2).add( new JLabel(" "),6);
 //        openWithImage = new JRadioButton( "image editor" );
-//        layoutB.row().add( new JLabel(" ") ,1 ).add(openWithImage).add( new JLabel(" "),5);
+//        layoutB.row().grid().add( new JLabel(" ") ,1 ).add(openWithImage).add( new JLabel(" "),5);
 //        openWithAudio = new JRadioButton( "audio program" );
-//        layoutB.row().add( new JLabel(" ") ,1 ).add(openWithAudio).add( new JLabel(" "),5);
-        layoutB.row().add( new JLabel(" ") ,2 ).add(openWithOther,2).add( openText, 5).add( openDir );
+//        layoutB.row().grid().add( new JLabel(" ") ,1 ).add(openWithAudio).add( new JLabel(" "),5);
+        layoutB.row().grid().add( new JLabel(" ") ,2 ).add(openWithOther,2).add( openText, 5).add( openDir );
 
 
 
-        layoutB.row().add( new JLabel("  ") );
-        layoutB.row().add( new JLabel("  ") );
-        layoutB.row().add( new JLabel("  ") );
-//        layoutB.row().add( addButton, 2 ).add( new JLabel(" "), 8);
+        layoutB.row().grid().add( new JLabel("  ") );
+        layoutB.row().grid().add( new JLabel("  ") );
+        layoutB.row().grid().add( new JLabel("  ") );
+//        layoutB.row().grid().add( addButton, 2 ).add( new JLabel(" "), 8);
 
 
 

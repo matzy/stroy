@@ -6,8 +6,8 @@ import org.openCage.lang.structure.Tu;
 import org.openCage.stroy.dir.FileContent;
 import org.openCage.stroy.dir.FileTreeMatchingTaskBuilder;
 import org.openCage.stroy.app.Tasks;
-import org.openCage.stroy.filter.IgnoreCentral;
 import org.openCage.stroy.filter.Ignore;
+import org.openCage.stroy.filter.IgnoreCentral5;
 import org.openCage.stroy.locale.Message;
 import org.openCage.stroy.ui.difftree.NWayDiffPaneGenerator;
 import org.openCage.stroy.ui.docking.GraphicalDiffMyDoggy;
@@ -26,25 +26,28 @@ import java.io.File;
 import javax.swing.SwingWorker;
 
 /***** BEGIN LICENSE BLOCK *****
-* Version: MPL 1.1
-*
-* The contents of this file are subject to the Mozilla Public License Version
-* 1.1 (the "License"); you may not use this file except in compliance with
-* the License. You may obtain a copy of the License at
-* http://www.mozilla.org/MPL/
-*
-* Software distributed under the License is distributed on an "AS IS" basis,
-* WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
-* for the specific language governing rights and limitations under the
-* License.
-*
-* The Original Code is stroy code.
-*
-* The Initial Developer of the Original Code is Stephan Pfab <openCage@gmail.com>.
-* Portions created by Stephan Pfab are Copyright (C) 2006 - 2009.
-* All Rights Reserved.
-*
-* Contributor(s):
+ * BSD License (2 clause)
+ * Copyright (c) 2006 - 2012, Stephan Pfab
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above copyright
+ *       notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the
+ *       documentation and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL Stephan Pfab BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ***** END LICENSE BLOCK *****/
 
 public class CompareBuilder extends SwingWorker<GraphicalDiffMyDoggy, T2<String,String>> {
@@ -58,11 +61,11 @@ public class CompareBuilder extends SwingWorker<GraphicalDiffMyDoggy, T2<String,
     private PortableMenuFactory menuFactory;
 
 
-    public CompareBuilder( final PortableMenuFactory menuFactory,
-                           final NWayDiffPaneGenerator diffPaneGen,
-                           final WatchFull watchFullstrategy,
-                           FileTreeMatchingTaskBuilder taskBuilder,
-                           String ... dirs ) {
+    public CompareBuilder(final PortableMenuFactory menuFactory,
+                          final NWayDiffPaneGenerator diffPaneGen,
+                          final WatchFull watchFullstrategy,
+                          FileTreeMatchingTaskBuilder taskBuilder,
+                          IgnoreCentral5 ignoreCentral, String... dirs) {
 
         this.menuFactory = menuFactory;
         this.watchFullstrategy = watchFullstrategy;
@@ -78,7 +81,7 @@ public class CompareBuilder extends SwingWorker<GraphicalDiffMyDoggy, T2<String,
             throw new IllegalArgumentException( "CompareBuilder needs 2 or more dirs" );
         }
 
-        this.ignore = IgnoreCentral.create().getIgnore();
+        this.ignore = ignoreCentral.getIgnore();
 //
         this.taskBuilder = taskBuilder;
         progressDialog.setVisible( true );

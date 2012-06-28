@@ -2,6 +2,9 @@ package org.openCage.comphy;
 
 import org.openCage.io.IOUtils;
 import org.openCage.io.fspath.FSPathBuilder;
+import org.openCage.lang.inc.GHashMap;
+import org.openCage.lang.inc.GMap;
+import org.openCage.lang.inc.Str;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -9,17 +12,47 @@ import org.xml.sax.helpers.DefaultHandler;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import java.io.File;
-import java.util.Stack;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
+
+import static org.openCage.comphy.Readables.R;
+import static org.openCage.lang.inc.Strng.S;
+
+/***** BEGIN LICENSE BLOCK *****
+ * BSD License (2 clause)
+ * Copyright (c) 2006 - 2012, Stephan Pfab
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above copyright
+ *       notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the
+ *       documentation and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL Stephan Pfab BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ ***** END LICENSE BLOCK *****/
 
 public class XMLtoReadable extends DefaultHandler {
 
     private static Logger LOG = Logger.getLogger(XMLtoReadable.class.getName());
 
-    private RMap map;
+    private GMap<Str,Readable> map;
 
     public Stack<Readable> stack;
+    private String title;
 
     @Override
     public void startDocument() throws SAXException {
@@ -29,28 +62,34 @@ public class XMLtoReadable extends DefaultHandler {
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         if ( map == null ) {
-            if ( qName.equals("comphy")) {
-                map = new RMap();
-                stack.push( map );
+            if ( qName.equals(title)) {
+                map = new GHashMap<Str, Readable>();
+                stack.push( R(map));
                 return;
             } else {
                 throw new IllegalArgumentException("not a comphy xml");
             }
         }
 
-        Object top = stack.peek();
+        Readable top = stack.peek();
 
-        if (top instanceof RString) {
+        if (top.isStr()) {
             stack.pop();
         }
 
         stack.push( Key.valueOf(qName));
+
+        // fix for unexpected sax reader behaviour
+        // if start and end are close i.e. <foo></foo>
+        // the character method is not called
+        // but because it might be called several times for one sting adding a empty string does not hurt
+        stack.push( R(""));
     }
 
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
 
-        if ( qName.equals("comphy")) {
+        if ( qName.equals(title)) {
             // done
             return;
         }
@@ -83,32 +122,38 @@ public class XMLtoReadable extends DefaultHandler {
             throw new IllegalArgumentException("malformed xml");
         }
 
-        // now add the elment to the previous structure
+        Str readKey = S(key.get());
 
-        if ( stack.peek() instanceof RMap ) {
+        // now add the element to the previous structure
 
-            RMap map = (RMap)stack.peek();
+        if ( stack.peek().isMap()) {
 
-            if ( map.containsKey(key)) {
+            GMap<Str,Readable> map = stack.peek().getMap();
+
+            if ( map.containsKeyG(readKey)) {
                 // its a list
                 stack.pop();
-                RList list = new RList(key);
-                list.add(map.get(key));
+                List<Readable> list = new ArrayList<Readable>();
+                list.add(map.getG(readKey));
                 list.add(elem);
-                stack.push(list);
+                stack.push(R(list));
 
             } else {
-                map.put( key, elem );
+                map.put( readKey, elem );
             }
 
         } else if ( stack.peek() instanceof Key ) {
-            RMap map = new RMap();
-            stack.push(map);
-            map.put( key , elem );
+            GMap<Str,Readable> map = new GHashMap<Str, Readable>();
+            stack.push(R(map));
+            map.put( readKey , elem );
 
         } else {
 
-            ((RList)stack.peek()).add(elem);
+            if ( !stack.peek().isList()) {
+                throw new IllegalStateException( "oops, expected a list not " + stack.peek() );
+            }
+
+            stack.peek().getList().add(elem);
         }
 
     }
@@ -123,16 +168,22 @@ public class XMLtoReadable extends DefaultHandler {
 
         String str =  new String(ch,start,length);
 
-        if ( stack.peek() instanceof RString) {
+        if ( stack.peek().isStr()) {
             String old = stack.pop().toString();
             str = old + str;
         }
 
-        stack.push( new RString(str));
+        stack.push( R(str));
     }
 
+
     public Readable read(String uri) {
-        try {
+        return read("comphy", uri);
+    }
+
+    public Readable read( String title, String uri) {
+         try {
+             this.title = title;
             // Neuen SAX-Parser erzeugen
             SAXParserFactory factory   = SAXParserFactory.newInstance();
             SAXParser saxParser = factory.newSAXParser();
@@ -142,7 +193,7 @@ public class XMLtoReadable extends DefaultHandler {
 //            XMLtoReadable reader = new XMLtoReadable();
             saxParser.parse(uri,this);
 
-            return map;
+            return R(map);
         }
         catch (Exception e) {
             LOG.log(Level.WARNING, "property file corrupt, using defaults", e);
@@ -159,4 +210,91 @@ public class XMLtoReadable extends DefaultHandler {
 
     }
 
+    private static class Key implements Comparable<Key>, Readable{
+
+        static private Pattern pattern = Pattern.compile("([A-Z]|[a-z]|\\-|\\.|_|[0-9])+");
+
+        private final String str;
+
+        public Key( final String str ) {
+            if ( !pattern.matcher(str).matches() ) {
+                throw new IllegalArgumentException("not a legal key to be used as XML tag " + str );
+            }
+            this.str = str;
+        }
+
+        public String get() {
+            return str;
+        }
+
+        @Override
+        public int compareTo(Key o) {
+            return str.compareTo(o.get());
+        }
+
+        @Override
+        public String toString() {
+            return str;
+        }
+
+        public static Key valueOf( String str ) {
+            return new Key( str );
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            Key key = (Key) o;
+
+            if (str != null ? !str.equals(key.str) : key.str != null) return false;
+
+            return true;
+        }
+
+        @Override
+        public int hashCode() {
+            return str != null ? str.hashCode() : 0;
+        }
+
+        public static Key valueOf(Str key) {
+            return new Key( key.get());
+        }
+
+        @Override
+        public boolean isStr() {
+            return false;  //To change body of implemented methods use File | Settings | File Templates.
+        }
+
+        @Override
+        public Str getStr() {
+            return null;  //To change body of implemented methods use File | Settings | File Templates.
+        }
+
+        @Override
+        public boolean isMap() {
+            return false;  //To change body of implemented methods use File | Settings | File Templates.
+        }
+
+        @Override
+        public GMap<Str, Readable> getMap() {
+            return null;  //To change body of implemented methods use File | Settings | File Templates.
+        }
+
+        @Override
+        public boolean isList() {
+            return false;  //To change body of implemented methods use File | Settings | File Templates.
+        }
+
+        @Override
+        public List<Readable> getList() {
+            return null;  //To change body of implemented methods use File | Settings | File Templates.
+        }
+
+        @Override
+        public Readable put(Str key, Object val) {
+            return null;  //To change body of implemented methods use File | Settings | File Templates.
+        }
+    }
 }
