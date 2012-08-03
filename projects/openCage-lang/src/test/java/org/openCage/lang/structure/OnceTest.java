@@ -47,7 +47,7 @@ public class OnceTest {
 
     }
 
-    @Test( expected = IllegalStateException.class )
+    @Test( expected = IllegalAccessError.class )
     public void setAfterGet() {
         Once<String> o = new Once<String>( "dflt");
         o.get();

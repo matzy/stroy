@@ -1,10 +1,5 @@
 package org.openCage.stroy.ui;
 
-import org.openCage.stroy.dir.FileContent;
-import org.openCage.stroy.graph.matching.TreeMatchingTask;
-
-import javax.swing.tree.DefaultMutableTreeNode;
-
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
  * Copyright (c) 2006 - 2012, Stephan Pfab

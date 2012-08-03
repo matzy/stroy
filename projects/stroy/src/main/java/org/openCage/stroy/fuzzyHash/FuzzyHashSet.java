@@ -1,6 +1,6 @@
 package org.openCage.stroy.fuzzyHash;
 
-import org.openCage.util.collection.Sets;
+import org.openCage.lang.Sets;
 import org.openCage.stroy.fuzzyHash.metric.CountChangeMetric;
 import org.openCage.stroy.algo.fuzzyHash.FuzzyHash;
 

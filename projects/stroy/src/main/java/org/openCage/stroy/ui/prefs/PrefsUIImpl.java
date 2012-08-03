@@ -2,15 +2,16 @@ package org.openCage.stroy.ui.prefs;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
-import org.openCage.comphy.ImmuProp;
-import org.openCage.comphy.StringProperty;
+import org.openCage.comphy.property.ImmuProp;
+import org.openCage.comphy.property.MapProperty;
 import org.openCage.lang.inc.Str;
-import org.openCage.stroy.file.FileTypes5;
-import org.openCage.stroy.filter.IgnoreCentral5;
+import org.openCage.stroy.file.FileTypes;
+import org.openCage.stroy.filter.IgnoreCentral;
 import org.openCage.stroy.locale.Message;
 import org.openCage.stroy.update.UpdatePrefs;
+import org.openCage.util.external.DesktopX;
 import org.openCage.util.io.FileUtils;
-import org.openCage.util.prefs.LocaleSelectionProperty5;
+import org.openCage.util.prefs.LocaleSelectionProperty;
 import org.openCage.util.prefs.LogLevelSelectionProperty5;
 
 import javax.swing.*;
@@ -55,28 +56,37 @@ public class PrefsUIImpl extends PrefsUI {
 //    }
 
 
-    private ExternalPref fileTypes;
+    private ExternalPref2 fileTypes;
     private UpdatePrefs updatePrefs;
-    private final LocaleSelectionProperty5 localeSelection;
+    private final LocaleSelectionProperty localeSelection;
     private final LogLevelSelectionProperty5 loglevelSelection;
     private final ImmuProp<Str> editorPref;
     private final ImmuProp<Str> diffPref;
-    private final IgnoreCentral5 central;
+    private final IgnoreCentral central;
+    private final DesktopX desktop;
+    private final MapProperty<ImmuProp<Str>> progList;
+    private final ImmuProp<Str> sel1;
 
     @Inject
     public PrefsUIImpl(final UpdatePrefs updatePrefs,
-                       LocaleSelectionProperty5 localeSelection,
+                       LocaleSelectionProperty localeSelection,
                        LogLevelSelectionProperty5 loglevelSelection,
-                       @Named(value = "Editor") ImmuProp<Str> editorPref,
-                       @Named(value = "DiffProg") ImmuProp<Str> diffPref,
-                       FileTypes5 fileTypes, IgnoreCentral5 central) {
+                       @Named("Editor") ImmuProp<Str> editorPref,
+                       @Named("DiffProg") ImmuProp<Str> diffPref,
+                       FileTypes fileTypes, IgnoreCentral central,
+                       DesktopX desktop,
+                       @Named("progList") MapProperty<ImmuProp<Str>> progList,
+                       @Named("progSel" ) ImmuProp<Str> sel1) {
         this.updatePrefs = updatePrefs;
         this.localeSelection = localeSelection;
         this.loglevelSelection = loglevelSelection;
         this.editorPref = editorPref;
         this.diffPref = diffPref;
         this.central = central;
-        this.fileTypes = new ExternalPref( this, fileTypes );
+        this.desktop = desktop;
+        this.progList = progList;
+        this.sel1 = sel1;
+        this.fileTypes = new ExternalPref2( this, fileTypes, progList);
 
         createLayout();
     }
@@ -91,7 +101,7 @@ public class PrefsUIImpl extends PrefsUI {
 
         tabbed.addTab( Message.get( "Pref.FileType.title" ), null, fileTypes   );
         tabbed.addTab( Message.get( "Pref.Filter.title" ), null,  new FilterFrameDetails(central));
-        tabbed.addTab( Message.get( "Pref.StandardProgs.title" ), null,  new StandardProgUI( this, editorPref, diffPref));
+        tabbed.addTab( Message.get( "Pref.StandardProgs.title" ), null,  new StandardProgUI( this, editorPref, diffPref, desktop, sel1, progList));
 //        tabbed.addTab( Message.get( "Pref.Logging.title" ), null,  new LogPrefs());
         tabbed.addTab( Message.get( "Pref.More.title" ), null, new MorePrefs( updatePrefs, localeSelection, loglevelSelection )  );
 

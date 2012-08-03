@@ -1,5 +1,6 @@
 package org.openCage.stroy.dir;
 
+import org.openCage.stroy.content.FileContent;
 import org.openCage.stroy.content.FileContentFactory;
 import org.openCage.stroy.graph.node.ContentTreeNodeBaseImpl;
 import org.openCage.stroy.graph.node.TreeLeafNode;

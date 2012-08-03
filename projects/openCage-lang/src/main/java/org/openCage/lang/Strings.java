@@ -246,4 +246,35 @@ public class Strings {
 
     }
 
+    private static final char[] HEX_CHARS = {
+        '0', '1', '2', '3',
+        '4', '5', '6', '7',
+        '8', '9', 'a', 'b',
+        'c', 'd', 'e', 'f',};
+
+    /**
+     * Turns array of bytes into string representing each byte as
+     * unsigned hex number.
+     *
+     * @param hash	Array of bytes to convert to hex-string
+     * @return	Generated hex string
+     */
+    public static String asHex( byte hash[] ) {
+
+        char buf[] = new char[hash.length * 2];
+
+        for (int i = 0, x = 0; i < hash.length; i++) {
+
+            buf[x++] = HEX_CHARS[(hash[i] >>> 4) & 0xf];
+            buf[x++] = HEX_CHARS[hash[i] & 0xf];
+        }
+
+        return new String(buf);
+    }
+
+    public static String withoutEnd( String in, String end ) {
+        return in.substring(0, in.length() - end.length());
+    }
+
+
 }

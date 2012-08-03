@@ -1,6 +1,6 @@
 package org.openCage.lang;
 
-import org.openCage.lang.inc.ImuDate;
+import org.openCage.lang.inc.ImmuDate;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
@@ -37,11 +37,11 @@ public class ImuDateUtils {
     private static final long WEEK = 7 * DAY;
     private static final long MONTH = 30 * DAY;
 
-    public static boolean moreThanAWeek( ImuDate base, ImuDate date ) {
+    public static boolean moreThanAWeek( ImmuDate base, ImmuDate date ) {
         return date.getDate().getTime() - base.getDate().getTime() >= WEEK;
     }
 
-    public static boolean moreThanAMonth( ImuDate base, ImuDate date ) {
+    public static boolean moreThanAMonth( ImmuDate base, ImmuDate date ) {
         return date.getDate().getTime() - base.getDate().getTime() >= MONTH;
     }
 

@@ -2,6 +2,7 @@ package org.openCage.stroy.task;
 
 import org.openCage.lang.structure.Once;
 import org.openCage.lang.structure.T3;
+import org.openCage.stroy.graph.node.TreeNode;
 import org.openCage.util.logging.Log;
 import org.openCage.stroy.diff.ContentDiff;
 
@@ -204,6 +205,19 @@ public class MatchingTaskNeutral<T> implements MatchingTask<T>{
         match( leftRoot, rightRoot, 1.0 );
     }
 
+    @Override
+    public void setRoot( T oneRoot, boolean left ) {
+        if ( left ) {
+            leftRoot.set( oneRoot );
+        } else {
+            rightRoot.set( oneRoot );
+        }
+
+        if ( leftRoot.isSet() && rightRoot.isSet() ) {
+            match( leftRoot.get(), rightRoot.get(), 1.0 ); // TODO
+        }
+    }
+
     public void remove( T obj ) {
         breakMatch( obj );
         left2Right.remove( obj );
@@ -244,6 +258,7 @@ public class MatchingTaskNeutral<T> implements MatchingTask<T>{
             listener.diffChanged( ordered.i0, ordered.i1 );
         }
     }
+
 
     private Quality getQuality( T obj ) {
 

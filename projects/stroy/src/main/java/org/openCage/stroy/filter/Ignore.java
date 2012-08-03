@@ -29,10 +29,5 @@ import java.util.List;
 
 public interface Ignore {
 
-
     public boolean match( String path );
-
-//    public void setExtensions( List<String> extensions );
-//    public void setPatterns( List<String> patterns );
-//    public void setPaths( List<String> paths );
 }

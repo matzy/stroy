@@ -29,7 +29,7 @@ package org.openCage.stroy.text;
  * Noop implementation for noise filtering
  */
 public class NoNoise implements LineNoise {
-    public boolean isGrayNoise(String text) {
+    public Boolean call(String text) {
         return false;
     }
 }

@@ -2,11 +2,12 @@ package org.openCage.stroy.content;
 
 import com.google.inject.Inject;
 import org.openCage.lang.functions.F1;
-import org.openCage.stroy.dir.FileContent;
+import org.openCage.stroy.dir.FileContentImpl;
 import org.openCage.stroy.fuzzyHash.FuzzyHashGenerator;
 import org.openCage.stroy.algo.fuzzyHash.FuzzyHash;
 
 import java.io.File;
+import java.io.InputStream;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
@@ -35,20 +36,15 @@ import java.io.File;
 
 public class FileContentFactory {
 
-//    private final FuzzyHashGenerator<File> fuzzyHashGen;
-
-    private final F1<FuzzyHash,File> fuzzyHashGenerator;
+    private final F1<FuzzyHash,Content> fuzzyHashGenerator;
 
     @Inject
-    public FileContentFactory( final FuzzyHashGenerator<File> fuzzyHashGen ) {
-        this.fuzzyHashGenerator = new F1<FuzzyHash, File>() {
-            public FuzzyHash call( File file ) {
-                return fuzzyHashGen.generate( file );
-            }
-        };
+    public FileContentFactory( final FuzzyHashGenerator<Content> fuzzyHashGen ) {
+        this.fuzzyHashGenerator = fuzzyHashGen;
     }
 
-    public FileContent create( final File file ) {
-        return new FileContent( fuzzyHashGenerator, file );
+    public FileContentImpl create( final File file ) {
+
+        return new FileContentImpl( fuzzyHashGenerator, file );
     }
 }

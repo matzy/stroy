@@ -5,11 +5,10 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.util.logging.Level;
 
-import org.openCage.util.logging.LogHandlerPanel;
 import org.openCage.stroy.locale.Message;
 import net.java.dev.designgridlayout.DesignGridLayout;
 import org.openCage.util.prefs.LogLevelSelectionProperty5;
-import org.openCage.util.prefs.PComboBox2;
+import org.openCage.util.prefs.PComboBox;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
@@ -46,7 +45,7 @@ public class LogPrefs extends JPanel {
         JPanel top = new JPanel();
         DesignGridLayout layout = new DesignGridLayout( top );
         layout.row().grid().add( new JLabel(""));
-        layout.row().grid( new JLabel( Message.get( "Pref.Logging.display" ))).add( new PComboBox2<Level>(logLevelSelectionProperty) );
+        layout.row().grid( new JLabel( Message.get( "Pref.Logging.display" ))).add( new PComboBox<Level>(logLevelSelectionProperty) );
 //        layout.row().grid( "display loglevel level: ").add( selectHandlerLevel );
 
         top.setBorder( new TitledBorder( Message.get( "Pref.Logging.title" ) ));

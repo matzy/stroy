@@ -5,20 +5,17 @@ import com.google.inject.name.Named;
 import com.muchsoft.util.mac.Java14Adapter;
 import com.muchsoft.util.mac.Java14Handler;
 import com.muchsoft.util.Sys;
-import org.openCage.comphy.ImmuProp;
-import org.openCage.comphy.Observer;
-import org.openCage.comphy.StringProperty;
+import org.openCage.comphy.property.ImmuProp;
+import org.openCage.lang.listeners.Observer;
 import org.openCage.lang.inc.Str;
 import org.openCage.stroy.ui.menu.PortableMenuFactory;
 import org.openCage.util.io.FileUtils;
-import org.openCage.stroy.dir.FileContent;
-import org.openCage.stroy.graph.matching.strategy.MatchStrategy;
 import org.openCage.stroy.ui.prefs.PrefsUI;
 import org.openCage.stroy.ui.menu.PortableMenu;
 import org.openCage.stroy.update.UpdateChecker;
 import org.openCage.stroy.locale.Message;
 import org.openCage.util.logging.Log;
-import org.openCage.util.prefs.TextField2;
+import org.openCage.util.prefs.TextField;
 import org.openCage.util.ui.FileChooser;
 import org.openCage.util.app.About;
 import org.openCage.util.app.AboutImpl;
@@ -72,9 +69,9 @@ public class DirSelectorImpl extends JFrame
 
     private final JProgressBar progressBar = new JProgressBar();
 
-    private final TextField2 oneTxt;
+    private final TextField oneTxt;
     private final JButton   oneButton   = new JButton("..");
-    private final TextField2 twoTxt;
+    private final TextField twoTxt;
     private final JButton   twoButton   = new JButton("..");
     //private final TextField threeTxt    = new TextField( "dir.third" );
     private final JButton   threeButton = new JButton("..");
@@ -107,8 +104,8 @@ public class DirSelectorImpl extends JFrame
                             LogHandlerPanel logHandlerPanel ) {
         super( "stroy");
 
-        this.oneTxt = new TextField2( dirFirst );
-        this.twoTxt = new TextField2( dirSecond );
+        this.oneTxt = new TextField( dirFirst );
+        this.twoTxt = new TextField( dirSecond );
         this.logHandlerPanel = logHandlerPanel;
 
         this.appInfo       = appInfo;
@@ -241,7 +238,7 @@ public class DirSelectorImpl extends JFrame
         if ( txt.getText().length() > 0 ) {
             File left = new File(txt.getText() );
 
-            if ( left.exists() && left.isDirectory() ) {
+            if ( left.exists() /*&& left.isDirectory() */) {
                 textOk = true;
                 txt.setBackground( Colors.BACKGROUND_NEUTRAL);
             } else {
@@ -287,48 +284,6 @@ public class DirSelectorImpl extends JFrame
     public void progress(boolean b) {
         progressBar.setIndeterminate( b );
     }
-
-//    public void setMatching( TreeMatchingTask<FileContent> matching1,
-//                             TreeMatchingTask<FileContent> matching2,
-//                             DefaultMutableTreeNode firstRoot,
-//                             DefaultMutableTreeNode secondRoot,
-//                             DefaultMutableTreeNode thirdRoot) {
-//
-//        List<TreeMatchingTask<FileContent>>  matchings = new ArrayList<TreeMatchingTask<FileContent>>();
-//        List<DefaultMutableTreeNode>         roots     = new ArrayList<DefaultMutableTreeNode>();
-//        matchings.add( matching1 );
-//        roots.add(firstRoot);
-//        roots.add(secondRoot);
-//
-//        if ( matching2 != null ) {
-//            assert( thirdRoot != null );
-//            matchings.add( matching2 );
-//            roots.add(thirdRoot);
-//        }
-////        GraphicalDiff gd = new GraphicalDiff( matching1, matching2, secondRoot, firstRoot, thirdRoot );
-////        gd.setVisible( true );
-////
-////        GraphicalDiffFlex gd3 = new GraphicalDiffFlex( Arrays.asList( matching1, matching2),
-////                Arrays.asList( secondRoot, firstRoot, thirdRoot ));
-////        gd3.setVisible(true);
-//
-//        PortableMenu menu = new PortableMenu();
-//        //menu.setFilterView( filterFrame );
-//        menu.setLogView( logHandlerPanel );
-//        menu.setAppInfo( appInfo );
-//
-//
-//
-//        try {
-////            GraphicalDiffMyDoggy gd4 = new GraphicalDiffMyDoggy( matchings, roots, menu );
-////            gd4.setVisible(true);
-//        } catch ( Exception exp ) {
-//            Log.severe( "no diff tree: " + exp  );
-//            progress( false );
-//        }
-//
-//        dispose();
-//    }
 
     public void handleAbout(EventObject eventObject) {
         Java14Adapter.setHandled( eventObject, true );

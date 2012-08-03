@@ -1,7 +1,7 @@
 package org.openCage.stroy.ui.popup;
 
 import org.openCage.lang.inc.Null;
-import org.openCage.stroy.file.FileTypes5;
+import org.openCage.stroy.file.FileTypes;
 import org.openCage.stroy.graph.node.TreeNode;
 import org.openCage.stroy.content.Content;
 import org.openCage.util.platform.Platform;
@@ -38,9 +38,9 @@ import org.openCage.util.io.FileUtils;
  */
 public class DiffPopupDecider {
 
-    private final FileTypes5 fileTypes;
+    private final FileTypes fileTypes;
 
-    public DiffPopupDecider(FileTypes5 fileTypes) {
+    public DiffPopupDecider(FileTypes fileTypes) {
         this.fileTypes = fileTypes;
         if (Null.is(fileTypes )) {
             throw new IllegalArgumentException("oops");

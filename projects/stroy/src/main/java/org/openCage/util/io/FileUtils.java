@@ -7,8 +7,6 @@ import java.util.regex.Pattern;
 
 import org.openCage.lang.functions.VF0;
 import org.openCage.lang.functions.VF1;
-import org.openCage.lang.functions.VF2;
-import org.openCage.util.iterator.Iterators;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
@@ -153,7 +151,7 @@ public class FileUtils {
      * @param in input stream
      * @param out output stream
      */
-    private static void copy( FileInputStream in, FileOutputStream out ) {
+    public static void copy( InputStream in, OutputStream out ) {
         try{
             byte buffer[] = new byte[ 0xffff];
             int  count;
@@ -211,47 +209,47 @@ public class FileUtils {
         }
     }
 
-    public static void withIterator( File file, VF1<Iterable<String>> func ) {
-        LineReaderIterator it = iterator( file );
-        try {
-            Iterable<String> ita = Iterators.loop( it );
-            func.call( ita );
-        } finally {
-            it.close();
-        }
-    }
+//    public static void withIterator( File file, VF1<Iterable<String>> func ) {
+//        LineReaderIterator it = iterator( file );
+//        try {
+//            Iterable<String> ita = Iterators.loop( it );
+//            func.call( ita );
+//        } finally {
+//            it.close();
+//        }
+//    }
+//
+//    public static void withIterator( InputStream is , VF1<Iterable<String>> func ) {
+//        LineReaderIterator it = null;
+//        try {
+//            it = new LineReaderIterator( new BufferedReader( new InputStreamReader( is )));
+//            Iterable<String> ita = Iterators.loop( it );
+//            func.call( ita );
+//        } catch ( IOException e ) {
+//            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+//        } finally {
+//            LineReaderIterator.close( it );
+//        }
+//    }
 
-    public static void withIterator( InputStream is , VF1<Iterable<String>> func ) {
-        LineReaderIterator it = null;
-        try {
-            it = new LineReaderIterator( new BufferedReader( new InputStreamReader( is )));
-            Iterable<String> ita = Iterators.loop( it );
-            func.call( ita );
-        } catch ( IOException e ) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        } finally {
-            LineReaderIterator.close( it );
-        }
-    }
-
-    public static void withOpen( File file, VF2<String, LoopState> v2 ) {
-        LineReaderIterator it = iterator( file );
-        try {
-            LoopStateImpl lp = new LoopStateImpl();
-            for ( String str : Iterators.loop( it ) ) {
-                v2.call( str, lp );
-                if ( lp.isBroken()) {
-                    break;
-                }
-
-                lp.incr();
-            }
-
-
-        } finally {
-            it.close();
-        }
-    }
+//    public static void withOpen( File file, VF2<String, LoopState> v2 ) {
+//        LineReaderIterator it = iterator( file );
+//        try {
+//            LoopStateImpl lp = new LoopStateImpl();
+//            for ( String str : Iterators.loop( it ) ) {
+//                v2.call( str, lp );
+//                if ( lp.isBroken()) {
+//                    break;
+//                }
+//
+//                lp.incr();
+//            }
+//
+//
+//        } finally {
+//            it.close();
+//        }
+//    }
 
 
     public static <T> void withOpenStream( InputStream is, VF0 func ) {

@@ -3,9 +3,12 @@ package org.openCage.stroy.ui.prefs;
 import javax.swing.*;
 
 import com.google.inject.name.Named;
-import org.openCage.comphy.ImmuProp;
-import org.openCage.comphy.StringProperty;
+import org.openCage.comphy.property.ImmuProp;
+import org.openCage.comphy.property.MapProperty;
 import org.openCage.lang.inc.Str;
+import org.openCage.util.external.DesktopX;
+import org.openCage.util.external.DesktopXs;
+import org.openCage.util.prefs.MComboBox;
 import org.openCage.util.ui.FileChooser;
 import org.openCage.util.ui.JTextFields;
 import org.openCage.util.io.FileUtils;
@@ -19,7 +22,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-import com.muchsoft.util.Sys;
 import net.java.dev.designgridlayout.DesignGridLayout;
 
 import static org.openCage.lang.inc.Strng.S;
@@ -59,10 +61,7 @@ public class StandardProgUI extends JPanel {
     private final JTextField diffText = new JTextField();
     private final JButton diffButton = new JButton( "..");
     private final JButton resetButton = new JButton( "reset");
-//    private final JTextField openText = new JTextField("opens the file with the assigned program");
     private final JTextField editorText = new JTextField();
-//    private final PreferenceString editorPref =  PreferenceString.getOrCreate( STANDARD_TEXT_EDITOR_KEY, "" ); // TODO
-//    private final PreferenceString diffPref =  PreferenceString.getOrCreate( STANDARD_DIFF_KEY, "" );
     private final ImmuProp<Str> editorPref;
     private final ImmuProp<Str> diffPref;
 
@@ -71,11 +70,23 @@ public class StandardProgUI extends JPanel {
     private final JRadioButton otherText = new JRadioButton( Message.get( "Pref.StandardProgs.textOther" ));
     private final JRadioButton stdDiff   = new JRadioButton( Message.get( "Pref.StandardProgs.osDiff" ));
     private final JRadioButton otherDiff = new JRadioButton( Message.get( "Pref.StandardProgs.DiffOther" ));
+    private MComboBox mbox;
+    private final JTextField newProg = new JTextField();
+    private JButton progOk = new JButton("OK");
+    private JButton progProg = new JButton("..");
 
-    public StandardProgUI(JFrame frme, @Named(value = "Editor") ImmuProp<Str> editorPref, @Named(value = "DiffProg") ImmuProp<Str> diffPref) {
+
+    public StandardProgUI(JFrame frme,
+                          @Named("Editor") ImmuProp<Str> editorPref,
+                          @Named("DiffProg") ImmuProp<Str> diffPref,
+                          DesktopX desktop,
+                          ImmuProp<Str> sel,
+                          final MapProperty<ImmuProp<Str>> progList) {
         this.frame = frme;
         this.editorPref = editorPref;
         this.diffPref = diffPref;
+
+        this.mbox = new MComboBox( progList, sel);
 
         JPanel top = new JPanel();
         DesignGridLayout layout = new DesignGridLayout( top );
@@ -88,16 +99,10 @@ public class StandardProgUI extends JPanel {
         diffGroup.add( stdDiff );
         diffGroup.add( otherDiff );
 
-        String stdDiffProg = "";
-        if ( Sys.isMacOSX()) {
-            stdDiffProg = "FileMerge";
-        } else if ( Sys.isWindows() ) {
-            stdDiffProg = "WinMerge";
-        } else if ( Sys.isLinux() ) {
-            stdDiffProg = "diff";
-        }
+        String stdDiffProg = desktop.getStandardDiffProgName();
 
-        layout.row().grid().add( new JLabel(Message.get( "Pref.StandardProgs.diff" )),2).add( stdDiff, 2 ).add( new JLabel(stdDiffProg), 5);
+        layout.row().grid().add( mbox );
+        layout.row().grid().add(new JLabel(Message.get("Pref.StandardProgs.diff")), 2).add(stdDiff, 2).add( new JLabel(stdDiffProg), 5);
         layout.row().grid().add( new JLabel(" "), 2).add( otherDiff,2 ).add( diffText, 4).add( diffButton, 1);
         layout.row().grid().add( new JLabel( ""));
 
@@ -110,24 +115,28 @@ public class StandardProgUI extends JPanel {
         textGroup.add( stdEdit );
         textGroup.add( otherText );
 
-        String stdText = "";
-        if ( Sys.isMacOSX()) {
-            stdText = "TextEdit";
-        } else if ( Sys.isWindows() ) {
-            stdText = "Notepad";
-        } else if ( Sys.isLinux() ) {
-            stdText = "vi";
-        }
+        String stdText = desktop.getStandardEditorName();
 
         layout.row().grid().add( new JLabel(Message.get( "Pref.StandardProgs.text" )),2).add( stdEdit, 2 ).add( new JLabel(stdText), 5);
-        layout.row().grid().add( new JLabel(" "), 2).add( otherText,2 ).add( editorText, 4).add( editButton, 1);
+        layout.row().grid().add(new JLabel(" "), 2).add( otherText,2 ).add( editorText, 4).add( editButton, 1);
+        layout.row();
+        layout.row().grid().add( new JLabel( Message.get("Add a new Program")), 3).add( newProg,4 ).add(progProg, 1).add(progOk, 1);
 
-        setLayout( new BorderLayout());
+        progProg.addActionListener( new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String cmd = newProg.getText();
+                String key = extract( cmd );
+                progList.put( S(key), new ImmuProp<Str>(S(newProg.getText())));
+            }
+        });
+
+        setLayout(new BorderLayout());
         add( top, BorderLayout.CENTER );
 
         diffButton.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
-                    String path = FileChooser.open( frame, FileUtils.getCurrentDir());
+                    String path = FileChooser.getAnyFile(frame, FileUtils.getCurrentDir());
 
                     if ( path != null ) {
                         String norm = FileUtils.normalizePath( path );
@@ -146,7 +155,7 @@ public class StandardProgUI extends JPanel {
 
         editButton.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
-                    String path = FileChooser.open( frame, FileUtils.getCurrentDir());
+                    String path = FileChooser.getAnyFile(frame, FileUtils.getCurrentDir());
 
                     if ( path != null ) {
                         String norm = FileUtils.normalizePath( path );
@@ -190,7 +199,7 @@ public class StandardProgUI extends JPanel {
 
         // to fix preference setttings
         if ( this.editorPref.get().equals( "" )) {
-            this.editorPref.set(ExternalProgs.OS_TEXT_EDIT);
+            this.editorPref.set(DesktopXs.OS_STANDARD_TEXT_EDITOR);
         }
         if ( this.editorPref.get().equals( ExternalProgs.WIN_TEXT_EDIT )) {
             this.editorPref.set(ExternalProgs.OS_TEXT_EDIT);
@@ -200,21 +209,11 @@ public class StandardProgUI extends JPanel {
         }
 
 
-        if ( this.editorPref.get().equals( ExternalProgs.OS_TEXT_EDIT ) ) {
-            editorText.setEnabled( false );
-            editButton.setEnabled( false );
-            stdEdit.setSelected( true );
-        } else {
-            editorText.setEnabled( true );
-            editButton.setEnabled( true );
-            otherText.setSelected( true );
-            editorText.setText( this.editorPref.get().get() );
-        }
 
 
         // to fix preference setttings
-        if ( this.diffPref.get().equals( "" )) {
-            this.diffPref.set(ExternalProgs.STANDARD_DIFF);
+        if ( this.diffPref.get().equals( S("") )) {
+            this.diffPref.set(DesktopXs.STANDARD_DIFF);
         }
         if ( this.diffPref.get().equals( ExternalProgs.fileMerge )) {
             this.diffPref.set(ExternalProgs.STANDARD_DIFF);
@@ -223,35 +222,55 @@ public class StandardProgUI extends JPanel {
             this.diffPref.set(ExternalProgs.STANDARD_DIFF);
         }
 
-        if ( this.diffPref.get().equals( ExternalProgs.STANDARD_DIFF ) ) {
-            diffText.setEnabled( false );
-            diffButton.setEnabled( false );
-            stdDiff.setSelected( true );
-        } else {
-            diffText.setEnabled( true );
-            diffButton.setEnabled( true );
-            otherDiff.setSelected( true );
-            diffText.setText( this.diffPref.get().get() );
-        }
+        selectionBox( editorText, editButton, stdEdit, otherText, editorPref, DesktopXs.OS_STANDARD_TEXT_EDITOR);
+        selectionBox( diffText, diffButton, stdDiff, otherDiff, diffPref, DesktopXs.STANDARD_DIFF  );
 
-        diffText.addKeyListener( new KeyAdapter() {
-            public void keyReleased(KeyEvent keyEvent) {
-                super.keyReleased( keyEvent );
-                if ( JTextFields.isFile( diffText, Colors.BACKGROUND_NEUTRAL, Colors.BACKGROUND_WARN)) {
-                    StandardProgUI.this.diffPref.set(S(diffText.getText()));
-                }
-            }
-        });
-
-        editorText.addKeyListener( new KeyAdapter() {
-            public void keyReleased(KeyEvent keyEvent) {
-                super.keyReleased( keyEvent );
-                if ( JTextFields.isFile( editorText, Colors.BACKGROUND_NEUTRAL, Colors.BACKGROUND_WARN)) {
-                    StandardProgUI.this.editorPref.set(S(editorText.getText()));
-                }
-            }
-        });
 
 
     }
+
+    private String extract(String cmd) {
+        int lastSlash = cmd.lastIndexOf("/");
+        int firstSpace = cmd.indexOf(" ");
+        firstSpace = (firstSpace == -1) ? cmd.length() : firstSpace;
+        return cmd.substring( lastSlash, firstSpace - lastSlash );
+    }
+
+    public static void selectionBox( final JTextField textField,
+                                     JButton button,
+                                     JRadioButton stdButton,
+                                     JRadioButton other,
+                                     final ImmuProp<Str> prop,
+                                     Str std ) {
+
+
+        //
+        //enable disable
+
+        if ( prop.get().equals( std ) ) {
+            textField.setEnabled( false );
+            button.setEnabled( false );
+            stdButton.setSelected( true );
+        } else {
+            textField.setEnabled( true );
+            button.setEnabled( true );
+            other.setSelected( true );
+            textField.setText( prop.get().get() );
+        }
+
+
+
+        // react to keyboard input
+
+        textField.addKeyListener(new KeyAdapter() {
+            public void keyReleased(KeyEvent keyEvent) {
+                super.keyReleased(keyEvent);
+                if ( JTextFields.isFileOrApp(textField, Colors.BACKGROUND_NEUTRAL, Colors.BACKGROUND_WARN)) {
+                    prop.set( S(textField.getText()));
+                }
+            }
+        });
+
+    }
+
 }

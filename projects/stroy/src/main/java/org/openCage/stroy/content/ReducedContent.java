@@ -3,6 +3,7 @@ package org.openCage.stroy.content;
 import org.openCage.stroy.algo.fuzzyHash.FuzzyHash;
 
 import java.io.File;
+import java.io.InputStream;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
@@ -79,6 +80,11 @@ public class ReducedContent implements Content {
     public String getLocation() {
         // TODO
         return "here";
+    }
+
+    @Override
+    public InputStream getStream() {
+        throw new Error("impl me");
     }
 
     public File getFile() {

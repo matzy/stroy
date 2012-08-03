@@ -1,9 +1,13 @@
 package org.openCage.stroy.ui.prefs;
 
-import org.openCage.stroy.file.FileTypes5;
-import org.openCage.stroy.file.SimilarityAlgorithm;
+import org.openCage.comphy.property.ImmuProp;
+import org.openCage.comphy.property.MapProperty;
+import org.openCage.lang.inc.Str;
+import org.openCage.stroy.file.*;
+import org.openCage.stroy.file.Action;
 import org.openCage.stroy.locale.Message;
 import org.openCage.stroy.ui.Colors;
+import org.openCage.util.prefs.MComboBox;
 import org.openCage.util.ui.FileChooser;
 import org.openCage.util.ui.JTextFields;
 import org.openCage.util.io.FileUtils;
@@ -24,34 +28,34 @@ import net.java.dev.designgridlayout.DesignGridLayout;
 
 
 /***** BEGIN LICENSE BLOCK *****
- * BSD License (2 clause)
- * Copyright (c) 2006 - 2012, Stephan Pfab
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *     * Redistributions of source code must retain the above copyright
- *       notice, this list of conditions and the following disclaimer.
- *     * Redistributions in binary form must reproduce the above copyright
- *       notice, this list of conditions and the following disclaimer in the
- *       documentation and/or other materials provided with the distribution.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL Stephan Pfab BE LIABLE FOR ANY
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+* BSD License (2 clause)
+* Copyright (c) 2006 - 2012, Stephan Pfab
+* All rights reserved.
+*
+* Redistribution and use in source and binary forms, with or without
+* modification, are permitted provided that the following conditions are met:
+*     * Redistributions of source code must retain the above copyright
+*       notice, this list of conditions and the following disclaimer.
+*     * Redistributions in binary form must reproduce the above copyright
+*       notice, this list of conditions and the following disclaimer in the
+*       documentation and/or other materials provided with the distribution.
+*
+* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+* ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+* WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+* DISCLAIMED. IN NO EVENT SHALL Stephan Pfab BE LIABLE FOR ANY
+* DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+* (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+* LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+* ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+* (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ***** END LICENSE BLOCK *****/
 
 public class ExternalPref extends JPanel {
     private JTextField descriptionField = new JTextField();
 
-    private FileTypes5 fileTypes;
+    private FileTypes fileTypes;
 
     private JComboBox algoBox;
     private JButton algoReset = new JButton( Message.get( "Button.reset" ) );
@@ -77,12 +81,15 @@ public class ExternalPref extends JPanel {
 
     private Map<String, String> algo2mesg = new HashMap<String, String>();
     private Map<String, String> mesg2algo = new HashMap<String, String>();
+    private MComboBox mbox;
+    private final MapProperty<ImmuProp<Str>> progList;
 
-    public ExternalPref( final JFrame frame, FileTypes5 filesTypes) {
+    public ExternalPref(final JFrame frame, FileTypes filesTypes, MapProperty<ImmuProp<Str>> progList) {
 
         this.frame = frame;
 
         this.fileTypes = filesTypes;
+        this.progList = progList;
 
         List<String> exts = new ArrayList<String>( fileTypes.getTypeList());
         Collections.sort( exts );
@@ -218,7 +225,7 @@ public class ExternalPref extends JPanel {
                 if ( path != null ) {
                     openText.setText( FileUtils.normalizePath( path ));
                     fileTypes.setOpenProg( (String)extList.getSelectedValue(), path );
-                    openText.setBackground(Colors.BACKGROUND_NEUTRAL);                    
+                    openText.setBackground(Colors.BACKGROUND_NEUTRAL);
                 }
 
             }
@@ -285,7 +292,7 @@ public class ExternalPref extends JPanel {
                 if ( path != null ) {
                     diffOtherText.setText( FileUtils.normalizePath( path ));
                     fileTypes.setDiffProg( (String)extList.getSelectedValue(), path );
-                    diffOtherText.setBackground(Colors.BACKGROUND_NEUTRAL);                    
+                    diffOtherText.setBackground(Colors.BACKGROUND_NEUTRAL);
                 }
 
             }
@@ -352,9 +359,14 @@ public class ExternalPref extends JPanel {
 
         layoutB.row().grid().add( new JLabel( Message.get("Pref.FileType.external")),2).
                 add(diffText, 2 ).add( new JLabel(" "),6);
-        layoutB.row().grid().add( new JLabel(" ") ,2 ).add(diffUnknown,2).add( new JLabel(" "),6);
-        layoutB.row().grid().add( new JLabel(" ") ,2 ).add(diffOther,2).add( diffOtherText, 5).add( diffDir );
+        layoutB.row().grid().add( new JLabel(" ") ,2 ).add(diffUnknown, 2).add( new JLabel(" "),6);
+        layoutB.row().grid().add(new JLabel(" "), 2).add(diffOther,2).add( diffOtherText, 5).add( diffDir );
         layoutB.row().grid().add( new JLabel(" "), 10);
+
+        this.mbox = new MComboBox( progList,  new Action(null));
+
+        layoutB.row().grid().add(new JLabel(Message.get("Pref.FileType.external")), 2).
+                add( mbox, 8);
 
 //                add( diffText, 7 ).add( diffDir );
 //        layoutB.row().grid().add( new JLabel(" "), 2).

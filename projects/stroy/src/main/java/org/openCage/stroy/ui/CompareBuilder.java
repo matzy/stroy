@@ -1,13 +1,14 @@
 package org.openCage.stroy.ui;
 
-import com.google.inject.Inject;
+import org.openCage.lang.inc.Null;
 import org.openCage.lang.structure.T2;
 import org.openCage.lang.structure.Tu;
-import org.openCage.stroy.dir.FileContent;
+import org.openCage.stroy.content.Content;
+import org.openCage.stroy.dir.FileContentImpl;
 import org.openCage.stroy.dir.FileTreeMatchingTaskBuilder;
 import org.openCage.stroy.app.Tasks;
 import org.openCage.stroy.filter.Ignore;
-import org.openCage.stroy.filter.IgnoreCentral5;
+import org.openCage.stroy.filter.IgnoreCentral;
 import org.openCage.stroy.locale.Message;
 import org.openCage.stroy.ui.difftree.NWayDiffPaneGenerator;
 import org.openCage.stroy.ui.docking.GraphicalDiffMyDoggy;
@@ -16,6 +17,8 @@ import org.openCage.stroy.graph.matching.strategy.Reporter;
 import org.openCage.stroy.graph.matching.strategy.NameOnly;
 import org.openCage.stroy.graph.matching.strategy.combined.WatchFull;
 import org.openCage.stroy.ui.menu.PortableMenuFactory;
+import org.openCage.stroy.zip.ZipTreeMatchingTaskBuilder;
+import org.openCage.util.io.FileUtils;
 import org.openCage.util.logging.Log;
 
 import java.util.List;
@@ -59,13 +62,15 @@ public class CompareBuilder extends SwingWorker<GraphicalDiffMyDoggy, T2<String,
     private final WatchFull                   watchFullstrategy;
     private final NWayDiffPaneGenerator       diffPaneGen;
     private PortableMenuFactory menuFactory;
+    private ZipTreeMatchingTaskBuilder zipTaskBuilder = new ZipTreeMatchingTaskBuilder();
 
 
     public CompareBuilder(final PortableMenuFactory menuFactory,
                           final NWayDiffPaneGenerator diffPaneGen,
                           final WatchFull watchFullstrategy,
                           FileTreeMatchingTaskBuilder taskBuilder,
-                          IgnoreCentral5 ignoreCentral, String... dirs) {
+                          IgnoreCentral ignoreCentral,
+                          String... dirs) {
 
         this.menuFactory = menuFactory;
         this.watchFullstrategy = watchFullstrategy;
@@ -92,7 +97,12 @@ public class CompareBuilder extends SwingWorker<GraphicalDiffMyDoggy, T2<String,
 
     protected GraphicalDiffMyDoggy doInBackground() throws Exception {
 
-        List<TreeMatchingTask<FileContent>> tasks  = buildTasks();
+        List<TreeMatchingTask<Content>> tasks = null;
+        try {
+            tasks  = buildTasks();
+        } catch ( Exception exp ) {
+            int i = 0;
+        }
 
         Reporter reporter = new Reporter() {
             public void detail( String labl, String str) {
@@ -104,28 +114,30 @@ public class CompareBuilder extends SwingWorker<GraphicalDiffMyDoggy, T2<String,
             }
         };
 
-        for ( TreeMatchingTask<FileContent> task : tasks ) {
-            new NameOnly<FileContent>().match( task, reporter);
+        for ( TreeMatchingTask<Content> task : tasks ) {
+            new NameOnly<Content>().match( task, reporter);
         }
 
         // build the trees ui in the background
         publish( Tu.c( Message.get( "Progress.MainWindowBuilding" ), (String)null ));
 
-        return new GraphicalDiffMyDoggy( menuFactory.get(), diffPaneGen, new Tasks<FileContent>( tasks ) );
+        return new GraphicalDiffMyDoggy( menuFactory.get(), diffPaneGen, new Tasks<Content>( tasks ) );
     }
 
-    private List<TreeMatchingTask<FileContent>> buildTasks() {
-        List<TreeMatchingTask<FileContent>> tasks = new ArrayList<TreeMatchingTask<FileContent>>();
+    private List<TreeMatchingTask<Content>> buildTasks() {
+        List<TreeMatchingTask<Content>> tasks = new ArrayList<TreeMatchingTask<Content>>();
 
         for ( int idx = 1; idx < dirs.size(); ++idx  ) {
 
+            // TODO localize full message
             publish(  Tu.c( Message.get( "Progress.scanning" ), (String)null ));
 
             if ( tasks.size() == 0 ) {
-                // TODO localize full message
-                tasks.add( taskBuilder.build( ignore, new File( dirs.get(idx - 1 )), new File( dirs.get(idx ))));
+                TreeMatchingTask<Content> task = getTaskBuilder(dirs.get(idx - 1)).build(null, ignore, new File(dirs.get(idx - 1)));
+                tasks.add( getTaskBuilder(dirs.get(idx)).build(task, ignore, new File(dirs.get(idx))));
             } else {
-                tasks.add( taskBuilder.build( ignore, tasks.get(tasks.size() - 1), new File( dirs.get(idx ))));
+                throw new Error("huh");
+                //tasks.add( taskBuilder.build( tasks.get(tasks.size() - 1), ignore, new File( dirs.get(idx ))));
             }
         }
 
@@ -162,7 +174,7 @@ public class CompareBuilder extends SwingWorker<GraphicalDiffMyDoggy, T2<String,
 
         progressDialog.dispose();
 
-        new MatchnWatch<FileContent>( gd4.getUIApp(), watchFullstrategy ).execute();
+        new MatchnWatch<FileContentImpl>( gd4.getUIApp(), watchFullstrategy ).execute();
     }
 
 
@@ -177,4 +189,19 @@ public class CompareBuilder extends SwingWorker<GraphicalDiffMyDoggy, T2<String,
             }
         }
     }
+
+    public FileTreeMatchingTaskBuilder getTaskBuilder( String path ) {
+        if ( new File(path).isDirectory() ) {
+            return taskBuilder;
+        } else {
+            String ext = FileUtils.getExtension( path );
+
+            if ( ext.equals( "zip" )) {
+                return zipTaskBuilder;
+            }
+        }
+
+        return Null.get(FileTreeMatchingTaskBuilder.class);
+    }
+
 }

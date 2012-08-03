@@ -29,6 +29,9 @@ import java.util.Map;
 
 public interface GMap<K,V> extends Map<K,V> {
 
+    @Override @Deprecated
+    boolean containsKey(Object o);
+
     boolean containsKeyG(K key);
 
     /**
@@ -50,6 +53,9 @@ public interface GMap<K,V> extends Map<K,V> {
      * (<a href="Collection.html#optional-restrictions">optional</a>)
      */
     boolean containsValueG(V value);
+
+    @Override @Deprecated
+    boolean containsValue(Object o);
 
     /**
      * Returns the value to which the specified key is mapped,
@@ -78,6 +84,8 @@ public interface GMap<K,V> extends Map<K,V> {
      */
     V getG(K key);
 
+    @Override @Deprecated
+    V get(Object o);
 
     /**
      * Removes the mapping for a key from this map if it is present
@@ -110,6 +118,9 @@ public interface GMap<K,V> extends Map<K,V> {
      * (<a href="Collection.html#optional-restrictions">optional</a>)
      */
     V removeG(K key);
+
+    @Override @Deprecated
+    V remove(Object  key);
 
 
     GMap<K,V> putF( K key, V value );

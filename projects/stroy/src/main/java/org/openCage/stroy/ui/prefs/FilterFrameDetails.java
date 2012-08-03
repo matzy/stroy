@@ -1,6 +1,6 @@
 package org.openCage.stroy.ui.prefs;
 
-import org.openCage.stroy.filter.IgnoreCentral5;
+import org.openCage.stroy.filter.IgnoreCentral;
 import org.openCage.stroy.locale.Message;
 
 import javax.swing.*;
@@ -42,7 +42,7 @@ import net.java.dev.designgridlayout.DesignGridLayout;
 
 public class FilterFrameDetails extends JPanel {
 
-    private final IgnoreCentral5 central;
+    private final IgnoreCentral central;
     private JList extList;
     private JList patternList;
     private JList pathList;
@@ -62,7 +62,7 @@ public class FilterFrameDetails extends JPanel {
     private final JButton delExtButton = new JButton( "-");
     private final JTextField addExtField = new JTextField();
 
-    public FilterFrameDetails(IgnoreCentral5 central) {
+    public FilterFrameDetails(IgnoreCentral central) {
         this.central = central;
 
 

@@ -1,5 +1,6 @@
 package org.openCage.util.app;
 
+import org.openCage.notabug.Task;
 import org.openCage.util.www.wikidot.WikiDotGen;
 
 import java.util.List;
@@ -49,6 +50,13 @@ public class Change {
         this.num = num;
         this.typ = typ;
         this.title = title;
+    }
+
+    public Task toTask() {
+        Task task = Task.next( title );
+
+
+        return task;
     }
 
     public Change user( String user ) {

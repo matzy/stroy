@@ -1,14 +1,11 @@
 package org.openCage.stroy.ui.difftree;
 
-import org.openCage.stroy.ui.difftree.NWayDiffPane;
-import org.openCage.stroy.ui.difftree.ShowChangeTreeCellRenderer;
+import org.openCage.lang.iterators.Count;
+import org.openCage.lang.iterators.Iterators;
 import org.openCage.stroy.ui.popup.PopupSelectorFactory;
 import org.openCage.stroy.ui.util.NodeToNode;
-import org.openCage.stroy.dir.FileContent;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.content.Content;
-import org.openCage.util.iterator.Count;
-import org.openCage.util.iterator.Iterators;
 
 import javax.swing.*;
 import javax.swing.event.TreeSelectionListener;
@@ -173,8 +170,8 @@ public class NWayDiffPaneMessages<T extends Content> extends JPanel implements N
 
         for ( Count<DiffTree> dtree : Iterators.count(dtrees)) {
             if ( !dtree.isFirst() ) {
-                dtrees.get( dtree.count - 1 ).addSyncListener( dtree.o );
-                dtree.o.addSyncListener( dtrees.get( dtree.count - 1 ) );
+                dtrees.get( dtree.idx() - 1 ).addSyncListener( dtree.obj() );
+                dtree.obj().addSyncListener( dtrees.get( dtree.idx() - 1 ) );
             }
         }
 
@@ -185,29 +182,29 @@ public class NWayDiffPaneMessages<T extends Content> extends JPanel implements N
                                         ShowChangeTreeCellRenderer   showChangeTreeCellRenderer) {
         List<DiffTree> dtrees = new ArrayList<DiffTree>();
 
-        for ( Count<DefaultMutableTreeNode> root : Iterators.count( roots )) {
+        for ( Count<DefaultMutableTreeNode> root : Iterators.count(roots)) {
             if ( root.isFirst() ) {
                 dtrees.add( new DiffTree(
-                        root.count,
+                        root.idx(),
                         null,
                         tasks.get(0),
-                        root.o,
+                        root.obj(),
                         showChangeTreeCellRenderer,
                         popupSelectorFactory));
             } else if ( root.isLast() ) {
                 dtrees.add( new DiffTree(
-                        root.count,
-                        tasks.get(root.count - 1 ),
+                        root.idx(),
+                        tasks.get(root.idx() - 1 ),
                         null,
-                        root.o,
+                        root.obj(),
                         showChangeTreeCellRenderer,
                         popupSelectorFactory ));
             } else {
                 dtrees.add( new DiffTree(
-                        root.count,
-                        tasks.get(root.count - 1 ),
-                        tasks.get(root.count ),
-                        root.o,
+                        root.idx(),
+                        tasks.get(root.idx() - 1 ),
+                        tasks.get(root.idx() ),
+                        root.obj(),
                         showChangeTreeCellRenderer,
                         popupSelectorFactory ));
             }

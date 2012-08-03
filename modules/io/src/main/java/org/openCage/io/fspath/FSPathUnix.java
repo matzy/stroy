@@ -1,4 +1,4 @@
-package org.openCage.io.fspath;
+kage org.openCage.io.fspath;
 
 
 import org.openCage.lang.Strings;

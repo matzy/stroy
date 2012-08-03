@@ -1,6 +1,6 @@
 package org.openCage.stroy.ui.docking;
 
-import org.openCage.stroy.dir.FileContent;
+import org.openCage.stroy.content.FileContent;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.ui.difftree.UINode;
 import org.openCage.stroy.ui.Colors;
@@ -214,7 +214,7 @@ public class ShowDiffSummary<T extends Content> extends JPanel {
     }
 
     private String getRootPath(  final DefaultMutableTreeNode root ) {
-        final UINode<FileContent> uiNode = (UINode<FileContent>)root.getUserObject();
+        final UINode<Content> uiNode = (UINode<Content>)root.getUserObject();
         return uiNode.get().getContent().getLocation();
     }
 

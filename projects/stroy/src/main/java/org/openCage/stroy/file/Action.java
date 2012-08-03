@@ -56,10 +56,10 @@ public class Action implements Property{
 
 
     @Inject
-    public Action( @Named(value = "description") String description,
-                   @Named(value = "similarityAlgorithm") SimilarityAlgorithm algo,
-                   @Named(value = "diff") String diff,
-                   @Named(value = "open") String open ) {
+    public Action( @Named("description") String description,
+                   @Named("similarityAlgorithm") SimilarityAlgorithm algo,
+                   @Named("diff") String diff,
+                   @Named("open") String open ) {
 //        file = true;
 //        this.ignored = ignored;
         this.algo = algo;
@@ -69,7 +69,7 @@ public class Action implements Property{
     }
 
     @Override
-    public org.openCage.comphy.Readable toReadable() {
+    public ThreeText toReadable() {
         return Readables.Map().
                 put( S("description"), description).
                 put( S("similarityAlgorithm"), algo ).

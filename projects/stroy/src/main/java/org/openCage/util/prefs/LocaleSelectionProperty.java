@@ -1,47 +1,48 @@
-//package org.openCage.util.prefs;
-//
-//import org.openCage.comphy.*;
-//import org.openCage.util.logging.Log;
-//
-//import java.util.Locale;
-//
-//import static org.openCage.comphy.DereaderUtil.deread;
-//
-///**
-// * Created with IntelliJ IDEA.
-// * User: stephan
-// * Date: 6/4/12
-// * Time: 7:54 AM
-// * To change this template use File | Settings | File Templates.
-// */
-//public class LocaleSelectionProperty extends ListSelectionProperty<PropertyOfImutable<Locale>> {
-//    public LocaleSelectionProperty() {
-//        list = new ListProperty<PropertyOfImutable<Locale>>( Key.valueOf("locale"), new PropertyOfImutable.ToAndFro(Locale.class));
-//        list.add( new PropertyOfImutable<Locale>( Locale.getDefault()));
-//        list.add( new PropertyOfImutable<Locale>( Locale.ENGLISH));
-//        list.add( new PropertyOfImutable<Locale>( Locale.GERMAN));
-//        list.add( new PropertyOfImutable<Locale>( Locale.JAPANESE));
-//        list.add( new PropertyOfImutable<Locale>( new Locale("ES")));
-//        selection = new PropertyOfImutable<Locale>( Locale.getDefault());
-//    }
-//
-//    @Override
-//    public void setSelection(PropertyOfImutable<Locale> loc) {
-//        super.setSelection(loc);
-//        Log.setLevel(loc.get());
-//    }
-//
-//    public static class ToAndFro extends DereadalizerMap<LocaleSelectionProperty> {
-//
-//        @Override
-//        public LocaleSelectionProperty fromMap(RMap map) {
-//            LocaleSelectionProperty ret = new LocaleSelectionProperty();
-//            ret.list = deread( new ListPropertyDereader<PropertyOfImutable<Locale>>(
-//                    new PropertyOfImutable.ToAndFro(Locale.class), map.get("list"));
-//            ret.setSelection( deread( new PropertyOfImutable.ToAndFro(Locale.class), map.get("selection")));
-//
-//            return ret;
-//        }
-//    }
-//
-//}
+package org.openCage.util.prefs;
+
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
+
+import java.util.ArrayList;
+import java.util.Locale;
+
+/***** BEGIN LICENSE BLOCK *****
+ * BSD License (2 clause)
+ * Copyright (c) 2006 - 2012, Stephan Pfab
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above copyright
+ *       notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the
+ *       documentation and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL Stephan Pfab BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ ***** END LICENSE BLOCK *****/
+
+public class LocaleSelectionProperty extends ListSelectionProperty<Locale> {
+
+    @Inject
+    public LocaleSelectionProperty(@Named("locales") ArrayList<Locale> locales, @Named( "selection") Locale selection) {
+        super("locales", locales, selection);
+    }
+
+    public LocaleSelectionProperty() {
+        super("locales", new ArrayList<Locale>(), Locale.ENGLISH );
+        list.add( Locale.ENGLISH );
+        list.add( Locale.GERMAN );
+        list.add( Locale.JAPANESE );
+        list.add( new Locale("es") );
+    }
+}

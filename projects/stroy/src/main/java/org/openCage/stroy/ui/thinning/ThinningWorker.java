@@ -2,7 +2,7 @@
 //
 //import org.jdesktop.swingworker.SwingWorker;
 //import org.openCage.lang.structure.T2;
-//import org.openCage.stroy.dir.FileContent;
+//import org.openCage.stroy.content.FileContent;
 //import org.openCage.stroy.graph.node.TreeDirNode;
 //import org.openCage.stroy.graph.node.TreeNode;
 //import org.openCage.stroy.graph.node.TreeNodeUtils;

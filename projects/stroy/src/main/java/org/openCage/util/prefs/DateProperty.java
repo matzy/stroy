@@ -1,7 +1,7 @@
 package org.openCage.util.prefs;
 
 import org.openCage.comphy.*;
-import org.openCage.lang.inc.ImuDate;
+import org.openCage.lang.inc.ImmuDate;
 
 import static org.openCage.comphy.Readables.R;
 
@@ -30,18 +30,18 @@ import static org.openCage.comphy.Readables.R;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  ***** END LICENSE BLOCK *****/
 
-public class DateProperty extends AbstractImmutableProperty<ImuDate> {
+public class DateProperty extends AbstractImmutableProperty<ImmuDate> {
 
     public DateProperty() {
-        super( ImuDate.now() );
+        super( ImmuDate.now() );
     }
 
-    public DateProperty(ImuDate obj) {
+    public DateProperty(ImmuDate obj) {
         super(obj);
     }
 
     @Override
-    public org.openCage.comphy.Readable toReadable() {
+    public ThreeText toReadable() {
         return R(get().toPreciseString());
     }
 

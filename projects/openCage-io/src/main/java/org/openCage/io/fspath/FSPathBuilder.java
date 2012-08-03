@@ -92,6 +92,14 @@ public final class FSPathBuilder {
         return new FSPathWindows("C:");
     }
 
+    /**
+     * @return the current directory
+     */
+    public static FSPath getCurrentDir() {
+        return getPath( System.getProperty("user.dir"));
+    }
+
+
     public static FSPath getDocuments() {
         if ( OS.isOSX() ) {
             return FSPathBuilder.getHome().add( "Documents" );

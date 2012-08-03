@@ -1,6 +1,6 @@
 package org.openCage.stroy.ui.popup;
 
-import org.openCage.stroy.filter.IgnoreCentral5;
+import org.openCage.stroy.filter.IgnoreCentral;
 import org.openCage.stroy.locale.Message;
 
 import javax.swing.*;
@@ -51,10 +51,10 @@ public class IgnoreOneUI extends JFrame {
     private final String name;
     private final String path;
     private final String realName;
-    private final IgnoreCentral5 central;
+    private final IgnoreCentral central;
 
 
-    public IgnoreOneUI(final String path, final String nme, final String extension, IgnoreCentral5 central) {
+    public IgnoreOneUI(final String path, final String nme, final String extension, IgnoreCentral central) {
 
         this.path = path;
         this.extension = extension;

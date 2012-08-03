@@ -1,7 +1,7 @@
 package org.openCage.stroy.graph.matching.strategy.combined;
 
 import com.google.inject.Inject;
-import org.openCage.stroy.dir.FileContent;
+import org.openCage.stroy.content.FileContent;
 import org.openCage.stroy.graph.matching.TreeLeafNodeFuzzyLeafDistance;
 
 /***** BEGIN LICENSE BLOCK *****

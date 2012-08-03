@@ -3,8 +3,6 @@ package org.openCage.util.external;
 import com.muchsoft.util.Sys;
 import org.openCage.lang.inc.Str;
 import org.openCage.util.logging.Log;
-import org.openCage.util.iterator.Iterators;
-import org.openCage.util.iterator.Count;
 
 import java.awt.Desktop;
 import java.util.Arrays;
@@ -92,7 +90,7 @@ public class ExternalProgs {
     private static void executeImpl( String prog, String ... args ) {
 
         // some systems have a build in open command
-        if ( prog.equals( open )) {
+        if ( prog.equals( open.get() )) {
             if ( Sys.isMacOSX() ) {
                 // OSX has open
                 execOSXopen( args[0 ]);
@@ -108,7 +106,7 @@ public class ExternalProgs {
 
             return;
 
-        } else if ( prog.equals( OS_TEXT_EDIT )) {
+        } else if ( prog.equals( OS_TEXT_EDIT.get() )) {
             if ( Sys.isMacOSX() ) {
                 execOSXopenAsText( args[0]);
                 return;
@@ -119,7 +117,7 @@ public class ExternalProgs {
                 execProg( findxterm(), "-e", "vi", args[0] );
                 return;
             }
-        } else if ( prog.equals( STANDARD_DIFF ) ) {
+        } else if ( prog.equals( STANDARD_DIFF.get() ) ) {
             if ( Sys.isMacOSX() ) {
                 execProg( fileMerge.get(), args );
                 return;
@@ -130,9 +128,9 @@ public class ExternalProgs {
                 execProg( findxterm(), "-hold", "-e", "diff", args[0], args[1] );
                 return;
             }
-        } else if ( Sys.isMacOSX() && prog.equals( openAsText )) {
+        } else if ( Sys.isMacOSX() && prog.equals( openAsText.get() )) {
             execOSXopenAsText( args[0]);
-        } else if ( prog.equals( unknown )) {
+        } else if ( prog.equals( unknown.get() )) {
             Log.info( "execute 'unknown' called");
             return;
         }

@@ -2,7 +2,7 @@ package org.openCage.stroy.update;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
-import org.openCage.lang.inc.ImuDate;
+import org.openCage.lang.inc.ImmuDate;
 import org.openCage.lang.ImuDateUtils;
 import org.openCage.util.prefs.DateProperty;
 
@@ -45,8 +45,8 @@ public class Interval {
 
     public boolean isTime() {
 
-        ImuDate now = ImuDate.now();
-        ImuDate last = lastCheck.get();
+        ImmuDate now = ImmuDate.now();
+        ImmuDate last = lastCheck.get();
         lastCheck.set( now);
 
         switch ( updateTimeSelection.getSelection() ) {

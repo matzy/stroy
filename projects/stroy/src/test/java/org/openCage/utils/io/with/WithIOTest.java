@@ -1,10 +1,11 @@
 package org.openCage.utils.io.with;
 
 import org.junit.Test;
+import org.openCage.lang.errors.FileNotFoundUnchecked;
+
 import static org.junit.Assert.fail;
 import static org.junit.Assert.assertNull;
 import static org.openCage.utils.io.with.WithIO.withReader;
-import org.openCage.utils.lang.unchecked.FileNotFoundExceptionUC;
 
 import java.io.Reader;
 
@@ -47,7 +48,7 @@ public class WithIOTest {
             } );
 
             fail( "throw?" );
-        } catch ( FileNotFoundExceptionUC exp ) {
+        } catch ( FileNotFoundUnchecked exp ) {
             // expected
         }
 

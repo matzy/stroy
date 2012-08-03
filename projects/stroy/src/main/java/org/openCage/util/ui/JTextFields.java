@@ -64,4 +64,52 @@ public class JTextFields {
             return false;
         }
     }
+
+    public static boolean isFileOrApp( JTextField field, Color neutral, Color warning ) {
+
+        if ( isFileOrApp( new File(field.getText()))) {
+            field.setBackground( Colors.BACKGROUND_NEUTRAL );
+            return true;
+        }
+
+        String txt = field.getText();
+        txt = txt.trim();
+
+        if ( txt.startsWith( "\"")) {
+            txt = txt.substring( 1, txt.indexOf( " ", 1));
+        } else {
+            int pos = txt.indexOf( " ");
+            if ( pos > 0 ) {
+                txt = txt.substring( 0, txt.indexOf( " "));
+            }
+        }
+
+
+        File file = new File( txt );
+
+        // TODO apps ?
+        if ( isFileOrApp( file )) {
+            field.setBackground( Colors.BACKGROUND_NEUTRAL );
+            return true;
+        } else {
+            field.setBackground( Colors.BACKGROUND_WARN);
+            return false;
+        }
+    }
+
+    public static boolean isFileOrApp( File file ) {
+        if ( !file.exists() ) {
+            return false;
+        }
+
+        if ( file.isFile() ) {
+            return true;
+        }
+
+        if ( file.getName().endsWith(".app")) {
+            return true;
+        }
+
+        return false;
+    }
 }

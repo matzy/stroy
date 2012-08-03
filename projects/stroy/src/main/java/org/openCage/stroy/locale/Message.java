@@ -1,7 +1,7 @@
 package org.openCage.stroy.locale;
 
 import org.openCage.util.logging.Log;
-import org.openCage.util.prefs.LocaleSelectionProperty5;
+import org.openCage.util.prefs.LocaleSelectionProperty;
 
 import javax.swing.*;
 import java.util.*;
@@ -33,7 +33,7 @@ import java.util.*;
 
 public class Message {
 
-    public static LocaleSelectionProperty5 localeSelection;
+    public static LocaleSelectionProperty localeSelection;
 
     public final static String localKey = "language.locale";
 

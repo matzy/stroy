@@ -1,5 +1,6 @@
 package org.openCage.stroy.algo.matching.strategies.base;
 
+import org.openCage.lang.inc.Null;
 import org.openCage.stroy.algo.matching.strategies.TreeStrategy;
 import org.openCage.stroy.algo.matching.TreeTask;
 import org.openCage.stroy.algo.matching.Task;
@@ -61,7 +62,7 @@ public class StandardTreeMatching implements TreeStrategy {
 
             String name = leftNode.getName();
 
-            if ( toParent == null ) {
+            if (Null.is( toParent ) ) {
                 throw new IllegalStateException( "prog error" );
             }
 
@@ -87,7 +88,7 @@ public class StandardTreeMatching implements TreeStrategy {
 
         Noed newParent = task.getMatch( leftNode );
 
-        if ( newParent == null ) {
+        if ( Null.is( newParent)) {
             // no match
             return;
         }

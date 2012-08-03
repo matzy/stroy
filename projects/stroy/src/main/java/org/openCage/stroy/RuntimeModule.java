@@ -3,22 +3,28 @@ package org.openCage.stroy;
 import com.google.inject.*;
 import com.google.inject.name.Names;
 import org.openCage.comphy.*;
+import org.openCage.comphy.property.ImmuProp;
+import org.openCage.comphy.property.ListProperty;
+import org.openCage.comphy.property.MapProperty;
 import org.openCage.io.fspath.FSPathBuilder;
 import org.openCage.lang.BackgroundExecutor;
 import org.openCage.lang.BackgroundExecutorImpl;
+import org.openCage.lang.OS;
 import org.openCage.lang.inc.Str;
 import org.openCage.lang.inc.Strng;
+import org.openCage.stroy.algo.hash.HashDecider;
+import org.openCage.stroy.algo.hash.str.HashDeciderImpl;
 import org.openCage.stroy.array.AddIngnorantListMetric;
 import org.openCage.stroy.array.ListChangeMetric;
 import org.openCage.stroy.array.ReorderIgnorantArrayDistance;
-import org.openCage.stroy.dir.FileContent;
+import org.openCage.stroy.content.Content;
 import org.openCage.stroy.dir.FileTreeMatchingTaskBuilder;
 import org.openCage.stroy.dir.FileTreeMatchingTaskBuilderImpl;
 import org.openCage.stroy.file.Action;
-import org.openCage.stroy.file.FileTypes5;
+import org.openCage.stroy.file.FileTypes;
 import org.openCage.stroy.filter.Ignore;
 import org.openCage.stroy.filter.IgnoreByLists;
-import org.openCage.stroy.filter.IgnoreCentral5;
+import org.openCage.stroy.filter.IgnoreCentral;
 import org.openCage.stroy.fuzzyHash.metric.CountChangeMetric;
 import org.openCage.stroy.fuzzyHash.FuzzyHashGenerator;
 import org.openCage.stroy.fuzzyHash.metric.SizeWeightedMetric;
@@ -41,10 +47,9 @@ import org.openCage.stroy.ui.prefs.PrefsUI;
 import org.openCage.stroy.ui.prefs.PrefsUIImpl;
 import org.openCage.stroy.update.UpdateSelectionProperty;
 import org.openCage.util.app.*;
-import org.openCage.util.external.ExecProvider;
-import org.openCage.util.external.ExecProviderImpl;
+import org.openCage.util.external.*;
 import org.openCage.util.prefs.DateProperty;
-import org.openCage.util.prefs.LocaleSelectionProperty5;
+import org.openCage.util.prefs.LocaleSelectionProperty;
 import org.openCage.util.prefs.LogLevelSelectionProperty5;
 
 import java.io.File;
@@ -161,19 +166,21 @@ public class RuntimeModule implements Module {
         binder.bind( ListChangeMetric.class ).to( AddIngnorantListMetric.class );
         binder.bind( CountChangeMetric.class ).to( SizeWeightedMetric.class );
 
-        binder.bind( new TypeLiteral<FuzzyHashGenerator<File>>() {} ).to( FuzzyHashGeneratorForFiles.class );
-        binder.bind( new TypeLiteral<FuzzyHashGenerator<File>>() {} ).
-                annotatedWith( Names.named("ForJava") /*ForJava.class */).
-                to( FuzzyHashGenJava.class );
-        binder.bind( new TypeLiteral<FuzzyHashGenerator<File>>() {} ).
-                annotatedWith( Names.named("ForText") /*ForText.class */).
-                to( FuzzyHashGenText.class );
-        binder.bind( new TypeLiteral<FuzzyHashGenerator<File>>() {} ).
-                annotatedWith( Names.named("ForC") /*ForC.class */).
-                to( FuzzyHashGenC.class );
-        binder.bind( new TypeLiteral<FuzzyHashGenerator<File>>() {} ).
-                annotatedWith( Names.named("ForXML") /* ForXML.class */).
-                to( FuzzyHashGenXML.class );
+        binder.bind( new TypeLiteral<FuzzyHashGenerator<Content>>() {} ).to( FuzzyHashGenJ2.class );
+        binder.bind( LineNoiseDecider.class ).to( LineNoiseDeciderImpl.class );
+        binder.bind(HashDecider.class ).to(HashDeciderImpl.class);
+//        binder.bind( new TypeLiteral<FuzzyHashGenerator<File>>() {} ).
+//                annotatedWith( Names.named("ForJava") /*ForJava.class */).
+//                to( FuzzyHashGenJava.class );
+//        binder.bind( new TypeLiteral<FuzzyHashGenerator<File>>() {} ).
+//                annotatedWith( Names.named("ForText") /*ForText.class */).
+//                to( FuzzyHashGenText.class );
+//        binder.bind( new TypeLiteral<FuzzyHashGenerator<File>>() {} ).
+//                annotatedWith( Names.named("ForC") /*ForC.class */).
+//                to( FuzzyHashGenC.class );
+//        binder.bind( new TypeLiteral<FuzzyHashGenerator<File>>() {} ).
+//                annotatedWith( Names.named("ForXML") /* ForXML.class */).
+//                to( FuzzyHashGenXML.class );
 
 //        binder.bind( DiffProg.class ).to(MacFileMerge.class);
 
@@ -185,10 +192,10 @@ public class RuntimeModule implements Module {
 
         binder.bind( ExecProvider.class ).to(ExecProviderImpl.class );
 
-        binder.bind( new TypeLiteral<NWayDiffPaneGenerator<FileContent>>(){} ).to( new TypeLiteral<NWayDiffTreeGenImplMessages<FileContent>>(){});
+        binder.bind( new TypeLiteral<NWayDiffPaneGenerator<Content>>(){} ).to( new TypeLiteral<NWayDiffTreeGenImplMessages<Content>>(){});
         // NWayDiffTreeGenImplMessages.class);
 
-        binder.bind( new TypeLiteral<MatchStrategy<? extends FileContent>>() {} ).annotatedWith(Names.named("FastFirst")).to(FastFirstForFiles.class);
+        binder.bind( new TypeLiteral<MatchStrategy<? extends Content>>() {} ).annotatedWith(Names.named("FastFirst")).to(FastFirstForFiles.class);
 
         binder.bind(PrefsUI.class).to( PrefsUIImpl.class ).in(Singleton.class);
 
@@ -242,10 +249,10 @@ public class RuntimeModule implements Module {
 //                toProvider( new StringPropertyProvider5( S("dir.second"), ""));
 
 
-        binder.bind(LocaleSelectionProperty5.class ).toProvider(new PropertyProvider5<LocaleSelectionProperty5>() {
+        binder.bind(LocaleSelectionProperty.class ).toProvider(new PropertyProvider5<LocaleSelectionProperty>() {
             @Override
-            public Class<? extends LocaleSelectionProperty5> getRealClass() {
-                return LocaleSelectionProperty5.class;
+            public Class<? extends LocaleSelectionProperty> getRealClass() {
+                return LocaleSelectionProperty.class;
             }
 
             @Override
@@ -254,8 +261,8 @@ public class RuntimeModule implements Module {
             }
 
             @Override
-            protected LocaleSelectionProperty5 getDefault() {
-                return new LocaleSelectionProperty5();
+            protected LocaleSelectionProperty getDefault() {
+                return new LocaleSelectionProperty();
             }
         });
 
@@ -326,7 +333,7 @@ public class RuntimeModule implements Module {
 
                     @Override
                     protected ImmuProp<Str> getDefault() {
-                        return new ImmuProp<Str>(S(""));
+                        return new ImmuProp<Str>(DesktopXs.OS_STANDARD_TEXT_EDITOR);
                     }
                 });
         binder.bind( new TypeLiteral<ImmuProp<Str>>() {}).
@@ -348,6 +355,49 @@ public class RuntimeModule implements Module {
                     }
                 });
 
+        binder.bind( new TypeLiteral<ImmuProp<Str>>() {}).
+                annotatedWith( Names.named("progSel")).
+                toProvider( new PropertyProvider9<ImmuProp<Str>>() {
+                    @Override
+                    public TypeLiteral<ImmuProp<Str>> getTypeLiteral() {
+                        return (TypeLiteral)new TypeLiteral<ImmuProp<Strng>>() {};
+                    }
+
+                    @Override
+                    protected Str getKey() {
+                        return S("progSel");
+                    }
+
+                    @Override
+                    protected ImmuProp<Str> getDefault() {
+                        return (ImmuProp)new ImmuProp<Strng>(S("standard-open"));
+                    }
+                });
+
+        binder.bind( new TypeLiteral<MapProperty<ImmuProp<Str>>>() {}).
+                annotatedWith(Names.named("progList")).
+                toProvider( new PropertyProvider9<MapProperty<ImmuProp<Str>>>() {
+            @Override
+            public TypeLiteral getTypeLiteral() {
+                return
+                        (TypeLiteral)new TypeLiteral<MapProperty<ImmuProp<Strng>>>() {};
+            }
+
+            @Override
+            protected Str getKey() {
+                return S("progList");
+
+            }
+
+            @Override
+            protected MapProperty<ImmuProp<Str>> getDefault() {
+                MapProperty<ImmuProp<Str>> ret = new MapProperty<ImmuProp<Str>>();
+                ret.put( DesktopXs.STANDARD_OPEN, new ImmuProp<Str>(DesktopXs.STANDARD_OPEN));
+                ret.put( S("TextEdit"), new ImmuProp<Str>(S("/Application/TextEdit.app  ")));
+                ret.put( S("TextWrangler"), new ImmuProp<Str>(S("/Application/TextWrangler.app")));
+                return ret;
+            }
+        });
 //        binder.bind(StringProperty.class).annotatedWith(Names.named("Editor")).toProvider(new StringPropertyProvider5( S("Editor"), "TextEdit"));
 //        binder.bind(StringProperty.class).annotatedWith(Names.named("DiffProg")).toProvider(new StringPropertyProvider5( S("DiffProg"), "FileMerge"));
 
@@ -366,7 +416,7 @@ public class RuntimeModule implements Module {
 
             @Override
             protected MapProperty<Action> getDefault() {
-                return FileTypes5.getInitialMap();
+                return FileTypes.getInitialMap();
             }
         });
 
@@ -384,12 +434,13 @@ public class RuntimeModule implements Module {
 
                     @Override
                     protected ListProperty<StringProperty> getDefault() {
-                        return IgnoreCentral5.getInitial();
+                        return IgnoreCentral.getInitial();
                     }
                 });
 
-
-
+        if (OS.isOSX() ) {
+            binder.bind(DesktopX.class).to(OSXDesktopX.class);
+        }
     }
 
 }

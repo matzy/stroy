@@ -781,7 +781,7 @@ public class MD5 {
             long buf_size = size;
             if (buf_size < 512) buf_size = 512;
             if (buf_size > 65536) buf_size = 65536;
-            byte[] buf = new byte[(int) buf_size];
+            byte[] buf = new byte[(int)     buf_size];
             MD5InputStream in = new MD5InputStream(is);
             close_me = in;
             while (in.read(buf) != -1);

@@ -2,11 +2,14 @@ package org.openCage.stroy.ui;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import org.openCage.comphy.readable.XMLtoReadable;
 import org.openCage.stroy.RuntimeModule;
 import org.openCage.stroy.locale.Message;
 import org.openCage.stroy.ui.help.HelpLauncher;
-import org.openCage.util.prefs.LocaleSelectionProperty5;
+import org.openCage.util.prefs.LocaleSelectionProperty;
 import org.openCage.util.logging.Log;
+
+import java.net.URL;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
@@ -41,12 +44,19 @@ public class Main  {
 
 //        Preferences.setName( "stroy");
 
+        XMLtoReadable xmLtoReadable = new XMLtoReadable();
+        URL url = Main.class.getResource("/org/openCage/stroy/stroy.appinfo");
+//        ThreeText readable = xmLtoReadable.read("appinfo", url.getFile()); // TODO as stream
+//        ToAndFro ps = new ToAndFro();
+//        ApplicationInfo ai = ps.get(ApplicationInfo.class, readable);
+
+
         Log.finest( "stroy is starting" );
 
         Injector injector = Guice.createInjector( new RuntimeModule() );
 
-        Message.localeSelection = injector.getInstance(LocaleSelectionProperty5.class );
-        HelpLauncher.localeSelection = injector.getInstance(LocaleSelectionProperty5.class );
+        Message.localeSelection = injector.getInstance(LocaleSelectionProperty.class );
+        HelpLauncher.localeSelection = injector.getInstance(LocaleSelectionProperty.class );
 
         DirSelector dirSelector = injector.getInstance( DirSelector.class);
         dirSelector.setVisible( true );

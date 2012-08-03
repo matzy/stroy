@@ -1,12 +1,13 @@
 package org.openCage.utils.io.with;
 
 import org.openCage.util.logging.Log;
-import static org.openCage.utils.lang.unchecked.Unchecked.unchecked;
 
 import java.io.*;
 import java.net.URL;
 import java.net.MalformedURLException;
 import java.net.URLConnection;
+
+import static org.openCage.lang.errors.Unchecked.wrap;
 
 
 /***** BEGIN LICENSE BLOCK *****
@@ -52,14 +53,14 @@ public class WithIO {
         try {
             connection = url.openConnection();
         } catch (IOException e) {
-            throw unchecked( e );
+            throw wrap(e);
         }
 
         try {
             InputStream is = connection.getInputStream();
             return withIS( is, f );
         } catch (IOException e) {
-            throw unchecked( e );
+            throw wrap( e );
         }
     }
 
@@ -74,7 +75,7 @@ public class WithIO {
             InputStream is = new FileInputStream( file );
             return withIS( is, f );
         } catch (FileNotFoundException e) {
-            throw unchecked( e );
+            throw wrap( e );
         }
     }
 
@@ -82,7 +83,7 @@ public class WithIO {
         try {
             return  f.c( is );
         } catch (IOException e) {
-            throw unchecked( e );
+            throw wrap( e );
         } finally {
             if ( is != null ) {
                 try {
@@ -101,9 +102,9 @@ public class WithIO {
             os = new FileOutputStream( file );
             return f.c( os );
         } catch (FileNotFoundException e) {
-            throw unchecked(e );
+            throw wrap(e );
         } catch (IOException e) {
-            throw unchecked(e );
+            throw wrap(e );
         } finally {
             if ( os != null ) {
                 try {
@@ -171,14 +172,14 @@ public class WithIO {
             return ret;
             
         } catch( FileNotFoundException e ) {
-            throw unchecked(e);
+            throw wrap(e);
 
         } catch ( Error err ) {
             System.err.println( err );
             throw err;
 
         } catch (IOException e) {
-            throw unchecked(e);
+            throw wrap(e);
         } finally {
             if ( reader != null ) {
                 try {
@@ -199,7 +200,7 @@ public class WithIO {
             writer = new FileWriter( path );
             v.c( writer );
         } catch( IOException e ) {
-            throw unchecked( e );
+            throw wrap( e );
         } catch( Error err ) {
             Log.warning( err );
             throw err;

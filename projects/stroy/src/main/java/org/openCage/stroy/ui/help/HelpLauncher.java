@@ -1,15 +1,11 @@
 package org.openCage.stroy.ui.help;
 
-import com.muchsoft.util.Sys;
 import org.openCage.lang.inc.Null;
 import org.openCage.util.logging.Log;
-import org.openCage.util.io.FileUtils;
-import org.openCage.util.prefs.LocaleSelectionProperty5;
+import org.openCage.util.prefs.LocaleSelectionProperty;
 import org.openCage.util.ui.BrowserLauncher;
 
-import java.io.File;
 import java.net.URL;
-import java.util.Locale;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
@@ -38,16 +34,16 @@ import java.util.Locale;
 
 public class HelpLauncher {
 
-    public static LocaleSelectionProperty5 localeSelection;
+    public static LocaleSelectionProperty localeSelection;
 
-//    public HelpLauncher(LocaleSelectionProperty5 localeSelection) {
+//    public HelpLauncher(LocaleSelectionProperty localeSelection) {
 //        this.localeSelection = localeSelection;
 //    }
 
 
     public static void showHelp() {
 
-        String loc = localeSelection.getSelection().toLanguageTag();
+        String loc = localeSelection.getSelection().toString(); //toLanguageTag();
 
         URL url = HelpLauncher.class.getResource("/org/openCage/stroy/ui/help/" + loc + "/index.html");
         if (!Null.is(url)) {

@@ -31,7 +31,7 @@ import org.openCage.stroy.algo.hash.Hash;
  * An whitespace independent hash function for strings
  * intended for programming languages
  * indentation/formating won't change the hash
- * it will create identical hashs for different java files if the concatination of
+ * it will create identical hashs for different java files if the concatenation of
  * 2 strings is an other valid one
  * this is considered rare and because the hash is used for heuristics it is
  * acceptable. Note that there are not many spaces without extra special chars e.g.','
@@ -39,7 +39,7 @@ import org.openCage.stroy.algo.hash.Hash;
  * also note that shifting space alla "String a =" to "Stri ga"
  */
 public class WhitespaceIgnoringHash implements Hash<String> {
-    public int getHash(final String obj) {
+    public Integer call(final String obj) {
 
         int hash = 0;
 

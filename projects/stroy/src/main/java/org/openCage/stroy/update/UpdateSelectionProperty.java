@@ -2,7 +2,7 @@ package org.openCage.stroy.update;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
-import org.openCage.util.prefs.ListSelectionProperty5;
+import org.openCage.util.prefs.ListSelectionProperty;
 
 import java.util.ArrayList;
 
@@ -32,7 +32,7 @@ import java.util.ArrayList;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  ***** END LICENSE BLOCK *****/
 
-public class UpdateSelectionProperty extends ListSelectionProperty5<UpdateTime> {
+public class UpdateSelectionProperty extends ListSelectionProperty<UpdateTime> {
 
     @Inject
     public UpdateSelectionProperty( @Named(value = "times") ArrayList<UpdateTime> times, @Named(value = "selection") UpdateTime selection) {

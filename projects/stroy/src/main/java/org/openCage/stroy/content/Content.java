@@ -3,6 +3,7 @@ package org.openCage.stroy.content;
 import org.openCage.stroy.algo.fuzzyHash.FuzzyHash;
 
 import java.io.File;
+import java.io.InputStream;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
@@ -40,10 +41,6 @@ public interface Content {
     // lets refactor
     public String getLocation();
 
-    // TODO whats that here
-    /**
-     * Get the File if there is one 
-     * @return the underlaying file if there is one
-     */
-    public File      getFile();
+    public InputStream getStream();
+
 }

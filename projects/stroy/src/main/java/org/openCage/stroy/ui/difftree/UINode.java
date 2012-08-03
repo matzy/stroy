@@ -1,8 +1,6 @@
 package org.openCage.stroy.ui.difftree;
 
-import org.openCage.stroy.dir.FileContent;
 import org.openCage.stroy.graph.node.TreeNode;
-import org.openCage.stroy.ui.difftree.ChangeNumbers;
 import org.openCage.stroy.ui.ChangeVector;
 import org.openCage.stroy.content.Content;
 import org.openCage.stroy.diff.ContentDiff;

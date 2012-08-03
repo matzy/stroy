@@ -1,5 +1,6 @@
 package org.openCage.stroy.graph.node;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Arrays;
 
@@ -88,5 +89,15 @@ public class SimpleTreeNode<T> implements TreeDirNode<T>, TreeLeafNode<T> {
         }
 
         return "dir<" + content + " (" + kids.size() + ")>";
+    }
+
+    public static <Y> TreeNode<Y> makeDir( Y content ) {
+        return new SimpleTreeNode<Y>(content, new ArrayList<TreeNode<Y>>());
+    }
+
+    public static <Y> TreeDirNode<Y> addChild( TreeDirNode<Y> parent, TreeNode<Y> child ) {
+        child.setParent(parent);
+        parent.getChildren().add(child);
+        return parent;
     }
 }

@@ -1,6 +1,7 @@
 package org.openCage.stroy.dir.doubles2;
 
-import org.openCage.stroy.dir.FileContent;
+import org.openCage.stroy.content.Content;
+import org.openCage.stroy.content.FileContent;
 import org.openCage.stroy.filter.Ignore;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.lang.structure.T2;
@@ -34,8 +35,8 @@ import java.io.File;
 
 public interface CompareDirs2 {
 
-    public TreeMatchingTask<FileContent>  compare( Ignore ignore, File one, File two );
-    public T2<TreeMatchingTask<FileContent>, TreeMatchingTask<FileContent>>
+    public TreeMatchingTask<Content>  compare( Ignore ignore, File one, File two );
+    public T2<TreeMatchingTask<Content>, TreeMatchingTask<Content>>
                                           compare( Ignore ignore, File one, File two, File three  );
 
     

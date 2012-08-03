@@ -1,5 +1,7 @@
 package org.openCage.stroy.algo.hash;
 
+import org.openCage.lang.functions.F1;
+
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
  * Copyright (c) 2006 - 2012, Stephan Pfab
@@ -25,7 +27,5 @@ package org.openCage.stroy.algo.hash;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ***** END LICENSE BLOCK *****/
 
-public interface Hash<T> {
-
-    public int getHash( T obj );
+public interface Hash<T> extends F1<Integer,T>{
 }

@@ -6,9 +6,9 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
 import org.openCage.lang.functions.F1;
-import org.openCage.stroy.locale.LocalizedComboBox5;
+import org.openCage.stroy.locale.LocalizedComboBox;
 import org.openCage.stroy.locale.Message;
-import org.openCage.util.prefs.LocaleSelectionProperty5;
+import org.openCage.util.prefs.LocaleSelectionProperty;
 
 import java.awt.*;
 import java.util.Locale;
@@ -40,13 +40,13 @@ import java.util.Locale;
 
 public class LanguagePrefs extends JPanel {
 
-    public LanguagePrefs( LocaleSelectionProperty5 localeSelection ) {
+    public LanguagePrefs( LocaleSelectionProperty localeSelection ) {
 
-        LocalizedComboBox5 languageBox = new LocalizedComboBox5<Locale>(
+        LocalizedComboBox languageBox = new LocalizedComboBox<Locale>(
                 new F1<String, Locale>() {
                     @Override
                     public String call(Locale locale) {
-                        return "locale." + locale.toLanguageTag();
+                        return "locale." + locale.toString(); //toLanguageTag();
                     }
                 },
                 localeSelection );

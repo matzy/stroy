@@ -1,5 +1,7 @@
 package org.openCage.lang.errors;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.logging.Logger;
 
 /***** BEGIN LICENSE BLOCK *****
@@ -55,4 +57,13 @@ public class Unchecked extends Error {
     public static Unchecked wrap( Exception cause ) {
         return new Unchecked(cause);
     }
+
+    public static Unchecked wrap( IOException cause ) {
+        return new IOUnchecked(cause);
+    }
+
+    public static Unchecked wrap( FileNotFoundException cause ) {
+        return new FileNotFoundUnchecked(cause);
+    }
+
 }

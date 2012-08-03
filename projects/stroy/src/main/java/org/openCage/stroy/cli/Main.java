@@ -5,8 +5,9 @@ import com.google.inject.Injector;
 import org.apache.commons.cli.*;
 import org.openCage.lang.structure.Once;
 import org.openCage.stroy.RuntimeModule;
+import org.openCage.stroy.content.Content;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
-import org.openCage.stroy.dir.FileContent;
+import org.openCage.stroy.content.FileContent;
 import org.openCage.stroy.filter.Ignore;
 import org.openCage.stroy.dir.doubles2.CompareDirs2;
 import org.openCage.util.logging.Log;
@@ -133,7 +134,7 @@ public class Main {
 //                    ignore.add( pattern );
 //                }
 
-                TreeMatchingTask<FileContent> matching = cd.compare( ignore, from, to );
+                TreeMatchingTask<Content> matching = cd.compare( ignore, from, to );
                 matching.status();
 
 

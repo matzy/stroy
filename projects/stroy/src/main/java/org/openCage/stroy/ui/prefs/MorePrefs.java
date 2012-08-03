@@ -1,14 +1,11 @@
 package org.openCage.stroy.ui.prefs;
 
 import org.openCage.stroy.update.UpdatePrefs;
-import org.openCage.stroy.RuntimeModule;
 
 import javax.swing.*;
 import java.awt.*;
 
-import com.google.inject.Injector;
-import com.google.inject.Guice;
-import org.openCage.util.prefs.LocaleSelectionProperty5;
+import org.openCage.util.prefs.LocaleSelectionProperty;
 import org.openCage.util.prefs.LogLevelSelectionProperty5;
 
 /***** BEGIN LICENSE BLOCK *****
@@ -38,7 +35,7 @@ import org.openCage.util.prefs.LogLevelSelectionProperty5;
 
 public class MorePrefs extends JPanel {
 
-    public MorePrefs( final UpdatePrefs updatePrefs, final LocaleSelectionProperty5 localeSelection, LogLevelSelectionProperty5 logSelection) {
+    public MorePrefs( final UpdatePrefs updatePrefs, final LocaleSelectionProperty localeSelection, LogLevelSelectionProperty5 logSelection) {
         setLayout( new GridBagLayout());
 
         GridBagConstraints cnstraint = new GridBagConstraints();

@@ -31,7 +31,7 @@ import org.openCage.stroy.algo.hash.Hash;
  * Standard java string hash generation
  */
 public class StdStringHash implements Hash<String> {
-    public int getHash(final String str) {
+    public Integer call(final String str) {
         return str.hashCode();
     }
 }

@@ -1,5 +1,8 @@
 package org.openCage.stroy.dir;
 
+import org.openCage.lang.inc.Null;
+import org.openCage.stroy.content.Content;
+import org.openCage.stroy.content.FileContent;
 import org.openCage.stroy.filter.Ignore;
 import org.openCage.stroy.graph.node.TreeLeafNode;
 import org.openCage.stroy.graph.node.TreeNode;
@@ -47,6 +50,29 @@ public class FileTreeMatchingTaskBuilderImpl implements FileTreeMatchingTaskBuil
     @Inject
     public FileTreeMatchingTaskBuilderImpl( FileContentFactory fileContentFactory ) {
         this.fileContentFactory = fileContentFactory;
+    }
+
+    @Override
+    public TreeMatchingTask<Content> build(TreeMatchingTask<Content> task, Ignore ignore, File one) {
+
+        TreeMatchingTask pool = new TreeMatchingTaskNeutral();
+        if (!Null.is(task)) {
+            pool = task;
+        }
+
+        if ( ignore.match( "/" + one.getName() )) {
+            throw new Error( "top level dir is in ignore pattern" );
+        }
+
+        TreeNode<FileContent> oneRoot = add( pool, ignore, "", one, Null.is(task) );
+
+        if ( oneRoot.isLeaf()  ) {
+            Log.severe( "oops can't handle leafs yet" );
+        }
+
+        pool.getDirs().setRoot(oneRoot, Null.is(task));
+
+        return pool;
     }
 
     public TreeMatchingTask<FileContent> build(Ignore ignore, File one, File two) {

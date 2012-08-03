@@ -1,9 +1,10 @@
 package org.openCage.stroy.ui;
 
 import com.google.inject.Inject;
-import org.openCage.stroy.dir.FileContent;
+import org.openCage.stroy.content.Content;
+import org.openCage.stroy.content.FileContent;
 import org.openCage.stroy.dir.FileTreeMatchingTaskBuilder;
-import org.openCage.stroy.filter.IgnoreCentral5;
+import org.openCage.stroy.filter.IgnoreCentral;
 import org.openCage.stroy.graph.matching.strategy.combined.WatchFull;
 import org.openCage.stroy.ui.difftree.NWayDiffPaneGenerator;
 import org.openCage.stroy.ui.menu.PortableMenuFactory;
@@ -39,15 +40,15 @@ public class CompareBuilderFactory  {
     private final WatchFull watchFull;
     private final NWayDiffPaneGenerator diffPaneGen;
     private final PortableMenuFactory menuFactory;
-    private final IgnoreCentral5 ignoreCentral;
+    private final IgnoreCentral ignoreCentral;
 
 
     @Inject
     public CompareBuilderFactory(final PortableMenuFactory menuFactory,
-                                 final NWayDiffPaneGenerator<FileContent> diffPaneGen,
+                                 final NWayDiffPaneGenerator<Content> diffPaneGen,
                                  final WatchFull<FileContent> strat,
                                  final FileTreeMatchingTaskBuilder taskBuilder,
-                                 final IgnoreCentral5 ignoreCentral) {
+                                 final IgnoreCentral ignoreCentral) {
         this.taskBuilder = taskBuilder;
         this.watchFull = strat;
         this.diffPaneGen = diffPaneGen;

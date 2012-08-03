@@ -1,5 +1,7 @@
 package org.openCage.lang.structure;
 
+import org.openCage.lang.Equals;
+
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
  * Copyright (c) 2006 - 2012, Stephan Pfab
@@ -36,13 +38,15 @@ public class Once<T> {
     }
 
     public final synchronized T get() {
-        set = true;
+        if ( !set ) {
+            throw new IllegalAccessError( "once: get before set" );
+        }
         return val;
     }
 
     public synchronized void set( T t ) {
         if ( set ) {
-            if ( val.equals( t )) {
+            if ( Equals.equals( val, t )) {
                 return;
             }
             

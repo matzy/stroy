@@ -11,7 +11,6 @@ import java.util.logging.LogRecord;
 import java.util.logging.Formatter;
 
 import com.google.inject.Inject;
-import com.google.inject.name.Named;
 import org.openCage.util.prefs.*;
 import org.openCage.stroy.locale.Message;
 import net.java.dev.designgridlayout.DesignGridLayout;
@@ -51,7 +50,7 @@ public class LogHandlerPanel extends JFrame {
 //    private final String PRESET_INLEVEL = "inlevel";
 
     private Handler           logHandler         = new GraphicalHandler( this );
-    private final PComboBox2 selectLogLevel;//     = new PComboBox( STROY_LOG_OUT );
+    private final PComboBox selectLogLevel;//     = new PComboBox( STROY_LOG_OUT );
 //    private final PComboBox   selectHandlerLevel = new PComboBox( STROY_LOG_IN );
     private JTextArea         messages           = new JTextArea();
     private JScrollPane       messagesScoll      = new JScrollPane( messages );
@@ -66,7 +65,7 @@ public class LogHandlerPanel extends JFrame {
     @Inject
     public LogHandlerPanel( LogLevelSelectionProperty5 loglevels) {
 
-        selectLogLevel = new PComboBox2( loglevels );
+        selectLogLevel = new PComboBox( loglevels );
 
         setTitle( "Logs" );
         setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );

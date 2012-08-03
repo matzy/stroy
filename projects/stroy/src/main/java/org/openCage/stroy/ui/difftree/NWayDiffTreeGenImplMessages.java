@@ -1,8 +1,5 @@
 package org.openCage.stroy.ui.difftree;
 
-import org.openCage.stroy.ui.difftree.NWayDiffPane;
-import org.openCage.stroy.ui.difftree.ShowChangeTreeCellRenderer;
-import org.openCage.stroy.dir.FileContent;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.content.Content;
 import com.google.inject.Inject;

@@ -46,7 +46,7 @@ public class CLineNoise implements LineNoise{
         pattern = Pattern.compile( patternString.toString() );
     }
 
-    public boolean isGrayNoise(String text) {
+    public Boolean call(String text) {
         return pattern.matcher( text ).matches();
     }
 }

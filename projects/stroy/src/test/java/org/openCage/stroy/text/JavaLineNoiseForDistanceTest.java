@@ -39,62 +39,62 @@ public class JavaLineNoiseForDistanceTest extends TestCase {
     }
 
     public void testIsLineNoiseDoubleComment() {
-        assertTrue( lineNoise.isGrayNoise( "   /** " ));
+        assertTrue( lineNoise.call( "   /** " ));
     }
 
     public void testIsLineCommentStart() {
-        assertTrue( lineNoise.isGrayNoise( "   /* " ));
+        assertTrue( lineNoise.call( "   /* " ));
     }
 
     public void testisNoiseCommentEnd() {
-        assertTrue( lineNoise.isGrayNoise( "   */ " ));
+        assertTrue( lineNoise.call( "   */ " ));
     }
 
     public void testisNoiseDoubleLineComment() {
-        assertTrue( lineNoise.isGrayNoise( "    // foo" ));
+        assertTrue( lineNoise.call( "    // foo" ));
     }
 
     public void testisNoiseImport() {
-        assertTrue( lineNoise.isGrayNoise( "  import java.util.*  " ));
+        assertTrue( lineNoise.call( "  import java.util.*  " ));
     }
 
     public void testisNoisePackage() {
-        assertTrue( lineNoise.isGrayNoise( "    package org.openCage.distance; " ));
+        assertTrue( lineNoise.call( "    package org.openCage.distance; " ));
     }
 
     public void testisNoiseOpenBracket() {
-        assertTrue( lineNoise.isGrayNoise( "   { " ));
+        assertTrue( lineNoise.call( "   { " ));
     }
 
     public void testisNoiseOpenBracketWithCode() {
-        assertFalse( lineNoise.isGrayNoise( "   if (duh) {         " ));
+        assertFalse( lineNoise.call( "   if (duh) {         " ));
     }
 
     public void testisNoiseClosingBracketWithCode() {
-        assertFalse( lineNoise.isGrayNoise( "   duda {}         " ));
+        assertFalse( lineNoise.call( "   duda {}         " ));
     }
 
     public void testisNoiseWhiteSpace() {
-        assertTrue( lineNoise.isGrayNoise( "             " ));
+        assertTrue( lineNoise.call( "             " ));
     }
 
     public void testIsLineCodeIf() {
-        assertFalse( lineNoise.isGrayNoise( "   if ( foo )        " ));
+        assertFalse( lineNoise.call( "   if ( foo )        " ));
     }
 
     public void testisNoiseSlash() {
-        assertFalse( lineNoise.isGrayNoise( "   / duh          " ));
+        assertFalse( lineNoise.call( "   / duh          " ));
     }
 
     public void testIsLineClassDecl() {
-        assertTrue( lineNoise.isGrayNoise( "   public class        " ));
+        assertTrue( lineNoise.call( "   public class        " ));
     }
 
     public void testIsLineInterfaceDecl() {
-        assertTrue( lineNoise.isGrayNoise( "   public interface        " ));
+        assertTrue( lineNoise.call( "   public interface        " ));
     }
 
     public void testIsLineAnnotation() {
-        assertTrue( lineNoise.isGrayNoise( "   @duda        " ));
+        assertTrue( lineNoise.call( "   @duda        " ));
     }
 }

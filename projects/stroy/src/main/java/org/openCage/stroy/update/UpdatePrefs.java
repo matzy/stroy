@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import org.openCage.lang.functions.F1;
-import org.openCage.stroy.locale.LocalizedComboBox5;
+import org.openCage.stroy.locale.LocalizedComboBox;
 import org.openCage.stroy.locale.Message;
 import com.google.inject.Inject;
 import net.java.dev.designgridlayout.DesignGridLayout;
@@ -40,7 +40,7 @@ import net.java.dev.designgridlayout.DesignGridLayout;
 public class UpdatePrefs extends JPanel {
 
     private JButton                         checkNow        = new JButton( Message.get("Update.checknow"));
-    private LocalizedComboBox5<UpdateTime>  updateInterval;
+    private LocalizedComboBox<UpdateTime> updateInterval;
 
 //    private final Interval      interval;
 //    private final UpdateChecker checker;
@@ -51,7 +51,7 @@ public class UpdatePrefs extends JPanel {
 //        this.interval = interval;
 //        this.checker  = checker;
 
-        updateInterval  = new LocalizedComboBox5<UpdateTime>( new F1<String, UpdateTime>() {
+        updateInterval  = new LocalizedComboBox<UpdateTime>( new F1<String, UpdateTime>() {
             @Override
             public String call(UpdateTime updateTime) {
                 return "update-time." + updateTime;

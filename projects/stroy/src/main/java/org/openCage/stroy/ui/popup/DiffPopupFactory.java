@@ -2,14 +2,14 @@ package org.openCage.stroy.ui.popup;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
-import org.openCage.comphy.ImmuProp;
-import org.openCage.comphy.StringProperty;
+import org.openCage.comphy.property.ImmuProp;
 import org.openCage.lang.inc.Str;
 import org.openCage.stroy.content.Content;
-import org.openCage.stroy.file.FileTypes5;
-import org.openCage.stroy.filter.IgnoreCentral5;
+import org.openCage.stroy.file.FileTypes;
+import org.openCage.stroy.filter.IgnoreCentral;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.ui.prefs.PrefsUI;
+import org.openCage.util.external.DesktopX;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
@@ -41,22 +41,30 @@ public class DiffPopupFactory<T extends Content> {
     private final PrefsUI prefsUI;
     private final ImmuProp<Str> editor;
     private final ImmuProp<Str> diffProg;
-    private final FileTypes5 fileTypes;
-    private final IgnoreCentral5 central;
+    private final FileTypes fileTypes;
+    private final IgnoreCentral central;
+    private final DesktopX desktop;
+
 
     @Inject
-    public DiffPopupFactory(PrefsUI prefsUI, @Named(value = "Editor") ImmuProp<Str> editor, @Named("DiffProg") ImmuProp<Str> diffProg, FileTypes5 fileTypes, IgnoreCentral5 central) {
+    public DiffPopupFactory(PrefsUI prefsUI,
+                            @Named("Editor") ImmuProp<Str> editor,
+                            @Named("DiffProg") ImmuProp<Str> diffProg,
+                            FileTypes fileTypes,
+                            IgnoreCentral central,
+                            DesktopX desktop) {
         this.prefsUI = prefsUI;
         this.editor = editor;
         this.diffProg = diffProg;
         this.fileTypes = fileTypes;
         this.central = central;
+        this.desktop = desktop;
     }
 
     public DiffPopup get( final TreeMatchingTask<T> taskLeft,
                           final TreeMatchingTask<T> taskRight ) {
 
-        return new DiffPopup( prefsUI, editor, diffProg, fileTypes, central, taskLeft, taskRight );
+        return new DiffPopup( prefsUI, editor, diffProg, fileTypes, central, desktop, taskLeft, taskRight );
     }
 
 }

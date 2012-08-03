@@ -1,9 +1,9 @@
 package org.openCage.util.ui.skvTree;
 
+import org.openCage.lang.iterators.Count;
+import org.openCage.lang.iterators.Iterators;
 import org.openCage.util.ui.skyviewbar.Config;
 import org.openCage.util.ui.skyviewbar.ObjectListener;
-import org.openCage.util.iterator.Count;
-import org.openCage.util.iterator.Iterators;
 import org.openCage.stroy.ui.util.NodeToNode;
 import org.openCage.stroy.ui.difftree.SynchronizeListener;
 
@@ -178,7 +178,7 @@ public class SkvTree extends JPanel {
         int cellHeight = blockedList.getBlocksize();
 
         for ( Count<List<DefaultMutableTreeNode>> block : Iterators.count(blockedList.get()) ) {
-            paintBlock( block.o, block.count, graphics, cellHeight, false );
+            paintBlock( block.obj(), block.idx(), graphics, cellHeight, false );
         }
 
     }
@@ -253,7 +253,7 @@ public class SkvTree extends JPanel {
         int cellHeight = blockedList.getBlocksize();
 
         for ( Count<List<DefaultMutableTreeNode>> block : Iterators.count(blockedList.get()) ) {
-            paintBlock( block.o, block.count, getGraphics(), cellHeight, true );
+            paintBlock( block.obj(), block.idx(), getGraphics(), cellHeight, true );
         }
     }
 

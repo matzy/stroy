@@ -1,13 +1,13 @@
 package org.openCage.stroy.ui.popup;
 
 import com.google.inject.name.Named;
-import org.openCage.comphy.ImmuProp;
-import org.openCage.comphy.StringProperty;
+import org.openCage.comphy.property.ImmuProp;
 import org.openCage.lang.inc.Str;
 import org.openCage.lang.structure.T2;
 import org.openCage.lang.structure.Tu;
-import org.openCage.stroy.file.FileTypes5;
-import org.openCage.stroy.filter.IgnoreCentral5;
+import org.openCage.stroy.file.FileTypes;
+import org.openCage.stroy.filter.IgnoreCentral;
+import org.openCage.util.external.DesktopX;
 import org.openCage.util.io.FileUtils;
 import org.openCage.util.external.ExternalProgs;
 import org.openCage.stroy.graph.node.TreeNode;
@@ -62,7 +62,7 @@ public class DiffPopup<T extends Content> extends JPopupMenu {
     private TreePath                  currentPath;
 
 //    private FileTypes     fileTypes;
-    private final FileTypes5 fileTypes;
+    private final FileTypes fileTypes;
 
     private JMenuItem diffMenu;
     private JMenuItem diffWith;
@@ -74,17 +74,22 @@ public class DiffPopup<T extends Content> extends JPopupMenu {
     private PrefsUI prefsUI;
     private final ImmuProp<Str> editor;
     private final ImmuProp<Str> diffProg;
-    private final IgnoreCentral5 central;
+    private final IgnoreCentral central;
+
+    private final DesktopX desktop;
 
     public DiffPopup(final PrefsUI prefsUI,
                      @Named(value = "Editor") ImmuProp<Str> editor,
                      @Named(value = "DiffProg") ImmuProp<Str> diffProg,
-                     final FileTypes5 fileTypes,
-                     IgnoreCentral5 central, final TreeMatchingTask<T> taskLeft,
+                     final FileTypes fileTypes,
+                     IgnoreCentral central,
+                     DesktopX desktop,
+                     final TreeMatchingTask<T> taskLeft,
                      final TreeMatchingTask<T> taskRight) {
         this.diffProg = diffProg;
         this.fileTypes = fileTypes;
         this.central = central;
+        this.desktop = desktop;
         this.decider =  new DiffPopupDecider(fileTypes);
 
 
@@ -165,9 +170,11 @@ public class DiffPopup<T extends Content> extends JPopupMenu {
                     return;
                 }
 
-                String cmd = editor.get().get();
+                desktop.openAsText( file );
 
-                ExternalProgs.execute( cmd, file.getAbsolutePath() );
+//                String cmd = editor.get().get();
+//
+//                ExternalProgs.execute( cmd, file.getAbsolutePath() );
             }
         });
 
@@ -198,9 +205,7 @@ public class DiffPopup<T extends Content> extends JPopupMenu {
                     return;
                 }
 
-                String cmd = fileTypes.getOpen(FileUtils.getExtension(file));
-                ExternalProgs.execute( cmd, file.getAbsolutePath() );
-
+                desktop.open( file );
             }
         });
 

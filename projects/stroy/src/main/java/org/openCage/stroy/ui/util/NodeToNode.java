@@ -1,21 +1,27 @@
 package org.openCage.stroy.ui.util;
 
+import org.openCage.io.fspath.FSPathBuilder;
 import org.openCage.stroy.graph.node.TreeNode;
 import org.openCage.stroy.graph.node.TreeNodeUtils;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
-import org.openCage.stroy.dir.FileContent;
+import org.openCage.stroy.content.FileContent;
 import org.openCage.stroy.ui.difftree.UINode;
 import org.openCage.stroy.ui.difftree.GhostNode;
 import org.openCage.stroy.content.Content;
+import org.openCage.util.io.FileUtils;
 import org.openCage.util.ui.TreeUtils;
 
 import javax.swing.tree.TreePath;
 import javax.swing.tree.DefaultMutableTreeNode;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.ArrayList;
 import java.io.File;
 
+import static org.openCage.lang.errors.Unchecked.wrap;
 
 
 /***** BEGIN LICENSE BLOCK *****
@@ -60,7 +66,22 @@ public class NodeToNode {
     }
 
     public static File getFile( TreePath path ) {
-        return ((TreeNode<Content>)pathToNode( path)).getContent().getFile();
+        TreeNode<Content> treeNode = pathToNode(path);
+        if ( treeNode.getContent() instanceof FileContent ) {
+            return ((FileContent)treeNode.getContent()).getFile();
+        }
+
+        // TODO make util in io
+        try {
+            File ret = FSPathBuilder.getTmpFile(treeNode.getContent().getType()).toFile();
+            FileUtils.copy( treeNode.getContent().getStream(),
+                            new FileOutputStream(ret));
+
+            return ret;
+        } catch (IOException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            throw wrap(e);
+        }
     }
 
     public static String getStringPath( TreePath path ) {
@@ -220,12 +241,14 @@ public class NodeToNode {
 
     private static <T extends Content> boolean isInThatTree( DefaultMutableTreeNode root, TreeNode<T> node ) {
 
-        if ( !root.isRoot()) {
-            root = (DefaultMutableTreeNode)root.getRoot();
-        }
-
-        return node.getContent().getFile().getAbsolutePath().contains(
-                ((FileContent)(((UINode)root.getUserObject()).get().getContent())).getFile().getAbsolutePath());
+        return true;
+//        if ( !root.isRoot()) {
+//            root = (DefaultMutableTreeNode)root.getRoot();
+//        }
+//
+//
+//        return ((FileContent)node.getContent()).getFile().getAbsolutePath().contains(
+//                ((FileContent)(((UINode)root.getUserObject()).get().getContent())).getFile().getAbsolutePath());
     }
 
     public static <T extends Content> TreePath nodeToTreePath( DefaultMutableTreeNode root, TreeNode<T> node ) {

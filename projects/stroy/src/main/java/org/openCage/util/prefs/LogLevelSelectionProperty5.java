@@ -4,7 +4,6 @@ import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 
 /***** BEGIN LICENSE BLOCK *****
@@ -32,7 +31,7 @@ import java.util.logging.Level;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ***** END LICENSE BLOCK *****/
 
-public class LogLevelSelectionProperty5 extends ListSelectionProperty5<Level> {
+public class LogLevelSelectionProperty5 extends ListSelectionProperty<Level> {
 
     @Inject
     public LogLevelSelectionProperty5( @Named( value = "loglevels" ) ArrayList<Level> levels, @Named(value = "selection") Level selection) {
