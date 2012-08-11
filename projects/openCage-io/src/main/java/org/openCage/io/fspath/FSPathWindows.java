@@ -136,6 +136,12 @@ public class FSPathWindows extends FSPathBase {
         return elements.get( elements.size() - 1 );
     }
 
+    // TODO
+    @Override
+    public boolean isRoot() {
+        return elements.size() == 1;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) { return true; }

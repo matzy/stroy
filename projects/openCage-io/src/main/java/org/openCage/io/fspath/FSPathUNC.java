@@ -135,6 +135,11 @@ public class FSPathUNC extends FSPathBase {
     }
 
     @Override
+    public boolean isRoot() {
+        return elements.size() == 1;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) { return true; }
         if (!(o instanceof FSPathUNC)) { return false; }

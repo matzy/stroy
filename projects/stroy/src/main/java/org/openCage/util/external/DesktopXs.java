@@ -1,9 +1,5 @@
 package org.openCage.util.external;
 
-import org.openCage.lang.inc.Str;
-
-import static org.openCage.lang.inc.Strng.S;
-
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
  * Copyright (c) 2006 - 2012, Stephan Pfab
@@ -31,14 +27,14 @@ import static org.openCage.lang.inc.Strng.S;
 
 public class DesktopXs {
 
-    public static final Str STANDARD_OPEN = S("open");
-    public static final Str OS_STANDARD_TEXT_EDITOR = S("os_text_editor");
+    public static final String STANDARD_OPEN = ("open");
+    public static final String OS_STANDARD_TEXT_EDITOR = ("os_text_editor");
 
-    public static final Str STROY_TEXT_EDITOR = S("stroy_text_editor");
+    public static final String STROY_TEXT_EDITOR = ("stroy_text_editor");
 
-    //public static final Str STANDARD_OPEN   = S("--OS-STANDARD-OPEN--");
-    public static final Str STANDARD_DIFF   = S("--STANDARD-DIFF--");
-//    public static final Str OPEN            = S("open");
-//    public static final Str EDIT            = S("edit");
-//    public static final Str diff            = S("diff");
+    //public static final String STANDARD_OPEN   = ("--OS-STANDARD-OPEN--");
+    public static final String STANDARD_DIFF   = ("--STANDARD-DIFF--");
+//    public static final String OPEN            = ("open");
+//    public static final String EDIT            = ("edit");
+//    public static final String diff            = ("diff");
 }

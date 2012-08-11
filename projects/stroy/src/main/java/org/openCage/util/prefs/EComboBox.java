@@ -1,14 +1,12 @@
 package org.openCage.util.prefs;
 
-import org.openCage.comphy.property.ImmuProp;
 import org.openCage.lang.listeners.Observer;
-import org.openCage.lang.inc.Str;
+import org.openCage.lang.structure.ObservableRef;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import static org.openCage.lang.inc.Strng.S;
 
 /**
  * Created with IntelliJ IDEA.
@@ -19,7 +17,7 @@ import static org.openCage.lang.inc.Strng.S;
  */
 public class EComboBox<T extends Enum > extends JComboBox {
 
-    public EComboBox( final Class<T> clazz, final ImmuProp<Str> prop ) {
+    public EComboBox( final Class<T> clazz, final ObservableRef<String> prop ) {
 
         setModel( new DefaultComboBoxModel());
 
@@ -29,19 +27,19 @@ public class EComboBox<T extends Enum > extends JComboBox {
         }
 
         if ( !prop.get().isEmpty() ) {
-            setSelectedItem( T.valueOf( clazz, prop.get().get()));
+            setSelectedItem( T.valueOf( clazz, prop.get()));
         }
 
         addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
-                prop.set(S(getSelectedItem().toString()));
+                prop.set((getSelectedItem().toString()));
             }
         });
 
         prop.getListenerControl().add( new Observer() {
             @Override
             public void call() {
-                setSelectedItem( T.valueOf(clazz, prop.get().get()));
+                setSelectedItem( T.valueOf(clazz, prop.get()));
             }
         });
 

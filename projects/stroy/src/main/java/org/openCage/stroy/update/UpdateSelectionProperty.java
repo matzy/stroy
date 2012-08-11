@@ -2,9 +2,11 @@ package org.openCage.stroy.update;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
+import org.openCage.lang.structure.ObservableRef;
 import org.openCage.util.prefs.ListSelectionProperty;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /***** BEGIN LICENSE BLOCK *****
@@ -35,16 +37,18 @@ import java.util.ArrayList;
 public class UpdateSelectionProperty extends ListSelectionProperty<UpdateTime> {
 
     @Inject
-    public UpdateSelectionProperty( @Named(value = "times") ArrayList<UpdateTime> times, @Named(value = "selection") UpdateTime selection) {
-        super("times", times, selection);
+    public UpdateSelectionProperty( @Named(value = "updateTime") ObservableRef<UpdateTime> selection) {
+        super("times", getTimes(), selection);
     }
 
-    public UpdateSelectionProperty() {
-        super("times", new ArrayList<UpdateTime>(), UpdateTime.weekly );
+    public static List<UpdateTime> getTimes() {
+        List<UpdateTime> list = new ArrayList<UpdateTime>();
         list.add( UpdateTime.never );
         list.add( UpdateTime.monthly );
         list.add( UpdateTime.weekly );
         list.add( UpdateTime.everyStart );
+
+        return list;
     }
 
 }

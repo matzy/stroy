@@ -2,8 +2,10 @@ package org.openCage.util.prefs;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
+import org.openCage.lang.structure.ObservableRef;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 
 /***** BEGIN LICENSE BLOCK *****
@@ -34,12 +36,12 @@ import java.util.logging.Level;
 public class LogLevelSelectionProperty5 extends ListSelectionProperty<Level> {
 
     @Inject
-    public LogLevelSelectionProperty5( @Named( value = "loglevels" ) ArrayList<Level> levels, @Named(value = "selection") Level selection) {
-        super("loglevels", levels, selection);
+    public LogLevelSelectionProperty5( @Named(value = "loglevel") ObservableRef<Level> selection) {
+        super("loglevels", getLevels(), selection);
     }
 
-    public LogLevelSelectionProperty5() {
-        super("loglevels", new ArrayList<Level>(), Level.WARNING );
+    public static List<Level> getLevels() {
+        List<Level> list = new ArrayList<Level>();
         list.add( Level.OFF );
         list.add( Level.SEVERE );
         list.add( Level.WARNING );
@@ -48,6 +50,8 @@ public class LogLevelSelectionProperty5 extends ListSelectionProperty<Level> {
         list.add( Level.FINE );
         list.add( Level.FINER );
         list.add( Level.FINEST );
+
+        return list;
     }
 
 }

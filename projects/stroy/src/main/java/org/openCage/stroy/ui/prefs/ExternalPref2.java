@@ -1,11 +1,10 @@
 package org.openCage.stroy.ui.prefs;
 
 import net.java.dev.designgridlayout.DesignGridLayout;
-import org.openCage.comphy.property.ImmuProp;
-import org.openCage.comphy.property.MapProperty;
 import org.openCage.lang.functions.F1;
 import org.openCage.lang.functions.F2;
-import org.openCage.lang.inc.Str;
+import org.openCage.lang.structure.ObservableRef;
+import org.openCage.ruleofthree.property.MapProperty;
 import org.openCage.stroy.file.Action;
 import org.openCage.stroy.file.FileTypes;
 import org.openCage.stroy.file.ImmuBridge;
@@ -28,7 +27,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
 
-import static org.openCage.lang.inc.Strng.S;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
@@ -59,14 +57,14 @@ public class ExternalPref2 extends JPanel {
 
     private JFrame frame;
     private FileTypes fileTypes;
-    private MapProperty<ImmuProp<Str>> progList;
+    private MapProperty<ObservableRef<String>> progList;
     private final JList extensions;
     private MComboBox openCombo;
     private TextField descrText;
     private EComboBox algoCombo;
 
 
-    public ExternalPref2( final JFrame frame, final FileTypes filesTypes, MapProperty<ImmuProp<Str>> progList) {
+    public ExternalPref2( final JFrame frame, final FileTypes filesTypes, MapProperty<ObservableRef<String>> progList) {
 
         this.frame = frame;
 
@@ -74,45 +72,45 @@ public class ExternalPref2 extends JPanel {
         this.progList  = progList;
         extensions     = createExtensions();
 
-        final ImmuBridge<Action> openBridge = new ImmuBridge<Action>( new F1<Str, Action>() {
+        final ImmuBridge<Action> openBridge = new ImmuBridge<Action>( new F1<String, Action>() {
             @Override
-            public Str call(Action action) {
-                return S(action.getOpen());
+            public String call(Action action) {
+                return (action.getOpen());
             }
-        }, new F2<Void, Action, Str>() {
+        }, new F2<Void, Action, String>() {
             @Override
-            public Void call(Action action, Str open) {
-                action.setOpen( open.get() );
+            public Void call(Action action, String open) {
+                action.setOpen( open );
                 return null;
             }
         });
 
         this.openCombo = new MComboBox( progList, openBridge.getProp() );
 
-        final ImmuBridge<Action> decrBridge = new ImmuBridge<Action>( new F1<Str, Action>() {
+        final ImmuBridge<Action> decrBridge = new ImmuBridge<Action>( new F1<String, Action>() {
             @Override
-            public Str call(Action action) {
-                return S(action.getDescription());
+            public String call(Action action) {
+                return (action.getDescription());
             }
-        }, new F2<Void, Action, Str>() {
+        }, new F2<Void, Action, String>() {
             @Override
-            public Void call(Action action, Str open) {
-                action.setDescription(open.get());
+            public Void call(Action action, String open) {
+                action.setDescription(open);
                 return null;
             }
         });
 
         descrText = new TextField( decrBridge.getProp() );
 
-        final ImmuBridge<Action> algoBridge = new ImmuBridge<Action>( new F1<Str, Action>() {
+        final ImmuBridge<Action> algoBridge = new ImmuBridge<Action>( new F1<String, Action>() {
             @Override
-            public Str call(Action action) {
-                return S(action.getAlgo().toString());
+            public String call(Action action) {
+                return (action.getAlgo().toString());
             }
-        }, new F2<Void, Action, Str>() {
+        }, new F2<Void, Action, String>() {
             @Override
-            public Void call(Action action, Str open) {
-                action.setAlgo( SimilarityAlgorithm.valueOf( open.get()));
+            public Void call(Action action, String open) {
+                action.setAlgo( SimilarityAlgorithm.valueOf( open));
                 return null;
             }
         });
@@ -124,7 +122,7 @@ public class ExternalPref2 extends JPanel {
         extensions.addListSelectionListener( new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent listSelectionEvent) {
                 String ext = (String) extensions.getSelectedValue();
-                Action action = filesTypes.getAction( S(ext) );
+                Action action = filesTypes.getAction( (ext) );
                 openBridge.set( action );
                 decrBridge.set( action );
                 algoBridge.set( action);

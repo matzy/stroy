@@ -4,6 +4,7 @@ package org.openCage.ruleofthree.jtothree;
 import com.google.inject.TypeLiteral;
 import org.openCage.lang.functions.F1;
 import org.openCage.lang.inc.ImmuDate;
+import org.openCage.lang.structure.Ref;
 import org.openCage.rei.ReiHashMap;
 import org.openCage.ruleofthree.Three;
 
@@ -162,7 +163,6 @@ public class Basics {
                     }
                 }
         );
-
 
     }
 

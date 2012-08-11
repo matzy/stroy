@@ -2,8 +2,7 @@ package org.openCage.stroy.ui.popup;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
-import org.openCage.comphy.property.ImmuProp;
-import org.openCage.lang.inc.Str;
+import org.openCage.lang.structure.ObservableRef;
 import org.openCage.stroy.content.Content;
 import org.openCage.stroy.file.FileTypes;
 import org.openCage.stroy.filter.IgnoreCentral;
@@ -39,8 +38,8 @@ import org.openCage.util.external.DesktopX;
 public class DiffPopupFactory<T extends Content> {
 
     private final PrefsUI prefsUI;
-    private final ImmuProp<Str> editor;
-    private final ImmuProp<Str> diffProg;
+    private final ObservableRef<String> editor;
+    private final ObservableRef<String> diffProg;
     private final FileTypes fileTypes;
     private final IgnoreCentral central;
     private final DesktopX desktop;
@@ -48,8 +47,8 @@ public class DiffPopupFactory<T extends Content> {
 
     @Inject
     public DiffPopupFactory(PrefsUI prefsUI,
-                            @Named("Editor") ImmuProp<Str> editor,
-                            @Named("DiffProg") ImmuProp<Str> diffProg,
+                            @Named("Editor") ObservableRef<String> editor,
+                            @Named("DiffProg") ObservableRef<String> diffProg,
                             FileTypes fileTypes,
                             IgnoreCentral central,
                             DesktopX desktop) {

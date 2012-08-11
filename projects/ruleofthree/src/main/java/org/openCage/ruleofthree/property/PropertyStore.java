@@ -33,11 +33,13 @@ import java.util.List;
 
 public interface PropertyStore {
 
-    <T extends Property> T get( ThreeKey key, Class<T> clazz );
+    void add( ThreeKey key, Object prop );
 
-    void add( ThreeKey key, Property prop );
+    <T> T get( ThreeKey key, Class<T> clazz );
 
-    <T extends Property> T get(ThreeKey key, TypeLiteral<T> typeLiteral);
+    <T> T get(ThreeKey key, TypeLiteral<T> typeLiteral);
 
-    <T extends Property> List<T> getAll(Class<T> clazz );
+    <T> List<T> getAll(Class<T> clazz );
+
+    <T> List<T> getAll(TypeLiteral<T> literal);
 }

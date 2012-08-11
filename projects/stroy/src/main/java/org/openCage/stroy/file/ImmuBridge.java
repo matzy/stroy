@@ -1,12 +1,9 @@
 package org.openCage.stroy.file;
 
-import org.openCage.comphy.property.ImmuProp;
 import org.openCage.lang.functions.F1;
 import org.openCage.lang.functions.F2;
 import org.openCage.lang.functions.VF0;
-import org.openCage.lang.inc.Str;
-
-import static org.openCage.lang.inc.Strng.S;
+import org.openCage.lang.structure.ObservableRef;
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,16 +14,16 @@ import static org.openCage.lang.inc.Strng.S;
  */
 public class ImmuBridge<T> {
 
-    private F2<Void, T, Str> setter;
-    private F1<Str, T> getter;
-    private ImmuProp<Str> prop;
+    private F2<Void, T, String> setter;
+    private F1<String, T> getter;
+    private ObservableRef<String> prop;
     private VF0 last = null;
 
-    public ImmuBridge(F1<Str, T> getter, F2<Void, T, Str> setter) {
+    public ImmuBridge(F1<String, T> getter, F2<Void, T, String> setter) {
         this.getter = getter;
         this.setter = setter;
 
-        prop = new ImmuProp<Str>(S(""));
+        prop = new ObservableRef<String>("");
     }
 
     public void set( final T obj ) {
@@ -46,7 +43,7 @@ public class ImmuBridge<T> {
         prop.getListenerControl().add( last );
     }
 
-    public ImmuProp<Str> getProp() {
+    public ObservableRef<String> getProp() {
         return prop;
     }
 

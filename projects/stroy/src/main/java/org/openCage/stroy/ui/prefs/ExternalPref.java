@@ -1,8 +1,7 @@
 package org.openCage.stroy.ui.prefs;
 
-import org.openCage.comphy.property.ImmuProp;
-import org.openCage.comphy.property.MapProperty;
-import org.openCage.lang.inc.Str;
+import org.openCage.lang.structure.ObservableRef;
+import org.openCage.ruleofthree.property.MapProperty;
 import org.openCage.stroy.file.*;
 import org.openCage.stroy.file.Action;
 import org.openCage.stroy.locale.Message;
@@ -13,16 +12,33 @@ import org.openCage.util.ui.JTextFields;
 import org.openCage.util.io.FileUtils;
 import org.openCage.util.external.ExternalProgs;
 
-import javax.swing.*;
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Vector;
 
 import net.java.dev.designgridlayout.DesignGridLayout;
 
@@ -82,9 +98,9 @@ public class ExternalPref extends JPanel {
     private Map<String, String> algo2mesg = new HashMap<String, String>();
     private Map<String, String> mesg2algo = new HashMap<String, String>();
     private MComboBox mbox;
-    private final MapProperty<ImmuProp<Str>> progList;
+    private final MapProperty<ObservableRef<String>> progList;
 
-    public ExternalPref(final JFrame frame, FileTypes filesTypes, MapProperty<ImmuProp<Str>> progList) {
+    public ExternalPref(final JFrame frame, FileTypes filesTypes, MapProperty<ObservableRef<String>> progList) {
 
         this.frame = frame;
 
@@ -244,7 +260,7 @@ public class ExternalPref extends JPanel {
                 openText.setBackground(Colors.BACKGROUND_NEUTRAL);
                 openText.setEnabled( false );
                 openDir.setEnabled( false );
-                fileTypes.setOpenProg( (String)extList.getSelectedValue(), ExternalProgs.open.get() );
+                fileTypes.setOpenProg( (String)extList.getSelectedValue(), ExternalProgs.open );
             }
         });
 
@@ -254,7 +270,7 @@ public class ExternalPref extends JPanel {
                 openText.setBackground(Colors.BACKGROUND_NEUTRAL);
                 openText.setEnabled( false );
                 openDir.setEnabled( false );
-                fileTypes.setOpenProg( (String)extList.getSelectedValue(), ExternalProgs.openAsText.get() );
+                fileTypes.setOpenProg( (String)extList.getSelectedValue(), ExternalProgs.openAsText );
             }
         });
 
@@ -304,7 +320,7 @@ public class ExternalPref extends JPanel {
                 diffOtherText.setBackground(Colors.BACKGROUND_NEUTRAL);
                 diffOtherText.setEnabled( false );
                 diffDir.setEnabled( false );
-                fileTypes.setDiffProg( (String)extList.getSelectedValue(), ExternalProgs.STANDARD_DIFF.get() );
+                fileTypes.setDiffProg( (String)extList.getSelectedValue(), ExternalProgs.STANDARD_DIFF );
             }
         });
 
@@ -314,7 +330,7 @@ public class ExternalPref extends JPanel {
                 diffOtherText.setBackground(Colors.BACKGROUND_NEUTRAL);
                 diffOtherText.setEnabled( false );
                 diffDir.setEnabled( false );
-                fileTypes.setDiffProg( (String)extList.getSelectedValue(), ExternalProgs.unknown.get() );
+                fileTypes.setDiffProg( (String)extList.getSelectedValue(), ExternalProgs.unknown );
             }
         });
 

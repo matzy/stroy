@@ -9,16 +9,29 @@ import java.net.URL;
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertTrue;
 
-public class ThreeFromXmlTest {
+public class XmlToThreeTest {
 
     @Test
     public void testMinimal() {
-        ThreeFromXml threeFromXml = new ThreeFromXml();
+        XmlToThree xmlToThree = new XmlToThree();
 
         URL url = getClass().getResource("/org/openCage/ruleofthree/threetoxml/three-one.xml");
         assertTrue(new File( url.getFile()).exists());
 
-        Three readable =  threeFromXml.read( "root", url.getFile());
+        Three readable =  xmlToThree.read( "root", url.getFile());
+
+        assertNotNull(readable);
+        assertTrue(readable.isMap());
+    }
+
+    @Test
+    public void testPropertyMap() {
+        XmlToThree xmlToThree = new XmlToThree();
+
+        URL url = getClass().getResource("/org/openCage/ruleofthree/threetoxml/three-key-map.xml");
+        assertTrue(new File( url.getFile()).exists());
+
+        Three readable =  xmlToThree.read( "root", url.getFile());
 
         assertNotNull(readable);
         assertTrue(readable.isMap());

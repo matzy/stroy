@@ -1,9 +1,9 @@
 package org.openCage.util.prefs;
 
-import org.openCage.comphy.property.ImmuProp;
-import org.openCage.comphy.property.MapProperty;
 import org.openCage.lang.listeners.Observer;
-import org.openCage.lang.inc.Str;
+import org.openCage.lang.structure.ObservableRef;
+import org.openCage.ruleofthree.ThreeKey;
+import org.openCage.ruleofthree.property.MapProperty;
 import org.openCage.stroy.file.Action;
 
 import javax.swing.DefaultComboBoxModel;
@@ -11,7 +11,6 @@ import javax.swing.JComboBox;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import static org.openCage.lang.inc.Strng.S;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
@@ -39,10 +38,10 @@ import static org.openCage.lang.inc.Strng.S;
  ***** END LICENSE BLOCK *****/
 public class MComboBox extends JComboBox{
 
-    public MComboBox(final MapProperty<ImmuProp<Str>> progSelection, final ImmuProp<Str> selectionProp) {
+    public MComboBox(final MapProperty<ObservableRef<String>> progSelection, final ObservableRef<String> selectionProp) {
         setModel( new DefaultComboBoxModel());
 
-        for ( Str elem : progSelection.keySet() ) {
+        for ( ThreeKey elem : progSelection.keySet() ) {
             ((DefaultComboBoxModel)getModel()).addElement( elem );
         }
 
@@ -52,7 +51,7 @@ public class MComboBox extends JComboBox{
 
         addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
-                selectionProp.set((Str) getSelectedItem());
+                selectionProp.set((String) getSelectedItem());
             }
         });
 
@@ -73,20 +72,20 @@ public class MComboBox extends JComboBox{
 
     }
 
-    public MComboBox( final MapProperty<ImmuProp<Str>> progSelection, final Action action ) {
+    public MComboBox( final MapProperty<ObservableRef<String>> progSelection, final Action action ) {
         setModel( new DefaultComboBoxModel());
 
-        for ( Str elem : progSelection.keySet() ) {
+        for ( ThreeKey elem : progSelection.keySet() ) {
             ((DefaultComboBoxModel)getModel()).addElement( elem );
         }
 
 
 
-        setSelectedItem( S(action.getOpen()) );
+        setSelectedItem( (action.getOpen()) );
 
         addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
-                action.setOpen( ((Str)getSelectedItem()).get());
+                action.setOpen( ((String)getSelectedItem()));
             }
         });
 

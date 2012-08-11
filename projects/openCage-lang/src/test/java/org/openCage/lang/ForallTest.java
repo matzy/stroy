@@ -100,4 +100,14 @@ public class ForallTest {
 
         assertTrue(rm.isClosed());
     }
+
+    @Test
+    public void set() {
+        assertEquals( 2, Forall.forall( Arrays.asList( 1,2,3 )).skip( new F1<Boolean, Integer>() {
+            @Override
+            public Boolean call(Integer integer) {
+                return integer > 2;
+            }
+        }).toSet().size());
+    }
 }

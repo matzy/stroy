@@ -3,9 +3,9 @@ package org.openCage.stroy.ui.prefs;
 import javax.swing.*;
 
 import com.google.inject.name.Named;
-import org.openCage.comphy.property.ImmuProp;
-import org.openCage.comphy.property.MapProperty;
-import org.openCage.lang.inc.Str;
+import org.openCage.lang.structure.ObservableRef;
+import org.openCage.ruleofthree.ThreeKey;
+import org.openCage.ruleofthree.property.MapProperty;
 import org.openCage.util.external.DesktopX;
 import org.openCage.util.external.DesktopXs;
 import org.openCage.util.prefs.MComboBox;
@@ -23,8 +23,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 import net.java.dev.designgridlayout.DesignGridLayout;
-
-import static org.openCage.lang.inc.Strng.S;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
@@ -62,8 +60,8 @@ public class StandardProgUI extends JPanel {
     private final JButton diffButton = new JButton( "..");
     private final JButton resetButton = new JButton( "reset");
     private final JTextField editorText = new JTextField();
-    private final ImmuProp<Str> editorPref;
-    private final ImmuProp<Str> diffPref;
+    private final ObservableRef<String> editorPref;
+    private final ObservableRef<String> diffPref;
 
     private final JButton editButton = new JButton("..");
     private final JRadioButton stdEdit   = new JRadioButton( Message.get( "Pref.StandardProgs.osText" ));
@@ -77,11 +75,11 @@ public class StandardProgUI extends JPanel {
 
 
     public StandardProgUI(JFrame frme,
-                          @Named("Editor") ImmuProp<Str> editorPref,
-                          @Named("DiffProg") ImmuProp<Str> diffPref,
+                          @Named("Editor") ObservableRef<String> editorPref,
+                          @Named("DiffProg") ObservableRef<String> diffPref,
                           DesktopX desktop,
-                          ImmuProp<Str> sel,
-                          final MapProperty<ImmuProp<Str>> progList) {
+                          ObservableRef<String> sel,
+                          final MapProperty<ObservableRef<String>> progList) {
         this.frame = frme;
         this.editorPref = editorPref;
         this.diffPref = diffPref;
@@ -127,7 +125,7 @@ public class StandardProgUI extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 String cmd = newProg.getText();
                 String key = extract( cmd );
-                progList.put( S(key), new ImmuProp<Str>(S(newProg.getText())));
+                progList.put( ThreeKey.valueOf(key), new ObservableRef<String>((newProg.getText())));
             }
         });
 
@@ -141,7 +139,7 @@ public class StandardProgUI extends JPanel {
                     if ( path != null ) {
                         String norm = FileUtils.normalizePath( path );
                         diffText.setText( norm );
-                        StandardProgUI.this.diffPref.set(S(norm));
+                        StandardProgUI.this.diffPref.set((norm));
                     }
             }
         });
@@ -160,7 +158,7 @@ public class StandardProgUI extends JPanel {
                     if ( path != null ) {
                         String norm = FileUtils.normalizePath( path );
                         editorText.setText( norm );
-                        StandardProgUI.this.editorPref.set(S(norm));
+                        StandardProgUI.this.editorPref.set((norm));
                     }
 
             }
@@ -212,7 +210,7 @@ public class StandardProgUI extends JPanel {
 
 
         // to fix preference setttings
-        if ( this.diffPref.get().equals( S("") )) {
+        if ( this.diffPref.get().equals( ("") )) {
             this.diffPref.set(DesktopXs.STANDARD_DIFF);
         }
         if ( this.diffPref.get().equals( ExternalProgs.fileMerge )) {
@@ -240,8 +238,8 @@ public class StandardProgUI extends JPanel {
                                      JButton button,
                                      JRadioButton stdButton,
                                      JRadioButton other,
-                                     final ImmuProp<Str> prop,
-                                     Str std ) {
+                                     final ObservableRef<String> prop,
+                                     String std ) {
 
 
         //
@@ -255,7 +253,7 @@ public class StandardProgUI extends JPanel {
             textField.setEnabled( true );
             button.setEnabled( true );
             other.setSelected( true );
-            textField.setText( prop.get().get() );
+            textField.setText( prop.get());
         }
 
 
@@ -266,7 +264,7 @@ public class StandardProgUI extends JPanel {
             public void keyReleased(KeyEvent keyEvent) {
                 super.keyReleased(keyEvent);
                 if ( JTextFields.isFileOrApp(textField, Colors.BACKGROUND_NEUTRAL, Colors.BACKGROUND_WARN)) {
-                    prop.set( S(textField.getText()));
+                    prop.set( (textField.getText()));
                 }
             }
         });

@@ -4,13 +4,12 @@ import com.google.inject.Binder;
 import com.google.inject.Module;
 import com.google.inject.Singleton;
 import com.google.inject.name.Names;
+import org.openCage.io.IOUtils;
 import org.openCage.io.fspath.FSPath;
 import org.openCage.io.fspath.FSPathBuilder;
 import org.openCage.lang.BackgroundExecutor;
 import org.openCage.lang.BackgroundExecutorImpl;
-import org.openCage.ruleofthree.property.MultipleFilePropStore;
-import org.openCage.ruleofthree.property.NamingScheme;
-import org.openCage.ruleofthree.property.PropertyStore;
+import org.openCage.ruleofthree.property.*;
 
 import java.io.File;
 
@@ -24,11 +23,12 @@ import java.io.File;
 public class RuntimeModule implements Module {
     @Override
     public void configure(Binder binder) {
-        binder.bind( PropertyStore.class ).to( MultipleFilePropStore.class).in( Singleton.class );
+        binder.bind( PropertyStore.class ).to( PropStoreImpl.class).in( Singleton.class );
 
         binder.bind( File.class ).annotatedWith( Names.named("PropStoreFile")).toInstance( getRoot().toFile());
         binder.bind(BackgroundExecutor.class).to(BackgroundExecutorImpl.class);
         binder.bind(NamingScheme.class).to( IdToPath.class );
+        binder.bind(PropertyStoreRW.class ).to(SingleFileRW.class);
 
 
     }
@@ -36,13 +36,21 @@ public class RuntimeModule implements Module {
     public static FSPath getRoot() {
         FSPath dir = FSPathBuilder.getCurrentDir();
 
-        if ( dir.getFileName().endsWith("notabug") && dir.parent().getFileName().equals("meta")) {
-            return dir;
+        while ( notRoot( dir ) ) {
+            if ( dir.isRoot() ) {
+                throw new IllegalArgumentException("not a project: " + FSPathBuilder.getCurrentDir());
+            }
+            dir = dir.parent();
         }
 
-        throw new Error( "bad dir" );
+        dir = dir.add( "meta", "notabug");
+        IOUtils.ensurePath(dir);
 
-        //return null;
+        return dir;
+    }
+
+    private static boolean notRoot(FSPath dir) {
+        return !dir.add( "src", "main").toFile().exists();
     }
 
 }

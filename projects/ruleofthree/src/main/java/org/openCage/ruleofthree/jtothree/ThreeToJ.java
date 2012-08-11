@@ -46,11 +46,11 @@ import java.util.Map;
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ***** END LICENSE BLOCK *****/
 
-public class JfromThree {
+public class ThreeToJ {
 
     private Basics basics = Basics.get();
 
-    public JfromThree() {
+    public ThreeToJ() {
     }
 
     public <T> T get(TypeLiteral<? extends T> typeLiteral, Three three) {

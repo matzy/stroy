@@ -2,11 +2,11 @@ package org.openCage.stroy.file;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
-import org.openCage.comphy.*;
 import org.openCage.lang.listeners.VoidListenerControl;
 import org.openCage.lang.listeners.VoidListeners;
-
-import static org.openCage.lang.inc.Strng.S;
+import org.openCage.ruleofthree.Property;
+import org.openCage.ruleofthree.Three;
+import org.openCage.ruleofthree.Threes;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
@@ -34,7 +34,7 @@ import static org.openCage.lang.inc.Strng.S;
 ***** END LICENSE BLOCK *****/
 
 
-public class Action implements Property{
+public class Action implements Property {
     private String description;
     private SimilarityAlgorithm algo;
     private String diff;
@@ -69,12 +69,12 @@ public class Action implements Property{
     }
 
     @Override
-    public ThreeText toReadable() {
-        return Readables.Map().
-                put( S("description"), description).
-                put( S("similarityAlgorithm"), algo ).
-                put( S("diff"), diff).
-                put( S("open"), open);
+    public Three toThree() {
+        return Threes.newMap().
+                put( ("description"), description).
+                put( ("similarityAlgorithm"), algo ).
+                put( ("diff"), diff).
+                put( ("open"), open);
 
     }
 

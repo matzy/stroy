@@ -5,11 +5,11 @@ import com.google.inject.name.Named;
 import org.openCage.lang.inc.ImmuDate;
 import org.openCage.lang.listeners.VoidListenerControl;
 import org.openCage.lang.listeners.VoidListeners;
+import org.openCage.lang.structure.ObservableRef;
 import org.openCage.ruleofthree.Property;
 import org.openCage.ruleofthree.Three;
 import org.openCage.ruleofthree.Threes;
-import org.openCage.ruleofthree.property.ImmuProperty;
-import org.openCage.ruleofthree.property.ListProperty;
+import org.openCage.ruleofthree.property.ArrayListProperty;
 
 import java.util.UUID;
 
@@ -23,28 +23,28 @@ import java.util.UUID;
 public class Task implements Property {
 
     private final UUID id;
-    private final ListProperty<ImmuProperty<String>> reporters;
-    private final ListProperty<ImmuProperty<String>> tags;
+    private final ArrayListProperty<ObservableRef<String>> reporters;
+    private final ArrayListProperty<ObservableRef<String>> tags;
     private String name;
     private String description;
     private State state;
     private final ImmuDate created;
     private final Kind kind;
-    private final ListProperty<Id> references;
+    private final ArrayListProperty<Id> references;
 
 
     private VoidListeners listeners = new VoidListeners();
 
     @Inject
     public Task(@Named("id") UUID id,
-                @Named("reporters") ListProperty<ImmuProperty<String>> reporters,
-                @Named("tags") ListProperty<ImmuProperty<String>> tags,
+                @Named("reporters") ArrayListProperty<ObservableRef<String>> reporters,
+                @Named("tags") ArrayListProperty<ObservableRef<String>> tags,
                 @Named("name") String name,
                 @Named("description") String description,
                 @Named("state") State state,
                 @Named("created") ImmuDate date,
                 @Named("kind") Kind kind,
-                @Named("references") ListProperty<Id> references) {
+                @Named("references") ArrayListProperty<Id> references) {
         this.tags = tags;
         this.state = state;
         this.created = date;
@@ -57,15 +57,15 @@ public class Task implements Property {
     }
 
     private Task() {
-        tags = new ListProperty<ImmuProperty<String>>();
+        tags = new ArrayListProperty<ObservableRef<String>>();
         id = UUID.randomUUID();
-        reporters = new ListProperty<ImmuProperty<String>>();
+        reporters = new ArrayListProperty<ObservableRef<String>>();
         name = "";
         description = "";
         state = State.open;
         created = ImmuDate.now();
         kind = Kind.feature;
-        references = new ListProperty<Id>();
+        references = new ArrayListProperty<Id>();
     }
 
     public static Task next( String title) {
@@ -92,6 +92,7 @@ public class Task implements Property {
                 put( "tags", tags ).
                 put( "kind", kind ).
                 put( "created", created ).
+                put( "references", references ).
                 put( "state", state );
     }
 
@@ -104,6 +105,7 @@ public class Task implements Property {
                 ", reporters=" + reporters +
                 ", name=" + name +
                 ", description=" + description +
+                ", references=" + references +
                 ", state=" + state +
                 '}';
     }
@@ -114,5 +116,9 @@ public class Task implements Property {
 
     public UUID getId() {
         return id;
+    }
+
+    public String getName() {
+        return name;
     }
 }

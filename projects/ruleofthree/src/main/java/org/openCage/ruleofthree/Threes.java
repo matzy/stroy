@@ -1,8 +1,6 @@
 package org.openCage.ruleofthree;
 
-import com.google.inject.TypeLiteral;
-import org.openCage.rei.ReiHashMap;
-import org.openCage.ruleofthree.jtothree.JtoThree;
+import org.openCage.ruleofthree.jtothree.JToThree;
 
 import java.util.List;
 import java.util.Map;
@@ -56,11 +54,11 @@ public class Threes implements Three {
     }
 
     @Override
-    public Map<ThreeKey, Three> getMap() {
+    public ThreeMap<Three> getMap() {
         if ( !isMap()) {
             throw new IllegalArgumentException( "not a map " + obj );
         }
-        return (Map<ThreeKey, Three>) obj;
+        return (ThreeMap<Three>) obj;
     }
 
     @Override
@@ -79,7 +77,11 @@ public class Threes implements Three {
 
     @Override
     public Three put(ThreeKey key, Object val) {
-        getMap().put( key, new JtoThree().toThree(val));
+        if ( val instanceof Three ) {
+            getMap().put( key, (Three) val);
+        } else {
+            getMap().put( key, new JToThree().toThree(val));
+        }
         return this;
     }
 

@@ -22,8 +22,8 @@ public class IdToPath implements NamingScheme {
     @Override
     public File getPath(File backingFile, String key) {
 
-        String one = key.substring( 0, 21);
-        String two = key.substring( 22 );
+        String one = key.substring( 0, 8);
+        String two = key.substring( 8 );
 
         return new File( backingFile.getAbsolutePath() + "/" + one + "/" + two + ".xml");
     }
@@ -40,6 +40,6 @@ public class IdToPath implements NamingScheme {
 
     @Override
     public ThreeKey getKey(ImmuList<String> names) {
-        return new ThreeKey( names.get(0).substring( "nab".length() ) + "-" + Strings.withoutEnd( names.get(1), ".xml"));
+        return new ThreeKey( names.get(0) + Strings.withoutEnd( names.get(1), ".xml"));
     }
 }

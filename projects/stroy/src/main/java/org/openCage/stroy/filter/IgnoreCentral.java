@@ -2,11 +2,11 @@ package org.openCage.stroy.filter;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
-import org.openCage.comphy.property.ListProperty;
-import org.openCage.comphy.StringProperty;
 import org.openCage.lang.Strings;
 import org.openCage.lang.functions.F1;
 import org.openCage.lang.functions.VF0;
+import org.openCage.ruleofthree.property.ArrayListProperty;
+import org.openCage.ruleofthree.property.ListProperty;
 
 import java.util.List;
 import java.util.regex.Pattern;
@@ -38,37 +38,37 @@ import java.util.regex.Pattern;
 
 public class IgnoreCentral implements Ignore, VF0 {
 
-    private final ListProperty<StringProperty> patterns;
+    private final ListProperty<String> patterns;
     private Pattern pattern;
 
     @Inject
-    public IgnoreCentral(@Named("ignores") ListProperty<StringProperty> patterns) {
+    public IgnoreCentral(@Named("ignores") ListProperty<String> patterns) {
         this.patterns = patterns;
         patterns.getListenerControl().add( this );
         call();
     }
 
-    public static ListProperty<StringProperty> getInitial() {
+    public static ArrayListProperty<String> getInitial() {
 
-        ListProperty<StringProperty> pat = new ListProperty<StringProperty>();
+        ArrayListProperty<String> pat = new ArrayListProperty<String>();
 
-        pat.add( StringProperty.valueOf(".*\\.svn" ));
-        pat.add( StringProperty.valueOf(".*\\.DS_Store" ));
-        pat.add( StringProperty.valueOf(".*\\.class" ));
-        pat.add( StringProperty.valueOf(".*\\.o" ));
-        pat.add( StringProperty.valueOf(".*\\.obj" ));
-        pat.add( StringProperty.valueOf(".*\\.git" ));
+        pat.add( String.valueOf(".*\\.svn" ));
+        pat.add( String.valueOf(".*\\.DS_Store" ));
+        pat.add( String.valueOf(".*\\.class" ));
+        pat.add( String.valueOf(".*\\.o" ));
+        pat.add( String.valueOf(".*\\.obj" ));
+        pat.add( String.valueOf(".*\\.git" ));
 
-        pat.add( StringProperty.valueOf(".*/__MACOSX" ));
-        pat.add( StringProperty.valueOf( ".*/\\.get_date\\.dat" ));
-        pat.add( StringProperty.valueOf(".*/copyarea\\.db" ));
-        pat.add( StringProperty.valueOf(".*/copyarea\\.dat" ));
-        pat.add( StringProperty.valueOf(".*/vssver\\.scc" ));
-        pat.add( StringProperty.valueOf(".*/vssver2\\.scc" ));
-        pat.add( StringProperty.valueOf(".*/CVS" ));
-        pat.add( StringProperty.valueOf(".*/SCCS" ));
-        pat.add( StringProperty.valueOf(".*/RCS" ));
-        pat.add( StringProperty.valueOf(".*/rcs" ));
+        pat.add( String.valueOf(".*/__MACOSX" ));
+        pat.add( String.valueOf( ".*/\\.get_date\\.dat" ));
+        pat.add( String.valueOf(".*/copyarea\\.db" ));
+        pat.add( String.valueOf(".*/copyarea\\.dat" ));
+        pat.add( String.valueOf(".*/vssver\\.scc" ));
+        pat.add( String.valueOf(".*/vssver2\\.scc" ));
+        pat.add( String.valueOf(".*/CVS" ));
+        pat.add( String.valueOf(".*/SCCS" ));
+        pat.add( String.valueOf(".*/RCS" ));
+        pat.add( String.valueOf(".*/rcs" ));
 
         return pat;
     }
@@ -77,20 +77,20 @@ public class IgnoreCentral implements Ignore, VF0 {
         return this;
     }
 
-    public List<StringProperty> getPatterns() {
+    public List<String> getPatterns() {
         return patterns;
     }
 
     public void addExtension(String extension) {
-        patterns.add( StringProperty.valueOf(".*\\." + extension ));
+        patterns.add( String.valueOf(".*\\." + extension ));
     }
 
     public void addPattern(String name) {
-        patterns.add( StringProperty.valueOf(name));
+        patterns.add( String.valueOf(name));
     }
 
     public void addPath(String path) {
-        patterns.add( StringProperty.valueOf(path));
+        patterns.add( String.valueOf(path));
     }
 
     @Override
@@ -102,9 +102,9 @@ public class IgnoreCentral implements Ignore, VF0 {
     @Override
     public void call() {
        pattern = Pattern.compile( Strings.join( patterns ).
-                                       trans( new F1<String, StringProperty>() {
-                                           @Override public String call(StringProperty stringProperty) {
-                                               return "(" + stringProperty.get() + ")";
+                                       trans( new F1<String, String>() {
+                                           @Override public String call(String str) {
+                                               return "(" + str + ")";
                                            }}).
                                        separator("|").toString());
     }

@@ -2,8 +2,6 @@ package org.openCage.ruleofthree.threetoxml;
 
 import org.openCage.io.IOUtils;
 import org.openCage.io.fspath.FSPathBuilder;
-import org.openCage.lang.inc.GHashMap;
-import org.openCage.lang.inc.GMap;
 import org.openCage.lang.inc.Null;
 import org.openCage.ruleofthree.*;
 import org.xml.sax.Attributes;
@@ -49,9 +47,9 @@ import static org.openCage.ruleofthree.Threes.THREE;
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ***** END LICENSE BLOCK *****/
 
-public class ThreeFromXml {
+public class XmlToThree {
 
-    private static Logger LOG = Logger.getLogger(ThreeFromXml.class.getName());
+    private static Logger LOG = Logger.getLogger(XmlToThree.class.getName());
 
 
 //    public Three read(String uri) {
@@ -121,7 +119,7 @@ public class ThreeFromXml {
             // fix for unexpected sax reader behaviour
             // if start and end are close i.e. <foo></foo>
             // the character method is not called
-            // but because it might be called several times for one sting adding a empty string does not hurt
+            // but because it might be called several times for one string adding a empty string does not hurt
             stack.push( THREE(""));
         }
 
@@ -158,6 +156,7 @@ public class ThreeFromXml {
             Three keyCheck  = stack.pop();
 
             if ( !key.equals( keyCheck )) {
+
                 throw new IllegalArgumentException("malformed xml");
             }
 
@@ -273,7 +272,7 @@ public class ThreeFromXml {
         }
 
         @Override
-        public Map<ThreeKey,Three> getMap() {
+        public ThreeMap<Three> getMap() {
             throw new Error("not supported");
         }
 

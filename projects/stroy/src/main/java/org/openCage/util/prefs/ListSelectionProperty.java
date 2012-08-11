@@ -1,18 +1,16 @@
 package org.openCage.util.prefs;
 
-import org.openCage.comphy.*;
-import org.openCage.comphy.ThreeText;
-import org.openCage.comphy.jto3t.ToAndFro;
-import org.openCage.lang.inc.GHashMap;
-import org.openCage.lang.inc.Str;
+import org.openCage.lang.listeners.Observable;
 import org.openCage.lang.listeners.VoidListenerControl;
 import org.openCage.lang.listeners.VoidListeners;
+import org.openCage.lang.structure.ObservableRef;
+import org.openCage.ruleofthree.Property;
+import org.openCage.ruleofthree.Three;
+import org.openCage.ruleofthree.ThreeKey;
+import org.openCage.ruleofthree.Threes;
 
 import java.util.Collections;
 import java.util.List;
-
-import static org.openCage.comphy.Readables.R;
-import static org.openCage.lang.inc.Strng.S;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
@@ -39,46 +37,35 @@ import static org.openCage.lang.inc.Strng.S;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  ***** END LICENSE BLOCK *****/
 
-public class ListSelectionProperty<T> implements Property {
+public class ListSelectionProperty<T>  {
 
-    private VoidListeners observers = new VoidListeners();
     protected final List<T>      list;
-    private T selection;
+    private ObservableRef<T>     selection;
     private final String name;
 
-    public ListSelectionProperty(String name, List<T> list, T selection) {
+    public ListSelectionProperty(String name, List<T> list, ObservableRef<T> selection) {
         this.list = list;
         this.selection = selection;
         this.name = name;
     }
 
     public T getSelection() {
-        return selection;
+        return selection.get();
     }
 
     public void setSelection(T selection) {
         if ( !list.contains(selection)) {
             throw new IllegalArgumentException( "selection not in list" );
         }
-        this.selection = selection;
-        observers.shout();
+        this.selection.set(selection);
     }
 
-    @Override
-    public VoidListenerControl getListenerControl() {
-        return observers;
-    }
-
-    @Override
-    public ThreeText toReadable() {
-        ToAndFro toAndFro = new ToAndFro();
-
-        return R(new GHashMap<Str,ThreeText>().
-                putF(S("selection"), toAndFro.toReadable( selection )).
-                putF(S(name), toAndFro.toReadable( list)));
-    }
 
     public List<T> getList() {
         return Collections.unmodifiableList( list );
+    }
+
+    public ObservableRef<T> getProp() {
+        return selection;
     }
 }

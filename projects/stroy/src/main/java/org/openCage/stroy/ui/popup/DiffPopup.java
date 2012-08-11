@@ -1,8 +1,7 @@
 package org.openCage.stroy.ui.popup;
 
 import com.google.inject.name.Named;
-import org.openCage.comphy.property.ImmuProp;
-import org.openCage.lang.inc.Str;
+import org.openCage.lang.structure.ObservableRef;
 import org.openCage.lang.structure.T2;
 import org.openCage.lang.structure.Tu;
 import org.openCage.stroy.file.FileTypes;
@@ -72,15 +71,15 @@ public class DiffPopup<T extends Content> extends JPopupMenu {
 
     private DiffPopupDecider decider;
     private PrefsUI prefsUI;
-    private final ImmuProp<Str> editor;
-    private final ImmuProp<Str> diffProg;
+    private final ObservableRef<String> editor;
+    private final ObservableRef<String> diffProg;
     private final IgnoreCentral central;
 
     private final DesktopX desktop;
 
     public DiffPopup(final PrefsUI prefsUI,
-                     @Named(value = "Editor") ImmuProp<Str> editor,
-                     @Named(value = "DiffProg") ImmuProp<Str> diffProg,
+                     @Named(value = "Editor") ObservableRef<String> editor,
+                     @Named(value = "DiffProg") ObservableRef<String> diffProg,
                      final FileTypes fileTypes,
                      IgnoreCentral central,
                      DesktopX desktop,
@@ -248,7 +247,7 @@ public class DiffPopup<T extends Content> extends JPopupMenu {
                 String cmd = fileTypes.getDiffType(FileUtils.getExtension(nodes.i0.getContent().getName()));
 
                 if ( cmd != null && cmd.equals( ExternalProgs.STANDARD_DIFF )) {
-                    cmd = diffProg.get().get();
+                    cmd = diffProg.get();
                 }
 
                 ExternalProgs.execute( cmd,

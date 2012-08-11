@@ -43,9 +43,9 @@
 //
 //        FileUtils.withIterator( file, new VF1<Iterable<String>>() {
 //            public void call( Iterable<String> iterable ) {
-//                for ( String str : iterable ) {
-//                    if ( !noise.isGrayNoise( str )) {
-////                        lines.add( hash. str );
+//                for ( String String : iterable ) {
+//                    if ( !noise.isGrayNoise( String )) {
+////                        lines.add( hash. String );
 //                    }
 //                }
 //            }

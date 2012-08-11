@@ -2,8 +2,9 @@ package org.openCage.app;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
-import org.openCage.comphy.*;
-import org.openCage.comphy.Readable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
@@ -30,15 +31,23 @@ import org.openCage.comphy.Readable;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ***** END LICENSE BLOCK *****/
 
-public class ApplicationInfo { //implements Readalizable {
+public class ApplicationInfo {
 
     private final String name;
     private final String license;
+    private final String version;
+    private final List<String> authors;
+    //private final List<String>
 
     @Inject
-    public ApplicationInfo( @Named(value = "name") String name, @Named(value = "license" )String license) {
+    public ApplicationInfo(@Named(value = "name") String name,
+                           @Named(value = "license") String license,
+                           @Named(value = "version") String version,
+                           @Named(value = "authors") ArrayList<String> authors) {
         this.name = name;
         this.license = license;
+        this.version = version;
+        this.authors = authors;
     }
 
     public String getName() {

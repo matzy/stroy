@@ -2,8 +2,7 @@ package org.openCage.util.external;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
-import org.openCage.comphy.property.ImmuProp;
-import org.openCage.lang.inc.Str;
+import org.openCage.lang.structure.ObservableRef;
 import org.openCage.stroy.file.FileTypes;
 import org.openCage.util.io.FileUtils;
 import org.openCage.util.logging.Log;
@@ -41,11 +40,11 @@ import static org.openCage.lang.errors.Unchecked.wrap;
 
 public class OSXDesktopX implements DesktopX {
 
-    private final ImmuProp<Str> editor;
+    private final ObservableRef<String> editor;
     private final FileTypes fileTypes;
 
     @Inject
-    public OSXDesktopX(@Named("Editor") ImmuProp<Str> editor, FileTypes fileTypes) {
+    public OSXDesktopX(@Named("Editor") ObservableRef<String> editor, FileTypes fileTypes) {
         this.editor = editor;
         this.fileTypes = fileTypes;
     }
@@ -114,7 +113,7 @@ public class OSXDesktopX implements DesktopX {
             return;
         }
 
-        openWith( editor.get().get(), file );
+        openWith( editor.get(), file );
 
     }
 
@@ -183,7 +182,7 @@ public class OSXDesktopX implements DesktopX {
     }
 
     private boolean isStandardOpen(String type ) {
-        return type.equals(DesktopXs.STANDARD_OPEN.get());
+        return type.equals(DesktopXs.STANDARD_OPEN);
 
 
 

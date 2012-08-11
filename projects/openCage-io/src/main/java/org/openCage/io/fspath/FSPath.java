@@ -107,4 +107,10 @@ public interface FSPath extends Iterable<FSPath> {
      * @return Thr filename
      */
     String getFileName();
+
+    /**
+     * i.e. no parent
+     * @return
+     */
+    boolean isRoot();
 }

@@ -16,10 +16,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
@@ -131,6 +128,20 @@ public class Forall {
             }
         }
 
+        public List<T> toList() {
+            try {
+                List<T> ret = new ArrayList<T>();
+
+                for ( T elem : this ) {
+                    ret.add( elem );
+                }
+
+                return ret;
+            } finally {
+                closeResource();
+            }
+        }
+
         public <Y> IteratorProc<Y> trans( final F1<Y,T> tr) {
             final IteratorProc<T> outer = this;
 
@@ -207,6 +218,18 @@ public class Forall {
             }
         }
 
+        public void println() {
+            try {
+                for ( T elem : this ) {
+                    System.out.println(elem );
+                }
+            } finally {
+                closeResource();
+            }
+
+        }
+
+
         public <Y> Y join( F1<Y,Void> first, F1<Y,Y> last, F2<Y,Y,T> trans ) {
             try {
                 Y ret = first.call(null);
@@ -233,6 +256,8 @@ public class Forall {
         public <Y> Joiner<Y,T> join( Y start ) {
             return new Joiner<Y,T>( start, this );
         }
+
+
 
         public static class Joiner<Y,T> {
 

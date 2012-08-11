@@ -1,17 +1,15 @@
 package org.openCage.util.prefs;
 
 import com.google.inject.Inject;
-import org.openCage.comphy.property.ImmuProp;
 import org.openCage.lang.listeners.Observable;
 import org.openCage.lang.listeners.Observer;
-import org.openCage.lang.inc.Str;
 import org.openCage.lang.listeners.VoidListenerControl;
+import org.openCage.lang.structure.ObservableRef;
 
 import javax.swing.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-import static org.openCage.lang.inc.Strng.S;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
@@ -40,12 +38,12 @@ import static org.openCage.lang.inc.Strng.S;
 
 public class TextField extends JTextField implements Observable {
 
-    private final ImmuProp<Str> prop;
+    private final ObservableRef<String> prop;
 
     @Inject
-    public TextField(final ImmuProp<Str> prop) {
+    public TextField(final ObservableRef<String> prop) {
         this.prop = prop;
-        super.setText( prop.get().get() );
+        super.setText( prop.get() );
 
         addListeners();
 
@@ -60,7 +58,7 @@ public class TextField extends JTextField implements Observable {
             public void keyReleased(KeyEvent keyEvent) {
                 // first make sure the key changed the text
                 super.keyReleased( keyEvent );
-                prop.set(S(that.getText()));
+                prop.set((that.getText()));
             }
         });
 
@@ -68,7 +66,7 @@ public class TextField extends JTextField implements Observable {
             @Override
             public void call() {
                 if ( !that.getText().equals( prop.get() )) {
-                    setText( prop.get().get() );
+                    setText( prop.get() );
                 }
             }
         });
@@ -83,7 +81,7 @@ public class TextField extends JTextField implements Observable {
         }
 
         super.setText(txt);
-        prop.set(S(txt));
+        prop.set(txt);
     }
 
 

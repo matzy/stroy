@@ -2,6 +2,7 @@ package org.openCage.ruleofthree.jtothree;
 
 import com.google.inject.TypeLiteral;
 import org.openCage.lang.functions.F1;
+import org.openCage.lang.structure.Ref;
 import org.openCage.ruleofthree.Three;
 import org.openCage.ruleofthree.ThreeHashMap;
 import org.openCage.ruleofthree.ThreeKey;
@@ -41,11 +42,11 @@ import static org.openCage.ruleofthree.Threes.THREE;
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ***** END LICENSE BLOCK *****/
 
-public class JtoThree {
+public class JToThree {
 
     private Basics basics = Basics.get();
 
-    public JtoThree() {
+    public JToThree() {
     }
 
 
@@ -75,13 +76,17 @@ public class JtoThree {
 
         }
 
+        if ( Ref.class.isAssignableFrom( clazz )) {
+            return toThree( ((Ref)obj).get());
+        }
+
         F1<Three, T> fct = (F1<Three, T>) basics.getToThree( clazz);
 
         if ( fct != null ) {
             return fct.call(obj);
         }
 
-        throw new IllegalArgumentException( "not known to be threeable " + clazz );
+        throw new IllegalArgumentException( "not known to be threeable " + clazz + " obj " + obj );
 
     }
 

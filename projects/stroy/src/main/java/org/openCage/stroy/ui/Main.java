@@ -2,7 +2,6 @@ package org.openCage.stroy.ui;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import org.openCage.comphy.readable.XMLtoReadable;
 import org.openCage.stroy.RuntimeModule;
 import org.openCage.stroy.locale.Message;
 import org.openCage.stroy.ui.help.HelpLauncher;
@@ -44,8 +43,8 @@ public class Main  {
 
 //        Preferences.setName( "stroy");
 
-        XMLtoReadable xmLtoReadable = new XMLtoReadable();
-        URL url = Main.class.getResource("/org/openCage/stroy/stroy.appinfo");
+//        XMLtoReadable xmLtoReadable = new XMLtoReadable();
+//        URL url = Main.class.getResource("/org/openCage/stroy/stroy.appinfo");
 //        ThreeText readable = xmLtoReadable.read("appinfo", url.getFile()); // TODO as stream
 //        ToAndFro ps = new ToAndFro();
 //        ApplicationInfo ai = ps.get(ApplicationInfo.class, readable);

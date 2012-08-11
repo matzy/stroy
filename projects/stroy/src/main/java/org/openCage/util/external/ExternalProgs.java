@@ -1,7 +1,6 @@
 package org.openCage.util.external;
 
 import com.muchsoft.util.Sys;
-import org.openCage.lang.inc.Str;
 import org.openCage.util.logging.Log;
 
 import java.awt.Desktop;
@@ -11,7 +10,6 @@ import java.io.InputStreamReader;
 import java.io.IOException;
 import java.io.File;
 
-import static org.openCage.lang.inc.Strng.S;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
@@ -40,15 +38,15 @@ import static org.openCage.lang.inc.Strng.S;
 
 public class ExternalProgs {
 
-    public static final Str fileMerge = S("/usr/bin/opendiff");
-    public static final Str open      = S("--system open--");
-    public static final Str unknown   = S("--unknown--");
-    public static final Str openAsText = S("open -e");
-    public static final Str STANDARD_DIFF = S("--standard diff--");
+    public static final String fileMerge = "/usr/bin/opendiff";
+    public static final String open      = "--system open--";
+    public static final String unknown   = "--unknown--";
+    public static final String openAsText = "open -e";
+    public static final String STANDARD_DIFF = "--standard diff--";
 
-    public static final Str OS_TEXT_EDIT = S("--os text edit--");
-    public static final Str WIN_DIFF = S("windiff");
-    public static final Str WIN_TEXT_EDIT = S("notepad");
+    public static final String OS_TEXT_EDIT = "--os text edit--";
+    public static final String WIN_DIFF = "windiff";
+    public static final String WIN_TEXT_EDIT = "notepad";
 
     private static String xtermPath;
 
@@ -90,7 +88,7 @@ public class ExternalProgs {
     private static void executeImpl( String prog, String ... args ) {
 
         // some systems have a build in open command
-        if ( prog.equals( open.get() )) {
+        if ( prog.equals( open )) {
             if ( Sys.isMacOSX() ) {
                 // OSX has open
                 execOSXopen( args[0 ]);
@@ -106,31 +104,31 @@ public class ExternalProgs {
 
             return;
 
-        } else if ( prog.equals( OS_TEXT_EDIT.get() )) {
+        } else if ( prog.equals( OS_TEXT_EDIT )) {
             if ( Sys.isMacOSX() ) {
                 execOSXopenAsText( args[0]);
                 return;
             } else if ( Sys.isWindows() ) {
-                execProg( WIN_TEXT_EDIT.get(), args );
+                execProg( WIN_TEXT_EDIT, args );
                 return;
             } else if ( Sys.isLinux() ) {
                 execProg( findxterm(), "-e", "vi", args[0] );
                 return;
             }
-        } else if ( prog.equals( STANDARD_DIFF.get() ) ) {
+        } else if ( prog.equals( STANDARD_DIFF ) ) {
             if ( Sys.isMacOSX() ) {
-                execProg( fileMerge.get(), args );
+                execProg( fileMerge, args );
                 return;
             } else if ( Sys.isWindows() ) {
-                execProg( WIN_DIFF.get(), args );
+                execProg( WIN_DIFF, args );
                 return;
             } else if ( Sys.isLinux() ) {
                 execProg( findxterm(), "-hold", "-e", "diff", args[0], args[1] );
                 return;
             }
-        } else if ( Sys.isMacOSX() && prog.equals( openAsText.get() )) {
+        } else if ( Sys.isMacOSX() && prog.equals( openAsText )) {
             execOSXopenAsText( args[0]);
-        } else if ( prog.equals( unknown.get() )) {
+        } else if ( prog.equals( unknown )) {
             Log.info( "execute 'unknown' called");
             return;
         }

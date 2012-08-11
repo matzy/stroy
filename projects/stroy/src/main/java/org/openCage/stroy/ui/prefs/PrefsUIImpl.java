@@ -2,9 +2,8 @@ package org.openCage.stroy.ui.prefs;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
-import org.openCage.comphy.property.ImmuProp;
-import org.openCage.comphy.property.MapProperty;
-import org.openCage.lang.inc.Str;
+import org.openCage.lang.structure.ObservableRef;
+import org.openCage.ruleofthree.property.MapProperty;
 import org.openCage.stroy.file.FileTypes;
 import org.openCage.stroy.filter.IgnoreCentral;
 import org.openCage.stroy.locale.Message;
@@ -60,23 +59,23 @@ public class PrefsUIImpl extends PrefsUI {
     private UpdatePrefs updatePrefs;
     private final LocaleSelectionProperty localeSelection;
     private final LogLevelSelectionProperty5 loglevelSelection;
-    private final ImmuProp<Str> editorPref;
-    private final ImmuProp<Str> diffPref;
+    private final ObservableRef<String> editorPref;
+    private final ObservableRef<String> diffPref;
     private final IgnoreCentral central;
     private final DesktopX desktop;
-    private final MapProperty<ImmuProp<Str>> progList;
-    private final ImmuProp<Str> sel1;
+    private final MapProperty<ObservableRef<String>> progList;
+    private final ObservableRef<String> sel1;
 
     @Inject
     public PrefsUIImpl(final UpdatePrefs updatePrefs,
                        LocaleSelectionProperty localeSelection,
                        LogLevelSelectionProperty5 loglevelSelection,
-                       @Named("Editor") ImmuProp<Str> editorPref,
-                       @Named("DiffProg") ImmuProp<Str> diffPref,
+                       @Named("Editor") ObservableRef<String> editorPref,
+                       @Named("DiffProg") ObservableRef<String> diffPref,
                        FileTypes fileTypes, IgnoreCentral central,
                        DesktopX desktop,
-                       @Named("progList") MapProperty<ImmuProp<Str>> progList,
-                       @Named("progSel" ) ImmuProp<Str> sel1) {
+                       @Named("progList") MapProperty<ObservableRef<String>> progList,
+                       @Named("progSel" ) ObservableRef<String> sel1) {
         this.updatePrefs = updatePrefs;
         this.localeSelection = localeSelection;
         this.loglevelSelection = loglevelSelection;

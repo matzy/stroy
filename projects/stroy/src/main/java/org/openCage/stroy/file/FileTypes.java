@@ -1,17 +1,17 @@
 package org.openCage.stroy.file;
 
 import com.google.inject.Inject;
-import org.openCage.comphy.property.MapProperty;
-import org.openCage.lang.inc.Str;
 import org.openCage.lang.listeners.VoidListeners;
+import org.openCage.ruleofthree.ThreeKey;
+import org.openCage.ruleofthree.property.HashMapProperty;
+import org.openCage.ruleofthree.property.MapProperty;
+import org.openCage.stroy.algo.tree.contentType.KnownTypes;
 import org.openCage.util.external.DesktopXs;
 import org.openCage.util.external.ExternalProgs;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-import static org.openCage.lang.inc.Strng.S;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
@@ -54,11 +54,11 @@ public class FileTypes {
     }
 
     private Action getOrCreate( String ext ) {
-        if ( !fileTypes.containsKey(S(ext))) {
-            fileTypes.put( S(ext), new Action( "unknown file type" ));
+        if ( !fileTypes.containsKey(ext)) {
+            fileTypes.put( ThreeKey.valueOf(ext), new Action( "unknown file type" ));
         }
 
-        return fileTypes.get(S(ext));
+        return fileTypes.get(ext);
     }
 
 
@@ -76,8 +76,8 @@ public class FileTypes {
 
     public Collection<String> getTypeList() {
         List<String>  ret = new ArrayList<String>();
-        for( Str key : fileTypes.keySet() ) {
-            ret.add(key.get());
+        for( ThreeKey key : fileTypes.keySet() ) {
+            ret.add(key.toString());
         }
         return ret;
     }
@@ -113,14 +113,15 @@ public class FileTypes {
 
     public static MapProperty<Action> getInitialMap() {
 
-        MapProperty<Action> fileTypes = new MapProperty<Action>();
+        MapProperty<Action> fileTypes = new HashMapProperty<Action>();
 
         // java
-        fileTypes.put(S("java"), new Action(
+        fileTypes.put( ThreeKey.valueOf("java"),
+                new Action(
                 "java source",
                 SimilarityAlgorithm.java,
-                ExternalProgs.STANDARD_DIFF.get(),
-                DesktopXs.STANDARD_OPEN.get()));
+                ExternalProgs.STANDARD_DIFF,
+                DesktopXs.STANDARD_OPEN));
 
 
         // c
@@ -129,7 +130,7 @@ public class FileTypes {
                 "cc",  "C++ source",
                 "h",   "C/C++ header",
                 "c",   "C source" };
-        add( fileTypes, SimilarityAlgorithm.c, ExternalProgs.STANDARD_DIFF.get(), DesktopXs.STANDARD_OPEN.get(), cc );
+        add( fileTypes, SimilarityAlgorithm.c, ExternalProgs.STANDARD_DIFF, DesktopXs.STANDARD_OPEN, cc );
 
         // text
         final String[] text = {
@@ -159,7 +160,7 @@ public class FileTypes {
                 "m", "Objective c",
                 "pch", "objective c || precompiled header ??"
         };
-        add(fileTypes, SimilarityAlgorithm.text, ExternalProgs.STANDARD_DIFF.get(), DesktopXs.STANDARD_OPEN.get(), text );
+        add(fileTypes, SimilarityAlgorithm.text, ExternalProgs.STANDARD_DIFF, DesktopXs.STANDARD_OPEN, text );
 
         final String[] xml = {
                 "xml", "xml",
@@ -173,7 +174,7 @@ public class FileTypes {
                 "iml", "IntelliJ Idea module description",
                 "ipr", "IntelliJ Idea project description",
                 "iws", "" };
-        add(fileTypes, SimilarityAlgorithm.xml, ExternalProgs.STANDARD_DIFF.get(), DesktopXs.STANDARD_OPEN.get(), xml );
+        add(fileTypes, SimilarityAlgorithm.xml, ExternalProgs.STANDARD_DIFF, DesktopXs.STANDARD_OPEN, xml );
 
         final String[] binary = {
                 "jnilib", "odx version of java jni",
@@ -216,63 +217,63 @@ public class FileTypes {
                 "xcode", "",
                 "pbxproj", "",
         };
-        add(fileTypes, SimilarityAlgorithm.none, ExternalProgs.unknown.get(), DesktopXs.STANDARD_OPEN.get(), binary );
+        add(fileTypes, SimilarityAlgorithm.none, ExternalProgs.unknown, DesktopXs.STANDARD_OPEN, binary );
 
         final String[] bundles = {
                 "pages", "pages document",
                 "key", "keynote presentation",
                 "numbers", "numbers spreadsheet",
                 "app", "osx application"};
-        add(fileTypes, SimilarityAlgorithm.none, ExternalProgs.unknown.get(), DesktopXs.STANDARD_OPEN.get(), bundles);
+        add(fileTypes, SimilarityAlgorithm.none, ExternalProgs.unknown, DesktopXs.STANDARD_OPEN, bundles);
 
 
 
-        fileTypes.put(S("svn"), new Action( "subversion local information"));
-        fileTypes.put(S("DS_Store"), new Action( "OSX finder files"));
-        fileTypes.put(S("class"), new Action(
+        fileTypes.put(ThreeKey.valueOf("svn"), new Action( "subversion local information"));
+        fileTypes.put(ThreeKey.valueOf("DS_Store"), new Action( "OSX finder files"));
+        fileTypes.put(ThreeKey.valueOf("class"), new Action(
                 "java compiled class file",
                 SimilarityAlgorithm.none,
-                ExternalProgs.unknown.get(),
-                ExternalProgs.unknown.get()));
-        fileTypes.put(S("obj"), new Action(
+                ExternalProgs.unknown,
+                ExternalProgs.unknown));
+        fileTypes.put(ThreeKey.valueOf("obj"), new Action(
                 "MS compile c file",
                 SimilarityAlgorithm.none,
-                ExternalProgs.unknown.get(),
-                ExternalProgs.unknown.get()));
-        fileTypes.put(S("o"), new Action(
+                ExternalProgs.unknown,
+                ExternalProgs.unknown));
+        fileTypes.put(ThreeKey.valueOf("o"), new Action(
                 "UNIX compiled",
                 SimilarityAlgorithm.none,
-                ExternalProgs.unknown.get(),
-                ExternalProgs.unknown.get()));
-        fileTypes.put(S("copyarea.db"), new Action(
+                ExternalProgs.unknown,
+                ExternalProgs.unknown));
+        fileTypes.put(ThreeKey.valueOf("copyarea.db"), new Action(
                 "ClearCase file",
                 SimilarityAlgorithm.none,
-                ExternalProgs.unknown.get(),
-                ExternalProgs.unknown.get()));
-        fileTypes.put(S("copyarea.dat"), new Action(
+                ExternalProgs.unknown,
+                ExternalProgs.unknown));
+        fileTypes.put(ThreeKey.valueOf("copyarea.dat"), new Action(
 //                true,
                 "ClearCase helper file",
                 SimilarityAlgorithm.none,
-                ExternalProgs.unknown.get(),
-                ExternalProgs.unknown.get()));
-        fileTypes.put(S("get_date.dat"), new Action(
+                ExternalProgs.unknown,
+                ExternalProgs.unknown));
+        fileTypes.put(ThreeKey.valueOf("get_date.dat"), new Action(
                 //              true,
                 "Alienbrain local info file",
                 SimilarityAlgorithm.none,
-                ExternalProgs.unknown.get(),
-                ExternalProgs.unknown.get()));
+                ExternalProgs.unknown,
+                ExternalProgs.unknown));
 
         return fileTypes;
     }
 
      private static void add(MapProperty<Action> fileTypes, final SimilarityAlgorithm algo, String diff, String open, String[] exts) {
         for ( int idx = 0; idx < exts.length; idx += 2 ) {
-            fileTypes.put(S(exts[idx]), new Action(exts[idx + 1], algo, diff, open));
+            fileTypes.put(ThreeKey.valueOf(exts[idx]), new Action(exts[idx + 1], algo, diff, open));
         }
     }
 
 
-    public Action getAction(Str ext) {
-        return fileTypes.get( ext );
+    public Action getAction(String ext) {
+        return fileTypes.get( ThreeKey.valueOf(ext ));
     }
 }

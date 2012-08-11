@@ -5,9 +5,8 @@ import com.google.inject.name.Named;
 import com.muchsoft.util.mac.Java14Adapter;
 import com.muchsoft.util.mac.Java14Handler;
 import com.muchsoft.util.Sys;
-import org.openCage.comphy.property.ImmuProp;
 import org.openCage.lang.listeners.Observer;
-import org.openCage.lang.inc.Str;
+import org.openCage.lang.structure.ObservableRef;
 import org.openCage.stroy.ui.menu.PortableMenuFactory;
 import org.openCage.util.io.FileUtils;
 import org.openCage.stroy.ui.prefs.PrefsUI;
@@ -99,8 +98,8 @@ public class DirSelectorImpl extends JFrame
                             final AppInfo appInfo,
                             final UpdateChecker updateChecker,
                             final CompareBuilderFactory cbf,
-                            @Named( value = "dir.first")  final ImmuProp<Str> dirFirst,
-                            @Named( value = "dir.second") final ImmuProp<Str> dirSecond,
+                            @Named( value = "dir.first")  final ObservableRef<String> dirFirst,
+                            @Named( value = "dir.second") final ObservableRef<String> dirSecond,
                             LogHandlerPanel logHandlerPanel ) {
         super( "stroy");
 

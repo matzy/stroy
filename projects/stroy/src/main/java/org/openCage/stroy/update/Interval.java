@@ -4,7 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import org.openCage.lang.inc.ImmuDate;
 import org.openCage.lang.ImuDateUtils;
-import org.openCage.util.prefs.DateProperty;
+import org.openCage.lang.structure.ObservableRef;
 
 
 /***** BEGIN LICENSE BLOCK *****
@@ -35,10 +35,10 @@ import org.openCage.util.prefs.DateProperty;
 public class Interval {
 
     private final UpdateSelectionProperty updateTimeSelection;
-    private final DateProperty lastCheck;
+    private final ObservableRef<ImmuDate> lastCheck;
 
     @Inject
-    public Interval(UpdateSelectionProperty updateTimeSelection, @Named( value = "lastUpdateCheck" ) DateProperty lastCheck) {
+    public Interval(UpdateSelectionProperty updateTimeSelection, @Named( value = "lastUpdateCheck" ) ObservableRef<ImmuDate> lastCheck) {
         this.updateTimeSelection = updateTimeSelection;
         this.lastCheck = lastCheck;
     }

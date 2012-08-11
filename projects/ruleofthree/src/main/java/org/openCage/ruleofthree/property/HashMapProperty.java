@@ -1,12 +1,21 @@
 package org.openCage.ruleofthree.property;
 
-import com.google.inject.Inject;
-import com.google.inject.name.Named;
+import org.openCage.lang.listeners.Observer;
 import org.openCage.lang.listeners.VoidListenerControl;
 import org.openCage.lang.listeners.VoidListeners;
 import org.openCage.ruleofthree.Property;
 import org.openCage.ruleofthree.Three;
-import org.openCage.ruleofthree.jtothree.JtoThree;
+import org.openCage.ruleofthree.ThreeHashMap;
+import org.openCage.ruleofthree.ThreeKey;
+import org.openCage.ruleofthree.ThreeMap;
+import org.openCage.ruleofthree.Threes;
+import org.openCage.ruleofthree.jtothree.JToThree;
+
+import java.util.Map;
+
+import static org.openCage.ruleofthree.property.ListenerControls.listenerControl;
+
+//import static org.openCage.ruleofthree.property.ListenerControls.listenerControl;
 
 /***** BEGIN LICENSE BLOCK *****
 * BSD License (2 clause)
@@ -33,64 +42,65 @@ import org.openCage.ruleofthree.jtothree.JtoThree;
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ***** END LICENSE BLOCK *****/
 
-/**
- * Property for Object which can not be changed
- * Note: This is just a convention, Java can not enforce this
- * @param <T>
- */
-public class ImmuProperty<T> implements Property {
+public class HashMapProperty<T> extends ThreeHashMap<T> implements MapProperty<T> {
 
     private VoidListeners listeners = new VoidListeners();
-    private T obj;
 
-    public ImmuProperty( T obj) {
-        this.obj = obj;
-    }
 
-    public T get() {
-        return obj;
-    }
-
-    public void set(T val) {
-        if ( obj.equals( val )) {
-            // no change => no shout
-            return;
+    @Override
+    public T put( ThreeKey key, T val ) {
+        T ret = super.put(key, val);
+        listenerControl(val).add( this );
+        if ( ret != null ) {
+            listenerControl(ret).remove(this);
         }
-        this.obj = val;
+        listeners.shout();
+        return ret;
+    }
+
+    @Override
+    public T remove(Object key) {
+        T ret = super.remove(key);
+        listeners.shout();
+        return ret;
+    }
+
+
+    @Override
+    public void putAll(Map<? extends ThreeKey, ? extends T> m) {
+        for ( Map.Entry<? extends ThreeKey, ? extends T> pair : m.entrySet()  ) {
+            put( pair.getKey(), pair.getValue());
+        }
+    }
+
+    @Override
+    public void clear() {
+        for ( T val : super.values()) {
+            listenerControl(val).remove(this);
+        }
+        super.clear();
         listeners.shout();
     }
 
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        ImmuProperty that = (ImmuProperty) o;
-
-        if (obj != null ? !obj.equals(that.obj) : that.obj != null) return false;
-
-        return true;
+    public Three toThree() {
+        JToThree JToThree = new JToThree();
+        Three ret = Threes.newMap();
+        for ( Map.Entry<ThreeKey,T> pair : super.entrySet() ) {
+            ret.getMap().put(pair.getKey(), JToThree.toThree(pair.getValue()));
+        }
+        return ret;
     }
 
     @Override
-    public int hashCode() {
-        return obj != null ? obj.hashCode() : 0;
+    public void call() {
+        listeners.shout();
     }
-
 
     @Override
     public VoidListenerControl getListenerControl() {
         return listeners;
     }
 
-    @Override
-    public Three toThree() {
-        return new JtoThree().toThree(obj);
-    }
-
-    @Override
-    public String toString() {
-        return obj.toString();
-    }
 }

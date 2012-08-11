@@ -2,8 +2,10 @@ package org.openCage.util.prefs;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
+import org.openCage.lang.structure.ObservableRef;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 /***** BEGIN LICENSE BLOCK *****
@@ -34,15 +36,17 @@ import java.util.Locale;
 public class LocaleSelectionProperty extends ListSelectionProperty<Locale> {
 
     @Inject
-    public LocaleSelectionProperty(@Named("locales") ArrayList<Locale> locales, @Named( "selection") Locale selection) {
-        super("locales", locales, selection);
+    public LocaleSelectionProperty( @Named( "locale") ObservableRef<Locale> selection) {
+        super("locales", getLocaleList(), selection);
     }
 
-    public LocaleSelectionProperty() {
-        super("locales", new ArrayList<Locale>(), Locale.ENGLISH );
+    public static List<Locale> getLocaleList() {
+        List<Locale> list = new ArrayList<Locale>();
         list.add( Locale.ENGLISH );
         list.add( Locale.GERMAN );
         list.add( Locale.JAPANESE );
         list.add( new Locale("es") );
+
+        return list;
     }
 }

@@ -53,8 +53,8 @@
 //
 //        FileUtils.withIterator( inputStream, new VF1<Iterable<String>>() {
 //            public void call( Iterable<String> iterable ) {
-//                for ( String str : iterable ) {
-//                    lines.add( str );
+//                for ( String String : iterable ) {
+//                    lines.add( String );
 //                }
 //            }
 //        } );

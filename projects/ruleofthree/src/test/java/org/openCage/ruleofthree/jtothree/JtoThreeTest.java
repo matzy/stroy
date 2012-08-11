@@ -2,6 +2,7 @@ package org.openCage.ruleofthree.jtothree;
 
 import com.google.inject.TypeLiteral;
 import org.junit.Test;
+import org.openCage.lang.structure.Ref;
 import org.openCage.rei.ReiHashMap;
 import org.openCage.ruleofthree.Three;
 import org.openCage.ruleofthree.ThreeHashMap;
@@ -9,7 +10,6 @@ import org.openCage.ruleofthree.ThreeKey;
 import org.openCage.ruleofthree.ThreeMap;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,11 +23,11 @@ import static org.openCage.ruleofthree.Threes.THREE;
  * Time: 11:01 AM
  * To change this template use File | Settings | File Templates.
  */
-public class JtoThreeTest {
+public class JToThreeTest {
 
     @Test
     public void testBasic() {
-        assertEquals( THREE("1"), new JtoThree().toThree( 1L ));
+        assertEquals( THREE("1"), new JToThree().toThree( 1L ));
     }
 
     @Test
@@ -40,7 +40,7 @@ public class JtoThreeTest {
         th.add( THREE("foo"));
         th.add( THREE("bar"));
 
-        assertEquals(THREE(th), new JtoThree().toThree(ll));
+        assertEquals(THREE(th), new JToThree().toThree(ll));
     }
 
     @Test
@@ -53,7 +53,7 @@ public class JtoThreeTest {
         thmap.put( new ThreeKey("foo"), THREE("bar"));
         thmap.put( new ThreeKey("baz"), THREE("duh"));
 
-        assertEquals(THREE(thmap), new JtoThree().toThree(map));
+        assertEquals(THREE(thmap), new JToThree().toThree(map));
     }
 
     @Test
@@ -76,13 +76,17 @@ public class JtoThreeTest {
 
 
 
-        assertEquals( THREE(ll), new JtoThree().toThree( map));
+        assertEquals( THREE(ll), new JToThree().toThree( map));
+    }
 
+    @Test
+    public void ref() {
+        assertEquals(THREE("foo"),new JToThree().toThree( new Ref<String>("foo")));
     }
 
     @Test
     public void enumTest() {
-        assertEquals(THREE("two"), new JtoThree().toThree(AEnum.two));
+        assertEquals(THREE("two"), new JToThree().toThree(AEnum.two));
     }
 
     @Test
@@ -92,7 +96,7 @@ public class JtoThreeTest {
         map.put( new ThreeKey("foo"), THREE("bar") );
 
         AClass ac = new AClass();
-        assertEquals( THREE(map), new JtoThree().toThree( ac ));
+        assertEquals( THREE(map), new JToThree().toThree( ac ));
 
     }
 

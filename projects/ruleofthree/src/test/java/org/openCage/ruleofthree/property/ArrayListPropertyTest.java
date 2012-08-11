@@ -2,7 +2,6 @@ package org.openCage.ruleofthree.property;
 
 import org.junit.Test;
 import org.openCage.lang.functions.VF0;
-import org.openCage.lang.iterators.Count;
 import org.openCage.lang.structure.Ref;
 
 import static junit.framework.Assert.assertEquals;
@@ -14,11 +13,11 @@ import static junit.framework.Assert.assertEquals;
  * Time: 10:46 PM
  * To change this template use File | Settings | File Templates.
  */
-public class ListPropertyTest {
+public class ArrayListPropertyTest {
 
     @Test
     public void add() {
-        ListProperty<String> list = new ListProperty<String>();
+        ArrayListProperty<String> list = new ArrayListProperty<String>();
         final Ref<Integer> i = new Ref<Integer>(0);
 
         list.getListenerControl().add( new VF0() {

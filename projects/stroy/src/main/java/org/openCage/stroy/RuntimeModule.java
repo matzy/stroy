@@ -2,16 +2,14 @@ package org.openCage.stroy;
 
 import com.google.inject.*;
 import com.google.inject.name.Names;
-import org.openCage.comphy.*;
-import org.openCage.comphy.property.ImmuProp;
-import org.openCage.comphy.property.ListProperty;
-import org.openCage.comphy.property.MapProperty;
 import org.openCage.io.fspath.FSPathBuilder;
 import org.openCage.lang.BackgroundExecutor;
 import org.openCage.lang.BackgroundExecutorImpl;
 import org.openCage.lang.OS;
-import org.openCage.lang.inc.Str;
-import org.openCage.lang.inc.Strng;
+import org.openCage.lang.inc.ImmuDate;
+import org.openCage.lang.structure.ObservableRef;
+import org.openCage.ruleofthree.ThreeKey;
+import org.openCage.ruleofthree.property.*;
 import org.openCage.stroy.algo.hash.HashDecider;
 import org.openCage.stroy.algo.hash.str.HashDeciderImpl;
 import org.openCage.stroy.array.AddIngnorantListMetric;
@@ -46,17 +44,20 @@ import org.openCage.stroy.algo.hash.str.WhitespaceIgnoringHash;
 import org.openCage.stroy.ui.prefs.PrefsUI;
 import org.openCage.stroy.ui.prefs.PrefsUIImpl;
 import org.openCage.stroy.update.UpdateSelectionProperty;
+import org.openCage.stroy.update.UpdateTime;
 import org.openCage.util.app.*;
 import org.openCage.util.external.*;
-import org.openCage.util.prefs.DateProperty;
 import org.openCage.util.prefs.LocaleSelectionProperty;
 import org.openCage.util.prefs.LogLevelSelectionProperty5;
 
 import java.io.File;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.logging.Level;
 
-import static org.openCage.lang.inc.Strng.S;
+import static org.openCage.ruleofthree.property.ProviderProvider.getProvider;
+
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
@@ -200,243 +201,90 @@ public class RuntimeModule implements Module {
         binder.bind(PrefsUI.class).to( PrefsUIImpl.class ).in(Singleton.class);
 
         binder.bind( File.class ).annotatedWith( Names.named("PropStoreFile")).toInstance(FSPathBuilder.getPreferences().add("stroy.cphy").toFile());
+        binder.bind( PropertyStoreRW.class ).to( SingleFileRW.class );
+
 
         binder.bind(BackgroundExecutor.class).to(BackgroundExecutorImpl.class);
-        binder.bind( PropertyStore.class ).to( PersistantPropertyStore.class).in( Singleton.class );
+        binder.bind( PropertyStore.class ).to( PropStoreImpl.class).in(Singleton.class);
 
-        binder.bind( new TypeLiteral<ImmuProp<Str>>() {}).
+        binder.bind( new TypeLiteral<ObservableRef<String>>() {}).
                 annotatedWith( Names.named("dir.first")).
-                toProvider( new PropertyProvider9<ImmuProp<Str>>() {
-                    @Override
-                    public TypeLiteral getTypeLiteral() {
-                        return new TypeLiteral<ImmuProp<Str>>() {};
-                    }
-
-                    @Override
-                    protected Str getKey() {
-                        return S("dir.first");
-                    }
-
-                    @Override
-                    protected ImmuProp<Str> getDefault() {
-                        return new ImmuProp<Str>(S(""));
-                    }
-                });
-        binder.bind( new TypeLiteral<ImmuProp<Str>>() {}).
+                toProvider( getProvider(new TypeLiteral<ObservableRef<String>>() {},
+                        ThreeKey.valueOf("dir.first"),
+                        new ObservableRef<String>((""))) );
+        binder.bind( new TypeLiteral<ObservableRef<String>>() {}).
                 annotatedWith( Names.named("dir.second")).
-                toProvider( new PropertyProvider7<ImmuProp<Str>>() {
-                    @Override
-                    public TypeLiteral<ImmuProp<Str>> getTypeLiteral() {
-                        return (TypeLiteral)new TypeLiteral<ImmuProp<Strng>>() {};
-                    }
+                toProvider( getProvider(new TypeLiteral<ObservableRef<String>>() {},
+                        ThreeKey.valueOf("dir.second"),
+                        new ObservableRef<String>((""))) );
 
-                    @Override
-                    protected Str getKey() {
-                        return S("dir.second");
-                    }
+        binder.bind( new TypeLiteral<ObservableRef<Locale>>() {}).
+                annotatedWith( Names.named("locale")).
+                toProvider( getProvider(new TypeLiteral<ObservableRef<Locale>>() {},
+                        ThreeKey.valueOf("locale"),
+                        new ObservableRef<Locale>((Locale.getDefault()))) );
 
-                    @Override
-                    protected ImmuProp<Str> getDefault() {
-                        return (ImmuProp)new ImmuProp<Strng>(S(""));
-                    }
-                });
+        binder.bind( new TypeLiteral<ObservableRef<Level>>() {}).
+                annotatedWith( Names.named("loglevel")).
+                toProvider( getProvider(new TypeLiteral<ObservableRef<Level>>() {},
+                        ThreeKey.valueOf("loglevel"),
+                        new ObservableRef<Level>(Level.WARNING)) );
 
-//        binder.bind( StringProperty.class ).
-//                annotatedWith( Names.named("dir.first")).
-//                toProvider( new StringPropertyProvider5( S("dir.first"), ""));
+        binder.bind( new TypeLiteral<ObservableRef<UpdateTime>>() {}).
+                annotatedWith( Names.named("updateTime")).
+                toProvider( getProvider(new TypeLiteral<ObservableRef<UpdateTime>>() {},
+                        ThreeKey.valueOf("updateTime"),
+                        new ObservableRef<UpdateTime>(UpdateTime.weekly)) );
 
-//        binder.bind( StringProperty.class ).annotatedWith(Names.named("dir.second")).
-//                toProvider( new StringPropertyProvider5( S("dir.second"), ""));
+        binder.bind( new TypeLiteral<ObservableRef<ImmuDate>>() {}).
+                annotatedWith( Names.named("lastUpdateCheck")).
+                toProvider( getProvider(new TypeLiteral<ObservableRef<ImmuDate>>() {},
+                        ThreeKey.valueOf("lastUpdateCheck"),
+                        new ObservableRef<ImmuDate>( ImmuDate.now())) );
 
-
-        binder.bind(LocaleSelectionProperty.class ).toProvider(new PropertyProvider5<LocaleSelectionProperty>() {
-            @Override
-            public Class<? extends LocaleSelectionProperty> getRealClass() {
-                return LocaleSelectionProperty.class;
-            }
-
-            @Override
-            protected Str getKey() {
-                return S("locale");
-            }
-
-            @Override
-            protected LocaleSelectionProperty getDefault() {
-                return new LocaleSelectionProperty();
-            }
-        });
-
-        binder.bind(LogLevelSelectionProperty5.class).toProvider( new PropertyProvider5<LogLevelSelectionProperty5>() {
-            @Override
-            public Class<? extends LogLevelSelectionProperty5> getRealClass() {
-                return LogLevelSelectionProperty5.class;
-            }
-
-            @Override
-            protected Str getKey() {
-                return S("loglevel");
-            }
-
-            @Override
-            protected LogLevelSelectionProperty5 getDefault() {
-                return new LogLevelSelectionProperty5();
-            }
-        });
-
-        binder.bind(UpdateSelectionProperty.class).toProvider( new PropertyProvider5<UpdateSelectionProperty>() {
-            @Override
-            public Class<? extends UpdateSelectionProperty> getRealClass() {
-                return UpdateSelectionProperty.class;
-            }
-
-            @Override
-            protected Str getKey() {
-                return S("update");
-            }
-
-            @Override
-            protected UpdateSelectionProperty getDefault() {
-                return new UpdateSelectionProperty();
-            }
-        });
-
-        binder.bind( DateProperty.class ).annotatedWith(Names.named("lastUpdateCheck")).
-                toProvider( new PropertyProvider5<DateProperty>(){
-                    @Override
-                    public Class<? extends DateProperty> getRealClass() {
-                        return DateProperty.class;
-                    }
-
-                    @Override
-                    protected Str getKey() {
-                        return S("lastUpdateCheck");
-                    }
-
-                    @Override
-                    protected DateProperty getDefault() {
-                        return DateProperty.now();
-                    }
-                } );
-
-        binder.bind( new TypeLiteral<ImmuProp<Str>>() {}).
-                annotatedWith(Names.named("Editor")).
-                toProvider(new PropertyProvider9<ImmuProp<Str>>() {
-                    @Override
-                    public TypeLiteral<ImmuProp<Str>> getTypeLiteral() {
-                        return (TypeLiteral)new TypeLiteral<ImmuProp<Strng>>() {};
-                    }
-
-                    @Override
-                    protected Str getKey() {
-                        return S("Editor");
-                    }
-
-                    @Override
-                    protected ImmuProp<Str> getDefault() {
-                        return new ImmuProp<Str>(DesktopXs.OS_STANDARD_TEXT_EDITOR);
-                    }
-                });
-        binder.bind( new TypeLiteral<ImmuProp<Str>>() {}).
+        binder.bind( new TypeLiteral<ObservableRef<String>>() {}).
                 annotatedWith( Names.named("DiffProg")).
-                toProvider( new PropertyProvider9<ImmuProp<Str>>() {
-                    @Override
-                    public TypeLiteral<ImmuProp<Str>> getTypeLiteral() {
-                        return (TypeLiteral)new TypeLiteral<ImmuProp<Strng>>() {};
-                    }
+                toProvider( getProvider(new TypeLiteral<ObservableRef<String>>() {},
+                        ThreeKey.valueOf("DiffProg"),
+                        new ObservableRef<String>( DesktopXs.OS_STANDARD_TEXT_EDITOR)) );
 
-                    @Override
-                    protected Str getKey() {
-                        return S("DiffProg");
-                    }
+        binder.bind( new TypeLiteral<ObservableRef<String>>() {}).
+                annotatedWith( Names.named("Editor")).
+                toProvider( getProvider(new TypeLiteral<ObservableRef<String>>() {},
+                        ThreeKey.valueOf("Editor"),
+                        new ObservableRef<String>( "")) );
 
-                    @Override
-                    protected ImmuProp<Str> getDefault() {
-                        return (ImmuProp)new ImmuProp<Strng>(S(""));
-                    }
-                });
-
-        binder.bind( new TypeLiteral<ImmuProp<Str>>() {}).
+        binder.bind( new TypeLiteral<ObservableRef<String>>() {}).
                 annotatedWith( Names.named("progSel")).
-                toProvider( new PropertyProvider9<ImmuProp<Str>>() {
-                    @Override
-                    public TypeLiteral<ImmuProp<Str>> getTypeLiteral() {
-                        return (TypeLiteral)new TypeLiteral<ImmuProp<Strng>>() {};
-                    }
+                toProvider( getProvider(new TypeLiteral<ObservableRef<String>>() {},
+                        ThreeKey.valueOf("progSel"),
+                        new ObservableRef<String>( "standard-open")) );
 
-                    @Override
-                    protected Str getKey() {
-                        return S("progSel");
-                    }
 
-                    @Override
-                    protected ImmuProp<Str> getDefault() {
-                        return (ImmuProp)new ImmuProp<Strng>(S("standard-open"));
-                    }
-                });
+        HashMapProperty<ObservableRef<String>> progList = new HashMapProperty<ObservableRef<String>>();
+        progList.put( ThreeKey.valueOf( DesktopXs.STANDARD_OPEN), new ObservableRef<String>(DesktopXs.STANDARD_OPEN));
+        progList.put( ThreeKey.valueOf("TextEdit"), new ObservableRef<String>(("/Application/TextEdit.app  ")));
+        progList.put( ThreeKey.valueOf("TextWrangler"), new ObservableRef<String>(("/Application/TextWrangler.app")));
 
-        binder.bind( new TypeLiteral<MapProperty<ImmuProp<Str>>>() {}).
-                annotatedWith(Names.named("progList")).
-                toProvider( new PropertyProvider9<MapProperty<ImmuProp<Str>>>() {
-            @Override
-            public TypeLiteral getTypeLiteral() {
-                return
-                        (TypeLiteral)new TypeLiteral<MapProperty<ImmuProp<Strng>>>() {};
-            }
-
-            @Override
-            protected Str getKey() {
-                return S("progList");
-
-            }
-
-            @Override
-            protected MapProperty<ImmuProp<Str>> getDefault() {
-                MapProperty<ImmuProp<Str>> ret = new MapProperty<ImmuProp<Str>>();
-                ret.put( DesktopXs.STANDARD_OPEN, new ImmuProp<Str>(DesktopXs.STANDARD_OPEN));
-                ret.put( S("TextEdit"), new ImmuProp<Str>(S("/Application/TextEdit.app  ")));
-                ret.put( S("TextWrangler"), new ImmuProp<Str>(S("/Application/TextWrangler.app")));
-                return ret;
-            }
-        });
-//        binder.bind(StringProperty.class).annotatedWith(Names.named("Editor")).toProvider(new StringPropertyProvider5( S("Editor"), "TextEdit"));
-//        binder.bind(StringProperty.class).annotatedWith(Names.named("DiffProg")).toProvider(new StringPropertyProvider5( S("DiffProg"), "FileMerge"));
+        binder.bind( new TypeLiteral<MapProperty<ObservableRef<String>>>() {}).
+                annotatedWith( Names.named("progList")).
+                toProvider( getProvider(new TypeLiteral<HashMapProperty<ObservableRef<String>>>() {},
+                        ThreeKey.valueOf("progList"),
+                        progList ));
 
 
 
-        binder.bind( new TypeLiteral<MapProperty<Action>>() {} ).toProvider( new PropertyProvider9<MapProperty<Action>>() {
-            @Override
-            public TypeLiteral<MapProperty<Action>> getTypeLiteral() {
-                return new TypeLiteral<MapProperty<Action>>() {};
-            }
+        binder.bind( new TypeLiteral<MapProperty<Action>>() {} ).toProvider(
+             getProvider( new TypeLiteral<MapProperty<Action>>() {},
+                          ThreeKey.valueOf("fileTypes"),
+                          FileTypes.getInitialMap() ));
 
-            @Override
-            protected Str getKey() {
-                return S("fileTypes");
-            }
 
-            @Override
-            protected MapProperty<Action> getDefault() {
-                return FileTypes.getInitialMap();
-            }
-        });
-
-        binder.bind( new TypeLiteral<ListProperty<StringProperty>>(){}).annotatedWith(Names.named("ignores")).toProvider(
-                new PropertyProvider9<ListProperty<StringProperty>>() {
-                    @Override
-                    public TypeLiteral<ListProperty<StringProperty>> getTypeLiteral() {
-                        return new TypeLiteral<ListProperty<StringProperty>>() {};
-                    }
-
-                    @Override
-                    protected Str getKey() {
-                        return S("ignores");
-                    }
-
-                    @Override
-                    protected ListProperty<StringProperty> getDefault() {
-                        return IgnoreCentral.getInitial();
-                    }
-                });
+        binder.bind( new TypeLiteral<ListProperty<String>>(){}).annotatedWith(Names.named("ignores")).toProvider(
+                getProvider(new TypeLiteral<ArrayListProperty<String>>() {
+                },
+                        ThreeKey.valueOf("ignores"),
+                        IgnoreCentral.getInitial()));
 
         if (OS.isOSX() ) {
             binder.bind(DesktopX.class).to(OSXDesktopX.class);

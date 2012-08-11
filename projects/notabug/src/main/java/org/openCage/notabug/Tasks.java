@@ -1,6 +1,9 @@
 package org.openCage.notabug;
 
 import com.google.inject.Inject;
+import com.sun.tools.javac.code.Type;
+import org.openCage.lang.Forall;
+import org.openCage.lang.functions.F1;
 import org.openCage.ruleofthree.ThreeKey;
 import org.openCage.ruleofthree.property.PropertyStore;
 
@@ -34,4 +37,27 @@ public class Tasks {
     public List<Task> getAll() {
         return propertyStore.getAll( Task.class );
     }
+
+    public Task findUnique(String find) {
+        return null;  //To change body of created methods use File | Settings | File Templates.
+    }
+
+    public List<Task> find( final String match ) {
+        return Forall.forall( getAll()).skip( new F1<Boolean, Task>() {
+            @Override
+            public Boolean call(Task task) {
+
+                if ( task.getName().contains(match)) {
+                    return false;
+                }
+
+                if ( task.getId().toString().startsWith(match)) {
+                    return false;
+                }
+
+                return true;
+            }
+        }).toList();
+    }
+
 }

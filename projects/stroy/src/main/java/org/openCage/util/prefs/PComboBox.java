@@ -44,8 +44,6 @@ public class PComboBox<T> extends JComboBox {
             ((DefaultComboBoxModel)getModel()).addElement( elem );
         }
 
-
-
         setSelectedItem( model.getSelection() );
 
         addActionListener( new ActionListener() {
@@ -55,7 +53,7 @@ public class PComboBox<T> extends JComboBox {
         });
 
 
-        listSelection.getListenerControl().add( new Observer() {
+        listSelection.getProp().getListenerControl().add( new Observer() {
             @Override
             public void call() {
                 setSelectedItem( listSelection.getSelection());

@@ -2,12 +2,11 @@ package org.openCage.ruleofthree.jtothree;
 
 import com.google.inject.TypeLiteral;
 import org.junit.Test;
-import org.openCage.rei.ReiHashMap;
+import org.openCage.lang.structure.ObservableRef;
 import org.openCage.ruleofthree.Three;
 import org.openCage.ruleofthree.ThreeHashMap;
 import org.openCage.ruleofthree.ThreeKey;
 import org.openCage.ruleofthree.ThreeMap;
-import org.openCage.ruleofthree.property.ImmuProperty;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,11 +23,11 @@ import static org.openCage.ruleofthree.Threes.THREE;
  * Time: 1:11 PM
  * To change this template use File | Settings | File Templates.
  */
-public class JfromThreeTest {
+public class ThreeToJTest {
 
     @Test
     public void basics() {
-        assertEquals(new Integer(1), new JfromThree().get(Integer.class, THREE("1")));
+        assertEquals(new Integer(1), new ThreeToJ().get(Integer.class, THREE("1")));
     }
 
     @Test
@@ -42,7 +41,7 @@ public class JfromThreeTest {
         ll.add( "bar");
 
 
-        assertEquals(ll, new JfromThree().get(new TypeLiteral<ArrayList<String>>() {
+        assertEquals(ll, new ThreeToJ().get(new TypeLiteral<ArrayList<String>>() {
         }, THREE(th)));
     }
 
@@ -56,7 +55,7 @@ public class JfromThreeTest {
         thmap.put( new ThreeKey("foo"), THREE("bar"));
         thmap.put( new ThreeKey("baz"), THREE("duh"));
 
-        assertEquals( map, new JfromThree().get( new TypeLiteral<ThreeHashMap<String>>() {}, THREE(thmap)));
+        assertEquals( map, new ThreeToJ().get( new TypeLiteral<ThreeHashMap<String>>() {}, THREE(thmap)));
 
     }
 
@@ -80,17 +79,17 @@ public class JfromThreeTest {
 
 
 
-        assertEquals( map, new JfromThree().get( new TypeLiteral<HashMap<Integer, String>>() {}, THREE(ll)));
+        assertEquals( map, new ThreeToJ().get( new TypeLiteral<HashMap<Integer, String>>() {}, THREE(ll)));
     }
 
     @Test
     public void enumTest() {
-        assertEquals( AEnum.three, new JfromThree().get( AEnum.class, THREE("three")));
+        assertEquals( AEnum.three, new ThreeToJ().get( AEnum.class, THREE("three")));
     }
 
     @Test
     public void immuProp() {
-        assertEquals( "foo", new JfromThree().get( new TypeLiteral<ImmuProperty<String>>() {}, THREE("foo")).get());
+        assertEquals( "foo", new ThreeToJ().get( new TypeLiteral<ObservableRef<String>>() {}, THREE("foo")).get());
     }
 
     @Test
@@ -99,7 +98,7 @@ public class JfromThreeTest {
         map.put( new ThreeKey("long"), THREE("7") );
         map.put( new ThreeKey("foo"), THREE("bar") );
 
-        assertEquals( new AClass(), new JfromThree().get(AClass.class, THREE(map)));
+        assertEquals( new AClass(), new ThreeToJ().get(AClass.class, THREE(map)));
 
     }
 
@@ -109,7 +108,7 @@ public class JfromThreeTest {
         map.put( new ThreeKey("long"), THREE("7") );
         map.put( new ThreeKey("foo"), THREE("bar") );
 
-        assertEquals( new AClass(), new JfromThree().get( new TypeLiteral<ImmuProperty<AClass>>() {}, THREE(map)).get());
+        assertEquals( new AClass(), new ThreeToJ().get( new TypeLiteral<ObservableRef<AClass>>() {}, THREE(map)).get());
     }
 
 

@@ -40,7 +40,7 @@ public interface Three {
     public String  getString();
 
     public boolean                isMap();
-    public Map<ThreeKey, Three>   getMap();
+    public ThreeMap<Three>        getMap();
 
     public boolean                isList();
     public List<Three>            getList();
