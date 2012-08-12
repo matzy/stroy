@@ -1,7 +1,7 @@
 apply plugin: 'java'
 
 sourceCompatibility = 1.6
-version = '1.1.0'
+version = '0.1.0'
 
 //sourceSets {
 //    main {
@@ -17,36 +17,26 @@ version = '1.1.0'
 
 
 dependencies {
-    compile group: 'net.jcip', name: 'jcip-annotations', version: '1.+'
-    compile 'com.intellij:annotations:7.0.3'
-    compile 'commons-cli:commons-cli:1.2'
-    compile 'muchsoft:sys:1.0'
-    compile 'com.thoughtworks.xstream:xstream:1.3.1'
-    compile 'net.sourceforge.mydoggy:mydoggy-api:1.3.1'
-    compile 'net.sourceforge.mydoggy:mydoggy-plaf:1.3.1'
-    compile 'net.sourceforge.mydoggy:mydoggy-res:1.3.1'
-    compile 'net.java.dev.designgridlayout:designgridlayout:1.9'
+//    compile 'openCage:rule'
 
-    runtime  'tablelayout:tablelayout:20020517'
+  //  runtime  'tablelayout:tablelayout:20020517'
 
 
     //compile 'com.google.inject:guice:2.0'
     compile project( ':osashosa' )
-    compile project( ':openCage-lang' )
+    compile project( ':ruleofthree' )
 
     testCompile 'junit:junit:4.+'
-    testCompile 'org.jmock:jmock:2.5.1'
-    testCompile 'org.jmock:jmock-legacy:2.5.1'
 
 
 }
 
 jar {
     manifest {
-        attributes 'Implementation-Title': 'stroy', 'Implementation-Version': version
+        attributes 'Implementation-Title': 'ruleofthree', 'Implementation-Version': version
 //        classpath from dependencies
-         def manifestClasspath = configurations.runtime.collect { it.getName() }.join(',')
-         manifestClasspath += ',' + 'stroy-1.1.0.jar' // + ',' + 'Tablelayout-20020517.jar'
+//         def manifestClasspath = configurations.runtime.collect { it.getName() }.join(',')
+//         manifestClasspath += ',' + 'stroy-1.1.0.jar' // + ',' + 'Tablelayout-20020517.jar'
 
          attributes 'Class-Path': manifestClasspath
     }

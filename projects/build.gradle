@@ -13,23 +13,23 @@ allprojects {
     sonar {
         project {
             sourceEncoding = "UTF-8"
-            withProjectProperties { props ->
-                props["sonar.core.codeCoveragePlugin"] = "jacoco"
+  //          withProjectProperties { props ->
+  //              props["sonar.core.codeCoveragePlugin"] = "jacoco"
 //                props["sonar.jacoco.reportPath"]       = "${buildDirName}/jacoco.exec"
-            }
+//            }
         }
     }
 
     // See http://www.gradle.org/docs/current/userguide/dependency_management.html#sub:configurations
     // and http://www.gradle.org/docs/current/dsl/org.gradle.api.artifacts.ConfigurationContainer.html
-    configurations {
-        jacoco //Configuration Group used by Sonar to provide Code Coverage using JaCoCo
-    }
+//    configurations {
+//        jacoco //Configuration Group used by Sonar to provide Code Coverage using JaCoCo
+//    }
 
     // dependencies that are common across all java projects
-    dependencies {
-        jacoco group: "org.jacoco", name: "org.jacoco.agent", version: "org.jacoco.agent-0.5.7.201204190339", classifier: "runtime"
-    }
+//    dependencies {
+//        jacoco group: "org.jacoco", name: "org.jacoco.agent", version: "org.jacoco.agent-0.5.7.201204190339", classifier: "runtime"
+//    }
 
 //    test {
 //        jvmArgs "-javaagent:${configurations.jacoco.asPath}=destfile=${buildDir}/jacoco.exec,includes=org.openCage.*"
