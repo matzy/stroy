@@ -37,6 +37,20 @@ public class XmlToThreeTest {
         assertTrue(readable.isMap());
     }
 
+    @Test
+    public void testString() {
+        XmlToThree xmlToThree = new XmlToThree();
+
+        URL url = getClass().getResource("/org/openCage/ruleofthree/threetoxml/three-string.xml");
+        assertTrue(new File( url.getFile()).exists());
+
+        Three readable =  xmlToThree.read( "root", url.getFile());
+
+        assertNotNull(readable);
+        assertTrue(readable.isString());
+    }
+
+
 //    @Test
 //    public void testOneString() {
 //        XMLtoReadable xmlReader = new XMLtoReadable();
