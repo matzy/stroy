@@ -1,0 +1,33 @@
+//apply plugin: 'com.smokejumperit.gradle.OneJarPlugin'
+apply plugin: 'java'
+
+sourceCompatibility = 1.6
+version = '0.1.0'
+jar {
+    // build a fat jar with all dependencies
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    manifest {
+        attributes 'Implementation-Title': 'notabug',
+                   'Implementation-Version': version,
+                   'Main-Class': 'org.openCage.notabug.Main'
+    }
+}
+
+// license new bsd (3-clause)
+
+dependencies {
+    compile project( ':kleinod' )
+    compile project( ':osashosa' )
+    compile project( ':ruleofthree' )
+    compile 'args4j:args4j:2.0.12'
+    testCompile 'junit:junit:4.+'
+}
+
+
+//uploadArchives {
+//    repositories {
+//       flatDir {
+//           dirs 'repos'
+//       }
+//    }
+//}

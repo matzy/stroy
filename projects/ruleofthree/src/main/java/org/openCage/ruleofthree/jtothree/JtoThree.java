@@ -1,15 +1,13 @@
 package org.openCage.ruleofthree.jtothree;
 
-import com.google.inject.TypeLiteral;
-import org.openCage.lang.functions.F1;
-import org.openCage.lang.structure.Ref;
+import org.openCage.kleinod.collection.Ref;
+import org.openCage.kleinod.lambda.F1;
 import org.openCage.ruleofthree.Three;
 import org.openCage.ruleofthree.ThreeHashMap;
 import org.openCage.ruleofthree.ThreeKey;
 import org.openCage.ruleofthree.ThreeMap;
 import org.openCage.ruleofthree.Threeable;
 
-import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

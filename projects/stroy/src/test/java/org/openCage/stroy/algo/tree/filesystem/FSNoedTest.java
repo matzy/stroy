@@ -13,7 +13,7 @@
 //import org.openCage.stroy.algo.fingerprint.FingerPrint;
 //import org.openCage.stroy.algo.fingerprint.FileFingerPrint;
 //import org.openCage.stroy.filter.NullIgnore;
-//import org.openCage.stroy.filter.Ignore;
+//import org.openCage.lindwurm.Ignore;
 //import org.openCage.stroy.RuntimeModule;
 //import com.google.inject.Injector;
 //import com.google.inject.Guice;

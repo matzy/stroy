@@ -1,7 +1,7 @@
 package org.openCage.notabug;
 
-import org.openCage.lang.Strings;
-import org.openCage.lang.inc.ImmuList;
+import org.openCage.kleinod.Strings;
+import org.openCage.kleinod.collection.ImmuList;
 import org.openCage.ruleofthree.ThreeKey;
 import org.openCage.ruleofthree.property.NamingScheme;
 
@@ -40,6 +40,6 @@ public class IdToPath implements NamingScheme {
 
     @Override
     public ThreeKey getKey(ImmuList<String> names) {
-        return new ThreeKey( names.get(0) + Strings.withoutEnd( names.get(1), ".xml"));
+        return new ThreeKey( names.get(0) + Strings.withoutEnd(names.get(1), ".xml"));
     }
 }

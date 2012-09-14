@@ -1,15 +1,13 @@
 package org.openCage.stroy.ui.prefs;
 
 import net.java.dev.designgridlayout.DesignGridLayout;
+import org.openCage.kleinod.lambda.F1;
+import org.openCage.kleinod.observe.ObservableRef;
+import org.openCage.kleinod.ui.Binding;
+import org.openCage.stroy.locale.Message;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
-
-import org.openCage.lang.functions.F1;
-import org.openCage.stroy.locale.LocalizedComboBox;
-import org.openCage.stroy.locale.Message;
-import org.openCage.util.prefs.LocaleSelectionProperty;
-
 import java.awt.*;
 import java.util.Locale;
 
@@ -40,23 +38,36 @@ import java.util.Locale;
 
 public class LanguagePrefs extends JPanel {
 
-    public LanguagePrefs( LocaleSelectionProperty localeSelection ) {
+    public LanguagePrefs( ObservableRef<Locale> localeProp ) {
 
-        LocalizedComboBox languageBox = new LocalizedComboBox<Locale>(
-                new F1<String, Locale>() {
+        JComboBox languageBox = new JComboBox();
+
+        Binding.bind( languageBox ).
+                outOf( Message.supportedLocales ).
+                trans( new F1<String,Locale>() {
                     @Override
-                    public String call(Locale locale) {
-                        return "locale." + locale.toString(); //toLanguageTag();
+                    public String call(Locale locale ) {
+                        return Message.get( "locale." + locale.toString() );
                     }
-                },
-                localeSelection );
+                }).
+                to( localeProp );
+
+
+//        LocalizedComboBox languageBox = new LocalizedComboBox<Locale>(
+//                new F1<String, Locale>() {
+//                    @Override
+//                    public String call(Locale locale) {
+//                        return "locale." + locale.toString(); //toLanguageTag();
+//                    }
+//                },
+//                localeSelection );
 
         JPanel top = new JPanel();
         DesignGridLayout layout = new DesignGridLayout( top );
 
-        layout.row().grid().add( new JLabel(""));
+        layout.row().grid().empty(                                        );
         layout.row().grid().add( Message.getl( "Pref.language.which" ), 1 ).add(languageBox);
-        layout.row().grid().empty().add( Message.getl( "Pref.language.warning" ));
+        layout.row().grid().empty(                                        ).add( Message.getl( "Pref.language.warning" ));
 
         top.setBorder( new TitledBorder( Message.get( "Pref.language.title" ) ));
 

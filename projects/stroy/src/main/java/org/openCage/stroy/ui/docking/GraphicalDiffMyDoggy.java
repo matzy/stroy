@@ -3,16 +3,16 @@ package org.openCage.stroy.ui.docking;
 import org.noos.xing.mydoggy.ToolWindow;
 import org.noos.xing.mydoggy.ToolWindowAnchor;
 import org.noos.xing.mydoggy.plaf.MyDoggyToolWindowManager;
+import org.openCage.lindwurm.Ignore;
+import org.openCage.lindwurm.LindenNode;
 import org.openCage.stroy.locale.Message;
 import org.openCage.stroy.task.NodeChangeListener;
-import org.openCage.stroy.content.Content;
+import org.openCage.lindwurm.content.Content;
 import org.openCage.stroy.app.Tasks;
 import org.openCage.stroy.app.UIApp;
 import org.openCage.stroy.app.StroyAppInfo;
-import org.openCage.stroy.filter.Ignore;
 import org.openCage.stroy.filter.IgnoreChangedListener;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
-import org.openCage.stroy.graph.node.TreeNode;
 import org.openCage.stroy.ui.menu.PortableMenu;
 import org.openCage.stroy.ui.difftree.*;
 import org.openCage.stroy.ui.util.DMTNMaker;
@@ -60,21 +60,21 @@ import java.lang.reflect.InvocationTargetException;
 public class GraphicalDiffMyDoggy<T extends Content> extends JFrame implements IgnoreChangedListener {
 
     private final MyDoggyToolWindowManager                      toolWindowManager;
-    private final java.util.List<TreeMatchingTask<T>>           tasks;
+    private final java.util.List<TreeMatchingTask>           tasks;
     private final java.util.List<DefaultMutableTreeNode>        dmtRoots;
     private NWayDiffPane                                        diffPane;
 
     private final UIApp app;
     private PortableMenu portableMenu;
 
-    public GraphicalDiffMyDoggy( PortableMenu portableMenu, NWayDiffPaneGenerator gen, final Tasks<T> tasks  ) {
+    public GraphicalDiffMyDoggy( PortableMenu portableMenu, NWayDiffPaneGenerator gen, final Tasks tasks  ) {
         this.tasks = tasks.getTasks();
         this.portableMenu = portableMenu;
 
         // part of unified taskbar // refactor
         //getRootPane().putClientProperty("apple.awt.brushMetalLook", Boolean.TRUE);
 
-        dmtRoots = DMTNMaker.makeDFTNs( this.tasks );
+        dmtRoots = DMTNMaker.makeDFTNs(this.tasks);
 
         fillGhosts( dmtRoots );
 
@@ -94,7 +94,9 @@ public class GraphicalDiffMyDoggy<T extends Content> extends JFrame implements I
         }
 
         final JComponent top = new ShowDiffSummary( this.tasks, dmtRoots );
-  //      final ShowCurrentDiff current = new ShowCurrentDiff( tasks );
+
+        final JComponent text = new TextEditPane();
+        //      final ShowCurrentDiff current = new ShowCurrentDiff( tasks );
 //        final Buttons buttons = new Buttons( this );
 
     //    center.addNSelectionListener( current );
@@ -126,6 +128,8 @@ public class GraphicalDiffMyDoggy<T extends Content> extends JFrame implements I
 //                                              selectionActions,    // Component
 //                                              ToolWindowAnchor.BOTTOM);       // Anchor
 
+        toolWindowManager.registerToolWindow( "Text", "Edit", null, text, ToolWindowAnchor.BOTTOM );
+
         pack();
         toolWindowManager.getContentManager().addContent( Message.get("Docking.diff"),       // Id // NON-NLS
                                                           Message.get("Docking.diff"),                 // Title
@@ -143,20 +147,20 @@ public class GraphicalDiffMyDoggy<T extends Content> extends JFrame implements I
 
         pack();
 
-        app = new UIApp<T>( diffPane, dmtRoots, tasks );
+        app = new UIApp( diffPane, dmtRoots, tasks );
 
-        // TODO: should be <TreeNode<T>> but it works for Dirs and files
+        // TODO: should be <LindenNode> but it works for Dirs and files
         NodeChangeListener listener = new NodeChangeListener() {
             public void matched(Object left, Object right) {
-                final TreeNode ll = (TreeNode)left;
-                final TreeNode rr = (TreeNode)right;
+                final LindenNode ll = (LindenNode)left;
+                final LindenNode rr = (LindenNode)right;
                 try {
                     SwingUtilities.invokeAndWait( new Runnable() {
                         public void run() {
-                            if ( !((TreeNode)ll).isLeaf()) {
-                                DefaultMutableTreeNode llm =  NodeToNode.nodeToDMTNode( diffPane.getRoot( 0 ), (TreeNode<T>)ll );
+                            if ( !((LindenNode)ll).isLeaf()) {
+                                DefaultMutableTreeNode llm =  NodeToNode.nodeToDMTNode( diffPane.getRoot( 0 ), (LindenNode)ll );
                                 fillGhost( llm, 0, dmtRoots  );
-                                DefaultMutableTreeNode rrm =  NodeToNode.nodeToDMTNode( diffPane.getRoot( 1 ), (TreeNode<T>)rr );
+                                DefaultMutableTreeNode rrm =  NodeToNode.nodeToDMTNode( diffPane.getRoot( 1 ), (LindenNode)rr );
                                 fillGhost( rrm, 0, dmtRoots  );
                             }
 
@@ -206,13 +210,13 @@ public class GraphicalDiffMyDoggy<T extends Content> extends JFrame implements I
 
             public void beforeMatched(Object left, Object right) {
                 try {
-                    final TreeNode<T> ll = (TreeNode)left;
-                    final TreeNode<T> rr = (TreeNode)right;
+                    final LindenNode ll = (LindenNode)left;
+                    final LindenNode rr = (LindenNode)right;
                     SwingUtilities.invokeAndWait( new Runnable() {
                         public void run() {
                             {
                                 // need a before
-                                DefaultMutableTreeNode mutable =  NodeToNode.nodeToDMTNode( diffPane.getRoot( 0 ), (TreeNode<T>)ll );
+                                DefaultMutableTreeNode mutable =  NodeToNode.nodeToDMTNode( diffPane.getRoot( 0 ), (LindenNode)ll );
                                 mutable = NodeToNode.findMatchingNode( diffPane.getRoot( 1 ), TreeUtils.getPath( mutable), tasks.getTasks().get(0));
 
                                 DefaultTreeModel       model   = ((DefaultTreeModel)diffPane.getTree(1).getModel());
@@ -220,7 +224,7 @@ public class GraphicalDiffMyDoggy<T extends Content> extends JFrame implements I
                             }
 
                             {
-                                DefaultMutableTreeNode mutable =  NodeToNode.nodeToDMTNode( diffPane.getRoot( 1 ), (TreeNode<T>)rr );
+                                DefaultMutableTreeNode mutable =  NodeToNode.nodeToDMTNode( diffPane.getRoot( 1 ), (LindenNode)rr );
                                 mutable = NodeToNode.findMatchingNode( diffPane.getRoot( 0 ), TreeUtils.getPath( mutable), tasks.getTasks().get(0));
 
                                 DefaultTreeModel model         = ((DefaultTreeModel)diffPane.getTree(0).getModel());
@@ -237,7 +241,7 @@ public class GraphicalDiffMyDoggy<T extends Content> extends JFrame implements I
             }
         };
 
-        for ( TreeMatchingTask<T> task : tasks.getTasks() ) {
+        for ( TreeMatchingTask task : tasks.getTasks() ) {
             task.getFileTask().addNodeChangeListener( listener );
             task.getDirTask().addNodeChangeListener( listener );
         }

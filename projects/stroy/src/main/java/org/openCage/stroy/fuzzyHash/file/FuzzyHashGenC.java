@@ -9,7 +9,7 @@
 //import org.openCage.stroy.text.LineNoise;
 //import org.openCage.util.logging.Log;
 //import org.openCage.util.io.LineReaderIterator;
-//import org.openCage.util.io.FileUtils;
+//import org.openCage.lindwurm.FileUtils;
 //
 //import java.io.File;
 //import java.util.HashSet;

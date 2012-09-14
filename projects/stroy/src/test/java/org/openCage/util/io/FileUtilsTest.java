@@ -2,6 +2,7 @@ package org.openCage.util.io;
 
 import junit.framework.TestCase;
 import com.muchsoft.util.Sys;
+import org.openCage.kleinod.io.FileUtils;
 
 
 /***** BEGIN LICENSE BLOCK *****
@@ -34,7 +35,7 @@ public class FileUtilsTest extends TestCase {
     public void testNormalize() {
 
         if ( Sys.isWindows() ) {
-            assertEquals( "a:/b", FileUtils.normalizePath( "a:b" ));
+            assertEquals( "a:/b", FileUtils.normalizePath("a:b"));
             assertEquals( "\\\\a/b", FileUtils.normalizePath( "\\\\a\\b" ));
         } else {
             assertEquals( "/a/b", FileUtils.normalizePath( "a:b" ));

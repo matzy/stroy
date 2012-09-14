@@ -104,7 +104,7 @@ public class Threes implements Three {
         return new Threes(map);
     }
 
-    public static Threes THREE( List<Three> lst ) {
+    public static Threes THREE( List<? extends Three> lst ) {
         return new Threes(lst);
     }
 

@@ -1,6 +1,5 @@
 package org.openCage.stroy.graph.matching.strategy;
 
-import org.openCage.stroy.content.ReducedContent;
 import org.openCage.stroy.RuntimeModule;
 import org.openCage.stroy.graph.matching.TreeLeafNodeFuzzyLeafDistance;
 import com.google.inject.Injector;
@@ -33,15 +32,15 @@ import com.google.inject.Guice;
 
 public class HistoricalMatchingTest extends StrategyTestsWorker implements StrategyTests {
 
-    private MatchStrategy<ReducedContent> strategy;
+    private MatchStrategy strategy;
 
     protected void setUp() throws Exception {
         super.setUp();
 
         Injector injector = Guice.createInjector( new RuntimeModule() );
 
-        TreeLeafNodeFuzzyLeafDistance<ReducedContent> dist = injector.getInstance( TreeLeafNodeFuzzyLeafDistance.class );
-        strategy = new HistoricalMatching<ReducedContent>( dist);
+        TreeLeafNodeFuzzyLeafDistance dist = injector.getInstance( TreeLeafNodeFuzzyLeafDistance.class );
+        strategy = new HistoricalMatching( dist);
 
     }
 
@@ -71,8 +70,8 @@ public class HistoricalMatchingTest extends StrategyTestsWorker implements Strat
 
 
 //
-//        TreeNode<ReducedContent> node = TreeNodeUtils.getNode( task.getLeftRoot(), "a" );
-//        assertTrue( 0.9 > task.getLeaves().getMatchQuality( (TreeLeafNode<ReducedContent>)node ));
+//        LindenNode node = TreeNodes.getNode( task.getLeftRoot(), "a" );
+//        assertTrue( 0.9 > task.getLeaves().getMatchQuality( (LindenNode)node ));
 //    }
 
 }

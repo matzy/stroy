@@ -9,7 +9,8 @@ package org.openCage.notabug;
  */
 public enum State {
     open,
+    // selected
     inProgress,
-    fixed,
-    duplicate
+    // review
+    close
 }

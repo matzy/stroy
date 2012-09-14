@@ -1,12 +1,10 @@
 package org.openCage.stroy.ui;
 
-import org.openCage.lang.structure.Tu;
+import org.openCage.kleinod.collection.T2;
 import org.openCage.stroy.app.UIApp;
+import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.graph.matching.strategy.MatchStrategy;
 import org.openCage.stroy.graph.matching.strategy.Reporter;
-import org.openCage.stroy.graph.matching.TreeMatchingTask;
-import org.openCage.stroy.content.Content;
-import org.openCage.lang.structure.T2;
 
 import javax.swing.*;
 import java.util.List;
@@ -38,13 +36,13 @@ import java.util.List;
 
 
 
-public class MatchnWatch<T extends Content> extends SwingWorker< String, T2<String, String>> {
+public class MatchnWatch extends SwingWorker< String, T2<String, String>> {
 
-    private final UIApp<T>          uiApp;
-    private final MatchStrategy<T>  strategy;
+    private final UIApp          uiApp;
+    private final MatchStrategy  strategy;
     private final ModalProgress     progressUI = new ModalProgress( null );
 
-    public MatchnWatch( final UIApp uiApp, final MatchStrategy<T> strategy  ) {
+    public MatchnWatch( final UIApp uiApp, final MatchStrategy strategy  ) {
         this.uiApp    = uiApp;
         this.strategy = strategy;
 
@@ -55,16 +53,16 @@ public class MatchnWatch<T extends Content> extends SwingWorker< String, T2<Stri
 
         Reporter reporter = new Reporter () {
             public void detail( String label, String str) {
-                publish( Tu.c(label, str));
+                publish( T2.valueOf(label, str));
             }
 
             public void title( String str ) {
-                publish( Tu.c(str, (String)null ));
+                publish( T2.valueOf(str, (String)null ));
             }
         };
 
 
-        for ( TreeMatchingTask<T> task : uiApp.getTasks() ) {
+        for ( TreeMatchingTask task : uiApp.getTasks() ) {
 //            publish( "matching " + task );
             strategy.match( task, reporter);
         }

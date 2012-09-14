@@ -1,6 +1,6 @@
 package org.openCage.stroy.algo.matching;
 
-import org.openCage.lang.functions.F2;
+import org.openCage.kleinod.lambda.F2;
 import org.openCage.stroy.matching.EdgeAttributes;
 
 import java.util.Collection;

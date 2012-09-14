@@ -1,12 +1,6 @@
 package org.openCage.stroy.graph.matching.strategy;
 
-import junit.framework.TestCase;
-import org.openCage.stroy.graph.matching.TreeMatchingTask;
-import org.openCage.stroy.graph.matching.TreeMatchingTaskNeutralBuilder;
-import org.openCage.stroy.graph.node.SimpleContentTreeBuilder;
-import org.openCage.stroy.graph.node.TreeNode;
-import org.openCage.stroy.graph.node.TreeNodeUtils;
-import org.openCage.stroy.content.ReducedContent;
+import org.openCage.lindwurm.content.ReducedContent;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
@@ -37,24 +31,24 @@ public class SimpleDirMatchingTest extends StrategyTestsWorker implements Strate
 
     public void testSimpleIdentical() {
         strategyTestSimpleIdentical(
-                new SimpleDirMatching<ReducedContent>(),
+                new SimpleDirMatching(),
                 0,3,0,3, 2,0,2,0);
     }
 
     public void testRootMatch() {
-        strategyTestRootMatch( new SimpleDirMatching<ReducedContent>());
+        strategyTestRootMatch( new SimpleDirMatching());
     }
 
 
     public void testMoved() {
         strategyTestMoved(
-                new SimpleDirMatching<ReducedContent>(),
+                new SimpleDirMatching(),
                 0,3,0,3, 1,1,1,2);
     }
 
     public void testIgnoreChecksum() {
         strategyTestIgnoreChecksum(
-                new SimpleDirMatching<ReducedContent>(),
+                new SimpleDirMatching(),
                 0,3,0,3, 2,0,2,0);
     }
 }

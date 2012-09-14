@@ -1,8 +1,7 @@
 package org.openCage.stroy.ui.util;
 
+import org.openCage.lindwurm.LindenNode;
 import org.openCage.stroy.graph.node.SimpleContentTreeBuilder;
-import org.openCage.stroy.graph.node.TreeNode;
-import org.openCage.stroy.content.ReducedContent;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
@@ -34,7 +33,7 @@ public class NodeToNodeTest {
     public void testGetNamePath() {
         SimpleContentTreeBuilder b = new SimpleContentTreeBuilder();
 
-        TreeNode<ReducedContent> treeOne = b.d( "f", b.l( "a"),
+        LindenNode treeOne = b.d( "f", b.l( "a"),
                                                      b.d( "g", b.l("b"),
                                                                 b.l("c")));
 

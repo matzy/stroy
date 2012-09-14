@@ -24,7 +24,7 @@ package org.openCage.stroy.algo.fuzzyHash;
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ***** END LICENSE BLOCK *****/
-public interface FuzzyHash {
+public interface FuzzyHash<T> {
 
-    public double fuzzyEqual( FuzzyHash other );
+    public double fuzzyEqual( T other );
 }

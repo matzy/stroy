@@ -1,20 +1,19 @@
 package org.openCage.stroy.ui.difftree;
 
-import org.openCage.lang.iterators.Count;
-import org.openCage.lang.iterators.Iterators;
-import org.openCage.util.ui.skvTree.JudgeBlock;
-import org.openCage.stroy.graph.node.TreeNode;
+import org.openCage.kleinod.collection.Count;
+import org.openCage.kleinod.collection.Iterators;
+import org.openCage.lindwurm.LindenNode;
+import org.openCage.stroy.diff.ContentDiff;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.ui.ChangeVector;
 import org.openCage.stroy.ui.Colors;
-import org.openCage.stroy.content.Content;
-import org.openCage.stroy.diff.ContentDiff;
+import org.openCage.util.ui.skvTree.JudgeBlock;
 
 import javax.swing.tree.DefaultMutableTreeNode;
-import java.awt.Color;
-import java.util.List;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
@@ -41,11 +40,11 @@ import java.util.Collections;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ***** END LICENSE BLOCK *****/
 
-public class TreeNodeJudge<T extends Content> implements JudgeBlock {
+public class TreeNodeJudge implements JudgeBlock {
 
-    private final TreeMatchingTask<T> matching;
+    private final TreeMatchingTask matching;
 
-    public TreeNodeJudge( TreeMatchingTask<T> matching ) {
+    public TreeNodeJudge( TreeMatchingTask matching ) {
         this.matching = matching;
     }
 
@@ -57,7 +56,7 @@ public class TreeNodeJudge<T extends Content> implements JudgeBlock {
                 int i = 0;
             }
 
-            TreeNode<T> nn = ((UINode<T>)node.obj().getUserObject()).get();
+            LindenNode nn = ((UINode)node.obj().getUserObject()).get();
                                         
             final ChangeVector cv = matching.getChangeVector( nn );
 
@@ -85,7 +84,7 @@ public class TreeNodeJudge<T extends Content> implements JudgeBlock {
         boolean contentUnknown   = false;
 
         for ( DefaultMutableTreeNode dmtn : block ) {
-            TreeNode<T> node = ((UINode)dmtn.getUserObject()).get();
+            LindenNode node = ((UINode)dmtn.getUserObject()).get();
             final ChangeVector cv = matching.getChangeVector( node );
 
             if ( cv.only ) {

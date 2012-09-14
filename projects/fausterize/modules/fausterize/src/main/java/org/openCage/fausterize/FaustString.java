@@ -5,7 +5,7 @@ import org.openCage.fausterize.FaustByteNum;
 import org.openCage.fausterize.TextEncoderIdx;
 import org.openCage.lang.iterators.ArrayCount;
 import org.openCage.lang.iterators.ByteCount;
-import org.openCage.lang.errors.Unchecked;
+import org.openCage.kleinod.errors.Unchecked;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URI;

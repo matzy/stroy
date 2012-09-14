@@ -1,6 +1,5 @@
 package org.openCage.ruleofthree.property;
 
-import org.openCage.lang.functions.F0;
 import org.openCage.ruleofthree.Three;
 import org.openCage.ruleofthree.ThreeMap;
 

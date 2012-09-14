@@ -1,11 +1,12 @@
 package org.openCage.stroy.ui.help;
 
-import org.openCage.lang.inc.Null;
+import org.openCage.kleinod.observe.ObservableRef;
+import org.openCage.kleinod.type.Null;
 import org.openCage.util.logging.Log;
-import org.openCage.util.prefs.LocaleSelectionProperty;
 import org.openCage.util.ui.BrowserLauncher;
 
 import java.net.URL;
+import java.util.Locale;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
@@ -34,7 +35,7 @@ import java.net.URL;
 
 public class HelpLauncher {
 
-    public static LocaleSelectionProperty localeSelection;
+    public static ObservableRef<Locale> locale;
 
 //    public HelpLauncher(LocaleSelectionProperty localeSelection) {
 //        this.localeSelection = localeSelection;
@@ -43,7 +44,7 @@ public class HelpLauncher {
 
     public static void showHelp() {
 
-        String loc = localeSelection.getSelection().toString(); //toLanguageTag();
+        String loc = locale.get().toString(); //toLanguageTag();
 
         URL url = HelpLauncher.class.getResource("/org/openCage/stroy/ui/help/" + loc + "/index.html");
         if (!Null.is(url)) {

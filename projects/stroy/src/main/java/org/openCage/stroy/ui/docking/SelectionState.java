@@ -1,7 +1,7 @@
 package org.openCage.stroy.ui.docking;
 
-import org.openCage.stroy.graph.node.TreeNode;
-import org.openCage.stroy.content.Content;
+import org.openCage.lindwurm.LindenNode;
+import org.openCage.lindwurm.content.Content;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
@@ -30,7 +30,7 @@ import org.openCage.stroy.content.Content;
 
 public class SelectionState<T extends Content> {
 
-    private final TreeNode<T> node;
+    private final LindenNode node;
     private final boolean               match;
     private final boolean               parentMatch;
     private final boolean               master;
@@ -40,7 +40,7 @@ public class SelectionState<T extends Content> {
 //    private final boolean parent;
 //    private final boolean parentRenamed;
 
-    public SelectionState( final TreeNode<T> node,
+    public SelectionState( final LindenNode node,
                            final boolean               match,
                            final boolean               parentMatch,
                            final boolean               master ) {
@@ -62,7 +62,7 @@ public class SelectionState<T extends Content> {
     }
 
 
-    public TreeNode<T> getNode() {
+    public LindenNode getNode() {
         return node;
     }
 

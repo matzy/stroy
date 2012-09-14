@@ -2,9 +2,9 @@ package org.openCage.stroy.update;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
-import org.openCage.lang.inc.ImmuDate;
-import org.openCage.lang.ImuDateUtils;
-import org.openCage.lang.structure.ObservableRef;
+import org.openCage.kleinod.immutable.ImmuDate;
+import org.openCage.kleinod.immutable.ImuDateUtils;
+import org.openCage.kleinod.observe.ObservableRef;
 
 
 /***** BEGIN LICENSE BLOCK *****
@@ -34,11 +34,11 @@ import org.openCage.lang.structure.ObservableRef;
 
 public class Interval {
 
-    private final UpdateSelectionProperty updateTimeSelection;
-    private final ObservableRef<ImmuDate> lastCheck;
+    private final ObservableRef<UpdateTime> updateTimeSelection;
+    private final ObservableRef<ImmuDate>   lastCheck;
 
     @Inject
-    public Interval(UpdateSelectionProperty updateTimeSelection, @Named( value = "lastUpdateCheck" ) ObservableRef<ImmuDate> lastCheck) {
+    public Interval( @Named("updateTime") ObservableRef<UpdateTime> updateTimeSelection, @Named("lastUpdateCheck") ObservableRef<ImmuDate> lastCheck) {
         this.updateTimeSelection = updateTimeSelection;
         this.lastCheck = lastCheck;
     }
@@ -49,10 +49,10 @@ public class Interval {
         ImmuDate last = lastCheck.get();
         lastCheck.set( now);
 
-        switch ( updateTimeSelection.getSelection() ) {
+        switch ( updateTimeSelection.get() ) {
             case everyStart: return true;
             case never:      return false;
-            case weekly:     return  ImuDateUtils.moreThanAWeek( last, now );
+            case weekly:     return  ImuDateUtils.moreThanAWeek(last, now);
             case monthly:    return  ImuDateUtils.moreThanAMonth( last, now );
         }
 

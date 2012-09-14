@@ -1,9 +1,9 @@
 package org.openCage.stroy.app;
 
-import org.openCage.util.app.AppInfo;
-import org.openCage.util.app.Reference;
-import org.openCage.util.app.Change;
-import org.openCage.util.app.Version2;
+import org.openCage.stroy.todo.app.AppInfo;
+import org.openCage.stroy.todo.app.Reference;
+import org.openCage.stroy.todo.app.Change;
+import org.openCage.stroy.todo.app.Version2;
 
 import java.util.ArrayList;
 import java.util.Collection;

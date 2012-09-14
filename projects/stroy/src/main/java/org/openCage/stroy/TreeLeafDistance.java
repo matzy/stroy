@@ -1,9 +1,8 @@
 package org.openCage.stroy;
 
-import org.openCage.stroy.content.Content;
+import org.openCage.lindwurm.LindenNode;
 import org.openCage.stroy.task.MatchingTask;
-import org.openCage.stroy.graph.node.TreeDirNode;
-import org.openCage.stroy.graph.node.TreeLeafNode;
+import org.openCage.lindwurm.LindenDirNode;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
@@ -30,6 +29,6 @@ import org.openCage.stroy.graph.node.TreeLeafNode;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ***** END LICENSE BLOCK *****/
 
-public interface TreeLeafDistance<T extends Content> 
-        extends InformedDistance< MatchingTask<TreeDirNode<T>>, TreeLeafNode<T>>{
+public interface TreeLeafDistance
+        extends InformedDistance< MatchingTask<LindenDirNode>, LindenNode>{
 }

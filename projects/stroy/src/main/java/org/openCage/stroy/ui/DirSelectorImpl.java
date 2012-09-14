@@ -2,24 +2,26 @@ package org.openCage.stroy.ui;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
+import com.muchsoft.util.Sys;
 import com.muchsoft.util.mac.Java14Adapter;
 import com.muchsoft.util.mac.Java14Handler;
-import com.muchsoft.util.Sys;
-import org.openCage.lang.listeners.Observer;
-import org.openCage.lang.structure.ObservableRef;
-import org.openCage.stroy.ui.menu.PortableMenuFactory;
-import org.openCage.util.io.FileUtils;
-import org.openCage.stroy.ui.prefs.PrefsUI;
-import org.openCage.stroy.ui.menu.PortableMenu;
-import org.openCage.stroy.update.UpdateChecker;
+import net.java.dev.designgridlayout.DesignGridLayout;
+import org.openCage.kleinod.io.FileUtils;
+import org.openCage.kleinod.observe.ObservableRef;
+import org.openCage.kleinod.observe.ObservableReference;
+import org.openCage.kleinod.observe.Observer;
+import org.openCage.kleinod.ui.Binding;
 import org.openCage.stroy.locale.Message;
+import org.openCage.stroy.ui.menu.PortableMenu;
+import org.openCage.stroy.ui.menu.PortableMenuFactory;
+import org.openCage.stroy.ui.prefs.PrefsUI;
+import org.openCage.stroy.update.UpdateChecker;
+import org.openCage.stroy.todo.app.About;
+import org.openCage.stroy.todo.app.AboutImpl;
+import org.openCage.stroy.todo.app.AppInfo;
 import org.openCage.util.logging.Log;
-import org.openCage.util.prefs.TextField;
-import org.openCage.util.ui.FileChooser;
-import org.openCage.util.app.About;
-import org.openCage.util.app.AboutImpl;
-import org.openCage.util.app.AppInfo;
 import org.openCage.util.logging.LogHandlerPanel;
+import org.openCage.util.ui.FileChooser;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -31,11 +33,9 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.Arrays;
 import java.util.EventObject;
-import java.io.File;
-
-import net.java.dev.designgridlayout.DesignGridLayout;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
@@ -68,9 +68,9 @@ public class DirSelectorImpl extends JFrame
 
     private final JProgressBar progressBar = new JProgressBar();
 
-    private final TextField oneTxt;
+    private final JTextField oneTxt = new JTextField();
     private final JButton   oneButton   = new JButton("..");
-    private final TextField twoTxt;
+    private final JTextField twoTxt = new JTextField();
     private final JButton   twoButton   = new JButton("..");
     //private final TextField threeTxt    = new TextField( "dir.third" );
     private final JButton   threeButton = new JButton("..");
@@ -84,12 +84,13 @@ public class DirSelectorImpl extends JFrame
     private final LogHandlerPanel logHandlerPanel;
 
     private org.openCage.stroy.ui.menu.Menu menu;
-//    private PComboBox strategyCombo = new PComboBox( "stroy.first.strategy" );
 
     private final UpdateChecker updateChecker;
-    private CompareBuilderFactory compareBuilderFactory;
+    private final CompareBuilderFactory compareBuilderFactory;
     private PortableMenuFactory portableMenuFactory;
     private PrefsUI prefsUI;
+    private final ObservableReference<String> dirFirst;
+    private final ObservableReference<String> dirSecond;
 
 
     @Inject
@@ -103,8 +104,12 @@ public class DirSelectorImpl extends JFrame
                             LogHandlerPanel logHandlerPanel ) {
         super( "stroy");
 
-        this.oneTxt = new TextField( dirFirst );
-        this.twoTxt = new TextField( dirSecond );
+        Binding.bind( oneTxt, dirFirst );
+        Binding.bind( twoTxt, dirSecond );
+
+        this.dirFirst = dirFirst;
+        this.dirSecond = dirSecond;
+
         this.logHandlerPanel = logHandlerPanel;
 
         this.appInfo       = appInfo;
@@ -131,7 +136,12 @@ public class DirSelectorImpl extends JFrame
         go.addActionListener( new ActionListener(){
             public void actionPerformed(ActionEvent actionEvent) {
                 Log.fine( "comparing: " + oneTxt.getText() + " with " + twoTxt.getText());
-                compareBuilderFactory.get( oneTxt.getText(), twoTxt.getText(), "" ).execute();
+                try {
+                    compareBuilderFactory.get( oneTxt.getText(), twoTxt.getText(), "" ).execute();
+                } catch ( Throwable exp ) {
+                    Log.warning( exp.getMessage());
+                    return;
+                }
                 dispose();
             }
         });
@@ -142,14 +152,14 @@ public class DirSelectorImpl extends JFrame
         //addFileChooser( threeButton, threeTxt, oneTxt );
 
 
-        oneTxt.getListenerControl().add(new Observer() {
+        dirFirst.getListenerControl().add(new Observer() {
             @Override
             public void call() {
                 checkGo();
             }
         });
 
-        twoTxt.getListenerControl().add( new Observer() {
+        dirSecond.getListenerControl().add( new Observer() {
             @Override
             public void call() {
                 checkGo();
@@ -210,6 +220,7 @@ public class DirSelectorImpl extends JFrame
                 String dir = FileChooser.getAnyFile( frameRef, baseDir);
 
                 if ( dir != null ) {
+                    // TODO set prop
                     text.setText( FileUtils.normalizePath( dir ));
 
                     checkGo();

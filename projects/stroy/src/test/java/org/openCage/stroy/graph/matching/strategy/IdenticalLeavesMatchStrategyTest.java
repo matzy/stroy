@@ -1,6 +1,6 @@
 package org.openCage.stroy.graph.matching.strategy;
 
-import org.openCage.stroy.content.ReducedContent;
+import org.openCage.lindwurm.content.ReducedContent;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
@@ -31,30 +31,30 @@ public class IdenticalLeavesMatchStrategyTest extends StrategyTestsWorker implem
 
     public void testSimpleIdentical() {
         strategyTestSimpleIdentical(
-                new IdenticalLeafMatchStrategy<ReducedContent>(),
+                new IdenticalLeafMatchStrategy(),
                 3,0,3,0, 1,1,1,1);
     }
 
     public void testRootMatch() {
         strategyTestRootMatch(
-                new IdenticalLeafMatchStrategy<ReducedContent>());
+                new IdenticalLeafMatchStrategy());
     }
 
 
     public void testMoved() {
         strategyTestMoved(
-                new IdenticalLeafMatchStrategy<ReducedContent>(),
+                new IdenticalLeafMatchStrategy(),
                 3,0,3,0, 1,1,1,2);
     }
 
     public void testIgnoreChecksum() {
         // the strategy uses the fingerprint so it can't match here
         strategyTestIgnoreChecksum(
-                new IdenticalLeafMatchStrategy<ReducedContent>(),
+                new IdenticalLeafMatchStrategy(),
                 0,3,0,3, 1,1,1,1);
     }
 
-//        assertEquals( 1.0, task.getLeaves().getMatchQuality( (TreeLeafNode<ReducedContent>)node ));
+//        assertEquals( 1.0, task.getLeaves().getMatchQuality( (LindenNode)node ));
 //    }
 }
 

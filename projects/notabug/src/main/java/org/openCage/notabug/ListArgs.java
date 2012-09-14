@@ -2,12 +2,13 @@ package org.openCage.notabug;
 
 import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.Option;
-import org.openCage.lang.functions.F1;
+import org.openCage.kleinod.lambda.F1;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static org.openCage.lang.Forall.forall;
+import static org.openCage.kleinod.collection.Forall.forall;
+
 
 /**
  * Created with IntelliJ IDEA.

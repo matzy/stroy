@@ -1,8 +1,8 @@
 package org.openCage.stroy.fuzzyHash;
 
-import org.openCage.lang.Sets;
-import org.openCage.stroy.fuzzyHash.metric.CountChangeMetric;
+import org.openCage.kleinod.collection.Sets;
 import org.openCage.stroy.algo.fuzzyHash.FuzzyHash;
+import org.openCage.stroy.fuzzyHash.metric.CountChangeMetric;
 
 import java.util.Set;
 
@@ -31,7 +31,7 @@ import java.util.Set;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ***** END LICENSE BLOCK *****/
 
-public class FuzzyHashSet implements FuzzyHash {
+public class FuzzyHashSet implements FuzzyHash<FuzzyHashSet> {
 
     private final Set<Integer>       set;
     private final CountChangeMetric  metric;
@@ -41,14 +41,9 @@ public class FuzzyHashSet implements FuzzyHash {
         this.metric = metric;
     }
 
-    public double fuzzyEqual( FuzzyHash other ) {
-        if ( ! ( other instanceof FuzzyHashSet  )) {
-            return 0.0;
-        }
-
-        FuzzyHashSet otherSet = (FuzzyHashSet)other;
-
-        return 1.0 - metric.distance( set.size(), Sets.intersectionSize( set, otherSet.set ), otherSet.set.size() );
+    @Override
+    public double fuzzyEqual( FuzzyHashSet other ) {
+        return 1.0 - metric.distance( set.size(), Sets.intersectionSize(set, other.set), other.set.size() );
     }
 
 

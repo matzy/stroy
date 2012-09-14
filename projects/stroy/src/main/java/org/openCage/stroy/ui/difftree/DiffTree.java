@@ -2,27 +2,29 @@ package org.openCage.stroy.ui.difftree;
 
 import com.google.inject.Inject;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
+import org.openCage.stroy.ui.popup.PopupSelector;
 import org.openCage.stroy.ui.popup.PopupSelectorFactory;
 import org.openCage.stroy.ui.util.NodeToNode;
-import org.openCage.stroy.ui.popup.PopupSelector;
-import org.openCage.stroy.content.Content;
-import org.openCage.util.ui.TreeUtils;
-import org.openCage.util.ui.skvTree.SkvTree;
-import org.openCage.util.ui.skvTree.JudgeBlock;
-import org.openCage.util.ui.skyviewbar.ConfigProvider;
-import org.openCage.util.ui.skyviewbar.ObjectListener;
 import org.openCage.util.logging.Log;
 import org.openCage.util.swing.Scrolling;
+import org.openCage.util.ui.TreeUtils;
+import org.openCage.util.ui.skvTree.JudgeBlock;
+import org.openCage.util.ui.skvTree.SkvTree;
+import org.openCage.util.ui.skyviewbar.ConfigProvider;
+import org.openCage.util.ui.skyviewbar.ObjectListener;
 
 import javax.swing.*;
+import javax.swing.event.TreeExpansionEvent;
+import javax.swing.event.TreeExpansionListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
-import javax.swing.event.TreeExpansionListener;
-import javax.swing.event.TreeExpansionEvent;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,13 +78,13 @@ import java.util.List;
  *
  *    ... task(leftRoot, rightRoot) | diffTree | task(leftNode, rightNode ) | diffTree ...
  */
-public class DiffTree<T extends Content> extends JPanel implements SynchronizeListener<T> {
+public class DiffTree extends JPanel implements SynchronizeListener {
 
 
     private final JTree                         tree;
     private final JScrollPane                   scroll;
-    private final TreeMatchingTask<T>           taskRight;
-    private final TreeMatchingTask<T>           taskLeft;
+    private final TreeMatchingTask           taskRight;
+    private final TreeMatchingTask           taskLeft;
     private final List<SynchronizeListener>     syncListeners = new ArrayList<SynchronizeListener>();
     private final DefaultMutableTreeNode        root;
     private final int                           idx;
@@ -96,11 +98,11 @@ public class DiffTree<T extends Content> extends JPanel implements SynchronizeLi
 
     @Inject
     public DiffTree( final int                           idx,
-                     final TreeMatchingTask<T>           taskLeft,
-                     final TreeMatchingTask<T>           taskRight,
+                     final TreeMatchingTask           taskLeft,
+                     final TreeMatchingTask           taskRight,
                      final DefaultMutableTreeNode        root,
                      final ShowChangeTreeCellRenderer    showChangeTreeCellRenderer,
-                     final PopupSelectorFactory<T>       popupSelectorFactory ) {
+                     final PopupSelectorFactory       popupSelectorFactory ) {
         this.idx       = idx;
         this.taskLeft  = taskLeft;
         this.taskRight = taskRight;
@@ -273,8 +275,8 @@ public class DiffTree<T extends Content> extends JPanel implements SynchronizeLi
     }
 
 
-    private JudgeBlock getJudgeBlock( final TreeMatchingTask<T> matching ) {
-        return new TreeNodeJudge<T>( matching );
+    private JudgeBlock getJudgeBlock( final TreeMatchingTask matching ) {
+        return new TreeNodeJudge( matching );
     }
 
     private boolean scrollbarOnLeft() {
@@ -286,7 +288,7 @@ public class DiffTree<T extends Content> extends JPanel implements SynchronizeLi
         syncListeners.add( listener );
     }
 
-    public void scrollTo( TreePath pathOtherTree /*TreeNode<T> node*/, Rectangle rect, int sourceIdx) {
+    public void scrollTo( TreePath pathOtherTree /*LindenNode node*/, Rectangle rect, int sourceIdx) {
 
         Log.finest( " scrollTo " + idx); // NON-NLS
 

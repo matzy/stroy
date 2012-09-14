@@ -1,6 +1,6 @@
 package org.openCage.stroy.text;
 
-import org.openCage.lang.functions.F1;
+import org.openCage.kleinod.lambda.F1;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
@@ -27,5 +27,5 @@ import org.openCage.lang.functions.F1;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ***** END LICENSE BLOCK *****/
 
-public interface LineNoise extends F1<Boolean, String>{
+public interface LineNoise extends F1<Boolean, String> {
 }

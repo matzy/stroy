@@ -2,8 +2,8 @@ package org.openCage.stroy.file;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
-import org.openCage.lang.listeners.VoidListenerControl;
-import org.openCage.lang.listeners.VoidListeners;
+import org.openCage.kleinod.observe.VoidListenerControl;
+import org.openCage.kleinod.observe.VoidListeners;
 import org.openCage.ruleofthree.Property;
 import org.openCage.ruleofthree.Three;
 import org.openCage.ruleofthree.Threes;
@@ -39,11 +39,15 @@ public class Action implements Property {
     private SimilarityAlgorithm algo;
     private String diff;
     private String open;
+
+    private boolean isText;
+    private boolean isXML;
+    private boolean isJSON;
+    private boolean isBundle;
+
     private VoidListeners observers = new VoidListeners();
 
     private static String NONE = "--none--";
-//    public boolean file;
-//    public boolean ignored;
 
 
     public Action( String description )  {
@@ -59,22 +63,50 @@ public class Action implements Property {
     public Action( @Named("description") String description,
                    @Named("similarityAlgorithm") SimilarityAlgorithm algo,
                    @Named("diff") String diff,
-                   @Named("open") String open ) {
-//        file = true;
-//        this.ignored = ignored;
+                   @Named("open") String open,
+                   @Named("isText") boolean isText,
+                   @Named("isXML")  boolean isXML ,
+                   @Named("isJSON") boolean isJSON ) {
         this.algo = algo;
         this.diff = diff;
         this.open = open;
         this.description = description;
+        this.isText = isText;
+        this.isXML = isXML;
+        this.isJSON = isJSON;
+    }
+
+    public Action( String description,
+                   SimilarityAlgorithm algo,
+                   String diff,
+                   String open,
+                   boolean isText ) {
+        this.algo = algo;
+        this.diff = diff;
+        this.open = open;
+        this.description = description;
+        this.isText = isText;
     }
 
     @Override
     public Three toThree() {
-        return Threes.newMap().
+        Three ret = Threes.newMap().
                 put( ("description"), description).
                 put( ("similarityAlgorithm"), algo ).
                 put( ("diff"), diff).
                 put( ("open"), open);
+
+        if ( isText ) {
+            ret.put( "isText", true );
+        }
+        if ( isXML ) {
+            ret.put( "isXML", true );
+        }
+        if ( isJSON ) {
+            ret.put( "isJSON", true );
+        }
+
+        return ret;
 
     }
 
@@ -126,4 +158,37 @@ public class Action implements Property {
     public boolean hasDiff(String extension) {
         return !diff.equals(NONE);
     }
+
+    public boolean getIsText() {
+        return isText;
+    }
+
+    public void setIsText(Boolean text) {
+        isText = text;
+    }
+
+    public boolean getIsXML() {
+        return isXML;
+    }
+
+    public void setIsXML(Boolean XML) {
+        isXML = XML;
+    }
+
+    public boolean getIsJSON() {
+        return isJSON;
+    }
+
+    public void setIsJSON(Boolean JSON) {
+        isJSON = JSON;
+    }
+
+    public boolean getIsBundle() {
+        return isBundle;
+    }
+
+    public void setIsBundle(Boolean bundle) {
+        isBundle = bundle;
+    }
+
 }

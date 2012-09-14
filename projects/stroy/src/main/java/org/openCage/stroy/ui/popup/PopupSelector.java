@@ -1,9 +1,8 @@
 package org.openCage.stroy.ui.popup;
 
+import org.openCage.lindwurm.LindenNode;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
-import org.openCage.stroy.graph.node.TreeNode;
 import org.openCage.stroy.ui.util.NodeToNode;
-import org.openCage.stroy.content.Content;
 
 import javax.swing.tree.TreePath;
 import java.awt.event.MouseEvent;
@@ -38,17 +37,17 @@ import java.util.regex.Pattern;
  * depending on type open a different popup
  * TODO: popup uses hiding for similar purposes: unify?
  */
-public class PopupSelector<T extends Content> {
-    private final DiffPopup<T> popup;
+public class PopupSelector {
+    private final DiffPopup popup;
     private final Pattern isBundle = Pattern.compile( ".+\\..*" );
 
-    public PopupSelector( final DiffPopupFactory<T> dpf, final TreeMatchingTask<T> taskLeft, final TreeMatchingTask<T> taskRight) {
+    public PopupSelector( final DiffPopupFactory dpf, final TreeMatchingTask taskLeft, final TreeMatchingTask taskRight) {
         popup          = dpf.get( taskLeft, taskRight );
     }
 
     public void open( MouseEvent event, TreePath path ) {
 
-        TreeNode tn = NodeToNode.pathToNode( path );
+        LindenNode tn = NodeToNode.pathToNode( path );
 
         if ( tn == null ) {
             // tree element without treenode, i.e. a ghost node

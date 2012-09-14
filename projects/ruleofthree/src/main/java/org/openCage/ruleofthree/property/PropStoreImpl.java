@@ -1,12 +1,10 @@
 package org.openCage.ruleofthree.property;
 
 import com.google.inject.Inject;
-import com.google.inject.Key;
 import com.google.inject.TypeLiteral;
-import org.openCage.lang.listeners.Observer;
+import org.openCage.kleinod.observe.Observer;
 import org.openCage.ruleofthree.*;
 import org.openCage.ruleofthree.jtothree.ThreeToJ;
-import sun.util.LocaleServiceProviderPool;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,6 +84,7 @@ public class PropStoreImpl implements Observer, PropertyStore {
     @Override
     public <T> T get( ThreeKey key, TypeLiteral<T> typeLiteral) {
         synchronized ( this ) {
+
             T prop =  (T)props.get(key);
 
             if ( prop != null ) {
@@ -102,11 +101,16 @@ public class PropStoreImpl implements Observer, PropertyStore {
                 return null;
             }
 
-            T ret = threeToJ.get( typeLiteral, rdlbVal);
-            if ( ret == null ) {
-                // TODO
-                throw new Error("TODO");
+
+            T ret = null;
+            try {
+                ret = threeToJ.get( typeLiteral, rdlbVal);
+            } catch ( IllegalArgumentException exp ) {
+                exp.printStackTrace();
+                LOG.warning( "can not get prop for key " + key + " literal " + typeLiteral  );
+                return null;
             }
+
             threeToProp( key, ret );
 
             return ret;

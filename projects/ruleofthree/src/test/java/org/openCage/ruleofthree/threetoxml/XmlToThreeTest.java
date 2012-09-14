@@ -2,12 +2,15 @@ package org.openCage.ruleofthree.threetoxml;
 
 import org.junit.Test;
 import org.openCage.ruleofthree.Three;
+import org.openCage.ruleofthree.ThreeKey;
 
 import java.io.File;
 import java.net.URL;
 
+import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertTrue;
+import static org.openCage.ruleofthree.Threes.THREE;
 
 public class XmlToThreeTest {
 
@@ -25,6 +28,22 @@ public class XmlToThreeTest {
     }
 
     @Test
+    public void simpleMap() {
+        XmlToThree xmlToThree = new XmlToThree();
+
+        URL url = getClass().getResource("/org/openCage/ruleofthree/threetoxml/simple-map.xml");
+        assertTrue(new File( url.getFile()).exists());
+
+        Three readable =  xmlToThree.read( "root", url.getFile());
+
+        assertNotNull(readable);
+        assertTrue(readable.isMap());
+
+        assertEquals(THREE("val"), readable.getMap().get(ThreeKey.valueOf("key")));
+    }
+
+
+    @Test
     public void testPropertyMap() {
         XmlToThree xmlToThree = new XmlToThree();
 
@@ -35,6 +54,9 @@ public class XmlToThreeTest {
 
         assertNotNull(readable);
         assertTrue(readable.isMap());
+
+        assertNotNull(readable.getMap().get(ThreeKey.valueOf("amap")));
+        assertEquals( THREE("val"), readable.getMap().get(ThreeKey.valueOf("amap")).getMap().get(ThreeKey.valueOf("key")));
     }
 
     @Test
@@ -113,11 +135,20 @@ public class XmlToThreeTest {
 //
 //    }
 //
-//    @Test
-//    public void testList() {
-//        XMLtoReadable xmlReader = new XMLtoReadable();
+    @Test
+    public void testList() {
+        XmlToThree xmlToThree = new XmlToThree();
+
+        URL url = getClass().getResource("/org/openCage/ruleofthree/threetoxml/list.xml");
+
+        Three readable =  xmlToThree.read( "root", url.getFile());
+
+        assertNotNull(readable);
+        assertTrue(readable.isList());
+        assertEquals(3,readable.getList().size());
+
+
 //
-//        URL url = getClass().getResource("/org/openCage/comphy/comphy-list.xml");
 //        ThreeText readable =  xmlReader.read(url.getFile());
 //        RMap map = (RMap)readable;
 //
@@ -127,7 +158,7 @@ public class XmlToThreeTest {
 //        assertEquals( "texta", list.get(0).toString());
 //        assertEquals( "textb", list.get(1).toString());
 //        assertEquals( "textc", list.get(2).toString());
-//    }
+    }
 //
 //    @Test
 //    public void testMore() {

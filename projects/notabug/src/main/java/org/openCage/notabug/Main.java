@@ -4,13 +4,9 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
-import org.openCage.lang.Forall;
-import org.openCage.lang.functions.F1;
-import org.openCage.lang.functions.VF1;
+import org.openCage.kleinod.lambda.F1;
 
-import java.util.List;
-
-import static org.openCage.lang.Forall.forall;
+import static org.openCage.kleinod.collection.Forall.forall;
 
 /**
  * Created with IntelliJ IDEA.
@@ -66,7 +62,7 @@ public class Main {
                 parser.parseArgument(args);
             } catch (CmdLineException e) {
                 System.err.println(e.getMessage());
-                System.err.println("fausterize [options...] arguments...");
+                System.err.println("Usage l[ist] [options...] ");
                 parser.printUsage( System.err );
                 // print the list of available options
                 parser.printUsage(System.err);
@@ -83,6 +79,12 @@ public class Main {
 
         }
 
+        if ( args[0].startsWith("n")) {
+
+
+            newTask(args, tasks);
+
+        }
 
 
 //        tasks.create( "find tasks" );
@@ -104,6 +106,29 @@ public class Main {
 
 
         System.exit(0);
+    }
+
+    private static void newTask(String[] args, Tasks tasks) {
+        final NewArgs newArgs = new NewArgs();
+        CmdLineParser parser = new CmdLineParser(newArgs);
+        parser.setUsageWidth(80); // width of the error display area
+
+        try {
+            parser.parseArgument(args);
+        } catch (CmdLineException e) {
+            System.err.println(e.getMessage());
+            System.err.println("notabug [options...] arguments...");
+            parser.printUsage( System.err );
+            // print the list of available options
+            parser.printUsage(System.err);
+            System.err.println();
+            System.exit(1);
+        }
+
+        Task task = tasks.create( newArgs.getName());
+        if ( newArgs.getKind() != null ) {
+            task.setKind( newArgs.getKind() );
+        }
     }
 
 }

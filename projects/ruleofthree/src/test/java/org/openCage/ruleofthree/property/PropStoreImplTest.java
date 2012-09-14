@@ -1,7 +1,7 @@
 package org.openCage.ruleofthree.property;
 
 import org.junit.Test;
-import org.openCage.lang.structure.Ref;
+import org.openCage.kleinod.collection.Ref;
 import org.openCage.ruleofthree.Three;
 import org.openCage.ruleofthree.ThreeHashMap;
 import org.openCage.ruleofthree.ThreeKey;
@@ -49,7 +49,7 @@ public class PropStoreImplTest {
     }
 
     @Test
-    public void noDirtyOnAdd() {
+    public void dirtyOnAdd() {
 
         final Ref<String> dirty = new Ref<String>("clean");
 

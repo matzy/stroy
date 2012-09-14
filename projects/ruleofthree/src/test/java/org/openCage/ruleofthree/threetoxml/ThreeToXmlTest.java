@@ -3,7 +3,11 @@ package org.openCage.ruleofthree.threetoxml;
 import org.junit.Test;
 import org.openCage.ruleofthree.*;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static junit.framework.Assert.assertEquals;
+import static org.openCage.ruleofthree.Threes.THREE;
 
 /***** BEGIN LICENSE BLOCK *****
 * BSD License (2 clause)
@@ -44,5 +48,16 @@ public class ThreeToXmlTest {
                 "</comphy>\n",
                 new ThreeToXml().write( new ThreeKey("comphy"), map ).toString());
 
+    }
+
+    @Test
+    public void testList() {
+        List<Threes> list = Arrays.asList(THREE("1"), THREE("2"), THREE("3"));
+
+        assertEquals("<list>\n" +
+                "  <list-element>1</list-element>\n" +
+                "  <list-element>2</list-element>\n" +
+                "  <list-element>3</list-element>\n" +
+                "</list>\n", new ThreeToXml().write( ThreeKey.valueOf("list"), THREE(list)).toString());
     }
 }

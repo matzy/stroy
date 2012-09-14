@@ -1,9 +1,10 @@
 package org.openCage.stroy.file;
 
-import org.openCage.lang.functions.F1;
-import org.openCage.lang.functions.F2;
-import org.openCage.lang.functions.VF0;
-import org.openCage.lang.structure.ObservableRef;
+
+import org.openCage.kleinod.lambda.F1;
+import org.openCage.kleinod.lambda.F2;
+import org.openCage.kleinod.lambda.VF0;
+import org.openCage.kleinod.observe.ObservableRef;
 
 /**
  * Created with IntelliJ IDEA.

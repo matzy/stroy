@@ -1,5 +1,10 @@
 package org.openCage.stroy.graph.node;
 
+import org.openCage.lindwurm.LindenNode;
+import org.openCage.lindwurm.SimpleTreeNode;
+import org.openCage.lindwurm.content.Content;
+import org.openCage.lindwurm.xml.TextContent;
+
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
  * Copyright (c) 2006 - 2012, Stephan Pfab
@@ -25,13 +30,22 @@ package org.openCage.stroy.graph.node;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ***** END LICENSE BLOCK *****/
 
-public class SimpleTreeBuilder<T> {
+public class SimpleTreeBuilder {
 
-    public TreeNode<T> d( T t, TreeNode<T> ... childs ) {
-        return new SimpleTreeNode<T>( t, childs );
+    public LindenNode d( Content t, LindenNode... childs ) {
+        return new SimpleTreeNode( t, childs );
     }
 
-    public TreeNode<T> l( T t ) {
-        return new SimpleTreeNode<T>( t );
+    public LindenNode d( String t, LindenNode... childs ) {
+        return new SimpleTreeNode( new TextContent(t,t), childs );
     }
+
+    public LindenNode l( Content t ) {
+        return new SimpleTreeNode( t );
+    }
+
+    public LindenNode l( String t ) {
+        return new SimpleTreeNode( new TextContent(t,t) );
+    }
+
 }

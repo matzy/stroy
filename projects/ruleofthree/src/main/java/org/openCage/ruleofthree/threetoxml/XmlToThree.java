@@ -1,9 +1,12 @@
 package org.openCage.ruleofthree.threetoxml;
 
-import org.openCage.io.IOUtils;
-import org.openCage.io.fspath.FSPathBuilder;
-import org.openCage.lang.inc.Null;
-import org.openCage.ruleofthree.*;
+import org.openCage.kleinod.type.Null;
+import org.openCage.kleinod.io.IOUtils;
+import org.openCage.kleinod.io.fspath.FSPathBuilder;
+import org.openCage.ruleofthree.Three;
+import org.openCage.ruleofthree.ThreeKey;
+import org.openCage.ruleofthree.ThreeMap;
+import org.openCage.ruleofthree.Threes;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -86,7 +89,7 @@ public class XmlToThree {
             IOUtils.ensurePath(back);
             LOG.warning("copying to " + back.getAbsolutePath());
             IOUtils.copy(file, back);
-            return Null.get( Three.class );
+            return Null.of(Three.class);
         }
 
     }
@@ -173,11 +176,11 @@ public class XmlToThree {
 
                 Map<ThreeKey,Three> map = stack.peek().getMap();
 
-                if ( map.containsKey(endKey)) {
+                if ( map.containsKey(endKey.getSuper())) {
                     // its a list
                     stack.pop();
                     List<Three> list = new ArrayList<Three>();
-                    list.add(map.get(endKey));
+                    list.add(map.get(endKey.getSuper()));
                     list.add(elem);
                     stack.push(THREE(list));
 
@@ -219,7 +222,7 @@ public class XmlToThree {
 
 
         public Three getThree() {
-            return stack.pop();
+            return stack.pop().getMap().get( ThreeKey.valueOf(title));
         }
     }
 

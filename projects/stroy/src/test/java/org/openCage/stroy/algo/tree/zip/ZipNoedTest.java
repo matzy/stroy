@@ -4,7 +4,7 @@
 //import org.openCage.stroy.algo.tree.NoedUtils;
 //import org.openCage.stroy.algo.tree.zip.ZipNoedGenerator;
 //import org.openCage.stroy.filter.NullIgnore;
-//import org.openCage.stroy.filter.Ignore;
+//import org.openCage.lindwurm.Ignore;
 //import org.openCage.stroy.RuntimeModule;
 //
 //import java.util.Arrays;

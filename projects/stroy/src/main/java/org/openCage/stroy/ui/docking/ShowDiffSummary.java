@@ -1,20 +1,19 @@
 package org.openCage.stroy.ui.docking;
 
-import org.openCage.stroy.content.FileContent;
+import net.java.dev.designgridlayout.DesignGridLayout;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
-import org.openCage.stroy.ui.difftree.UINode;
-import org.openCage.stroy.ui.Colors;
-import org.openCage.stroy.content.Content;
 import org.openCage.stroy.locale.Message;
+import org.openCage.stroy.ui.Colors;
+import org.openCage.stroy.ui.difftree.UINode;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
-
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.util.List;
-
-import net.java.dev.designgridlayout.DesignGridLayout;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
@@ -41,7 +40,7 @@ import net.java.dev.designgridlayout.DesignGridLayout;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ***** END LICENSE BLOCK *****/
 
-public class ShowDiffSummary<T extends Content> extends JPanel {
+public class ShowDiffSummary extends JPanel {
     private final JLabel multiple = new JLabel( Message.get( "Summary.multiple" ));
     private final JLabel only = new JLabel( Message.get( "Summary.only", 0 ));
     private final JLabel content = new JLabel( Message.get( "Summary.content" ));
@@ -49,7 +48,7 @@ public class ShowDiffSummary<T extends Content> extends JPanel {
     private final JLabel moved = new JLabel( Message.get( "Summary.moved" ));
     private final JButton refresh = new JButton( Message.get( "Button.refresh" ));
     private final JLabel leftRootDir;
-    private final List<TreeMatchingTask<T>> matchings;
+    private final List<TreeMatchingTask> matchings;
     private final JLabel leftDirsTotal = new JLabel();
     private final JLabel leftFilesTotal =  new JLabel();
     private final JLabel leftDirsOnly = new JLabel();
@@ -66,7 +65,7 @@ public class ShowDiffSummary<T extends Content> extends JPanel {
     private final JLabel rightFilesOnly = new JLabel();
     private boolean onlyhas2Rows = false;
 
-    public ShowDiffSummary( final java.util.List<TreeMatchingTask<T>> matchings,
+    public ShowDiffSummary( final java.util.List<TreeMatchingTask> matchings,
                             final java.util.List<DefaultMutableTreeNode> roots ) {
 
         this.matchings = matchings;
@@ -214,7 +213,7 @@ public class ShowDiffSummary<T extends Content> extends JPanel {
     }
 
     private String getRootPath(  final DefaultMutableTreeNode root ) {
-        final UINode<Content> uiNode = (UINode<Content>)root.getUserObject();
+        final UINode uiNode = (UINode)root.getUserObject();
         return uiNode.get().getContent().getLocation();
     }
 

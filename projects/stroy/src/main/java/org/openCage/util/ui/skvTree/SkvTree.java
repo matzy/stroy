@@ -1,25 +1,24 @@
 package org.openCage.util.ui.skvTree;
 
-import org.openCage.lang.iterators.Count;
-import org.openCage.lang.iterators.Iterators;
+import org.openCage.kleinod.collection.Count;
+import org.openCage.kleinod.collection.Iterators;
+import org.openCage.stroy.ui.util.NodeToNode;
 import org.openCage.util.ui.skyviewbar.Config;
 import org.openCage.util.ui.skyviewbar.ObjectListener;
-import org.openCage.stroy.ui.util.NodeToNode;
-import org.openCage.stroy.ui.difftree.SynchronizeListener;
 
 import javax.swing.*;
-import javax.swing.event.TreeExpansionListener;
 import javax.swing.event.TreeExpansionEvent;
-import javax.swing.event.TreeSelectionListener;
+import javax.swing.event.TreeExpansionListener;
 import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.ComponentListener;
-import java.awt.event.ComponentEvent;
 import java.awt.*;
-import java.util.*;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.List;
 
 /***** BEGIN LICENSE BLOCK *****

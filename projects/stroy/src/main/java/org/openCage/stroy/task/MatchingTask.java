@@ -1,8 +1,6 @@
 package org.openCage.stroy.task;
 
-import org.openCage.stroy.content.FileContent;
 import org.openCage.stroy.diff.ContentDiff;
-import org.openCage.stroy.graph.node.TreeNode;
 
 import java.util.Collection;
 
@@ -62,5 +60,5 @@ public interface MatchingTask<T> {
     public ContentDiff getDifference( T obj );
     public void        setDifference( T obj, ContentDiff payload );
 
-    void setRoot( T oneRoot, boolean b);
+    void setRoot( T oneRoot, boolean left);
 }

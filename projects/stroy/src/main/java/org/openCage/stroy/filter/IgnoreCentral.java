@@ -2,9 +2,10 @@ package org.openCage.stroy.filter;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
-import org.openCage.lang.Strings;
-import org.openCage.lang.functions.F1;
-import org.openCage.lang.functions.VF0;
+import org.openCage.kleinod.Strings;
+import org.openCage.kleinod.lambda.F1;
+import org.openCage.kleinod.lambda.VF0;
+import org.openCage.lindwurm.Ignore;
 import org.openCage.ruleofthree.property.ArrayListProperty;
 import org.openCage.ruleofthree.property.ListProperty;
 
@@ -101,7 +102,7 @@ public class IgnoreCentral implements Ignore, VF0 {
 
     @Override
     public void call() {
-       pattern = Pattern.compile( Strings.join( patterns ).
+       pattern = Pattern.compile( Strings.join(patterns).
                                        trans( new F1<String, String>() {
                                            @Override public String call(String str) {
                                                return "(" + str + ")";

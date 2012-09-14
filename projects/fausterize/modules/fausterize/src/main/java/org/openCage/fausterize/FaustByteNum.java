@@ -6,7 +6,7 @@ import org.openCage.huffman.BitList;
 import org.openCage.huffman.Huffman;
 import org.openCage.huffman.HuffmanN;
 import org.openCage.io.Resource;
-import org.openCage.lang.errors.Unchecked;
+import org.openCage.kleinod.errors.Unchecked;
 import org.openCage.lang.functions.F1;
 import org.openCage.lang.functions.FE1;
 import org.openCage.lang.iterators.Iterators;

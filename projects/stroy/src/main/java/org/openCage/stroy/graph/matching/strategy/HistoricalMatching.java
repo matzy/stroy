@@ -1,16 +1,14 @@
 package org.openCage.stroy.graph.matching.strategy;
 
 import com.google.inject.Inject;
+import org.openCage.lindwurm.LindenDirNode;
+import org.openCage.lindwurm.LindenNode;
 import org.openCage.stroy.TreeLeafDistance;
+import org.openCage.stroy.graph.matching.TreeLeafNodeFuzzyLeafDistance;
 import org.openCage.stroy.locale.Message;
 import org.openCage.stroy.task.MatchingTask;
 import org.openCage.stroy.array.MatchBestConnections2;
-import org.openCage.stroy.content.Content;
-import org.openCage.stroy.graph.node.TreeDirNode;
-import org.openCage.stroy.graph.node.TreeLeafNode;
-import org.openCage.stroy.graph.matching.TreeLeafNodeFuzzyLeafDistance;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
-import org.openCage.stroy.graph.matching.strategy.MatchStrategy;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
@@ -40,16 +38,16 @@ import org.openCage.stroy.graph.matching.strategy.MatchStrategy;
 /**
  * match by fuzzyhash
  */
-public class HistoricalMatching<T extends Content> implements MatchStrategy<T> {
+public class HistoricalMatching implements MatchStrategy {
 
-    private final TreeLeafDistance<T> fuzzyTreeLeafDistance;
+    private final TreeLeafDistance fuzzyTreeLeafDistance;
 
     @Inject
-    public HistoricalMatching( final TreeLeafNodeFuzzyLeafDistance<T> fuzzyDistance ) {
+    public HistoricalMatching( final TreeLeafNodeFuzzyLeafDistance fuzzyDistance ) {
         this.fuzzyTreeLeafDistance = fuzzyDistance;
     }
 
-    public void match(final TreeMatchingTask<T> treeMatchingTask, Reporter reporter) {
+    public void match(final TreeMatchingTask treeMatchingTask, Reporter reporter) {
 
         reporter.title( Message.get( "Strategy.Similarity" ));
 
@@ -61,8 +59,8 @@ public class HistoricalMatching<T extends Content> implements MatchStrategy<T> {
 
         // TODO reporting
 
-        final MatchBestConnections2<MatchingTask<TreeDirNode<T>>,TreeLeafNode<T>> match =
-                new MatchBestConnections2<MatchingTask<TreeDirNode<T>>, TreeLeafNode<T>>(
+        final MatchBestConnections2<MatchingTask<LindenDirNode>,LindenNode> match =
+                new MatchBestConnections2<MatchingTask<LindenDirNode>, LindenNode>(
                         fuzzyTreeLeafDistance, false, reporter );
 
         match.match( treeMatchingTask.getDirs(),

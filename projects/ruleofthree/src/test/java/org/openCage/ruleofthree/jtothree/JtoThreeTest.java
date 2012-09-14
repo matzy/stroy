@@ -2,8 +2,9 @@ package org.openCage.ruleofthree.jtothree;
 
 import com.google.inject.TypeLiteral;
 import org.junit.Test;
-import org.openCage.lang.structure.Ref;
-import org.openCage.rei.ReiHashMap;
+import org.openCage.kleinod.collection.Ref;
+import org.openCage.kleinod.collection.ReiHashMap;
+import org.openCage.kleinod.type.TypeLit;
 import org.openCage.ruleofthree.Three;
 import org.openCage.ruleofthree.ThreeHashMap;
 import org.openCage.ruleofthree.ThreeKey;
@@ -58,7 +59,7 @@ public class JToThreeTest {
 
     @Test
     public void otherMap() {
-        Map<Integer,String> map = new ReiHashMap<Integer, String>( new TypeLiteral<Integer>() {});
+        Map<Integer,String> map = new ReiHashMap<Integer, String>( new TypeLit<Integer>() {});
         map.put(1,"one");
         map.put(2,"two");
 

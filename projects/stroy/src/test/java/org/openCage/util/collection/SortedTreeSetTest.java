@@ -3,6 +3,8 @@ package org.openCage.util.collection;
 import org.openCage.util.compare.StringLengthComparator;
 import junit.framework.TestCase;
 
+import java.util.TreeSet;
+
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
  * Copyright (c) 2006 - 2012, Stephan Pfab
@@ -31,7 +33,7 @@ import junit.framework.TestCase;
 public class SortedTreeSetTest extends TestCase {
 
     public void testA() {
-        SortedTreeSet<String> set = new SortedTreeSet<String>( new StringLengthComparator() );                
+        TreeSet<String> set = new TreeSet<String>( new StringLengthComparator() );
 
         set.add( "ab" );
         set.add( "www" );

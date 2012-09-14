@@ -17,7 +17,7 @@
 //import org.openCage.stroy.algo.matching.strategies.base.StandardTreeMatching;
 //import org.openCage.stroy.algo.fingerprint.FingerPrint;
 //import org.openCage.stroy.algo.fingerprint.FileFingerPrint;
-//import org.openCage.stroy.filter.Ignore;
+//import org.openCage.lindwurm.Ignore;
 //import org.openCage.stroy.filter.IgnoreByLists;
 //
 //import java.io.File;

@@ -1,13 +1,10 @@
 package org.openCage.ruleofthree.property;
 
-import org.openCage.lang.listeners.Observer;
-import org.openCage.lang.listeners.VoidListenerControl;
-import org.openCage.lang.listeners.VoidListeners;
-import org.openCage.ruleofthree.Property;
+import org.openCage.kleinod.observe.VoidListenerControl;
+import org.openCage.kleinod.observe.VoidListeners;
 import org.openCage.ruleofthree.Three;
 import org.openCage.ruleofthree.ThreeHashMap;
 import org.openCage.ruleofthree.ThreeKey;
-import org.openCage.ruleofthree.ThreeMap;
 import org.openCage.ruleofthree.Threes;
 import org.openCage.ruleofthree.jtothree.JToThree;
 

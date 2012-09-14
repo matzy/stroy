@@ -1,8 +1,6 @@
 package org.openCage.stroy.dir;
 
-import org.openCage.stroy.content.Content;
-import org.openCage.stroy.content.FileContent;
-import org.openCage.stroy.filter.Ignore;
+import org.openCage.lindwurm.Ignore;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
 
 import java.io.File;
@@ -34,7 +32,5 @@ import java.io.File;
 
 public interface FileTreeMatchingTaskBuilder {
 
-    public TreeMatchingTask<Content> build( TreeMatchingTask<Content> task, Ignore ignore, File one );
-//    public TreeMatchingTask<Content> build( Ignore ignore, File one, File two);
-//    public TreeMatchingTask<Content> build( Ignore ignore, TreeMatchingTask<FileContent> src, File two);
+    public TreeMatchingTask build( TreeMatchingTask task, Ignore ignore, File one );
 }

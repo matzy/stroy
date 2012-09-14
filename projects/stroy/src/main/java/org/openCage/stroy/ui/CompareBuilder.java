@@ -1,32 +1,33 @@
 package org.openCage.stroy.ui;
 
-import org.openCage.lang.inc.Null;
-import org.openCage.lang.structure.T2;
-import org.openCage.lang.structure.Tu;
-import org.openCage.stroy.content.Content;
-import org.openCage.stroy.dir.FileContentImpl;
-import org.openCage.stroy.dir.FileTreeMatchingTaskBuilder;
+import org.openCage.kleinod.collection.T2;
+import org.openCage.kleinod.io.FileUtils;
+import org.openCage.lindwurm.Ignore;
+import org.openCage.lindwurm.LindwurmBuilder;
+import org.openCage.lindwurm.file.FileLindwurmBuilder;
+import org.openCage.lindwurm.jar.JarLindwurmBuilder;
+import org.openCage.lindwurm.json.JsonLindwurmBuilder;
+import org.openCage.lindwurm.single.SingleLindwurmBuilder;
+import org.openCage.lindwurm.xml.XmlLindwurmBuilder;
+import org.openCage.lindwurm.zip.ZipLindwurmBuilder;
 import org.openCage.stroy.app.Tasks;
-import org.openCage.stroy.filter.Ignore;
 import org.openCage.stroy.filter.IgnoreCentral;
+import org.openCage.stroy.graph.matching.LindwurmToTreeMatchingTask;
+import org.openCage.stroy.graph.matching.TreeMatchingTask;
+import org.openCage.stroy.graph.matching.strategy.NameOnly;
+import org.openCage.stroy.graph.matching.strategy.Reporter;
+import org.openCage.stroy.graph.matching.strategy.combined.WatchFull;
 import org.openCage.stroy.locale.Message;
 import org.openCage.stroy.ui.difftree.NWayDiffPaneGenerator;
 import org.openCage.stroy.ui.docking.GraphicalDiffMyDoggy;
-import org.openCage.stroy.graph.matching.TreeMatchingTask;
-import org.openCage.stroy.graph.matching.strategy.Reporter;
-import org.openCage.stroy.graph.matching.strategy.NameOnly;
-import org.openCage.stroy.graph.matching.strategy.combined.WatchFull;
 import org.openCage.stroy.ui.menu.PortableMenuFactory;
-import org.openCage.stroy.zip.ZipTreeMatchingTaskBuilder;
-import org.openCage.util.io.FileUtils;
 import org.openCage.util.logging.Log;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
+import javax.swing.*;
 import java.io.File;
-
-import javax.swing.SwingWorker;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
@@ -57,18 +58,15 @@ public class CompareBuilder extends SwingWorker<GraphicalDiffMyDoggy, T2<String,
 
     private final Ignore                      ignore;
     private final List<String>                dirs;
-    private final FileTreeMatchingTaskBuilder taskBuilder;
     private final ModalProgress               progressDialog = new ModalProgress( null );
     private final WatchFull                   watchFullstrategy;
     private final NWayDiffPaneGenerator       diffPaneGen;
     private PortableMenuFactory menuFactory;
-    private ZipTreeMatchingTaskBuilder zipTaskBuilder = new ZipTreeMatchingTaskBuilder();
 
 
     public CompareBuilder(final PortableMenuFactory menuFactory,
                           final NWayDiffPaneGenerator diffPaneGen,
                           final WatchFull watchFullstrategy,
-                          FileTreeMatchingTaskBuilder taskBuilder,
                           IgnoreCentral ignoreCentral,
                           String... dirs) {
 
@@ -88,7 +86,6 @@ public class CompareBuilder extends SwingWorker<GraphicalDiffMyDoggy, T2<String,
 
         this.ignore = ignoreCentral.getIgnore();
 //
-        this.taskBuilder = taskBuilder;
         progressDialog.setVisible( true );
 
     }
@@ -97,44 +94,56 @@ public class CompareBuilder extends SwingWorker<GraphicalDiffMyDoggy, T2<String,
 
     protected GraphicalDiffMyDoggy doInBackground() throws Exception {
 
-        List<TreeMatchingTask<Content>> tasks = null;
+        List<TreeMatchingTask> tasks = null;
         try {
             tasks  = buildTasks();
         } catch ( Exception exp ) {
-            int i = 0;
+            Log.warning(exp);
+            throw exp;
         }
 
         Reporter reporter = new Reporter() {
             public void detail( String labl, String str) {
-                publish( Tu.c( labl, str ) );
+                publish( T2.valueOf( labl, str ) );
             }
 
             public void title( String str ) {
-                publish( Tu.c(str, (String)null ));
+                publish( T2.valueOf(str, (String)null ));
             }
         };
 
-        for ( TreeMatchingTask<Content> task : tasks ) {
-            new NameOnly<Content>().match( task, reporter);
+        for ( TreeMatchingTask task : tasks ) {
+            new NameOnly().match( task, reporter);
         }
 
         // build the trees ui in the background
-        publish( Tu.c( Message.get( "Progress.MainWindowBuilding" ), (String)null ));
+        publish( T2.valueOf( Message.get( "Progress.MainWindowBuilding" ), (String)null ));
 
-        return new GraphicalDiffMyDoggy( menuFactory.get(), diffPaneGen, new Tasks<Content>( tasks ) );
+        return new GraphicalDiffMyDoggy( menuFactory.get(), diffPaneGen, new Tasks( tasks ) );
     }
 
-    private List<TreeMatchingTask<Content>> buildTasks() {
-        List<TreeMatchingTask<Content>> tasks = new ArrayList<TreeMatchingTask<Content>>();
+    private List<TreeMatchingTask> buildTasks() {
+        List<TreeMatchingTask> tasks = new ArrayList<TreeMatchingTask>();
 
         for ( int idx = 1; idx < dirs.size(); ++idx  ) {
 
             // TODO localize full message
-            publish(  Tu.c( Message.get( "Progress.scanning" ), (String)null ));
+            publish(  T2.valueOf( Message.get( "Progress.scanning" ), (String)null ));
 
             if ( tasks.size() == 0 ) {
-                TreeMatchingTask<Content> task = getTaskBuilder(dirs.get(idx - 1)).build(null, ignore, new File(dirs.get(idx - 1)));
-                tasks.add( getTaskBuilder(dirs.get(idx)).build(task, ignore, new File(dirs.get(idx))));
+
+                TreeMatchingTask task = new LindwurmToTreeMatchingTask().
+                        build(
+                                getLindwurmBuilder(dirs.get(idx - 1)).
+                                        build( ignore, new File(dirs.get(idx - 1))).dir());
+                new LindwurmToTreeMatchingTask().
+                        build(
+                                task,
+                                getLindwurmBuilder(dirs.get(idx )).
+                                       build( ignore, new File(dirs.get(idx ))).dir());
+                tasks.add( task );
+//                TreeMatchingTask task = getTaskBuilder(dirs.get(idx - 1)).build(null, ignore, new File(dirs.get(idx - 1)));
+//                tasks.add( getTaskBuilder(dirs.get(idx)).build(task, ignore, new File(dirs.get(idx))));
             } else {
                 throw new Error("huh");
                 //tasks.add( taskBuilder.build( tasks.get(tasks.size() - 1), ignore, new File( dirs.get(idx ))));
@@ -148,7 +157,7 @@ public class CompareBuilder extends SwingWorker<GraphicalDiffMyDoggy, T2<String,
     protected void done() {
         super.done();
 
-        GraphicalDiffMyDoggy gd4;
+        GraphicalDiffMyDoggy gd4 = null;
 
         try {
             gd4 = get();
@@ -156,11 +165,19 @@ public class CompareBuilder extends SwingWorker<GraphicalDiffMyDoggy, T2<String,
             // TODO open log window
             Log.log( e );
             progressDialog.dispose();
-            return;
+            JOptionPane.showMessageDialog(null,
+                    e.getMessage(),
+                    "oppsie",
+                    JOptionPane.ERROR_MESSAGE);
+            System.exit(1);
         } catch ( ExecutionException e ) {
             Log.log( e );
             progressDialog.dispose();
-            return;
+            JOptionPane.showMessageDialog(null,
+                    e.getMessage(),
+                    "oppsie",
+                    JOptionPane.ERROR_MESSAGE);
+            System.exit(1);
         }
 
         if ( gd4 == null ) {
@@ -174,7 +191,7 @@ public class CompareBuilder extends SwingWorker<GraphicalDiffMyDoggy, T2<String,
 
         progressDialog.dispose();
 
-        new MatchnWatch<FileContentImpl>( gd4.getUIApp(), watchFullstrategy ).execute();
+        new MatchnWatch( gd4.getUIApp(), watchFullstrategy ).execute();
     }
 
 
@@ -190,18 +207,28 @@ public class CompareBuilder extends SwingWorker<GraphicalDiffMyDoggy, T2<String,
         }
     }
 
-    public FileTreeMatchingTaskBuilder getTaskBuilder( String path ) {
+
+    public LindwurmBuilder getLindwurmBuilder(String path) {
         if ( new File(path).isDirectory() ) {
-            return taskBuilder;
+            return new FileLindwurmBuilder();
         } else {
             String ext = FileUtils.getExtension( path );
 
             if ( ext.equals( "zip" )) {
-                return zipTaskBuilder;
+                return new ZipLindwurmBuilder();
+            } else if ( ext.equals( "xml")) {
+                return new XmlLindwurmBuilder();
+            } else if ( ext.equals( "json")) {
+                return new JsonLindwurmBuilder();
+            } else if ( ext.equals( "jar")) {
+                return new JarLindwurmBuilder();
             }
+
+            return new SingleLindwurmBuilder();
+
         }
 
-        return Null.get(FileTreeMatchingTaskBuilder.class);
+
     }
 
 }

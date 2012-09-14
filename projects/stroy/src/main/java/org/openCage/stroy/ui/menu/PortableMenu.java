@@ -1,20 +1,18 @@
 package org.openCage.stroy.ui.menu;
 
-import org.openCage.util.app.AppInfo;
-import org.openCage.util.app.About;
-import org.openCage.util.app.AboutImpl;
-import org.openCage.util.www.Mailto;
-import org.openCage.util.ui.BrowserLauncher;
-import org.openCage.stroy.ui.prefs.PrefsUI;
-import org.openCage.stroy.ui.help.HelpLauncher;
-import org.openCage.stroy.ui.menu.Menu;
+import com.muchsoft.util.Sys;
 import org.openCage.stroy.locale.Message;
+import org.openCage.stroy.todo.app.About;
+import org.openCage.stroy.todo.app.AboutImpl;
+import org.openCage.stroy.todo.app.AppInfo;
+import org.openCage.stroy.ui.help.HelpLauncher;
+import org.openCage.stroy.ui.prefs.PrefsUI;
+import org.openCage.util.ui.BrowserLauncher;
+import org.openCage.util.www.Mailto;
 
 import javax.swing.*;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
-import com.muchsoft.util.Sys;
+import java.awt.event.ActionListener;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
@@ -113,8 +111,8 @@ public class PortableMenu implements Menu {
 //        menuView.add( toggleThinnig );
 //        toggleThinnig.addActionListener( new ActionListener() {
 //            public void actionPerformed(ActionEvent actionEvent) {
-////                new ThinningWorker( null, Central.diffPane, Central.tasks, new Method1<Boolean, TreeNode<FileContent>>() {
-////                    public Boolean call(TreeNode<FileContent> treeNode) {
+////                new ThinningWorker( null, Central.diffPane, Central.tasks, new Method1<Boolean, LindenNode<FileContent>>() {
+////                    public Boolean call(LindenNode<FileContent> treeNode) {
 ////                        return treeNode.isLeaf();
 ////                    }
 ////                }).execute();

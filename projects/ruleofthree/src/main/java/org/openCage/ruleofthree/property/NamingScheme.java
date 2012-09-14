@@ -1,6 +1,6 @@
 package org.openCage.ruleofthree.property;
 
-import org.openCage.lang.inc.ImmuList;
+import org.openCage.kleinod.collection.ImmuList;
 import org.openCage.ruleofthree.ThreeKey;
 
 import java.io.File;

@@ -1,10 +1,14 @@
 package org.openCage.stroy.matching;
 
-import org.openCage.lang.functions.F2;
-import org.openCage.util.logging.Log;
+import org.openCage.kleinod.lambda.F2;
 import org.openCage.stroy.algo.matching.Task;
+import org.openCage.util.logging.Log;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
@@ -51,7 +55,7 @@ public class TaskNeutral<T> implements Task<T> {
         right2left.remove( obj );
 
         // TODO
-//        for ( NodeChangeListener listener : listeners ) {
+//        for ( NodeChangeListener listener : observe ) {
 //            listener.removed( obj );
 //        }
 
@@ -102,7 +106,7 @@ public class TaskNeutral<T> implements Task<T> {
         }
 
         // TODO
-//        for ( NodeChangeListener listener : listeners ) {
+//        for ( NodeChangeListener listener : observe ) {
 //            listener.beforeMatched( src, tgt );
 //        }
 
@@ -115,7 +119,7 @@ public class TaskNeutral<T> implements Task<T> {
         attributes.put( right, ea);
 
         // TODO
-//        for ( NodeChangeListener listener : listeners ) {
+//        for ( NodeChangeListener listener : observe ) {
 //            listener.matched( src, tgt );
 //        }
     }
@@ -140,7 +144,7 @@ public class TaskNeutral<T> implements Task<T> {
         }
 
         // TODO
-//        for ( NodeChangeListener listener : listeners ) {
+//        for ( NodeChangeListener listener : observe ) {
 //            listener.matchRemoved( obj, right );
 //        }
     }

@@ -1,6 +1,6 @@
 package org.openCage.ruleofthree.property;
 
-import org.openCage.lang.listeners.Observer;
+import org.openCage.kleinod.observe.Observer;
 import org.openCage.ruleofthree.Property;
 import org.openCage.ruleofthree.ThreeMap;
 

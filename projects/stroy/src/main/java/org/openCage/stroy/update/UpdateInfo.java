@@ -1,18 +1,17 @@
 package org.openCage.stroy.update;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
-import org.openCage.util.app.AppInfo;
-import org.openCage.util.app.Version2;
-import org.openCage.util.ui.BrowserLauncher;
-import org.openCage.util.logging.Log;
-import org.openCage.stroy.locale.Message;
-import org.openCage.stroy.ui.prefs.PrefsUI;
 import com.google.inject.Inject;
 import net.java.dev.designgridlayout.DesignGridLayout;
+import org.openCage.stroy.locale.Message;
+import org.openCage.stroy.todo.app.AppInfo;
+import org.openCage.stroy.todo.app.Version2;
+import org.openCage.util.logging.Log;
+import org.openCage.util.ui.BrowserLauncher;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)

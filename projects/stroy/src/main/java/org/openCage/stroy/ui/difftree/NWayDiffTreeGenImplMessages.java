@@ -1,8 +1,7 @@
 package org.openCage.stroy.ui.difftree;
 
-import org.openCage.stroy.graph.matching.TreeMatchingTask;
-import org.openCage.stroy.content.Content;
 import com.google.inject.Inject;
+import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.ui.popup.PopupSelectorFactory;
 
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -32,20 +31,20 @@ import java.util.List;
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ***** END LICENSE BLOCK *****/
-public class NWayDiffTreeGenImplMessages<T extends Content> implements NWayDiffPaneGenerator<T> {
+public class NWayDiffTreeGenImplMessages implements NWayDiffPaneGenerator {
 
     private final ShowChangeTreeCellRenderer showChangeTreeCellRenderer;
-    private PopupSelectorFactory<T> popupSelectorFactory;
+    private PopupSelectorFactory popupSelectorFactory;
 
     @Inject
-    public NWayDiffTreeGenImplMessages( final PopupSelectorFactory<T> popupSelectorFactory, final ShowChangeTreeCellRenderer showChangeTreeCellRenderer ) {
+    public NWayDiffTreeGenImplMessages( final PopupSelectorFactory popupSelectorFactory, final ShowChangeTreeCellRenderer showChangeTreeCellRenderer ) {
         this.showChangeTreeCellRenderer  = showChangeTreeCellRenderer;
         this.popupSelectorFactory = popupSelectorFactory;
     }
 
 
-    public NWayDiffPane getDiffPane(  final List<TreeMatchingTask<T>> tasks,
+    public NWayDiffPane getDiffPane(  final List<TreeMatchingTask> tasks,
                                       final List<DefaultMutableTreeNode>        roots ) {
-        return new NWayDiffPaneMessages<T>( tasks, roots, showChangeTreeCellRenderer, popupSelectorFactory );
+        return new NWayDiffPaneMessages( tasks, roots, showChangeTreeCellRenderer, popupSelectorFactory );
     }
 }

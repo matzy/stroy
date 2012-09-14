@@ -1,7 +1,6 @@
 package org.openCage.stroy.ui.difftree;
 
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
-import org.openCage.stroy.content.Content;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.List;
@@ -31,8 +30,8 @@ import java.util.List;
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ***** END LICENSE BLOCK *****/
-public interface NWayDiffPaneGenerator<T extends Content> {
+public interface NWayDiffPaneGenerator {
 
-    public NWayDiffPane getDiffPane( final List<TreeMatchingTask<T>>    tasks,
+    public NWayDiffPane getDiffPane( final List<TreeMatchingTask>    tasks,
                                      final List<DefaultMutableTreeNode> roots );
 }

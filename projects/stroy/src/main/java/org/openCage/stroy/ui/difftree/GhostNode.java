@@ -1,10 +1,10 @@
 package org.openCage.stroy.ui.difftree;
 
+import org.openCage.lindwurm.LindenNode;
 import org.openCage.stroy.ui.ChangeVector;
-import org.openCage.stroy.graph.node.TreeNode;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.diff.ContentDiff;
-import org.openCage.stroy.content.Content;
+import org.openCage.lindwurm.content.Content;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.List;
@@ -35,14 +35,14 @@ import java.util.List;
 ***** END LICENSE BLOCK *****/
 
 /**
- * UINode for a node without TreeNode representation
+ * UINode for a node without LindenNode representation
  * this is a placeholder for deleted files on the other side
  */
-public class GhostNode<T extends Content> implements UINode<T> {
+public class GhostNode<T extends Content> implements UINode {
 
-//    private final TreeNode<T>         node;
-    private final TreeMatchingTask<T> taskLeft;
-    private final TreeMatchingTask<T> taskRight;
+//    private final LindenNode         node;
+    private final TreeMatchingTask taskLeft;
+    private final TreeMatchingTask taskRight;
 
     private ChangeNumbers cn;
 
@@ -53,9 +53,9 @@ public class GhostNode<T extends Content> implements UINode<T> {
     private String name;
 
 
-    public GhostNode( TreeNode<T>         node,
-                      TreeMatchingTask<T> task1,
-                      TreeMatchingTask<T> task2,
+    public GhostNode( LindenNode node,
+                      TreeMatchingTask task1,
+                      TreeMatchingTask task2,
                       boolean left,
                       boolean right ) {
 //        this.node       = node;
@@ -82,7 +82,7 @@ public class GhostNode<T extends Content> implements UINode<T> {
         return cvRight;
     }
 
-    public TreeNode get() {
+    public LindenNode get() {
         return null;
     }
 

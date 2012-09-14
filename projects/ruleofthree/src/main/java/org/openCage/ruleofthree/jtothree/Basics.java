@@ -1,11 +1,11 @@
 package org.openCage.ruleofthree.jtothree;
 
 
-import com.google.inject.TypeLiteral;
-import org.openCage.lang.functions.F1;
-import org.openCage.lang.inc.ImmuDate;
-import org.openCage.lang.structure.Ref;
-import org.openCage.rei.ReiHashMap;
+import org.openCage.kleinod.collection.ReiHashMap;
+import org.openCage.kleinod.immutable.ImmuDate;
+import org.openCage.kleinod.lambda.F0;
+import org.openCage.kleinod.lambda.F1;
+import org.openCage.kleinod.type.TypeLit;
 import org.openCage.ruleofthree.Three;
 
 import java.util.Locale;
@@ -42,8 +42,9 @@ import static org.openCage.ruleofthree.Threes.THREE;
 
 public class Basics {
 
-    private Map<Class, F1<Three,Object>> toThrees = new ReiHashMap<Class, F1<Three, Object>>( new TypeLiteral<Class>() {} );
-    private Map<Class, F1<Object,Three>> fromThrees = new ReiHashMap<Class, F1<Object, Three>>( new TypeLiteral<Class>() {});
+    private Map<Class, F1<Three,Object>> toThrees   = new ReiHashMap<Class, F1<Three, Object>>( new TypeLit<Class>() {} );
+    private Map<Class, F1<Object,Three>> fromThrees = new ReiHashMap<Class, F1<Object, Three>>( new TypeLit<Class>() {});
+    private Map<Class, F0<Object>>       defaults   = new ReiHashMap<Class, F0<Object>>( new TypeLit<Class>(){});
 
     private static Basics the = new Basics();
 
@@ -53,7 +54,55 @@ public class Basics {
 
     private Basics() {
         register(
+                char.class,
+                new F0<Character>(){
+                    @Override
+                    public Character call() {
+                        return ' ';
+                    }
+                },
+                new F1<Three, Character>() {
+                    @Override
+                    public Three call(Character s) {
+                        return THREE(""+s);
+                    }
+                },
+                new F1<Character, Three>() {
+                    @Override
+                    public Character call(Three readable) {
+                        return readable.getString().charAt(0);
+                    }
+                }
+        );
+        register(
+                Character.class,
+                new F0<Character>(){
+                    @Override
+                    public Character call() {
+                        return ' ';
+                    }
+                },
+                new F1<Three, Character>() {
+                    @Override
+                    public Three call(Character s) {
+                        return THREE(""+s);
+                    }
+                },
+                new F1<Character, Three>() {
+                    @Override
+                    public Character call(Three readable) {
+                        return readable.getString().charAt(0);
+                    }
+                }
+        );
+        register(
                 String.class,
+                new F0<String>(){
+                    @Override
+                    public String call() {
+                        return "";
+                    }
+                },
                 new F1<Three, String>() {
                     @Override
                     public Three call(String s) {
@@ -70,6 +119,12 @@ public class Basics {
 
         register(
                 Level.class,
+                new F0<Level>(){
+                    @Override
+                    public Level call() {
+                        return Level.INFO;
+                    }
+                },
                 new F1<Three, Level>() {
                     @Override
                     public Three call(Level level) {
@@ -86,6 +141,12 @@ public class Basics {
 
         register(
                 Locale.class,
+                new F0<Locale>(){
+                    @Override
+                    public Locale call() {
+                        return Locale.getDefault();
+                    }
+                },
                 new F1<Three, Locale>() {
                     @Override
                     public Three call(Locale locale) {
@@ -103,7 +164,13 @@ public class Basics {
         );
 
         register(
-                Integer.class,
+                int.class,
+                new F0<Integer>(){
+                    @Override
+                    public Integer call() {
+                        return 0;
+                    }
+                },
                 new F1<Three, Integer>() {
                     @Override
                     public Three call(Integer aLong) {
@@ -118,7 +185,34 @@ public class Basics {
                 }
         );
         register(
-                Long.class,
+                Integer.class,
+                new F0<Integer>(){
+                    @Override
+                    public Integer call() {
+                        return 0;
+                    }
+                },
+                new F1<Three, Integer>() {
+                    @Override
+                    public Three call(Integer aLong) {
+                        return THREE(aLong.toString());
+                    }
+                },
+                new F1<Integer, Three>() {
+                    @Override
+                    public Integer call(Three readable) {
+                        return Integer.valueOf( readable.getString() );
+                    }
+                }
+        );
+        register(
+                long.class,
+                new F0<Long>(){
+                    @Override
+                    public Long call() {
+                        return 0L;
+                    }
+                },
                 new F1<Three, Long>() {
                     @Override
                     public Three call(Long aLong) {
@@ -132,9 +226,122 @@ public class Basics {
                     }
                 }
         );
+        register(
+                Long.class,
+                new F0<Long>(){
+                    @Override
+                    public Long call() {
+                        return 0L;
+                    }
+                },
+                new F1<Three, Long>() {
+                    @Override
+                    public Three call(Long aLong) {
+                        return THREE(aLong.toString());
+                    }
+                },
+                new F1<Long, Three>() {
+                    @Override
+                    public Long call(Three readable) {
+                        return Long.valueOf( readable.getString() );
+                    }
+                }
+        );
+        register(
+                Double.class,
+                new F0<Double>(){
+                    @Override
+                    public Double call() {
+                        return 0D;
+                    }
+                },
+                new F1<Three, Double>() {
+                    @Override
+                    public Three call(Double aLong) {
+                        return THREE(aLong.toString());
+                    }
+                },
+                new F1<Double, Three>() {
+                    @Override
+                    public Double call(Three readable) {
+                        return Double.valueOf( readable.getString() );
+                    }
+                }
+        );
+        register(
+                double.class,
+                new F0<Double>(){
+                    @Override
+                    public Double call() {
+                        return 0D;
+                    }
+                },
+                new F1<Three, Double>() {
+                    @Override
+                    public Three call(Double aLong) {
+                        return THREE(aLong.toString());
+                    }
+                },
+                new F1<Double, Three>() {
+                    @Override
+                    public Double call(Three readable) {
+                        return Double.valueOf( readable.getString() );
+                    }
+                }
+        );
+        register(
+                Float.class,
+                new F0<Float>(){
+                    @Override
+                    public Float call() {
+                        return 0F;
+                    }
+                },
+                new F1<Three, Float>() {
+                    @Override
+                    public Three call(Float aLong) {
+                        return THREE(aLong.toString());
+                    }
+                },
+                new F1<Float, Three>() {
+                    @Override
+                    public Float call(Three readable) {
+                        return Float.valueOf( readable.getString() );
+                    }
+                }
+        );
+        register(
+                float.class,
+                new F0<Float>(){
+                    @Override
+                    public Float call() {
+                        return 0F;
+                    }
+                },
+                new F1<Three, Float>() {
+                    @Override
+                    public Three call(Float aLong) {
+                        return THREE(aLong.toString());
+                    }
+                },
+                new F1<Float, Three>() {
+                    @Override
+                    public Float call(Three readable) {
+                        return Float.valueOf( readable.getString() );
+                    }
+                }
+        );
+
 
         register(
                 UUID.class,
+                new F0<UUID>(){
+                    @Override
+                    public UUID call() {
+                        return UUID.randomUUID();
+                    }
+                },
+
                 new F1<Three, UUID>() {
                     @Override
                     public Three call(UUID uuid) {
@@ -150,6 +357,12 @@ public class Basics {
         );
         register(
                 ImmuDate.class,
+                new F0<ImmuDate>(){
+                    @Override
+                    public ImmuDate call() {
+                        return ImmuDate.now();
+                    }
+                },
                 new F1<Three, ImmuDate>() {
                     @Override
                     public Three call(ImmuDate date) {
@@ -163,10 +376,54 @@ public class Basics {
                     }
                 }
         );
+        register(
+                boolean.class,
+                new F0<Boolean>(){
+                    @Override
+                    public Boolean call() {
+                        return false;
+                    }
+                },
+                new F1<Three, Boolean>() {
+                    @Override
+                    public Three call(Boolean date) {
+                        return THREE(date.toString());
+                    }
+                },
+                new F1<Boolean, Three>() {
+                    @Override
+                    public Boolean call(Three readable) {
+                        return Boolean.valueOf(readable.getString());
+                    }
+                }
+        );
+        register(
+                Boolean.class,
+                new F0<Boolean>(){
+                    @Override
+                    public Boolean call() {
+                        return false;
+                    }
+                },
+                new F1<Three, Boolean>() {
+                    @Override
+                    public Three call(Boolean date) {
+                        return THREE(date.toString());
+                    }
+                },
+                new F1<Boolean, Three>() {
+                    @Override
+                    public Boolean call(Three readable) {
+                        return Boolean.valueOf(readable.getString());
+                    }
+                }
+        );
+
 
     }
 
-    public <T> void register( Class<T> clazz, F1<Three,T> toReadable, F1<T,Three> fromReadable ) {
+    public <T> void register( Class<T> clazz, F0<T> dflt, F1<Three,T> toReadable, F1<T,Three> fromReadable ) {
+        defaults.put(clazz, (F0<Object>) dflt);
         toThrees.put(clazz, (F1<Three, Object>) toReadable);
         fromThrees.put(clazz, (F1<Object, Three>) fromReadable);
 
@@ -179,5 +436,10 @@ public class Basics {
     public <T> F1<Three, T> getToThree(Class<T> clazz) {
         return (F1<Three, T>) toThrees.get(clazz);
     }
+
+    public <T> F0<T> getDefault( Class<T> clazz ) {
+        return (F0<T>) defaults.get(clazz);
+    }
+
 
 }

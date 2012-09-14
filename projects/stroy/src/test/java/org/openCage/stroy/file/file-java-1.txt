@@ -3,7 +3,7 @@ package org.openCage.stroy.file;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
-import org.openCage.util.io.FileUtils;
+import org.openCage.lindwurm.FileUtils;
 import org.openCage.util.io.IterableFile;
 import org.openCage.stroy.RuntimeModule;
 import org.openCage.stroy.algo.hash.Hash;

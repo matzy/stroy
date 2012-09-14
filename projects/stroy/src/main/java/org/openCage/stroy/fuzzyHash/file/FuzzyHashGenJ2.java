@@ -1,19 +1,16 @@
 package org.openCage.stroy.fuzzyHash.file;
 
 import com.google.inject.Inject;
-import org.openCage.lang.Forall;
-import org.openCage.lang.functions.F1;
-import org.openCage.lang.iterators.Iterators;
+import org.openCage.kleinod.collection.Forall;
+import org.openCage.kleinod.lambda.F1;
+import org.openCage.kleinod.lambda.Memo;
+import org.openCage.kleinod.type.Null;
+import org.openCage.lindwurm.content.Content;
 import org.openCage.stroy.algo.fuzzyHash.FuzzyHash;
 import org.openCage.stroy.algo.hash.HashDecider;
-import org.openCage.stroy.content.Content;
 import org.openCage.stroy.file.FileTypes;
-import org.openCage.stroy.fuzzyHash.FuzzyHashGenerator;
-import org.openCage.stroy.fuzzyHash.FuzzyHashNever;
 import org.openCage.stroy.fuzzyHash.FuzzyHashSetFactory;
 import org.openCage.stroy.text.LineNoiseDecider;
-
-import java.io.File;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
@@ -40,45 +37,50 @@ import java.io.File;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  ***** END LICENSE BLOCK *****/
 
-public class FuzzyHashGenJ2 implements FuzzyHashGenerator<Content> {
+public class FuzzyHashGenJ2 extends Memo<FuzzyHash,Content> implements F1<FuzzyHash, Content> {
 
-    private final FuzzyHashSetFactory fuzzyHashSetFactory;
-    private final LineNoiseDecider lineNoiseDecider;
-    private final HashDecider hashDecider;
-    private final FileTypes fileTypes;
 
     @Inject
-    public FuzzyHashGenJ2(FuzzyHashSetFactory fuzzyHashSetFactory, LineNoiseDecider lineNoiseDecider, HashDecider hashDecider, FileTypes fileTypes) {
-        this.fuzzyHashSetFactory = fuzzyHashSetFactory;
-        this.lineNoiseDecider = lineNoiseDecider;
-        this.hashDecider = hashDecider;
-        this.fileTypes = fileTypes;
+    public FuzzyHashGenJ2(FuzzyHashSetFactory fuzzyHashSetFactory,
+                          LineNoiseDecider    lineNoiseDecider,
+                          HashDecider         hashDecider,
+                          FileTypes           fileTypes) {
+        super( new RealGen(fuzzyHashSetFactory, lineNoiseDecider, hashDecider, fileTypes) );
     }
 
     @Override
     public FuzzyHash call(Content content) {
-
-        if ( isText( content.getType() )) {
-            return fuzzyHashSetFactory.create(
-                    Forall.lines(content.getStream()).
-                            skip(lineNoiseDecider.get(content)).
-                            trans(hashDecider.get(content)).
-                            toSet());
-        } else {
-            return new FuzzyHashNever();
-        }
-
+        return get( content );
     }
 
-    private boolean isText(String type) {
-        switch ( fileTypes.getAlgo( type ) ) {
-            case c:
-            case java:
-            case text:
-            case xml:
-                return false;
-            default:
-                return false;
+
+    public static class RealGen implements F1<FuzzyHash,Content> {
+        private final FuzzyHashSetFactory fuzzyHashSetFactory;
+        private final LineNoiseDecider    lineNoiseDecider;
+        private final HashDecider         hashDecider;
+        private final FileTypes           fileTypes;
+
+        public RealGen(FuzzyHashSetFactory fuzzyHashSetFactory, LineNoiseDecider lineNoiseDecider, HashDecider hashDecider, FileTypes fileTypes) {
+            this.fuzzyHashSetFactory = fuzzyHashSetFactory;
+            this.lineNoiseDecider = lineNoiseDecider;
+            this.hashDecider = hashDecider;
+            this.fileTypes = fileTypes;
+        }
+
+        @Override
+        public FuzzyHash call(Content content) {
+
+            if ( fileTypes.isText( content.getType() )) {
+                return fuzzyHashSetFactory.create(
+                        Forall.lines(content.getStream()).
+                                skip(lineNoiseDecider.get(content)).
+                                trans(hashDecider.get(content)).
+                                toSet());
+            } else {
+                return Null.of(FuzzyHash.class);
+            }
+
         }
     }
+
 }

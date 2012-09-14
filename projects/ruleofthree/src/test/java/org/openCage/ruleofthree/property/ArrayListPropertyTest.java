@@ -1,8 +1,8 @@
 package org.openCage.ruleofthree.property;
 
 import org.junit.Test;
-import org.openCage.lang.functions.VF0;
-import org.openCage.lang.structure.Ref;
+import org.openCage.kleinod.collection.Ref;
+import org.openCage.kleinod.lambda.VF0;
 
 import static junit.framework.Assert.assertEquals;
 

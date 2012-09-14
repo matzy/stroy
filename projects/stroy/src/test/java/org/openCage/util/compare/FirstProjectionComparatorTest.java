@@ -1,10 +1,9 @@
 package org.openCage.util.compare;
 
 import junit.framework.TestCase;
+import org.openCage.kleinod.collection.T2;
 
 import java.util.Comparator;
-
-import org.openCage.lang.structure.T2;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)

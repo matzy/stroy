@@ -2,13 +2,18 @@ package org.openCage.ruleofthree.property;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
-import org.openCage.io.IOUtils;
-import org.openCage.lang.BackgroundExecutor;
-import org.openCage.lang.errors.Unchecked;
-import org.openCage.lang.functions.F0;
-import org.openCage.lang.functions.VF0;
-import org.openCage.lang.inc.ImmuList;
-import org.openCage.ruleofthree.*;
+import org.openCage.kleinod.collection.ImmuList;
+import org.openCage.kleinod.io.IOUtils;
+import org.openCage.kleinod.lambda.F0;
+import org.openCage.kleinod.lambda.F1;
+import org.openCage.kleinod.lambda.VF0;
+import org.openCage.kleinod.thread.BackgroundExecutor;
+import org.openCage.kleinod.errors.Unchecked;
+import org.openCage.kleinod.thread.BackgroundState;
+import org.openCage.ruleofthree.Three;
+import org.openCage.ruleofthree.ThreeHashMap;
+import org.openCage.ruleofthree.ThreeKey;
+import org.openCage.ruleofthree.ThreeMap;
 import org.openCage.ruleofthree.jtothree.JToThree;
 import org.openCage.ruleofthree.threetoxml.XmlToThree;
 import org.openCage.ruleofthree.threetoxml.ThreeToXml;
@@ -90,9 +95,9 @@ public class MultipleFileRW implements PropertyStoreRW {
 
     private void createWriter() {
         final MultipleFileRW that = this;
-        executor.addPeriodicAndExitTask( new VF0() {
+        executor.addPeriodicAndExitTask( new F0<BackgroundState>() {
             @Override
-            public void call() {
+            public BackgroundState call() {
                 if ( dirty ) {
                     synchronized ( that) {
 
@@ -126,6 +131,7 @@ public class MultipleFileRW implements PropertyStoreRW {
                         dirty = false;
                     }
                 }
+                return BackgroundState.live;
             }
         });
     }

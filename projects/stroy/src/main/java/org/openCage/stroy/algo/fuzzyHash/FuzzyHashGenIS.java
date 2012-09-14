@@ -2,7 +2,7 @@
 //
 //import org.openCage.lang.functions.VF1;
 //import org.openCage.stroy.fuzzyHash.metric.CountChangeMetric;
-//import org.openCage.util.io.FileUtils;
+//import org.openCage.lindwurm.FileUtils;
 //
 //import java.io.InputStream;
 //import java.util.Set;

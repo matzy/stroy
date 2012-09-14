@@ -76,6 +76,11 @@ public class OsashosaInjector implements Injector {
     }
 
     @Override
+    public <T> T getInstance( String named, TypeLiteral<T> literal) {
+        return getInstance( null, named, new Key<T>(literal));
+    }
+
+    @Override
     public void injectMembers(Object o) {
 
         Class clazz = o.getClass();

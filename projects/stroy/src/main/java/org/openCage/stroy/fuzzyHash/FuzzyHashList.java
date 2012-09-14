@@ -34,7 +34,7 @@ import org.openCage.stroy.algo.fuzzyHash.FuzzyHash;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ***** END LICENSE BLOCK *****/
 
-public class FuzzyHashList implements FuzzyHash {
+public class FuzzyHashList implements FuzzyHash<FuzzyHashList> {
 
     private final List<Integer>  list;
     // transient
@@ -48,13 +48,11 @@ public class FuzzyHashList implements FuzzyHash {
     }
 
 
-    public double fuzzyEqual( FuzzyHash other) {
+    @Override
+    public double fuzzyEqual( FuzzyHashList other) {
 
-        if ( ! ( other instanceof FuzzyHashList  )) {
-            return 0.0;
-        }
 
-        final Map<Integer,Integer> otherMap = ((FuzzyHashList)other).getMapped();
+        final Map<Integer,Integer> otherMap = other.getMapped();
 
         int oldIdx = -1;
         double sum = 0.0;
