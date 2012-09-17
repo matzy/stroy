@@ -1,23 +1,23 @@
 package org.openCage.stroy.ui.popup;
 
 import com.google.inject.name.Named;
-import org.openCage.lang.structure.ObservableRef;
-import org.openCage.lang.structure.T2;
-import org.openCage.lang.structure.Tu;
+import org.openCage.kleinod.collection.T2;
+import org.openCage.kleinod.io.FileUtils;
+import org.openCage.kleinod.observe.ObservableRef;
+import org.openCage.lindwurm.LindenNode;
+import org.openCage.lindwurm.content.Content;
 import org.openCage.stroy.file.FileTypes;
 import org.openCage.stroy.filter.IgnoreCentral;
-import org.openCage.util.external.DesktopX;
-import org.openCage.util.io.FileUtils;
-import org.openCage.util.external.ExternalProgs;
-import org.openCage.stroy.graph.node.TreeNode;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
-import org.openCage.stroy.ui.util.NodeToNode;
-import org.openCage.stroy.ui.prefs.PrefsUI;
 import org.openCage.stroy.locale.Message;
-import org.openCage.stroy.content.Content;
+import org.openCage.stroy.ui.CompareBuilderFactory;
+import org.openCage.stroy.ui.docking.ShowText;
+import org.openCage.stroy.ui.prefs.PrefsUI;
+import org.openCage.stroy.ui.util.NodeToNode;
+import org.openCage.util.external.DesktopX;
+import org.openCage.util.external.ExternalProgs;
 
-import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
+import javax.swing.*;
 import javax.swing.tree.TreePath;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -56,8 +56,8 @@ import java.io.File;
  */
 public class DiffPopup<T extends Content> extends JPopupMenu {
 
-    private final TreeMatchingTask<T> taskRight;
-    private final TreeMatchingTask<T> taskLeft;
+    private final TreeMatchingTask taskRight;
+    private final TreeMatchingTask taskLeft;
     private TreePath                  currentPath;
 
 //    private FileTypes     fileTypes;
@@ -77,18 +77,23 @@ public class DiffPopup<T extends Content> extends JPopupMenu {
 
     private final DesktopX desktop;
 
+    private final CompareBuilderFactory compareBuilderFactory;
+
+
     public DiffPopup(final PrefsUI prefsUI,
                      @Named(value = "Editor") ObservableRef<String> editor,
                      @Named(value = "DiffProg") ObservableRef<String> diffProg,
                      final FileTypes fileTypes,
                      IgnoreCentral central,
                      DesktopX desktop,
-                     final TreeMatchingTask<T> taskLeft,
-                     final TreeMatchingTask<T> taskRight) {
+                     final TreeMatchingTask taskLeft,
+                     final TreeMatchingTask taskRight,
+                     CompareBuilderFactory compareBuilderFactory) {
         this.diffProg = diffProg;
         this.fileTypes = fileTypes;
         this.central = central;
         this.desktop = desktop;
+        this.compareBuilderFactory = compareBuilderFactory;
         this.decider =  new DiffPopupDecider(fileTypes);
 
 
@@ -169,7 +174,9 @@ public class DiffPopup<T extends Content> extends JPopupMenu {
                     return;
                 }
 
-                desktop.openAsText( file );
+                //desktop.openAsText( file );
+
+                ShowText.openAsText( file );
 
 //                String cmd = editor.get().get();
 //
@@ -184,7 +191,7 @@ public class DiffPopup<T extends Content> extends JPopupMenu {
         openWith = new JMenuItem( Message.get( "Popup.openWith"));
         openWith.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
-                TreeNode node = NodeToNode.pathToNode( currentPath );
+                LindenNode node = NodeToNode.pathToNode( currentPath );
 
                 prefsUI.showFileType( ((Content)node.getContent()).getName() );
                 prefsUI.setVisible( true );
@@ -241,7 +248,7 @@ public class DiffPopup<T extends Content> extends JPopupMenu {
                     return;
                 }
 
-                T2<TreeNode<T>,TreeNode<T>> nodes =
+                T2<LindenNode,LindenNode> nodes =
                         getLeftAndRightNode( NodeToNode.pathToNode( currentPath ));
 
                 String cmd = fileTypes.getDiffType(FileUtils.getExtension(nodes.i0.getContent().getName()));
@@ -249,6 +256,10 @@ public class DiffPopup<T extends Content> extends JPopupMenu {
                 if ( cmd != null && cmd.equals( ExternalProgs.STANDARD_DIFF )) {
                     cmd = diffProg.get();
                 }
+
+                // TODO now
+                //compareBuilderFactory.get( oneTxt.getText(), twoTxt.getText(), "" ).execute();
+
 
                 ExternalProgs.execute( cmd,
                         nodes.i0.getContent().getLocation(),
@@ -264,7 +275,7 @@ public class DiffPopup<T extends Content> extends JPopupMenu {
 
         currentPath = path;
 
-        TreeNode<T>                 node    = NodeToNode.pathToNode( currentPath );
+        LindenNode node    = NodeToNode.pathToNode( currentPath );
         boolean                     matched = false;
 
         if ( taskRight != null ) {
@@ -303,12 +314,12 @@ public class DiffPopup<T extends Content> extends JPopupMenu {
         show( event.getComponent(), event.getX(), event.getY());
     }
 
-    T2<TreeNode<T>,TreeNode<T>> getLeftAndRightNode( TreeNode<T> node ) {
+    T2<LindenNode,LindenNode> getLeftAndRightNode( LindenNode node ) {
 
         if ( taskRight != null ) {
-            return Tu.c(node, taskRight.getMatch(node));
+            return T2.valueOf(node, taskRight.getMatch(node));
         } else if ( taskLeft != null ) {
-            return Tu.c( taskLeft.getMatch( node ), node );
+            return T2.valueOf( taskLeft.getMatch( node ), node );
         }
 
         throw new IllegalStateException( "no tasks ?" );

@@ -1,28 +1,25 @@
 package org.openCage.stroy.ui.prefs;
 
-import javax.swing.*;
-
 import com.google.inject.name.Named;
-import org.openCage.lang.structure.ObservableRef;
+import net.java.dev.designgridlayout.DesignGridLayout;
+import org.openCage.kleinod.io.FileUtils;
+import org.openCage.kleinod.observe.ObservableRef;
 import org.openCage.ruleofthree.ThreeKey;
 import org.openCage.ruleofthree.property.MapProperty;
-import org.openCage.util.external.DesktopX;
-import org.openCage.util.external.DesktopXs;
-import org.openCage.util.prefs.MComboBox;
-import org.openCage.util.ui.FileChooser;
-import org.openCage.util.ui.JTextFields;
-import org.openCage.util.io.FileUtils;
-import org.openCage.util.external.ExternalProgs;
 import org.openCage.stroy.locale.Message;
 import org.openCage.stroy.ui.Colors;
+import org.openCage.util.external.DesktopX;
+import org.openCage.util.external.DesktopXs;
+import org.openCage.util.external.ExternalProgs;
+import org.openCage.util.ui.FileChooser;
+import org.openCage.util.ui.JTextFields;
 
-import java.awt.*;
-import java.awt.event.ActionListener;
+import javax.swing.*;
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-
-import net.java.dev.designgridlayout.DesignGridLayout;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
@@ -68,7 +65,7 @@ public class StandardProgUI extends JPanel {
     private final JRadioButton otherText = new JRadioButton( Message.get( "Pref.StandardProgs.textOther" ));
     private final JRadioButton stdDiff   = new JRadioButton( Message.get( "Pref.StandardProgs.osDiff" ));
     private final JRadioButton otherDiff = new JRadioButton( Message.get( "Pref.StandardProgs.DiffOther" ));
-    private MComboBox mbox;
+    private JComboBox mbox = new JComboBox();
     private final JTextField newProg = new JTextField();
     private JButton progOk = new JButton("OK");
     private JButton progProg = new JButton("..");
@@ -84,7 +81,7 @@ public class StandardProgUI extends JPanel {
         this.editorPref = editorPref;
         this.diffPref = diffPref;
 
-        this.mbox = new MComboBox( progList, sel);
+        //this.mbox = new MComboBox( progList, sel);
 
         JPanel top = new JPanel();
         DesignGridLayout layout = new DesignGridLayout( top );
@@ -156,7 +153,7 @@ public class StandardProgUI extends JPanel {
                     String path = FileChooser.getAnyFile(frame, FileUtils.getCurrentDir());
 
                     if ( path != null ) {
-                        String norm = FileUtils.normalizePath( path );
+                        String norm = FileUtils.normalizePath(path);
                         editorText.setText( norm );
                         StandardProgUI.this.editorPref.set((norm));
                     }

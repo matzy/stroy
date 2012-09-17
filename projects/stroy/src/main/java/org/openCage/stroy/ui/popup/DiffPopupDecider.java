@@ -1,12 +1,12 @@
 package org.openCage.stroy.ui.popup;
 
-import org.openCage.lang.inc.Null;
+import org.openCage.kleinod.io.FileUtils;
+import org.openCage.kleinod.type.Null;
+import org.openCage.lindwurm.LindenNode;
+import org.openCage.lindwurm.content.Content;
 import org.openCage.stroy.file.FileTypes;
-import org.openCage.stroy.graph.node.TreeNode;
-import org.openCage.stroy.content.Content;
-import org.openCage.util.platform.Platform;
 import org.openCage.util.logging.Log;
-import org.openCage.util.io.FileUtils;
+import org.openCage.util.platform.Platform;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
@@ -42,25 +42,25 @@ public class DiffPopupDecider {
 
     public DiffPopupDecider(FileTypes fileTypes) {
         this.fileTypes = fileTypes;
-        if (Null.is(fileTypes )) {
+        if (Null.is(fileTypes)) {
             throw new IllegalArgumentException("oops");
         }
     }
 
-    public boolean showOpen( TreeNode node ) {
+    public boolean showOpen( LindenNode node ) {
 
         if ( node.isLeaf() ) {
             return node.getContent() != null && hasOpenApp( node );
         }
 
-        if ( Platform.isBundle(( (Content)node.getContent()).getName())) {
+        if ( Platform.isBundle(( node.getContent()).getName())) {
             return hasOpenApp( node );
         }
 
         return false;
     }
 
-    public boolean showOpenWith( TreeNode node ) {
+    public boolean showOpenWith( LindenNode node ) {
 
         if ( node.isLeaf() ) {
             return node.getContent() != null && !hasOpenApp( node );
@@ -73,11 +73,11 @@ public class DiffPopupDecider {
         return false;
     }
 
-    public boolean showOpenAsText( TreeNode node ) {
+    public boolean showOpenAsText( LindenNode node ) {
         return node.isLeaf() && node.getContent() != null;
     }
 
-    private boolean hasOpenApp( TreeNode node ) {
+    private boolean hasOpenApp( LindenNode node ) {
         if ( node.getContent() == null ) {
             throw Log.log( new IllegalArgumentException( "node has no content" ));
         }
@@ -90,11 +90,11 @@ public class DiffPopupDecider {
 //        if ( cnt.getName() == null ) {
 //            int i  = 0;
 //        }
-        return fileTypes.hasOpen( FileUtils.getExtension(((Content)node.getContent()).getName() ));
+        return fileTypes.hasOpen( FileUtils.getExtension(((Content) node.getContent()).getName()));
     }
 
 
-    public boolean showDiff( TreeNode node ) {
+    public boolean showDiff( LindenNode node ) {
         boolean leaf  =  node.isLeaf();
         boolean content = node.getContent() != null;
         boolean diffType = fileTypes.hasDiffType( FileUtils.getExtension(((Content)node.getContent()).getName() ));
@@ -104,7 +104,7 @@ public class DiffPopupDecider {
                fileTypes.hasDiffType( FileUtils.getExtension(((Content)node.getContent()).getName() ));
     }
 
-    public boolean showDiffWith( TreeNode node ) {
+    public boolean showDiffWith( LindenNode node ) {
         return node.isLeaf() &&
                node.getContent() != null &&
                !fileTypes.hasDiffType( FileUtils.getExtension(((Content)node.getContent()).getName() ));

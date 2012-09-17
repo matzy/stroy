@@ -4,12 +4,16 @@ import com.google.inject.Binder;
 import com.google.inject.Module;
 import com.google.inject.Singleton;
 import com.google.inject.name.Names;
-import org.openCage.io.IOUtils;
-import org.openCage.io.fspath.FSPath;
-import org.openCage.io.fspath.FSPathBuilder;
-import org.openCage.lang.BackgroundExecutor;
-import org.openCage.lang.BackgroundExecutorImpl;
-import org.openCage.ruleofthree.property.*;
+import org.openCage.kleinod.io.IOUtils;
+import org.openCage.kleinod.io.fspath.FSPath;
+import org.openCage.kleinod.io.fspath.FSPathBuilder;
+import org.openCage.kleinod.thread.BackgroundExecutor;
+import org.openCage.kleinod.thread.BackgroundExecutorImpl;
+import org.openCage.ruleofthree.property.MultipleFileRW;
+import org.openCage.ruleofthree.property.NamingScheme;
+import org.openCage.ruleofthree.property.PropStoreImpl;
+import org.openCage.ruleofthree.property.PropertyStore;
+import org.openCage.ruleofthree.property.PropertyStoreRW;
 
 import java.io.File;
 
@@ -28,7 +32,7 @@ public class RuntimeModule implements Module {
         binder.bind( File.class ).annotatedWith( Names.named("PropStoreFile")).toInstance( getRoot().toFile());
         binder.bind(BackgroundExecutor.class).to(BackgroundExecutorImpl.class);
         binder.bind(NamingScheme.class).to( IdToPath.class );
-        binder.bind(PropertyStoreRW.class ).to(SingleFileRW.class);
+        binder.bind(PropertyStoreRW.class ).to(MultipleFileRW.class);
 
 
     }

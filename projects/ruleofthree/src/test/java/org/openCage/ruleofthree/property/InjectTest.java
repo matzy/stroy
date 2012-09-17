@@ -1,8 +1,12 @@
 package org.openCage.ruleofthree.property;
 
-import com.google.inject.*;
+import com.google.inject.Binder;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.google.inject.Module;
+import com.google.inject.TypeLiteral;
 import org.junit.Test;
-import org.openCage.lang.structure.ObservableRef;
+import org.openCage.kleinod.observe.ObservableRef;
 import org.openCage.ruleofthree.ThreeKey;
 
 import java.util.List;

@@ -1,6 +1,6 @@
 package org.openCage.stroy.ui;
 
-import org.openCage.stroy.graph.node.TreeNode;
+import org.openCage.lindwurm.LindenNode;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
@@ -27,14 +27,14 @@ import org.openCage.stroy.graph.node.TreeNode;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ***** END LICENSE BLOCK *****/
 
-public class NodeReport<T> {
+public class NodeReport {
 
-    public TreeNode<T>  node;
+    public LindenNode node;
     public boolean      matched;
     // public boolean      deleted;
     public String       message;
 
-    public NodeReport( TreeNode<T>  node ) {
+    public NodeReport( LindenNode node ) {
         this.node = node;
     }
 
@@ -47,7 +47,7 @@ public class NodeReport<T> {
         return this;
     }
 
-    public NodeReport node( TreeNode<T>  node ) {
+    public NodeReport node( LindenNode node ) {
         this.node = node;
         return this;
     }

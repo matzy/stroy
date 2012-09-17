@@ -1,6 +1,6 @@
 package org.openCage.stroy.fuzzyHash;
 
-import org.openCage.lang.functions.F1;
+import org.openCage.kleinod.lambda.F1;
 import org.openCage.stroy.algo.fuzzyHash.FuzzyHash;
 
 /***** BEGIN LICENSE BLOCK *****
@@ -28,5 +28,5 @@ import org.openCage.stroy.algo.fuzzyHash.FuzzyHash;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ***** END LICENSE BLOCK *****/
 
-public interface FuzzyHashGenerator<T> extends F1<FuzzyHash,T>{
+public interface FuzzyHashGenerator<T> extends F1<FuzzyHash,T> {
 }

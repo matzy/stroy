@@ -1,11 +1,13 @@
 <root>
+    <duh>bar</duh>
     <amap>
-        <key>
-            <v>al</v>
-        </key>
-        <b>
-            <c>cc</c>
-            <d>dd</d>
-        </b>
+        <key>val</key>
+        <b>foo</b>
     </amap>
+    <bmap>
+        <compl>
+            <a>aa</a>
+            <b>bb</b>
+        </compl>
+    </bmap>
 </root>

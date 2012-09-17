@@ -1,7 +1,7 @@
 package org.openCage.stroy.graph;
 
-import org.openCage.stroy.content.Content;
-import org.openCage.stroy.graph.node.TreeLeafNode;
+import org.openCage.lindwurm.LindenNode;
+import org.openCage.lindwurm.content.Content;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,23 +33,23 @@ import java.util.List;
 
 public class SameContent<T extends Content> {
 
-    private final List<TreeLeafNode<T>> src;
-    private final List<TreeLeafNode<T>> tgt;
+    private final List<LindenNode> src;
+    private final List<LindenNode> tgt;
 
     public SameContent() {
-        src = new ArrayList<TreeLeafNode<T>>();
-        tgt = new ArrayList<TreeLeafNode<T>>();
+        src = new ArrayList<LindenNode>();
+        tgt = new ArrayList<LindenNode>();
     }
 
-    public List<TreeLeafNode<T>> getSources() {
+    public List<LindenNode> getSources() {
         return src;
     }
 
-    public List<TreeLeafNode<T>> getTargets() {
+    public List<LindenNode> getTargets() {
         return tgt;
     }
 
-    public void add( TreeLeafNode<T> lfm, boolean isSrc) {
+    public void add( LindenNode lfm, boolean isSrc) {
         if ( isSrc ) {
             src.add( lfm );
         } else {
@@ -75,13 +75,13 @@ public class SameContent<T extends Content> {
     public String toString() {
         String str = "same hash:\n";
 
-        for ( TreeLeafNode<T> lfm : src ) {
+        for ( LindenNode lfm : src ) {
             str += "   " + lfm + "\n";
         }
 
         str += "--\n";
 
-        for ( TreeLeafNode<T> lfm : tgt ) {
+        for ( LindenNode lfm : tgt ) {
             str += "   " + lfm + "\n";
         }
 
@@ -109,7 +109,7 @@ public class SameContent<T extends Content> {
         return ( src.size() == 1 && tgt.size() == 0 );
     }
 
-    public TreeLeafNode<T> getSingle() {
+    public LindenNode getSingle() {
         if ( isSingleNew() ) {
             return tgt.get(0);
         } else if ( isSingleOld()) {
@@ -121,7 +121,7 @@ public class SameContent<T extends Content> {
 
 
 
-//    public void match( final IdMap idMap, List<T> dels, List<T> news ) {
+//    public void match( final IdMap idMap, List dels, List news ) {
 //        if ( src.size() == 0 ) {
 //            for ( T lf : tgt ) {
 //                news.add( lf );
@@ -131,9 +131,9 @@ public class SameContent<T extends Content> {
 //                dels.add( lf );
 //            }
 //        } else {
-//            Match<T> match = new MatchBestConnections<T>( new Distance<T>() {
-//            //Match<T> match = new MatchByLevels<T>( new Distance<T>() {
-//            //Match<T> match = new MatchSimple<T>( new Distance<T>() {
+//            Match match = new MatchBestConnections( new Distance() {
+//            //Match match = new MatchByLevels( new Distance() {
+//            //Match match = new MatchSimple( new Distance() {
 //                public double distance(T a, T b) {
 //                    double dist = 1.0;
 //                    // parent
@@ -164,7 +164,7 @@ public class SameContent<T extends Content> {
 //
 //    }
 
-    public TreeLeafNode<T> getSingleTgt() {
+    public LindenNode getSingleTgt() {
         if ( tgt.size() == 1  ) {
             return tgt.get(0);
         }
@@ -172,7 +172,7 @@ public class SameContent<T extends Content> {
         throw new Error( "not single" );
     }
 
-    public TreeLeafNode<T> getSingleSrc() {
+    public LindenNode getSingleSrc() {
         if ( src.size() == 1 )  {
             return src.get(0);
         }

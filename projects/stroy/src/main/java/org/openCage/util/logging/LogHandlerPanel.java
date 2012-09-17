@@ -1,19 +1,21 @@
 package org.openCage.util.logging;
 
 
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
+import net.java.dev.designgridlayout.DesignGridLayout;
+import org.openCage.kleinod.observe.ObservableRef;
+import org.openCage.kleinod.ui.Binding;
+import org.openCage.stroy.locale.Message;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Formatter;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
-import java.util.logging.Formatter;
-
-import com.google.inject.Inject;
-import org.openCage.util.prefs.*;
-import org.openCage.stroy.locale.Message;
-import net.java.dev.designgridlayout.DesignGridLayout;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
@@ -50,7 +52,7 @@ public class LogHandlerPanel extends JFrame {
 //    private final String PRESET_INLEVEL = "inlevel";
 
     private Handler           logHandler         = new GraphicalHandler( this );
-    private final PComboBox selectLogLevel;//     = new PComboBox( STROY_LOG_OUT );
+    private final JComboBox selectLogLevel       = new JComboBox();
 //    private final PComboBox   selectHandlerLevel = new PComboBox( STROY_LOG_IN );
     private JTextArea         messages           = new JTextArea();
     private JScrollPane       messagesScoll      = new JScrollPane( messages );
@@ -63,11 +65,11 @@ public class LogHandlerPanel extends JFrame {
     private final Formatter slimFormater = new SimpleFormatter();
 
     @Inject
-    public LogHandlerPanel( LogLevelSelectionProperty5 loglevels) {
+    public LogHandlerPanel( @Named( "loglevel" ) ObservableRef<Level> level ) {
 
-        selectLogLevel = new PComboBox( loglevels );
+        Binding.bind( selectLogLevel, Log.getLevels(), level );
 
-        setTitle( "Logs" );
+        setTitle("Logs");
         setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
         setSize( 400, 200 );
 

@@ -1,0 +1,25 @@
+apply plugin: 'java'
+
+sourceCompatibility = 1.6
+version = '0.6.0'
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'kleinod', 'Implementation-Version': version
+    }
+}
+
+// license new bsd (3-clause)
+
+dependencies {
+    compile 'net.jcip:jcip-annotations:1.0'
+    testCompile 'junit:junit:4.+'
+}
+
+
+//uploadArchives {
+//    repositories {
+//       flatDir {
+//           dirs 'repos'
+//       }
+//    }
+//}

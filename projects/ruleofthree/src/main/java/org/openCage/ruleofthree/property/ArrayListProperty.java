@@ -1,10 +1,10 @@
 package org.openCage.ruleofthree.property;
 
-import org.openCage.lang.Forall;
-import org.openCage.lang.functions.F1;
-import org.openCage.lang.functions.F2;
-import org.openCage.lang.listeners.VoidListenerControl;
-import org.openCage.lang.listeners.VoidListeners;
+import org.openCage.kleinod.collection.Forall;
+import org.openCage.kleinod.lambda.F1;
+import org.openCage.kleinod.lambda.F2;
+import org.openCage.kleinod.observe.VoidListenerControl;
+import org.openCage.kleinod.observe.VoidListeners;
 import org.openCage.ruleofthree.Three;
 import org.openCage.ruleofthree.jtothree.JToThree;
 
@@ -167,10 +167,10 @@ public class ArrayListProperty<T> extends ArrayList<T> implements ListProperty<T
 
     @Override
     public Three toThree() {
-        JToThree JToThree = new JToThree();
+        JToThree jtothree = new JToThree();
         List<Three> ret = new ArrayList<Three>();
         for( T elem : this ) {
-            ret.add( JToThree.toThree( elem ));
+            ret.add(jtothree.toThree(elem));
         }
         return THREE(ret);
     }
@@ -188,7 +188,12 @@ public class ArrayListProperty<T> extends ArrayList<T> implements ListProperty<T
 
     @Override
     public String toString() {
-        return Forall.forall(this).join("[").end(new F1<String, String>() {
+        return Forall.forall(this).join("[",new F2<String, String, T>() {
+            @Override
+            public String call(String s, T t) {
+                return s + t.toString();
+            }
+        }).end(new F1<String, String>() {
             @Override
             public String call(String s) {
                 return s+"]";
@@ -199,12 +204,7 @@ public class ArrayListProperty<T> extends ArrayList<T> implements ListProperty<T
                 return s+", ";
             }
         }).
-                trans(new F2<String, String, T>() {
-                    @Override
-                    public String call(String s, T t) {
-                        return s + t.toString();
-                    }
-                }).go();
+                go();
     }
 
 }

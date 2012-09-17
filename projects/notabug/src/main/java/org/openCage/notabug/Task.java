@@ -2,10 +2,10 @@ package org.openCage.notabug;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
-import org.openCage.lang.inc.ImmuDate;
-import org.openCage.lang.listeners.VoidListenerControl;
-import org.openCage.lang.listeners.VoidListeners;
-import org.openCage.lang.structure.ObservableRef;
+import org.openCage.kleinod.immutable.ImmuDate;
+import org.openCage.kleinod.observe.ObservableRef;
+import org.openCage.kleinod.observe.VoidListenerControl;
+import org.openCage.kleinod.observe.VoidListeners;
 import org.openCage.ruleofthree.Property;
 import org.openCage.ruleofthree.Three;
 import org.openCage.ruleofthree.Threes;
@@ -28,9 +28,11 @@ public class Task implements Property {
     private String name;
     private String description;
     private State state;
+    private Reason reason;
     private final ImmuDate created;
-    private final Kind kind;
+    private Kind kind;
     private final ArrayListProperty<Id> references;
+    private String history;
 
 
     private VoidListeners listeners = new VoidListeners();
@@ -42,8 +44,10 @@ public class Task implements Property {
                 @Named("name") String name,
                 @Named("description") String description,
                 @Named("state") State state,
-                @Named("created") ImmuDate date,
                 @Named("kind") Kind kind,
+                @Named( "reason") Reason reason,
+                @Named("created") ImmuDate date,
+                @Named("history") String history,
                 @Named("references") ArrayListProperty<Id> references) {
         this.tags = tags;
         this.state = state;
@@ -54,6 +58,12 @@ public class Task implements Property {
         this.description = description;
         this.kind = kind;
         this.references = references;
+        this.reason = reason;
+        this.history = history;
+
+        if ( reason == null ) {
+            this.reason = Reason.none;
+        }
     }
 
     private Task() {
@@ -107,6 +117,8 @@ public class Task implements Property {
                 ", description=" + description +
                 ", references=" + references +
                 ", state=" + state +
+                ", reason=" + reason +
+                ", created=" + created +
                 '}';
     }
 
@@ -120,5 +132,18 @@ public class Task implements Property {
 
     public String getName() {
         return name;
+    }
+
+    public void setKind(Kind kind) {
+        this.kind = kind;
+        listeners.shout();
+    }
+
+    public void trans( State state, Reason reason, String comment ) {
+        history += "" + ImmuDate.now() + "\n";
+        history += "  " + this.reason + " -> " + reason + "\n";
+        history += "  " + comment;
+
+        listeners.shout();
     }
 }

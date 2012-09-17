@@ -29,7 +29,7 @@ import java.io.IOException;
 ***** END LICENSE BLOCK *****/
 
 /**
- * File Checksum Interface
+ * File Checksummer Interface
  */
 public interface MD5Provider {
 

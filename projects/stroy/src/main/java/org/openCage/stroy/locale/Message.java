@@ -1,10 +1,16 @@
 package org.openCage.stroy.locale;
 
+import org.openCage.kleinod.observe.ObservableRef;
 import org.openCage.util.logging.Log;
-import org.openCage.util.prefs.LocaleSelectionProperty;
 
 import javax.swing.*;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Locale;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
+import java.util.Set;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
@@ -33,7 +39,13 @@ import java.util.*;
 
 public class Message {
 
-    public static LocaleSelectionProperty localeSelection;
+    public static ObservableRef<Locale> localeSelection;
+
+    public static List<Locale> supportedLocales = Arrays.asList( Locale.ENGLISH,
+                                                                 Locale.GERMAN,
+                                                                 Locale.JAPANESE,
+                                                                 new Locale("es") );
+
 
     public final static String localKey = "language.locale";
 
@@ -46,7 +58,7 @@ public class Message {
     }
 
     public static Locale getLocale() {
-        return localeSelection.getSelection();
+        return localeSelection.get();
     }
 
     /**

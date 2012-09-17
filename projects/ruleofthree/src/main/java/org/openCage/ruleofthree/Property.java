@@ -25,7 +25,7 @@ package org.openCage.ruleofthree;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  ***** END LICENSE BLOCK *****/
 
-import org.openCage.lang.listeners.Observable;
+import org.openCage.kleinod.observe.Observable;
 
 /**
  * A Property here is an object that can be (a) serialized, i.e. stored persistently and (b) readable and

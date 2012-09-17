@@ -1,54 +1,71 @@
 package org.openCage.stroy;
 
-import com.google.inject.*;
+import com.google.inject.Binder;
+import com.google.inject.Module;
+import com.google.inject.Singleton;
+import com.google.inject.TypeLiteral;
 import com.google.inject.name.Names;
-import org.openCage.io.fspath.FSPathBuilder;
-import org.openCage.lang.BackgroundExecutor;
-import org.openCage.lang.BackgroundExecutorImpl;
-import org.openCage.lang.OS;
-import org.openCage.lang.inc.ImmuDate;
-import org.openCage.lang.structure.ObservableRef;
+import org.openCage.kleinod.immutable.ImmuDate;
+import org.openCage.kleinod.io.fspath.FSPathBuilder;
+import org.openCage.kleinod.lambda.F1;
+import org.openCage.kleinod.observe.ObservableRef;
+import org.openCage.kleinod.os.OS;
+import org.openCage.kleinod.thread.BackgroundExecutor;
+import org.openCage.kleinod.thread.BackgroundExecutorImpl;
+import org.openCage.lindwurm.content.Content;
 import org.openCage.ruleofthree.ThreeKey;
-import org.openCage.ruleofthree.property.*;
+import org.openCage.ruleofthree.property.ArrayListProperty;
+import org.openCage.ruleofthree.property.HashMapProperty;
+import org.openCage.ruleofthree.property.ListProperty;
+import org.openCage.ruleofthree.property.MapProperty;
+import org.openCage.ruleofthree.property.PropStoreImpl;
+import org.openCage.ruleofthree.property.PropertyStore;
+import org.openCage.ruleofthree.property.PropertyStoreRW;
+import org.openCage.ruleofthree.property.SingleFileRW;
+import org.openCage.stroy.algo.distance.Distance;
+import org.openCage.stroy.algo.fuzzyHash.FuzzyHash;
+import org.openCage.stroy.algo.hash.Hash;
 import org.openCage.stroy.algo.hash.HashDecider;
 import org.openCage.stroy.algo.hash.str.HashDeciderImpl;
+import org.openCage.stroy.algo.hash.str.StdStringHash;
+import org.openCage.stroy.algo.hash.str.WhitespaceIgnoringHash;
+import org.openCage.stroy.app.StroyAppInfo;
 import org.openCage.stroy.array.AddIngnorantListMetric;
 import org.openCage.stroy.array.ListChangeMetric;
 import org.openCage.stroy.array.ReorderIgnorantArrayDistance;
-import org.openCage.stroy.content.Content;
-import org.openCage.stroy.dir.FileTreeMatchingTaskBuilder;
-import org.openCage.stroy.dir.FileTreeMatchingTaskBuilderImpl;
 import org.openCage.stroy.file.Action;
 import org.openCage.stroy.file.FileTypes;
-import org.openCage.stroy.filter.Ignore;
-import org.openCage.stroy.filter.IgnoreByLists;
 import org.openCage.stroy.filter.IgnoreCentral;
+import org.openCage.stroy.fuzzyHash.file.FuzzyHashGenJ2;
 import org.openCage.stroy.fuzzyHash.metric.CountChangeMetric;
-import org.openCage.stroy.fuzzyHash.FuzzyHashGenerator;
 import org.openCage.stroy.fuzzyHash.metric.SizeWeightedMetric;
-import org.openCage.stroy.fuzzyHash.file.*;
 import org.openCage.stroy.graph.matching.LocationCentricMetric;
 import org.openCage.stroy.graph.matching.TreeLeafDistanceMetric;
 import org.openCage.stroy.graph.matching.strategy.MatchStrategy;
 import org.openCage.stroy.graph.matching.strategy.combined.FastFirstForFiles;
-import org.openCage.stroy.map.KeyOnlyDistance;
-import org.openCage.stroy.text.*;
-import org.openCage.stroy.ui.*;
+import org.openCage.stroy.text.CLineNoise;
+import org.openCage.stroy.text.JavaLineNoiseForDistanceRegex;
+import org.openCage.stroy.text.LineNoise;
+import org.openCage.stroy.text.LineNoiseDecider;
+import org.openCage.stroy.text.LineNoiseDeciderImpl;
+import org.openCage.stroy.text.NoNoise;
+import org.openCage.stroy.text.SpacesNoise;
+import org.openCage.stroy.todo.map.KeyOnlyDistance;
+import org.openCage.stroy.ui.DirSelector;
+import org.openCage.stroy.ui.DirSelectorImpl;
 import org.openCage.stroy.ui.difftree.NWayDiffPaneGenerator;
 import org.openCage.stroy.ui.difftree.NWayDiffTreeGenImplMessages;
-import org.openCage.stroy.app.StroyAppInfo;
-import org.openCage.stroy.algo.distance.Distance;
-import org.openCage.stroy.algo.hash.Hash;
-import org.openCage.stroy.algo.hash.str.StdStringHash;
-import org.openCage.stroy.algo.hash.str.WhitespaceIgnoringHash;
 import org.openCage.stroy.ui.prefs.PrefsUI;
 import org.openCage.stroy.ui.prefs.PrefsUIImpl;
-import org.openCage.stroy.update.UpdateSelectionProperty;
 import org.openCage.stroy.update.UpdateTime;
-import org.openCage.util.app.*;
-import org.openCage.util.external.*;
-import org.openCage.util.prefs.LocaleSelectionProperty;
-import org.openCage.util.prefs.LogLevelSelectionProperty5;
+import org.openCage.stroy.todo.app.AppInfo;
+import org.openCage.util.checksum.Checksummer;
+import org.openCage.util.checksum.Sha1;
+import org.openCage.util.external.DesktopX;
+import org.openCage.util.external.DesktopXs;
+import org.openCage.util.external.ExecProvider;
+import org.openCage.util.external.ExecProviderImpl;
+import org.openCage.util.external.OSXDesktopX;
 
 import java.io.File;
 import java.util.List;
@@ -117,8 +134,8 @@ public class RuntimeModule implements Module {
         //
         // Distance
         //
-//        binder.bind( new TypeLiteral<Distance<TreeLeafNode<FileContent>>>(){}).
-//                to( new TypeLiteral<TreeLeafNodeFuzzyLeafDistance<FileContent>>(){} );
+//        binder.bind( new TypeLiteral<Distance<LindenNode<FileContent>>>(){}).
+//                to( new TypeLiteral<TreeNodeFuzzyLeafDistance<FileContent>>(){} );
         binder.bind( new TypeLiteral<Distance<List<String>>>() {})
                 .to( new TypeLiteral<ReorderIgnorantArrayDistance<String>>() {});
         binder.bind( new TypeLiteral<Distance<Map<Integer,Boolean>>>() {})
@@ -130,7 +147,7 @@ public class RuntimeModule implements Module {
 //        binder.bind( TreeLeafDistanceMetric.class ).to( LocationFirstMetric.class );
         binder.bind( TreeLeafDistanceMetric.class ).to( LocationCentricMetric.class );
 
-        binder.bind( Ignore.class ).to( IgnoreByLists.class );
+//        binder.bind( Ignore.class ).to( IgnoreByLists.class );
 //        binder.bind( CompareDirs.class ).to( CompareDirsImpl.class );
 //        binder.bind( FileMetaPool.class ).to( SourceFileMetaPool.class );
 //        binder.bind( FileMetaPool.class ).to( DoubleAllowedFileMetaPool.class );
@@ -138,8 +155,8 @@ public class RuntimeModule implements Module {
 
 //        binder.bind( MatchStrategy.class ).annotatedWith( ForIdenticalLeaves.class ).
 //                to( IdenticalLeafMatchStrategy.class );
-//        binder.bind( new TypeLiteral<MatchStrategy<Content>>(){} ).annotatedWith( ForIdenticalLeaves.class ).
-//                to( new TypeLiteral<IdenticalLeafMatchStrategy<Content>>(){} );
+//        binder.bind( new TypeLiteral<MatchStrategy>(){} ).annotatedWith( ForIdenticalLeaves.class ).
+//                to( new TypeLiteral<IdenticalLeafMatchStrategy>(){} );
 //        binder.bind( new TypeLiteral<MatchStrategy<FileContent>>(){} ).annotatedWith( ForIdenticalLeaves.class ).
 //                to( new TypeLiteral<IdenticalLeafMatchStrategy<FileContent>>(){} );
 //        binder.bind( new TypeLiteral<MatchStrategy<FileContent>>(){} ).annotatedWith( ForIdenticalLeaves.class ).
@@ -158,7 +175,6 @@ public class RuntimeModule implements Module {
 ////                to( new TypeLiteral<EasyFirstStrategy<FileContent>>(){});
 //        binder.bind( new TypeLiteral<TreeMatchingTaskStrategy<FileContent>>(){} ).
 //                to( EasyFirstStrategyFC.class );
-        binder.bind( FileTreeMatchingTaskBuilder.class ).to( FileTreeMatchingTaskBuilderImpl.class );
 
 //        binder.bind( CompareDirs2.class ).to( CompareDirsImpl2.class );
 
@@ -167,7 +183,6 @@ public class RuntimeModule implements Module {
         binder.bind( ListChangeMetric.class ).to( AddIngnorantListMetric.class );
         binder.bind( CountChangeMetric.class ).to( SizeWeightedMetric.class );
 
-        binder.bind( new TypeLiteral<FuzzyHashGenerator<Content>>() {} ).to( FuzzyHashGenJ2.class );
         binder.bind( LineNoiseDecider.class ).to( LineNoiseDeciderImpl.class );
         binder.bind(HashDecider.class ).to(HashDeciderImpl.class);
 //        binder.bind( new TypeLiteral<FuzzyHashGenerator<File>>() {} ).
@@ -193,10 +208,10 @@ public class RuntimeModule implements Module {
 
         binder.bind( ExecProvider.class ).to(ExecProviderImpl.class );
 
-        binder.bind( new TypeLiteral<NWayDiffPaneGenerator<Content>>(){} ).to( new TypeLiteral<NWayDiffTreeGenImplMessages<Content>>(){});
+        binder.bind( new TypeLiteral<NWayDiffPaneGenerator>(){} ).to( new TypeLiteral<NWayDiffTreeGenImplMessages>(){});
         // NWayDiffTreeGenImplMessages.class);
 
-        binder.bind( new TypeLiteral<MatchStrategy<? extends Content>>() {} ).annotatedWith(Names.named("FastFirst")).to(FastFirstForFiles.class);
+        binder.bind( new TypeLiteral<MatchStrategy>() {} ).annotatedWith(Names.named("FastFirst")).to(FastFirstForFiles.class);
 
         binder.bind(PrefsUI.class).to( PrefsUIImpl.class ).in(Singleton.class);
 
@@ -275,7 +290,7 @@ public class RuntimeModule implements Module {
 
 
         binder.bind( new TypeLiteral<MapProperty<Action>>() {} ).toProvider(
-             getProvider( new TypeLiteral<MapProperty<Action>>() {},
+             getProvider( new TypeLiteral<HashMapProperty<Action>>() {},
                           ThreeKey.valueOf("fileTypes"),
                           FileTypes.getInitialMap() ));
 
@@ -289,6 +304,9 @@ public class RuntimeModule implements Module {
         if (OS.isOSX() ) {
             binder.bind(DesktopX.class).to(OSXDesktopX.class);
         }
+
+        binder.bind(Checksummer.class).to(Sha1.class);
+        binder.bind( new TypeLiteral<F1<FuzzyHash,Content>>(){}).to( FuzzyHashGenJ2.class );
     }
 
 }

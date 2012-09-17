@@ -2,8 +2,8 @@ package org.openCage.util.external;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.openCage.lang.OS;
-import org.openCage.lang.errors.FileNotFoundUnchecked;
+import org.openCage.kleinod.errors.FileNotFoundUnchecked;
+import org.openCage.kleinod.os.OS;
 
 import java.io.File;
 

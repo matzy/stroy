@@ -1,8 +1,9 @@
 package org.openCage.ruleofthree.jtothree;
 
 import com.google.inject.TypeLiteral;
+import com.google.inject.name.Named;
 import org.junit.Test;
-import org.openCage.lang.structure.ObservableRef;
+import org.openCage.kleinod.observe.ObservableRef;
 import org.openCage.ruleofthree.Three;
 import org.openCage.ruleofthree.ThreeHashMap;
 import org.openCage.ruleofthree.ThreeKey;
@@ -109,6 +110,31 @@ public class ThreeToJTest {
         map.put( new ThreeKey("foo"), THREE("bar") );
 
         assertEquals( new AClass(), new ThreeToJ().get( new TypeLiteral<ObservableRef<AClass>>() {}, THREE(map)).get());
+    }
+
+    public static class BooClass {
+        public boolean bool;
+
+        public BooClass( @Named("boo") boolean boo ) {
+            this.bool = boo;
+        }
+    }
+
+    @Test
+    public void testBoo() {
+        ThreeMap<Three> map = new ThreeHashMap<Three>();
+        map.put( new ThreeKey("boo"), THREE("true") );
+
+        assertEquals( true, new ThreeToJ().get( BooClass.class, THREE(map )).bool);
+
+    }
+
+    @Test
+    public void testDefault() {
+        ThreeMap<Three> map = new ThreeHashMap<Three>();
+
+        assertEquals( false, new ThreeToJ().get( BooClass.class, THREE(map )).bool);
+
     }
 
 

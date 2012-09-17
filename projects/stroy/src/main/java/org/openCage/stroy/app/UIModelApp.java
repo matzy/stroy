@@ -1,6 +1,5 @@
 package org.openCage.stroy.app;
 
-import org.openCage.stroy.content.Content;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
 
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -31,18 +30,18 @@ import java.util.List;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ***** END LICENSE BLOCK *****/
 
-public class UIModelApp<T extends Content> {
+public class UIModelApp {
 
-    private final Tasks<T> tasks;
+    private final Tasks tasks;
     private final List<DefaultMutableTreeNode>  dmtnRoots;
 
-    public UIModelApp( final Tasks<T>                      tasks,
+    public UIModelApp( final Tasks                      tasks,
                        final List<DefaultMutableTreeNode>  dmtnRoots ) {
         this.tasks     = tasks;
         this.dmtnRoots = dmtnRoots;
     }
 
-    public List<TreeMatchingTask<T>> getTasks() {
+    public List<TreeMatchingTask> getTasks() {
         return tasks.getTasks();
     }
 

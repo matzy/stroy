@@ -2,11 +2,11 @@ package org.openCage.stroy.ui.popup;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
-import org.openCage.lang.structure.ObservableRef;
-import org.openCage.stroy.content.Content;
+import org.openCage.kleinod.observe.ObservableRef;
 import org.openCage.stroy.file.FileTypes;
 import org.openCage.stroy.filter.IgnoreCentral;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
+import org.openCage.stroy.ui.CompareBuilderFactory;
 import org.openCage.stroy.ui.prefs.PrefsUI;
 import org.openCage.util.external.DesktopX;
 
@@ -35,7 +35,7 @@ import org.openCage.util.external.DesktopX;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ***** END LICENSE BLOCK *****/
 
-public class DiffPopupFactory<T extends Content> {
+public class DiffPopupFactory {
 
     private final PrefsUI prefsUI;
     private final ObservableRef<String> editor;
@@ -43,6 +43,7 @@ public class DiffPopupFactory<T extends Content> {
     private final FileTypes fileTypes;
     private final IgnoreCentral central;
     private final DesktopX desktop;
+    private CompareBuilderFactory compareBuilderFactory;
 
 
     @Inject
@@ -51,19 +52,21 @@ public class DiffPopupFactory<T extends Content> {
                             @Named("DiffProg") ObservableRef<String> diffProg,
                             FileTypes fileTypes,
                             IgnoreCentral central,
-                            DesktopX desktop) {
+                            DesktopX desktop /*,
+                            CompareBuilderFactory compareBuilderFactory */) {
         this.prefsUI = prefsUI;
         this.editor = editor;
         this.diffProg = diffProg;
         this.fileTypes = fileTypes;
         this.central = central;
         this.desktop = desktop;
+        //this.compareBuilderFactory = compareBuilderFactory;
     }
 
-    public DiffPopup get( final TreeMatchingTask<T> taskLeft,
-                          final TreeMatchingTask<T> taskRight ) {
+    public DiffPopup get( final TreeMatchingTask taskLeft,
+                          final TreeMatchingTask taskRight ) {
 
-        return new DiffPopup( prefsUI, editor, diffProg, fileTypes, central, desktop, taskLeft, taskRight );
+        return new DiffPopup( prefsUI, editor, diffProg, fileTypes, central, desktop, taskLeft, taskRight, compareBuilderFactory);
     }
 
 }

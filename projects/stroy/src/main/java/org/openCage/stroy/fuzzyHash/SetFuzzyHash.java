@@ -29,25 +29,19 @@ import java.util.Set;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  ***** END LICENSE BLOCK *****/
 
-public class SetFuzzyHash implements FuzzyHash {
+public class SetFuzzyHash implements FuzzyHash<SetFuzzyHash> {
 
     private String type;
     private Set<Integer> lines;
 
 
-    public double fuzzyEqual( FuzzyHash other ) {
+    public double fuzzyEqual( SetFuzzyHash other ) {
 
         if ( other == null ) {
             return 0;
         }
 
-        if ( !(other instanceof SetFuzzyHash )) {
-            return 0;
-        }
-
-        SetFuzzyHash otherFuzzy = (SetFuzzyHash)other;
-
-        if ( !type.equals(  otherFuzzy.type )) {
+        if ( !type.equals(  other.type )) {
             return 0;
         }
 

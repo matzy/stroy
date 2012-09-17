@@ -1,9 +1,6 @@
 package org.openCage.ruleofthree.jtothree;
 
 
-import org.openCage.lang.Strings;
-
-import java.util.List;
 import java.util.Locale;
 
 /**

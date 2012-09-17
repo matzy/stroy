@@ -1,7 +1,7 @@
 package org.openCage.stroy.algo.hash;
 
-import org.openCage.lang.functions.F1;
-import org.openCage.stroy.content.Content;
+import org.openCage.kleinod.lambda.F1;
+import org.openCage.lindwurm.content.Content;
 
 /**
  * Created with IntelliJ IDEA.

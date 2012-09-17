@@ -1,9 +1,8 @@
 package org.openCage.ruleofthree.threetoxml;
 
-import org.openCage.lang.Strings;
+import org.openCage.kleinod.Strings;
 import org.openCage.ruleofthree.Three;
 import org.openCage.ruleofthree.ThreeKey;
-import org.openCage.ruleofthree.ThreeMap;
 import org.openCage.ruleofthree.XMLUtils;
 
 import java.util.ArrayList;

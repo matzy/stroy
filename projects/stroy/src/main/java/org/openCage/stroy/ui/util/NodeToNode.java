@@ -1,27 +1,26 @@
 package org.openCage.stroy.ui.util;
 
-import org.openCage.io.fspath.FSPathBuilder;
-import org.openCage.stroy.graph.node.TreeNode;
-import org.openCage.stroy.graph.node.TreeNodeUtils;
+import org.openCage.kleinod.io.IOUtils;
+import org.openCage.kleinod.io.fspath.FSPathBuilder;
+import org.openCage.lindwurm.LindenNode;
+import org.openCage.lindwurm.TreeNodes;
+import org.openCage.lindwurm.content.Content;
+import org.openCage.lindwurm.content.FileContent;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
-import org.openCage.stroy.content.FileContent;
-import org.openCage.stroy.ui.difftree.UINode;
 import org.openCage.stroy.ui.difftree.GhostNode;
-import org.openCage.stroy.content.Content;
-import org.openCage.util.io.FileUtils;
+import org.openCage.stroy.ui.difftree.UINode;
 import org.openCage.util.ui.TreeUtils;
 
-import javax.swing.tree.TreePath;
 import javax.swing.tree.DefaultMutableTreeNode;
-import java.io.FileInputStream;
+import javax.swing.tree.TreePath;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
-import java.util.ArrayList;
-import java.io.File;
 
-import static org.openCage.lang.errors.Unchecked.wrap;
+import static org.openCage.kleinod.errors.Unchecked.wrap;
 
 
 /***** BEGIN LICENSE BLOCK *****
@@ -52,7 +51,7 @@ import static org.openCage.lang.errors.Unchecked.wrap;
 
 public class NodeToNode {
 
-    public static TreeNode pathToNode(TreePath path) {
+    public static LindenNode pathToNode(TreePath path) {
 
         if ( path == null ) {
             return null;
@@ -66,7 +65,7 @@ public class NodeToNode {
     }
 
     public static File getFile( TreePath path ) {
-        TreeNode<Content> treeNode = pathToNode(path);
+        LindenNode treeNode = pathToNode(path);
         if ( treeNode.getContent() instanceof FileContent ) {
             return ((FileContent)treeNode.getContent()).getFile();
         }
@@ -74,8 +73,8 @@ public class NodeToNode {
         // TODO make util in io
         try {
             File ret = FSPathBuilder.getTmpFile(treeNode.getContent().getType()).toFile();
-            FileUtils.copy( treeNode.getContent().getStream(),
-                            new FileOutputStream(ret));
+            IOUtils.copy(treeNode.getContent().getStream(),
+                    new FileOutputStream(ret));
 
             return ret;
         } catch (IOException e) {
@@ -103,7 +102,7 @@ public class NodeToNode {
 
     }
 
-//    public static TreePath nodeToPathForTreesWithExtraRoot( DefaultMutableTreeNode root, TreeNode<FileContent> nodeRoot, TreeNode<FileContent> node ) {
+//    public static TreePath nodeToPathForTreesWithExtraRoot( DefaultMutableTreeNode root, LindenNode<FileContent> nodeRoot, LindenNode<FileContent> node ) {
 //
 //        String path = node.getContent().getFile().getPath().substring( nodeRoot.getContent().getFile().getPath().length() );
 //        String[] pieces = path.split( "/|:");
@@ -121,7 +120,7 @@ public class NodeToNode {
 //        return TreeUtils.getPath( next );
 //    }
 
-//    public static TreePath nodeToPath( DefaultMutableTreeNode root, TreeNode<FileContent> nodeRoot, TreeNode<FileContent> node ) {
+//    public static TreePath nodeToPath( DefaultMutableTreeNode root, LindenNode<FileContent> nodeRoot, LindenNode<FileContent> node ) {
 //
 //        String path = node.getContent().getFile().getPath().substring( nodeRoot.getContent().getFile().getPath().length() );
 //        String[] pieces = path.split( "/|:|\\\\");
@@ -150,7 +149,7 @@ public class NodeToNode {
          return new TreePath( node.getPath() );
      }
 
-//    public static void removeTreeNode(  DefaultMutableTreeNode root, TreeNode<FileContent> nodeRoot, TreeNode<FileContent> node ) {
+//    public static void removeTreeNode(  DefaultMutableTreeNode root, LindenNode<FileContent> nodeRoot, LindenNode<FileContent> node ) {
 //        String path = node.getContent().getFile().getPath().substring( nodeRoot.getContent().getFile().getPath().length() );
 //        String[] pieces = path.split( "/|:|\\\\");
 //
@@ -173,9 +172,9 @@ public class NodeToNode {
 //
 //    }
 
-//    public static void removeTreeNode(  DefaultMutableTreeNode root, TreeNode<FileContent> node ) {
+//    public static void removeTreeNode(  DefaultMutableTreeNode root, LindenNode<FileContent> node ) {
 //
-//        TreeNode<FileContent> nodeRoot = node;
+//        LindenNode<FileContent> nodeRoot = node;
 //
 //        while ( nodeRoot.getParent() != null ) {
 //            nodeRoot = nodeRoot.getParent();
@@ -185,13 +184,13 @@ public class NodeToNode {
 //    }
 
 
-    public static <T extends Content> TreePath nodeToPath( DefaultMutableTreeNode root, TreeNode<T> node ) {
+    public static <T extends Content> TreePath nodeToPath( DefaultMutableTreeNode root, LindenNode node ) {
 
         return TreeUtils.getPath( nodeToDMTNode( root, node ));
     }
 
-    public static <T extends Content> boolean isGhost( DefaultMutableTreeNode root, TreeNode<T> node ) {
-        List<String> namePath = TreeNodeUtils.getNamePath( node );
+    public static <T extends Content> boolean isGhost( DefaultMutableTreeNode root, LindenNode node ) {
+        List<String> namePath = TreeNodes.getNamePath(node);
 
         if ( namePath.size() < 1 ) {
             throw new IllegalArgumentException( "invalid node " + node );
@@ -202,9 +201,9 @@ public class NodeToNode {
 
     }
 
-    public static <T extends Content> DefaultMutableTreeNode nodeToDMTNode( DefaultMutableTreeNode root, TreeNode<T> node ) {
+    public static <T extends Content> DefaultMutableTreeNode nodeToDMTNode( DefaultMutableTreeNode root, LindenNode node ) {
 
-        List<String> namePath = TreeNodeUtils.getNamePath( node );
+        List<String> namePath = TreeNodes.getNamePath(node);
 
         if ( namePath.size() < 1 ) {
             throw new IllegalArgumentException( "invalid node " + node );
@@ -239,7 +238,7 @@ public class NodeToNode {
         return next;
     }
 
-    private static <T extends Content> boolean isInThatTree( DefaultMutableTreeNode root, TreeNode<T> node ) {
+    private static boolean isInThatTree( DefaultMutableTreeNode root, LindenNode node ) {
 
         return true;
 //        if ( !root.isRoot()) {
@@ -251,7 +250,7 @@ public class NodeToNode {
 //                ((FileContent)(((UINode)root.getUserObject()).get().getContent())).getFile().getAbsolutePath());
     }
 
-    public static <T extends Content> TreePath nodeToTreePath( DefaultMutableTreeNode root, TreeNode<T> node ) {
+    public static <T extends Content> TreePath nodeToTreePath( DefaultMutableTreeNode root, LindenNode node ) {
 
         return TreeUtils.getPath( nodeToDMTNode( root, node ));
     }
@@ -272,7 +271,7 @@ public class NodeToNode {
 //        if ( node.isRoot() ) {
 //            return ((UINode<Content>)node.getUserObject()).get().getContent().getName();
 //        } else {
-            return ((UINode<Content>)node.getUserObject()).toString(); //getContent().getName();
+            return (node.getUserObject()).toString(); //getContent().getName();
 //        }
     }
 
@@ -283,11 +282,11 @@ public class NodeToNode {
      * @param task A task connecting both trees
      * @return
      */
-    public static <T extends Content> DefaultMutableTreeNode findMatchingNode( DefaultMutableTreeNode root, TreePath path, TreeMatchingTask<T> task) {
+    public static <T extends Content> DefaultMutableTreeNode findMatchingNode( DefaultMutableTreeNode root, TreePath path, TreeMatchingTask task) {
         List<String> namePath = new ArrayList<String>();
 
         UINode      uiNode;
-        TreeNode<T> node;
+        LindenNode node;
         while( true ) {
             uiNode = ((UINode)((DefaultMutableTreeNode)path.getLastPathComponent()).getUserObject());
             node   = uiNode.get();
@@ -339,7 +338,7 @@ public class NodeToNode {
      * @param task The task connecting both sides
      * @return
      */
-    public static <T extends Content> DefaultMutableTreeNode findMatchingNode( DefaultMutableTreeNode root, TreeNode<T> node, TreeMatchingTask<T> task) {
+    public static <T extends Content> DefaultMutableTreeNode findMatchingNode( DefaultMutableTreeNode root, LindenNode node, TreeMatchingTask task) {
 
         // find first matching parents remember list of names
         // match

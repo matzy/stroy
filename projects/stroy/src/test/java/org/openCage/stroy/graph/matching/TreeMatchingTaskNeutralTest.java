@@ -1,9 +1,8 @@
 package org.openCage.stroy.graph.matching;
 
 import junit.framework.TestCase;
+import org.openCage.lindwurm.LindenNode;
 import org.openCage.stroy.graph.node.SimpleContentTreeBuilder;
-import org.openCage.stroy.graph.node.TreeNode;
-import org.openCage.stroy.content.ReducedContent;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
@@ -35,15 +34,15 @@ public class TreeMatchingTaskNeutralTest extends TestCase {
     public void testRootsMatch() {
         SimpleContentTreeBuilder b = new SimpleContentTreeBuilder();
 
-        TreeNode<ReducedContent> treeLeft = b.d( "f", b.l( "a"),
+        LindenNode treeLeft = b.d( "f", b.l( "a"),
                                                       b.d( "g", b.l("b"),
                                                                 b.l("c")));
 
-        TreeNode<ReducedContent> treeRight = b.d( "f2", b.l( "a"),
+        LindenNode treeRight = b.d( "f2", b.l( "a"),
                                                        b.d( "g", b.l("b"),
                                                                  b.l("c")));
 
-        TreeMatchingTask<ReducedContent> task =
+        TreeMatchingTask task =
                 TreeMatchingTaskNeutralBuilder.build( treeLeft, treeRight );
 
 

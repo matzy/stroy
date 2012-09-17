@@ -3,7 +3,7 @@
 //import org.openCage.lang.functions.VF1;
 //import org.openCage.stroy.algo.hash.Hash;
 //import org.openCage.stroy.text.LineNoise;
-//import org.openCage.util.io.FileUtils;
+//import org.openCage.lindwurm.FileUtils;
 //
 //import java.util.Set;
 //import java.util.HashSet;

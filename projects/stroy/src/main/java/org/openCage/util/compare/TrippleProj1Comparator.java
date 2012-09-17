@@ -1,6 +1,6 @@
 package org.openCage.util.compare;
 
-import org.openCage.lang.structure.T3;
+import org.openCage.kleinod.collection.T3;
 
 import java.util.Comparator;
 

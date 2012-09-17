@@ -1,24 +1,22 @@
 package org.openCage.stroy.ui.difftree;
 
-import org.openCage.lang.iterators.Count;
-import org.openCage.lang.iterators.Iterators;
+import net.java.dev.designgridlayout.DesignGridLayout;
+import org.openCage.kleinod.collection.Count;
+import org.openCage.kleinod.collection.Iterators;
+import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.ui.popup.PopupSelectorFactory;
 import org.openCage.stroy.ui.util.NodeToNode;
-import org.openCage.stroy.graph.matching.TreeMatchingTask;
-import org.openCage.stroy.content.Content;
+import org.openCage.util.logging.Log;
 
 import javax.swing.*;
-import javax.swing.event.TreeSelectionListener;
 import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
-import java.util.List;
-import java.util.ArrayList;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
-import net.java.dev.designgridlayout.DesignGridLayout;
-import org.openCage.util.logging.Log;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /***** BEGIN LICENSE BLOCK *****
@@ -45,17 +43,17 @@ import org.openCage.util.logging.Log;
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ***** END LICENSE BLOCK *****/
-public class NWayDiffPaneMessages<T extends Content> extends JPanel implements NWayDiffPane {
+public class NWayDiffPaneMessages extends JPanel implements NWayDiffPane {
 
     private final List<DiffTree>           dtrees;
     private List<DefaultMutableTreeNode>   roots;
     private final JButton mergeToRight = new JButton( "merge =>");
-    private PopupSelectorFactory<T> popupSelectorFactory;
+    private PopupSelectorFactory popupSelectorFactory;
 
-    public NWayDiffPaneMessages( final List<TreeMatchingTask<T>>      tasks,
+    public NWayDiffPaneMessages( final List<TreeMatchingTask>      tasks,
                                  final List<DefaultMutableTreeNode>   roots,
                                  final ShowChangeTreeCellRenderer     showChangeTreeCellRenderer,
-                                 final PopupSelectorFactory<T> popupSelectorFactory ) {
+                                 final PopupSelectorFactory popupSelectorFactory ) {
 
         try {
         this.popupSelectorFactory = popupSelectorFactory;
@@ -177,7 +175,7 @@ public class NWayDiffPaneMessages<T extends Content> extends JPanel implements N
 
     }
 
-    private List<DiffTree> createTrees( List<TreeMatchingTask<T>>    tasks,
+    private List<DiffTree> createTrees( List<TreeMatchingTask>    tasks,
                                         List<DefaultMutableTreeNode> roots,
                                         ShowChangeTreeCellRenderer   showChangeTreeCellRenderer) {
         List<DiffTree> dtrees = new ArrayList<DiffTree>();

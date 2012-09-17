@@ -5,10 +5,10 @@ import com.google.inject.Inject;
 import com.google.inject.Key;
 import com.google.inject.TypeLiteral;
 import com.google.inject.name.Named;
-import org.openCage.lang.functions.F1;
-import org.openCage.lang.inc.Null;
+import org.openCage.kleinod.lambda.F0;
+import org.openCage.kleinod.lambda.F1;
+import org.openCage.kleinod.type.Null;
 import org.openCage.ruleofthree.Three;
-import org.openCage.ruleofthree.ThreeHashMap;
 import org.openCage.ruleofthree.ThreeKey;
 import org.openCage.ruleofthree.ThreeMap;
 
@@ -17,7 +17,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -55,7 +54,7 @@ public class ThreeToJ {
 
     public <T> T get(TypeLiteral<? extends T> typeLiteral, Three three) {
         if ( three == null ) {
-            throw new IllegalArgumentException("bad key (?)");
+            throw new IllegalArgumentException("bad key (?) for " + typeLiteral );
         }
 
         Class clazz = typeLiteral.getRawType();
@@ -105,6 +104,21 @@ public class ThreeToJ {
 
         throw new Error("huh");
     }
+
+    private <T> T getDefault(TypeLiteral<T> literal) {
+        Class clazz = literal.getRawType();
+
+        F0<T> basic = basics.getDefault(clazz);
+
+        if ( basic != null ) {
+            return basic.call();
+        }
+
+        // fallback default
+        // TODO good enough ?
+        return null;
+    }
+
 
     private <T> T getEnum( Three three, Class clazz) {
         if ( !three.isString()) {
@@ -158,44 +172,6 @@ public class ThreeToJ {
         throw new Error("oops");
     }
 
-    private <T> T getImmuProp(Three readable, TypeLiteral literal ) {
-//        Constructor[] cnstrs = literal.getRawType().getConstructors();
-//
-//        if ( cnstrs.length != 1 ) {
-//            throw new IllegalStateException( "A ImmutableProperty must have a default constructor: " + literal );
-//        }
-//
-//        Constructor dflt = cnstrs[0];
-//
-//        TypeLiteral of = getTypeParameter( literal );
-//
-////        if ( dflt.getGenericParameterTypes().length != 0 ) {
-////            dflt = cnstrs[1];
-////        }
-////
-////        if ( dflt.getGenericParameterTypes().length != 0 ) {
-////            throw new Error("huh");
-////        }
-//
-//
-//        try {
-//            Object   obj  = get( of, readable );
-//            ImmuProp prop = (ImmuProp)dflt.newInstance( obj );
-//            return (T)prop;
-//
-//        } catch (InstantiationException e) {
-//            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-//        } catch (IllegalAccessException e) {
-//            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-//        } catch (InvocationTargetException e) {
-//            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-//        } catch ( IllegalArgumentException e ) {
-//            e.printStackTrace();
-//            int t = 0;
-//        }
-
-        throw new Error("oops");
-    }
 
 
     private <T> T getList(TypeLiteral<T> typeLiteral, Three readable, Class clazz) {
@@ -289,7 +265,7 @@ public class ThreeToJ {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
 
-        return (T) Null.get(ThreeMap.class);
+        return (T) Null.of(ThreeMap.class);
 
     }
 
@@ -327,7 +303,7 @@ public class ThreeToJ {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
 
-        return (T) Null.get(ThreeMap.class);
+        return (T) Null.of(ThreeMap.class);
 
     }
 
@@ -435,13 +411,14 @@ public class ThreeToJ {
             }
 
             try {
-                Key key = Key.get(paras[i]);
-                Three elemRead = threeMap.get( new ThreeKey( name ));
-                if ( elemRead == null ) {
-                    throw new IllegalArgumentException("bad key " + name );
-                }
+                Key         key      = Key.get(paras[i]);
                 TypeLiteral literal  = key.getLiteral();
-                pp[i] = get( literal, elemRead);
+                Three       elemRead = threeMap.get( new ThreeKey( name ));
+                if ( elemRead == null ) {
+                    pp[i] = getDefault(literal );
+                } else {
+                    pp[i] = get( literal, elemRead);
+                }
             } catch ( UnsupportedOperationException ex ) {
                 throw new UnsupportedOperationException( "Constructor " + cnstr.getName() + " can't be called because " + ex.getMessage() );
             }
@@ -449,6 +426,7 @@ public class ThreeToJ {
 
         return pp;
     }
+
 
     String getAnnotatedName(Annotation[] annotations) {
         for ( Annotation ann : annotations) {

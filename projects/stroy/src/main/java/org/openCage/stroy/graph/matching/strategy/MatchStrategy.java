@@ -1,7 +1,7 @@
 package org.openCage.stroy.graph.matching.strategy;
 
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
-import org.openCage.stroy.content.Content;
+import org.openCage.lindwurm.content.Content;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
@@ -31,7 +31,7 @@ import org.openCage.stroy.content.Content;
 /**
  * Match non connected nodes
  */
-public interface MatchStrategy<T extends Content> {
+public interface MatchStrategy {
 
-    public void match( TreeMatchingTask<T> treeMatchingTask, Reporter reporter);
+    public void match( TreeMatchingTask treeMatchingTask, Reporter reporter);
 }

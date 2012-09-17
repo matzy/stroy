@@ -2,15 +2,15 @@
 //
 //import org.jdesktop.swingworker.SwingWorker;
 //import org.openCage.lang.structure.T2;
-//import org.openCage.stroy.content.FileContent;
-//import org.openCage.stroy.graph.node.TreeDirNode;
-//import org.openCage.stroy.graph.node.TreeNode;
-//import org.openCage.stroy.graph.node.TreeNodeUtils;
+//import org.openCage.lindwurm.content.FileContent;
+//import org.openCage.lindwurm.LindenDirNode;
+//import org.openCage.stroy.graph.node.LindenNode;
+//import org.openCage.lindwurm.TreeNodes;
 //import org.openCage.stroy.graph.matching.TreeMatchingTask;
 //import org.openCage.stroy.ui.ModalProgress;
 //import org.openCage.stroy.app.UIApp;
 //import org.openCage.stroy.ui.util.NodeToNode;
-//import org.openCage.stroy.content.Content;
+//import org.openCage.lindwurm.content.Content;
 //import org.openCage.util.logging.Log;
 //import org.openCage.util.lang.Method1;
 //
@@ -43,7 +43,7 @@
 //* Contributor(s):
 //***** END LICENSE BLOCK *****/
 //
-//public class ThinningWorker<T extends Content> extends SwingWorker<String, T2<Integer, TreeNode<T> >> {
+//public class ThinningWorker<T extends Content> extends SwingWorker<String, T2<Integer, LindenNode<T> >> {
 //
 //
 //    public enum DisplayAndModel {
@@ -51,18 +51,18 @@
 //        displayAndModel
 //    }
 //
-//    private final Method1<Boolean, TreeNode<T>> doFilter;
+//    private final Method1<Boolean, LindenNode<T>> doFilter;
 //    private final ModalProgress                           progress;
 //    private final DisplayAndModel                         displayAndModel;
 //    private final UIApp<T>                      uiApp;
 //
 //    private boolean one = false;
-//    private List<TreeNode<T>> toDelLeft;
-//    private List<TreeNode<T>> toDelRight;
+//    private List<LindenNode<T>> toDelLeft;
+//    private List<LindenNode<T>> toDelRight;
 //
 //    public ThinningWorker( final JFrame                                  frame,
 //                           final UIApp<T>                      uiApp,
-//                           final Method1<Boolean, TreeNode<T>> doFilter,
+//                           final Method1<Boolean, LindenNode<T>> doFilter,
 //                           final DisplayAndModel                         displayAndModel        ) {
 //        this.doFilter = doFilter;
 //        progress      = new ModalProgress( frame );
@@ -77,8 +77,8 @@
 //            throw new Error("n-way not impl");
 //        }
 //
-//        toDelLeft  = new ArrayList<TreeNode<T>>();
-//        toDelRight = new ArrayList<TreeNode<T>>();
+//        toDelLeft  = new ArrayList<LindenNode<T>>();
+//        toDelRight = new ArrayList<LindenNode<T>>();
 //
 //        for ( TreeMatchingTask<T> task : uiApp.getTasks() ) {
 //
@@ -90,9 +90,9 @@
 //        return "done";
 //    }
 //
-//    private void doOneTree( TreeNode<T> node, int idx, boolean ignoredAlready, List<TreeNode<T>> toDel) {
+//    private void doOneTree( LindenNode<T> node, int idx, boolean ignoredAlready, List<LindenNode<T>> toDel) {
 //
-//        String path = TreeNodeUtils.getStringPath( node );
+//        String path = TreeNodes.getStringPath( node );
 //
 //        if ( ignoredAlready || doFilter.call( node ) ) {
 //            Log.info( "removing " + node + " from tree" );
@@ -105,7 +105,7 @@
 //        }
 //
 //        if ( !node.isLeaf() && !ignoredAlready ) {
-//            for ( TreeNode<T> child : ((TreeDirNode<T>)node).getChildren() ) {
+//            for ( LindenNode<T> child : ((LindenDirNode<T>)node).getChildren() ) {
 //                doOneTree( child, idx, ignoredAlready, toDel );
 //            }
 //        }
@@ -118,22 +118,22 @@
 //        super.done();
 //
 ////        // must be here after tree stuff is done
-////        for ( TreeNode<T> node : toDelLeft ) {
+////        for ( LindenNode<T> node : toDelLeft ) {
 ////            tasks.get(0).remove(node);
 ////            node.getParent().removeChild(node);
 ////        }
 ////
-////        for ( TreeNode<T> node : toDelRight ) {
+////        for ( LindenNode<T> node : toDelRight ) {
 ////            tasks.get(0).remove(node);
 ////            node.getParent().removeChild(node);
 ////        }
 //
 //
-//        TreeNode rr = uiApp.getTasks().get(0).getRightRoot();
-//        List l2 = TreeNodeUtils.toList( uiApp.getTasks().get(0).getRightRoot());
+//        LindenNode rr = uiApp.getTasks().get(0).getRightRoot();
+//        List l2 = TreeNodes.toList( uiApp.getTasks().get(0).getRightRoot());
 //
-//        uiApp.getDiffPane().refresh(); //getSkyView(0).setList( TreeNodeUtils.toList( tasks.get(0).getRightRoot()) );
-//        //diffPane.getSkyView(1).setList( TreeNodeUtils.toList( tasks.get(0).getLeftRoot()) );
+//        uiApp.getDiffPane().refresh(); //getSkyView(0).setList( TreeNodes.toList( tasks.get(0).getRightRoot()) );
+//        //diffPane.getSkyView(1).setList( TreeNodes.toList( tasks.get(0).getLeftRoot()) );
 //
 //
 //        progress.dispose();
@@ -143,10 +143,10 @@
 //
 //
 //    // EDT
-//    protected void process(List<T2<Integer, TreeNode<T>>> nodes) {
+//    protected void process(List<T2<Integer, LindenNode<T>>> nodes) {
 //        super.process(nodes);
 //
-//        for ( T2<Integer, TreeNode<T>> node : nodes ) {
+//        for ( T2<Integer, LindenNode<T>> node : nodes ) {
 //
 //            progress.setText( node.i1.toString() );
 //            DefaultTreeModel       model   = ((DefaultTreeModel)uiApp.getDiffPane().getTree(node.i0).getModel());

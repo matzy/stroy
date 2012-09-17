@@ -1,7 +1,6 @@
 package org.openCage.stroy.ui.popup;
 
 import com.google.inject.Inject;
-import org.openCage.stroy.content.Content;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
 
 /***** BEGIN LICENSE BLOCK *****
@@ -29,17 +28,17 @@ import org.openCage.stroy.graph.matching.TreeMatchingTask;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ***** END LICENSE BLOCK *****/
 
-public class PopupSelectorFactory<T extends Content> {
+public class PopupSelectorFactory {
 
-    private DiffPopupFactory<T> dpf;
+    private DiffPopupFactory dpf;
 
     @Inject
-    public PopupSelectorFactory(DiffPopupFactory<T> dpf) {
+    public PopupSelectorFactory(DiffPopupFactory dpf) {
         this.dpf = dpf;
 
     }
 
-    public PopupSelector get( final TreeMatchingTask<T> taskLeft, final TreeMatchingTask<T> taskRight) {
+    public PopupSelector get( final TreeMatchingTask taskLeft, final TreeMatchingTask taskRight) {
         return new PopupSelector( dpf, taskLeft, taskRight);
     }
 }

@@ -1,7 +1,7 @@
 package org.openCage.ruleofthree.jtothree;
 
 import org.junit.Test;
-import org.openCage.lang.inc.ImmuDate;
+import org.openCage.kleinod.immutable.ImmuDate;
 
 import java.util.Locale;
 import java.util.UUID;
@@ -65,6 +65,14 @@ public class BasicsTest {
         assertEquals( THREE("13"),  Basics.get().getToThree(Integer.class).call( 13 ));
 
         assertEquals( new Integer(42), Basics.get().getFromThree(Integer.class).call( THREE("42")));
+
+    }
+
+    @Test
+    public void bool() {
+        assertEquals( THREE("true"),  Basics.get().getToThree(boolean.class).call( true ));
+
+        assertEquals( new Boolean(false), Basics.get().getFromThree(boolean.class).call( THREE("false")));
 
     }
 

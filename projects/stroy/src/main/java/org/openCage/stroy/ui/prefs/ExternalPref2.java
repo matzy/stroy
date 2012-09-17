@@ -1,31 +1,28 @@
 package org.openCage.stroy.ui.prefs;
 
 import net.java.dev.designgridlayout.DesignGridLayout;
-import org.openCage.lang.functions.F1;
-import org.openCage.lang.functions.F2;
-import org.openCage.lang.structure.ObservableRef;
+import org.openCage.kleinod.lambda.F1;
+import org.openCage.kleinod.observe.ObservableDetailRef;
+import org.openCage.kleinod.observe.ObservableRef;
+import org.openCage.kleinod.observe.ObservableReference;
+import org.openCage.kleinod.ui.Binding;
+import org.openCage.kleinod.ui.RootedButtonGroup;
+import org.openCage.ruleofthree.ThreeKey;
 import org.openCage.ruleofthree.property.MapProperty;
 import org.openCage.stroy.file.Action;
 import org.openCage.stroy.file.FileTypes;
-import org.openCage.stroy.file.ImmuBridge;
 import org.openCage.stroy.file.SimilarityAlgorithm;
 import org.openCage.stroy.locale.Message;
-import org.openCage.util.prefs.EComboBox;
-import org.openCage.util.prefs.MComboBox;
-import org.openCage.util.prefs.TextField;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
+
+import static org.openCage.kleinod.collection.Forall.forall;
 
 
 /***** BEGIN LICENSE BLOCK *****
@@ -59,9 +56,14 @@ public class ExternalPref2 extends JPanel {
     private FileTypes fileTypes;
     private MapProperty<ObservableRef<String>> progList;
     private final JList extensions;
-    private MComboBox openCombo;
-    private TextField descrText;
-    private EComboBox algoCombo;
+    private JComboBox openCombo = new JComboBox();
+    private JTextField descrText = new JTextField();
+    private JComboBox algoCombo = new JComboBox();
+    private JCheckBox isText = new JCheckBox("isText");
+    private ObservableReference<Action> currentAction = new ObservableRef<Action>(null);
+    private final JCheckBox isXML = new JCheckBox(Message.get("Pref.FileType.isXML"));
+    private final JCheckBox isJSON = new JCheckBox(Message.get("Pref.FileType.isJSON"));
+    private final JCheckBox isBundle = new JCheckBox(Message.get("Pref.FileType.isBundle"));
 
 
     public ExternalPref2( final JFrame frame, final FileTypes filesTypes, MapProperty<ObservableRef<String>> progList) {
@@ -72,50 +74,36 @@ public class ExternalPref2 extends JPanel {
         this.progList  = progList;
         extensions     = createExtensions();
 
-        final ImmuBridge<Action> openBridge = new ImmuBridge<Action>( new F1<String, Action>() {
-            @Override
-            public String call(Action action) {
-                return (action.getOpen());
-            }
-        }, new F2<Void, Action, String>() {
-            @Override
-            public Void call(Action action, String open) {
-                action.setOpen( open );
-                return null;
-            }
-        });
+//        final ImmuBridge<Action> openBridge = new ImmuBridge<Action>( new F1<String, Action>() {
+//            @Override
+//            public String call(Action action) {
+//                return (action.getOpen());
+//            }
+//        }, new F2<Void, Action, String>() {
+//            @Override
+//            public Void call(Action action, String open) {
+//                action.setOpen( open );
+//                return null;
+//            }
+//        });
 
-        this.openCombo = new MComboBox( progList, openBridge.getProp() );
+//        this.openCombo = new MComboBox( progList, openBridge.getProp() );
 
-        final ImmuBridge<Action> decrBridge = new ImmuBridge<Action>( new F1<String, Action>() {
-            @Override
-            public String call(Action action) {
-                return (action.getDescription());
-            }
-        }, new F2<Void, Action, String>() {
-            @Override
-            public Void call(Action action, String open) {
-                action.setDescription(open);
-                return null;
-            }
-        });
+        Binding.bind( openCombo ).
+                outOf( forall(progList.keySet()).trans( new F1<String, ThreeKey>() {
+                    @Override
+                    public String call(ThreeKey threeKey) {
+                        return threeKey.toString();
+                    }
+                }).toList() ).
+                to(new ObservableDetailRef<String>(currentAction, "open"));
 
-        descrText = new TextField( decrBridge.getProp() );
-
-        final ImmuBridge<Action> algoBridge = new ImmuBridge<Action>( new F1<String, Action>() {
-            @Override
-            public String call(Action action) {
-                return (action.getAlgo().toString());
-            }
-        }, new F2<Void, Action, String>() {
-            @Override
-            public Void call(Action action, String open) {
-                action.setAlgo( SimilarityAlgorithm.valueOf( open));
-                return null;
-            }
-        });
-
-        algoCombo = new EComboBox( SimilarityAlgorithm.class, algoBridge.getProp() );
+        Binding.bind( descrText, new ObservableDetailRef<String>( currentAction, "description" ));
+        Binding.bind( algoCombo, SimilarityAlgorithm.class, new ObservableDetailRef<SimilarityAlgorithm>( currentAction, "algo" ));
+        Binding.bind( isText, new ObservableDetailRef<Boolean>( currentAction, "isText" ));
+        Binding.bind( isXML, new ObservableDetailRef<Boolean>( currentAction, "isXML" ));
+        Binding.bind( isJSON, new ObservableDetailRef<Boolean>( currentAction, "isJSON" ));
+        Binding.bind( isBundle, new ObservableDetailRef<Boolean>( currentAction, "isBundle" ));
 
 
 
@@ -123,17 +111,25 @@ public class ExternalPref2 extends JPanel {
             public void valueChanged(ListSelectionEvent listSelectionEvent) {
                 String ext = (String) extensions.getSelectedValue();
                 Action action = filesTypes.getAction( (ext) );
-                openBridge.set( action );
-                decrBridge.set( action );
-                algoBridge.set( action);
-//                descriptionField.setText( fileTypes.getDescription( ext ));
-//                algoBox.setSelectedItem( algo2mesg.get( fileTypes.getAlgo(ext ).toString() ));
-//                setDiff(ext);
-//                setOpen(ext);
-//                setEnabledAll( true );
+                currentAction.set( action );
             }
         });
 
+//        isText.addActionListener( new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent actionEvent) {
+//                if ( !isText.isSelected() ) {
+//                    isJSON.setSelected( false );
+//                    isXML.setSelected( false );
+//                } else {
+//                    isBundle.setSelected( false );
+//                }
+//            }
+//        });
+//
+
+        new RootedButtonGroup().addRoot( isText ).add( isXML ).add(isJSON);
+        new RootedButtonGroup().add( isText ).add( isBundle );
 
 
         createExtensions();
@@ -157,11 +153,16 @@ public class ExternalPref2 extends JPanel {
         final JLabel algo     = new JLabel(Message.get("Pref.FileType.algo"));
         final JLabel external = new JLabel(Message.get("Pref.FileType.external"));
         final JLabel open     = new JLabel(Message.get("Pref.FileType.open"));
+        final JLabel is       = new JLabel(Message.get("Pref.FileType.is"));
 
-        dgl.row().grid().add( lp ).add( descr    ).add( descrText );
-        dgl.row().grid().spanRow().add( algo     ).add( algoCombo);
-        dgl.row().grid().spanRow().add( external ).add( new JButton( "drop" ));
-        dgl.row().grid().spanRow().add( open     ).add( openCombo );
+        dgl.row().grid().add( lp ).add(descr).grid(2).add( descrText, 3 );
+        dgl.row().grid().spanRow().add(is).grid(2).add( isText, 3 );
+        dgl.row().grid().spanRow().empty().grid(2).empty()/*indent(1)*/.add(isXML, 2);
+        dgl.row().grid().spanRow().empty().grid(2).empty()/*indent(1)*/.add(isJSON, 2);
+        dgl.row().grid().spanRow().empty().grid(2).add(isBundle,3);
+        //dgl.row().grid().spanRow().add(algo).grid(2).add( algoCombo,3);
+        dgl.row().grid().spanRow().add(external).grid(2).add( new JButton( "drop" ),3);
+        dgl.row().grid().spanRow().add(open).grid(2).add( openCombo, 3 );
     }
 
     public void showExtension(String extension) {

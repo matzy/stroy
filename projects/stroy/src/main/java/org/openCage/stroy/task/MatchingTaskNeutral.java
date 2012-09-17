@@ -1,12 +1,15 @@
 package org.openCage.stroy.task;
 
-import org.openCage.lang.structure.Once;
-import org.openCage.lang.structure.T3;
-import org.openCage.stroy.graph.node.TreeNode;
-import org.openCage.util.logging.Log;
+import org.openCage.kleinod.collection.Once;
+import org.openCage.kleinod.collection.T3;
 import org.openCage.stroy.diff.ContentDiff;
+import org.openCage.util.logging.Log;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /***** BEGIN LICENSE BLOCK *****
@@ -70,11 +73,15 @@ public class MatchingTaskNeutral<T> implements MatchingTask<T>{
     }
 
     public void addLeft(T obj) {
-        left2Right.put( obj, null );
+        if ( !left2Right.containsKey( obj )) {
+            left2Right.put( obj, null );
+        }
     }
 
     public void addRight(T obj) {
-        right2Left.put( obj, null);
+        if ( !right2Left.containsKey( obj )) {
+            right2Left.put( obj, null);
+        }
     }
 
     public Collection<T> getUnmatchedLeft() {

@@ -1,10 +1,9 @@
 package org.openCage.stroy.graph;
 
-import org.openCage.stroy.content.Content;
+import org.openCage.lindwurm.LindenDirNode;
+import org.openCage.lindwurm.LindenNode;
+import org.openCage.lindwurm.content.Content;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
-import org.openCage.stroy.graph.node.TreeNode;
-import org.openCage.stroy.graph.node.TreeDirNode;
-import org.openCage.stroy.graph.node.TreeLeafNode;
 import org.openCage.stroy.ui.ChangeVector;
 import org.openCage.stroy.diff.ContentDiff;
 
@@ -36,7 +35,7 @@ import org.openCage.stroy.diff.ContentDiff;
 
 public class DiffReporter {
 
-    public static <T extends Content> boolean isMoved( TreeMatchingTask<T> task, TreeNode<T> node ) {
+    public static <T extends Content> boolean isMoved( TreeMatchingTask task, LindenNode node ) {
         if ( !task.isMatched( node )) {
             return false;
         }
@@ -47,13 +46,13 @@ public class DiffReporter {
         }
 
 
-        TreeNode<T>    parentMatch = task.getMatch( node.getParent() );
-        TreeDirNode<T> matchParent = task.getMatch( node ).getParent();
+        LindenNode parentMatch = task.getMatch( node.getParent() );
+        LindenDirNode matchParent = task.getMatch( node ).getParent();
 
         return parentMatch != matchParent;
     }
 
-    public static <T extends Content> boolean isRenamed(TreeMatchingTask<T> task, TreeNode<T> node) {
+    public static <T extends Content> boolean isRenamed(TreeMatchingTask task, LindenNode node) {
         if ( !task.isMatched( node )) {
             return false;
         }
@@ -62,19 +61,19 @@ public class DiffReporter {
         return !node.getContent().getName().equals( task.getMatch( node ).getContent().getName());
     }
 
-    public static <T extends Content> ContentDiff isContentChanged(TreeMatchingTask<T> task, TreeNode<T> node) {
+    public static <T extends Content> ContentDiff isContentChanged(TreeMatchingTask task, LindenNode node) {
         if ( !task.isMatched( node )) {
             return null;
         }
 
         if ( !node.isLeaf() ) {
-            return task.getDirs().getDifference( (TreeDirNode<T>)node );    
+            return task.getDirs().getDifference( (LindenDirNode)node );
         }
 
-        return task.getLeaves().getDifference( (TreeLeafNode<T>)node );
+        return task.getLeaves().getDifference( node );
     }
 
-    public static <T extends Content> ChangeVector getChangeVector( TreeMatchingTask<T> task, TreeNode<T> node) {
+    public static <T extends Content> ChangeVector getChangeVector( TreeMatchingTask task, LindenNode node) {
         return null;
     }
 }

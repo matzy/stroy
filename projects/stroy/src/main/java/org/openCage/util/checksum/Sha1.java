@@ -1,7 +1,12 @@
 package org.openCage.util.checksum;
 
-import org.openCage.lang.Strings;
-import org.openCage.lang.errors.Unchecked;
+import com.google.inject.Inject;
+import org.openCage.kleinod.Strings;
+import org.openCage.kleinod.errors.Unchecked;
+import org.openCage.kleinod.io.IOUtils;
+import org.openCage.kleinod.lambda.F1;
+import org.openCage.kleinod.lambda.Memo;
+import org.openCage.lindwurm.content.Content;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -33,54 +38,65 @@ import java.security.NoSuchAlgorithmException;
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  ***** END LICENSE BLOCK *****/
-public class Sha1 implements Checksum {
+public class Sha1 extends Memo<String,Content> implements Checksummer{
 
-    private final int buffersize;
 
+    @Inject
     public Sha1() {
         this( 4096 );
     }
 
     public Sha1( int buffersize ) {
-        this.buffersize = buffersize;
+        super( new CheckS(buffersize));
     }
 
-    public String getChecksum( InputStream is ) {
-        byte[] buffer = new byte[buffersize];
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-1");
+    private static class CheckS implements F1<String,Content> {
 
-            int len = 0;
-            while ( ( len = is.read(buffer)) > 0 ) {
-                len = pad( buffer, len);
-                md.digest(buffer,0,len);
+        private final int buffersize;
+
+        public CheckS(int buffersize) {
+            this.buffersize = buffersize;
+        }
+
+        @Override
+        public String call(Content content) {
+            byte[]      buffer = new byte[buffersize];
+            InputStream is     = null;
+            try {
+                MessageDigest md = MessageDigest.getInstance("SHA-1");
+                is = content.getStream();
+
+                int len = 0;
+                while ( ( len = is.read(buffer)) > 0 ) {
+                    len = pad( buffer, len);
+                    md.digest(buffer,0,len);
+                }
+
+                return Strings.asHex(md.digest());
+
+            } catch (NoSuchAlgorithmException e) {
+                throw new Unchecked( e );
+            } catch (IOException e) {
+                throw new Unchecked( e );
+            } catch (DigestException e) {
+                throw new Unchecked( e );
+            } finally {
+                IOUtils.closeQuietly(is);
+            }
+        }
+        /**
+         * sha-1 wants updates with al least 20 bytes
+         * thus pad it
+         * @param buffer
+         * @param len
+         * @return
+         */
+        public int pad( byte[] buffer, int len ) {
+            for ( ; len < 20; len++ ) {
+                buffer[len] = 0;
             }
 
-            return Strings.asHex(md.digest());
-
-        } catch (NoSuchAlgorithmException e) {
-            throw new Unchecked( e );
-        } catch (IOException e) {
-            throw new Unchecked( e );
-        } catch (DigestException e) {
-            throw new Unchecked( e );
+            return len;
         }
     }
-
-    /**
-     * sha-1 wants updates with al least 20 bytes
-     * thus pad it
-     * @param buffer
-     * @param len
-     * @return
-     */
-    public int pad( byte[] buffer, int len ) {
-        for ( ; len < 20; len++ ) {
-            buffer[len] = 0;
-        }
-
-        return len;
-    }
-
-
 }

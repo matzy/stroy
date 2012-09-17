@@ -1,9 +1,8 @@
 package org.openCage.stroy.ui.difftree;
 
-import org.openCage.stroy.graph.node.TreeNode;
-import org.openCage.stroy.ui.ChangeVector;
-import org.openCage.stroy.content.Content;
+import org.openCage.lindwurm.LindenNode;
 import org.openCage.stroy.diff.ContentDiff;
+import org.openCage.stroy.ui.ChangeVector;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.List;
@@ -34,11 +33,11 @@ import java.util.List;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ***** END LICENSE BLOCK *****/
 
-public interface UINode<T extends Content> {
+public interface UINode {
     public ChangeVector getChangeVectorLeft();
     public ChangeVector getChangeVectorRight();
 
-    public TreeNode<T> get();
+    public LindenNode get();
 
     public void        setChangeNumbers(ChangeNumbers cn);
 

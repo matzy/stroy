@@ -1,7 +1,7 @@
 package org.openCage.ruleofthree;
 
-import com.google.inject.TypeLiteral;
-import org.openCage.rei.ReiHashMap;
+import org.openCage.kleinod.collection.ReiHashMap;
+import org.openCage.kleinod.type.TypeLit;
 
 import java.util.HashMap;
 
@@ -14,7 +14,7 @@ import java.util.HashMap;
  */
 public class ThreeHashMap<T> extends ReiHashMap<ThreeKey,T> implements ThreeMap<T> {
     public ThreeHashMap() {
-        super( new TypeLiteral<ThreeKey>() {});
+        super( new TypeLit<ThreeKey>() {});
     }
 
     @Override

@@ -2,13 +2,13 @@
 //
 //import org.junit.Test;
 //import org.openCage.stroy.graph.node.SimpleContentTreeBuilder;
-//import org.openCage.stroy.graph.node.TreeNode;
-//import org.openCage.stroy.graph.node.TreeNodeUtils;
+//import org.openCage.lindwurm.LindenNode;
+//import org.openCage.lindwurm.TreeNodes;
 //import org.openCage.stroy.graph.matching.TreeMatchingTask;
 //import org.openCage.stroy.graph.matching.TreeMatchingTaskNeutralBuilder;
 //import org.openCage.stroy.graph.matching.strategy.StandardMatching;
 //import org.openCage.stroy.graph.matching.strategy.NullReporter;
-//import org.openCage.stroy.content.ReducedContent;
+//import org.openCage.lindwurm.content.ReducedContent;
 //import org.openCage.lang.structure.T2;
 //
 //import static org.junit.Assert.*;
@@ -43,28 +43,28 @@
 //    public void testLeftRight_right() {
 //        SimpleContentTreeBuilder b = new SimpleContentTreeBuilder();
 //
-//        TreeNode<ReducedContent> treeLeft = b.d( "left", b.l( "a"),
+//        LindenNode<ReducedContent> treeLeft = b.d( "left", b.l( "a"),
 //                                                      b.d( "g", b.l("b"),
 //                                                                b.l("c")));
 //
-//        TreeNode<ReducedContent> treeRight = b.d( "right", b.l( "a"),
+//        LindenNode<ReducedContent> treeRight = b.d( "right", b.l( "a"),
 //                                                       b.d( "g", b.l("b"),
 //                                                                 b.l("c")));
 //
 //        TreeMatchingTask<ReducedContent> task =
 //                TreeMatchingTaskNeutralBuilder.build( treeLeft, treeRight );
 //
-//        new StandardMatching<ReducedContent>().match( task, new NullReporter() );
+//        new StandardMatching<ReducedContent>().match( task, Null.of(Reporter.class) );
 //
 //        DiffPopup<ReducedContent> popup =
 //                new DiffPopup<ReducedContent>(standard_diff, null, task, null, editor);
 //
-//        T2<TreeNode<ReducedContent>, TreeNode<ReducedContent>> lr =
-//                popup.getLeftAndRightNode( TreeNodeUtils.getNode( task.getRightRoot() ));
+//        T2<LindenNode<ReducedContent>, LindenNode<ReducedContent>> lr =
+//                popup.getLeftAndRightNode( TreeNodes.getNode( task.getRightRoot() ));
 //
-//        assertEquals( TreeNodeUtils.getNode( task.getLeftRoot()),
+//        assertEquals( TreeNodes.getNode( task.getLeftRoot()),
 //                      lr.i0 );
-//        assertEquals( TreeNodeUtils.getNode( task.getRightRoot()),
+//        assertEquals( TreeNodes.getNode( task.getRightRoot()),
 //                      lr.i1 );
 //    }
 //
@@ -72,28 +72,28 @@
 //    public void testLeftRight_left() {
 //        SimpleContentTreeBuilder b = new SimpleContentTreeBuilder();
 //
-//        TreeNode<ReducedContent> treeLeft = b.d( "left", b.l( "a"),
+//        LindenNode<ReducedContent> treeLeft = b.d( "left", b.l( "a"),
 //                                                      b.d( "g", b.l("b"),
 //                                                                b.l("c")));
 //
-//        TreeNode<ReducedContent> treeRight = b.d( "right", b.l( "a"),
+//        LindenNode<ReducedContent> treeRight = b.d( "right", b.l( "a"),
 //                                                       b.d( "g", b.l("b"),
 //                                                                 b.l("c")));
 //
 //        TreeMatchingTask<ReducedContent> task =
 //                TreeMatchingTaskNeutralBuilder.build( treeLeft, treeRight );
 //
-//        new StandardMatching<ReducedContent>().match( task, new NullReporter() );
+//        new StandardMatching<ReducedContent>().match( task, Null.of(Reporter.class) );
 //
 //        DiffPopup<ReducedContent> popup =
 //                new DiffPopup<ReducedContent>(standard_diff, null, null, task, editor);
 //
-//        T2<TreeNode<ReducedContent>, TreeNode<ReducedContent>> lr =
-//                popup.getLeftAndRightNode( TreeNodeUtils.getNode( task.getLeftRoot() ));
+//        T2<LindenNode<ReducedContent>, LindenNode<ReducedContent>> lr =
+//                popup.getLeftAndRightNode( TreeNodes.getNode( task.getLeftRoot() ));
 //
-//        assertEquals( TreeNodeUtils.getNode( task.getLeftRoot()),
+//        assertEquals( TreeNodes.getNode( task.getLeftRoot()),
 //                      lr.i0 );
-//        assertEquals( TreeNodeUtils.getNode( task.getRightRoot()),
+//        assertEquals( TreeNodes.getNode( task.getRightRoot()),
 //                      lr.i1 );
 //    }
 //}

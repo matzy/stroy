@@ -2,16 +2,20 @@ package org.openCage.util.external;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
-import org.openCage.lang.structure.ObservableRef;
+import org.openCage.kleinod.io.FileUtils;
+import org.openCage.kleinod.observe.ObservableRef;
 import org.openCage.stroy.file.FileTypes;
-import org.openCage.util.io.FileUtils;
 import org.openCage.util.logging.Log;
 
 import java.awt.*;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
-import static org.openCage.io.IOUtils.closeQuietly;
-import static org.openCage.lang.errors.Unchecked.wrap;
+import static org.openCage.kleinod.errors.Unchecked.wrap;
+import static org.openCage.kleinod.io.IOUtils.closeQuietly;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)

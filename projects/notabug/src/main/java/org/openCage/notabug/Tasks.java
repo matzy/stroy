@@ -1,9 +1,8 @@
 package org.openCage.notabug;
 
 import com.google.inject.Inject;
-import com.sun.tools.javac.code.Type;
-import org.openCage.lang.Forall;
-import org.openCage.lang.functions.F1;
+import org.openCage.kleinod.collection.Forall;
+import org.openCage.kleinod.lambda.F1;
 import org.openCage.ruleofthree.ThreeKey;
 import org.openCage.ruleofthree.property.PropertyStore;
 
@@ -43,7 +42,7 @@ public class Tasks {
     }
 
     public List<Task> find( final String match ) {
-        return Forall.forall( getAll()).skip( new F1<Boolean, Task>() {
+        return Forall.forall(getAll()).skip( new F1<Boolean, Task>() {
             @Override
             public Boolean call(Task task) {
 

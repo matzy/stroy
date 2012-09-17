@@ -1,7 +1,9 @@
 package org.openCage.stroy.graph.node;
 
 import junit.framework.TestCase;
-import org.openCage.stroy.content.ReducedContent;
+import org.openCage.lindwurm.LindenDirNode;
+import org.openCage.lindwurm.LindenNode;
+import org.openCage.lindwurm.TreeNodes;
 
 import java.util.List;
 
@@ -33,16 +35,16 @@ import java.util.List;
 public class SimpleTreeAndNavigationTest extends TestCase {
 
     public void testSimple() {
-        SimpleTreeBuilder<String> b = new SimpleTreeBuilder<String>();
+        SimpleTreeBuilder b = new SimpleTreeBuilder();
 
-        TreeNode<String> tree = b.d( "f", b.l("a"),
+        LindenNode tree = b.d( "f", b.l("a"),
                                           b.d( "g", b.l("b"),
                                                     b.l("c")));
         
 
         assertFalse( tree.isLeaf());
 
-        TreeDirNode<String> dir = (TreeDirNode<String>)tree;
+        LindenDirNode dir = (LindenDirNode)tree;
 
         assertEquals( 2, dir.getChildren().size() );
     }
@@ -50,30 +52,30 @@ public class SimpleTreeAndNavigationTest extends TestCase {
     public void testSimpleContent() {
         SimpleContentTreeBuilder b = new SimpleContentTreeBuilder();
 
-        TreeNode<ReducedContent> tree = b.d( "f", b.l( "a"),
+        LindenNode tree = b.d( "f", b.l( "a"),
                                                   b.d( "g", b.l("b"),
                                                             b.l("c")));
 
 
         assertFalse( tree.isLeaf());
 
-        TreeDirNode<ReducedContent> dir = (TreeDirNode<ReducedContent>)tree;
+        LindenDirNode dir = (LindenDirNode)tree;
 
         assertEquals( 2, dir.getChildren().size() );
 
-        assertEquals( "b", TreeNodeUtils.getNode( tree, "g", "b" ).getContent().getName());
+        assertEquals( "b", TreeNodes.getNode(tree, "g", "b").getContent().getName());
     }
 
 
     public void testPath() {
         SimpleContentTreeBuilder b = new SimpleContentTreeBuilder();
 
-        TreeNode<ReducedContent> tree = b.d( "f", b.l( "a"),
+        LindenNode tree = b.d( "f", b.l( "a"),
                                                   b.d( "g", b.l("b"),
                                                             b.l("c")));
 
-        List<String> path = TreeNodeUtils.getNamePath(
-                TreeNodeUtils.getNode( tree, "g", "c"));
+        List path = TreeNodes.getNamePath(
+                TreeNodes.getNode(tree, "g", "c"));
 
         assertEquals( 3, path.size() );
         assertEquals( "f", path.get(0));
@@ -84,14 +86,14 @@ public class SimpleTreeAndNavigationTest extends TestCase {
     public void testRoot() {
         SimpleContentTreeBuilder b = new SimpleContentTreeBuilder();
 
-        TreeNode<ReducedContent> tree = b.d( "f", b.l( "a"),
+        LindenNode tree = b.d( "f", b.l( "a"),
                                                   b.d( "g", b.l("b"),
                                                             b.l("c")));
 
 
-        TreeNode<ReducedContent> node =
-                TreeNodeUtils.getNode( tree, "g", "c");
+        LindenNode node =
+                TreeNodes.getNode(tree, "g", "c");
 
-        assertEquals( tree, TreeNodeUtils.getRoot( node ));
+        assertEquals( tree, TreeNodes.getRoot(node));
     }
 }

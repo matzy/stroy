@@ -1,14 +1,16 @@
 package org.openCage.stroy.ui.prefs;
 
+import com.google.inject.name.Named;
+import net.java.dev.designgridlayout.DesignGridLayout;
+import org.openCage.kleinod.observe.ObservableRef;
+import org.openCage.kleinod.ui.Binding;
+import org.openCage.stroy.locale.Message;
+import org.openCage.util.logging.Log;
+
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.util.logging.Level;
-
-import org.openCage.stroy.locale.Message;
-import net.java.dev.designgridlayout.DesignGridLayout;
-import org.openCage.util.prefs.LogLevelSelectionProperty5;
-import org.openCage.util.prefs.PComboBox;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
@@ -37,22 +39,25 @@ import org.openCage.util.prefs.PComboBox;
 
 public class LogPrefs extends JPanel {
 
+    public LogPrefs( @Named(value = "loglevel") ObservableRef<Level> level ) {
 
 
-    public LogPrefs(LogLevelSelectionProperty5 logLevelSelectionProperty ) {
-
-
-        JPanel top = new JPanel();
+        JPanel           top    = new JPanel();
+        JLabel           txt    = new JLabel(Message.get("Pref.Logging.display"));
         DesignGridLayout layout = new DesignGridLayout( top );
-        layout.row().grid().add( new JLabel(""));
-        layout.row().grid( new JLabel( Message.get( "Pref.Logging.display" ))).add( new PComboBox<Level>(logLevelSelectionProperty) );
-//        layout.row().grid( "display loglevel level: ").add( selectHandlerLevel );
+        JComboBox        logs   = new JComboBox();
+
+        Binding.bind(logs,
+                Log.getLevels(),
+                level );
+
+
+        layout.row().grid(   ).empty(    );
+        layout.row().grid(txt).add( logs );
 
         top.setBorder( new TitledBorder( Message.get( "Pref.Logging.title" ) ));
 
         setLayout( new BorderLayout());
         add( top, BorderLayout.CENTER );
-
-
     }
 }

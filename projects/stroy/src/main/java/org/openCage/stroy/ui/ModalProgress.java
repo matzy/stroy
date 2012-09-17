@@ -1,13 +1,13 @@
 package org.openCage.stroy.ui;
 
+import net.java.dev.designgridlayout.DesignGridLayout;
+import org.openCage.kleinod.collection.T2;
+import org.openCage.stroy.locale.Message;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
-import org.openCage.lang.structure.T2;
-import org.openCage.stroy.locale.Message;
-import net.java.dev.designgridlayout.DesignGridLayout;
+import java.awt.event.ActionListener;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)

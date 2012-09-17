@@ -1,5 +1,7 @@
 package org.openCage.stroy.filter;
 
+import org.openCage.lindwurm.Ignore;
+
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
  * Copyright (c) 2006 - 2012, Stephan Pfab

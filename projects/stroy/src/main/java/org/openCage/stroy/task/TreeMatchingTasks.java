@@ -1,7 +1,7 @@
 package org.openCage.stroy.task;
 
-import org.openCage.stroy.graph.node.TreeNode;
-import org.openCage.stroy.graph.node.TreeDirNode;
+import org.openCage.lindwurm.LindenNode;
+import org.openCage.lindwurm.LindenDirNode;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
@@ -30,7 +30,7 @@ import org.openCage.stroy.graph.node.TreeDirNode;
 
 public class TreeMatchingTasks {
 
-    public static <T>boolean isParentMatch( MatchingTask<TreeDirNode<T>> task, TreeNode<T> a, TreeNode<T> b ) {
+    public static boolean isParentMatch( MatchingTask<LindenDirNode> task, LindenNode a, LindenNode b ) {
 
         if ( a.getParent() == null ) {
             return b.getParent() == null;
@@ -38,7 +38,7 @@ public class TreeMatchingTasks {
             return false;
         }
 
-        TreeDirNode<T> matchedParent = task.getMatch( a.getParent() );
+        LindenDirNode matchedParent = task.getMatch( a.getParent() );
 
         if ( matchedParent == null ) {
             return false;

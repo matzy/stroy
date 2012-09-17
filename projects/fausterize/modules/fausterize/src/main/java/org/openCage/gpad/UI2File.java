@@ -55,7 +55,7 @@
 //    private boolean                  encoded;
 //    private boolean                  changed = false;
 //    private boolean                  writable = true;
-//    private List<F1<Void, Boolean>> listeners = new ArrayList<F1<Void, Boolean>>();
+//    private List<F1<Void, Boolean>> observe = new ArrayList<F1<Void, Boolean>>();
 //    private static final Logger LOG = Logger.getLogger( UI2File.class.getName());
 //    private boolean warned = false;
 //
@@ -161,7 +161,7 @@
 //                if ( warned ) {
 //                    warned = false;
 //                    LOG.warning( "file writable again " + file.getAbsolutePath()  );
-//                    for ( F1<Void, Boolean> listener : listeners ) {
+//                    for ( F1<Void, Boolean> listener : observe ) {
 //                        try {
 //                            listener.call( true );
 //                        } catch ( Exception exp ) {
@@ -173,7 +173,7 @@
 //                LOG.warning( "file suddenly readonly " + file.getAbsolutePath()  );
 //                if ( !warned ) {
 //                    warned = true;
-//                    for ( F1<Void, Boolean> listener : listeners ) {
+//                    for ( F1<Void, Boolean> listener : observe ) {
 //                        try {
 //                            listener.call( false );
 //                        } catch ( Exception exp ) {
@@ -265,6 +265,6 @@
 //
 //
 //    public void addWriteProblemListener( F1<Void, Boolean> listener ) {
-//        this.listeners.add( listener );
+//        this.observe.add( listener );
 //    }
 //}

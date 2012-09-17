@@ -1,189 +1,28 @@
+//apply plugin: 'com.smokejumperit.gradle.OneJarPlugin'
 apply plugin: 'java'
 
 sourceCompatibility = 1.6
 version = '0.1.0'
+jar {
+    // build a fat jar with all dependencies
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    manifest {
+        attributes 'Implementation-Title': 'notabug',
+                   'Implementation-Version': version,
+                   'Main-Class': 'org.openCage.notabug.Main'
+    }
+}
 
-//sourceSets {
-//    main {
-//        java {
-//            srcDir 'src'
-//        }
-//        resources {
-//            srcDir 'src/resources'
-//        }
-//    }/
-//}
-
-
+// license new bsd (3-clause)
 
 dependencies {
-//    compile 'openCage:rule'
-
-  //  runtime  'tablelayout:tablelayout:20020517'
-
-
-    //compile 'com.google.inject:guice:2.0'
+    compile project( ':kleinod' )
     compile project( ':osashosa' )
     compile project( ':ruleofthree' )
-
+    compile 'args4j:args4j:2.0.12'
     testCompile 'junit:junit:4.+'
-
-
 }
 
-jar {
-    manifest {
-        attributes 'Implementation-Title': 'notabug', 'Implementation-Version': version
-//        classpath from dependencies
-//         def manifestClasspath = configurations.runtime.collect { it.getName() }.join(',')
-//         manifestClasspath += ',' + 'stroy-1.1.0.jar' // + ',' + 'Tablelayout-20020517.jar'
-
-         attributes 'Class-Path': manifestClasspath
-    }
-//        from { configurations.runtime.collect { it.isDirectory() ? it : zipTree(it) } }
-}
-
-def executableDir = "${buildDir}/output/apps"
-def tmpLib = "${buildDir}/tmp/lib"
-
-
-task mkDirs << {
-    println '----init'
-    file(executableDir).mkdirs()
-    file(tmpLib).mkdirs()
-}
-
-task copyToLib(type: Copy, dependsOn: 'mkDirs') {
-    dependsOn( 'mkDirs', 'jar')
-
-    println '----copy'
-    into "${tmpLib}"
-    from configurations.runtime
-}
-
-task copyToLib2(type: Copy, dependsOn: 'jar') {
-
-    println '----copy2'
-    into "${tmpLib}"
-    from file("${buildDir}/libs/stroy-1.1.0.jar")
-}
-
-//task copyToLib2(dependsOn: configurations.default.buildArtifacts, type: Copy) {
-//    into "${tmpLib}"
-//    from configurations.default
-//    from configurations.default.allArtifactFiles
-//}
-
-
-File[] fileList(String dir) {
-    file(dir).listFiles({file -> file.isFile() } as FileFilter).sort()
-}
-
-task wrapApp( dependsOn: 'copyToLib') << {
-    println '---wrapp!'
-//    dependsOn 'copyToLib2'
-
-    def jarBundlerDir = "../../repo/net/sourceforge/jarbundler/jarbundler/2.0.0"
-
-//    def jars = ""
-//    def first = true;
-//    fileList("${tmpLib}").each {File file ->
-//        println "$file.name"
-//        if ( first ) {
-//            jars = "$file.name"
-//            first = false
-//        } else {
-//            jars += ',' + "$file.name"
-//        }
-//    }
-
-    def jars2 = configurations.runtime.collect { it.getName() }.join(',')
-    jars2 += ',' + 'stroy-1.1.0.jar' // + ',' + 'Tablelayout-20020517.jar'
-
-    copy{
-        from "${buildDir}/libs"
-        into "${tmpLib}"
-        include '*.jar'
-    }
-//    copy{
-//        from "../../repo/tablelayout/Tablelayout/"
-//        into "${tmpLib}"
-//        include 'Tablelayout-20020517.jar'
-//    }
-
-//    println jars
-
-//    def jars = ""
-//    fileList("${tmpLib}").each{File file -> jars = jars + ',' + file.name }
-//    def jars2 = ""
-//    println fileList("${tmpLib}").each{File file -> file.getName() }.join(',')
-
-
-    //println jars
-
-    ant {
-        taskdef(  name : "jarbundler",
-                classname : "net.sourceforge.jarbundler.JarBundler",
-                classpath : "${jarBundlerDir}/jarbundler-2.0.0.jar"
-        )
-        jarbundler(dir : "${executableDir}",
-                name : "stroy",
-                shortname : "stroy",
-                stubfile : "stroy",
-                signature : "stry",
-                mainclass : "org.openCage.stroy.ui.Main",
-  //              jar : jar.archivePath,
-                icon : "resources/stroy.icns",
-                jvmversion : "1.6+",
-                version : "${version}",
-                arguments : "-XstartOnFirstThread",
-                infostring : "stroy, smart diff"
-        ) {
-            println "${jars2}"
-            jarfilelist( dir : "${tmpLib}", files : "${jars2}" )
-            javaproperty( name : "apple.laf.useScreenMenuBar", value : true )
-            javaproperty( name : "com.apple.macos.useScreenMenuBar", value : true )
-//            jarfilelist( fileList(  "${tmpLib}" ) )
-        }
-    }
-
-//    <jarbundler dir="${osx}"
-//    verbose="true"
-//    name="stroy"
-//    shortname="stroy"
-//    stubfile="stroy"
-//    signature="stry"
-//    mainclass="org.openCage.stroy.ui.Main"
-//    jvmversion="1.6+"
-//    version="${version}"
-//    infostring="stroy, ${copyright}"
-//    build="${buildnumber}"
-//    bundleid="org.openCage.stroy"
-//    helpbookfolder="HelpBook"
-//    helpbookname="Stroy Help"
-//    icon="${resources}/stroy.icns">
-//    <jarfileset refid="externalsSet"/>
-//    <jarfilelist dir="${lib}" files="stroy2ui.jar" />
-//
-//    <!--&lt;!&ndash; Copy the HelpBook JNI library  &ndash;&gt;-->
-//    <!--<javafilelist dir="${build-objc}" files="libHelpBookJNI.jnilib"/>-->
-//
-//    <javaproperty name="apple.laf.useScreenMenuBar" value="true"/>
-//    <javaproperty name="com.apple.macos.useScreenMenuBar" value="true"/>
-//
-//    <!--<HelpBook locale="English">-->
-//    <!--<fileset dir="${resources}/HelpBook/English" />-->
-//    <!--<fileset dir="${resources}/HelpBook/common" />-->
-//    <!--</HelpBook>-->
-//
-//        </jarbundler>
-
-
-}
-
-//test {
-//    systemProperties 'property': 'value'
-//}
 
 //uploadArchives {
 //    repositories {

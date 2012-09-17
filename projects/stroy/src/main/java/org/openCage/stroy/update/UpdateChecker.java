@@ -1,16 +1,14 @@
 package org.openCage.stroy.update;
 
-import org.openCage.util.app.Version2;
-import org.openCage.util.app.AppInfo;
+import com.google.inject.Inject;
+import org.openCage.stroy.todo.app.AppInfo;
+import org.openCage.stroy.todo.app.Version2;
 import org.openCage.util.logging.Log;
-import org.openCage.stroy.update.UpdateInfo;
 
 import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URL;
-
-import com.google.inject.Inject;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)

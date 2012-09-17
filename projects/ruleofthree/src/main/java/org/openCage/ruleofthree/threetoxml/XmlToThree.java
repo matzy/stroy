@@ -1,9 +1,12 @@
 package org.openCage.ruleofthree.threetoxml;
 
-import org.openCage.io.IOUtils;
-import org.openCage.io.fspath.FSPathBuilder;
-import org.openCage.lang.inc.Null;
-import org.openCage.ruleofthree.*;
+import org.openCage.kleinod.type.Null;
+import org.openCage.kleinod.io.IOUtils;
+import org.openCage.kleinod.io.fspath.FSPathBuilder;
+import org.openCage.ruleofthree.Three;
+import org.openCage.ruleofthree.ThreeKey;
+import org.openCage.ruleofthree.ThreeMap;
+import org.openCage.ruleofthree.Threes;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -47,6 +50,14 @@ import static org.openCage.ruleofthree.Threes.THREE;
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ***** END LICENSE BLOCK *****/
 
+/**
+ * XmlToThree translates a subset of XMLs to a Three
+ * no attributes
+ * any text not between open and close tags is ignored
+ * i.e. <aa>text <foo><foo/>stuff</aa>
+ * => text and stuff are ignored
+ */
+
 public class XmlToThree {
 
     private static Logger LOG = Logger.getLogger(XmlToThree.class.getName());
@@ -66,7 +77,7 @@ public class XmlToThree {
             XMLHandler xmlHandler = new XMLHandler( title );
             saxParser.parse(uri, xmlHandler );
 
-            return THREE(xmlHandler.getMap());
+            return xmlHandler.getThree();
         }
         catch (Exception e) {
             LOG.log(Level.WARNING, "property file corrupt, using defaults", e);
@@ -78,7 +89,7 @@ public class XmlToThree {
             IOUtils.ensurePath(back);
             LOG.warning("copying to " + back.getAbsolutePath());
             IOUtils.copy(file, back);
-            return Null.get( Three.class );
+            return Null.of(Three.class);
         }
 
     }
@@ -91,6 +102,10 @@ public class XmlToThree {
 
         public XMLHandler(String title) {
             this.title = title;
+
+//            map = new ThreeHashMap<Three>();
+//            stack.push( THREE(map) );
+
         }
 
         @Override
@@ -98,19 +113,11 @@ public class XmlToThree {
 
         @Override
         public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-            if ( map == null ) {
-                if ( qName.equals(title)) {
-                    map = new ThreeHashMap<Three>();
-                    stack.push( THREE(map) );
-                    return;
-                } else {
-                    throw new IllegalArgumentException("not a comphy xml");
-                }
-            }
 
-            Three top = stack.peek();
-
-            if (top.isString()) {
+            // any text between tags is considered garbage
+            // xml allows it, this subset sees it as whitespace
+            if ( !stack.empty() && stack.peek().isString() ) {
+                LOG.finer( "popping string from stack " + stack.peek());
                 stack.pop();
             }
 
@@ -126,36 +133,37 @@ public class XmlToThree {
         @Override
         public void endElement(String uri, String localName, String qName) throws SAXException {
 
-            if ( qName.equals(title)) {
-                // done
-                return;
-            }
+//            if ( qName.equals(title)) {
+//                // done
+//                return;
+//            }
 
-            Key key = Key.valueOf(qName);
+            Key endKey = Key.valueOf(qName);
 
-            // top of stack is always a rstring
+            // top of stack is always a string
             // but its only relevant if the next one is a key (must be the same a the current qName)
+            // otherwise its whitespace between keys/tags
 
+            Three content           = stack.pop();
+            Three potentialStartKey = stack.peek();
 
-            Three pstr = stack.pop();
-            Three pkey = stack.peek();
-            if ( pkey instanceof Key ) {
-                if ( !pkey.equals( key )) {
+            if ( potentialStartKey instanceof Key ) {
+                if ( !potentialStartKey.equals( endKey )) {
+                    // can this happen
+                    // i.e. sax parser should throw before
                     throw new IllegalArgumentException("illegal xml");
                 }
-                stack.push(pstr);
+                stack.push(content);
             }
 
-            // no it should be |...readable, key, readable
+            // now it should be key, three
 
-            if ( stack.size() < 3 ) {
-                throw new Error( "too small" );
-            }
+
 
             Three elem      = stack.pop();
             Three keyCheck  = stack.pop();
 
-            if ( !key.equals( keyCheck )) {
+            if ( !endKey.equals( keyCheck )) {
 
                 throw new IllegalArgumentException("malformed xml");
             }
@@ -164,24 +172,24 @@ public class XmlToThree {
 
             // now add the element to the previous structure
 
-            if ( stack.peek().isMap()) {
+            if ( !stack.empty() && stack.peek().isMap()) {
 
                 Map<ThreeKey,Three> map = stack.peek().getMap();
 
-                if ( map.containsKey(key)) {
+                if ( map.containsKey(endKey.getSuper())) {
                     // its a list
                     stack.pop();
                     List<Three> list = new ArrayList<Three>();
-                    list.add(map.get(key));
+                    list.add(map.get(endKey.getSuper()));
                     list.add(elem);
                     stack.push(THREE(list));
 
                 } else {
-                    map.put( key.getSuper(), elem );
+                    map.put( endKey.getSuper(), elem );
                 }
 
-            } else if ( stack.peek() instanceof Key ) {
-                stack.push( Threes.newMap().put(key.getSuper(),elem));
+            } else if ( stack.empty() || stack.peek() instanceof Key ) {
+                stack.push( Threes.newMap().put(endKey.getSuper(), elem));
 
             } else {
 
@@ -205,7 +213,7 @@ public class XmlToThree {
             String str =  new String(ch,start,length);
 
             if ( stack.peek().isString()) {
-                String old = stack.pop().toString();
+                String old = stack.pop().getString();
                 str = old + str;
             }
 
@@ -213,8 +221,8 @@ public class XmlToThree {
         }
 
 
-        public ThreeMap<Three> getMap() {
-            return map;
+        public Three getThree() {
+            return stack.pop().getMap().get( ThreeKey.valueOf(title));
         }
     }
 

@@ -1,10 +1,10 @@
 package org.openCage.stroy.graph.matching.strategy;
 
-import org.openCage.stroy.content.Content;
+import org.openCage.kleinod.lambda.Memo;
+import org.openCage.lindwurm.LindenDirNode;
+import org.openCage.lindwurm.LindenNode;
+import org.openCage.lindwurm.content.Content;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
-import org.openCage.stroy.graph.node.TreeDirNode;
-import org.openCage.stroy.graph.node.TreeNode;
-import org.openCage.stroy.graph.node.TreeLeafNode;
 import org.openCage.stroy.locale.Message;
 import org.openCage.util.logging.Log;
 
@@ -36,9 +36,14 @@ import org.openCage.util.logging.Log;
 /**
  * match dirs and leaves based on same path
  */
-public class StandardMatching <T extends Content> implements MatchStrategy<T> {
+public class StandardMatching implements MatchStrategy {
 
-    public void match( TreeMatchingTask<T> treeMatchingTask, Reporter reporter) {
+    private Memo<String,Content> checksum;
+
+    public void match( TreeMatchingTask treeMatchingTask, Reporter reporter) {
+
+        if ( checksum == null ) { throw new Error("settttttt"); }
+
         Log.fine( "match Simple dirs" );
 
         if ( !treeMatchingTask.isMatched( treeMatchingTask.getLeftRoot())) {
@@ -53,10 +58,10 @@ public class StandardMatching <T extends Content> implements MatchStrategy<T> {
     }
 
 
-    public void matchInChildList( TreeMatchingTask<T> treeMatchingTask,
+    public void matchInChildList( TreeMatchingTask treeMatchingTask,
                                   Reporter reporter,
-                                  TreeNode<T>         leftNode,
-                                  TreeDirNode<T>      toParent ) {
+                                  LindenNode leftNode,
+                                  LindenDirNode toParent ) {
 
         if ( ! treeMatchingTask.isMatched( leftNode )  ) {
 
@@ -68,7 +73,7 @@ public class StandardMatching <T extends Content> implements MatchStrategy<T> {
 
             reporter.detail( Message.get( "testing"), leftNode.toString() );
 
-            for ( TreeNode<T> tgtKid : toParent.getChildren() ) {
+            for ( LindenNode tgtKid : toParent.getChildren() ) {
 
                 if ( (leftNode.isLeaf() == tgtKid.isLeaf() ) &&
                      !treeMatchingTask.isMatched( tgtKid ) &&
@@ -76,12 +81,12 @@ public class StandardMatching <T extends Content> implements MatchStrategy<T> {
 
                     if ( leftNode.isLeaf() ) {
                         double qual = 0.7;
-                        if ( leftNode.getContent().getChecksum().equals( tgtKid.getContent().getChecksum() )) {
+                        if ( checksum.get(leftNode.getContent()).equals( checksum.get(tgtKid.getContent()))) {
                             qual = 1.0;
                         }
-                        treeMatchingTask.getLeaves().match( (TreeLeafNode<T>)leftNode, (TreeLeafNode<T>)tgtKid, qual );
+                        treeMatchingTask.getLeaves().match( leftNode, tgtKid, qual );
                     } else {
-                        treeMatchingTask.getDirs().match( (TreeDirNode<T>)leftNode, (TreeDirNode<T>)tgtKid, 1.0 );
+                        treeMatchingTask.getDirs().match( (LindenDirNode)leftNode, (LindenDirNode)tgtKid, 1.0 );
                     }
                     break;
                 }
@@ -93,18 +98,21 @@ public class StandardMatching <T extends Content> implements MatchStrategy<T> {
             return;
         }
 
-        TreeDirNode<T> newParent = treeMatchingTask.getDirs().getMatch((TreeDirNode<T>)leftNode);
+        LindenDirNode newParent = treeMatchingTask.getDirs().getMatch((LindenDirNode)leftNode);
 
         if ( newParent == null ) {
             // no match
             return;
         }
 
-        for ( TreeNode<T> fm : ((TreeDirNode<T>)leftNode).getChildren() ) {
+        for ( LindenNode fm : ((LindenDirNode)leftNode).getChildren() ) {
             matchInChildList(treeMatchingTask, reporter, fm, newParent  );
         }
 
     }
 
+    public void setChecksum(Memo<String,Content> checksum) {
+        this.checksum = checksum;
+    }
 }
 

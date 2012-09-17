@@ -1,11 +1,10 @@
 package org.openCage.stroy.app;
 
 import junit.framework.TestCase;
+import org.openCage.lindwurm.LindenNode;
 import org.openCage.stroy.graph.node.SimpleContentTreeBuilder;
-import org.openCage.stroy.graph.node.TreeNode;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
 import org.openCage.stroy.graph.matching.TreeMatchingTaskNeutralBuilder;
-import org.openCage.stroy.content.ReducedContent;
 
 import java.util.Arrays;
 
@@ -41,22 +40,22 @@ public class TasksTest extends TestCase {
 
         SimpleContentTreeBuilder b = new SimpleContentTreeBuilder();
 
-        TreeNode<ReducedContent> treeLeft = b.d( "f", b.l( "a"),
+        LindenNode treeLeft = b.d( "f", b.l( "a"),
                                                       b.d( "g", b.l("b"),
                                                                 b.l("c")));
 
-        TreeNode<ReducedContent> treeRight = b.d( "f", b.l( "a"),
+        LindenNode treeRight = b.d( "f", b.l( "a"),
                                                        b.d( "g", b.l("b"),
                                                                  b.l("c")));
 
-        TreeMatchingTask<ReducedContent> task =
+        TreeMatchingTask task =
                 TreeMatchingTaskNeutralBuilder.build( treeLeft, treeRight );
-        TreeMatchingTask<ReducedContent> task2 =
+        TreeMatchingTask task2 =
                 TreeMatchingTaskNeutralBuilder.build( treeLeft, treeRight );
 
 
         try {
-            new Tasks<ReducedContent>( Arrays.asList( task, task2 ));
+            new Tasks( Arrays.asList( task, task2 ));
             fail( "roots don't match, throw expected" );
         } catch ( Exception exp ) {
             // expected
@@ -66,24 +65,24 @@ public class TasksTest extends TestCase {
     public void testRootSanityPositiv() {
         SimpleContentTreeBuilder b = new SimpleContentTreeBuilder();
 
-        TreeNode<ReducedContent> treeLeft = b.d( "f", b.l( "a"),
+        LindenNode treeLeft = b.d( "f", b.l( "a"),
                                                       b.d( "g", b.l("b"),
                                                                 b.l("c")));
 
-        TreeNode<ReducedContent> treeRight = b.d( "f2", b.l( "a"),
+        LindenNode treeRight = b.d( "f2", b.l( "a"),
                                                        b.d( "g", b.l("b"),
                                                                  b.l("c")));
-        TreeNode<ReducedContent> tree3 = b.d( "f3", b.l( "a"),
+        LindenNode tree3 = b.d( "f3", b.l( "a"),
                                                        b.d( "g", b.l("b"),
                                                                  b.l("c")));
 
-        TreeMatchingTask<ReducedContent> task =
+        TreeMatchingTask task =
                 TreeMatchingTaskNeutralBuilder.build( treeLeft, treeRight );
-        TreeMatchingTask<ReducedContent> task2 =
+        TreeMatchingTask task2 =
                 TreeMatchingTaskNeutralBuilder.build( treeRight, tree3 );
 
 
-        new Tasks<ReducedContent>( Arrays.asList( task, task2 ));
+        new Tasks( Arrays.asList( task, task2 ));
 
     }
 

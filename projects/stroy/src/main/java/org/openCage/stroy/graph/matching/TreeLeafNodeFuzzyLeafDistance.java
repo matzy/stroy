@@ -1,10 +1,12 @@
 package org.openCage.stroy.graph.matching;
 
 import com.google.inject.Inject;
+import org.openCage.kleinod.lambda.F1;
+import org.openCage.lindwurm.LindenDirNode;
+import org.openCage.lindwurm.LindenNode;
+import org.openCage.lindwurm.content.Content;
 import org.openCage.stroy.TreeLeafDistance;
-import org.openCage.stroy.content.Content;
-import org.openCage.stroy.graph.node.TreeDirNode;
-import org.openCage.stroy.graph.node.TreeLeafNode;
+import org.openCage.stroy.algo.fuzzyHash.FuzzyHash;
 import org.openCage.stroy.task.MatchingTask;
 import org.openCage.stroy.task.TreeMatchingTasks;
 
@@ -33,25 +35,27 @@ import org.openCage.stroy.task.TreeMatchingTasks;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ***** END LICENSE BLOCK *****/
 
-public class TreeLeafNodeFuzzyLeafDistance<T extends Content> implements TreeLeafDistance<T> {
+public class TreeLeafNodeFuzzyLeafDistance implements TreeLeafDistance {
 
     private final TreeLeafDistanceMetric metric;
+    private final F1<FuzzyHash, Content> fh;
 
     @Inject
-    public TreeLeafNodeFuzzyLeafDistance( final TreeLeafDistanceMetric metric ) {
+    public TreeLeafNodeFuzzyLeafDistance(final TreeLeafDistanceMetric metric, F1<FuzzyHash, Content> fh) {
         this.metric = metric;
+        this.fh = fh;
     }
 
 
-    public double distance( MatchingTask<TreeDirNode<T>> parents,
-                            TreeLeafNode<T> a,
-                            TreeLeafNode<T> b) {
-        
+    public double distance( MatchingTask<LindenDirNode> parents,
+                            LindenNode a,
+                            LindenNode b) {
+
         if ( ! a.getContent().getType().equals( b.getContent().getType())  ) {
             return 1.0;
         }
 
-        double contentDist = Math.max( .001, 1 - a.getContent().getFuzzyHash().fuzzyEqual( b.getContent().getFuzzyHash() ));
+        double contentDist = Math.max(.001, 1 - fh.call(a.getContent()).fuzzyEqual(fh.call(b.getContent())));
 
 
         boolean sameName   = a.getContent().getName().equals( b.getContent().getName() );

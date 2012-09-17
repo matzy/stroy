@@ -1,12 +1,13 @@
 package org.openCage.stroy.ui.prefs;
 
+import com.google.inject.name.Named;
+import org.openCage.kleinod.observe.ObservableRef;
 import org.openCage.stroy.update.UpdatePrefs;
 
 import javax.swing.*;
 import java.awt.*;
-
-import org.openCage.util.prefs.LocaleSelectionProperty;
-import org.openCage.util.prefs.LogLevelSelectionProperty5;
+import java.util.Locale;
+import java.util.logging.Level;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
@@ -35,7 +36,7 @@ import org.openCage.util.prefs.LogLevelSelectionProperty5;
 
 public class MorePrefs extends JPanel {
 
-    public MorePrefs( final UpdatePrefs updatePrefs, final LocaleSelectionProperty localeSelection, LogLevelSelectionProperty5 logSelection) {
+    public MorePrefs( final UpdatePrefs updatePrefs, final ObservableRef<Locale> localeProp, @Named(value = "loglevel") ObservableRef<Level> level ) {
         setLayout( new GridBagLayout());
 
         GridBagConstraints cnstraint = new GridBagConstraints();
@@ -46,7 +47,7 @@ public class MorePrefs extends JPanel {
         cnstraint.weightx = 1.0;
         cnstraint.weighty = 0.33;
         cnstraint.insets = new Insets(5,5,0,0);
-        add( new LogPrefs(logSelection), cnstraint );
+        add( new LogPrefs(level), cnstraint );
 
         cnstraint = new GridBagConstraints();
         cnstraint.fill = GridBagConstraints.BOTH;
@@ -64,7 +65,7 @@ public class MorePrefs extends JPanel {
         cnstraint.weightx = 1.0;
         cnstraint.weighty = 0.33;
         cnstraint.insets = new Insets(5,5,0,0);
-        add( new LanguagePrefs( localeSelection ), cnstraint );
+        add( new LanguagePrefs( localeProp ), cnstraint );
     }
 
 

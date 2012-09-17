@@ -1,7 +1,7 @@
 package org.openCage.stroy.graph.matching.strategy.combined;
 
 import com.google.inject.Inject;
-import org.openCage.stroy.content.FileContent;
+import org.openCage.lindwurm.content.FileContent;
 import org.openCage.stroy.graph.matching.TreeLeafNodeFuzzyLeafDistance;
 
 /***** BEGIN LICENSE BLOCK *****
@@ -29,9 +29,9 @@ import org.openCage.stroy.graph.matching.TreeLeafNodeFuzzyLeafDistance;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ***** END LICENSE BLOCK *****/
 
-public class FastFirstForFiles extends FastFirst<FileContent>{
+public class FastFirstForFiles extends FastFirst{
     @Inject
-    public FastFirstForFiles(final TreeLeafNodeFuzzyLeafDistance<FileContent> fileContentTreeLeafNodeFuzzyLeafDistance) {
-        super(fileContentTreeLeafNodeFuzzyLeafDistance);
+    public FastFirstForFiles(final TreeLeafNodeFuzzyLeafDistance fileContentTreeNodeFuzzyLeafDistance) {
+        super(fileContentTreeNodeFuzzyLeafDistance);
     }
 }

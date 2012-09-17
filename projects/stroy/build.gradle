@@ -17,22 +17,24 @@ version = '1.1.0'
 
 
 dependencies {
-    compile group: 'net.jcip', name: 'jcip-annotations', version: '1.+'
+    compile 'net.jcip:jcip-annotations:1.0'
     compile 'com.intellij:annotations:7.0.3'
     compile 'commons-cli:commons-cli:1.2'
     compile 'muchsoft:sys:1.0'
-    compile 'com.thoughtworks.xstream:xstream:1.3.1'
     compile 'net.sourceforge.mydoggy:mydoggy-api:1.3.1'
     compile 'net.sourceforge.mydoggy:mydoggy-plaf:1.3.1'
     compile 'net.sourceforge.mydoggy:mydoggy-res:1.3.1'
     compile 'net.java.dev.designgridlayout:designgridlayout:1.9'
-
-    runtime  'tablelayout:tablelayout:20020517'
+    runtime 'tablelayout:tablelayout:20020517'
+    compile 'fifesoft:rsyntaxtextarea:1.4.1'
 
 
     //compile 'com.google.inject:guice:2.0'
     compile project( ':osashosa' )
-    compile project( ':openCage-lang' )
+    compile project( ':kleinod' )
+    compile project( ':lindwurm' )
+    compile project( ':ruleofthree' )
+    compile project( ':notabug' ) // todo remove
 
     testCompile 'junit:junit:4.+'
     testCompile 'org.jmock:jmock:2.5.1'

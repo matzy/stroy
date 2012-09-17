@@ -1,10 +1,8 @@
 package org.openCage.stroy.graph.matching;
 
-import org.openCage.stroy.content.Content;
+import org.openCage.lindwurm.LindenDirNode;
+import org.openCage.lindwurm.LindenNode;
 import org.openCage.stroy.graph.SameContent;
-import org.openCage.stroy.graph.node.TreeDirNode;
-import org.openCage.stroy.graph.node.TreeLeafNode;
-import org.openCage.stroy.graph.node.TreeNode;
 import org.openCage.stroy.task.MatchingTask;
 import org.openCage.stroy.ui.ChangeVector;
 
@@ -36,18 +34,18 @@ import java.util.Collection;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ***** END LICENSE BLOCK *****/
 
-public interface TreeMatchingTask<T extends Content> {
+public interface TreeMatchingTask {
 
-    public void addDup(final SameContent<T> sh);
+    public void addDup(final SameContent sh);
 
-    public MatchingTask<TreeLeafNode<T>>  getLeaves();
-    public MatchingTask<TreeDirNode<T>>   getDirs();
+    public MatchingTask<LindenNode>  getLeaves();
+    public MatchingTask<LindenDirNode>   getDirs();
 
-    public boolean     isMatched(  final TreeNode<T> obj );
-    public TreeNode<T> getMatch(   final TreeNode<T> obj );
-    public double      getMatchQuality( final TreeNode<T> obj );
+    public boolean     isMatched(  final LindenNode obj );
+    public LindenNode getMatch(   final LindenNode obj );
+    public double      getMatchQuality( final LindenNode obj );
 
-    public Collection<SameContent<T>> getDuplicates();
+    public Collection<SameContent> getDuplicates();
 
     public void shortStatus();
 
@@ -58,35 +56,35 @@ public interface TreeMatchingTask<T extends Content> {
     public int getRightLeaveCount();
     public int getRightDirCount();
 
-    public Collection<TreeLeafNode<T>>    getModifiedLeaves();
-    public Collection<TreeLeafNode<T>>    getRenamedLeaves();
-    public Collection<TreeLeafNode<T>>    getMovedLeaves();
+    public Collection<LindenNode>    getModifiedLeaves();
+    public Collection<LindenNode>    getRenamedLeaves();
+    public Collection<LindenNode>    getMovedLeaves();
 
-    public Collection<TreeDirNode<T>>     getRenamedDirs();
-    public Collection<TreeDirNode<T>>     getMovedDirs();
+    public Collection<LindenDirNode>     getRenamedDirs();
+    public Collection<LindenDirNode>     getMovedDirs();
 
-    public Collection<TreeLeafNode<T>>     getComplexModifiedLeaves();
+    public Collection<LindenNode>     getComplexModifiedLeaves();
     
     
 
-    public Collection<TreeLeafNode<T>> getUnmatchedLeftFiles();
-    public Collection<TreeDirNode<T>> getUnmatchedLeftDirs();
-    public Collection<TreeLeafNode<T>> getUnmatchedRightFiles();
-    public Collection<TreeDirNode<T>> getUnmatchedRightDirs();
+    public Collection<LindenNode> getUnmatchedLeftFiles();
+    public Collection<LindenDirNode> getUnmatchedLeftDirs();
+    public Collection<LindenNode> getUnmatchedRightFiles();
+    public Collection<LindenDirNode> getUnmatchedRightDirs();
 
-    public TreeDirNode<T> getLeftRoot();
-    public TreeDirNode<T> getRightRoot();
+    public LindenDirNode getLeftRoot();
+    public LindenDirNode getRightRoot();
 
-    public boolean isContentChanged( TreeNode<T> obj );
+    public boolean isContentChanged( LindenNode obj );
 
-    public ChangeVector getChangeVector( TreeNode<T> obj );
+    public ChangeVector getChangeVector( LindenNode obj );
 
-    public void remove(TreeNode<T> node);
+    public void remove(LindenNode node);
 
     void merge();
 
-    public MatchingTask<TreeDirNode<T>> getDirTask();
+    public MatchingTask<LindenDirNode> getDirTask();
 
-    public MatchingTask<TreeLeafNode<T>> getFileTask();
+    public MatchingTask<LindenNode> getFileTask();
 
 }

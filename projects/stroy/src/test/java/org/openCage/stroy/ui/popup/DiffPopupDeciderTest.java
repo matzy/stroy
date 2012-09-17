@@ -1,9 +1,9 @@
 //package org.openCage.stroy.ui.popup;
 //
 //import junit.framework.TestCase;
-//import org.openCage.stroy.content.ReducedContent;
-//import org.openCage.stroy.graph.node.TreeNode;
-//import org.openCage.stroy.graph.node.SimpleTreeNode;
+//import org.openCage.lindwurm.content.ReducedContent;
+//import org.openCage.lindwurm.LindenNode;
+//import org.openCage.lindwurm.SimpleTreeNode;
 //import org.openCage.stroy.graph.node.SimpleContentTreeBuilder;
 //import com.muchsoft.util.Sys;
 //
@@ -33,56 +33,56 @@
 //
 //    public void testShowOpenLeave() {
 //
-//        TreeNode<ReducedContent> leave = new SimpleContentTreeBuilder().l( "foo.jpg");
+//        LindenNode<ReducedContent> leave = new SimpleContentTreeBuilder().l( "foo.jpg");
 //        assertTrue( new DiffPopupDecider(fileTypes).showOpen( leave ));
 //    }
 //
 //    public void testShowOpenLeaveWithoutContetn() {
 //
-//        TreeNode<ReducedContent> leave = new SimpleTreeNode<ReducedContent>( null );
+//        LindenNode<ReducedContent> leave = new SimpleTreeNode<ReducedContent>( null );
 //        assertFalse( new DiffPopupDecider(fileTypes).showOpen( leave ));
 //    }
 //
 //    public void testShowOpenDir() {
 //
-//        TreeNode<ReducedContent> leave = new SimpleContentTreeBuilder().l( "foo");
-//        TreeNode<ReducedContent> dir = new SimpleContentTreeBuilder().d( "dd", leave);
+//        LindenNode<ReducedContent> leave = new SimpleContentTreeBuilder().l( "foo");
+//        LindenNode<ReducedContent> dir = new SimpleContentTreeBuilder().d( "dd", leave);
 //
 //        assertFalse( new DiffPopupDecider(fileTypes).showOpen( dir ));
 //    }
 //
 //    public void testShowOpenBundle() {
 //
-//        TreeNode<ReducedContent> leave = new SimpleContentTreeBuilder().l( "foo");
-//        TreeNode<ReducedContent> dir = new SimpleContentTreeBuilder().d( "dd.app", leave);
+//        LindenNode<ReducedContent> leave = new SimpleContentTreeBuilder().l( "foo");
+//        LindenNode<ReducedContent> dir = new SimpleContentTreeBuilder().d( "dd.app", leave);
 //
 //        assertEquals( Sys.isMacOSX(), new DiffPopupDecider(fileTypes).showOpen( dir ));
 //    }
 //
 //    public void testShowOpenAsTextLeave() {
 //
-//        TreeNode<ReducedContent> leave = new SimpleContentTreeBuilder().l( "foo");
+//        LindenNode<ReducedContent> leave = new SimpleContentTreeBuilder().l( "foo");
 //        assertTrue( new DiffPopupDecider(fileTypes).showOpenAsText( leave ));
 //    }
 //
 //    public void testShowOpenAsTextLeaveWithoutContetn() {
 //
-//        TreeNode<ReducedContent> leave = new SimpleTreeNode<ReducedContent>( null );
+//        LindenNode<ReducedContent> leave = new SimpleTreeNode<ReducedContent>( null );
 //        assertFalse( new DiffPopupDecider(fileTypes).showOpenAsText( leave ));
 //    }
 //
 //    public void testShowOpenAsTextDir() {
 //
-//        TreeNode<ReducedContent> leave = new SimpleContentTreeBuilder().l( "foo");
-//        TreeNode<ReducedContent> dir = new SimpleContentTreeBuilder().d( "dd", leave);
+//        LindenNode<ReducedContent> leave = new SimpleContentTreeBuilder().l( "foo");
+//        LindenNode<ReducedContent> dir = new SimpleContentTreeBuilder().d( "dd", leave);
 //
 //        assertFalse( new DiffPopupDecider(fileTypes).showOpenAsText( dir ));
 //    }
 //
 //    public void testShowOpenAsTextBundle() {
 //
-//        TreeNode<ReducedContent> leave = new SimpleContentTreeBuilder().l( "foo");
-//        TreeNode<ReducedContent> dir = new SimpleContentTreeBuilder().d( "dd.app", leave);
+//        LindenNode<ReducedContent> leave = new SimpleContentTreeBuilder().l( "foo");
+//        LindenNode<ReducedContent> dir = new SimpleContentTreeBuilder().d( "dd.app", leave);
 //
 //        assertFalse( new DiffPopupDecider(fileTypes).showOpenAsText( dir ));
 //    }

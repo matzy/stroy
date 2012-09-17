@@ -1,8 +1,8 @@
 package org.openCage.util.compare;
 
-import java.util.Comparator;
+import org.openCage.kleinod.collection.T2;
 
-import org.openCage.lang.structure.T2;
+import java.util.Comparator;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)

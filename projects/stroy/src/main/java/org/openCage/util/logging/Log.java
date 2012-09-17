@@ -1,11 +1,12 @@
 package org.openCage.util.logging;
 
-import org.openCage.util.prefs.ListSelection;
 import org.jetbrains.annotations.NonNls;
 
-import java.util.logging.Logger;
-import java.util.logging.Level;
+import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
@@ -143,6 +144,10 @@ public class Log {
             return true;
         }
         return logger.getLevel().intValue() <= level.intValue();
+    }
+
+    public static List<Level> getLevels() {
+        return Arrays.asList(Level.OFF, Level.SEVERE, Level.WARNING, Level.CONFIG, Level.INFO, Level.FINE, Level.FINER, Level.FINEST);
     }
 
 }

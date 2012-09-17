@@ -8,7 +8,7 @@
 //import org.openCage.stroy.fuzzyHash.FuzzyHashGenerator;
 //import org.openCage.stroy.fuzzyHash.FuzzyHashSetFactory;
 //import org.openCage.stroy.text.LineNoise;
-//import org.openCage.util.io.FileUtils;
+//import org.openCage.lindwurm.FileUtils;
 //
 //import java.io.File;
 //import java.util.HashSet;

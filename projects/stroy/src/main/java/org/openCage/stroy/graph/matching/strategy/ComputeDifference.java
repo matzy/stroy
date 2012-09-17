@@ -1,12 +1,11 @@
 package org.openCage.stroy.graph.matching.strategy;
 
-import org.openCage.stroy.content.Content;
+import org.openCage.lindwurm.LindenDirNode;
+import org.openCage.lindwurm.LindenNode;
 import org.openCage.stroy.graph.matching.TreeMatchingTask;
-import org.openCage.stroy.graph.node.TreeLeafNode;
-import org.openCage.stroy.graph.node.TreeDirNode;
-import org.openCage.stroy.graph.node.TreeNode;
 import org.openCage.stroy.locale.Message;
 import org.openCage.stroy.diff.ContentDiff;
+import org.openCage.util.checksum.Checksummer;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
@@ -33,16 +32,23 @@ import org.openCage.stroy.diff.ContentDiff;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ***** END LICENSE BLOCK *****/
 
-public class ComputeDifference <T extends Content> implements MatchStrategy<T> {
-    public void match(TreeMatchingTask<T> treeMatchingTask, Reporter reporter) {
+public class ComputeDifference  implements MatchStrategy {
+
+    private final Checksummer checksum;
+
+    public ComputeDifference( Checksummer checksum) {
+        this.checksum = checksum;
+    }
+
+    public void match(TreeMatchingTask treeMatchingTask, Reporter reporter) {
 
         reporter.title( Message.get( "Strategy.DifferenceCalculation" ));
 
         leaves(treeMatchingTask, reporter);
 
-        for ( TreeDirNode<T> left : treeMatchingTask.getDirs().getMatchedLeft() ) {
+        for ( LindenDirNode left : treeMatchingTask.getDirs().getMatchedLeft() ) {
             boolean change = false;
-            for ( TreeNode<T> child : left.getChildren() ) {
+            for ( LindenNode child : left.getChildren() ) {
                 if ( !treeMatchingTask.isMatched( child )) {
                     change = true;
                     break;
@@ -50,9 +56,9 @@ public class ComputeDifference <T extends Content> implements MatchStrategy<T> {
             }
 
             if ( !change ) {
-                TreeDirNode<T> right = (TreeDirNode<T>)treeMatchingTask.getMatch( left );
+                LindenDirNode right = (LindenDirNode)treeMatchingTask.getMatch( left );
 
-                for ( TreeNode<T> child : right.getChildren() ) {
+                for ( LindenNode child : right.getChildren() ) {
                     if ( !treeMatchingTask.isMatched( child )) {
                         change = true;
                         break;
@@ -68,16 +74,16 @@ public class ComputeDifference <T extends Content> implements MatchStrategy<T> {
         }
     }
 
-    private void leaves(TreeMatchingTask<T> treeMatchingTask, Reporter reporter) {
-        for (TreeLeafNode<T> left : treeMatchingTask.getLeaves().getMatchedLeft()) {
+    private void leaves(TreeMatchingTask treeMatchingTask, Reporter reporter) {
+        for (LindenNode left : treeMatchingTask.getLeaves().getMatchedLeft()) {
 
             if ( treeMatchingTask.getLeaves().getDifference( left ).equals( ContentDiff.unknown )) {
                 reporter.detail( Message.get( "Progress.checking" ), left.toString() );
-                String checksumLeft = left.getContent().getChecksum();
+                String checksumLeft = checksum.get(left.getContent());
 
-                TreeLeafNode<T> right = (TreeLeafNode<T>)treeMatchingTask.getMatch( left );
+                LindenNode right = treeMatchingTask.getMatch( left );
                 reporter.detail( Message.get( "Progress.checking" ), right.toString() );
-                String checksumRight = right.getContent().getChecksum();
+                String checksumRight = checksum.get(right.getContent());
 
                 if ( checksumLeft.equals( checksumRight )) {
                     treeMatchingTask.getLeaves().setDifference( left, ContentDiff.same );
@@ -87,4 +93,5 @@ public class ComputeDifference <T extends Content> implements MatchStrategy<T> {
             }
         }
     }
+
 }

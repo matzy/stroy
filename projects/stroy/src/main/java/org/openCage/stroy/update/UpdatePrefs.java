@@ -1,16 +1,18 @@
 package org.openCage.stroy.update;
 
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
+import net.java.dev.designgridlayout.DesignGridLayout;
+import org.openCage.kleinod.lambda.F1;
+import org.openCage.kleinod.observe.ObservableRef;
+import org.openCage.kleinod.ui.Binding;
+import org.openCage.stroy.locale.Message;
+
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
-import org.openCage.lang.functions.F1;
-import org.openCage.stroy.locale.LocalizedComboBox;
-import org.openCage.stroy.locale.Message;
-import com.google.inject.Inject;
-import net.java.dev.designgridlayout.DesignGridLayout;
+import java.awt.event.ActionListener;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
@@ -39,24 +41,27 @@ import net.java.dev.designgridlayout.DesignGridLayout;
 
 public class UpdatePrefs extends JPanel {
 
-    private JButton                         checkNow        = new JButton( Message.get("Update.checknow"));
-    private LocalizedComboBox<UpdateTime> updateInterval;
+    private JButton   checkNow       = new JButton( Message.get("Update.checknow"));
+    private JComboBox updateInterval = new JComboBox();
 
 //    private final Interval      interval;
 //    private final UpdateChecker checker;
     private JLabel uptodate = new JLabel( "          ");
 
     @Inject
-    public UpdatePrefs(final Interval interval, final UpdateChecker checker, UpdateSelectionProperty updateSelectionProperty) {
+    public UpdatePrefs(final Interval interval, final UpdateChecker checker, @Named("updateTime") ObservableRef<UpdateTime> updateProp ) {
 //        this.interval = interval;
 //        this.checker  = checker;
 
-        updateInterval  = new LocalizedComboBox<UpdateTime>( new F1<String, UpdateTime>() {
-            @Override
-            public String call(UpdateTime updateTime) {
-                return "update-time." + updateTime;
-            }
-        }, updateSelectionProperty  );
+        Binding.bind(updateInterval).
+                outOf( UpdateTime.class ).
+                trans( new F1<String,UpdateTime>() {
+                    @Override
+                    public String call(UpdateTime updateTime) {
+                        return Message.get( "update-time." + updateTime );
+                    }
+                }).
+                to(updateProp);
 
 
         JPanel top = new JPanel();

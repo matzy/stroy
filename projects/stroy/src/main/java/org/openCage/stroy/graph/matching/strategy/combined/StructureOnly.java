@@ -1,11 +1,16 @@
 package org.openCage.stroy.graph.matching.strategy.combined;
 
-import org.openCage.stroy.content.Content;
-import org.openCage.stroy.graph.matching.TreeMatchingTask;
-import org.openCage.stroy.graph.matching.TreeLeafNodeFuzzyLeafDistance;
-import org.openCage.stroy.graph.matching.strategy.*;
-import org.openCage.util.logging.Log;
 import com.google.inject.Inject;
+import org.openCage.stroy.graph.matching.TreeLeafNodeFuzzyLeafDistance;
+import org.openCage.stroy.graph.matching.TreeMatchingTask;
+import org.openCage.stroy.graph.matching.strategy.DuplicateMatching;
+import org.openCage.stroy.graph.matching.strategy.HierarchicalDirMatching;
+import org.openCage.stroy.graph.matching.strategy.HistoricalMatching;
+import org.openCage.stroy.graph.matching.strategy.IdenticalLeafMatchStrategy;
+import org.openCage.stroy.graph.matching.strategy.MatchStrategy;
+import org.openCage.stroy.graph.matching.strategy.NameOnly;
+import org.openCage.stroy.graph.matching.strategy.Reporter;
+import org.openCage.util.logging.Log;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
@@ -32,24 +37,24 @@ import com.google.inject.Inject;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ***** END LICENSE BLOCK *****/
 
-public class StructureOnly<T extends Content> implements MatchStrategy<T> {
+public class StructureOnly implements MatchStrategy {
 
-    private final MatchStrategy<T> identicalLeafMatcher =
-            new IdenticalLeafMatchStrategy<T>();
-    private final MatchStrategy<T> hirDirMatcher =
-            new HierarchicalDirMatching<T>();
-    private final MatchStrategy<T> dupMatcher =
-            new DuplicateMatching<T>();
-    private final MatchStrategy<T> nameOnly =
-            new NameOnly<T>();
-    private final MatchStrategy<T> historyMatcher;
+    private final MatchStrategy identicalLeafMatcher =
+            new IdenticalLeafMatchStrategy();
+    private final MatchStrategy hirDirMatcher =
+            new HierarchicalDirMatching();
+    private final MatchStrategy dupMatcher =
+            new DuplicateMatching();
+    private final MatchStrategy nameOnly =
+            new NameOnly();
+    private final MatchStrategy historyMatcher;
 
     @Inject
-    public StructureOnly( final TreeLeafNodeFuzzyLeafDistance<T> fuzzyLeafDistance ) {
-        historyMatcher = new HistoricalMatching<T>( fuzzyLeafDistance );
+    public StructureOnly( final TreeLeafNodeFuzzyLeafDistance fuzzyLeafDistance ) {
+        historyMatcher = new HistoricalMatching( fuzzyLeafDistance );
     }
 
-    public void match( TreeMatchingTask<T> task, Reporter reporter) {
+    public void match( TreeMatchingTask task, Reporter reporter) {
         task.shortStatus();
 
         Log.info(  "Simple dir matching" );

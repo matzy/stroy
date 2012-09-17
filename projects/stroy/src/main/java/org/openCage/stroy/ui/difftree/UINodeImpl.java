@@ -1,17 +1,14 @@
 package org.openCage.stroy.ui.difftree;
 
-import org.openCage.stroy.graph.node.TreeNode;
-import org.openCage.stroy.graph.matching.TreeMatchingTask;
-import org.openCage.stroy.graph.DiffReporter;
-import org.openCage.stroy.ui.difftree.ChangeNumbers;
-import org.openCage.stroy.ui.difftree.UINode;
-import org.openCage.stroy.ui.ChangeVector;
-import org.openCage.stroy.content.Content;
+import org.openCage.lindwurm.LindenNode;
 import org.openCage.stroy.diff.ContentDiff;
+import org.openCage.stroy.graph.DiffReporter;
+import org.openCage.stroy.graph.matching.TreeMatchingTask;
+import org.openCage.stroy.ui.ChangeVector;
 
 import javax.swing.tree.DefaultMutableTreeNode;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 
 /***** BEGIN LICENSE BLOCK *****
@@ -39,26 +36,26 @@ import java.util.ArrayList;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ***** END LICENSE BLOCK *****/
 
-public class UINodeImpl<T extends Content> implements UINode<T> {
+public class UINodeImpl implements UINode {
 
-    private final TreeNode<T>         node;
-    private final TreeMatchingTask<T> taskLeft;
-    private final TreeMatchingTask<T> taskRight;
+    private final LindenNode node;
+    private final TreeMatchingTask taskLeft;
+    private final TreeMatchingTask taskRight;
 
     private ChangeNumbers cn;
     private List<DefaultMutableTreeNode> hidden = new ArrayList<DefaultMutableTreeNode>();
 
     // TODO change to left, right to display more information?
 
-//    public UINodeImpl( TreeNode<T> node, TreeMatchingTask<T> task1) {
+//    public UINodeImpl( LindenNode node, TreeMatchingTask task1) {
 //        this.node  = node;
 //        this.taskLeft = task1;
 //        this.taskRight = null;
 //    }
 
-    public UINodeImpl( TreeNode<T>         node,
-                       TreeMatchingTask<T> task1,
-                       TreeMatchingTask<T> task2 ) {
+    public UINodeImpl( LindenNode node,
+                       TreeMatchingTask task1,
+                       TreeMatchingTask task2 ) {
         this.node       = node;
         this.taskLeft   = task1;
         this.taskRight  = task2;
@@ -85,7 +82,7 @@ public class UINodeImpl<T extends Content> implements UINode<T> {
         return cv;
     }
 
-    public TreeNode<T> get() {
+    public LindenNode get() {
         return node;
     }
 

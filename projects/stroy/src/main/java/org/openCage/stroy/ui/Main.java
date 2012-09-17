@@ -2,13 +2,14 @@ package org.openCage.stroy.ui;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.google.inject.TypeLiteral;
+import org.openCage.kleinod.observe.ObservableRef;
 import org.openCage.stroy.RuntimeModule;
 import org.openCage.stroy.locale.Message;
 import org.openCage.stroy.ui.help.HelpLauncher;
-import org.openCage.util.prefs.LocaleSelectionProperty;
 import org.openCage.util.logging.Log;
 
-import java.net.URL;
+import java.util.Locale;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
@@ -54,11 +55,16 @@ public class Main  {
 
         Injector injector = Guice.createInjector( new RuntimeModule() );
 
-        Message.localeSelection = injector.getInstance(LocaleSelectionProperty.class );
-        HelpLauncher.localeSelection = injector.getInstance(LocaleSelectionProperty.class );
+        Message.localeSelection = injector.getInstance( "locale", new TypeLiteral<ObservableRef<Locale>>(){});
+        HelpLauncher.locale = injector.getInstance( "locale", new TypeLiteral<ObservableRef<Locale>>(){});
 
-        DirSelector dirSelector = injector.getInstance( DirSelector.class);
-        dirSelector.setVisible( true );
+        try {
+            DirSelector dirSelector = injector.getInstance( DirSelector.class);
+            dirSelector.setVisible( true );
+        } catch ( Throwable exp ) {
+            Log.warning( exp );
+            System.exit(1);
+        }
 
     }
 

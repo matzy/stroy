@@ -1,8 +1,8 @@
 package org.openCage.ruleofthree.property;
 
-import org.openCage.lang.inc.Null;
-import org.openCage.lang.listeners.Observable;
-import org.openCage.lang.listeners.VoidListenerControl;
+import org.openCage.kleinod.type.Null;
+import org.openCage.kleinod.observe.Observable;
+import org.openCage.kleinod.observe.VoidListenerControl;
 
 /**
  * Created with IntelliJ IDEA.
@@ -13,7 +13,7 @@ import org.openCage.lang.listeners.VoidListenerControl;
  */
 public class ListenerControls {
 
-    private static VoidListenerControl nullLC = Null.get( VoidListenerControl.class );
+    private static VoidListenerControl nullLC = Null.of(VoidListenerControl.class);
 
     public static VoidListenerControl listenerControl( Object obj ) {
         if ( obj instanceof Observable) {
