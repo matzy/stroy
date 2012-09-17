@@ -3,8 +3,9 @@ package org.openCage.lindwurm;
 
 import org.openCage.kleinod.type.Null;
 
-import java.util.List;
+import javax.swing.tree.TreePath;
 import java.util.ArrayList;
+import java.util.List;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
@@ -122,6 +123,23 @@ public class TreeNodes {
         }
 
         return nodeRoot;
+    }
+
+    public static TreePath getTreePath( LindenNode nd ) {
+        return getTreePath( getNamePath(nd));
+    }
+
+    public static TreePath getTreePath( List<String> nameList ) {
+        TreePath ret = null;
+        for ( String name : nameList ) {
+            if ( ret == null ) {
+                ret = new TreePath(name);
+            } else {
+                ret = ret.pathByAddingChild(name);
+            }
+        }
+
+        return ret;
     }
 
 

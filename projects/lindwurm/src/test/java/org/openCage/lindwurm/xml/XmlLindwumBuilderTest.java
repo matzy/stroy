@@ -5,7 +5,11 @@ import org.openCage.kleinod.type.Null;
 import org.openCage.lindwurm.Ignore;
 import org.openCage.lindwurm.LindenNode;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+
 import static junit.framework.Assert.assertNotNull;
+import static org.openCage.kleinod.io.IOUtils.closeQuietly;
 
 /**
  * Created with IntelliJ IDEA.
@@ -23,12 +27,28 @@ public class XmlLindwumBuilderTest {
         assertNotNull( root );
 
         System.out.println(root);
+
+        //new ByteArrayInputStream("".getBytes());
     }
 
-//    @Test
-//    public void iter() {
-//        LindenNode root = new XmlLindwurmBuilder().build(Null.of(Ignore.class), getClass().getResourceAsStream("/org/openCage/lindwurm/xml/test1.xml"));
-//
-//        Forall.forall(root.dir()).println();
-//    }
+    @Test
+    public void simpleString() {
+
+        InputStream is = null;
+        try {
+            is = new ByteArrayInputStream( "<a><b>woo</b></a>".getBytes() );
+
+            LindenNode root = new XmlLindwurmBuilder().build(
+                    Null.of(Ignore.class),
+                    is );
+
+            assertNotNull( root );
+
+            System.out.println(root);
+        } finally {
+            closeQuietly(is);
+        }
+
+        //new ByteArrayInputStream("".getBytes());
+    }
 }

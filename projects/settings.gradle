@@ -1,4 +1,2 @@
-include 'lishp', 'openCage-lang', 'openCage-io', 'osashosa', 'lishp', 'openCage-property', 'stroy', 'comphy'
-//'openCage-lang:modules:lang','openCage-io:modules:io', 'osashosa:modules:osashosa'
-//'huffman' , , 'openCage-localization'
+include 'lishp', 'kleinod', 'osashosa', 'lindwurm', 'ruleofthree', 'notabug', 'stroy'
 
