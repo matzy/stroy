@@ -2,7 +2,7 @@ package org.openCage.stroy.filter;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
-import org.openCage.kleinod.Strings;
+import org.openCage.kleinod.text.Strings;
 import org.openCage.kleinod.lambda.F1;
 import org.openCage.kleinod.lambda.VF0;
 import org.openCage.lindwurm.Ignore;

@@ -5,8 +5,8 @@
 
    <property name = "el.version"       value="0.10" />
    <property name = "el.groupId"       value="openCage" />
-   <property name = "el.src.java"       value="src/main/java" />
-   <property name = "el.src.resources"       value="src/main/resources" />
+   <property name = "el.src.java"       value="../../src/main/java" />
+   <property name = "el.src.resources"       value="../../src/main/resources" />
    <property name = "el.isApp"       value="true" />
    <property name = "el.main.class"       value="org.openCage.gpad.UIMain" />
    <property name = "el.description.short"       value="TODO descr" />

@@ -1,7 +1,7 @@
 package org.openCage.kleinod.collection;
 
 import org.junit.Test;
-import org.openCage.kleinod.Strings;
+import org.openCage.kleinod.text.Strings;
 import org.openCage.kleinod.errors.Unchecked;
 import org.openCage.kleinod.lambda.F1;
 import org.openCage.kleinod.lambda.VF1;

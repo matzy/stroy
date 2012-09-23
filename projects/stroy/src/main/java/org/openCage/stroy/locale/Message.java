@@ -58,6 +58,9 @@ public class Message {
     }
 
     public static Locale getLocale() {
+        if ( localeSelection == null ) {
+            return Locale.getDefault();
+        }
         return localeSelection.get();
     }
 

@@ -1,5 +1,7 @@
 package org.openCage.kleinod.mock;
 
+import org.openCage.kleinod.text.Strings;
+
 import java.io.IOException;
 import java.io.Reader;
 
@@ -30,14 +32,7 @@ import java.io.Reader;
 
 public class ReaderMock extends Reader {
 
-    public static char[] txt = ("'But who is to give the prizes?' quite a chorus of voices asked.\n" +
-            "'Why, SHE, of course,' said the Dodo, pointing to Alice with one finger; and the whole party at once crowded round her, calling out in a confused way, 'Prizes! Prizes!'\n" +
-            "Alice had no idea what to do, and in despair she put her hand in her pocket, and pulled out a box of comfits, (luckily the salt water had not got into it), and handed them round as prizes. There was exactly one a-piece all round.\n" +
-            "'But she must have a prize herself, you know,' said the Mouse.\n" +
-            "'Of course,' the Dodo replied very gravely. 'What else have you got in your pocket?' he went on, turning to Alice.\n" +
-            "'Only a thimble,' said Alice sadly.\n" +
-            "'Hand it over here,' said the Dodo.").toCharArray();
-
+    public static char[] txt = Strings.aliceText.toCharArray();
 
     private int ptr = 0;
     private boolean open = true;

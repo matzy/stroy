@@ -1,9 +1,14 @@
 package org.openCage.stroy.graph.matching.strategy;
 
+import com.google.inject.TypeLiteral;
+import org.openCage.kleinod.observe.ObservableRef;
 import org.openCage.stroy.RuntimeModule;
 import org.openCage.stroy.graph.matching.TreeLeafNodeFuzzyLeafDistance;
 import com.google.inject.Injector;
 import com.google.inject.Guice;
+import org.openCage.stroy.locale.Message;
+
+import java.util.Locale;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
@@ -38,6 +43,8 @@ public class HistoricalMatchingTest extends StrategyTestsWorker implements Strat
         super.setUp();
 
         Injector injector = Guice.createInjector( new RuntimeModule() );
+        Message.localeSelection = injector.getInstance( "locale", new TypeLiteral<ObservableRef<Locale>>(){});
+
 
         TreeLeafNodeFuzzyLeafDistance dist = injector.getInstance( TreeLeafNodeFuzzyLeafDistance.class );
         strategy = new HistoricalMatching( dist);

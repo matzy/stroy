@@ -52,7 +52,7 @@ public class SimpleTreeNode implements LindenDirNode {
 
     public SimpleTreeNode( Content t, LindenNode... kids ) {
         this.content = t;
-        this.kids    = Arrays.asList(  kids );
+        this.kids    = new ArrayList<LindenNode>();
 
         for ( LindenNode kid : kids ) {
             addChild(kid);

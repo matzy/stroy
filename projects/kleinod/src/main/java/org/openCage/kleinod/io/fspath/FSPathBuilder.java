@@ -2,12 +2,17 @@ package org.openCage.kleinod.io.fspath;
 
 import org.openCage.kleinod.io.IOUtils;
 import org.openCage.kleinod.os.OS;
+import org.openCage.kleinod.text.Strings;
 
 import javax.swing.JFileChooser;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
 import java.util.UUID;
+
+import static org.openCage.kleinod.io.IOUtils.closeQuietly;
 
 /***** BEGIN LICENSE BLOCK *****
  * BSD License (2 clause)
@@ -150,6 +155,21 @@ public final class FSPathBuilder {
 
         return getPath( System.getProperty("java.io.tmpdir")).add(
                 "" + new Date().getTime() + "-" + UUID.randomUUID().toString() + "." + extension );
+    }
+
+    public static FSPath getTmpTxtFile() {
+        FSPath     ret = getTmpFile("txt");
+        FileWriter fw  = null;
+        try {
+            fw = new FileWriter( ret.toFile() );
+            fw.write(Strings.aliceText.toCharArray());
+        } catch (IOException e) {
+            // huh tmp file TODO
+        } finally {
+            closeQuietly(fw);
+        }
+
+        return ret;
     }
 
     public static FSPath getTmpDir() {

@@ -172,18 +172,8 @@ public class IOUtils {
             System.err.println( "copy error " + e);
 
         } finally {
-            if ( in != null ) {
-                try {
-                    in.close();
-                } catch ( IOException e ) {
-                }
-            }
-            if ( out != null ) {
-                try {
-                    out.close();
-                } catch ( IOException e ) {
-                }
-            }
+            closeQuietly( in );
+            closeQuietly( out );
         }
     }
 

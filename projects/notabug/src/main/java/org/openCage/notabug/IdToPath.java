@@ -1,6 +1,6 @@
 package org.openCage.notabug;
 
-import org.openCage.kleinod.Strings;
+import org.openCage.kleinod.text.Strings;
 import org.openCage.kleinod.collection.ImmuList;
 import org.openCage.ruleofthree.ThreeKey;
 import org.openCage.ruleofthree.property.NamingScheme;

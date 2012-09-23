@@ -37,16 +37,16 @@ public class SimpleTreeAndNavigationTest extends TestCase {
     public void testSimple() {
         SimpleTreeBuilder b = new SimpleTreeBuilder();
 
-        LindenNode tree = b.d( "f", b.l("a"),
-                                          b.d( "g", b.l("b"),
-                                                    b.l("c")));
+        LindenNode tree = b.d( "f",
+                               b.l("a"),
+                               b.d( "g", b.l("b"),
+                                         b.l("c")));
         
 
         assertFalse( tree.isLeaf());
 
-        LindenDirNode dir = (LindenDirNode)tree;
 
-        assertEquals( 2, dir.getChildren().size() );
+        assertEquals( 2, tree.dir().getChildren().size() );
     }
 
     public void testSimpleContent() {

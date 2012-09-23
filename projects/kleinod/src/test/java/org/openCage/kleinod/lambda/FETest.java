@@ -3,6 +3,8 @@ package org.openCage.kleinod.lambda;
 import org.junit.Test;
 import org.openCage.kleinod.errors.Unchecked;
 
+import java.io.FileNotFoundException;
+
 /**
  * Created with IntelliJ IDEA.
  * User: stephan
@@ -17,7 +19,7 @@ public class FETest {
         new F0E<Void>() {
             @Override
             public Void callWithException() throws Exception {
-                throw new IllegalArgumentException();
+                throw new FileNotFoundException("duh");
             }
         }.call();
     }

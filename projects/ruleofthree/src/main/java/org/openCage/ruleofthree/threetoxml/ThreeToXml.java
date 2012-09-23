@@ -1,6 +1,6 @@
 package org.openCage.ruleofthree.threetoxml;
 
-import org.openCage.kleinod.Strings;
+import org.openCage.kleinod.text.Strings;
 import org.openCage.ruleofthree.Three;
 import org.openCage.ruleofthree.ThreeKey;
 import org.openCage.ruleofthree.XMLUtils;

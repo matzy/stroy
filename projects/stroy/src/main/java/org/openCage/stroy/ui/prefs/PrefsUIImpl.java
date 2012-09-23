@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import org.openCage.kleinod.io.FileUtils;
 import org.openCage.kleinod.observe.ObservableRef;
+import org.openCage.kleinod.ui.GlobalKeyEventHandlerImpl;
 import org.openCage.ruleofthree.property.MapProperty;
 import org.openCage.stroy.file.FileTypes;
 import org.openCage.stroy.filter.IgnoreCentral;
@@ -89,6 +90,8 @@ public class PrefsUIImpl extends PrefsUI {
         this.fileTypes = new ExternalPref2( this, fileTypes, progList);
 
         createLayout();
+
+        new GlobalKeyEventHandlerImpl().addCloseWindow( this );
     }
 
     @Override

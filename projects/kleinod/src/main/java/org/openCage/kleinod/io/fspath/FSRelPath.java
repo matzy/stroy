@@ -1,6 +1,6 @@
 package org.openCage.kleinod.io.fspath;
 
-import org.openCage.kleinod.Strings;
+import org.openCage.kleinod.text.Strings;
 
 import java.util.ArrayList;
 import java.util.Arrays;

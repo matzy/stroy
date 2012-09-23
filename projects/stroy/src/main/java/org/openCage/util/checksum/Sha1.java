@@ -1,7 +1,7 @@
 package org.openCage.util.checksum;
 
 import com.google.inject.Inject;
-import org.openCage.kleinod.Strings;
+import org.openCage.kleinod.text.Strings;
 import org.openCage.kleinod.errors.Unchecked;
 import org.openCage.kleinod.io.IOUtils;
 import org.openCage.kleinod.lambda.F1;

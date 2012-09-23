@@ -1,0 +1,26 @@
+apply plugin: 'java'
+
+sourceCompatibility = 1.6
+version = '0.1.0'
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'tetris', 'Implementation-Version': version
+    }
+}
+
+// license new bsd (3-clause)
+
+dependencies {
+//    compile project( ':kleinod' )
+//    compile 'org.json:json:20090211'
+//    testCompile 'junit:junit:4.+'
+}
+
+
+//uploadArchives {
+//    repositories {
+//       flatDir {
+//           dirs 'repos'
+//       }
+//    }
+//}

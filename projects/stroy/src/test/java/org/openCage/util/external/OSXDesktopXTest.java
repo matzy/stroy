@@ -1,8 +1,11 @@
 package org.openCage.util.external;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openCage.kleinod.errors.FileNotFoundUnchecked;
+import org.openCage.kleinod.io.fspath.FSPath;
+import org.openCage.kleinod.io.fspath.FSPathBuilder;
 import org.openCage.kleinod.os.OS;
 
 import java.io.File;
@@ -36,23 +39,33 @@ import static org.junit.Assume.assumeTrue;
 
 public class OSXDesktopXTest {
 
+    private FSPath tmpTxtFile;
+
     @Before
     public void beforeMethod() {
         assumeTrue(!OS.isWindows());
+
+        tmpTxtFile = FSPathBuilder.getTmpTxtFile();
+    }
+
+    @After
+    public void after() {
+        tmpTxtFile.toFile().delete();
+        tmpTxtFile = null;
     }
 
 
     @Test
     public void testOpenWithStdEditor() {
 
-        new OSXDesktopX( null, null ).openWithStandardEditor( new File("/Users/stephan/tmp/stroy.cphy"));
+        new OSXDesktopX( null, null ).openWithStandardEditor( tmpTxtFile.toFile());
 
     }
 
 
     @Test( expected = FileNotFoundUnchecked.class )
     public void testNop() {
-        new OSXDesktopX( null, null).openWithStandardEditor( new File("/flupdich.nop"));
+        new OSXDesktopX( null, null).openWithStandardEditor( FSPathBuilder.getTmpFile("foo").toFile() );
 
     }
 }

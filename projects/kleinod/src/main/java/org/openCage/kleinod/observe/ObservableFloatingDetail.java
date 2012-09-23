@@ -1,6 +1,6 @@
 package org.openCage.kleinod.observe;
 
-import org.openCage.kleinod.Strings;
+import org.openCage.kleinod.text.Strings;
 import org.openCage.kleinod.lambda.F1;
 import org.openCage.kleinod.lambda.VF2;
 

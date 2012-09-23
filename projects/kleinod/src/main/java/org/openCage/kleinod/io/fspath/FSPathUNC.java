@@ -1,6 +1,6 @@
 package org.openCage.kleinod.io.fspath;
 
-import org.openCage.kleinod.Strings;
+import org.openCage.kleinod.text.Strings;
 import org.openCage.kleinod.collection.Lists;
 import org.openCage.kleinod.errors.Unchecked;
 
